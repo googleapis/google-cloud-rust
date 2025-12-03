@@ -52,6 +52,7 @@ pub trait GkeInferenceQuickstart: std::fmt::Debug + Send + Sync {
         req: crate::model::FetchBenchmarkingDataRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>>;
+
 }
 
 /// All implementations of [super::GkeInferenceQuickstart] also implement [GkeInferenceQuickstart].
@@ -80,8 +81,7 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
         &self,
         req: crate::model::FetchModelServerVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>> {
         T::fetch_model_server_versions(self, req, options).await
     }
 
@@ -99,8 +99,7 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
         &self,
         req: crate::model::GenerateOptimizedManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>> {
         T::generate_optimized_manifest(self, req, options).await
     }
 
@@ -112,4 +111,5 @@ impl<T: super::GkeInferenceQuickstart> GkeInferenceQuickstart for T {
     ) -> crate::Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
         T::fetch_benchmarking_data(self, req, options).await
     }
+
 }

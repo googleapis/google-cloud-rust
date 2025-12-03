@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudQuotas](super::stub::CloudQuotas) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudQuotas for CloudQuotas<T>
-where
-    T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudQuotas + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_quota_infos(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_quota_infos",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_quota_infos(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_quota_infos(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_quota_info",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_quota_info(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_quota_info(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_quota_preferences",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_quota_preferences(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_quota_preferences(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_quota_preference",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_quota_preference(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_quota_preference(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_quota_preference",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_quota_preference(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_quota_preference(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_quota_preference",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_quota_preference(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_quota_preference(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -266,3 +242,4 @@ where
         self.inner.update_quota_preference(req, options).await
     }
 }
+

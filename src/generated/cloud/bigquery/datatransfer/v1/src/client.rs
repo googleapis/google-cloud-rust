@@ -72,9 +72,7 @@ impl DataTransferService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_transfer_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::data_transfer_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::data_transfer_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,88 +80,72 @@ impl DataTransferService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DataTransferService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DataTransferService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataTransferService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataTransferService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DataTransferService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataTransferService> {
         super::transport::DataTransferService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DataTransferService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DataTransferService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DataTransferService> {
+        Self::build_transport(conf).await.map(super::tracing::DataTransferService::new)
     }
 
     /// Retrieves a supported data source and returns its settings.
-    pub fn get_data_source(&self) -> super::builder::data_transfer_service::GetDataSource {
+    pub fn get_data_source(&self) -> super::builder::data_transfer_service::GetDataSource
+    {
         super::builder::data_transfer_service::GetDataSource::new(self.inner.clone())
     }
 
     /// Lists supported data sources and returns their settings.
-    pub fn list_data_sources(&self) -> super::builder::data_transfer_service::ListDataSources {
+    pub fn list_data_sources(&self) -> super::builder::data_transfer_service::ListDataSources
+    {
         super::builder::data_transfer_service::ListDataSources::new(self.inner.clone())
     }
 
     /// Creates a new data transfer configuration.
-    pub fn create_transfer_config(
-        &self,
-    ) -> super::builder::data_transfer_service::CreateTransferConfig {
+    pub fn create_transfer_config(&self) -> super::builder::data_transfer_service::CreateTransferConfig
+    {
         super::builder::data_transfer_service::CreateTransferConfig::new(self.inner.clone())
     }
 
     /// Updates a data transfer configuration.
     /// All fields must be set, even if they are not updated.
-    pub fn update_transfer_config(
-        &self,
-    ) -> super::builder::data_transfer_service::UpdateTransferConfig {
+    pub fn update_transfer_config(&self) -> super::builder::data_transfer_service::UpdateTransferConfig
+    {
         super::builder::data_transfer_service::UpdateTransferConfig::new(self.inner.clone())
     }
 
     /// Deletes a data transfer configuration, including any associated transfer
     /// runs and logs.
-    pub fn delete_transfer_config(
-        &self,
-    ) -> super::builder::data_transfer_service::DeleteTransferConfig {
+    pub fn delete_transfer_config(&self) -> super::builder::data_transfer_service::DeleteTransferConfig
+    {
         super::builder::data_transfer_service::DeleteTransferConfig::new(self.inner.clone())
     }
 
     /// Returns information about a data transfer config.
-    pub fn get_transfer_config(&self) -> super::builder::data_transfer_service::GetTransferConfig {
+    pub fn get_transfer_config(&self) -> super::builder::data_transfer_service::GetTransferConfig
+    {
         super::builder::data_transfer_service::GetTransferConfig::new(self.inner.clone())
     }
 
     /// Returns information about all transfer configs owned by a project in the
     /// specified location.
-    pub fn list_transfer_configs(
-        &self,
-    ) -> super::builder::data_transfer_service::ListTransferConfigs {
+    pub fn list_transfer_configs(&self) -> super::builder::data_transfer_service::ListTransferConfigs
+    {
         super::builder::data_transfer_service::ListTransferConfigs::new(self.inner.clone())
     }
 
@@ -173,9 +155,8 @@ impl DataTransferService {
     /// Note that runs are created per UTC time in the time range.
     /// DEPRECATED: use StartManualTransferRuns instead.
     #[deprecated]
-    pub fn schedule_transfer_runs(
-        &self,
-    ) -> super::builder::data_transfer_service::ScheduleTransferRuns {
+    pub fn schedule_transfer_runs(&self) -> super::builder::data_transfer_service::ScheduleTransferRuns
+    {
         super::builder::data_transfer_service::ScheduleTransferRuns::new(self.inner.clone())
     }
 
@@ -183,35 +164,39 @@ impl DataTransferService {
     /// current time. The transfer runs can be created for a time range where the
     /// run_time is between start_time (inclusive) and end_time (exclusive), or for
     /// a specific run_time.
-    pub fn start_manual_transfer_runs(
-        &self,
-    ) -> super::builder::data_transfer_service::StartManualTransferRuns {
+    pub fn start_manual_transfer_runs(&self) -> super::builder::data_transfer_service::StartManualTransferRuns
+    {
         super::builder::data_transfer_service::StartManualTransferRuns::new(self.inner.clone())
     }
 
     /// Returns information about the particular transfer run.
-    pub fn get_transfer_run(&self) -> super::builder::data_transfer_service::GetTransferRun {
+    pub fn get_transfer_run(&self) -> super::builder::data_transfer_service::GetTransferRun
+    {
         super::builder::data_transfer_service::GetTransferRun::new(self.inner.clone())
     }
 
     /// Deletes the specified transfer run.
-    pub fn delete_transfer_run(&self) -> super::builder::data_transfer_service::DeleteTransferRun {
+    pub fn delete_transfer_run(&self) -> super::builder::data_transfer_service::DeleteTransferRun
+    {
         super::builder::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
     }
 
     /// Returns information about running and completed transfer runs.
-    pub fn list_transfer_runs(&self) -> super::builder::data_transfer_service::ListTransferRuns {
+    pub fn list_transfer_runs(&self) -> super::builder::data_transfer_service::ListTransferRuns
+    {
         super::builder::data_transfer_service::ListTransferRuns::new(self.inner.clone())
     }
 
     /// Returns log messages for the transfer run.
-    pub fn list_transfer_logs(&self) -> super::builder::data_transfer_service::ListTransferLogs {
+    pub fn list_transfer_logs(&self) -> super::builder::data_transfer_service::ListTransferLogs
+    {
         super::builder::data_transfer_service::ListTransferLogs::new(self.inner.clone())
     }
 
     /// Returns true if valid credentials exist for the given data source and
     /// requesting user.
-    pub fn check_valid_creds(&self) -> super::builder::data_transfer_service::CheckValidCreds {
+    pub fn check_valid_creds(&self) -> super::builder::data_transfer_service::CheckValidCreds
+    {
         super::builder::data_transfer_service::CheckValidCreds::new(self.inner.clone())
     }
 
@@ -223,7 +208,8 @@ impl DataTransferService {
     /// [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
     /// [Data Transfer
     /// Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
-    pub fn enroll_data_sources(&self) -> super::builder::data_transfer_service::EnrollDataSources {
+    pub fn enroll_data_sources(&self) -> super::builder::data_transfer_service::EnrollDataSources
+    {
         super::builder::data_transfer_service::EnrollDataSources::new(self.inner.clone())
     }
 
@@ -232,19 +218,20 @@ impl DataTransferService {
     /// in the ListDataSources RPC and will also no longer appear in the [BigQuery
     /// UI](https://console.cloud.google.com/bigquery). Data transfers
     /// configurations of unenrolled data sources will not be scheduled.
-    pub fn unenroll_data_sources(
-        &self,
-    ) -> super::builder::data_transfer_service::UnenrollDataSources {
+    pub fn unenroll_data_sources(&self) -> super::builder::data_transfer_service::UnenrollDataSources
+    {
         super::builder::data_transfer_service::UnenrollDataSources::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::data_transfer_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::data_transfer_service::ListLocations
+    {
         super::builder::data_transfer_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::data_transfer_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::data_transfer_service::GetLocation
+    {
         super::builder::data_transfer_service::GetLocation::new(self.inner.clone())
     }
 }

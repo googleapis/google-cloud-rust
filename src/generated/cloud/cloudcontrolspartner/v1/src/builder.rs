@@ -39,10 +39,7 @@ pub mod cloud_controls_partner_core {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudControlsPartnerCore;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod cloud_controls_partner_core {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod cloud_controls_partner_core {
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Workload> {
-            (*self.0.stub)
-                .get_workload(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_workload(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
@@ -159,10 +149,10 @@ pub mod cloud_controls_partner_core {
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -179,17 +169,11 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkloadsResponse> {
-            (*self.0.stub)
-                .list_workloads(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_workloads(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -201,10 +185,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -270,10 +251,10 @@ pub mod cloud_controls_partner_core {
     pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
 
     impl GetCustomer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -290,10 +271,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Customer> {
-            (*self.0.stub)
-                .get_customer(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_customer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomerRequest::name].
@@ -337,10 +315,10 @@ pub mod cloud_controls_partner_core {
     pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
 
     impl ListCustomers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -357,17 +335,11 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCustomersResponse> {
-            (*self.0.stub)
-                .list_customers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_customers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -379,10 +351,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -448,17 +417,14 @@ pub mod cloud_controls_partner_core {
     pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
     impl GetEkmConnections {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetEkmConnectionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetEkmConnectionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -471,10 +437,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EkmConnections> {
-            (*self.0.stub)
-                .get_ekm_connections(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_ekm_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionsRequest::name].
@@ -514,17 +477,14 @@ pub mod cloud_controls_partner_core {
     pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
 
     impl GetPartnerPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPartnerPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPartnerPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -537,10 +497,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PartnerPermissions> {
-            (*self.0.stub)
-                .get_partner_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_partner_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerPermissionsRequest::name].
@@ -581,22 +538,17 @@ pub mod cloud_controls_partner_core {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAccessApprovalRequests(
-        RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
-    );
+    pub struct ListAccessApprovalRequests(RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>);
 
     impl ListAccessApprovalRequests {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAccessApprovalRequestsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAccessApprovalRequestsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -609,19 +561,11 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAccessApprovalRequestsResponse> {
-            (*self.0.stub)
-                .list_access_approval_requests(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_access_approval_requests(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListAccessApprovalRequestsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAccessApprovalRequestsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -633,12 +577,7 @@ pub mod cloud_controls_partner_core {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAccessApprovalRequestsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAccessApprovalRequestsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -704,10 +643,10 @@ pub mod cloud_controls_partner_core {
     pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
 
     impl GetPartner {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -724,10 +663,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Partner> {
-            (*self.0.stub)
-                .get_partner(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_partner(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerRequest::name].
@@ -767,10 +703,10 @@ pub mod cloud_controls_partner_core {
     pub struct CreateCustomer(RequestBuilder<crate::model::CreateCustomerRequest>);
 
     impl CreateCustomer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -787,10 +723,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Customer> {
-            (*self.0.stub)
-                .create_customer(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_customer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomerRequest::parent].
@@ -805,8 +738,7 @@ pub mod cloud_controls_partner_core {
         ///
         /// This is a **required** field for requests.
         pub fn set_customer<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Customer>,
+        where T: std::convert::Into<crate::model::Customer>
         {
             self.0.request.customer = std::option::Option::Some(v.into());
             self
@@ -816,8 +748,7 @@ pub mod cloud_controls_partner_core {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Customer>,
+        where T: std::convert::Into<crate::model::Customer>
         {
             self.0.request.customer = v.map(|x| x.into());
             self
@@ -860,10 +791,10 @@ pub mod cloud_controls_partner_core {
     pub struct UpdateCustomer(RequestBuilder<crate::model::UpdateCustomerRequest>);
 
     impl UpdateCustomer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -880,18 +811,14 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Customer> {
-            (*self.0.stub)
-                .update_customer(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_customer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [customer][crate::model::UpdateCustomerRequest::customer].
         ///
         /// This is a **required** field for requests.
         pub fn set_customer<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Customer>,
+        where T: std::convert::Into<crate::model::Customer>
         {
             self.0.request.customer = std::option::Option::Some(v.into());
             self
@@ -901,8 +828,7 @@ pub mod cloud_controls_partner_core {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Customer>,
+        where T: std::convert::Into<crate::model::Customer>
         {
             self.0.request.customer = v.map(|x| x.into());
             self
@@ -910,8 +836,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -919,8 +844,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -955,10 +879,10 @@ pub mod cloud_controls_partner_core {
     pub struct DeleteCustomer(RequestBuilder<crate::model::DeleteCustomerRequest>);
 
     impl DeleteCustomer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -975,10 +899,7 @@ pub mod cloud_controls_partner_core {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_customer(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_customer(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomerRequest::name].
@@ -996,6 +917,7 @@ pub mod cloud_controls_partner_core {
             &mut self.0.options
         }
     }
+
 }
 
 pub mod cloud_controls_partner_monitoring {
@@ -1023,10 +945,7 @@ pub mod cloud_controls_partner_monitoring {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudControlsPartnerMonitoring;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -1041,12 +960,8 @@ pub mod cloud_controls_partner_monitoring {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1080,10 +995,10 @@ pub mod cloud_controls_partner_monitoring {
     pub struct ListViolations(RequestBuilder<crate::model::ListViolationsRequest>);
 
     impl ListViolations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1100,17 +1015,11 @@ pub mod cloud_controls_partner_monitoring {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListViolationsResponse> {
-            (*self.0.stub)
-                .list_violations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_violations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1122,10 +1031,7 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViolationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListViolationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1164,8 +1070,7 @@ pub mod cloud_controls_partner_monitoring {
 
         /// Sets the value of [interval][crate::model::ListViolationsRequest::interval].
         pub fn set_interval<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<gtype::model::Interval>,
+        where T: std::convert::Into<gtype::model::Interval>
         {
             self.0.request.interval = std::option::Option::Some(v.into());
             self
@@ -1173,8 +1078,7 @@ pub mod cloud_controls_partner_monitoring {
 
         /// Sets or clears the value of [interval][crate::model::ListViolationsRequest::interval].
         pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<gtype::model::Interval>,
+        where T: std::convert::Into<gtype::model::Interval>
         {
             self.0.request.interval = v.map(|x| x.into());
             self
@@ -1209,10 +1113,10 @@ pub mod cloud_controls_partner_monitoring {
     pub struct GetViolation(RequestBuilder<crate::model::GetViolationRequest>);
 
     impl GetViolation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1229,10 +1133,7 @@ pub mod cloud_controls_partner_monitoring {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Violation> {
-            (*self.0.stub)
-                .get_violation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_violation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViolationRequest::name].
@@ -1250,4 +1151,5 @@ pub mod cloud_controls_partner_monitoring {
             &mut self.0.options
         }
     }
+
 }

@@ -82,9 +82,7 @@ impl ClientConnectorServicesService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::client_connector_services_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::client_connector_services_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::client_connector_services_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,62 +90,40 @@ impl ClientConnectorServicesService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ClientConnectorServicesService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ClientConnectorServicesService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::ClientConnectorServicesService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClientConnectorServicesService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClientConnectorServicesService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClientConnectorServicesService> {
         super::transport::ClientConnectorServicesService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClientConnectorServicesService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ClientConnectorServicesService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClientConnectorServicesService> {
+        Self::build_transport(conf).await.map(super::tracing::ClientConnectorServicesService::new)
     }
 
     /// Lists ClientConnectorServices in a given project and location.
-    pub fn list_client_connector_services(
-        &self,
-    ) -> super::builder::client_connector_services_service::ListClientConnectorServices {
-        super::builder::client_connector_services_service::ListClientConnectorServices::new(
-            self.inner.clone(),
-        )
+    pub fn list_client_connector_services(&self) -> super::builder::client_connector_services_service::ListClientConnectorServices
+    {
+        super::builder::client_connector_services_service::ListClientConnectorServices::new(self.inner.clone())
     }
 
     /// Gets details of a single ClientConnectorService.
-    pub fn get_client_connector_service(
-        &self,
-    ) -> super::builder::client_connector_services_service::GetClientConnectorService {
-        super::builder::client_connector_services_service::GetClientConnectorService::new(
-            self.inner.clone(),
-        )
+    pub fn get_client_connector_service(&self) -> super::builder::client_connector_services_service::GetClientConnectorService
+    {
+        super::builder::client_connector_services_service::GetClientConnectorService::new(self.inner.clone())
     }
 
     /// Creates a new ClientConnectorService in a given project and location.
@@ -161,12 +137,9 @@ impl ClientConnectorServicesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_client_connector_service(
-        &self,
-    ) -> super::builder::client_connector_services_service::CreateClientConnectorService {
-        super::builder::client_connector_services_service::CreateClientConnectorService::new(
-            self.inner.clone(),
-        )
+    pub fn create_client_connector_service(&self) -> super::builder::client_connector_services_service::CreateClientConnectorService
+    {
+        super::builder::client_connector_services_service::CreateClientConnectorService::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single ClientConnectorService.
@@ -180,12 +153,9 @@ impl ClientConnectorServicesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_client_connector_service(
-        &self,
-    ) -> super::builder::client_connector_services_service::UpdateClientConnectorService {
-        super::builder::client_connector_services_service::UpdateClientConnectorService::new(
-            self.inner.clone(),
-        )
+    pub fn update_client_connector_service(&self) -> super::builder::client_connector_services_service::UpdateClientConnectorService
+    {
+        super::builder::client_connector_services_service::UpdateClientConnectorService::new(self.inner.clone())
     }
 
     /// Deletes a single ClientConnectorService.
@@ -199,23 +169,20 @@ impl ClientConnectorServicesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_client_connector_service(
-        &self,
-    ) -> super::builder::client_connector_services_service::DeleteClientConnectorService {
-        super::builder::client_connector_services_service::DeleteClientConnectorService::new(
-            self.inner.clone(),
-        )
+    pub fn delete_client_connector_service(&self) -> super::builder::client_connector_services_service::DeleteClientConnectorService
+    {
+        super::builder::client_connector_services_service::DeleteClientConnectorService::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-    ) -> super::builder::client_connector_services_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::client_connector_services_service::ListLocations
+    {
         super::builder::client_connector_services_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::client_connector_services_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::client_connector_services_service::GetLocation
+    {
         super::builder::client_connector_services_service::GetLocation::new(self.inner.clone())
     }
 
@@ -224,17 +191,15 @@ impl ClientConnectorServicesService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-    ) -> super::builder::client_connector_services_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::client_connector_services_service::SetIamPolicy
+    {
         super::builder::client_connector_services_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-    ) -> super::builder::client_connector_services_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::client_connector_services_service::GetIamPolicy
+    {
         super::builder::client_connector_services_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -245,45 +210,40 @@ impl ClientConnectorServicesService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::client_connector_services_service::TestIamPermissions {
-        super::builder::client_connector_services_service::TestIamPermissions::new(
-            self.inner.clone(),
-        )
+    pub fn test_iam_permissions(&self) -> super::builder::client_connector_services_service::TestIamPermissions
+    {
+        super::builder::client_connector_services_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-    ) -> super::builder::client_connector_services_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::client_connector_services_service::ListOperations
+    {
         super::builder::client_connector_services_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::client_connector_services_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::client_connector_services_service::GetOperation
+    {
         super::builder::client_connector_services_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-    ) -> super::builder::client_connector_services_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::client_connector_services_service::DeleteOperation
+    {
         super::builder::client_connector_services_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-    ) -> super::builder::client_connector_services_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::client_connector_services_service::CancelOperation
+    {
         super::builder::client_connector_services_service::CancelOperation::new(self.inner.clone())
     }
 }

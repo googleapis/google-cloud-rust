@@ -66,12 +66,7 @@ impl Publisher {
         let tracing_enabled = gaxi::options::tracing_enabled(&config);
         #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_enabled {
-            gaxi::grpc::Client::new_with_instrumentation(
-                config,
-                DEFAULT_HOST,
-                &info::INSTRUMENTATION_CLIENT_INFO,
-            )
-            .await?
+            gaxi::grpc::Client::new_with_instrumentation(config, DEFAULT_HOST, &info::INSTRUMENTATION_CLIENT_INFO).await?
         } else {
             gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
         };
@@ -88,20 +83,21 @@ impl super::stub::Publisher for Publisher {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.pubsub.v1.Publisher",
-                "Publish",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.pubsub.v1.Publisher", "Publish"));
             e
         };
-        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.topic)
-            .map(|s| s.as_str())
-            .map(|v| format!("topic={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.pubsub.v1.Publisher/Publish"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.topic).map(|s| s.as_str()).map(|v| format!("topic={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -119,6 +115,7 @@ impl super::stub::Publisher for Publisher {
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PublishResponse>)
     }
+
 }
 
 /// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
@@ -137,6 +134,15 @@ impl std::fmt::Debug for Subscriber {
 
 impl Subscriber {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_enabled = gaxi::options::tracing_enabled(&config);
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_enabled {
+            gaxi::grpc::Client::new_with_instrumentation(config, DEFAULT_HOST, &info::INSTRUMENTATION_CLIENT_INFO).await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -149,21 +155,21 @@ impl super::stub::Subscriber for Subscriber {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.pubsub.v1.Subscriber",
-                "ModifyAckDeadline",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.pubsub.v1.Subscriber", "ModifyAckDeadline"));
             e
         };
-        let path =
-            http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/ModifyAckDeadline");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.subscription)
-            .map(|s| s.as_str())
-            .map(|v| format!("subscription={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.pubsub.v1.Subscriber/ModifyAckDeadline"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.subscription).map(|s| s.as_str()).map(|v| format!("subscription={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -188,20 +194,21 @@ impl super::stub::Subscriber for Subscriber {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            false,
+        );
         let extensions = {
             let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.pubsub.v1.Subscriber",
-                "Acknowledge",
-            ));
+            e.insert(tonic::GrpcMethod::new("google.pubsub.v1.Subscriber", "Acknowledge"));
             e
         };
-        let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/Acknowledge");
-        let x_goog_request_params = [Some(&req)
-            .map(|m| &m.subscription)
-            .map(|s| s.as_str())
-            .map(|v| format!("subscription={v}"))]
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.pubsub.v1.Subscriber/Acknowledge"
+        );
+        let x_goog_request_params = [
+                Some(&req).map(|m| &m.subscription).map(|s| s.as_str()).map(|v| format!("subscription={v}")),
+        ]
         .into_iter()
         .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
@@ -219,4 +226,6 @@ impl super::stub::Subscriber for Subscriber {
             .await
             .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
+
 }
+

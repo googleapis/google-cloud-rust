@@ -67,6 +67,7 @@ impl std::fmt::Debug for super::policy_binding::Target {
     }
 }
 
+
 impl std::fmt::Debug for super::CreatePolicyBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePolicyBindingRequest");
@@ -174,14 +175,8 @@ impl std::fmt::Debug for super::CreatePrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreatePrincipalAccessBoundaryPolicyRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "principal_access_boundary_policy_id",
-            &self.principal_access_boundary_policy_id,
-        );
-        debug_struct.field(
-            "principal_access_boundary_policy",
-            &self.principal_access_boundary_policy,
-        );
+        debug_struct.field("principal_access_boundary_policy_id", &self.principal_access_boundary_policy_id);
+        debug_struct.field("principal_access_boundary_policy", &self.principal_access_boundary_policy);
         debug_struct.field("validate_only", &self.validate_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -204,10 +199,7 @@ impl std::fmt::Debug for super::GetPrincipalAccessBoundaryPolicyRequest {
 impl std::fmt::Debug for super::UpdatePrincipalAccessBoundaryPolicyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdatePrincipalAccessBoundaryPolicyRequest");
-        debug_struct.field(
-            "principal_access_boundary_policy",
-            &self.principal_access_boundary_policy,
-        );
+        debug_struct.field("principal_access_boundary_policy", &self.principal_access_boundary_policy);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
@@ -247,10 +239,7 @@ impl std::fmt::Debug for super::ListPrincipalAccessBoundaryPoliciesRequest {
 impl std::fmt::Debug for super::ListPrincipalAccessBoundaryPoliciesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListPrincipalAccessBoundaryPoliciesResponse");
-        debug_struct.field(
-            "principal_access_boundary_policies",
-            &self.principal_access_boundary_policies,
-        );
+        debug_struct.field("principal_access_boundary_policies", &self.principal_access_boundary_policies);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -274,8 +263,7 @@ impl std::fmt::Debug for super::SearchPrincipalAccessBoundaryPolicyBindingsReque
 
 impl std::fmt::Debug for super::SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct =
-            f.debug_struct("SearchPrincipalAccessBoundaryPolicyBindingsResponse");
+        let mut debug_struct = f.debug_struct("SearchPrincipalAccessBoundaryPolicyBindingsResponse");
         debug_struct.field("policy_bindings", &self.policy_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {

@@ -441,15 +441,9 @@ impl std::fmt::Debug for super::DevicePolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DevicePolicy");
         debug_struct.field("require_screenlock", &self.require_screenlock);
-        debug_struct.field(
-            "allowed_encryption_statuses",
-            &self.allowed_encryption_statuses,
-        );
+        debug_struct.field("allowed_encryption_statuses", &self.allowed_encryption_statuses);
         debug_struct.field("os_constraints", &self.os_constraints);
-        debug_struct.field(
-            "allowed_device_management_levels",
-            &self.allowed_device_management_levels,
-        );
+        debug_struct.field("allowed_device_management_levels", &self.allowed_device_management_levels);
         debug_struct.field("require_admin_approval", &self.require_admin_approval);
         debug_struct.field("require_corp_owned", &self.require_corp_owned);
         if !self._unknown_fields.is_empty() {
@@ -464,10 +458,7 @@ impl std::fmt::Debug for super::OsConstraint {
         let mut debug_struct = f.debug_struct("OsConstraint");
         debug_struct.field("os_type", &self.os_type);
         debug_struct.field("minimum_version", &self.minimum_version);
-        debug_struct.field(
-            "require_verified_chrome_os",
-            &self.require_verified_chrome_os,
-        );
+        debug_struct.field("require_verified_chrome_os", &self.require_verified_chrome_os);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

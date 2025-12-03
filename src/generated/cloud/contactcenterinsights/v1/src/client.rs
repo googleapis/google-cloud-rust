@@ -72,9 +72,7 @@ impl ContactCenterInsights {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::contact_center_insights::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::contact_center_insights::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::contact_center_insights::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,51 +80,35 @@ impl ContactCenterInsights {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ContactCenterInsights + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ContactCenterInsights + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ContactCenterInsights>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ContactCenterInsights>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
         super::transport::ContactCenterInsights::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ContactCenterInsights::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
+        Self::build_transport(conf).await.map(super::tracing::ContactCenterInsights::new)
     }
 
     /// Creates a conversation.
     /// Note that this method does not support audio transcription or redaction.
     /// Use `conversations.upload` instead.
-    pub fn create_conversation(
-        &self,
-    ) -> super::builder::contact_center_insights::CreateConversation {
+    pub fn create_conversation(&self) -> super::builder::contact_center_insights::CreateConversation
+    {
         super::builder::contact_center_insights::CreateConversation::new(self.inner.clone())
     }
 
@@ -143,33 +125,32 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upload_conversation(
-        &self,
-    ) -> super::builder::contact_center_insights::UploadConversation {
+    pub fn upload_conversation(&self) -> super::builder::contact_center_insights::UploadConversation
+    {
         super::builder::contact_center_insights::UploadConversation::new(self.inner.clone())
     }
 
     /// Updates a conversation.
-    pub fn update_conversation(
-        &self,
-    ) -> super::builder::contact_center_insights::UpdateConversation {
+    pub fn update_conversation(&self) -> super::builder::contact_center_insights::UpdateConversation
+    {
         super::builder::contact_center_insights::UpdateConversation::new(self.inner.clone())
     }
 
     /// Gets a conversation.
-    pub fn get_conversation(&self) -> super::builder::contact_center_insights::GetConversation {
+    pub fn get_conversation(&self) -> super::builder::contact_center_insights::GetConversation
+    {
         super::builder::contact_center_insights::GetConversation::new(self.inner.clone())
     }
 
     /// Lists conversations.
-    pub fn list_conversations(&self) -> super::builder::contact_center_insights::ListConversations {
+    pub fn list_conversations(&self) -> super::builder::contact_center_insights::ListConversations
+    {
         super::builder::contact_center_insights::ListConversations::new(self.inner.clone())
     }
 
     /// Deletes a conversation.
-    pub fn delete_conversation(
-        &self,
-    ) -> super::builder::contact_center_insights::DeleteConversation {
+    pub fn delete_conversation(&self) -> super::builder::contact_center_insights::DeleteConversation
+    {
         super::builder::contact_center_insights::DeleteConversation::new(self.inner.clone())
     }
 
@@ -185,22 +166,26 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_analysis(&self) -> super::builder::contact_center_insights::CreateAnalysis {
+    pub fn create_analysis(&self) -> super::builder::contact_center_insights::CreateAnalysis
+    {
         super::builder::contact_center_insights::CreateAnalysis::new(self.inner.clone())
     }
 
     /// Gets an analysis.
-    pub fn get_analysis(&self) -> super::builder::contact_center_insights::GetAnalysis {
+    pub fn get_analysis(&self) -> super::builder::contact_center_insights::GetAnalysis
+    {
         super::builder::contact_center_insights::GetAnalysis::new(self.inner.clone())
     }
 
     /// Lists analyses.
-    pub fn list_analyses(&self) -> super::builder::contact_center_insights::ListAnalyses {
+    pub fn list_analyses(&self) -> super::builder::contact_center_insights::ListAnalyses
+    {
         super::builder::contact_center_insights::ListAnalyses::new(self.inner.clone())
     }
 
     /// Deletes an analysis.
-    pub fn delete_analysis(&self) -> super::builder::contact_center_insights::DeleteAnalysis {
+    pub fn delete_analysis(&self) -> super::builder::contact_center_insights::DeleteAnalysis
+    {
         super::builder::contact_center_insights::DeleteAnalysis::new(self.inner.clone())
     }
 
@@ -215,9 +200,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_analyze_conversations(
-        &self,
-    ) -> super::builder::contact_center_insights::BulkAnalyzeConversations {
+    pub fn bulk_analyze_conversations(&self) -> super::builder::contact_center_insights::BulkAnalyzeConversations
+    {
         super::builder::contact_center_insights::BulkAnalyzeConversations::new(self.inner.clone())
     }
 
@@ -232,9 +216,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_delete_conversations(
-        &self,
-    ) -> super::builder::contact_center_insights::BulkDeleteConversations {
+    pub fn bulk_delete_conversations(&self) -> super::builder::contact_center_insights::BulkDeleteConversations
+    {
         super::builder::contact_center_insights::BulkDeleteConversations::new(self.inner.clone())
     }
 
@@ -250,9 +233,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn ingest_conversations(
-        &self,
-    ) -> super::builder::contact_center_insights::IngestConversations {
+    pub fn ingest_conversations(&self) -> super::builder::contact_center_insights::IngestConversations
+    {
         super::builder::contact_center_insights::IngestConversations::new(self.inner.clone())
     }
 
@@ -267,9 +249,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_insights_data(
-        &self,
-    ) -> super::builder::contact_center_insights::ExportInsightsData {
+    pub fn export_insights_data(&self) -> super::builder::contact_center_insights::ExportInsightsData
+    {
         super::builder::contact_center_insights::ExportInsightsData::new(self.inner.clone())
     }
 
@@ -284,22 +265,26 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_issue_model(&self) -> super::builder::contact_center_insights::CreateIssueModel {
+    pub fn create_issue_model(&self) -> super::builder::contact_center_insights::CreateIssueModel
+    {
         super::builder::contact_center_insights::CreateIssueModel::new(self.inner.clone())
     }
 
     /// Updates an issue model.
-    pub fn update_issue_model(&self) -> super::builder::contact_center_insights::UpdateIssueModel {
+    pub fn update_issue_model(&self) -> super::builder::contact_center_insights::UpdateIssueModel
+    {
         super::builder::contact_center_insights::UpdateIssueModel::new(self.inner.clone())
     }
 
     /// Gets an issue model.
-    pub fn get_issue_model(&self) -> super::builder::contact_center_insights::GetIssueModel {
+    pub fn get_issue_model(&self) -> super::builder::contact_center_insights::GetIssueModel
+    {
         super::builder::contact_center_insights::GetIssueModel::new(self.inner.clone())
     }
 
     /// Lists issue models.
-    pub fn list_issue_models(&self) -> super::builder::contact_center_insights::ListIssueModels {
+    pub fn list_issue_models(&self) -> super::builder::contact_center_insights::ListIssueModels
+    {
         super::builder::contact_center_insights::ListIssueModels::new(self.inner.clone())
     }
 
@@ -314,7 +299,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_issue_model(&self) -> super::builder::contact_center_insights::DeleteIssueModel {
+    pub fn delete_issue_model(&self) -> super::builder::contact_center_insights::DeleteIssueModel
+    {
         super::builder::contact_center_insights::DeleteIssueModel::new(self.inner.clone())
     }
 
@@ -330,7 +316,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn deploy_issue_model(&self) -> super::builder::contact_center_insights::DeployIssueModel {
+    pub fn deploy_issue_model(&self) -> super::builder::contact_center_insights::DeployIssueModel
+    {
         super::builder::contact_center_insights::DeployIssueModel::new(self.inner.clone())
     }
 
@@ -346,9 +333,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undeploy_issue_model(
-        &self,
-    ) -> super::builder::contact_center_insights::UndeployIssueModel {
+    pub fn undeploy_issue_model(&self) -> super::builder::contact_center_insights::UndeployIssueModel
+    {
         super::builder::contact_center_insights::UndeployIssueModel::new(self.inner.clone())
     }
 
@@ -363,7 +349,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_issue_model(&self) -> super::builder::contact_center_insights::ExportIssueModel {
+    pub fn export_issue_model(&self) -> super::builder::contact_center_insights::ExportIssueModel
+    {
         super::builder::contact_center_insights::ExportIssueModel::new(self.inner.clone())
     }
 
@@ -378,122 +365,122 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_issue_model(&self) -> super::builder::contact_center_insights::ImportIssueModel {
+    pub fn import_issue_model(&self) -> super::builder::contact_center_insights::ImportIssueModel
+    {
         super::builder::contact_center_insights::ImportIssueModel::new(self.inner.clone())
     }
 
     /// Gets an issue.
-    pub fn get_issue(&self) -> super::builder::contact_center_insights::GetIssue {
+    pub fn get_issue(&self) -> super::builder::contact_center_insights::GetIssue
+    {
         super::builder::contact_center_insights::GetIssue::new(self.inner.clone())
     }
 
     /// Lists issues.
-    pub fn list_issues(&self) -> super::builder::contact_center_insights::ListIssues {
+    pub fn list_issues(&self) -> super::builder::contact_center_insights::ListIssues
+    {
         super::builder::contact_center_insights::ListIssues::new(self.inner.clone())
     }
 
     /// Updates an issue.
-    pub fn update_issue(&self) -> super::builder::contact_center_insights::UpdateIssue {
+    pub fn update_issue(&self) -> super::builder::contact_center_insights::UpdateIssue
+    {
         super::builder::contact_center_insights::UpdateIssue::new(self.inner.clone())
     }
 
     /// Deletes an issue.
-    pub fn delete_issue(&self) -> super::builder::contact_center_insights::DeleteIssue {
+    pub fn delete_issue(&self) -> super::builder::contact_center_insights::DeleteIssue
+    {
         super::builder::contact_center_insights::DeleteIssue::new(self.inner.clone())
     }
 
     /// Gets an issue model's statistics.
-    pub fn calculate_issue_model_stats(
-        &self,
-    ) -> super::builder::contact_center_insights::CalculateIssueModelStats {
+    pub fn calculate_issue_model_stats(&self) -> super::builder::contact_center_insights::CalculateIssueModelStats
+    {
         super::builder::contact_center_insights::CalculateIssueModelStats::new(self.inner.clone())
     }
 
     /// Creates a phrase matcher.
-    pub fn create_phrase_matcher(
-        &self,
-    ) -> super::builder::contact_center_insights::CreatePhraseMatcher {
+    pub fn create_phrase_matcher(&self) -> super::builder::contact_center_insights::CreatePhraseMatcher
+    {
         super::builder::contact_center_insights::CreatePhraseMatcher::new(self.inner.clone())
     }
 
     /// Gets a phrase matcher.
-    pub fn get_phrase_matcher(&self) -> super::builder::contact_center_insights::GetPhraseMatcher {
+    pub fn get_phrase_matcher(&self) -> super::builder::contact_center_insights::GetPhraseMatcher
+    {
         super::builder::contact_center_insights::GetPhraseMatcher::new(self.inner.clone())
     }
 
     /// Lists phrase matchers.
-    pub fn list_phrase_matchers(
-        &self,
-    ) -> super::builder::contact_center_insights::ListPhraseMatchers {
+    pub fn list_phrase_matchers(&self) -> super::builder::contact_center_insights::ListPhraseMatchers
+    {
         super::builder::contact_center_insights::ListPhraseMatchers::new(self.inner.clone())
     }
 
     /// Deletes a phrase matcher.
-    pub fn delete_phrase_matcher(
-        &self,
-    ) -> super::builder::contact_center_insights::DeletePhraseMatcher {
+    pub fn delete_phrase_matcher(&self) -> super::builder::contact_center_insights::DeletePhraseMatcher
+    {
         super::builder::contact_center_insights::DeletePhraseMatcher::new(self.inner.clone())
     }
 
     /// Updates a phrase matcher.
-    pub fn update_phrase_matcher(
-        &self,
-    ) -> super::builder::contact_center_insights::UpdatePhraseMatcher {
+    pub fn update_phrase_matcher(&self) -> super::builder::contact_center_insights::UpdatePhraseMatcher
+    {
         super::builder::contact_center_insights::UpdatePhraseMatcher::new(self.inner.clone())
     }
 
     /// Gets conversation statistics.
-    pub fn calculate_stats(&self) -> super::builder::contact_center_insights::CalculateStats {
+    pub fn calculate_stats(&self) -> super::builder::contact_center_insights::CalculateStats
+    {
         super::builder::contact_center_insights::CalculateStats::new(self.inner.clone())
     }
 
     /// Gets project-level settings.
-    pub fn get_settings(&self) -> super::builder::contact_center_insights::GetSettings {
+    pub fn get_settings(&self) -> super::builder::contact_center_insights::GetSettings
+    {
         super::builder::contact_center_insights::GetSettings::new(self.inner.clone())
     }
 
     /// Updates project-level settings.
-    pub fn update_settings(&self) -> super::builder::contact_center_insights::UpdateSettings {
+    pub fn update_settings(&self) -> super::builder::contact_center_insights::UpdateSettings
+    {
         super::builder::contact_center_insights::UpdateSettings::new(self.inner.clone())
     }
 
     /// Creates a analysis rule.
-    pub fn create_analysis_rule(
-        &self,
-    ) -> super::builder::contact_center_insights::CreateAnalysisRule {
+    pub fn create_analysis_rule(&self) -> super::builder::contact_center_insights::CreateAnalysisRule
+    {
         super::builder::contact_center_insights::CreateAnalysisRule::new(self.inner.clone())
     }
 
     /// Get a analysis rule.
-    pub fn get_analysis_rule(&self) -> super::builder::contact_center_insights::GetAnalysisRule {
+    pub fn get_analysis_rule(&self) -> super::builder::contact_center_insights::GetAnalysisRule
+    {
         super::builder::contact_center_insights::GetAnalysisRule::new(self.inner.clone())
     }
 
     /// Lists analysis rules.
-    pub fn list_analysis_rules(
-        &self,
-    ) -> super::builder::contact_center_insights::ListAnalysisRules {
+    pub fn list_analysis_rules(&self) -> super::builder::contact_center_insights::ListAnalysisRules
+    {
         super::builder::contact_center_insights::ListAnalysisRules::new(self.inner.clone())
     }
 
     /// Updates a analysis rule.
-    pub fn update_analysis_rule(
-        &self,
-    ) -> super::builder::contact_center_insights::UpdateAnalysisRule {
+    pub fn update_analysis_rule(&self) -> super::builder::contact_center_insights::UpdateAnalysisRule
+    {
         super::builder::contact_center_insights::UpdateAnalysisRule::new(self.inner.clone())
     }
 
     /// Deletes a analysis rule.
-    pub fn delete_analysis_rule(
-        &self,
-    ) -> super::builder::contact_center_insights::DeleteAnalysisRule {
+    pub fn delete_analysis_rule(&self) -> super::builder::contact_center_insights::DeleteAnalysisRule
+    {
         super::builder::contact_center_insights::DeleteAnalysisRule::new(self.inner.clone())
     }
 
     /// Gets location-level encryption key specification.
-    pub fn get_encryption_spec(
-        &self,
-    ) -> super::builder::contact_center_insights::GetEncryptionSpec {
+    pub fn get_encryption_spec(&self) -> super::builder::contact_center_insights::GetEncryptionSpec
+    {
         super::builder::contact_center_insights::GetEncryptionSpec::new(self.inner.clone())
     }
 
@@ -512,34 +499,38 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn initialize_encryption_spec(
-        &self,
-    ) -> super::builder::contact_center_insights::InitializeEncryptionSpec {
+    pub fn initialize_encryption_spec(&self) -> super::builder::contact_center_insights::InitializeEncryptionSpec
+    {
         super::builder::contact_center_insights::InitializeEncryptionSpec::new(self.inner.clone())
     }
 
     /// Creates a view.
-    pub fn create_view(&self) -> super::builder::contact_center_insights::CreateView {
+    pub fn create_view(&self) -> super::builder::contact_center_insights::CreateView
+    {
         super::builder::contact_center_insights::CreateView::new(self.inner.clone())
     }
 
     /// Gets a view.
-    pub fn get_view(&self) -> super::builder::contact_center_insights::GetView {
+    pub fn get_view(&self) -> super::builder::contact_center_insights::GetView
+    {
         super::builder::contact_center_insights::GetView::new(self.inner.clone())
     }
 
     /// Lists views.
-    pub fn list_views(&self) -> super::builder::contact_center_insights::ListViews {
+    pub fn list_views(&self) -> super::builder::contact_center_insights::ListViews
+    {
         super::builder::contact_center_insights::ListViews::new(self.inner.clone())
     }
 
     /// Updates a view.
-    pub fn update_view(&self) -> super::builder::contact_center_insights::UpdateView {
+    pub fn update_view(&self) -> super::builder::contact_center_insights::UpdateView
+    {
         super::builder::contact_center_insights::UpdateView::new(self.inner.clone())
     }
 
     /// Deletes a view.
-    pub fn delete_view(&self) -> super::builder::contact_center_insights::DeleteView {
+    pub fn delete_view(&self) -> super::builder::contact_center_insights::DeleteView
+    {
         super::builder::contact_center_insights::DeleteView::new(self.inner.clone())
     }
 
@@ -554,77 +545,80 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn query_metrics(&self) -> super::builder::contact_center_insights::QueryMetrics {
+    pub fn query_metrics(&self) -> super::builder::contact_center_insights::QueryMetrics
+    {
         super::builder::contact_center_insights::QueryMetrics::new(self.inner.clone())
     }
 
     /// Create a QaQuestion.
-    pub fn create_qa_question(&self) -> super::builder::contact_center_insights::CreateQaQuestion {
+    pub fn create_qa_question(&self) -> super::builder::contact_center_insights::CreateQaQuestion
+    {
         super::builder::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
     }
 
     /// Gets a QaQuestion.
-    pub fn get_qa_question(&self) -> super::builder::contact_center_insights::GetQaQuestion {
+    pub fn get_qa_question(&self) -> super::builder::contact_center_insights::GetQaQuestion
+    {
         super::builder::contact_center_insights::GetQaQuestion::new(self.inner.clone())
     }
 
     /// Updates a QaQuestion.
-    pub fn update_qa_question(&self) -> super::builder::contact_center_insights::UpdateQaQuestion {
+    pub fn update_qa_question(&self) -> super::builder::contact_center_insights::UpdateQaQuestion
+    {
         super::builder::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
     }
 
     /// Deletes a QaQuestion.
-    pub fn delete_qa_question(&self) -> super::builder::contact_center_insights::DeleteQaQuestion {
+    pub fn delete_qa_question(&self) -> super::builder::contact_center_insights::DeleteQaQuestion
+    {
         super::builder::contact_center_insights::DeleteQaQuestion::new(self.inner.clone())
     }
 
     /// Lists QaQuestions.
-    pub fn list_qa_questions(&self) -> super::builder::contact_center_insights::ListQaQuestions {
+    pub fn list_qa_questions(&self) -> super::builder::contact_center_insights::ListQaQuestions
+    {
         super::builder::contact_center_insights::ListQaQuestions::new(self.inner.clone())
     }
 
     /// Create a QaScorecard.
-    pub fn create_qa_scorecard(
-        &self,
-    ) -> super::builder::contact_center_insights::CreateQaScorecard {
+    pub fn create_qa_scorecard(&self) -> super::builder::contact_center_insights::CreateQaScorecard
+    {
         super::builder::contact_center_insights::CreateQaScorecard::new(self.inner.clone())
     }
 
     /// Gets a QaScorecard.
-    pub fn get_qa_scorecard(&self) -> super::builder::contact_center_insights::GetQaScorecard {
+    pub fn get_qa_scorecard(&self) -> super::builder::contact_center_insights::GetQaScorecard
+    {
         super::builder::contact_center_insights::GetQaScorecard::new(self.inner.clone())
     }
 
     /// Updates a QaScorecard.
-    pub fn update_qa_scorecard(
-        &self,
-    ) -> super::builder::contact_center_insights::UpdateQaScorecard {
+    pub fn update_qa_scorecard(&self) -> super::builder::contact_center_insights::UpdateQaScorecard
+    {
         super::builder::contact_center_insights::UpdateQaScorecard::new(self.inner.clone())
     }
 
     /// Deletes a QaScorecard.
-    pub fn delete_qa_scorecard(
-        &self,
-    ) -> super::builder::contact_center_insights::DeleteQaScorecard {
+    pub fn delete_qa_scorecard(&self) -> super::builder::contact_center_insights::DeleteQaScorecard
+    {
         super::builder::contact_center_insights::DeleteQaScorecard::new(self.inner.clone())
     }
 
     /// Lists QaScorecards.
-    pub fn list_qa_scorecards(&self) -> super::builder::contact_center_insights::ListQaScorecards {
+    pub fn list_qa_scorecards(&self) -> super::builder::contact_center_insights::ListQaScorecards
+    {
         super::builder::contact_center_insights::ListQaScorecards::new(self.inner.clone())
     }
 
     /// Creates a QaScorecardRevision.
-    pub fn create_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::CreateQaScorecardRevision {
+    pub fn create_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::CreateQaScorecardRevision
+    {
         super::builder::contact_center_insights::CreateQaScorecardRevision::new(self.inner.clone())
     }
 
     /// Gets a QaScorecardRevision.
-    pub fn get_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::GetQaScorecardRevision {
+    pub fn get_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::GetQaScorecardRevision
+    {
         super::builder::contact_center_insights::GetQaScorecardRevision::new(self.inner.clone())
     }
 
@@ -639,79 +633,68 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn tune_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::TuneQaScorecardRevision {
+    pub fn tune_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::TuneQaScorecardRevision
+    {
         super::builder::contact_center_insights::TuneQaScorecardRevision::new(self.inner.clone())
     }
 
     /// Deploy a QaScorecardRevision.
-    pub fn deploy_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::DeployQaScorecardRevision {
+    pub fn deploy_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::DeployQaScorecardRevision
+    {
         super::builder::contact_center_insights::DeployQaScorecardRevision::new(self.inner.clone())
     }
 
     /// Undeploy a QaScorecardRevision.
-    pub fn undeploy_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::UndeployQaScorecardRevision {
-        super::builder::contact_center_insights::UndeployQaScorecardRevision::new(
-            self.inner.clone(),
-        )
+    pub fn undeploy_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::UndeployQaScorecardRevision
+    {
+        super::builder::contact_center_insights::UndeployQaScorecardRevision::new(self.inner.clone())
     }
 
     /// Deletes a QaScorecardRevision.
-    pub fn delete_qa_scorecard_revision(
-        &self,
-    ) -> super::builder::contact_center_insights::DeleteQaScorecardRevision {
+    pub fn delete_qa_scorecard_revision(&self) -> super::builder::contact_center_insights::DeleteQaScorecardRevision
+    {
         super::builder::contact_center_insights::DeleteQaScorecardRevision::new(self.inner.clone())
     }
 
     /// Lists all revisions under the parent QaScorecard.
-    pub fn list_qa_scorecard_revisions(
-        &self,
-    ) -> super::builder::contact_center_insights::ListQaScorecardRevisions {
+    pub fn list_qa_scorecard_revisions(&self) -> super::builder::contact_center_insights::ListQaScorecardRevisions
+    {
         super::builder::contact_center_insights::ListQaScorecardRevisions::new(self.inner.clone())
     }
 
     /// Create feedback label.
-    pub fn create_feedback_label(
-        &self,
-    ) -> super::builder::contact_center_insights::CreateFeedbackLabel {
+    pub fn create_feedback_label(&self) -> super::builder::contact_center_insights::CreateFeedbackLabel
+    {
         super::builder::contact_center_insights::CreateFeedbackLabel::new(self.inner.clone())
     }
 
     /// List feedback labels.
-    pub fn list_feedback_labels(
-        &self,
-    ) -> super::builder::contact_center_insights::ListFeedbackLabels {
+    pub fn list_feedback_labels(&self) -> super::builder::contact_center_insights::ListFeedbackLabels
+    {
         super::builder::contact_center_insights::ListFeedbackLabels::new(self.inner.clone())
     }
 
     /// Get feedback label.
-    pub fn get_feedback_label(&self) -> super::builder::contact_center_insights::GetFeedbackLabel {
+    pub fn get_feedback_label(&self) -> super::builder::contact_center_insights::GetFeedbackLabel
+    {
         super::builder::contact_center_insights::GetFeedbackLabel::new(self.inner.clone())
     }
 
     /// Update feedback label.
-    pub fn update_feedback_label(
-        &self,
-    ) -> super::builder::contact_center_insights::UpdateFeedbackLabel {
+    pub fn update_feedback_label(&self) -> super::builder::contact_center_insights::UpdateFeedbackLabel
+    {
         super::builder::contact_center_insights::UpdateFeedbackLabel::new(self.inner.clone())
     }
 
     /// Delete feedback label.
-    pub fn delete_feedback_label(
-        &self,
-    ) -> super::builder::contact_center_insights::DeleteFeedbackLabel {
+    pub fn delete_feedback_label(&self) -> super::builder::contact_center_insights::DeleteFeedbackLabel
+    {
         super::builder::contact_center_insights::DeleteFeedbackLabel::new(self.inner.clone())
     }
 
     /// List all feedback labels by project number.
-    pub fn list_all_feedback_labels(
-        &self,
-    ) -> super::builder::contact_center_insights::ListAllFeedbackLabels {
+    pub fn list_all_feedback_labels(&self) -> super::builder::contact_center_insights::ListAllFeedbackLabels
+    {
         super::builder::contact_center_insights::ListAllFeedbackLabels::new(self.inner.clone())
     }
 
@@ -726,9 +709,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_upload_feedback_labels(
-        &self,
-    ) -> super::builder::contact_center_insights::BulkUploadFeedbackLabels {
+    pub fn bulk_upload_feedback_labels(&self) -> super::builder::contact_center_insights::BulkUploadFeedbackLabels
+    {
         super::builder::contact_center_insights::BulkUploadFeedbackLabels::new(self.inner.clone())
     }
 
@@ -743,30 +725,32 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_download_feedback_labels(
-        &self,
-    ) -> super::builder::contact_center_insights::BulkDownloadFeedbackLabels {
+    pub fn bulk_download_feedback_labels(&self) -> super::builder::contact_center_insights::BulkDownloadFeedbackLabels
+    {
         super::builder::contact_center_insights::BulkDownloadFeedbackLabels::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::contact_center_insights::ListOperations {
+    pub fn list_operations(&self) -> super::builder::contact_center_insights::ListOperations
+    {
         super::builder::contact_center_insights::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::contact_center_insights::GetOperation {
+    pub fn get_operation(&self) -> super::builder::contact_center_insights::GetOperation
+    {
         super::builder::contact_center_insights::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::contact_center_insights::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::contact_center_insights::CancelOperation
+    {
         super::builder::contact_center_insights::CancelOperation::new(self.inner.clone())
     }
 }

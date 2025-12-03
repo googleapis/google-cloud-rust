@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Document {
+
     /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
     /// returns an `INVALID_ARGUMENT` error.
     pub r#type: crate::model::document::Type,
@@ -80,12 +81,8 @@ impl Document {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::document::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::document::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -107,7 +104,11 @@ impl Document {
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source = std::option::Option::Some(crate::model::document::Source::Content(v.into()));
+        self.source = std::option::Option::Some(
+            crate::model::document::Source::Content(
+                v.into()
+            )
+        );
         self
     }
 
@@ -128,8 +129,11 @@ impl Document {
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
     pub fn set_gcs_content_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::document::Source::GcsContentUri(v.into()));
+        self.source = std::option::Option::Some(
+            crate::model::document::Source::GcsContentUri(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -144,6 +148,7 @@ impl wkt::message::Message for Document {
 pub mod document {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The document types enum.
     ///
@@ -231,9 +236,7 @@ pub mod document {
                 0 => Self::Unspecified,
                 1 => Self::PlainText,
                 2 => Self::Html,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -245,9 +248,7 @@ pub mod document {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "PLAIN_TEXT" => Self::PlainText,
                 "HTML" => Self::Html,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -272,8 +273,7 @@ pub mod document {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.language.v2.Document.Type",
-            ))
+                ".google.cloud.language.v2.Document.Type"))
         }
     }
 
@@ -297,6 +297,7 @@ pub mod document {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sentence {
+
     /// The sentence text.
     pub text: std::option::Option<crate::model::TextSpan>,
 
@@ -317,8 +318,7 @@ impl Sentence {
 
     /// Sets the value of [text][crate::model::Sentence::text].
     pub fn set_text<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TextSpan>,
+    where T: std::convert::Into<crate::model::TextSpan>
     {
         self.text = std::option::Option::Some(v.into());
         self
@@ -326,8 +326,7 @@ impl Sentence {
 
     /// Sets or clears the value of [text][crate::model::Sentence::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TextSpan>,
+    where T: std::convert::Into<crate::model::TextSpan>
     {
         self.text = v.map(|x| x.into());
         self
@@ -335,8 +334,7 @@ impl Sentence {
 
     /// Sets the value of [sentiment][crate::model::Sentence::sentiment].
     pub fn set_sentiment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = std::option::Option::Some(v.into());
         self
@@ -344,8 +342,7 @@ impl Sentence {
 
     /// Sets or clears the value of [sentiment][crate::model::Sentence::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = v.map(|x| x.into());
         self
@@ -364,6 +361,7 @@ impl wkt::message::Message for Sentence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entity {
+
     /// The representative name for the entity.
     pub name: std::string::String,
 
@@ -374,7 +372,7 @@ pub struct Entity {
     ///
     /// For the metadata
     /// associated with other entity types, see the Type table below.
-    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The mentions of this entity in the input document. The API currently
     /// supports proper noun mentions.
@@ -422,7 +420,7 @@ impl Entity {
     pub fn set_mentions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EntityMention>,
+        V: std::convert::Into<crate::model::EntityMention>
     {
         use std::iter::Iterator;
         self.mentions = v.into_iter().map(|i| i.into()).collect();
@@ -431,8 +429,7 @@ impl Entity {
 
     /// Sets the value of [sentiment][crate::model::Entity::sentiment].
     pub fn set_sentiment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = std::option::Option::Some(v.into());
         self
@@ -440,8 +437,7 @@ impl Entity {
 
     /// Sets or clears the value of [sentiment][crate::model::Entity::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = v.map(|x| x.into());
         self
@@ -458,6 +454,7 @@ impl wkt::message::Message for Entity {
 pub mod entity {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of the entity. The table
     /// below lists the associated fields for entities that have different
@@ -631,9 +628,7 @@ pub mod entity {
                 11 => Self::Date,
                 12 => Self::Number,
                 13 => Self::Price,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -655,9 +650,7 @@ pub mod entity {
                 "DATE" => Self::Date,
                 "NUMBER" => Self::Number,
                 "PRICE" => Self::Price,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -692,8 +685,7 @@ pub mod entity {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.language.v2.Entity.Type",
-            ))
+                ".google.cloud.language.v2.Entity.Type"))
         }
     }
 }
@@ -703,6 +695,7 @@ pub mod entity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sentiment {
+
     /// A non-negative number in the [0, +inf) range, which represents
     /// the absolute magnitude of sentiment regardless of score (positive or
     /// negative).
@@ -744,6 +737,7 @@ impl wkt::message::Message for Sentiment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EntityMention {
+
     /// The mention text.
     pub text: std::option::Option<crate::model::TextSpan>,
 
@@ -772,8 +766,7 @@ impl EntityMention {
 
     /// Sets the value of [text][crate::model::EntityMention::text].
     pub fn set_text<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TextSpan>,
+    where T: std::convert::Into<crate::model::TextSpan>
     {
         self.text = std::option::Option::Some(v.into());
         self
@@ -781,26 +774,21 @@ impl EntityMention {
 
     /// Sets or clears the value of [text][crate::model::EntityMention::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TextSpan>,
+    where T: std::convert::Into<crate::model::TextSpan>
     {
         self.text = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::EntityMention::type].
-    pub fn set_type<T: std::convert::Into<crate::model::entity_mention::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::entity_mention::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [sentiment][crate::model::EntityMention::sentiment].
     pub fn set_sentiment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = std::option::Option::Some(v.into());
         self
@@ -808,8 +796,7 @@ impl EntityMention {
 
     /// Sets or clears the value of [sentiment][crate::model::EntityMention::sentiment].
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.sentiment = v.map(|x| x.into());
         self
@@ -832,6 +819,7 @@ impl wkt::message::Message for EntityMention {
 pub mod entity_mention {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The supported types of mentions.
     ///
@@ -919,9 +907,7 @@ pub mod entity_mention {
                 0 => Self::Unknown,
                 1 => Self::Proper,
                 2 => Self::Common,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -933,9 +919,7 @@ pub mod entity_mention {
                 "TYPE_UNKNOWN" => Self::Unknown,
                 "PROPER" => Self::Proper,
                 "COMMON" => Self::Common,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -960,8 +944,7 @@ pub mod entity_mention {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.language.v2.EntityMention.Type",
-            ))
+                ".google.cloud.language.v2.EntityMention.Type"))
         }
     }
 }
@@ -970,6 +953,7 @@ pub mod entity_mention {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSpan {
+
     /// The content of the text span, which is a substring of the document.
     pub content: std::string::String,
 
@@ -1012,6 +996,7 @@ impl wkt::message::Message for TextSpan {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassificationCategory {
+
     /// The name of the category representing the document.
     pub name: std::string::String,
 
@@ -1061,6 +1046,7 @@ impl wkt::message::Message for ClassificationCategory {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeSentimentRequest {
+
     /// Required. Input document.
     pub document: std::option::Option<crate::model::Document>,
 
@@ -1077,8 +1063,7 @@ impl AnalyzeSentimentRequest {
 
     /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
     pub fn set_document<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -1086,18 +1071,14 @@ impl AnalyzeSentimentRequest {
 
     /// Sets or clears the value of [document][crate::model::AnalyzeSentimentRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encoding_type][crate::model::AnalyzeSentimentRequest::encoding_type].
-    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
         self.encoding_type = v.into();
         self
     }
@@ -1113,6 +1094,7 @@ impl wkt::message::Message for AnalyzeSentimentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeSentimentResponse {
+
     /// The overall sentiment of the input document.
     pub document_sentiment: std::option::Option<crate::model::Sentiment>,
 
@@ -1139,8 +1121,7 @@ impl AnalyzeSentimentResponse {
 
     /// Sets the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
     pub fn set_document_sentiment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.document_sentiment = std::option::Option::Some(v.into());
         self
@@ -1148,8 +1129,7 @@ impl AnalyzeSentimentResponse {
 
     /// Sets or clears the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.document_sentiment = v.map(|x| x.into());
         self
@@ -1165,7 +1145,7 @@ impl AnalyzeSentimentResponse {
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Sentence>,
+        V: std::convert::Into<crate::model::Sentence>
     {
         use std::iter::Iterator;
         self.sentences = v.into_iter().map(|i| i.into()).collect();
@@ -1189,6 +1169,7 @@ impl wkt::message::Message for AnalyzeSentimentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeEntitiesRequest {
+
     /// Required. Input document.
     pub document: std::option::Option<crate::model::Document>,
 
@@ -1205,8 +1186,7 @@ impl AnalyzeEntitiesRequest {
 
     /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
     pub fn set_document<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -1214,18 +1194,14 @@ impl AnalyzeEntitiesRequest {
 
     /// Sets or clears the value of [document][crate::model::AnalyzeEntitiesRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encoding_type][crate::model::AnalyzeEntitiesRequest::encoding_type].
-    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
         self.encoding_type = v.into();
         self
     }
@@ -1241,6 +1217,7 @@ impl wkt::message::Message for AnalyzeEntitiesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnalyzeEntitiesResponse {
+
     /// The recognized entities in the input document.
     pub entities: std::vec::Vec<crate::model::Entity>,
 
@@ -1266,7 +1243,7 @@ impl AnalyzeEntitiesResponse {
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Entity>,
+        V: std::convert::Into<crate::model::Entity>
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -1296,6 +1273,7 @@ impl wkt::message::Message for AnalyzeEntitiesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassifyTextRequest {
+
     /// Required. Input document.
     pub document: std::option::Option<crate::model::Document>,
 
@@ -1309,8 +1287,7 @@ impl ClassifyTextRequest {
 
     /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
     pub fn set_document<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -1318,8 +1295,7 @@ impl ClassifyTextRequest {
 
     /// Sets or clears the value of [document][crate::model::ClassifyTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = v.map(|x| x.into());
         self
@@ -1336,6 +1312,7 @@ impl wkt::message::Message for ClassifyTextRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassifyTextResponse {
+
     /// Categories representing the input document.
     pub categories: std::vec::Vec<crate::model::ClassificationCategory>,
 
@@ -1361,7 +1338,7 @@ impl ClassifyTextResponse {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
+        V: std::convert::Into<crate::model::ClassificationCategory>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -1391,6 +1368,7 @@ impl wkt::message::Message for ClassifyTextResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModerateTextRequest {
+
     /// Required. Input document.
     pub document: std::option::Option<crate::model::Document>,
 
@@ -1407,8 +1385,7 @@ impl ModerateTextRequest {
 
     /// Sets the value of [document][crate::model::ModerateTextRequest::document].
     pub fn set_document<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -1416,20 +1393,14 @@ impl ModerateTextRequest {
 
     /// Sets or clears the value of [document][crate::model::ModerateTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [model_version][crate::model::ModerateTextRequest::model_version].
-    pub fn set_model_version<
-        T: std::convert::Into<crate::model::moderate_text_request::ModelVersion>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_version<T: std::convert::Into<crate::model::moderate_text_request::ModelVersion>>(mut self, v: T) -> Self {
         self.model_version = v.into();
         self
     }
@@ -1445,6 +1416,7 @@ impl wkt::message::Message for ModerateTextRequest {
 pub mod moderate_text_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The model version to use for ModerateText.
     ///
@@ -1536,9 +1508,7 @@ pub mod moderate_text_request {
                 0 => Self::Unspecified,
                 1 => Self::ModelVersion1,
                 2 => Self::ModelVersion2,
-                _ => Self::UnknownValue(model_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1550,9 +1520,7 @@ pub mod moderate_text_request {
                 "MODEL_VERSION_UNSPECIFIED" => Self::Unspecified,
                 "MODEL_VERSION_1" => Self::ModelVersion1,
                 "MODEL_VERSION_2" => Self::ModelVersion2,
-                _ => Self::UnknownValue(model_version::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1577,8 +1545,7 @@ pub mod moderate_text_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ModelVersion>::new(
-                ".google.cloud.language.v2.ModerateTextRequest.ModelVersion",
-            ))
+                ".google.cloud.language.v2.ModerateTextRequest.ModelVersion"))
         }
     }
 }
@@ -1587,6 +1554,7 @@ pub mod moderate_text_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModerateTextResponse {
+
     /// Harmful and sensitive categories representing the input document.
     pub moderation_categories: std::vec::Vec<crate::model::ClassificationCategory>,
 
@@ -1612,7 +1580,7 @@ impl ModerateTextResponse {
     pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
+        V: std::convert::Into<crate::model::ClassificationCategory>
     {
         use std::iter::Iterator;
         self.moderation_categories = v.into_iter().map(|i| i.into()).collect();
@@ -1643,6 +1611,7 @@ impl wkt::message::Message for ModerateTextResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateTextRequest {
+
     /// Required. Input document.
     pub document: std::option::Option<crate::model::Document>,
 
@@ -1662,8 +1631,7 @@ impl AnnotateTextRequest {
 
     /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
     pub fn set_document<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = std::option::Option::Some(v.into());
         self
@@ -1671,8 +1639,7 @@ impl AnnotateTextRequest {
 
     /// Sets or clears the value of [document][crate::model::AnnotateTextRequest::document].
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Document>,
+    where T: std::convert::Into<crate::model::Document>
     {
         self.document = v.map(|x| x.into());
         self
@@ -1680,8 +1647,7 @@ impl AnnotateTextRequest {
 
     /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
     pub fn set_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::annotate_text_request::Features>,
+    where T: std::convert::Into<crate::model::annotate_text_request::Features>
     {
         self.features = std::option::Option::Some(v.into());
         self
@@ -1689,18 +1655,14 @@ impl AnnotateTextRequest {
 
     /// Sets or clears the value of [features][crate::model::AnnotateTextRequest::features].
     pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::annotate_text_request::Features>,
+    where T: std::convert::Into<crate::model::annotate_text_request::Features>
     {
         self.features = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encoding_type][crate::model::AnnotateTextRequest::encoding_type].
-    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encoding_type<T: std::convert::Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
         self.encoding_type = v.into();
         self
     }
@@ -1717,11 +1679,13 @@ pub mod annotate_text_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// All available features.
     /// Setting each one to true will enable that specific analysis for the input.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Features {
+
         /// Optional. Extract entities.
         pub extract_entities: bool,
 
@@ -1778,6 +1742,7 @@ pub mod annotate_text_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateTextResponse {
+
     /// Sentences in the input document. Populated if the user enables
     /// [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment].
     ///
@@ -1827,7 +1792,7 @@ impl AnnotateTextResponse {
     pub fn set_sentences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Sentence>,
+        V: std::convert::Into<crate::model::Sentence>
     {
         use std::iter::Iterator;
         self.sentences = v.into_iter().map(|i| i.into()).collect();
@@ -1838,7 +1803,7 @@ impl AnnotateTextResponse {
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Entity>,
+        V: std::convert::Into<crate::model::Entity>
     {
         use std::iter::Iterator;
         self.entities = v.into_iter().map(|i| i.into()).collect();
@@ -1847,8 +1812,7 @@ impl AnnotateTextResponse {
 
     /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
     pub fn set_document_sentiment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.document_sentiment = std::option::Option::Some(v.into());
         self
@@ -1856,8 +1820,7 @@ impl AnnotateTextResponse {
 
     /// Sets or clears the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
     pub fn set_or_clear_document_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Sentiment>,
+    where T: std::convert::Into<crate::model::Sentiment>
     {
         self.document_sentiment = v.map(|x| x.into());
         self
@@ -1873,7 +1836,7 @@ impl AnnotateTextResponse {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
+        V: std::convert::Into<crate::model::ClassificationCategory>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -1884,7 +1847,7 @@ impl AnnotateTextResponse {
     pub fn set_moderation_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClassificationCategory>,
+        V: std::convert::Into<crate::model::ClassificationCategory>
     {
         use std::iter::Iterator;
         self.moderation_categories = v.into_iter().map(|i| i.into()).collect();
@@ -2006,9 +1969,7 @@ impl std::convert::From<i32> for EncodingType {
             1 => Self::Utf8,
             2 => Self::Utf16,
             3 => Self::Utf32,
-            _ => Self::UnknownValue(encoding_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(encoding_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2021,9 +1982,7 @@ impl std::convert::From<&str> for EncodingType {
             "UTF8" => Self::Utf8,
             "UTF16" => Self::Utf16,
             "UTF32" => Self::Utf32,
-            _ => Self::UnknownValue(encoding_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(encoding_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2049,7 +2008,6 @@ impl<'de> serde::de::Deserialize<'de> for EncodingType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncodingType>::new(
-            ".google.cloud.language.v2.EncodingType",
-        ))
+            ".google.cloud.language.v2.EncodingType"))
     }
 }

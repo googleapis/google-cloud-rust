@@ -33,6 +33,7 @@ impl std::fmt::Debug for super::MigrationWorkflow {
     }
 }
 
+
 impl std::fmt::Debug for super::MigrationTask {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationTask");
@@ -46,14 +47,8 @@ impl std::fmt::Debug for super::MigrationTask {
         debug_struct.field("resource_error_count", &self.resource_error_count);
         debug_struct.field("metrics", &self.metrics);
         debug_struct.field("task_result", &self.task_result);
-        debug_struct.field(
-            "total_processing_error_count",
-            &self.total_processing_error_count,
-        );
-        debug_struct.field(
-            "total_resource_error_count",
-            &self.total_resource_error_count,
-        );
+        debug_struct.field("total_processing_error_count", &self.total_processing_error_count);
+        debug_struct.field("total_resource_error_count", &self.total_resource_error_count);
         debug_struct.field("task_details", &self.task_details);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

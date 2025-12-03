@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CaseAttachmentService](super::stub::CaseAttachmentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CaseAttachmentService for CaseAttachmentService<T>
-where
-    T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseAttachmentService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_attachments(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_attachments",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_attachments(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_attachments(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -80,25 +71,19 @@ where
 /// Implements a [CaseService](super::stub::CaseService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CaseService for CaseService<T>
-where
-    T: super::stub::CaseService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CaseService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_case(
         &self,
@@ -115,14 +100,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_case",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_case(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_case(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -153,14 +135,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_cases",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_cases(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_cases(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -191,14 +170,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "search_cases",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .search_cases(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.search_cases(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -229,14 +205,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_case",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_case(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_case(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -267,14 +240,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_case",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_case(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_case(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -305,14 +275,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "escalate_case",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .escalate_case(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.escalate_case(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -343,14 +310,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "close_case",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .close_case(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.close_case(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -381,14 +345,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "search_case_classifications",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .search_case_classifications(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.search_case_classifications(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -408,25 +369,19 @@ where
 /// Implements a [CommentService](super::stub::CommentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CommentService for CommentService<T>
-where
-    T: super::stub::CommentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CommentService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_comments(
         &self,
@@ -443,14 +398,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_comments",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_comments(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_comments(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -481,14 +433,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_comment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_comment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_comment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -504,3 +453,4 @@ where
         self.inner.create_comment(req, options).await
     }
 }
+

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationCluster {
+
     /// Full name of this workstation cluster.
     pub name: std::string::String,
 
@@ -60,13 +61,13 @@ pub struct WorkstationCluster {
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional.
     /// [Labels](https://cloud.google.com/workstations/docs/label-resources) that
     /// are applied to the workstation cluster and that are also propagated to the
     /// underlying Compute Engine resources.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time when this workstation cluster was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -98,8 +99,7 @@ pub struct WorkstationCluster {
     pub control_plane_ip: std::string::String,
 
     /// Optional. Configuration for private workstation cluster.
-    pub private_cluster_config:
-        std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
+    pub private_cluster_config: std::option::Option<crate::model::workstation_cluster::PrivateClusterConfig>,
 
     /// Output only. Whether this workstation cluster is in degraded mode, in which
     /// case it may require user action to restore full functionality. Details can
@@ -171,8 +171,7 @@ impl WorkstationCluster {
 
     /// Sets the value of [create_time][crate::model::WorkstationCluster::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -180,8 +179,7 @@ impl WorkstationCluster {
 
     /// Sets or clears the value of [create_time][crate::model::WorkstationCluster::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -189,8 +187,7 @@ impl WorkstationCluster {
 
     /// Sets the value of [update_time][crate::model::WorkstationCluster::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -198,8 +195,7 @@ impl WorkstationCluster {
 
     /// Sets or clears the value of [update_time][crate::model::WorkstationCluster::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -207,8 +203,7 @@ impl WorkstationCluster {
 
     /// Sets the value of [delete_time][crate::model::WorkstationCluster::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -216,8 +211,7 @@ impl WorkstationCluster {
 
     /// Sets or clears the value of [delete_time][crate::model::WorkstationCluster::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -242,18 +236,14 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [control_plane_ip][crate::model::WorkstationCluster::control_plane_ip].
-    pub fn set_control_plane_ip<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_control_plane_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_plane_ip = v.into();
         self
     }
 
     /// Sets the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
     pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
+    where T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>
     {
         self.private_cluster_config = std::option::Option::Some(v.into());
         self
@@ -261,8 +251,7 @@ impl WorkstationCluster {
 
     /// Sets or clears the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
+    where T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>
     {
         self.private_cluster_config = v.map(|x| x.into());
         self
@@ -278,7 +267,7 @@ impl WorkstationCluster {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -297,10 +286,12 @@ pub mod workstation_cluster {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration options for private workstation clusters.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrivateClusterConfig {
+
         /// Immutable. Whether Workstations endpoint is private.
         pub enable_private_endpoint: bool,
 
@@ -338,19 +329,13 @@ pub mod workstation_cluster {
         }
 
         /// Sets the value of [cluster_hostname][crate::model::workstation_cluster::PrivateClusterConfig::cluster_hostname].
-        pub fn set_cluster_hostname<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cluster_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_hostname = v.into();
             self
         }
 
         /// Sets the value of [service_attachment_uri][crate::model::workstation_cluster::PrivateClusterConfig::service_attachment_uri].
-        pub fn set_service_attachment_uri<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_attachment_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_attachment_uri = v.into();
             self
         }
@@ -359,7 +344,7 @@ pub mod workstation_cluster {
         pub fn set_allowed_projects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.allowed_projects = v.into_iter().map(|i| i.into()).collect();
@@ -386,6 +371,7 @@ pub mod workstation_cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkstationConfig {
+
     /// Full name of this workstation configuration.
     pub name: std::string::String,
 
@@ -401,13 +387,13 @@ pub struct WorkstationConfig {
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional.
     /// [Labels](https://cloud.google.com/workstations/docs/label-resources) that
     /// are applied to the workstation configuration and that are also propagated
     /// to the underlying Compute Engine resources.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time when this workstation configuration was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -467,8 +453,7 @@ pub struct WorkstationConfig {
     pub host: std::option::Option<crate::model::workstation_config::Host>,
 
     /// Optional. Directories to persist across workstation sessions.
-    pub persistent_directories:
-        std::vec::Vec<crate::model::workstation_config::PersistentDirectory>,
+    pub persistent_directories: std::vec::Vec<crate::model::workstation_config::PersistentDirectory>,
 
     /// Optional. Container that runs upon startup for each workstation using this
     /// workstation configuration.
@@ -492,8 +477,7 @@ pub struct WorkstationConfig {
     /// stops within 7 hours.
     ///
     /// Immutable after the workstation configuration is created.
-    pub encryption_key:
-        std::option::Option<crate::model::workstation_config::CustomerEncryptionKey>,
+    pub encryption_key: std::option::Option<crate::model::workstation_config::CustomerEncryptionKey>,
 
     /// Optional. Readiness checks to perform when starting a workstation using
     /// this workstation configuration. Mark a workstation as running only after
@@ -578,8 +562,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [create_time][crate::model::WorkstationConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -587,8 +570,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [create_time][crate::model::WorkstationConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -596,8 +578,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [update_time][crate::model::WorkstationConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -605,8 +586,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [update_time][crate::model::WorkstationConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -614,8 +594,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [delete_time][crate::model::WorkstationConfig::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -623,8 +602,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [delete_time][crate::model::WorkstationConfig::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -638,8 +616,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
     pub fn set_idle_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_timeout = std::option::Option::Some(v.into());
         self
@@ -647,8 +624,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
     pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_timeout = v.map(|x| x.into());
         self
@@ -656,8 +632,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
     pub fn set_running_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.running_timeout = std::option::Option::Some(v.into());
         self
@@ -665,8 +640,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
     pub fn set_or_clear_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.running_timeout = v.map(|x| x.into());
         self
@@ -674,8 +648,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [host][crate::model::WorkstationConfig::host].
     pub fn set_host<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::Host>,
+    where T: std::convert::Into<crate::model::workstation_config::Host>
     {
         self.host = std::option::Option::Some(v.into());
         self
@@ -683,8 +656,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [host][crate::model::WorkstationConfig::host].
     pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::Host>,
+    where T: std::convert::Into<crate::model::workstation_config::Host>
     {
         self.host = v.map(|x| x.into());
         self
@@ -694,7 +666,7 @@ impl WorkstationConfig {
     pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>,
+        V: std::convert::Into<crate::model::workstation_config::PersistentDirectory>
     {
         use std::iter::Iterator;
         self.persistent_directories = v.into_iter().map(|i| i.into()).collect();
@@ -703,8 +675,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [container][crate::model::WorkstationConfig::container].
     pub fn set_container<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::Container>,
+    where T: std::convert::Into<crate::model::workstation_config::Container>
     {
         self.container = std::option::Option::Some(v.into());
         self
@@ -712,8 +683,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [container][crate::model::WorkstationConfig::container].
     pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::Container>,
+    where T: std::convert::Into<crate::model::workstation_config::Container>
     {
         self.container = v.map(|x| x.into());
         self
@@ -721,8 +691,7 @@ impl WorkstationConfig {
 
     /// Sets the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
+    where T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>
     {
         self.encryption_key = std::option::Option::Some(v.into());
         self
@@ -730,8 +699,7 @@ impl WorkstationConfig {
 
     /// Sets or clears the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
+    where T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>
     {
         self.encryption_key = v.map(|x| x.into());
         self
@@ -741,7 +709,7 @@ impl WorkstationConfig {
     pub fn set_readiness_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workstation_config::ReadinessCheck>,
+        V: std::convert::Into<crate::model::workstation_config::ReadinessCheck>
     {
         use std::iter::Iterator;
         self.readiness_checks = v.into_iter().map(|i| i.into()).collect();
@@ -752,7 +720,7 @@ impl WorkstationConfig {
     pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.replica_zones = v.into_iter().map(|i| i.into()).collect();
@@ -769,7 +737,7 @@ impl WorkstationConfig {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -788,10 +756,12 @@ pub mod workstation_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Runtime host for a workstation.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Host {
+
         /// Type of host that will be used for the workstation's runtime.
         pub config: std::option::Option<crate::model::workstation_config::host::Config>,
 
@@ -807,12 +777,8 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `config` are mutually
         /// exclusive.
-        pub fn set_config<
-            T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::Config>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::Config>>>(mut self, v: T) -> Self
+        {
             self.config = v.into();
             self
         }
@@ -820,16 +786,10 @@ pub mod workstation_config {
         /// The value of [config][crate::model::workstation_config::Host::config]
         /// if it holds a `GceInstance`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn gce_instance(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
-        > {
+        pub fn gce_instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::workstation_config::host::GceInstance>> {
             #[allow(unreachable_patterns)]
             self.config.as_ref().and_then(|v| match v {
-                crate::model::workstation_config::host::Config::GceInstance(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::workstation_config::host::Config::GceInstance(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -839,16 +799,11 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `config` are
         /// mutually exclusive.
-        pub fn set_gce_instance<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gce_instance<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::host::GceInstance>>>(mut self, v: T) -> Self {
             self.config = std::option::Option::Some(
-                crate::model::workstation_config::host::Config::GceInstance(v.into()),
+                crate::model::workstation_config::host::Config::GceInstance(
+                    v.into()
+                )
             );
             self
         }
@@ -865,10 +820,12 @@ pub mod workstation_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// A runtime using a Compute Engine instance.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GceInstance {
+
             /// Optional. The type of machine to use for VM instances—for example,
             /// `"e2-standard-4"`. For more information about machine types that
             /// Cloud Workstations supports, see the list of
@@ -970,14 +927,10 @@ pub mod workstation_config {
             pub enable_nested_virtualization: bool,
 
             /// Optional. A set of Compute Engine Shielded instance options.
-            pub shielded_instance_config: std::option::Option<
-                crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig,
-            >,
+            pub shielded_instance_config: std::option::Option<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>,
 
             /// Optional. A set of Compute Engine Confidential VM instance options.
-            pub confidential_instance_config: std::option::Option<
-                crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig,
-            >,
+            pub confidential_instance_config: std::option::Option<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>,
 
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
@@ -992,19 +945,13 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [machine_type][crate::model::workstation_config::host::GceInstance::machine_type].
-            pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.machine_type = v.into();
                 self
             }
 
             /// Sets the value of [service_account][crate::model::workstation_config::host::GceInstance::service_account].
-            pub fn set_service_account<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.service_account = v.into();
                 self
             }
@@ -1013,7 +960,7 @@ pub mod workstation_config {
             pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -1024,7 +971,7 @@ pub mod workstation_config {
             pub fn set_tags<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -1044,19 +991,13 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [disable_public_ip_addresses][crate::model::workstation_config::host::GceInstance::disable_public_ip_addresses].
-            pub fn set_disable_public_ip_addresses<T: std::convert::Into<bool>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_disable_public_ip_addresses<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disable_public_ip_addresses = v.into();
                 self
             }
 
             /// Sets the value of [enable_nested_virtualization][crate::model::workstation_config::host::GceInstance::enable_nested_virtualization].
-            pub fn set_enable_nested_virtualization<T: std::convert::Into<bool>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_enable_nested_virtualization<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.enable_nested_virtualization = v.into();
                 self
             }
@@ -1111,10 +1052,12 @@ pub mod workstation_config {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// A set of Compute Engine Shielded instance options.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GceShieldedInstanceConfig {
+
                 /// Optional. Whether the instance has Secure Boot enabled.
                 pub enable_secure_boot: bool,
 
@@ -1145,10 +1088,7 @@ pub mod workstation_config {
                 }
 
                 /// Sets the value of [enable_integrity_monitoring][crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig::enable_integrity_monitoring].
-                pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.enable_integrity_monitoring = v.into();
                     self
                 }
@@ -1164,6 +1104,7 @@ pub mod workstation_config {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct GceConfidentialInstanceConfig {
+
                 /// Optional. Whether the instance has confidential compute enabled.
                 pub enable_confidential_compute: bool,
 
@@ -1176,10 +1117,7 @@ pub mod workstation_config {
                 }
 
                 /// Sets the value of [enable_confidential_compute][crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig::enable_confidential_compute].
-                pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.enable_confidential_compute = v.into();
                     self
                 }
@@ -1205,13 +1143,12 @@ pub mod workstation_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PersistentDirectory {
+
         /// Optional. Location of this directory in the running workstation.
         pub mount_path: std::string::String,
 
         /// How a persistent directory should be implemented.
-        pub directory_type: std::option::Option<
-            crate::model::workstation_config::persistent_directory::DirectoryType,
-        >,
+        pub directory_type: std::option::Option<crate::model::workstation_config::persistent_directory::DirectoryType>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1231,16 +1168,8 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `directory_type` are mutually
         /// exclusive.
-        pub fn set_directory_type<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::workstation_config::persistent_directory::DirectoryType,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_directory_type<T: std::convert::Into<std::option::Option<crate::model::workstation_config::persistent_directory::DirectoryType>>>(mut self, v: T) -> Self
+        {
             self.directory_type = v.into();
             self
         }
@@ -1248,18 +1177,10 @@ pub mod workstation_config {
         /// The value of [directory_type][crate::model::workstation_config::PersistentDirectory::directory_type]
         /// if it holds a `GcePd`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn gce_pd(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk,
-            >,
-        > {
+        pub fn gce_pd(&self) -> std::option::Option<&std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>> {
             #[allow(unreachable_patterns)]
             self.directory_type.as_ref().and_then(|v| match v {
-                crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1269,11 +1190,11 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `directory_type` are
         /// mutually exclusive.
-        pub fn set_gce_pd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>>>(mut self, v: T) -> Self{
+        pub fn set_gce_pd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>>>(mut self, v: T) -> Self {
             self.directory_type = std::option::Option::Some(
                 crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1289,6 +1210,7 @@ pub mod workstation_config {
     pub mod persistent_directory {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// A PersistentDirectory backed by a Compute Engine regional persistent
         /// disk. The
@@ -1372,25 +1294,19 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [disk_type][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type].
-            pub fn set_disk_type<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.disk_type = v.into();
                 self
             }
 
             /// Sets the value of [source_snapshot][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot].
-            pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.source_snapshot = v.into();
                 self
             }
 
             /// Sets the value of [reclaim_policy][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::reclaim_policy].
-            pub fn set_reclaim_policy<T: std::convert::Into<crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy>>(mut self, v: T) -> Self{
+            pub fn set_reclaim_policy<T: std::convert::Into<crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy>>(mut self, v: T) -> Self {
                 self.reclaim_policy = v.into();
                 self
             }
@@ -1406,6 +1322,7 @@ pub mod workstation_config {
         pub mod gce_regional_persistent_disk {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Value representing what should happen to the disk after the workstation
             /// is deleted.
@@ -1468,9 +1385,7 @@ pub mod workstation_config {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => {
-                            std::option::Option::Some("RECLAIM_POLICY_UNSPECIFIED")
-                        }
+                        Self::Unspecified => std::option::Option::Some("RECLAIM_POLICY_UNSPECIFIED"),
                         Self::Delete => std::option::Option::Some("DELETE"),
                         Self::Retain => std::option::Option::Some("RETAIN"),
                         Self::UnknownValue(u) => u.0.name(),
@@ -1486,10 +1401,7 @@ pub mod workstation_config {
             }
 
             impl std::fmt::Display for ReclaimPolicy {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -1500,9 +1412,7 @@ pub mod workstation_config {
                         0 => Self::Unspecified,
                         1 => Self::Delete,
                         2 => Self::Retain,
-                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -1514,9 +1424,7 @@ pub mod workstation_config {
                         "RECLAIM_POLICY_UNSPECIFIED" => Self::Unspecified,
                         "DELETE" => Self::Delete,
                         "RETAIN" => Self::Retain,
-                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(reclaim_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -1559,6 +1467,7 @@ pub mod workstation_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Container {
+
         /// Optional. A Docker container image that defines a custom environment.
         ///
         /// Cloud Workstations provides a number of
@@ -1581,7 +1490,7 @@ pub mod workstation_config {
         pub args: std::vec::Vec<std::string::String>,
 
         /// Optional. Environment variables passed to the container's entrypoint.
-        pub env: std::collections::HashMap<std::string::String, std::string::String>,
+        pub env: std::collections::HashMap<std::string::String,std::string::String>,
 
         /// Optional. If set, overrides the default DIR specified by the image.
         pub working_dir: std::string::String,
@@ -1608,7 +1517,7 @@ pub mod workstation_config {
         pub fn set_command<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.command = v.into_iter().map(|i| i.into()).collect();
@@ -1619,7 +1528,7 @@ pub mod workstation_config {
         pub fn set_args<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.args = v.into_iter().map(|i| i.into()).collect();
@@ -1666,6 +1575,7 @@ pub mod workstation_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomerEncryptionKey {
+
         /// Immutable. The name of the Google Cloud KMS encryption key. For example,
         /// `"projects/PROJECT_ID/locations/REGION/keyRings/KEY_RING/cryptoKeys/KEY_NAME"`.
         /// The key must be in the same region as the workstation configuration.
@@ -1695,10 +1605,7 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [kms_key_service_account][crate::model::workstation_config::CustomerEncryptionKey::kms_key_service_account].
-        pub fn set_kms_key_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kms_key_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key_service_account = v.into();
             self
         }
@@ -1714,6 +1621,7 @@ pub mod workstation_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReadinessCheck {
+
         /// Optional. Path to which the request should be sent.
         pub path: std::string::String,
 
@@ -1752,6 +1660,7 @@ pub mod workstation_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workstation {
+
     /// Full name of this workstation.
     pub name: std::string::String,
 
@@ -1766,13 +1675,13 @@ pub struct Workstation {
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional.
     /// [Labels](https://cloud.google.com/workstations/docs/label-resources) that
     /// are applied to the workstation and that are also propagated to the
     /// underlying Compute Engine resources.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time when this workstation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -1860,8 +1769,7 @@ impl Workstation {
 
     /// Sets the value of [create_time][crate::model::Workstation::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1869,8 +1777,7 @@ impl Workstation {
 
     /// Sets or clears the value of [create_time][crate::model::Workstation::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1878,8 +1785,7 @@ impl Workstation {
 
     /// Sets the value of [update_time][crate::model::Workstation::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1887,8 +1793,7 @@ impl Workstation {
 
     /// Sets or clears the value of [update_time][crate::model::Workstation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1896,8 +1801,7 @@ impl Workstation {
 
     /// Sets the value of [start_time][crate::model::Workstation::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1905,8 +1809,7 @@ impl Workstation {
 
     /// Sets or clears the value of [start_time][crate::model::Workstation::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1914,8 +1817,7 @@ impl Workstation {
 
     /// Sets the value of [delete_time][crate::model::Workstation::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -1923,8 +1825,7 @@ impl Workstation {
 
     /// Sets or clears the value of [delete_time][crate::model::Workstation::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -1937,10 +1838,7 @@ impl Workstation {
     }
 
     /// Sets the value of [state][crate::model::Workstation::state].
-    pub fn set_state<T: std::convert::Into<crate::model::workstation::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workstation::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1962,6 +1860,7 @@ impl wkt::message::Message for Workstation {
 pub mod workstation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Whether a workstation is running and ready to receive user requests.
     ///
@@ -2061,9 +1960,7 @@ pub mod workstation {
                 2 => Self::Running,
                 3 => Self::Stopping,
                 4 => Self::Stopped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2077,9 +1974,7 @@ pub mod workstation {
                 "STATE_RUNNING" => Self::Running,
                 "STATE_STOPPING" => Self::Stopping,
                 "STATE_STOPPED" => Self::Stopped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2106,8 +2001,7 @@ pub mod workstation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.workstations.v1.Workstation.State",
-            ))
+                ".google.cloud.workstations.v1.Workstation.State"))
         }
     }
 }
@@ -2116,6 +2010,7 @@ pub mod workstation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationClusterRequest {
+
     /// Required. Name of the requested resource.
     pub name: std::string::String,
 
@@ -2144,6 +2039,7 @@ impl wkt::message::Message for GetWorkstationClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationClustersRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -2191,6 +2087,7 @@ impl wkt::message::Message for ListWorkstationClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationClustersResponse {
+
     /// The requested workstation clusters.
     pub workstation_clusters: std::vec::Vec<crate::model::WorkstationCluster>,
 
@@ -2213,7 +2110,7 @@ impl ListWorkstationClustersResponse {
     pub fn set_workstation_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkstationCluster>,
+        V: std::convert::Into<crate::model::WorkstationCluster>
     {
         use std::iter::Iterator;
         self.workstation_clusters = v.into_iter().map(|i| i.into()).collect();
@@ -2230,7 +2127,7 @@ impl ListWorkstationClustersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2262,6 +2159,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationClustersRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationClusterRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -2290,18 +2188,14 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets the value of [workstation_cluster_id][crate::model::CreateWorkstationClusterRequest::workstation_cluster_id].
-    pub fn set_workstation_cluster_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_workstation_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation_cluster_id = v.into();
         self
     }
 
     /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
     pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationCluster>,
+    where T: std::convert::Into<crate::model::WorkstationCluster>
     {
         self.workstation_cluster = std::option::Option::Some(v.into());
         self
@@ -2309,8 +2203,7 @@ impl CreateWorkstationClusterRequest {
 
     /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationCluster>,
+    where T: std::convert::Into<crate::model::WorkstationCluster>
     {
         self.workstation_cluster = v.map(|x| x.into());
         self
@@ -2333,6 +2226,7 @@ impl wkt::message::Message for CreateWorkstationClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationClusterRequest {
+
     /// Required. Workstation cluster to update.
     pub workstation_cluster: std::option::Option<crate::model::WorkstationCluster>,
 
@@ -2359,8 +2253,7 @@ impl UpdateWorkstationClusterRequest {
 
     /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
     pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationCluster>,
+    where T: std::convert::Into<crate::model::WorkstationCluster>
     {
         self.workstation_cluster = std::option::Option::Some(v.into());
         self
@@ -2368,8 +2261,7 @@ impl UpdateWorkstationClusterRequest {
 
     /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationCluster>,
+    where T: std::convert::Into<crate::model::WorkstationCluster>
     {
         self.workstation_cluster = v.map(|x| x.into());
         self
@@ -2377,8 +2269,7 @@ impl UpdateWorkstationClusterRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2386,8 +2277,7 @@ impl UpdateWorkstationClusterRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2416,6 +2306,7 @@ impl wkt::message::Message for UpdateWorkstationClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationClusterRequest {
+
     /// Required. Name of the workstation cluster to delete.
     pub name: std::string::String,
 
@@ -2475,6 +2366,7 @@ impl wkt::message::Message for DeleteWorkstationClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationConfigRequest {
+
     /// Required. Name of the requested resource.
     pub name: std::string::String,
 
@@ -2503,6 +2395,7 @@ impl wkt::message::Message for GetWorkstationConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationConfigsRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -2550,6 +2443,7 @@ impl wkt::message::Message for ListWorkstationConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationConfigsResponse {
+
     /// The requested configs.
     pub workstation_configs: std::vec::Vec<crate::model::WorkstationConfig>,
 
@@ -2572,7 +2466,7 @@ impl ListWorkstationConfigsResponse {
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkstationConfig>,
+        V: std::convert::Into<crate::model::WorkstationConfig>
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2589,7 +2483,7 @@ impl ListWorkstationConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2621,6 +2515,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationConfigsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationConfigsRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -2668,6 +2563,7 @@ impl wkt::message::Message for ListUsableWorkstationConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationConfigsResponse {
+
     /// The requested configs.
     pub workstation_configs: std::vec::Vec<crate::model::WorkstationConfig>,
 
@@ -2690,7 +2586,7 @@ impl ListUsableWorkstationConfigsResponse {
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkstationConfig>,
+        V: std::convert::Into<crate::model::WorkstationConfig>
     {
         use std::iter::Iterator;
         self.workstation_configs = v.into_iter().map(|i| i.into()).collect();
@@ -2707,7 +2603,7 @@ impl ListUsableWorkstationConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2739,6 +2635,7 @@ impl gax::paginator::internal::PageableResponse for ListUsableWorkstationConfigs
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationConfigRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -2767,18 +2664,14 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets the value of [workstation_config_id][crate::model::CreateWorkstationConfigRequest::workstation_config_id].
-    pub fn set_workstation_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_workstation_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation_config_id = v.into();
         self
     }
 
     /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
     pub fn set_workstation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationConfig>,
+    where T: std::convert::Into<crate::model::WorkstationConfig>
     {
         self.workstation_config = std::option::Option::Some(v.into());
         self
@@ -2786,8 +2679,7 @@ impl CreateWorkstationConfigRequest {
 
     /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationConfig>,
+    where T: std::convert::Into<crate::model::WorkstationConfig>
     {
         self.workstation_config = v.map(|x| x.into());
         self
@@ -2810,6 +2702,7 @@ impl wkt::message::Message for CreateWorkstationConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationConfigRequest {
+
     /// Required. Config to update.
     pub workstation_config: std::option::Option<crate::model::WorkstationConfig>,
 
@@ -2836,8 +2729,7 @@ impl UpdateWorkstationConfigRequest {
 
     /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
     pub fn set_workstation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationConfig>,
+    where T: std::convert::Into<crate::model::WorkstationConfig>
     {
         self.workstation_config = std::option::Option::Some(v.into());
         self
@@ -2845,8 +2737,7 @@ impl UpdateWorkstationConfigRequest {
 
     /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkstationConfig>,
+    where T: std::convert::Into<crate::model::WorkstationConfig>
     {
         self.workstation_config = v.map(|x| x.into());
         self
@@ -2854,8 +2745,7 @@ impl UpdateWorkstationConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2863,8 +2753,7 @@ impl UpdateWorkstationConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2893,6 +2782,7 @@ impl wkt::message::Message for UpdateWorkstationConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationConfigRequest {
+
     /// Required. Name of the workstation configuration to delete.
     pub name: std::string::String,
 
@@ -2952,6 +2842,7 @@ impl wkt::message::Message for DeleteWorkstationConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkstationRequest {
+
     /// Required. Name of the requested resource.
     pub name: std::string::String,
 
@@ -2980,6 +2871,7 @@ impl wkt::message::Message for GetWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationsRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -3027,6 +2919,7 @@ impl wkt::message::Message for ListWorkstationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkstationsResponse {
+
     /// The requested workstations.
     pub workstations: std::vec::Vec<crate::model::Workstation>,
 
@@ -3049,7 +2942,7 @@ impl ListWorkstationsResponse {
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workstation>,
+        V: std::convert::Into<crate::model::Workstation>
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
@@ -3066,7 +2959,7 @@ impl ListWorkstationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3098,6 +2991,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationsRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -3145,6 +3039,7 @@ impl wkt::message::Message for ListUsableWorkstationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUsableWorkstationsResponse {
+
     /// The requested workstations.
     pub workstations: std::vec::Vec<crate::model::Workstation>,
 
@@ -3167,7 +3062,7 @@ impl ListUsableWorkstationsResponse {
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workstation>,
+        V: std::convert::Into<crate::model::Workstation>
     {
         use std::iter::Iterator;
         self.workstations = v.into_iter().map(|i| i.into()).collect();
@@ -3184,7 +3079,7 @@ impl ListUsableWorkstationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3216,6 +3111,7 @@ impl gax::paginator::internal::PageableResponse for ListUsableWorkstationsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkstationRequest {
+
     /// Required. Parent resource name.
     pub parent: std::string::String,
 
@@ -3251,8 +3147,7 @@ impl CreateWorkstationRequest {
 
     /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
     pub fn set_workstation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Workstation>,
+    where T: std::convert::Into<crate::model::Workstation>
     {
         self.workstation = std::option::Option::Some(v.into());
         self
@@ -3260,8 +3155,7 @@ impl CreateWorkstationRequest {
 
     /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Workstation>,
+    where T: std::convert::Into<crate::model::Workstation>
     {
         self.workstation = v.map(|x| x.into());
         self
@@ -3284,6 +3178,7 @@ impl wkt::message::Message for CreateWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkstationRequest {
+
     /// Required. Workstation to update.
     pub workstation: std::option::Option<crate::model::Workstation>,
 
@@ -3310,8 +3205,7 @@ impl UpdateWorkstationRequest {
 
     /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
     pub fn set_workstation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Workstation>,
+    where T: std::convert::Into<crate::model::Workstation>
     {
         self.workstation = std::option::Option::Some(v.into());
         self
@@ -3319,8 +3213,7 @@ impl UpdateWorkstationRequest {
 
     /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Workstation>,
+    where T: std::convert::Into<crate::model::Workstation>
     {
         self.workstation = v.map(|x| x.into());
         self
@@ -3328,8 +3221,7 @@ impl UpdateWorkstationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3337,8 +3229,7 @@ impl UpdateWorkstationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3367,6 +3258,7 @@ impl wkt::message::Message for UpdateWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkstationRequest {
+
     /// Required. Name of the workstation to delete.
     pub name: std::string::String,
 
@@ -3415,6 +3307,7 @@ impl wkt::message::Message for DeleteWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartWorkstationRequest {
+
     /// Required. Name of the workstation to start.
     pub name: std::string::String,
 
@@ -3463,6 +3356,7 @@ impl wkt::message::Message for StartWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopWorkstationRequest {
+
     /// Required. Name of the workstation to stop.
     pub name: std::string::String,
 
@@ -3511,6 +3405,7 @@ impl wkt::message::Message for StopWorkstationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenRequest {
+
     /// Required. Name of the workstation for which the access token should be
     /// generated.
     pub workstation: std::string::String,
@@ -3536,14 +3431,8 @@ impl GenerateAccessTokenRequest {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
-    pub fn set_expiration<
-        T: std::convert::Into<
-                std::option::Option<crate::model::generate_access_token_request::Expiration>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expiration<T: std::convert::Into<std::option::Option<crate::model::generate_access_token_request::Expiration>>>(mut self, v: T) -> Self
+    {
         self.expiration = v.into();
         self
     }
@@ -3554,9 +3443,7 @@ impl GenerateAccessTokenRequest {
     pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
-            crate::model::generate_access_token_request::Expiration::ExpireTime(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::generate_access_token_request::Expiration::ExpireTime(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3566,12 +3453,11 @@ impl GenerateAccessTokenRequest {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
-    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.expiration = std::option::Option::Some(
-            crate::model::generate_access_token_request::Expiration::ExpireTime(v.into()),
+            crate::model::generate_access_token_request::Expiration::ExpireTime(
+                v.into()
+            )
         );
         self
     }
@@ -3582,9 +3468,7 @@ impl GenerateAccessTokenRequest {
     pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
         #[allow(unreachable_patterns)]
         self.expiration.as_ref().and_then(|v| match v {
-            crate::model::generate_access_token_request::Expiration::Ttl(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::generate_access_token_request::Expiration::Ttl(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3596,7 +3480,9 @@ impl GenerateAccessTokenRequest {
     /// mutually exclusive.
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration = std::option::Option::Some(
-            crate::model::generate_access_token_request::Expiration::Ttl(v.into()),
+            crate::model::generate_access_token_request::Expiration::Ttl(
+                v.into()
+            )
         );
         self
     }
@@ -3612,6 +3498,7 @@ impl wkt::message::Message for GenerateAccessTokenRequest {
 pub mod generate_access_token_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Desired expiration or lifetime of the access token.
     #[derive(Clone, Debug, PartialEq)]
@@ -3633,6 +3520,7 @@ pub mod generate_access_token_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenResponse {
+
     /// The generated bearer access token. To use this token, include it in an
     /// Authorization header of an HTTP request sent to the associated
     /// workstation's hostname—for example, `Authorization: Bearer
@@ -3658,8 +3546,7 @@ impl GenerateAccessTokenResponse {
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -3667,8 +3554,7 @@ impl GenerateAccessTokenResponse {
 
     /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -3685,6 +3571,7 @@ impl wkt::message::Message for GenerateAccessTokenResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. Time that the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3717,8 +3604,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3726,8 +3612,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3735,8 +3620,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3744,8 +3628,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self

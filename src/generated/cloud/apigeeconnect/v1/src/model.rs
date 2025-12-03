@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsRequest {
+
     /// Required. Parent name of the form:
     /// `projects/{project_number or project_id}/endpoints/{endpoint}`.
     pub parent: std::string::String,
@@ -93,6 +94,7 @@ impl wkt::message::Message for ListConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConnectionsResponse {
+
     /// A list of clients.
     pub connections: std::vec::Vec<crate::model::Connection>,
 
@@ -112,7 +114,7 @@ impl ListConnectionsResponse {
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Connection>,
+        V: std::convert::Into<crate::model::Connection>
     {
         use std::iter::Iterator;
         self.connections = v.into_iter().map(|i| i.into()).collect();
@@ -149,6 +151,7 @@ impl gax::paginator::internal::PageableResponse for ListConnectionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
+
     /// The endpoint that the connection is made against.
     /// Format: `projects/{project_number}/endpoints/{endpoint}`
     pub endpoint: std::string::String,
@@ -175,8 +178,7 @@ impl Connection {
 
     /// Sets the value of [cluster][crate::model::Connection::cluster].
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -184,8 +186,7 @@ impl Connection {
 
     /// Sets or clears the value of [cluster][crate::model::Connection::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -207,6 +208,7 @@ impl wkt::message::Message for Connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
+
     /// The name of the cluster.
     pub name: std::string::String,
 
@@ -244,6 +246,7 @@ impl wkt::message::Message for Cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressRequest {
+
     /// Unique identifier for the request.
     pub id: std::string::String,
 
@@ -279,8 +282,7 @@ impl EgressRequest {
 
     /// Sets the value of [payload][crate::model::EgressRequest::payload].
     pub fn set_payload<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Payload>,
+    where T: std::convert::Into<crate::model::Payload>
     {
         self.payload = std::option::Option::Some(v.into());
         self
@@ -288,18 +290,14 @@ impl EgressRequest {
 
     /// Sets or clears the value of [payload][crate::model::EgressRequest::payload].
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Payload>,
+    where T: std::convert::Into<crate::model::Payload>
     {
         self.payload = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [endpoint][crate::model::EgressRequest::endpoint].
-    pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
     }
@@ -318,8 +316,7 @@ impl EgressRequest {
 
     /// Sets the value of [timeout][crate::model::EgressRequest::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -327,8 +324,7 @@ impl EgressRequest {
 
     /// Sets or clears the value of [timeout][crate::model::EgressRequest::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -345,6 +341,7 @@ impl wkt::message::Message for EgressRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Payload {
+
     /// The kind of payload.
     pub kind: std::option::Option<crate::model::payload::Kind>,
 
@@ -360,10 +357,8 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
-    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::payload::Kind>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::payload::Kind>>>(mut self, v: T) -> Self
+    {
         self.kind = v.into();
         self
     }
@@ -384,11 +379,12 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::HttpRequest(v.into()));
+    pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::payload::Kind::HttpRequest(
+                v.into()
+            )
+        );
         self
     }
 
@@ -408,11 +404,12 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    pub fn set_stream_info<T: std::convert::Into<std::boxed::Box<crate::model::StreamInfo>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::StreamInfo(v.into()));
+    pub fn set_stream_info<T: std::convert::Into<std::boxed::Box<crate::model::StreamInfo>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::payload::Kind::StreamInfo(
+                v.into()
+            )
+        );
         self
     }
 
@@ -433,7 +430,11 @@ impl Payload {
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
     pub fn set_action<T: std::convert::Into<crate::model::Action>>(mut self, v: T) -> Self {
-        self.kind = std::option::Option::Some(crate::model::payload::Kind::Action(v.into()));
+        self.kind = std::option::Option::Some(
+            crate::model::payload::Kind::Action(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -448,6 +449,7 @@ impl wkt::message::Message for Payload {
 pub mod payload {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The kind of payload.
     #[derive(Clone, Debug, PartialEq)]
@@ -466,6 +468,7 @@ pub mod payload {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamInfo {
+
     /// Unique identifier for the stream.
     pub id: std::string::String,
 
@@ -494,6 +497,7 @@ impl wkt::message::Message for StreamInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressResponse {
+
     /// Unique identifier for the response. Matches the EgressRequest's id.
     pub id: std::string::String,
 
@@ -534,8 +538,7 @@ impl EgressResponse {
 
     /// Sets the value of [http_response][crate::model::EgressResponse::http_response].
     pub fn set_http_response<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::HttpResponse>,
+    where T: std::convert::Into<crate::model::HttpResponse>
     {
         self.http_response = std::option::Option::Some(v.into());
         self
@@ -543,8 +546,7 @@ impl EgressResponse {
 
     /// Sets or clears the value of [http_response][crate::model::EgressResponse::http_response].
     pub fn set_or_clear_http_response<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::HttpResponse>,
+    where T: std::convert::Into<crate::model::HttpResponse>
     {
         self.http_response = v.map(|x| x.into());
         self
@@ -552,8 +554,7 @@ impl EgressResponse {
 
     /// Sets the value of [status][crate::model::EgressResponse::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -561,8 +562,7 @@ impl EgressResponse {
 
     /// Sets or clears the value of [status][crate::model::EgressResponse::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -581,10 +581,7 @@ impl EgressResponse {
     }
 
     /// Sets the value of [endpoint][crate::model::EgressResponse::endpoint].
-    pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
     }
@@ -606,6 +603,7 @@ impl wkt::message::Message for EgressResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
+
     /// A unique identifier for the request.
     pub id: std::string::String,
 
@@ -644,8 +642,7 @@ impl HttpRequest {
 
     /// Sets the value of [url][crate::model::HttpRequest::url].
     pub fn set_url<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Url>,
+    where T: std::convert::Into<crate::model::Url>
     {
         self.url = std::option::Option::Some(v.into());
         self
@@ -653,8 +650,7 @@ impl HttpRequest {
 
     /// Sets or clears the value of [url][crate::model::HttpRequest::url].
     pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Url>,
+    where T: std::convert::Into<crate::model::Url>
     {
         self.url = v.map(|x| x.into());
         self
@@ -664,7 +660,7 @@ impl HttpRequest {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Header>,
+        V: std::convert::Into<crate::model::Header>
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -693,6 +689,7 @@ impl wkt::message::Message for HttpRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Url {
+
     /// Scheme.
     pub scheme: crate::model::Scheme,
 
@@ -739,6 +736,7 @@ impl wkt::message::Message for Url {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Header {
+
     pub key: std::string::String,
 
     pub values: std::vec::Vec<std::string::String>,
@@ -761,7 +759,7 @@ impl Header {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -779,6 +777,7 @@ impl wkt::message::Message for Header {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpResponse {
+
     /// A unique identifier that matches the request ID.
     pub id: std::string::String,
 
@@ -836,7 +835,7 @@ impl HttpResponse {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Header>,
+        V: std::convert::Into<crate::model::Header>
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -937,9 +936,7 @@ impl std::convert::From<i32> for Action {
         match value {
             0 => Self::Unspecified,
             1 => Self::OpenNewStream,
-            _ => Self::UnknownValue(action::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -950,9 +947,7 @@ impl std::convert::From<&str> for Action {
         match value {
             "ACTION_UNSPECIFIED" => Self::Unspecified,
             "OPEN_NEW_STREAM" => Self::OpenNewStream,
-            _ => Self::UnknownValue(action::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -976,8 +971,7 @@ impl<'de> serde::de::Deserialize<'de> for Action {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-            ".google.cloud.apigeeconnect.v1.Action",
-        ))
+            ".google.cloud.apigeeconnect.v1.Action"))
     }
 }
 
@@ -1072,9 +1066,7 @@ impl std::convert::From<i32> for TetherEndpoint {
             1 => Self::ApigeeMart,
             2 => Self::ApigeeRuntime,
             3 => Self::ApigeeMintRating,
-            _ => Self::UnknownValue(tether_endpoint::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(tether_endpoint::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1087,9 +1079,7 @@ impl std::convert::From<&str> for TetherEndpoint {
             "APIGEE_MART" => Self::ApigeeMart,
             "APIGEE_RUNTIME" => Self::ApigeeRuntime,
             "APIGEE_MINT_RATING" => Self::ApigeeMintRating,
-            _ => Self::UnknownValue(tether_endpoint::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(tether_endpoint::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1115,8 +1105,7 @@ impl<'de> serde::de::Deserialize<'de> for TetherEndpoint {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TetherEndpoint>::new(
-            ".google.cloud.apigeeconnect.v1.TetherEndpoint",
-        ))
+            ".google.cloud.apigeeconnect.v1.TetherEndpoint"))
     }
 }
 
@@ -1201,9 +1190,7 @@ impl std::convert::From<i32> for Scheme {
         match value {
             0 => Self::Unspecified,
             1 => Self::Https,
-            _ => Self::UnknownValue(scheme::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(scheme::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1214,9 +1201,7 @@ impl std::convert::From<&str> for Scheme {
         match value {
             "SCHEME_UNSPECIFIED" => Self::Unspecified,
             "HTTPS" => Self::Https,
-            _ => Self::UnknownValue(scheme::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(scheme::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1240,7 +1225,6 @@ impl<'de> serde::de::Deserialize<'de> for Scheme {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scheme>::new(
-            ".google.cloud.apigeeconnect.v1.Scheme",
-        ))
+            ".google.cloud.apigeeconnect.v1.Scheme"))
     }
 }

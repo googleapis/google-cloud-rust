@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [BinauthzManagementServiceV1](super::stub::BinauthzManagementServiceV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct BinauthzManagementServiceV1<T>
-where
-    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> BinauthzManagementServiceV1<T>
-where
-    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1<T>
-where
-    T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_policy(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_attestor",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_attestor(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_attestor(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_attestor",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_attestor(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_attestor(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_attestor",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_attestor(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_attestor(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_attestors",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_attestors(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_attestors(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_attestor",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_attestor(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_attestor(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -308,25 +281,19 @@ where
 /// Implements a [SystemPolicyV1](super::stub::SystemPolicyV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SystemPolicyV1<T>
-where
-    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> SystemPolicyV1<T>
-where
-    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::SystemPolicyV1 for SystemPolicyV1<T>
-where
-    T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_system_policy(
         &self,
@@ -343,14 +310,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_system_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_system_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_system_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -370,25 +334,19 @@ where
 /// Implements a [ValidationHelperV1](super::stub::ValidationHelperV1) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ValidationHelperV1<T>
-where
-    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ValidationHelperV1<T>
-where
-    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ValidationHelperV1 for ValidationHelperV1<T>
-where
-    T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn validate_attestation_occurrence(
         &self,
@@ -405,14 +363,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "validate_attestation_occurrence",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .validate_attestation_occurrence(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.validate_attestation_occurrence(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -425,8 +380,7 @@ where
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
-        self.inner
-            .validate_attestation_occurrence(req, options)
-            .await
+        self.inner.validate_attestation_occurrence(req, options).await
     }
 }
+

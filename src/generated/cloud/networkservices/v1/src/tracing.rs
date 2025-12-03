@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DepService](super::stub::DepService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DepService for DepService<T>
-where
-    T: super::stub::DepService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DepService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_lb_traffic_extensions(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_lb_traffic_extensions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_lb_traffic_extensions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_lb_traffic_extensions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_lb_traffic_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_lb_traffic_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_lb_traffic_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_lb_traffic_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_lb_traffic_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_lb_traffic_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_lb_traffic_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_lb_traffic_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_lb_traffic_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_lb_traffic_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_lb_traffic_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_lb_traffic_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_lb_route_extensions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_lb_route_extensions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_lb_route_extensions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_lb_route_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_lb_route_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_lb_route_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -319,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_lb_route_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_lb_route_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_lb_route_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -357,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_lb_route_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_lb_route_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_lb_route_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -395,14 +362,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_lb_route_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_lb_route_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_lb_route_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -433,14 +397,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_lb_edge_extensions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_lb_edge_extensions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_lb_edge_extensions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -471,14 +432,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_lb_edge_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_lb_edge_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_lb_edge_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -509,14 +467,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_lb_edge_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_lb_edge_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_lb_edge_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -547,14 +502,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_lb_edge_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_lb_edge_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_lb_edge_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -585,14 +537,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_lb_edge_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_lb_edge_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_lb_edge_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -623,14 +572,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_authz_extensions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_authz_extensions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_authz_extensions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -661,14 +607,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_authz_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_authz_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_authz_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -699,14 +642,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_authz_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_authz_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_authz_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -737,14 +677,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_authz_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_authz_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_authz_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -775,14 +712,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_authz_extension",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_authz_extension(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_authz_extension(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -813,14 +747,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -851,14 +782,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -889,14 +817,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .set_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.set_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -927,14 +852,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -965,14 +887,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .test_iam_permissions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.test_iam_permissions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1003,14 +922,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1041,14 +957,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1079,14 +992,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1117,14 +1027,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1158,25 +1065,19 @@ where
 /// Implements a [NetworkServices](super::stub::NetworkServices) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::NetworkServices for NetworkServices<T>
-where
-    T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::NetworkServices + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_endpoint_policies(
         &self,
@@ -1193,14 +1094,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_endpoint_policies",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_endpoint_policies(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_endpoint_policies(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1231,14 +1129,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_endpoint_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_endpoint_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_endpoint_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1269,14 +1164,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_endpoint_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_endpoint_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_endpoint_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1307,14 +1199,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_endpoint_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_endpoint_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_endpoint_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1345,14 +1234,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_endpoint_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_endpoint_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_endpoint_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1383,14 +1269,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_wasm_plugin_versions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_wasm_plugin_versions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_wasm_plugin_versions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1421,14 +1304,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_wasm_plugin_version",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_wasm_plugin_version(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_wasm_plugin_version(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1459,14 +1339,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_wasm_plugin_version",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_wasm_plugin_version(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_wasm_plugin_version(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1497,14 +1374,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_wasm_plugin_version",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_wasm_plugin_version(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_wasm_plugin_version(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1535,14 +1409,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_wasm_plugins",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_wasm_plugins(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_wasm_plugins(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1573,14 +1444,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_wasm_plugin",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_wasm_plugin(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_wasm_plugin(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1611,14 +1479,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_wasm_plugin",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_wasm_plugin(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_wasm_plugin(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1649,14 +1514,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_wasm_plugin",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_wasm_plugin(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_wasm_plugin(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1687,14 +1549,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_wasm_plugin",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_wasm_plugin(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_wasm_plugin(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1725,14 +1584,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_gateways",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_gateways(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_gateways(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1763,14 +1619,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_gateway",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_gateway(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_gateway(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1801,14 +1654,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_gateway",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_gateway(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_gateway(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1839,14 +1689,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_gateway",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_gateway(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_gateway(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1877,14 +1724,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_gateway",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_gateway(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_gateway(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1915,14 +1759,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_grpc_routes",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_grpc_routes(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_grpc_routes(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1953,14 +1794,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_grpc_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_grpc_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_grpc_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1991,14 +1829,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_grpc_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_grpc_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_grpc_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2029,14 +1864,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_grpc_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_grpc_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_grpc_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2067,14 +1899,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_grpc_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_grpc_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_grpc_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2105,14 +1934,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_http_routes",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_http_routes(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_http_routes(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2143,14 +1969,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_http_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_http_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_http_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2181,14 +2004,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_http_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_http_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_http_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2219,14 +2039,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_http_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_http_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_http_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2257,14 +2074,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_http_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_http_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_http_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2295,14 +2109,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_tcp_routes",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_tcp_routes(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_tcp_routes(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2333,14 +2144,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_tcp_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_tcp_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_tcp_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2371,14 +2179,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_tcp_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_tcp_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_tcp_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2409,14 +2214,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_tcp_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_tcp_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_tcp_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2447,14 +2249,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_tcp_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_tcp_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_tcp_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2485,14 +2284,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_tls_routes",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_tls_routes(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_tls_routes(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2523,14 +2319,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_tls_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_tls_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_tls_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2561,14 +2354,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_tls_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_tls_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_tls_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2599,14 +2389,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_tls_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_tls_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_tls_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2637,14 +2424,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_tls_route",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_tls_route(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_tls_route(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2675,14 +2459,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_service_bindings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_service_bindings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_service_bindings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2713,14 +2494,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_service_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_service_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_service_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2751,14 +2529,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_service_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_service_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_service_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2789,14 +2564,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_service_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_service_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_service_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2827,14 +2599,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_service_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_service_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_service_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2865,14 +2634,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_meshes",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_meshes(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_meshes(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2903,14 +2669,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_mesh",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_mesh(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_mesh(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2941,14 +2704,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_mesh",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_mesh(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_mesh(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2979,14 +2739,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_mesh",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_mesh(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_mesh(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3017,14 +2774,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_mesh",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_mesh(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_mesh(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3055,14 +2809,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_service_lb_policies",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_service_lb_policies(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_service_lb_policies(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3093,14 +2844,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_service_lb_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_service_lb_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_service_lb_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3131,14 +2879,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_service_lb_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_service_lb_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_service_lb_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3169,14 +2914,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_service_lb_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_service_lb_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_service_lb_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3207,14 +2949,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_service_lb_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_service_lb_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_service_lb_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3245,14 +2984,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_gateway_route_view",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_gateway_route_view(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_gateway_route_view(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3283,14 +3019,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_mesh_route_view",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_mesh_route_view(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_mesh_route_view(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3321,14 +3054,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_gateway_route_views",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_gateway_route_views(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_gateway_route_views(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3359,14 +3089,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_mesh_route_views",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_mesh_route_views(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_mesh_route_views(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3397,14 +3124,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3435,14 +3159,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3473,14 +3194,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .set_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.set_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3511,14 +3229,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3549,14 +3264,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .test_iam_permissions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.test_iam_permissions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3587,14 +3299,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3625,14 +3334,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3663,14 +3369,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3701,14 +3404,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -3738,3 +3438,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

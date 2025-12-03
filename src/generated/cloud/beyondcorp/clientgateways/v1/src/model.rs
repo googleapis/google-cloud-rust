@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientGateway {
+
     /// Required. name of resource. The name is ignored during creation.
     pub name: std::string::String,
 
@@ -78,8 +79,7 @@ impl ClientGateway {
 
     /// Sets the value of [create_time][crate::model::ClientGateway::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -87,8 +87,7 @@ impl ClientGateway {
 
     /// Sets or clears the value of [create_time][crate::model::ClientGateway::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -96,8 +95,7 @@ impl ClientGateway {
 
     /// Sets the value of [update_time][crate::model::ClientGateway::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -105,18 +103,14 @@ impl ClientGateway {
 
     /// Sets or clears the value of [update_time][crate::model::ClientGateway::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::ClientGateway::state].
-    pub fn set_state<T: std::convert::Into<crate::model::client_gateway::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::client_gateway::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -128,10 +122,7 @@ impl ClientGateway {
     }
 
     /// Sets the value of [client_connector_service][crate::model::ClientGateway::client_connector_service].
-    pub fn set_client_connector_service<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_connector_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_connector_service = v.into();
         self
     }
@@ -147,6 +138,7 @@ impl wkt::message::Message for ClientGateway {
 pub mod client_gateway {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the different states of a gateway.
     ///
@@ -255,9 +247,7 @@ pub mod client_gateway {
                 4 => Self::Running,
                 5 => Self::Down,
                 6 => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -273,9 +263,7 @@ pub mod client_gateway {
                 "RUNNING" => Self::Running,
                 "DOWN" => Self::Down,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -304,8 +292,7 @@ pub mod client_gateway {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.beyondcorp.clientgateways.v1.ClientGateway.State",
-            ))
+                ".google.cloud.beyondcorp.clientgateways.v1.ClientGateway.State"))
         }
     }
 }
@@ -314,6 +301,7 @@ pub mod client_gateway {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientGatewaysRequest {
+
     /// Required. Parent value for ListClientGatewaysRequest.
     pub parent: std::string::String,
 
@@ -379,6 +367,7 @@ impl wkt::message::Message for ListClientGatewaysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClientGatewaysResponse {
+
     /// The list of ClientGateway.
     pub client_gateways: std::vec::Vec<crate::model::ClientGateway>,
 
@@ -400,7 +389,7 @@ impl ListClientGatewaysResponse {
     pub fn set_client_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientGateway>,
+        V: std::convert::Into<crate::model::ClientGateway>
     {
         use std::iter::Iterator;
         self.client_gateways = v.into_iter().map(|i| i.into()).collect();
@@ -417,7 +406,7 @@ impl ListClientGatewaysResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -449,6 +438,7 @@ impl gax::paginator::internal::PageableResponse for ListClientGatewaysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClientGatewayRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -477,6 +467,7 @@ impl wkt::message::Message for GetClientGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClientGatewayRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -524,18 +515,14 @@ impl CreateClientGatewayRequest {
     }
 
     /// Sets the value of [client_gateway_id][crate::model::CreateClientGatewayRequest::client_gateway_id].
-    pub fn set_client_gateway_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_gateway_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_gateway_id = v.into();
         self
     }
 
     /// Sets the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
     pub fn set_client_gateway<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientGateway>,
+    where T: std::convert::Into<crate::model::ClientGateway>
     {
         self.client_gateway = std::option::Option::Some(v.into());
         self
@@ -543,8 +530,7 @@ impl CreateClientGatewayRequest {
 
     /// Sets or clears the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
     pub fn set_or_clear_client_gateway<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClientGateway>,
+    where T: std::convert::Into<crate::model::ClientGateway>
     {
         self.client_gateway = v.map(|x| x.into());
         self
@@ -573,6 +559,7 @@ impl wkt::message::Message for CreateClientGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClientGatewayRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -632,6 +619,7 @@ impl wkt::message::Message for DeleteClientGatewayRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientGatewayOperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -669,8 +657,7 @@ impl ClientGatewayOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -678,8 +665,7 @@ impl ClientGatewayOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -687,8 +673,7 @@ impl ClientGatewayOperationMetadata {
 
     /// Sets the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -696,8 +681,7 @@ impl ClientGatewayOperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self

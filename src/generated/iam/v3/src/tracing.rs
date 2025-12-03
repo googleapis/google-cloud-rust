@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [PolicyBindings](super::stub::PolicyBindings) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings<T>
-where
-    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> PolicyBindings<T>
-where
-    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PolicyBindings for PolicyBindings<T>
-where
-    T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PolicyBindings + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_policy_binding(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_policy_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_policy_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_policy_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_policy_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_policy_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_policy_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_policy_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_policy_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_policy_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_policy_binding",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_policy_binding(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_policy_binding(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_policy_bindings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_policy_bindings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_policy_bindings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "search_target_policy_bindings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .search_target_policy_bindings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.search_target_policy_bindings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -322,25 +295,19 @@ where
 /// Implements a [PrincipalAccessBoundaryPolicies](super::stub::PrincipalAccessBoundaryPolicies) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies<T>
-where
-    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> PrincipalAccessBoundaryPolicies<T>
-where
-    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPolicies<T>
-where
-    T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PrincipalAccessBoundaryPolicies + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_principal_access_boundary_policy(
         &self,
@@ -357,14 +324,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_principal_access_boundary_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_principal_access_boundary_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -377,9 +341,7 @@ where
         req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .create_principal_access_boundary_policy(req, options)
-            .await
+        self.inner.create_principal_access_boundary_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_principal_access_boundary_policy(
@@ -397,14 +359,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_principal_access_boundary_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_principal_access_boundary_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -417,9 +376,7 @@ where
         req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PrincipalAccessBoundaryPolicy>> {
-        self.inner
-            .get_principal_access_boundary_policy(req, options)
-            .await
+        self.inner.get_principal_access_boundary_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_principal_access_boundary_policy(
@@ -437,14 +394,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_principal_access_boundary_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_principal_access_boundary_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -457,9 +411,7 @@ where
         req: crate::model::UpdatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .update_principal_access_boundary_policy(req, options)
-            .await
+        self.inner.update_principal_access_boundary_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_principal_access_boundary_policy(
@@ -477,14 +429,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_principal_access_boundary_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_principal_access_boundary_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_principal_access_boundary_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -497,17 +446,14 @@ where
         req: crate::model::DeletePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .delete_principal_access_boundary_policy(req, options)
-            .await
+        self.inner.delete_principal_access_boundary_policy(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_principal_access_boundary_policies(
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
-    {
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -518,14 +464,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_principal_access_boundary_policies",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_principal_access_boundary_policies(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_principal_access_boundary_policies(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -537,20 +480,15 @@ where
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
-    {
-        self.inner
-            .list_principal_access_boundary_policies(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>> {
+        self.inner.list_principal_access_boundary_policies(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn search_principal_access_boundary_policy_bindings(
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
-    > {
+    ) -> Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -561,14 +499,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "search_principal_access_boundary_policy_bindings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .search_principal_access_boundary_policy_bindings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.search_principal_access_boundary_policy_bindings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -580,12 +515,8 @@ where
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<
-        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
-    > {
-        self.inner
-            .search_principal_access_boundary_policy_bindings(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>> {
+        self.inner.search_principal_access_boundary_policy_bindings(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_operation(
@@ -603,14 +534,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -640,3 +568,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

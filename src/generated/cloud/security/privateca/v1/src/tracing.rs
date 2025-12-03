@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CertificateAuthorityService](super::stub::CertificateAuthorityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CertificateAuthorityService<T>
-where
-    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CertificateAuthorityService<T>
-where
-    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CertificateAuthorityService for CertificateAuthorityService<T>
-where
-    T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CertificateAuthorityService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_certificate(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_certificate",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_certificate(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_certificate(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_certificate",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_certificate(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_certificate(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_certificates",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_certificates(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_certificates(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "revoke_certificate",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .revoke_certificate(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.revoke_certificate(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_certificate",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_certificate(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_certificate(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "activate_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .activate_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.activate_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -263,9 +239,7 @@ where
         req: crate::model::ActivateCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .activate_certificate_authority(req, options)
-            .await
+        self.inner.activate_certificate_authority(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_certificate_authority(
@@ -283,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -321,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "disable_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .disable_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.disable_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -359,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "enable_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .enable_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.enable_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -397,14 +362,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_certificate_authority_csr",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_certificate_authority_csr(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_certificate_authority_csr(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -417,9 +379,7 @@ where
         req: crate::model::FetchCertificateAuthorityCsrRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>> {
-        self.inner
-            .fetch_certificate_authority_csr(req, options)
-            .await
+        self.inner.fetch_certificate_authority_csr(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_certificate_authority(
@@ -437,14 +397,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -475,14 +432,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_certificate_authorities",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_certificate_authorities(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_certificate_authorities(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -513,14 +467,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "undelete_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .undelete_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.undelete_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -533,9 +484,7 @@ where
         req: crate::model::UndeleteCertificateAuthorityRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .undelete_certificate_authority(req, options)
-            .await
+        self.inner.undelete_certificate_authority(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_certificate_authority(
@@ -553,14 +502,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -591,14 +537,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_certificate_authority",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_certificate_authority(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_certificate_authority(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -629,14 +572,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_ca_pool",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_ca_pool(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_ca_pool(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -667,14 +607,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_ca_pool",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_ca_pool(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_ca_pool(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -705,14 +642,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_ca_pool",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_ca_pool(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_ca_pool(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -743,14 +677,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_ca_pools",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_ca_pools(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_ca_pools(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -781,14 +712,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_ca_pool",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_ca_pool(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_ca_pool(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -819,14 +747,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_ca_certs",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_ca_certs(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_ca_certs(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -857,14 +782,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_certificate_revocation_list",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_certificate_revocation_list(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_certificate_revocation_list(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -877,9 +799,7 @@ where
         req: crate::model::GetCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CertificateRevocationList>> {
-        self.inner
-            .get_certificate_revocation_list(req, options)
-            .await
+        self.inner.get_certificate_revocation_list(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_certificate_revocation_lists(
@@ -897,14 +817,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_certificate_revocation_lists",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_certificate_revocation_lists(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_certificate_revocation_lists(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -917,9 +834,7 @@ where
         req: crate::model::ListCertificateRevocationListsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCertificateRevocationListsResponse>> {
-        self.inner
-            .list_certificate_revocation_lists(req, options)
-            .await
+        self.inner.list_certificate_revocation_lists(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_certificate_revocation_list(
@@ -937,14 +852,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_certificate_revocation_list",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_certificate_revocation_list(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_certificate_revocation_list(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -957,9 +869,7 @@ where
         req: crate::model::UpdateCertificateRevocationListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        self.inner
-            .update_certificate_revocation_list(req, options)
-            .await
+        self.inner.update_certificate_revocation_list(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_certificate_template(
@@ -977,14 +887,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_certificate_template",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_certificate_template(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_certificate_template(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1015,14 +922,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_certificate_template",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_certificate_template(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_certificate_template(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1053,14 +957,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_certificate_template",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_certificate_template(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_certificate_template(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1091,14 +992,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_certificate_templates",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_certificate_templates(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_certificate_templates(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1129,14 +1027,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_certificate_template",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_certificate_template(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_certificate_template(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1167,14 +1062,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1205,14 +1097,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1243,14 +1132,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .set_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.set_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1281,14 +1167,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1319,14 +1202,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .test_iam_permissions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.test_iam_permissions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1357,14 +1237,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1395,14 +1272,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1433,14 +1307,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1471,14 +1342,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1508,3 +1376,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

@@ -72,9 +72,7 @@ impl SecurityPosture {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::security_posture::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::security_posture::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::security_posture::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,43 +80,28 @@ impl SecurityPosture {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SecurityPosture + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SecurityPosture + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityPosture>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityPosture>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityPosture> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityPosture> {
         super::transport::SecurityPosture::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityPosture> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SecurityPosture::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityPosture> {
+        Self::build_transport(conf).await.map(super::tracing::SecurityPosture::new)
     }
 
     /// (-- This option restricts the visibility of the API to only projects that
@@ -128,12 +111,14 @@ impl SecurityPosture {
     /// "PREVIEW,GOOGLE_INTERNAL"; Postures Lists Postures in a given organization
     /// and location. In case a posture has multiple revisions, the latest revision
     /// as per UpdateTime will be returned.
-    pub fn list_postures(&self) -> super::builder::security_posture::ListPostures {
+    pub fn list_postures(&self) -> super::builder::security_posture::ListPostures
+    {
         super::builder::security_posture::ListPostures::new(self.inner.clone())
     }
 
     /// Lists revisions of a Posture in a given organization and location.
-    pub fn list_posture_revisions(&self) -> super::builder::security_posture::ListPostureRevisions {
+    pub fn list_posture_revisions(&self) -> super::builder::security_posture::ListPostureRevisions
+    {
         super::builder::security_posture::ListPostureRevisions::new(self.inner.clone())
     }
 
@@ -143,7 +128,8 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the Posture name does not
     /// exist. In case revision_id is not provided then the latest Posture revision
     /// by UpdateTime is returned.
-    pub fn get_posture(&self) -> super::builder::security_posture::GetPosture {
+    pub fn get_posture(&self) -> super::builder::security_posture::GetPosture
+    {
         super::builder::security_posture::GetPosture::new(self.inner.clone())
     }
 
@@ -161,7 +147,8 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_posture(&self) -> super::builder::security_posture::CreatePosture {
+    pub fn create_posture(&self) -> super::builder::security_posture::CreatePosture
+    {
         super::builder::security_posture::CreatePosture::new(self.inner.clone())
     }
 
@@ -187,7 +174,8 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_posture(&self) -> super::builder::security_posture::UpdatePosture {
+    pub fn update_posture(&self) -> super::builder::security_posture::UpdatePosture
+    {
         super::builder::security_posture::UpdatePosture::new(self.inner.clone())
     }
 
@@ -204,7 +192,8 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_posture(&self) -> super::builder::security_posture::DeletePosture {
+    pub fn delete_posture(&self) -> super::builder::security_posture::DeletePosture
+    {
         super::builder::security_posture::DeletePosture::new(self.inner.clone())
     }
 
@@ -221,20 +210,21 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn extract_posture(&self) -> super::builder::security_posture::ExtractPosture {
+    pub fn extract_posture(&self) -> super::builder::security_posture::ExtractPosture
+    {
         super::builder::security_posture::ExtractPosture::new(self.inner.clone())
     }
 
     /// PostureDeployments
     /// Lists PostureDeployments in a given project and location.
-    pub fn list_posture_deployments(
-        &self,
-    ) -> super::builder::security_posture::ListPostureDeployments {
+    pub fn list_posture_deployments(&self) -> super::builder::security_posture::ListPostureDeployments
+    {
         super::builder::security_posture::ListPostureDeployments::new(self.inner.clone())
     }
 
     /// Gets details of a single PostureDeployment.
-    pub fn get_posture_deployment(&self) -> super::builder::security_posture::GetPostureDeployment {
+    pub fn get_posture_deployment(&self) -> super::builder::security_posture::GetPostureDeployment
+    {
         super::builder::security_posture::GetPostureDeployment::new(self.inner.clone())
     }
 
@@ -249,9 +239,8 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_posture_deployment(
-        &self,
-    ) -> super::builder::security_posture::CreatePostureDeployment {
+    pub fn create_posture_deployment(&self) -> super::builder::security_posture::CreatePostureDeployment
+    {
         super::builder::security_posture::CreatePostureDeployment::new(self.inner.clone())
     }
 
@@ -266,9 +255,8 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_posture_deployment(
-        &self,
-    ) -> super::builder::security_posture::UpdatePostureDeployment {
+    pub fn update_posture_deployment(&self) -> super::builder::security_posture::UpdatePostureDeployment
+    {
         super::builder::security_posture::UpdatePostureDeployment::new(self.inner.clone())
     }
 
@@ -283,15 +271,15 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_posture_deployment(
-        &self,
-    ) -> super::builder::security_posture::DeletePostureDeployment {
+    pub fn delete_posture_deployment(&self) -> super::builder::security_posture::DeletePostureDeployment
+    {
         super::builder::security_posture::DeletePostureDeployment::new(self.inner.clone())
     }
 
     /// PostureTemplates
     /// Lists all the PostureTemplates available to the user.
-    pub fn list_posture_templates(&self) -> super::builder::security_posture::ListPostureTemplates {
+    pub fn list_posture_templates(&self) -> super::builder::security_posture::ListPostureTemplates
+    {
         super::builder::security_posture::ListPostureTemplates::new(self.inner.clone())
     }
 
@@ -301,45 +289,52 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the PostureTemplate name
     /// does not exist. In case revision_id is not provided then the
     /// PostureTemplate with latest revision_id is returned.
-    pub fn get_posture_template(&self) -> super::builder::security_posture::GetPostureTemplate {
+    pub fn get_posture_template(&self) -> super::builder::security_posture::GetPostureTemplate
+    {
         super::builder::security_posture::GetPostureTemplate::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::security_posture::ListLocations {
+    pub fn list_locations(&self) -> super::builder::security_posture::ListLocations
+    {
         super::builder::security_posture::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::security_posture::GetLocation {
+    pub fn get_location(&self) -> super::builder::security_posture::GetLocation
+    {
         super::builder::security_posture::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::security_posture::ListOperations {
+    pub fn list_operations(&self) -> super::builder::security_posture::ListOperations
+    {
         super::builder::security_posture::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::security_posture::GetOperation {
+    pub fn get_operation(&self) -> super::builder::security_posture::GetOperation
+    {
         super::builder::security_posture::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::security_posture::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::security_posture::DeleteOperation
+    {
         super::builder::security_posture::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::security_posture::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::security_posture::CancelOperation
+    {
         super::builder::security_posture::CancelOperation::new(self.inner.clone())
     }
 }

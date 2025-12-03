@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [VideoIntelligenceService](super::stub::VideoIntelligenceService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct VideoIntelligenceService<T>
-where
-    T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> VideoIntelligenceService<T>
-where
-    T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::VideoIntelligenceService for VideoIntelligenceService<T>
-where
-    T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::VideoIntelligenceService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn annotate_video(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "annotate_video",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .annotate_video(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.annotate_video(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -242,3 +221,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

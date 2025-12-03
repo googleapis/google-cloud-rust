@@ -912,10 +912,7 @@ impl std::fmt::Debug for super::ListManagementDnsZoneBindingsRequest {
 impl std::fmt::Debug for super::ListManagementDnsZoneBindingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListManagementDnsZoneBindingsResponse");
-        debug_struct.field(
-            "management_dns_zone_bindings",
-            &self.management_dns_zone_bindings,
-        );
+        debug_struct.field("management_dns_zone_bindings", &self.management_dns_zone_bindings);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -940,14 +937,8 @@ impl std::fmt::Debug for super::CreateManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateManagementDnsZoneBindingRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "management_dns_zone_binding",
-            &self.management_dns_zone_binding,
-        );
-        debug_struct.field(
-            "management_dns_zone_binding_id",
-            &self.management_dns_zone_binding_id,
-        );
+        debug_struct.field("management_dns_zone_binding", &self.management_dns_zone_binding);
+        debug_struct.field("management_dns_zone_binding_id", &self.management_dns_zone_binding_id);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -960,10 +951,7 @@ impl std::fmt::Debug for super::UpdateManagementDnsZoneBindingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateManagementDnsZoneBindingRequest");
         debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field(
-            "management_dns_zone_binding",
-            &self.management_dns_zone_binding,
-        );
+        debug_struct.field("management_dns_zone_binding", &self.management_dns_zone_binding);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1220,14 +1208,8 @@ impl std::fmt::Debug for super::NetworkConfig {
         let mut debug_struct = f.debug_struct("NetworkConfig");
         debug_struct.field("management_cidr", &self.management_cidr);
         debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
-        debug_struct.field(
-            "vmware_engine_network_canonical",
-            &self.vmware_engine_network_canonical,
-        );
-        debug_struct.field(
-            "management_ip_address_layout_version",
-            &self.management_ip_address_layout_version,
-        );
+        debug_struct.field("vmware_engine_network_canonical", &self.vmware_engine_network_canonical);
+        debug_struct.field("management_ip_address_layout_version", &self.management_ip_address_layout_version);
         debug_struct.field("dns_server_ip", &self.dns_server_ip);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1315,6 +1297,7 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Node {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1429,10 +1412,7 @@ impl std::fmt::Debug for super::NodeType {
         debug_struct.field("total_core_count", &self.total_core_count);
         debug_struct.field("memory_gb", &self.memory_gb);
         debug_struct.field("disk_size_gb", &self.disk_size_gb);
-        debug_struct.field(
-            "available_custom_core_counts",
-            &self.available_custom_core_counts,
-        );
+        debug_struct.field("available_custom_core_counts", &self.available_custom_core_counts);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("families", &self.families);
         debug_struct.field("capabilities", &self.capabilities);
@@ -1545,10 +1525,7 @@ impl std::fmt::Debug for super::autoscaling_settings::AutoscalingPolicy {
         debug_struct.field("scale_out_size", &self.scale_out_size);
         debug_struct.field("cpu_thresholds", &self.cpu_thresholds);
         debug_struct.field("granted_memory_thresholds", &self.granted_memory_thresholds);
-        debug_struct.field(
-            "consumed_memory_thresholds",
-            &self.consumed_memory_thresholds,
-        );
+        debug_struct.field("consumed_memory_thresholds", &self.consumed_memory_thresholds);
         debug_struct.field("storage_thresholds", &self.storage_thresholds);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1556,6 +1533,7 @@ impl std::fmt::Debug for super::autoscaling_settings::AutoscalingPolicy {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::DnsForwarding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1593,14 +1571,8 @@ impl std::fmt::Debug for super::NetworkPeering {
         debug_struct.field("export_custom_routes", &self.export_custom_routes);
         debug_struct.field("import_custom_routes", &self.import_custom_routes);
         debug_struct.field("exchange_subnet_routes", &self.exchange_subnet_routes);
-        debug_struct.field(
-            "export_custom_routes_with_public_ip",
-            &self.export_custom_routes_with_public_ip,
-        );
-        debug_struct.field(
-            "import_custom_routes_with_public_ip",
-            &self.import_custom_routes_with_public_ip,
-        );
+        debug_struct.field("export_custom_routes_with_public_ip", &self.export_custom_routes_with_public_ip);
+        debug_struct.field("import_custom_routes_with_public_ip", &self.import_custom_routes_with_public_ip);
         debug_struct.field("state", &self.state);
         debug_struct.field("state_details", &self.state_details);
         debug_struct.field("peer_mtu", &self.peer_mtu);
@@ -1643,10 +1615,7 @@ impl std::fmt::Debug for super::NetworkPolicy {
         debug_struct.field("uid", &self.uid);
         debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
         debug_struct.field("description", &self.description);
-        debug_struct.field(
-            "vmware_engine_network_canonical",
-            &self.vmware_engine_network_canonical,
-        );
+        debug_struct.field("vmware_engine_network_canonical", &self.vmware_engine_network_canonical);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1723,10 +1692,7 @@ impl std::fmt::Debug for super::PrivateConnection {
         debug_struct.field("description", &self.description);
         debug_struct.field("state", &self.state);
         debug_struct.field("vmware_engine_network", &self.vmware_engine_network);
-        debug_struct.field(
-            "vmware_engine_network_canonical",
-            &self.vmware_engine_network_canonical,
-        );
+        debug_struct.field("vmware_engine_network_canonical", &self.vmware_engine_network_canonical);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("peering_id", &self.peering_id);
         debug_struct.field("routing_mode", &self.routing_mode);

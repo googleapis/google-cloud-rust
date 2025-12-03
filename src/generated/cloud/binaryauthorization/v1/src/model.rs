@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Output only. The resource name, in the format `projects/*/policy`. There is
     /// at most one policy per project.
     pub name: std::string::String,
@@ -66,26 +67,22 @@ pub struct Policy {
     /// (e.g. us-central1).
     /// For `clusterId` syntax restrictions see
     /// <https://cloud.google.com/container-engine/reference/rest/v1/projects.zones.clusters>.
-    pub cluster_admission_rules:
-        std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
+    pub cluster_admission_rules: std::collections::HashMap<std::string::String,crate::model::AdmissionRule>,
 
     /// Optional. Per-kubernetes-namespace admission rules. K8s namespace spec format:
     /// [a-z.-]+, e.g. 'some-namespace'
-    pub kubernetes_namespace_admission_rules:
-        std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
+    pub kubernetes_namespace_admission_rules: std::collections::HashMap<std::string::String,crate::model::AdmissionRule>,
 
     /// Optional. Per-kubernetes-service-account admission rules. Service account
     /// spec format: `namespace:serviceaccount`. e.g. 'test-ns:default'
-    pub kubernetes_service_account_admission_rules:
-        std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
+    pub kubernetes_service_account_admission_rules: std::collections::HashMap<std::string::String,crate::model::AdmissionRule>,
 
     /// Optional. Per-istio-service-identity admission rules. Istio service
     /// identity spec format:
     /// spiffe://\<domain\>/ns/\<namespace\>/sa/\<serviceaccount\> or
     /// \<domain\>/ns/\<namespace\>/sa/\<serviceaccount\>
     /// e.g. spiffe://example.com/ns/test-ns/sa/default
-    pub istio_service_identity_admission_rules:
-        std::collections::HashMap<std::string::String, crate::model::AdmissionRule>,
+    pub istio_service_identity_admission_rules: std::collections::HashMap<std::string::String,crate::model::AdmissionRule>,
 
     /// Required. Default admission rule for a cluster without a per-cluster, per-
     /// kubernetes-service-account, or per-istio-service-identity admission rule.
@@ -115,12 +112,7 @@ impl Policy {
     }
 
     /// Sets the value of [global_policy_evaluation_mode][crate::model::Policy::global_policy_evaluation_mode].
-    pub fn set_global_policy_evaluation_mode<
-        T: std::convert::Into<crate::model::policy::GlobalPolicyEvaluationMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_global_policy_evaluation_mode<T: std::convert::Into<crate::model::policy::GlobalPolicyEvaluationMode>>(mut self, v: T) -> Self {
         self.global_policy_evaluation_mode = v.into();
         self
     }
@@ -129,7 +121,7 @@ impl Policy {
     pub fn set_admission_whitelist_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdmissionWhitelistPattern>,
+        V: std::convert::Into<crate::model::AdmissionWhitelistPattern>
     {
         use std::iter::Iterator;
         self.admission_whitelist_patterns = v.into_iter().map(|i| i.into()).collect();
@@ -156,8 +148,7 @@ impl Policy {
         V: std::convert::Into<crate::model::AdmissionRule>,
     {
         use std::iter::Iterator;
-        self.kubernetes_namespace_admission_rules =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.kubernetes_namespace_admission_rules = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -169,8 +160,7 @@ impl Policy {
         V: std::convert::Into<crate::model::AdmissionRule>,
     {
         use std::iter::Iterator;
-        self.kubernetes_service_account_admission_rules =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.kubernetes_service_account_admission_rules = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -182,15 +172,13 @@ impl Policy {
         V: std::convert::Into<crate::model::AdmissionRule>,
     {
         use std::iter::Iterator;
-        self.istio_service_identity_admission_rules =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.istio_service_identity_admission_rules = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
     /// Sets the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
     pub fn set_default_admission_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AdmissionRule>,
+    where T: std::convert::Into<crate::model::AdmissionRule>
     {
         self.default_admission_rule = std::option::Option::Some(v.into());
         self
@@ -198,8 +186,7 @@ impl Policy {
 
     /// Sets or clears the value of [default_admission_rule][crate::model::Policy::default_admission_rule].
     pub fn set_or_clear_default_admission_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AdmissionRule>,
+    where T: std::convert::Into<crate::model::AdmissionRule>
     {
         self.default_admission_rule = v.map(|x| x.into());
         self
@@ -207,8 +194,7 @@ impl Policy {
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -216,8 +202,7 @@ impl Policy {
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -234,6 +219,7 @@ impl wkt::message::Message for Policy {
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -293,9 +279,7 @@ pub mod policy {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED"),
                 Self::Enable => std::option::Option::Some("ENABLE"),
                 Self::Disable => std::option::Option::Some("DISABLE"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -322,9 +306,7 @@ pub mod policy {
                 0 => Self::Unspecified,
                 1 => Self::Enable,
                 2 => Self::Disable,
-                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -336,9 +318,7 @@ pub mod policy {
                 "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED" => Self::Unspecified,
                 "ENABLE" => Self::Enable,
                 "DISABLE" => Self::Disable,
-                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(global_policy_evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -362,11 +342,8 @@ pub mod policy {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<GlobalPolicyEvaluationMode>::new(
-                    ".google.cloud.binaryauthorization.v1.Policy.GlobalPolicyEvaluationMode",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GlobalPolicyEvaluationMode>::new(
+                ".google.cloud.binaryauthorization.v1.Policy.GlobalPolicyEvaluationMode"))
         }
     }
 }
@@ -379,6 +356,7 @@ pub mod policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdmissionWhitelistPattern {
+
     /// An image name pattern to allowlist, in the form `registry/path/to/image`.
     /// This supports a trailing `*` wildcard, but this is allowed only in
     /// text after the `registry/` part. This also supports a trailing `**`
@@ -420,6 +398,7 @@ impl wkt::message::Message for AdmissionWhitelistPattern {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdmissionRule {
+
     /// Required. How this admission rule will be evaluated.
     pub evaluation_mode: crate::model::admission_rule::EvaluationMode,
 
@@ -445,12 +424,7 @@ impl AdmissionRule {
     }
 
     /// Sets the value of [evaluation_mode][crate::model::AdmissionRule::evaluation_mode].
-    pub fn set_evaluation_mode<
-        T: std::convert::Into<crate::model::admission_rule::EvaluationMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_evaluation_mode<T: std::convert::Into<crate::model::admission_rule::EvaluationMode>>(mut self, v: T) -> Self {
         self.evaluation_mode = v.into();
         self
     }
@@ -459,7 +433,7 @@ impl AdmissionRule {
     pub fn set_require_attestations_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.require_attestations_by = v.into_iter().map(|i| i.into()).collect();
@@ -467,12 +441,7 @@ impl AdmissionRule {
     }
 
     /// Sets the value of [enforcement_mode][crate::model::AdmissionRule::enforcement_mode].
-    pub fn set_enforcement_mode<
-        T: std::convert::Into<crate::model::admission_rule::EnforcementMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enforcement_mode<T: std::convert::Into<crate::model::admission_rule::EnforcementMode>>(mut self, v: T) -> Self {
         self.enforcement_mode = v.into();
         self
     }
@@ -488,6 +457,7 @@ impl wkt::message::Message for AdmissionRule {
 pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -581,9 +551,7 @@ pub mod admission_rule {
                 1 => Self::AlwaysAllow,
                 2 => Self::RequireAttestation,
                 3 => Self::AlwaysDeny,
-                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -596,9 +564,7 @@ pub mod admission_rule {
                 "ALWAYS_ALLOW" => Self::AlwaysAllow,
                 "REQUIRE_ATTESTATION" => Self::RequireAttestation,
                 "ALWAYS_DENY" => Self::AlwaysDeny,
-                _ => Self::UnknownValue(evaluation_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(evaluation_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -624,8 +590,7 @@ pub mod admission_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EvaluationMode>::new(
-                ".google.cloud.binaryauthorization.v1.AdmissionRule.EvaluationMode",
-            ))
+                ".google.cloud.binaryauthorization.v1.AdmissionRule.EvaluationMode"))
         }
     }
 
@@ -691,9 +656,7 @@ pub mod admission_rule {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("ENFORCEMENT_MODE_UNSPECIFIED"),
-                Self::EnforcedBlockAndAuditLog => {
-                    std::option::Option::Some("ENFORCED_BLOCK_AND_AUDIT_LOG")
-                }
+                Self::EnforcedBlockAndAuditLog => std::option::Option::Some("ENFORCED_BLOCK_AND_AUDIT_LOG"),
                 Self::DryrunAuditLogOnly => std::option::Option::Some("DRYRUN_AUDIT_LOG_ONLY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -719,9 +682,7 @@ pub mod admission_rule {
                 0 => Self::Unspecified,
                 1 => Self::EnforcedBlockAndAuditLog,
                 2 => Self::DryrunAuditLogOnly,
-                _ => Self::UnknownValue(enforcement_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(enforcement_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -733,9 +694,7 @@ pub mod admission_rule {
                 "ENFORCEMENT_MODE_UNSPECIFIED" => Self::Unspecified,
                 "ENFORCED_BLOCK_AND_AUDIT_LOG" => Self::EnforcedBlockAndAuditLog,
                 "DRYRUN_AUDIT_LOG_ONLY" => Self::DryrunAuditLogOnly,
-                _ => Self::UnknownValue(enforcement_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(enforcement_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -760,8 +719,7 @@ pub mod admission_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnforcementMode>::new(
-                ".google.cloud.binaryauthorization.v1.AdmissionRule.EnforcementMode",
-            ))
+                ".google.cloud.binaryauthorization.v1.AdmissionRule.EnforcementMode"))
         }
     }
 }
@@ -774,6 +732,7 @@ pub mod admission_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attestor {
+
     /// Required. The resource name, in the format:
     /// `projects/*/attestors/*`. This field may not be updated.
     pub name: std::string::String,
@@ -809,8 +768,7 @@ impl Attestor {
 
     /// Sets the value of [update_time][crate::model::Attestor::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -818,8 +776,7 @@ impl Attestor {
 
     /// Sets or clears the value of [update_time][crate::model::Attestor::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -829,12 +786,8 @@ impl Attestor {
     ///
     /// Note that all the setters affecting `attestor_type` are mutually
     /// exclusive.
-    pub fn set_attestor_type<
-        T: std::convert::Into<std::option::Option<crate::model::attestor::AttestorType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_attestor_type<T: std::convert::Into<std::option::Option<crate::model::attestor::AttestorType>>>(mut self, v: T) -> Self
+    {
         self.attestor_type = v.into();
         self
     }
@@ -842,14 +795,10 @@ impl Attestor {
     /// The value of [attestor_type][crate::model::Attestor::attestor_type]
     /// if it holds a `UserOwnedGrafeasNote`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_owned_grafeas_note(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UserOwnedGrafeasNote>> {
+    pub fn user_owned_grafeas_note(&self) -> std::option::Option<&std::boxed::Box<crate::model::UserOwnedGrafeasNote>> {
         #[allow(unreachable_patterns)]
         self.attestor_type.as_ref().and_then(|v| match v {
-            crate::model::attestor::AttestorType::UserOwnedGrafeasNote(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::attestor::AttestorType::UserOwnedGrafeasNote(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -859,14 +808,11 @@ impl Attestor {
     ///
     /// Note that all the setters affecting `attestor_type` are
     /// mutually exclusive.
-    pub fn set_user_owned_grafeas_note<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserOwnedGrafeasNote>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_owned_grafeas_note<T: std::convert::Into<std::boxed::Box<crate::model::UserOwnedGrafeasNote>>>(mut self, v: T) -> Self {
         self.attestor_type = std::option::Option::Some(
-            crate::model::attestor::AttestorType::UserOwnedGrafeasNote(v.into()),
+            crate::model::attestor::AttestorType::UserOwnedGrafeasNote(
+                v.into()
+            )
         );
         self
     }
@@ -882,6 +828,7 @@ impl wkt::message::Message for Attestor {
 pub mod attestor {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -899,6 +846,7 @@ pub mod attestor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserOwnedGrafeasNote {
+
     /// Required. The Grafeas resource name of a Attestation.Authority Note,
     /// created by the user, in the format: `projects/*/notes/*`. This field may
     /// not be updated.
@@ -948,7 +896,7 @@ impl UserOwnedGrafeasNote {
     pub fn set_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AttestorPublicKey>,
+        V: std::convert::Into<crate::model::AttestorPublicKey>
     {
         use std::iter::Iterator;
         self.public_keys = v.into_iter().map(|i| i.into()).collect();
@@ -956,10 +904,7 @@ impl UserOwnedGrafeasNote {
     }
 
     /// Sets the value of [delegation_service_account_email][crate::model::UserOwnedGrafeasNote::delegation_service_account_email].
-    pub fn set_delegation_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_delegation_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delegation_service_account_email = v.into();
         self
     }
@@ -978,6 +923,7 @@ impl wkt::message::Message for UserOwnedGrafeasNote {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PkixPublicKey {
+
     /// A PEM-encoded public key, as described in
     /// <https://tools.ietf.org/html/rfc7468#section-13>
     pub public_key_pem: std::string::String,
@@ -1004,12 +950,7 @@ impl PkixPublicKey {
     }
 
     /// Sets the value of [signature_algorithm][crate::model::PkixPublicKey::signature_algorithm].
-    pub fn set_signature_algorithm<
-        T: std::convert::Into<crate::model::pkix_public_key::SignatureAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_signature_algorithm<T: std::convert::Into<crate::model::pkix_public_key::SignatureAlgorithm>>(mut self, v: T) -> Self {
         self.signature_algorithm = v.into();
         self
     }
@@ -1025,6 +966,7 @@ impl wkt::message::Message for PkixPublicKey {
 pub mod pkix_public_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents a signature algorithm and other information necessary to verify
     /// signatures with a given public key.
@@ -1131,18 +1073,10 @@ pub mod pkix_public_key {
                 Self::RsaPss3072Sha256 => std::option::Option::Some("RSA_PSS_3072_SHA256"),
                 Self::RsaPss4096Sha256 => std::option::Option::Some("RSA_PSS_4096_SHA256"),
                 Self::RsaPss4096Sha512 => std::option::Option::Some("RSA_PSS_4096_SHA512"),
-                Self::RsaSignPkcs12048Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256")
-                }
-                Self::RsaSignPkcs13072Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256")
-                }
-                Self::RsaSignPkcs14096Sha256 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256")
-                }
-                Self::RsaSignPkcs14096Sha512 => {
-                    std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512")
-                }
+                Self::RsaSignPkcs12048Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_2048_SHA256"),
+                Self::RsaSignPkcs13072Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_3072_SHA256"),
+                Self::RsaSignPkcs14096Sha256 => std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA256"),
+                Self::RsaSignPkcs14096Sha512 => std::option::Option::Some("RSA_SIGN_PKCS1_4096_SHA512"),
                 Self::EcdsaP256Sha256 => std::option::Option::Some("ECDSA_P256_SHA256"),
                 Self::EcSignP256Sha256 => std::option::Option::Some("EC_SIGN_P256_SHA256"),
                 Self::EcdsaP384Sha384 => std::option::Option::Some("ECDSA_P384_SHA384"),
@@ -1182,9 +1116,7 @@ pub mod pkix_public_key {
                 9 => Self::EcdsaP256Sha256,
                 10 => Self::EcdsaP384Sha384,
                 11 => Self::EcdsaP521Sha512,
-                _ => Self::UnknownValue(signature_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(signature_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1208,9 +1140,7 @@ pub mod pkix_public_key {
                 "EC_SIGN_P384_SHA384" => Self::EcSignP384Sha384,
                 "ECDSA_P521_SHA512" => Self::EcdsaP521Sha512,
                 "EC_SIGN_P521_SHA512" => Self::EcSignP521Sha512,
-                _ => Self::UnknownValue(signature_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(signature_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1247,8 +1177,7 @@ pub mod pkix_public_key {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SignatureAlgorithm>::new(
-                ".google.cloud.binaryauthorization.v1.PkixPublicKey.SignatureAlgorithm",
-            ))
+                ".google.cloud.binaryauthorization.v1.PkixPublicKey.SignatureAlgorithm"))
         }
     }
 }
@@ -1260,6 +1189,7 @@ pub mod pkix_public_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttestorPublicKey {
+
     /// Optional. A descriptive comment. This field may be updated.
     pub comment: std::string::String,
 
@@ -1298,12 +1228,8 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are mutually
     /// exclusive.
-    pub fn set_public_key<
-        T: std::convert::Into<std::option::Option<crate::model::attestor_public_key::PublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_public_key<T: std::convert::Into<std::option::Option<crate::model::attestor_public_key::PublicKey>>>(mut self, v: T) -> Self
+    {
         self.public_key = v.into();
         self
     }
@@ -1314,9 +1240,7 @@ impl AttestorPublicKey {
     pub fn ascii_armored_pgp_public_key(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.public_key.as_ref().and_then(|v| match v {
-            crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1326,12 +1250,11 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are
     /// mutually exclusive.
-    pub fn set_ascii_armored_pgp_public_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ascii_armored_pgp_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key = std::option::Option::Some(
-            crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(v.into()),
+            crate::model::attestor_public_key::PublicKey::AsciiArmoredPgpPublicKey(
+                v.into()
+            )
         );
         self
     }
@@ -1339,14 +1262,10 @@ impl AttestorPublicKey {
     /// The value of [public_key][crate::model::AttestorPublicKey::public_key]
     /// if it holds a `PkixPublicKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pkix_public_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PkixPublicKey>> {
+    pub fn pkix_public_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::PkixPublicKey>> {
         #[allow(unreachable_patterns)]
         self.public_key.as_ref().and_then(|v| match v {
-            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1356,14 +1275,11 @@ impl AttestorPublicKey {
     ///
     /// Note that all the setters affecting `public_key` are
     /// mutually exclusive.
-    pub fn set_pkix_public_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::PkixPublicKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pkix_public_key<T: std::convert::Into<std::boxed::Box<crate::model::PkixPublicKey>>>(mut self, v: T) -> Self {
         self.public_key = std::option::Option::Some(
-            crate::model::attestor_public_key::PublicKey::PkixPublicKey(v.into()),
+            crate::model::attestor_public_key::PublicKey::PkixPublicKey(
+                v.into()
+            )
         );
         self
     }
@@ -1379,6 +1295,7 @@ impl wkt::message::Message for AttestorPublicKey {
 pub mod attestor_public_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -1406,6 +1323,7 @@ pub mod attestor_public_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
+
     /// Required. The resource name of the [policy][google.cloud.binaryauthorization.v1.Policy] to retrieve,
     /// in the format `projects/*/policy`.
     ///
@@ -1437,6 +1355,7 @@ impl wkt::message::Message for GetPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
+
     /// Required. A new or updated [policy][google.cloud.binaryauthorization.v1.Policy] value. The service will
     /// overwrite the [policy name][google.cloud.binaryauthorization.v1.Policy.name] field with the resource name in
     /// the request URL, in the format `projects/*/policy`.
@@ -1455,8 +1374,7 @@ impl UpdatePolicyRequest {
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -1464,8 +1382,7 @@ impl UpdatePolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -1482,6 +1399,7 @@ impl wkt::message::Message for UpdatePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAttestorRequest {
+
     /// Required. The parent of this [attestor][google.cloud.binaryauthorization.v1.Attestor].
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
@@ -1522,8 +1440,7 @@ impl CreateAttestorRequest {
 
     /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
     pub fn set_attestor<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Attestor>,
+    where T: std::convert::Into<crate::model::Attestor>
     {
         self.attestor = std::option::Option::Some(v.into());
         self
@@ -1531,8 +1448,7 @@ impl CreateAttestorRequest {
 
     /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Attestor>,
+    where T: std::convert::Into<crate::model::Attestor>
     {
         self.attestor = v.map(|x| x.into());
         self
@@ -1549,6 +1465,7 @@ impl wkt::message::Message for CreateAttestorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAttestorRequest {
+
     /// Required. The name of the [attestor][google.cloud.binaryauthorization.v1.Attestor] to retrieve, in the format
     /// `projects/*/attestors/*`.
     ///
@@ -1580,6 +1497,7 @@ impl wkt::message::Message for GetAttestorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAttestorRequest {
+
     /// Required. The updated [attestor][google.cloud.binaryauthorization.v1.Attestor] value. The service will
     /// overwrite the [attestor name][google.cloud.binaryauthorization.v1.Attestor.name] field with the resource name
     /// in the request URL, in the format `projects/*/attestors/*`.
@@ -1598,8 +1516,7 @@ impl UpdateAttestorRequest {
 
     /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
     pub fn set_attestor<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Attestor>,
+    where T: std::convert::Into<crate::model::Attestor>
     {
         self.attestor = std::option::Option::Some(v.into());
         self
@@ -1607,8 +1524,7 @@ impl UpdateAttestorRequest {
 
     /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
     pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Attestor>,
+    where T: std::convert::Into<crate::model::Attestor>
     {
         self.attestor = v.map(|x| x.into());
         self
@@ -1625,6 +1541,7 @@ impl wkt::message::Message for UpdateAttestorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsRequest {
+
     /// Required. The resource name of the project associated with the
     /// [attestors][google.cloud.binaryauthorization.v1.Attestor], in the format `projects/*`.
     ///
@@ -1679,6 +1596,7 @@ impl wkt::message::Message for ListAttestorsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAttestorsResponse {
+
     /// The list of [attestors][google.cloud.binaryauthorization.v1.Attestor].
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
@@ -1703,7 +1621,7 @@ impl ListAttestorsResponse {
     pub fn set_attestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attestor>,
+        V: std::convert::Into<crate::model::Attestor>
     {
         use std::iter::Iterator;
         self.attestors = v.into_iter().map(|i| i.into()).collect();
@@ -1741,6 +1659,7 @@ impl gax::paginator::internal::PageableResponse for ListAttestorsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAttestorRequest {
+
     /// Required. The name of the [attestors][google.cloud.binaryauthorization.v1.Attestor] to delete, in the format
     /// `projects/*/attestors/*`.
     ///
@@ -1772,6 +1691,7 @@ impl wkt::message::Message for DeleteAttestorRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSystemPolicyRequest {
+
     /// Required. The resource name, in the format `locations/*/policy`.
     /// Note that the system policy is not associated with a project.
     pub name: std::string::String,
@@ -1804,6 +1724,7 @@ impl wkt::message::Message for GetSystemPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceRequest {
+
     /// Required. The resource name of the [Attestor][google.cloud.binaryauthorization.v1.Attestor] of the
     /// [occurrence][grafeas.v1.Occurrence], in the format
     /// `projects/*/attestors/*`.
@@ -1843,8 +1764,7 @@ impl ValidateAttestationOccurrenceRequest {
 
     /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
     pub fn set_attestation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+    where T: std::convert::Into<grafeas::model::AttestationOccurrence>
     {
         self.attestation = std::option::Option::Some(v.into());
         self
@@ -1852,8 +1772,7 @@ impl ValidateAttestationOccurrenceRequest {
 
     /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+    where T: std::convert::Into<grafeas::model::AttestationOccurrence>
     {
         self.attestation = v.map(|x| x.into());
         self
@@ -1866,10 +1785,7 @@ impl ValidateAttestationOccurrenceRequest {
     }
 
     /// Sets the value of [occurrence_resource_uri][crate::model::ValidateAttestationOccurrenceRequest::occurrence_resource_uri].
-    pub fn set_occurrence_resource_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_occurrence_resource_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.occurrence_resource_uri = v.into();
         self
     }
@@ -1888,6 +1804,7 @@ impl wkt::message::Message for ValidateAttestationOccurrenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValidateAttestationOccurrenceResponse {
+
     /// The result of the Attestation validation.
     pub result: crate::model::validate_attestation_occurrence_response::Result,
 
@@ -1903,12 +1820,7 @@ impl ValidateAttestationOccurrenceResponse {
     }
 
     /// Sets the value of [result][crate::model::ValidateAttestationOccurrenceResponse::result].
-    pub fn set_result<
-        T: std::convert::Into<crate::model::validate_attestation_occurrence_response::Result>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<crate::model::validate_attestation_occurrence_response::Result>>(mut self, v: T) -> Self {
         self.result = v.into();
         self
     }
@@ -1930,6 +1842,7 @@ impl wkt::message::Message for ValidateAttestationOccurrenceResponse {
 pub mod validate_attestation_occurrence_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The enum returned in the "result" field.
     ///
@@ -1992,9 +1905,7 @@ pub mod validate_attestation_occurrence_response {
             match self {
                 Self::Unspecified => std::option::Option::Some("RESULT_UNSPECIFIED"),
                 Self::Verified => std::option::Option::Some("VERIFIED"),
-                Self::AttestationNotVerifiable => {
-                    std::option::Option::Some("ATTESTATION_NOT_VERIFIABLE")
-                }
+                Self::AttestationNotVerifiable => std::option::Option::Some("ATTESTATION_NOT_VERIFIABLE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2019,9 +1930,7 @@ pub mod validate_attestation_occurrence_response {
                 0 => Self::Unspecified,
                 1 => Self::Verified,
                 2 => Self::AttestationNotVerifiable,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2033,9 +1942,7 @@ pub mod validate_attestation_occurrence_response {
                 "RESULT_UNSPECIFIED" => Self::Unspecified,
                 "VERIFIED" => Self::Verified,
                 "ATTESTATION_NOT_VERIFIABLE" => Self::AttestationNotVerifiable,
-                _ => Self::UnknownValue(result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(result::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2060,8 +1967,7 @@ pub mod validate_attestation_occurrence_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Result>::new(
-                ".google.cloud.binaryauthorization.v1.ValidateAttestationOccurrenceResponse.Result",
-            ))
+                ".google.cloud.binaryauthorization.v1.ValidateAttestationOccurrenceResponse.Result"))
         }
     }
 }

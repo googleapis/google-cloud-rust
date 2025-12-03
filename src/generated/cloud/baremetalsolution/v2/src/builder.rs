@@ -39,10 +39,7 @@ pub mod bare_metal_solution {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BareMetalSolution;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod bare_metal_solution {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod bare_metal_solution {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancesResponse> {
-            (*self.0.stub)
-                .list_instances(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_instances(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -201,10 +185,10 @@ pub mod bare_metal_solution {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -221,10 +205,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            (*self.0.stub)
-                .get_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -265,10 +246,10 @@ pub mod bare_metal_solution {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -290,18 +271,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance][crate::client::BareMetalSolution::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -333,8 +312,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Instance>,
+        where T: std::convert::Into<crate::model::Instance>
         {
             self.0.request.instance = std::option::Option::Some(v.into());
             self
@@ -344,8 +322,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Instance>,
+        where T: std::convert::Into<crate::model::Instance>
         {
             self.0.request.instance = v.map(|x| x.into());
             self
@@ -353,8 +330,7 @@ pub mod bare_metal_solution {
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -362,8 +338,7 @@ pub mod bare_metal_solution {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -398,10 +373,10 @@ pub mod bare_metal_solution {
     pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
 
     impl RenameInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -418,10 +393,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            (*self.0.stub)
-                .rename_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rename_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameInstanceRequest::name].
@@ -470,10 +442,10 @@ pub mod bare_metal_solution {
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -495,21 +467,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_instance][crate::client::BareMetalSolution::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .reset_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).reset_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_instance`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ResetInstanceResponse, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ResetInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ResetInstanceResponse,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ResetInstanceResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -575,10 +542,10 @@ pub mod bare_metal_solution {
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -600,21 +567,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_instance][crate::client::BareMetalSolution::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .start_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).start_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_instance`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::StartInstanceResponse, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::StartInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::StartInstanceResponse,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::StartInstanceResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -680,10 +642,10 @@ pub mod bare_metal_solution {
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -705,21 +667,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_instance][crate::client::BareMetalSolution::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .stop_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).stop_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_instance`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::StopInstanceResponse, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::StopInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::StopInstanceResponse,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::StopInstanceResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -782,22 +739,17 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableInteractiveSerialConsole(
-        RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
-    );
+    pub struct EnableInteractiveSerialConsole(RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>);
 
     impl EnableInteractiveSerialConsole {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EnableInteractiveSerialConsoleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::EnableInteractiveSerialConsoleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -815,23 +767,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .enable_interactive_serial_console(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).enable_interactive_serial_console(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_interactive_serial_console`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::EnableInteractiveSerialConsoleResponse,
-            crate::model::OperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::EnableInteractiveSerialConsoleResponse,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::EnableInteractiveSerialConsoleResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::EnableInteractiveSerialConsoleResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -894,22 +839,17 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableInteractiveSerialConsole(
-        RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
-    );
+    pub struct DisableInteractiveSerialConsole(RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>);
 
     impl DisableInteractiveSerialConsole {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DisableInteractiveSerialConsoleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DisableInteractiveSerialConsoleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -927,23 +867,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .disable_interactive_serial_console(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).disable_interactive_serial_console(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_interactive_serial_console`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::DisableInteractiveSerialConsoleResponse,
-            crate::model::OperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::DisableInteractiveSerialConsoleResponse,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::DisableInteractiveSerialConsoleResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::DisableInteractiveSerialConsoleResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1009,10 +942,10 @@ pub mod bare_metal_solution {
     pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
 
     impl DetachLun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1034,18 +967,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [detach_lun][crate::client::BareMetalSolution::detach_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .detach_lun(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).detach_lun(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `detach_lun`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1128,10 +1059,10 @@ pub mod bare_metal_solution {
     pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
 
     impl ListSSHKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1148,17 +1079,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSSHKeysResponse> {
-            (*self.0.stub)
-                .list_ssh_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_ssh_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1170,10 +1095,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSSHKeysResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSSHKeysResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1227,10 +1149,10 @@ pub mod bare_metal_solution {
     pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
     impl CreateSSHKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1247,10 +1169,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SSHKey> {
-            (*self.0.stub)
-                .create_ssh_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_ssh_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSSHKeyRequest::parent].
@@ -1265,8 +1184,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_ssh_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SSHKey>,
+        where T: std::convert::Into<crate::model::SSHKey>
         {
             self.0.request.ssh_key = std::option::Option::Some(v.into());
             self
@@ -1276,8 +1194,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SSHKey>,
+        where T: std::convert::Into<crate::model::SSHKey>
         {
             self.0.request.ssh_key = v.map(|x| x.into());
             self
@@ -1320,10 +1237,10 @@ pub mod bare_metal_solution {
     pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
     impl DeleteSSHKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1340,10 +1257,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_ssh_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_ssh_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSSHKeyRequest::name].
@@ -1387,10 +1301,10 @@ pub mod bare_metal_solution {
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1407,17 +1321,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVolumesResponse> {
-            (*self.0.stub)
-                .list_volumes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_volumes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1429,10 +1337,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1492,10 +1397,10 @@ pub mod bare_metal_solution {
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1512,10 +1417,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Volume> {
-            (*self.0.stub)
-                .get_volume(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_volume(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
@@ -1556,10 +1458,10 @@ pub mod bare_metal_solution {
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1581,18 +1483,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_volume][crate::client::BareMetalSolution::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_volume(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_volume(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_volume`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1624,8 +1524,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_volume<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Volume>,
+        where T: std::convert::Into<crate::model::Volume>
         {
             self.0.request.volume = std::option::Option::Some(v.into());
             self
@@ -1635,8 +1534,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Volume>,
+        where T: std::convert::Into<crate::model::Volume>
         {
             self.0.request.volume = v.map(|x| x.into());
             self
@@ -1644,8 +1542,7 @@ pub mod bare_metal_solution {
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1653,8 +1550,7 @@ pub mod bare_metal_solution {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1689,10 +1585,10 @@ pub mod bare_metal_solution {
     pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
 
     impl RenameVolume {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1709,10 +1605,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Volume> {
-            (*self.0.stub)
-                .rename_volume(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rename_volume(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameVolumeRequest::name].
@@ -1761,10 +1654,10 @@ pub mod bare_metal_solution {
     pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
 
     impl EvictVolume {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1786,14 +1679,15 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evict_volume][crate::client::BareMetalSolution::evict_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .evict_volume(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).evict_volume(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_volume`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1819,12 +1713,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EvictVolumeRequest::name].
@@ -1865,10 +1754,10 @@ pub mod bare_metal_solution {
     pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
 
     impl ResizeVolume {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1890,18 +1779,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [resize_volume][crate::client::BareMetalSolution::resize_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .resize_volume(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).resize_volume(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resize_volume`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1976,10 +1863,10 @@ pub mod bare_metal_solution {
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1996,17 +1883,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNetworksResponse> {
-            (*self.0.stub)
-                .list_networks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_networks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2018,10 +1899,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2081,17 +1959,14 @@ pub mod bare_metal_solution {
     pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
     impl ListNetworkUsage {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListNetworkUsageRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListNetworkUsageRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2104,10 +1979,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNetworkUsageResponse> {
-            (*self.0.stub)
-                .list_network_usage(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_network_usage(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::ListNetworkUsageRequest::location].
@@ -2147,10 +2019,10 @@ pub mod bare_metal_solution {
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2167,10 +2039,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Network> {
-            (*self.0.stub)
-                .get_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
@@ -2211,10 +2080,10 @@ pub mod bare_metal_solution {
     pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
 
     impl UpdateNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2236,18 +2105,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network][crate::client::BareMetalSolution::update_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Network, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2279,8 +2146,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_network<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Network>,
+        where T: std::convert::Into<crate::model::Network>
         {
             self.0.request.network = std::option::Option::Some(v.into());
             self
@@ -2290,8 +2156,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Network>,
+        where T: std::convert::Into<crate::model::Network>
         {
             self.0.request.network = v.map(|x| x.into());
             self
@@ -2299,8 +2164,7 @@ pub mod bare_metal_solution {
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2308,8 +2172,7 @@ pub mod bare_metal_solution {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2344,17 +2207,14 @@ pub mod bare_metal_solution {
     pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
 
     impl CreateVolumeSnapshot {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateVolumeSnapshotRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateVolumeSnapshotRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2367,10 +2227,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VolumeSnapshot> {
-            (*self.0.stub)
-                .create_volume_snapshot(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_volume_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeSnapshotRequest::parent].
@@ -2385,8 +2242,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_volume_snapshot<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        where T: std::convert::Into<crate::model::VolumeSnapshot>
         {
             self.0.request.volume_snapshot = std::option::Option::Some(v.into());
             self
@@ -2396,8 +2252,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        where T: std::convert::Into<crate::model::VolumeSnapshot>
         {
             self.0.request.volume_snapshot = v.map(|x| x.into());
             self
@@ -2433,17 +2288,14 @@ pub mod bare_metal_solution {
     pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
 
     impl RestoreVolumeSnapshot {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestoreVolumeSnapshotRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RestoreVolumeSnapshotRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2461,21 +2313,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .restore_volume_snapshot(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restore_volume_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_volume_snapshot`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::VolumeSnapshot, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::VolumeSnapshot, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::VolumeSnapshot,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::VolumeSnapshot, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2540,17 +2387,14 @@ pub mod bare_metal_solution {
     pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
 
     impl DeleteVolumeSnapshot {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteVolumeSnapshotRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteVolumeSnapshotRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2563,10 +2407,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_volume_snapshot(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_volume_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeSnapshotRequest::name].
@@ -2606,17 +2447,14 @@ pub mod bare_metal_solution {
     pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
     impl GetVolumeSnapshot {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetVolumeSnapshotRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetVolumeSnapshotRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2629,10 +2467,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VolumeSnapshot> {
-            (*self.0.stub)
-                .get_volume_snapshot(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_volume_snapshot(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeSnapshotRequest::name].
@@ -2676,17 +2511,14 @@ pub mod bare_metal_solution {
     pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
 
     impl ListVolumeSnapshots {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListVolumeSnapshotsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListVolumeSnapshotsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2699,17 +2531,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVolumeSnapshotsResponse> {
-            (*self.0.stub)
-                .list_volume_snapshots(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_volume_snapshots(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2721,12 +2547,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListVolumeSnapshotsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2780,10 +2601,10 @@ pub mod bare_metal_solution {
     pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
 
     impl GetLun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2800,10 +2621,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Lun> {
-            (*self.0.stub)
-                .get_lun(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_lun(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLunRequest::name].
@@ -2847,10 +2665,10 @@ pub mod bare_metal_solution {
     pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
 
     impl ListLuns {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2867,17 +2685,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListLunsResponse> {
-            (*self.0.stub)
-                .list_luns(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_luns(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2889,10 +2701,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLunsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListLunsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2947,10 +2756,10 @@ pub mod bare_metal_solution {
     pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
 
     impl EvictLun {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2972,14 +2781,15 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [evict_lun][crate::client::BareMetalSolution::evict_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .evict_lun(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).evict_lun(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_lun`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3005,12 +2815,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EvictLunRequest::name].
@@ -3050,10 +2855,10 @@ pub mod bare_metal_solution {
     pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
 
     impl GetNfsShare {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3070,10 +2875,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NfsShare> {
-            (*self.0.stub)
-                .get_nfs_share(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_nfs_share(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNfsShareRequest::name].
@@ -3117,10 +2919,10 @@ pub mod bare_metal_solution {
     pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
 
     impl ListNfsShares {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3137,17 +2939,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNfsSharesResponse> {
-            (*self.0.stub)
-                .list_nfs_shares(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_nfs_shares(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3159,10 +2955,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNfsSharesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNfsSharesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3223,10 +3016,10 @@ pub mod bare_metal_solution {
     pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
     impl UpdateNfsShare {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3248,18 +3041,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_nfs_share][crate::client::BareMetalSolution::update_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_nfs_share(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_nfs_share(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_nfs_share`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3291,8 +3082,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_nfs_share<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NfsShare>,
+        where T: std::convert::Into<crate::model::NfsShare>
         {
             self.0.request.nfs_share = std::option::Option::Some(v.into());
             self
@@ -3302,8 +3092,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NfsShare>,
+        where T: std::convert::Into<crate::model::NfsShare>
         {
             self.0.request.nfs_share = v.map(|x| x.into());
             self
@@ -3311,8 +3100,7 @@ pub mod bare_metal_solution {
 
         /// Sets the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3320,8 +3108,7 @@ pub mod bare_metal_solution {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3357,10 +3144,10 @@ pub mod bare_metal_solution {
     pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
 
     impl CreateNfsShare {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3382,18 +3169,16 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_nfs_share][crate::client::BareMetalSolution::create_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_nfs_share(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_nfs_share(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_nfs_share`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3433,8 +3218,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_nfs_share<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NfsShare>,
+        where T: std::convert::Into<crate::model::NfsShare>
         {
             self.0.request.nfs_share = std::option::Option::Some(v.into());
             self
@@ -3444,8 +3228,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NfsShare>,
+        where T: std::convert::Into<crate::model::NfsShare>
         {
             self.0.request.nfs_share = v.map(|x| x.into());
             self
@@ -3480,10 +3263,10 @@ pub mod bare_metal_solution {
     pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
 
     impl RenameNfsShare {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3500,10 +3283,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NfsShare> {
-            (*self.0.stub)
-                .rename_nfs_share(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rename_nfs_share(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNfsShareRequest::name].
@@ -3552,10 +3332,10 @@ pub mod bare_metal_solution {
     pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
     impl DeleteNfsShare {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3577,14 +3357,15 @@ pub mod bare_metal_solution {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_nfs_share(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_nfs_share(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_nfs_share`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3610,12 +3391,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNfsShareRequest::name].
@@ -3659,17 +3435,14 @@ pub mod bare_metal_solution {
     pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
 
     impl ListProvisioningQuotas {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListProvisioningQuotasRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListProvisioningQuotasRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3682,19 +3455,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListProvisioningQuotasResponse> {
-            (*self.0.stub)
-                .list_provisioning_quotas(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_provisioning_quotas(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListProvisioningQuotasResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListProvisioningQuotasResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3706,12 +3471,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListProvisioningQuotasResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListProvisioningQuotasResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3762,22 +3522,17 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SubmitProvisioningConfig(
-        RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
-    );
+    pub struct SubmitProvisioningConfig(RequestBuilder<crate::model::SubmitProvisioningConfigRequest>);
 
     impl SubmitProvisioningConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SubmitProvisioningConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SubmitProvisioningConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3790,10 +3545,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SubmitProvisioningConfigResponse> {
-            (*self.0.stub)
-                .submit_provisioning_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).submit_provisioning_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SubmitProvisioningConfigRequest::parent].
@@ -3808,8 +3560,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = std::option::Option::Some(v.into());
             self
@@ -3819,8 +3570,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = v.map(|x| x.into());
             self
@@ -3861,17 +3611,14 @@ pub mod bare_metal_solution {
     pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
 
     impl GetProvisioningConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProvisioningConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProvisioningConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3884,10 +3631,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProvisioningConfig> {
-            (*self.0.stub)
-                .get_provisioning_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_provisioning_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProvisioningConfigRequest::name].
@@ -3924,22 +3668,17 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateProvisioningConfig(
-        RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
-    );
+    pub struct CreateProvisioningConfig(RequestBuilder<crate::model::CreateProvisioningConfigRequest>);
 
     impl CreateProvisioningConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateProvisioningConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateProvisioningConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3952,10 +3691,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProvisioningConfig> {
-            (*self.0.stub)
-                .create_provisioning_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_provisioning_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProvisioningConfigRequest::parent].
@@ -3970,8 +3706,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = std::option::Option::Some(v.into());
             self
@@ -3981,8 +3716,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = v.map(|x| x.into());
             self
@@ -4020,22 +3754,17 @@ pub mod bare_metal_solution {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProvisioningConfig(
-        RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
-    );
+    pub struct UpdateProvisioningConfig(RequestBuilder<crate::model::UpdateProvisioningConfigRequest>);
 
     impl UpdateProvisioningConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateProvisioningConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateProvisioningConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4048,18 +3777,14 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ProvisioningConfig> {
-            (*self.0.stub)
-                .update_provisioning_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_provisioning_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_provisioning_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = std::option::Option::Some(v.into());
             self
@@ -4069,8 +3794,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        where T: std::convert::Into<crate::model::ProvisioningConfig>
         {
             self.0.request.provisioning_config = v.map(|x| x.into());
             self
@@ -4080,8 +3804,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4091,8 +3814,7 @@ pub mod bare_metal_solution {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4133,10 +3855,10 @@ pub mod bare_metal_solution {
     pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
 
     impl RenameNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4153,10 +3875,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Network> {
-            (*self.0.stub)
-                .rename_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rename_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNetworkRequest::name].
@@ -4208,10 +3927,10 @@ pub mod bare_metal_solution {
     pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
 
     impl ListOSImages {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4228,17 +3947,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOSImagesResponse> {
-            (*self.0.stub)
-                .list_os_images(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_os_images(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4250,10 +3963,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOSImagesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOSImagesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4311,17 +4021,14 @@ pub mod bare_metal_solution {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4334,17 +4041,11 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4356,10 +4057,7 @@ pub mod bare_metal_solution {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4417,10 +4115,10 @@ pub mod bare_metal_solution {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4437,10 +4135,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4478,17 +4173,14 @@ pub mod bare_metal_solution {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4501,10 +4193,7 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4520,4 +4209,5 @@ pub mod bare_metal_solution {
             &mut self.0.options
         }
     }
+
 }

@@ -51,6 +51,8 @@ impl std::fmt::Debug for super::AttachedCluster {
     }
 }
 
+
+
 impl std::fmt::Debug for super::AttachedClustersAuthorization {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttachedClustersAuthorization");
@@ -347,6 +349,7 @@ impl std::fmt::Debug for super::AwsCluster {
     }
 }
 
+
 impl std::fmt::Debug for super::AwsControlPlane {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AwsControlPlane");
@@ -360,10 +363,7 @@ impl std::fmt::Debug for super::AwsControlPlane {
         debug_struct.field("main_volume", &self.main_volume);
         debug_struct.field("database_encryption", &self.database_encryption);
         debug_struct.field("tags", &self.tags);
-        debug_struct.field(
-            "aws_services_authentication",
-            &self.aws_services_authentication,
-        );
+        debug_struct.field("aws_services_authentication", &self.aws_services_authentication);
         debug_struct.field("proxy_config", &self.proxy_config);
         debug_struct.field("config_encryption", &self.config_encryption);
         debug_struct.field("instance_placement", &self.instance_placement);
@@ -451,14 +451,8 @@ impl std::fmt::Debug for super::AwsClusterNetworking {
         let mut debug_struct = f.debug_struct("AwsClusterNetworking");
         debug_struct.field("vpc_id", &self.vpc_id);
         debug_struct.field("pod_address_cidr_blocks", &self.pod_address_cidr_blocks);
-        debug_struct.field(
-            "service_address_cidr_blocks",
-            &self.service_address_cidr_blocks,
-        );
-        debug_struct.field(
-            "per_node_pool_sg_rules_disabled",
-            &self.per_node_pool_sg_rules_disabled,
-        );
+        debug_struct.field("service_address_cidr_blocks", &self.service_address_cidr_blocks);
+        debug_struct.field("per_node_pool_sg_rules_disabled", &self.per_node_pool_sg_rules_disabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -492,6 +486,7 @@ impl std::fmt::Debug for super::AwsNodePool {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::UpdateSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -542,10 +537,7 @@ impl std::fmt::Debug for super::AwsNodeConfig {
         debug_struct.field("proxy_config", &self.proxy_config);
         debug_struct.field("config_encryption", &self.config_encryption);
         debug_struct.field("instance_placement", &self.instance_placement);
-        debug_struct.field(
-            "autoscaling_metrics_collection",
-            &self.autoscaling_metrics_collection,
-        );
+        debug_struct.field("autoscaling_metrics_collection", &self.autoscaling_metrics_collection);
         debug_struct.field("spot_config", &self.spot_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -573,10 +565,7 @@ impl std::fmt::Debug for super::AwsOpenIdConfig {
         debug_struct.field("jwks_uri", &self.jwks_uri);
         debug_struct.field("response_types_supported", &self.response_types_supported);
         debug_struct.field("subject_types_supported", &self.subject_types_supported);
-        debug_struct.field(
-            "id_token_signing_alg_values_supported",
-            &self.id_token_signing_alg_values_supported,
-        );
+        debug_struct.field("id_token_signing_alg_values_supported", &self.id_token_signing_alg_values_supported);
         debug_struct.field("claims_supported", &self.claims_supported);
         debug_struct.field("grant_types", &self.grant_types);
         if !self._unknown_fields.is_empty() {
@@ -983,10 +972,7 @@ impl std::fmt::Debug for super::AzureCluster {
         debug_struct.field("networking", &self.networking);
         debug_struct.field("control_plane", &self.control_plane);
         debug_struct.field("authorization", &self.authorization);
-        debug_struct.field(
-            "azure_services_authentication",
-            &self.azure_services_authentication,
-        );
+        debug_struct.field("azure_services_authentication", &self.azure_services_authentication);
         debug_struct.field("state", &self.state);
         debug_struct.field("endpoint", &self.endpoint);
         debug_struct.field("uid", &self.uid);
@@ -1009,19 +995,14 @@ impl std::fmt::Debug for super::AzureCluster {
     }
 }
 
+
 impl std::fmt::Debug for super::AzureClusterNetworking {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureClusterNetworking");
         debug_struct.field("virtual_network_id", &self.virtual_network_id);
         debug_struct.field("pod_address_cidr_blocks", &self.pod_address_cidr_blocks);
-        debug_struct.field(
-            "service_address_cidr_blocks",
-            &self.service_address_cidr_blocks,
-        );
-        debug_struct.field(
-            "service_load_balancer_subnet_id",
-            &self.service_load_balancer_subnet_id,
-        );
+        debug_struct.field("service_address_cidr_blocks", &self.service_address_cidr_blocks);
+        debug_struct.field("service_load_balancer_subnet_id", &self.service_load_balancer_subnet_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1200,6 +1181,7 @@ impl std::fmt::Debug for super::AzureNodePool {
     }
 }
 
+
 impl std::fmt::Debug for super::AzureNodeManagement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureNodeManagement");
@@ -1249,10 +1231,7 @@ impl std::fmt::Debug for super::AzureOpenIdConfig {
         debug_struct.field("jwks_uri", &self.jwks_uri);
         debug_struct.field("response_types_supported", &self.response_types_supported);
         debug_struct.field("subject_types_supported", &self.subject_types_supported);
-        debug_struct.field(
-            "id_token_signing_alg_values_supported",
-            &self.id_token_signing_alg_values_supported,
-        );
+        debug_struct.field("id_token_signing_alg_values_supported", &self.id_token_signing_alg_values_supported);
         debug_struct.field("claims_supported", &self.claims_supported);
         debug_struct.field("grant_types", &self.grant_types);
         if !self._unknown_fields.is_empty() {
@@ -1316,10 +1295,7 @@ impl std::fmt::Debug for super::AzureClusterResources {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AzureClusterResources");
         debug_struct.field("network_security_group_id", &self.network_security_group_id);
-        debug_struct.field(
-            "control_plane_application_security_group_id",
-            &self.control_plane_application_security_group_id,
-        );
+        debug_struct.field("control_plane_application_security_group_id", &self.control_plane_application_security_group_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1733,10 +1709,7 @@ impl std::fmt::Debug for super::NodeTaint {
 impl std::fmt::Debug for super::NodeKubeletConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NodeKubeletConfig");
-        debug_struct.field(
-            "insecure_kubelet_readonly_port_enabled",
-            &self.insecure_kubelet_readonly_port_enabled,
-        );
+        debug_struct.field("insecure_kubelet_readonly_port_enabled", &self.insecure_kubelet_readonly_port_enabled);
         debug_struct.field("cpu_manager_policy", &self.cpu_manager_policy);
         debug_struct.field("cpu_cfs_quota", &self.cpu_cfs_quota);
         debug_struct.field("cpu_cfs_quota_period", &self.cpu_cfs_quota_period);

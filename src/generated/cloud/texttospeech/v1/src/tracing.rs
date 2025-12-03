@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [TextToSpeech](super::stub::TextToSpeech) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TextToSpeech for TextToSpeech<T>
-where
-    T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeech + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_voices(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_voices",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_voices(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_voices(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "synthesize_speech",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .synthesize_speech(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.synthesize_speech(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -194,25 +176,19 @@ where
 /// Implements a [TextToSpeechLongAudioSynthesize](super::stub::TextToSpeechLongAudioSynthesize) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::TextToSpeechLongAudioSynthesize for TextToSpeechLongAudioSynthesize<T>
-where
-    T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::TextToSpeechLongAudioSynthesize + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn synthesize_long_audio(
         &self,
@@ -229,14 +205,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "synthesize_long_audio",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .synthesize_long_audio(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.synthesize_long_audio(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -267,14 +240,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -305,14 +275,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -342,3 +309,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

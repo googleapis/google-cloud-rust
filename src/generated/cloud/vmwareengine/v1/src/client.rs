@@ -80,51 +80,39 @@ impl VmwareEngine {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::VmwareEngine + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::VmwareEngine + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VmwareEngine>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VmwareEngine>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
         super::transport::VmwareEngine::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::VmwareEngine::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::VmwareEngine> {
+        Self::build_transport(conf).await.map(super::tracing::VmwareEngine::new)
     }
 
     /// Lists `PrivateCloud` resources in a given project and location.
-    pub fn list_private_clouds(&self) -> super::builder::vmware_engine::ListPrivateClouds {
+    pub fn list_private_clouds(&self) -> super::builder::vmware_engine::ListPrivateClouds
+    {
         super::builder::vmware_engine::ListPrivateClouds::new(self.inner.clone())
     }
 
     /// Retrieves a `PrivateCloud` resource by its resource name.
-    pub fn get_private_cloud(&self) -> super::builder::vmware_engine::GetPrivateCloud {
+    pub fn get_private_cloud(&self) -> super::builder::vmware_engine::GetPrivateCloud
+    {
         super::builder::vmware_engine::GetPrivateCloud::new(self.inner.clone())
     }
 
@@ -145,7 +133,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_private_cloud(&self) -> super::builder::vmware_engine::CreatePrivateCloud {
+    pub fn create_private_cloud(&self) -> super::builder::vmware_engine::CreatePrivateCloud
+    {
         super::builder::vmware_engine::CreatePrivateCloud::new(self.inner.clone())
     }
 
@@ -167,7 +156,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_private_cloud(&self) -> super::builder::vmware_engine::UpdatePrivateCloud {
+    pub fn update_private_cloud(&self) -> super::builder::vmware_engine::UpdatePrivateCloud
+    {
         super::builder::vmware_engine::UpdatePrivateCloud::new(self.inner.clone())
     }
 
@@ -196,7 +186,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_private_cloud(&self) -> super::builder::vmware_engine::DeletePrivateCloud {
+    pub fn delete_private_cloud(&self) -> super::builder::vmware_engine::DeletePrivateCloud
+    {
         super::builder::vmware_engine::DeletePrivateCloud::new(self.inner.clone())
     }
 
@@ -214,17 +205,20 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_private_cloud(&self) -> super::builder::vmware_engine::UndeletePrivateCloud {
+    pub fn undelete_private_cloud(&self) -> super::builder::vmware_engine::UndeletePrivateCloud
+    {
         super::builder::vmware_engine::UndeletePrivateCloud::new(self.inner.clone())
     }
 
     /// Lists `Cluster` resources in a given private cloud.
-    pub fn list_clusters(&self) -> super::builder::vmware_engine::ListClusters {
+    pub fn list_clusters(&self) -> super::builder::vmware_engine::ListClusters
+    {
         super::builder::vmware_engine::ListClusters::new(self.inner.clone())
     }
 
     /// Retrieves a `Cluster` resource by its resource name.
-    pub fn get_cluster(&self) -> super::builder::vmware_engine::GetCluster {
+    pub fn get_cluster(&self) -> super::builder::vmware_engine::GetCluster
+    {
         super::builder::vmware_engine::GetCluster::new(self.inner.clone())
     }
 
@@ -242,7 +236,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(&self) -> super::builder::vmware_engine::CreateCluster {
+    pub fn create_cluster(&self) -> super::builder::vmware_engine::CreateCluster
+    {
         super::builder::vmware_engine::CreateCluster::new(self.inner.clone())
     }
 
@@ -263,7 +258,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(&self) -> super::builder::vmware_engine::UpdateCluster {
+    pub fn update_cluster(&self) -> super::builder::vmware_engine::UpdateCluster
+    {
         super::builder::vmware_engine::UpdateCluster::new(self.inner.clone())
     }
 
@@ -281,36 +277,40 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cluster(&self) -> super::builder::vmware_engine::DeleteCluster {
+    pub fn delete_cluster(&self) -> super::builder::vmware_engine::DeleteCluster
+    {
         super::builder::vmware_engine::DeleteCluster::new(self.inner.clone())
     }
 
     /// Lists nodes in a given cluster.
-    pub fn list_nodes(&self) -> super::builder::vmware_engine::ListNodes {
+    pub fn list_nodes(&self) -> super::builder::vmware_engine::ListNodes
+    {
         super::builder::vmware_engine::ListNodes::new(self.inner.clone())
     }
 
     /// Gets details of a single node.
-    pub fn get_node(&self) -> super::builder::vmware_engine::GetNode {
+    pub fn get_node(&self) -> super::builder::vmware_engine::GetNode
+    {
         super::builder::vmware_engine::GetNode::new(self.inner.clone())
     }
 
     /// Lists external IP addresses assigned to VMware workload VMs in a given
     /// private cloud.
-    pub fn list_external_addresses(&self) -> super::builder::vmware_engine::ListExternalAddresses {
+    pub fn list_external_addresses(&self) -> super::builder::vmware_engine::ListExternalAddresses
+    {
         super::builder::vmware_engine::ListExternalAddresses::new(self.inner.clone())
     }
 
     /// Lists external IP addresses assigned to VMware workload VMs within the
     /// scope of the given network policy.
-    pub fn fetch_network_policy_external_addresses(
-        &self,
-    ) -> super::builder::vmware_engine::FetchNetworkPolicyExternalAddresses {
+    pub fn fetch_network_policy_external_addresses(&self) -> super::builder::vmware_engine::FetchNetworkPolicyExternalAddresses
+    {
         super::builder::vmware_engine::FetchNetworkPolicyExternalAddresses::new(self.inner.clone())
     }
 
     /// Gets details of a single external IP address.
-    pub fn get_external_address(&self) -> super::builder::vmware_engine::GetExternalAddress {
+    pub fn get_external_address(&self) -> super::builder::vmware_engine::GetExternalAddress
+    {
         super::builder::vmware_engine::GetExternalAddress::new(self.inner.clone())
     }
 
@@ -327,7 +327,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_external_address(&self) -> super::builder::vmware_engine::CreateExternalAddress {
+    pub fn create_external_address(&self) -> super::builder::vmware_engine::CreateExternalAddress
+    {
         super::builder::vmware_engine::CreateExternalAddress::new(self.inner.clone())
     }
 
@@ -348,7 +349,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_external_address(&self) -> super::builder::vmware_engine::UpdateExternalAddress {
+    pub fn update_external_address(&self) -> super::builder::vmware_engine::UpdateExternalAddress
+    {
         super::builder::vmware_engine::UpdateExternalAddress::new(self.inner.clone())
     }
 
@@ -365,17 +367,20 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_external_address(&self) -> super::builder::vmware_engine::DeleteExternalAddress {
+    pub fn delete_external_address(&self) -> super::builder::vmware_engine::DeleteExternalAddress
+    {
         super::builder::vmware_engine::DeleteExternalAddress::new(self.inner.clone())
     }
 
     /// Lists subnets in a given private cloud.
-    pub fn list_subnets(&self) -> super::builder::vmware_engine::ListSubnets {
+    pub fn list_subnets(&self) -> super::builder::vmware_engine::ListSubnets
+    {
         super::builder::vmware_engine::ListSubnets::new(self.inner.clone())
     }
 
     /// Gets details of a single subnet.
-    pub fn get_subnet(&self) -> super::builder::vmware_engine::GetSubnet {
+    pub fn get_subnet(&self) -> super::builder::vmware_engine::GetSubnet
+    {
         super::builder::vmware_engine::GetSubnet::new(self.inner.clone())
     }
 
@@ -395,19 +400,20 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_subnet(&self) -> super::builder::vmware_engine::UpdateSubnet {
+    pub fn update_subnet(&self) -> super::builder::vmware_engine::UpdateSubnet
+    {
         super::builder::vmware_engine::UpdateSubnet::new(self.inner.clone())
     }
 
     /// Lists `ExternalAccessRule` resources in the specified network policy.
-    pub fn list_external_access_rules(
-        &self,
-    ) -> super::builder::vmware_engine::ListExternalAccessRules {
+    pub fn list_external_access_rules(&self) -> super::builder::vmware_engine::ListExternalAccessRules
+    {
         super::builder::vmware_engine::ListExternalAccessRules::new(self.inner.clone())
     }
 
     /// Gets details of a single external access rule.
-    pub fn get_external_access_rule(&self) -> super::builder::vmware_engine::GetExternalAccessRule {
+    pub fn get_external_access_rule(&self) -> super::builder::vmware_engine::GetExternalAccessRule
+    {
         super::builder::vmware_engine::GetExternalAccessRule::new(self.inner.clone())
     }
 
@@ -422,9 +428,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_external_access_rule(
-        &self,
-    ) -> super::builder::vmware_engine::CreateExternalAccessRule {
+    pub fn create_external_access_rule(&self) -> super::builder::vmware_engine::CreateExternalAccessRule
+    {
         super::builder::vmware_engine::CreateExternalAccessRule::new(self.inner.clone())
     }
 
@@ -440,9 +445,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_external_access_rule(
-        &self,
-    ) -> super::builder::vmware_engine::UpdateExternalAccessRule {
+    pub fn update_external_access_rule(&self) -> super::builder::vmware_engine::UpdateExternalAccessRule
+    {
         super::builder::vmware_engine::UpdateExternalAccessRule::new(self.inner.clone())
     }
 
@@ -457,20 +461,21 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_external_access_rule(
-        &self,
-    ) -> super::builder::vmware_engine::DeleteExternalAccessRule {
+    pub fn delete_external_access_rule(&self) -> super::builder::vmware_engine::DeleteExternalAccessRule
+    {
         super::builder::vmware_engine::DeleteExternalAccessRule::new(self.inner.clone())
     }
 
     /// Lists logging servers configured for a given private
     /// cloud.
-    pub fn list_logging_servers(&self) -> super::builder::vmware_engine::ListLoggingServers {
+    pub fn list_logging_servers(&self) -> super::builder::vmware_engine::ListLoggingServers
+    {
         super::builder::vmware_engine::ListLoggingServers::new(self.inner.clone())
     }
 
     /// Gets details of a logging server.
-    pub fn get_logging_server(&self) -> super::builder::vmware_engine::GetLoggingServer {
+    pub fn get_logging_server(&self) -> super::builder::vmware_engine::GetLoggingServer
+    {
         super::builder::vmware_engine::GetLoggingServer::new(self.inner.clone())
     }
 
@@ -485,7 +490,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_logging_server(&self) -> super::builder::vmware_engine::CreateLoggingServer {
+    pub fn create_logging_server(&self) -> super::builder::vmware_engine::CreateLoggingServer
+    {
         super::builder::vmware_engine::CreateLoggingServer::new(self.inner.clone())
     }
 
@@ -501,7 +507,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_logging_server(&self) -> super::builder::vmware_engine::UpdateLoggingServer {
+    pub fn update_logging_server(&self) -> super::builder::vmware_engine::UpdateLoggingServer
+    {
         super::builder::vmware_engine::UpdateLoggingServer::new(self.inner.clone())
     }
 
@@ -516,29 +523,32 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_logging_server(&self) -> super::builder::vmware_engine::DeleteLoggingServer {
+    pub fn delete_logging_server(&self) -> super::builder::vmware_engine::DeleteLoggingServer
+    {
         super::builder::vmware_engine::DeleteLoggingServer::new(self.inner.clone())
     }
 
     /// Lists node types
-    pub fn list_node_types(&self) -> super::builder::vmware_engine::ListNodeTypes {
+    pub fn list_node_types(&self) -> super::builder::vmware_engine::ListNodeTypes
+    {
         super::builder::vmware_engine::ListNodeTypes::new(self.inner.clone())
     }
 
     /// Gets details of a single `NodeType`.
-    pub fn get_node_type(&self) -> super::builder::vmware_engine::GetNodeType {
+    pub fn get_node_type(&self) -> super::builder::vmware_engine::GetNodeType
+    {
         super::builder::vmware_engine::GetNodeType::new(self.inner.clone())
     }
 
     /// Gets details of credentials for NSX appliance.
-    pub fn show_nsx_credentials(&self) -> super::builder::vmware_engine::ShowNsxCredentials {
+    pub fn show_nsx_credentials(&self) -> super::builder::vmware_engine::ShowNsxCredentials
+    {
         super::builder::vmware_engine::ShowNsxCredentials::new(self.inner.clone())
     }
 
     /// Gets details of credentials for Vcenter appliance.
-    pub fn show_vcenter_credentials(
-        &self,
-    ) -> super::builder::vmware_engine::ShowVcenterCredentials {
+    pub fn show_vcenter_credentials(&self) -> super::builder::vmware_engine::ShowVcenterCredentials
+    {
         super::builder::vmware_engine::ShowVcenterCredentials::new(self.inner.clone())
     }
 
@@ -553,7 +563,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reset_nsx_credentials(&self) -> super::builder::vmware_engine::ResetNsxCredentials {
+    pub fn reset_nsx_credentials(&self) -> super::builder::vmware_engine::ResetNsxCredentials
+    {
         super::builder::vmware_engine::ResetNsxCredentials::new(self.inner.clone())
     }
 
@@ -568,14 +579,14 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reset_vcenter_credentials(
-        &self,
-    ) -> super::builder::vmware_engine::ResetVcenterCredentials {
+    pub fn reset_vcenter_credentials(&self) -> super::builder::vmware_engine::ResetVcenterCredentials
+    {
         super::builder::vmware_engine::ResetVcenterCredentials::new(self.inner.clone())
     }
 
     /// Gets details of the `DnsForwarding` config.
-    pub fn get_dns_forwarding(&self) -> super::builder::vmware_engine::GetDnsForwarding {
+    pub fn get_dns_forwarding(&self) -> super::builder::vmware_engine::GetDnsForwarding
+    {
         super::builder::vmware_engine::GetDnsForwarding::new(self.inner.clone())
     }
 
@@ -591,7 +602,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_dns_forwarding(&self) -> super::builder::vmware_engine::UpdateDnsForwarding {
+    pub fn update_dns_forwarding(&self) -> super::builder::vmware_engine::UpdateDnsForwarding
+    {
         super::builder::vmware_engine::UpdateDnsForwarding::new(self.inner.clone())
     }
 
@@ -599,13 +611,15 @@ impl VmwareEngine {
     /// contains details of the network peering, such as peered
     /// networks, import and export custom route configurations, and peering state.
     /// NetworkPeering is a global resource and location can only be global.
-    pub fn get_network_peering(&self) -> super::builder::vmware_engine::GetNetworkPeering {
+    pub fn get_network_peering(&self) -> super::builder::vmware_engine::GetNetworkPeering
+    {
         super::builder::vmware_engine::GetNetworkPeering::new(self.inner.clone())
     }
 
     /// Lists `NetworkPeering` resources in a given project. NetworkPeering is a
     /// global resource and location can only be global.
-    pub fn list_network_peerings(&self) -> super::builder::vmware_engine::ListNetworkPeerings {
+    pub fn list_network_peerings(&self) -> super::builder::vmware_engine::ListNetworkPeerings
+    {
         super::builder::vmware_engine::ListNetworkPeerings::new(self.inner.clone())
     }
 
@@ -622,7 +636,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_network_peering(&self) -> super::builder::vmware_engine::CreateNetworkPeering {
+    pub fn create_network_peering(&self) -> super::builder::vmware_engine::CreateNetworkPeering
+    {
         super::builder::vmware_engine::CreateNetworkPeering::new(self.inner.clone())
     }
 
@@ -640,7 +655,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_network_peering(&self) -> super::builder::vmware_engine::DeleteNetworkPeering {
+    pub fn delete_network_peering(&self) -> super::builder::vmware_engine::DeleteNetworkPeering
+    {
         super::builder::vmware_engine::DeleteNetworkPeering::new(self.inner.clone())
     }
 
@@ -657,13 +673,15 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_network_peering(&self) -> super::builder::vmware_engine::UpdateNetworkPeering {
+    pub fn update_network_peering(&self) -> super::builder::vmware_engine::UpdateNetworkPeering
+    {
         super::builder::vmware_engine::UpdateNetworkPeering::new(self.inner.clone())
     }
 
     /// Lists the network peering routes exchanged over a peering connection.
     /// NetworkPeering is a global resource and location can only be global.
-    pub fn list_peering_routes(&self) -> super::builder::vmware_engine::ListPeeringRoutes {
+    pub fn list_peering_routes(&self) -> super::builder::vmware_engine::ListPeeringRoutes
+    {
         super::builder::vmware_engine::ListPeeringRoutes::new(self.inner.clone())
     }
 
@@ -678,29 +696,32 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_hcx_activation_key(
-        &self,
-    ) -> super::builder::vmware_engine::CreateHcxActivationKey {
+    pub fn create_hcx_activation_key(&self) -> super::builder::vmware_engine::CreateHcxActivationKey
+    {
         super::builder::vmware_engine::CreateHcxActivationKey::new(self.inner.clone())
     }
 
     /// Lists `HcxActivationKey` resources in a given private cloud.
-    pub fn list_hcx_activation_keys(&self) -> super::builder::vmware_engine::ListHcxActivationKeys {
+    pub fn list_hcx_activation_keys(&self) -> super::builder::vmware_engine::ListHcxActivationKeys
+    {
         super::builder::vmware_engine::ListHcxActivationKeys::new(self.inner.clone())
     }
 
     /// Retrieves a `HcxActivationKey` resource by its resource name.
-    pub fn get_hcx_activation_key(&self) -> super::builder::vmware_engine::GetHcxActivationKey {
+    pub fn get_hcx_activation_key(&self) -> super::builder::vmware_engine::GetHcxActivationKey
+    {
         super::builder::vmware_engine::GetHcxActivationKey::new(self.inner.clone())
     }
 
     /// Retrieves a `NetworkPolicy` resource by its resource name.
-    pub fn get_network_policy(&self) -> super::builder::vmware_engine::GetNetworkPolicy {
+    pub fn get_network_policy(&self) -> super::builder::vmware_engine::GetNetworkPolicy
+    {
         super::builder::vmware_engine::GetNetworkPolicy::new(self.inner.clone())
     }
 
     /// Lists `NetworkPolicy` resources in a specified project and location.
-    pub fn list_network_policies(&self) -> super::builder::vmware_engine::ListNetworkPolicies {
+    pub fn list_network_policies(&self) -> super::builder::vmware_engine::ListNetworkPolicies
+    {
         super::builder::vmware_engine::ListNetworkPolicies::new(self.inner.clone())
     }
 
@@ -717,7 +738,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_network_policy(&self) -> super::builder::vmware_engine::CreateNetworkPolicy {
+    pub fn create_network_policy(&self) -> super::builder::vmware_engine::CreateNetworkPolicy
+    {
         super::builder::vmware_engine::CreateNetworkPolicy::new(self.inner.clone())
     }
 
@@ -743,7 +765,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_network_policy(&self) -> super::builder::vmware_engine::UpdateNetworkPolicy {
+    pub fn update_network_policy(&self) -> super::builder::vmware_engine::UpdateNetworkPolicy
+    {
         super::builder::vmware_engine::UpdateNetworkPolicy::new(self.inner.clone())
     }
 
@@ -760,21 +783,20 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_network_policy(&self) -> super::builder::vmware_engine::DeleteNetworkPolicy {
+    pub fn delete_network_policy(&self) -> super::builder::vmware_engine::DeleteNetworkPolicy
+    {
         super::builder::vmware_engine::DeleteNetworkPolicy::new(self.inner.clone())
     }
 
     /// Lists Consumer VPCs bound to Management DNS Zone of a given private cloud.
-    pub fn list_management_dns_zone_bindings(
-        &self,
-    ) -> super::builder::vmware_engine::ListManagementDnsZoneBindings {
+    pub fn list_management_dns_zone_bindings(&self) -> super::builder::vmware_engine::ListManagementDnsZoneBindings
+    {
         super::builder::vmware_engine::ListManagementDnsZoneBindings::new(self.inner.clone())
     }
 
     /// Retrieves a 'ManagementDnsZoneBinding' resource by its resource name.
-    pub fn get_management_dns_zone_binding(
-        &self,
-    ) -> super::builder::vmware_engine::GetManagementDnsZoneBinding {
+    pub fn get_management_dns_zone_binding(&self) -> super::builder::vmware_engine::GetManagementDnsZoneBinding
+    {
         super::builder::vmware_engine::GetManagementDnsZoneBinding::new(self.inner.clone())
     }
 
@@ -795,9 +817,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_management_dns_zone_binding(
-        &self,
-    ) -> super::builder::vmware_engine::CreateManagementDnsZoneBinding {
+    pub fn create_management_dns_zone_binding(&self) -> super::builder::vmware_engine::CreateManagementDnsZoneBinding
+    {
         super::builder::vmware_engine::CreateManagementDnsZoneBinding::new(self.inner.clone())
     }
 
@@ -813,9 +834,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_management_dns_zone_binding(
-        &self,
-    ) -> super::builder::vmware_engine::UpdateManagementDnsZoneBinding {
+    pub fn update_management_dns_zone_binding(&self) -> super::builder::vmware_engine::UpdateManagementDnsZoneBinding
+    {
         super::builder::vmware_engine::UpdateManagementDnsZoneBinding::new(self.inner.clone())
     }
 
@@ -832,9 +852,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_management_dns_zone_binding(
-        &self,
-    ) -> super::builder::vmware_engine::DeleteManagementDnsZoneBinding {
+    pub fn delete_management_dns_zone_binding(&self) -> super::builder::vmware_engine::DeleteManagementDnsZoneBinding
+    {
         super::builder::vmware_engine::DeleteManagementDnsZoneBinding::new(self.inner.clone())
     }
 
@@ -850,9 +869,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn repair_management_dns_zone_binding(
-        &self,
-    ) -> super::builder::vmware_engine::RepairManagementDnsZoneBinding {
+    pub fn repair_management_dns_zone_binding(&self) -> super::builder::vmware_engine::RepairManagementDnsZoneBinding
+    {
         super::builder::vmware_engine::RepairManagementDnsZoneBinding::new(self.inner.clone())
     }
 
@@ -867,9 +885,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_vmware_engine_network(
-        &self,
-    ) -> super::builder::vmware_engine::CreateVmwareEngineNetwork {
+    pub fn create_vmware_engine_network(&self) -> super::builder::vmware_engine::CreateVmwareEngineNetwork
+    {
         super::builder::vmware_engine::CreateVmwareEngineNetwork::new(self.inner.clone())
     }
 
@@ -886,9 +903,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_vmware_engine_network(
-        &self,
-    ) -> super::builder::vmware_engine::UpdateVmwareEngineNetwork {
+    pub fn update_vmware_engine_network(&self) -> super::builder::vmware_engine::UpdateVmwareEngineNetwork
+    {
         super::builder::vmware_engine::UpdateVmwareEngineNetwork::new(self.inner.clone())
     }
 
@@ -906,9 +922,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_vmware_engine_network(
-        &self,
-    ) -> super::builder::vmware_engine::DeleteVmwareEngineNetwork {
+    pub fn delete_vmware_engine_network(&self) -> super::builder::vmware_engine::DeleteVmwareEngineNetwork
+    {
         super::builder::vmware_engine::DeleteVmwareEngineNetwork::new(self.inner.clone())
     }
 
@@ -916,16 +931,14 @@ impl VmwareEngine {
     /// resource contains details of the VMware Engine network, such as its VMware
     /// Engine network type, peered networks in a service project, and state
     /// (for example, `CREATING`, `ACTIVE`, `DELETING`).
-    pub fn get_vmware_engine_network(
-        &self,
-    ) -> super::builder::vmware_engine::GetVmwareEngineNetwork {
+    pub fn get_vmware_engine_network(&self) -> super::builder::vmware_engine::GetVmwareEngineNetwork
+    {
         super::builder::vmware_engine::GetVmwareEngineNetwork::new(self.inner.clone())
     }
 
     /// Lists `VmwareEngineNetwork` resources in a given project and location.
-    pub fn list_vmware_engine_networks(
-        &self,
-    ) -> super::builder::vmware_engine::ListVmwareEngineNetworks {
+    pub fn list_vmware_engine_networks(&self) -> super::builder::vmware_engine::ListVmwareEngineNetworks
+    {
         super::builder::vmware_engine::ListVmwareEngineNetworks::new(self.inner.clone())
     }
 
@@ -941,23 +954,22 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_private_connection(
-        &self,
-    ) -> super::builder::vmware_engine::CreatePrivateConnection {
+    pub fn create_private_connection(&self) -> super::builder::vmware_engine::CreatePrivateConnection
+    {
         super::builder::vmware_engine::CreatePrivateConnection::new(self.inner.clone())
     }
 
     /// Retrieves a `PrivateConnection` resource by its resource name. The resource
     /// contains details of the private connection, such as connected
     /// network, routing mode and state.
-    pub fn get_private_connection(&self) -> super::builder::vmware_engine::GetPrivateConnection {
+    pub fn get_private_connection(&self) -> super::builder::vmware_engine::GetPrivateConnection
+    {
         super::builder::vmware_engine::GetPrivateConnection::new(self.inner.clone())
     }
 
     /// Lists `PrivateConnection` resources in a given project and location.
-    pub fn list_private_connections(
-        &self,
-    ) -> super::builder::vmware_engine::ListPrivateConnections {
+    pub fn list_private_connections(&self) -> super::builder::vmware_engine::ListPrivateConnections
+    {
         super::builder::vmware_engine::ListPrivateConnections::new(self.inner.clone())
     }
 
@@ -974,9 +986,8 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_private_connection(
-        &self,
-    ) -> super::builder::vmware_engine::UpdatePrivateConnection {
+    pub fn update_private_connection(&self) -> super::builder::vmware_engine::UpdatePrivateConnection
+    {
         super::builder::vmware_engine::UpdatePrivateConnection::new(self.inner.clone())
     }
 
@@ -993,16 +1004,14 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_private_connection(
-        &self,
-    ) -> super::builder::vmware_engine::DeletePrivateConnection {
+    pub fn delete_private_connection(&self) -> super::builder::vmware_engine::DeletePrivateConnection
+    {
         super::builder::vmware_engine::DeletePrivateConnection::new(self.inner.clone())
     }
 
     /// Lists the private connection routes exchanged over a peering connection.
-    pub fn list_private_connection_peering_routes(
-        &self,
-    ) -> super::builder::vmware_engine::ListPrivateConnectionPeeringRoutes {
+    pub fn list_private_connection_peering_routes(&self) -> super::builder::vmware_engine::ListPrivateConnectionPeeringRoutes
+    {
         super::builder::vmware_engine::ListPrivateConnectionPeeringRoutes::new(self.inner.clone())
     }
 
@@ -1020,16 +1029,16 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn grant_dns_bind_permission(
-        &self,
-    ) -> super::builder::vmware_engine::GrantDnsBindPermission {
+    pub fn grant_dns_bind_permission(&self) -> super::builder::vmware_engine::GrantDnsBindPermission
+    {
         super::builder::vmware_engine::GrantDnsBindPermission::new(self.inner.clone())
     }
 
     /// Gets all the principals having bind permission on the intranet VPC
     /// associated with the consumer project granted by the Grant API.
     /// DnsBindPermission is a global resource and location can only be global.
-    pub fn get_dns_bind_permission(&self) -> super::builder::vmware_engine::GetDnsBindPermission {
+    pub fn get_dns_bind_permission(&self) -> super::builder::vmware_engine::GetDnsBindPermission
+    {
         super::builder::vmware_engine::GetDnsBindPermission::new(self.inner.clone())
     }
 
@@ -1046,19 +1055,20 @@ impl VmwareEngine {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn revoke_dns_bind_permission(
-        &self,
-    ) -> super::builder::vmware_engine::RevokeDnsBindPermission {
+    pub fn revoke_dns_bind_permission(&self) -> super::builder::vmware_engine::RevokeDnsBindPermission
+    {
         super::builder::vmware_engine::RevokeDnsBindPermission::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::vmware_engine::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vmware_engine::ListLocations
+    {
         super::builder::vmware_engine::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::vmware_engine::GetLocation {
+    pub fn get_location(&self) -> super::builder::vmware_engine::GetLocation
+    {
         super::builder::vmware_engine::GetLocation::new(self.inner.clone())
     }
 
@@ -1067,13 +1077,15 @@ impl VmwareEngine {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::vmware_engine::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::vmware_engine::SetIamPolicy
+    {
         super::builder::vmware_engine::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::vmware_engine::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::vmware_engine::GetIamPolicy
+    {
         super::builder::vmware_engine::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -1084,28 +1096,32 @@ impl VmwareEngine {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::vmware_engine::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::vmware_engine::TestIamPermissions
+    {
         super::builder::vmware_engine::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::vmware_engine::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vmware_engine::ListOperations
+    {
         super::builder::vmware_engine::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::vmware_engine::GetOperation {
+    pub fn get_operation(&self) -> super::builder::vmware_engine::GetOperation
+    {
         super::builder::vmware_engine::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::vmware_engine::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::vmware_engine::DeleteOperation
+    {
         super::builder::vmware_engine::DeleteOperation::new(self.inner.clone())
     }
 }

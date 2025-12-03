@@ -39,10 +39,7 @@ pub mod gke_inference_quickstart {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GkeInferenceQuickstart;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod gke_inference_quickstart {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod gke_inference_quickstart {
     pub struct FetchModels(RequestBuilder<crate::model::FetchModelsRequest>);
 
     impl FetchModels {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,16 +105,12 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchModelsResponse> {
-            (*self.0.stub)
-                .fetch_models(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_models(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [page_size][crate::model::FetchModelsRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -129,8 +118,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_size][crate::model::FetchModelsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -138,8 +126,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_token][crate::model::FetchModelsRequest::page_token].
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = std::option::Option::Some(v.into());
             self
@@ -147,8 +134,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_token][crate::model::FetchModelsRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = v.map(|x| x.into());
             self
@@ -183,17 +169,14 @@ pub mod gke_inference_quickstart {
     pub struct FetchModelServers(RequestBuilder<crate::model::FetchModelServersRequest>);
 
     impl FetchModelServers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchModelServersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchModelServersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -206,10 +189,7 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchModelServersResponse> {
-            (*self.0.stub)
-                .fetch_model_servers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_model_servers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [model][crate::model::FetchModelServersRequest::model].
@@ -222,8 +202,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_size][crate::model::FetchModelServersRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -231,8 +210,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_size][crate::model::FetchModelServersRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -240,8 +218,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_token][crate::model::FetchModelServersRequest::page_token].
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = std::option::Option::Some(v.into());
             self
@@ -249,8 +226,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_token][crate::model::FetchModelServersRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = v.map(|x| x.into());
             self
@@ -282,22 +258,17 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchModelServerVersions(
-        RequestBuilder<crate::model::FetchModelServerVersionsRequest>,
-    );
+    pub struct FetchModelServerVersions(RequestBuilder<crate::model::FetchModelServerVersionsRequest>);
 
     impl FetchModelServerVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchModelServerVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchModelServerVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -310,10 +281,7 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchModelServerVersionsResponse> {
-            (*self.0.stub)
-                .fetch_model_server_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_model_server_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [model][crate::model::FetchModelServerVersionsRequest::model].
@@ -334,8 +302,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -343,8 +310,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -352,8 +318,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = std::option::Option::Some(v.into());
             self
@@ -361,8 +326,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = v.map(|x| x.into());
             self
@@ -401,10 +365,10 @@ pub mod gke_inference_quickstart {
     pub struct FetchProfiles(RequestBuilder<crate::model::FetchProfilesRequest>);
 
     impl FetchProfiles {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -421,17 +385,11 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchProfilesResponse> {
-            (*self.0.stub)
-                .fetch_profiles(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_profiles(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::FetchProfilesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::FetchProfilesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
             let execute = move |token: String| {
@@ -443,10 +401,7 @@ pub mod gke_inference_quickstart {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::FetchProfilesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::FetchProfilesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -471,8 +426,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
         pub fn set_performance_requirements<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PerformanceRequirements>,
+        where T: std::convert::Into<crate::model::PerformanceRequirements>
         {
             self.0.request.performance_requirements = std::option::Option::Some(v.into());
             self
@@ -480,8 +434,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
         pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PerformanceRequirements>,
+        where T: std::convert::Into<crate::model::PerformanceRequirements>
         {
             self.0.request.performance_requirements = v.map(|x| x.into());
             self
@@ -489,8 +442,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_size][crate::model::FetchProfilesRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -498,8 +450,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_size][crate::model::FetchProfilesRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -507,8 +458,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [page_token][crate::model::FetchProfilesRequest::page_token].
         pub fn set_page_token<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = std::option::Option::Some(v.into());
             self
@@ -516,8 +466,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [page_token][crate::model::FetchProfilesRequest::page_token].
         pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.0.request.page_token = v.map(|x| x.into());
             self
@@ -549,22 +498,17 @@ pub mod gke_inference_quickstart {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateOptimizedManifest(
-        RequestBuilder<crate::model::GenerateOptimizedManifestRequest>,
-    );
+    pub struct GenerateOptimizedManifest(RequestBuilder<crate::model::GenerateOptimizedManifestRequest>);
 
     impl GenerateOptimizedManifest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateOptimizedManifestRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateOptimizedManifestRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -577,18 +521,14 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateOptimizedManifestResponse> {
-            (*self.0.stub)
-                .generate_optimized_manifest(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_optimized_manifest(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [model_server_info][crate::model::GenerateOptimizedManifestRequest::model_server_info].
         ///
         /// This is a **required** field for requests.
         pub fn set_model_server_info<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ModelServerInfo>,
+        where T: std::convert::Into<crate::model::ModelServerInfo>
         {
             self.0.request.model_server_info = std::option::Option::Some(v.into());
             self
@@ -598,8 +538,7 @@ pub mod gke_inference_quickstart {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ModelServerInfo>,
+        where T: std::convert::Into<crate::model::ModelServerInfo>
         {
             self.0.request.model_server_info = v.map(|x| x.into());
             self
@@ -621,8 +560,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
         pub fn set_performance_requirements<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PerformanceRequirements>,
+        where T: std::convert::Into<crate::model::PerformanceRequirements>
         {
             self.0.request.performance_requirements = std::option::Option::Some(v.into());
             self
@@ -630,8 +568,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
         pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PerformanceRequirements>,
+        where T: std::convert::Into<crate::model::PerformanceRequirements>
         {
             self.0.request.performance_requirements = v.map(|x| x.into());
             self
@@ -639,8 +576,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
         pub fn set_storage_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::StorageConfig>,
+        where T: std::convert::Into<crate::model::StorageConfig>
         {
             self.0.request.storage_config = std::option::Option::Some(v.into());
             self
@@ -648,8 +584,7 @@ pub mod gke_inference_quickstart {
 
         /// Sets or clears the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
         pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::StorageConfig>,
+        where T: std::convert::Into<crate::model::StorageConfig>
         {
             self.0.request.storage_config = v.map(|x| x.into());
             self
@@ -684,17 +619,14 @@ pub mod gke_inference_quickstart {
     pub struct FetchBenchmarkingData(RequestBuilder<crate::model::FetchBenchmarkingDataRequest>);
 
     impl FetchBenchmarkingData {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::GkeInferenceQuickstart>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchBenchmarkingDataRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchBenchmarkingDataRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -707,18 +639,14 @@ pub mod gke_inference_quickstart {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchBenchmarkingDataResponse> {
-            (*self.0.stub)
-                .fetch_benchmarking_data(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_benchmarking_data(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [model_server_info][crate::model::FetchBenchmarkingDataRequest::model_server_info].
         ///
         /// This is a **required** field for requests.
         pub fn set_model_server_info<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ModelServerInfo>,
+        where T: std::convert::Into<crate::model::ModelServerInfo>
         {
             self.0.request.model_server_info = std::option::Option::Some(v.into());
             self
@@ -728,8 +656,7 @@ pub mod gke_inference_quickstart {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ModelServerInfo>,
+        where T: std::convert::Into<crate::model::ModelServerInfo>
         {
             self.0.request.model_server_info = v.map(|x| x.into());
             self
@@ -754,4 +681,5 @@ pub mod gke_inference_quickstart {
             &mut self.0.options
         }
     }
+
 }

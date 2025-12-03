@@ -80,88 +80,78 @@ impl ServiceHealth {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ServiceHealth + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ServiceHealth + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceHealth>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceHealth>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceHealth> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceHealth> {
         super::transport::ServiceHealth::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceHealth> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ServiceHealth::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceHealth> {
+        Self::build_transport(conf).await.map(super::tracing::ServiceHealth::new)
     }
 
     /// Lists events under a given project and location.
-    pub fn list_events(&self) -> super::builder::service_health::ListEvents {
+    pub fn list_events(&self) -> super::builder::service_health::ListEvents
+    {
         super::builder::service_health::ListEvents::new(self.inner.clone())
     }
 
     /// Retrieves a resource containing information about an event.
-    pub fn get_event(&self) -> super::builder::service_health::GetEvent {
+    pub fn get_event(&self) -> super::builder::service_health::GetEvent
+    {
         super::builder::service_health::GetEvent::new(self.inner.clone())
     }
 
     /// Lists organization events under a given organization and location.
-    pub fn list_organization_events(
-        &self,
-    ) -> super::builder::service_health::ListOrganizationEvents {
+    pub fn list_organization_events(&self) -> super::builder::service_health::ListOrganizationEvents
+    {
         super::builder::service_health::ListOrganizationEvents::new(self.inner.clone())
     }
 
     /// Retrieves a resource containing information about an event affecting an
     /// organization .
-    pub fn get_organization_event(&self) -> super::builder::service_health::GetOrganizationEvent {
+    pub fn get_organization_event(&self) -> super::builder::service_health::GetOrganizationEvent
+    {
         super::builder::service_health::GetOrganizationEvent::new(self.inner.clone())
     }
 
     /// Lists assets impacted by organization events under a given organization and
     /// location.
-    pub fn list_organization_impacts(
-        &self,
-    ) -> super::builder::service_health::ListOrganizationImpacts {
+    pub fn list_organization_impacts(&self) -> super::builder::service_health::ListOrganizationImpacts
+    {
         super::builder::service_health::ListOrganizationImpacts::new(self.inner.clone())
     }
 
     /// Retrieves a resource containing information about impact to an asset under
     /// an organization affected by a service health event.
-    pub fn get_organization_impact(&self) -> super::builder::service_health::GetOrganizationImpact {
+    pub fn get_organization_impact(&self) -> super::builder::service_health::GetOrganizationImpact
+    {
         super::builder::service_health::GetOrganizationImpact::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::service_health::ListLocations {
+    pub fn list_locations(&self) -> super::builder::service_health::ListLocations
+    {
         super::builder::service_health::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::service_health::GetLocation {
+    pub fn get_location(&self) -> super::builder::service_health::GetLocation
+    {
         super::builder::service_health::GetLocation::new(self.inner.clone())
     }
 }

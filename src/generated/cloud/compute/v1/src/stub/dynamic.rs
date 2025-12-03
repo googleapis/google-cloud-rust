@@ -35,6 +35,7 @@ pub trait AcceleratorTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::accelerator_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AcceleratorTypeList>>;
+
 }
 
 /// All implementations of [super::AcceleratorTypes] also implement [AcceleratorTypes].
@@ -67,6 +68,7 @@ impl<T: super::AcceleratorTypes> AcceleratorTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::AcceleratorTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Addresses].
@@ -1070,6 +1072,7 @@ pub trait DiskTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::disk_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::DiskTypeList>>;
+
 }
 
 /// All implementations of [super::DiskTypes] also implement [DiskTypes].
@@ -1102,6 +1105,7 @@ impl<T: super::DiskTypes> DiskTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::DiskTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Disks].
@@ -1645,9 +1649,7 @@ pub trait FirewallPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::firewall_policies::ListAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::FirewallPoliciesListAssociationsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallPoliciesListAssociationsResponse>>;
 
     async fn r#move(
         &self,
@@ -1807,9 +1809,7 @@ impl<T: super::FirewallPolicies> FirewallPolicies for T {
         &self,
         req: crate::model::firewall_policies::ListAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::FirewallPoliciesListAssociationsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallPoliciesListAssociationsResponse>> {
         T::list_associations(self, req, options).await
     }
 
@@ -2231,9 +2231,7 @@ pub trait FutureReservations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::future_reservations::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::FutureReservationsAggregatedListResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::FutureReservationsAggregatedListResponse>>;
 
     async fn cancel(
         &self,
@@ -2297,9 +2295,7 @@ impl<T: super::FutureReservations> FutureReservations for T {
         &self,
         req: crate::model::future_reservations::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::FutureReservationsAggregatedListResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::FutureReservationsAggregatedListResponse>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -2733,9 +2729,7 @@ pub trait GlobalNetworkEndpointGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>;
 
     async fn get_operation(
         &self,
@@ -2817,9 +2811,7 @@ impl<T: super::GlobalNetworkEndpointGroups> GlobalNetworkEndpointGroups for T {
         &self,
         req: crate::model::global_network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         T::list_network_endpoints(self, req, options).await
     }
 
@@ -2880,6 +2872,7 @@ pub trait GlobalOperations: std::fmt::Debug + Send + Sync {
         req: crate::model::global_operations::WaitRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
 }
 
 /// All implementations of [super::GlobalOperations] also implement [GlobalOperations].
@@ -2930,6 +2923,7 @@ impl<T: super::GlobalOperations> GlobalOperations for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::wait(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::GlobalOrganizationOperations].
@@ -2953,6 +2947,7 @@ pub trait GlobalOrganizationOperations: std::fmt::Debug + Send + Sync {
         req: crate::model::global_organization_operations::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::OperationList>>;
+
 }
 
 /// All implementations of [super::GlobalOrganizationOperations] also implement [GlobalOrganizationOperations].
@@ -2985,6 +2980,7 @@ impl<T: super::GlobalOrganizationOperations> GlobalOrganizationOperations for T 
     ) -> crate::Result<gax::response::Response<crate::model::OperationList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::GlobalPublicDelegatedPrefixes].
@@ -3552,6 +3548,7 @@ pub trait ImageFamilyViews: std::fmt::Debug + Send + Sync {
         req: crate::model::image_family_views::GetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ImageFamilyView>>;
+
 }
 
 /// All implementations of [super::ImageFamilyViews] also implement [ImageFamilyViews].
@@ -3566,6 +3563,7 @@ impl<T: super::ImageFamilyViews> ImageFamilyViews for T {
     ) -> crate::Result<gax::response::Response<crate::model::ImageFamilyView>> {
         T::get(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Images].
@@ -3814,9 +3812,7 @@ pub trait InstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::instance_group_manager_resize_requests::ListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>>;
 
     async fn get_operation(
         &self,
@@ -3862,8 +3858,7 @@ impl<T: super::InstanceGroupManagerResizeRequests> InstanceGroupManagerResizeReq
         &self,
         req: crate::model::instance_group_manager_resize_requests::GetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequest>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequest>> {
         T::get(self, req, options).await
     }
 
@@ -3881,9 +3876,7 @@ impl<T: super::InstanceGroupManagerResizeRequests> InstanceGroupManagerResizeReq
         &self,
         req: crate::model::instance_group_manager_resize_requests::ListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerResizeRequestsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -3985,17 +3978,13 @@ pub trait InstanceGroupManagers: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::instance_group_managers::ListManagedInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>>;
 
     async fn list_per_instance_configs(
         &self,
         req: crate::model::instance_group_managers::ListPerInstanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>>;
 
     async fn patch(
         &self,
@@ -4098,8 +4087,7 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
         &self,
         req: crate::model::instance_group_managers::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerAggregatedList>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagerAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -4180,8 +4168,7 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
         &self,
         req: crate::model::instance_group_managers::ListErrorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListErrorsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListErrorsResponse>> {
         T::list_errors(self, req, options).await
     }
 
@@ -4190,9 +4177,7 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
         &self,
         req: crate::model::instance_group_managers::ListManagedInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListManagedInstancesResponse>> {
         T::list_managed_instances(self, req, options).await
     }
 
@@ -4201,9 +4186,7 @@ impl<T: super::InstanceGroupManagers> InstanceGroupManagers for T {
         &self,
         req: crate::model::instance_group_managers::ListPerInstanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InstanceGroupManagersListPerInstanceConfigsResp>> {
         T::list_per_instance_configs(self, req, options).await
     }
 
@@ -5212,8 +5195,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::instances::GetEffectiveFirewallsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesGetEffectiveFirewallsResponse>> {
         T::get_effective_firewalls(self, req, options).await
     }
 
@@ -5802,11 +5784,7 @@ pub trait InterconnectAttachmentGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::interconnect_attachment_groups::GetOperationalStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse,
-        >,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse>>;
 
     async fn insert(
         &self,
@@ -5818,9 +5796,7 @@ pub trait InterconnectAttachmentGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::interconnect_attachment_groups::ListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InterconnectAttachmentGroupsListResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentGroupsListResponse>>;
 
     async fn patch(
         &self,
@@ -5893,11 +5869,7 @@ impl<T: super::InterconnectAttachmentGroups> InterconnectAttachmentGroups for T 
         &self,
         req: crate::model::interconnect_attachment_groups::GetOperationalStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse,
-        >,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentGroupsGetOperationalStatusResponse>> {
         T::get_operational_status(self, req, options).await
     }
 
@@ -5915,9 +5887,7 @@ impl<T: super::InterconnectAttachmentGroups> InterconnectAttachmentGroups for T 
         &self,
         req: crate::model::interconnect_attachment_groups::ListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InterconnectAttachmentGroupsListResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentGroupsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -6044,8 +6014,7 @@ impl<T: super::InterconnectAttachments> InterconnectAttachments for T {
         &self,
         req: crate::model::interconnect_attachments::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentAggregatedList>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectAttachmentAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -6159,9 +6128,7 @@ pub trait InterconnectGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::interconnect_groups::GetOperationalStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>>;
 
     async fn insert(
         &self,
@@ -6255,9 +6222,7 @@ impl<T: super::InterconnectGroups> InterconnectGroups for T {
         &self,
         req: crate::model::interconnect_groups::GetOperationalStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectGroupsGetOperationalStatusResponse>> {
         T::get_operational_status(self, req, options).await
     }
 
@@ -6345,6 +6310,7 @@ pub trait InterconnectLocations: std::fmt::Debug + Send + Sync {
         req: crate::model::interconnect_locations::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InterconnectLocationList>>;
+
 }
 
 /// All implementations of [super::InterconnectLocations] also implement [InterconnectLocations].
@@ -6368,6 +6334,7 @@ impl<T: super::InterconnectLocations> InterconnectLocations for T {
     ) -> crate::Result<gax::response::Response<crate::model::InterconnectLocationList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::InterconnectRemoteLocations].
@@ -6385,6 +6352,7 @@ pub trait InterconnectRemoteLocations: std::fmt::Debug + Send + Sync {
         req: crate::model::interconnect_remote_locations::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InterconnectRemoteLocationList>>;
+
 }
 
 /// All implementations of [super::InterconnectRemoteLocations] also implement [InterconnectRemoteLocations].
@@ -6408,6 +6376,7 @@ impl<T: super::InterconnectRemoteLocations> InterconnectRemoteLocations for T {
     ) -> crate::Result<gax::response::Response<crate::model::InterconnectRemoteLocationList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Interconnects].
@@ -6506,8 +6475,7 @@ impl<T: super::Interconnects> Interconnects for T {
         &self,
         req: crate::model::interconnects::GetDiagnosticsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InterconnectsGetDiagnosticsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectsGetDiagnosticsResponse>> {
         T::get_diagnostics(self, req, options).await
     }
 
@@ -6516,8 +6484,7 @@ impl<T: super::Interconnects> Interconnects for T {
         &self,
         req: crate::model::interconnects::GetMacsecConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::InterconnectsGetMacsecConfigResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::InterconnectsGetMacsecConfigResponse>> {
         T::get_macsec_config(self, req, options).await
     }
 
@@ -6596,6 +6563,7 @@ pub trait LicenseCodes: std::fmt::Debug + Send + Sync {
         req: crate::model::license_codes::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
+
 }
 
 /// All implementations of [super::LicenseCodes] also implement [LicenseCodes].
@@ -6619,6 +6587,7 @@ impl<T: super::LicenseCodes> LicenseCodes for T {
     ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Licenses].
@@ -6980,6 +6949,7 @@ pub trait MachineTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::machine_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::MachineTypeList>>;
+
 }
 
 /// All implementations of [super::MachineTypes] also implement [MachineTypes].
@@ -7012,6 +6982,7 @@ impl<T: super::MachineTypes> MachineTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::MachineTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::NetworkAttachments].
@@ -7206,9 +7177,7 @@ pub trait NetworkEdgeSecurityServices: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::network_edge_security_services::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>>;
 
     async fn delete(
         &self,
@@ -7260,9 +7229,7 @@ impl<T: super::NetworkEdgeSecurityServices> NetworkEdgeSecurityServices for T {
         &self,
         req: crate::model::network_edge_security_services::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEdgeSecurityServiceAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -7376,9 +7343,7 @@ pub trait NetworkEndpointGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>;
 
     async fn test_iam_permissions(
         &self,
@@ -7412,8 +7377,7 @@ impl<T: super::NetworkEndpointGroups> NetworkEndpointGroups for T {
         &self,
         req: crate::model::network_endpoint_groups::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupAggregatedList>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -7476,9 +7440,7 @@ impl<T: super::NetworkEndpointGroups> NetworkEndpointGroups for T {
         &self,
         req: crate::model::network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         T::list_network_endpoints(self, req, options).await
     }
 
@@ -7698,8 +7660,7 @@ impl<T: super::NetworkFirewallPolicies> NetworkFirewallPolicies for T {
         &self,
         req: crate::model::network_firewall_policies::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NetworkFirewallPolicyAggregatedList>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkFirewallPolicyAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -7895,6 +7856,7 @@ pub trait NetworkProfiles: std::fmt::Debug + Send + Sync {
         req: crate::model::network_profiles::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::NetworkProfilesListResponse>>;
+
 }
 
 /// All implementations of [super::NetworkProfiles] also implement [NetworkProfiles].
@@ -7918,6 +7880,7 @@ impl<T: super::NetworkProfiles> NetworkProfiles for T {
     ) -> crate::Result<gax::response::Response<crate::model::NetworkProfilesListResponse>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Networks].
@@ -8049,8 +8012,7 @@ impl<T: super::Networks> Networks for T {
         &self,
         req: crate::model::networks::GetEffectiveFirewallsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::NetworksGetEffectiveFirewallsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworksGetEffectiveFirewallsResponse>> {
         T::get_effective_firewalls(self, req, options).await
     }
 
@@ -8614,6 +8576,7 @@ pub trait NodeTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::node_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::NodeTypeList>>;
+
 }
 
 /// All implementations of [super::NodeTypes] also implement [NodeTypes].
@@ -8646,6 +8609,7 @@ impl<T: super::NodeTypes> NodeTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::NodeTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::OrganizationSecurityPolicies].
@@ -8710,19 +8674,13 @@ pub trait OrganizationSecurityPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::organization_security_policies::ListAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>>;
 
     async fn list_preconfigured_expression_sets(
         &self,
         req: crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>>;
 
     async fn r#move(
         &self,
@@ -8861,9 +8819,7 @@ impl<T: super::OrganizationSecurityPolicies> OrganizationSecurityPolicies for T 
         &self,
         req: crate::model::organization_security_policies::ListAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::OrganizationSecurityPoliciesListAssociationsResponse>> {
         T::list_associations(self, req, options).await
     }
 
@@ -8872,11 +8828,7 @@ impl<T: super::OrganizationSecurityPolicies> OrganizationSecurityPolicies for T 
         &self,
         req: crate::model::organization_security_policies::ListPreconfiguredExpressionSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>> {
         T::list_preconfigured_expression_sets(self, req, options).await
     }
 
@@ -9688,8 +9640,7 @@ impl<T: super::PublicDelegatedPrefixes> PublicDelegatedPrefixes for T {
         &self,
         req: crate::model::public_delegated_prefixes::AggregatedListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::PublicDelegatedPrefixAggregatedList>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::PublicDelegatedPrefixAggregatedList>> {
         T::aggregated_list(self, req, options).await
     }
 
@@ -10287,6 +10238,7 @@ pub trait RegionDiskTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::region_disk_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RegionDiskTypeList>>;
+
 }
 
 /// All implementations of [super::RegionDiskTypes] also implement [RegionDiskTypes].
@@ -10310,6 +10262,7 @@ impl<T: super::RegionDiskTypes> RegionDiskTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::RegionDiskTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RegionDisks].
@@ -10941,25 +10894,19 @@ pub trait RegionInstanceGroupManagers: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::region_instance_group_managers::ListErrorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>>;
 
     async fn list_managed_instances(
         &self,
         req: crate::model::region_instance_group_managers::ListManagedInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>>;
 
     async fn list_per_instance_configs(
         &self,
         req: crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>>;
 
     async fn patch(
         &self,
@@ -11134,9 +11081,7 @@ impl<T: super::RegionInstanceGroupManagers> RegionInstanceGroupManagers for T {
         &self,
         req: crate::model::region_instance_group_managers::ListErrorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListErrorsResponse>> {
         T::list_errors(self, req, options).await
     }
 
@@ -11145,9 +11090,7 @@ impl<T: super::RegionInstanceGroupManagers> RegionInstanceGroupManagers for T {
         &self,
         req: crate::model::region_instance_group_managers::ListManagedInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListInstancesResponse>> {
         T::list_managed_instances(self, req, options).await
     }
 
@@ -11156,9 +11099,7 @@ impl<T: super::RegionInstanceGroupManagers> RegionInstanceGroupManagers for T {
         &self,
         req: crate::model::region_instance_group_managers::ListPerInstanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupManagersListInstanceConfigsResp>> {
         T::list_per_instance_configs(self, req, options).await
     }
 
@@ -11363,8 +11304,7 @@ impl<T: super::RegionInstanceGroups> RegionInstanceGroups for T {
         &self,
         req: crate::model::region_instance_groups::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupsListInstances>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::RegionInstanceGroupsListInstances>> {
         T::list_instances(self, req, options).await
     }
 
@@ -11796,9 +11736,7 @@ pub trait RegionNetworkEndpointGroups: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>>;
 
     async fn get_operation(
         &self,
@@ -11880,9 +11818,7 @@ impl<T: super::RegionNetworkEndpointGroups> RegionNetworkEndpointGroups for T {
         &self,
         req: crate::model::region_network_endpoint_groups::ListNetworkEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkEndpointGroupsListNetworkEndpoints>> {
         T::list_network_endpoints(self, req, options).await
     }
 
@@ -11954,11 +11890,7 @@ pub trait RegionNetworkFirewallPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::region_network_firewall_policies::GetEffectiveFirewallsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse,
-        >,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse>>;
 
     async fn get_iam_policy(
         &self,
@@ -12100,11 +12032,7 @@ impl<T: super::RegionNetworkFirewallPolicies> RegionNetworkFirewallPolicies for 
         &self,
         req: crate::model::region_network_firewall_policies::GetEffectiveFirewallsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse,
-        >,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::RegionNetworkFirewallPoliciesGetEffectiveFirewallsResponse>> {
         T::get_effective_firewalls(self, req, options).await
     }
 
@@ -12358,6 +12286,7 @@ pub trait RegionOperations: std::fmt::Debug + Send + Sync {
         req: crate::model::region_operations::WaitRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
 }
 
 /// All implementations of [super::RegionOperations] also implement [RegionOperations].
@@ -12399,6 +12328,7 @@ impl<T: super::RegionOperations> RegionOperations for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::wait(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RegionSecurityPolicies].
@@ -12741,9 +12671,7 @@ pub trait RegionSslPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::region_ssl_policies::ListAvailableFeaturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>>;
 
     async fn patch(
         &self,
@@ -12813,9 +12741,7 @@ impl<T: super::RegionSslPolicies> RegionSslPolicies for T {
         &self,
         req: crate::model::region_ssl_policies::ListAvailableFeaturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>> {
         T::list_available_features(self, req, options).await
     }
 
@@ -13402,6 +13328,7 @@ pub trait RegionZones: std::fmt::Debug + Send + Sync {
         req: crate::model::region_zones::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ZoneList>>;
+
 }
 
 /// All implementations of [super::RegionZones] also implement [RegionZones].
@@ -13416,6 +13343,7 @@ impl<T: super::RegionZones> RegionZones for T {
     ) -> crate::Result<gax::response::Response<crate::model::ZoneList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Regions].
@@ -13433,6 +13361,7 @@ pub trait Regions: std::fmt::Debug + Send + Sync {
         req: crate::model::regions::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RegionList>>;
+
 }
 
 /// All implementations of [super::Regions] also implement [Regions].
@@ -13456,6 +13385,7 @@ impl<T: super::Regions> Regions for T {
     ) -> crate::Result<gax::response::Response<crate::model::RegionList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ReservationBlocks].
@@ -13687,8 +13617,7 @@ impl<T: super::ReservationSubBlocks> ReservationSubBlocks for T {
         &self,
         req: crate::model::reservation_sub_blocks::ListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ReservationSubBlocksListResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationSubBlocksListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -14613,11 +14542,7 @@ pub trait SecurityPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::security_policies::ListPreconfiguredExpressionSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>>;
 
     async fn patch(
         &self,
@@ -14732,11 +14657,7 @@ impl<T: super::SecurityPolicies> SecurityPolicies for T {
         &self,
         req: crate::model::security_policies::ListPreconfiguredExpressionSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<
-            crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse,
-        >,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SecurityPoliciesListPreconfiguredExpressionSetsResponse>> {
         T::list_preconfigured_expression_sets(self, req, options).await
     }
 
@@ -15394,9 +15315,7 @@ pub trait SslPolicies: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ssl_policies::ListAvailableFeaturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>>;
 
     async fn patch(
         &self,
@@ -15475,9 +15394,7 @@ impl<T: super::SslPolicies> SslPolicies for T {
         &self,
         req: crate::model::ssl_policies::ListAvailableFeaturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::SslPoliciesListAvailableFeaturesResponse>> {
         T::list_available_features(self, req, options).await
     }
 
@@ -15535,6 +15452,7 @@ pub trait StoragePoolTypes: std::fmt::Debug + Send + Sync {
         req: crate::model::storage_pool_types::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::StoragePoolTypeList>>;
+
 }
 
 /// All implementations of [super::StoragePoolTypes] also implement [StoragePoolTypes].
@@ -15567,6 +15485,7 @@ impl<T: super::StoragePoolTypes> StoragePoolTypes for T {
     ) -> crate::Result<gax::response::Response<crate::model::StoragePoolTypeList>> {
         T::list(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::StoragePools].
@@ -18007,6 +17926,7 @@ pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
         req: crate::model::zone_operations::WaitRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
 }
 
 /// All implementations of [super::ZoneOperations] also implement [ZoneOperations].
@@ -18048,6 +17968,7 @@ impl<T: super::ZoneOperations> ZoneOperations for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::wait(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Zones].
@@ -18065,6 +17986,7 @@ pub trait Zones: std::fmt::Debug + Send + Sync {
         req: crate::model::zones::ListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ZoneList>>;
+
 }
 
 /// All implementations of [super::Zones] also implement [Zones].
@@ -18088,4 +18010,5 @@ impl<T: super::Zones> Zones for T {
     ) -> crate::Result<gax::response::Response<crate::model::ZoneList>> {
         T::list(self, req, options).await
     }
+
 }

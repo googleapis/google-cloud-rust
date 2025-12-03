@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataExchange {
+
     /// Output only. The resource name of the data exchange.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     pub name: std::string::String,
@@ -141,8 +142,7 @@ impl DataExchange {
 
     /// Sets the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
     pub fn set_sharing_environment_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
+    where T: std::convert::Into<crate::model::SharingEnvironmentConfig>
     {
         self.sharing_environment_config = std::option::Option::Some(v.into());
         self
@@ -150,8 +150,7 @@ impl DataExchange {
 
     /// Sets or clears the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
     pub fn set_or_clear_sharing_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
+    where T: std::convert::Into<crate::model::SharingEnvironmentConfig>
     {
         self.sharing_environment_config = v.map(|x| x.into());
         self
@@ -159,8 +158,7 @@ impl DataExchange {
 
     /// Sets the value of [discovery_type][crate::model::DataExchange::discovery_type].
     pub fn set_discovery_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiscoveryType>,
+    where T: std::convert::Into<crate::model::DiscoveryType>
     {
         self.discovery_type = std::option::Option::Some(v.into());
         self
@@ -168,8 +166,7 @@ impl DataExchange {
 
     /// Sets or clears the value of [discovery_type][crate::model::DataExchange::discovery_type].
     pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DiscoveryType>,
+    where T: std::convert::Into<crate::model::DiscoveryType>
     {
         self.discovery_type = v.map(|x| x.into());
         self
@@ -177,20 +174,15 @@ impl DataExchange {
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
-    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
@@ -208,6 +200,7 @@ impl wkt::message::Message for DataExchange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryTemplate {
+
     /// Output only. The resource name of the QueryTemplate.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123/queryTemplates/456`
     pub name: std::string::String,
@@ -293,18 +286,14 @@ impl QueryTemplate {
     }
 
     /// Sets the value of [state][crate::model::QueryTemplate::state].
-    pub fn set_state<T: std::convert::Into<crate::model::query_template::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::query_template::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [routine][crate::model::QueryTemplate::routine].
     pub fn set_routine<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Routine>,
+    where T: std::convert::Into<crate::model::Routine>
     {
         self.routine = std::option::Option::Some(v.into());
         self
@@ -312,8 +301,7 @@ impl QueryTemplate {
 
     /// Sets or clears the value of [routine][crate::model::QueryTemplate::routine].
     pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Routine>,
+    where T: std::convert::Into<crate::model::Routine>
     {
         self.routine = v.map(|x| x.into());
         self
@@ -321,8 +309,7 @@ impl QueryTemplate {
 
     /// Sets the value of [create_time][crate::model::QueryTemplate::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -330,8 +317,7 @@ impl QueryTemplate {
 
     /// Sets or clears the value of [create_time][crate::model::QueryTemplate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -339,8 +325,7 @@ impl QueryTemplate {
 
     /// Sets the value of [update_time][crate::model::QueryTemplate::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -348,8 +333,7 @@ impl QueryTemplate {
 
     /// Sets or clears the value of [update_time][crate::model::QueryTemplate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -366,6 +350,7 @@ impl wkt::message::Message for QueryTemplate {
 pub mod query_template {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The QueryTemplate lifecycle state.
     ///
@@ -463,9 +448,7 @@ pub mod query_template {
                 2 => Self::Pending,
                 3 => Self::Deleted,
                 4 => Self::Approved,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -479,9 +462,7 @@ pub mod query_template {
                 "PENDING" => Self::Pending,
                 "DELETED" => Self::Deleted,
                 "APPROVED" => Self::Approved,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -508,8 +489,7 @@ pub mod query_template {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.bigquery.analyticshub.v1.QueryTemplate.State",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.QueryTemplate.State"))
         }
     }
 }
@@ -518,6 +498,7 @@ pub mod query_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Routine {
+
     /// Required. The type of routine.
     pub routine_type: crate::model::routine::RoutineType,
 
@@ -533,10 +514,7 @@ impl Routine {
     }
 
     /// Sets the value of [routine_type][crate::model::Routine::routine_type].
-    pub fn set_routine_type<T: std::convert::Into<crate::model::routine::RoutineType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_routine_type<T: std::convert::Into<crate::model::routine::RoutineType>>(mut self, v: T) -> Self {
         self.routine_type = v.into();
         self
     }
@@ -558,6 +536,7 @@ impl wkt::message::Message for Routine {
 pub mod routine {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the type of a given routine.
     ///
@@ -640,9 +619,7 @@ pub mod routine {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::TableValuedFunction,
-                _ => Self::UnknownValue(routine_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(routine_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -653,9 +630,7 @@ pub mod routine {
             match value {
                 "ROUTINE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "TABLE_VALUED_FUNCTION" => Self::TableValuedFunction,
-                _ => Self::UnknownValue(routine_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(routine_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -679,8 +654,7 @@ pub mod routine {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutineType>::new(
-                ".google.cloud.bigquery.analyticshub.v1.Routine.RoutineType",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.Routine.RoutineType"))
         }
     }
 }
@@ -689,6 +663,7 @@ pub mod routine {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQueryTemplateRequest {
+
     /// Required. The parent resource path of the QueryTemplate.
     /// e.g.
     /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myQueryTemplate`.
@@ -717,18 +692,14 @@ impl CreateQueryTemplateRequest {
     }
 
     /// Sets the value of [query_template_id][crate::model::CreateQueryTemplateRequest::query_template_id].
-    pub fn set_query_template_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_query_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_template_id = v.into();
         self
     }
 
     /// Sets the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
     pub fn set_query_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QueryTemplate>,
+    where T: std::convert::Into<crate::model::QueryTemplate>
     {
         self.query_template = std::option::Option::Some(v.into());
         self
@@ -736,8 +707,7 @@ impl CreateQueryTemplateRequest {
 
     /// Sets or clears the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
     pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QueryTemplate>,
+    where T: std::convert::Into<crate::model::QueryTemplate>
     {
         self.query_template = v.map(|x| x.into());
         self
@@ -754,6 +724,7 @@ impl wkt::message::Message for CreateQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQueryTemplateRequest {
+
     /// Required. The parent resource path of the QueryTemplate.
     /// e.g.
     /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
@@ -784,6 +755,7 @@ impl wkt::message::Message for GetQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueryTemplatesRequest {
+
     /// Required. The parent resource path of the QueryTemplates.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     pub parent: std::string::String,
@@ -833,6 +805,7 @@ impl wkt::message::Message for ListQueryTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQueryTemplatesResponse {
+
     /// The list of QueryTemplates.
     pub query_templates: std::vec::Vec<crate::model::QueryTemplate>,
 
@@ -851,7 +824,7 @@ impl ListQueryTemplatesResponse {
     pub fn set_query_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QueryTemplate>,
+        V: std::convert::Into<crate::model::QueryTemplate>
     {
         use std::iter::Iterator;
         self.query_templates = v.into_iter().map(|i| i.into()).collect();
@@ -889,6 +862,7 @@ impl gax::paginator::internal::PageableResponse for ListQueryTemplatesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateQueryTemplateRequest {
+
     /// Optional. Field mask specifies the fields to update in the query template
     /// resource. The fields specified in the `updateMask` are relative to the
     /// resource and are not a full request.
@@ -907,8 +881,7 @@ impl UpdateQueryTemplateRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -916,8 +889,7 @@ impl UpdateQueryTemplateRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -925,8 +897,7 @@ impl UpdateQueryTemplateRequest {
 
     /// Sets the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
     pub fn set_query_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QueryTemplate>,
+    where T: std::convert::Into<crate::model::QueryTemplate>
     {
         self.query_template = std::option::Option::Some(v.into());
         self
@@ -934,8 +905,7 @@ impl UpdateQueryTemplateRequest {
 
     /// Sets or clears the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
     pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QueryTemplate>,
+    where T: std::convert::Into<crate::model::QueryTemplate>
     {
         self.query_template = v.map(|x| x.into());
         self
@@ -952,6 +922,7 @@ impl wkt::message::Message for UpdateQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteQueryTemplateRequest {
+
     /// Required. The resource path of the QueryTemplate.
     /// e.g.
     /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
@@ -982,6 +953,7 @@ impl wkt::message::Message for DeleteQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitQueryTemplateRequest {
+
     /// Required. The resource path of the QueryTemplate.
     /// e.g.
     /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
@@ -1012,6 +984,7 @@ impl wkt::message::Message for SubmitQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveQueryTemplateRequest {
+
     /// Required. The resource path of the QueryTemplate.
     /// e.g.
     /// `projects/myproject/locations/us/dataExchanges/123/queryTemplates/myqueryTemplate`.
@@ -1043,6 +1016,7 @@ impl wkt::message::Message for ApproveQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SharingEnvironmentConfig {
+
     pub environment: std::option::Option<crate::model::sharing_environment_config::Environment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1057,14 +1031,8 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are mutually
     /// exclusive.
-    pub fn set_environment<
-        T: std::convert::Into<
-                std::option::Option<crate::model::sharing_environment_config::Environment>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_environment<T: std::convert::Into<std::option::Option<crate::model::sharing_environment_config::Environment>>>(mut self, v: T) -> Self
+    {
         self.environment = v.into();
         self
     }
@@ -1072,16 +1040,10 @@ impl SharingEnvironmentConfig {
     /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// if it holds a `DefaultExchangeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn default_exchange_config(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
-    > {
+    pub fn default_exchange_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>> {
         #[allow(unreachable_patterns)]
         self.environment.as_ref().and_then(|v| match v {
-            crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1091,16 +1053,11 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are
     /// mutually exclusive.
-    pub fn set_default_exchange_config<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_exchange_config<T: std::convert::Into<std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>>>(mut self, v: T) -> Self {
         self.environment = std::option::Option::Some(
-            crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(v.into()),
+            crate::model::sharing_environment_config::Environment::DefaultExchangeConfig(
+                v.into()
+            )
         );
         self
     }
@@ -1108,16 +1065,10 @@ impl SharingEnvironmentConfig {
     /// The value of [environment][crate::model::SharingEnvironmentConfig::environment]
     /// if it holds a `DcrExchangeConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn dcr_exchange_config(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-    > {
+    pub fn dcr_exchange_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>> {
         #[allow(unreachable_patterns)]
         self.environment.as_ref().and_then(|v| match v {
-            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1127,16 +1078,11 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are
     /// mutually exclusive.
-    pub fn set_dcr_exchange_config<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dcr_exchange_config<T: std::convert::Into<std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>>>(mut self, v: T) -> Self {
         self.environment = std::option::Option::Some(
-            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(v.into()),
+            crate::model::sharing_environment_config::Environment::DcrExchangeConfig(
+                v.into()
+            )
         );
         self
     }
@@ -1153,10 +1099,12 @@ pub mod sharing_environment_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Default Analytics Hub data exchange, used for secured data sharing.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DefaultExchangeConfig {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1176,6 +1124,7 @@ pub mod sharing_environment_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DcrExchangeConfig {
+
         /// Output only. If True, this DCR restricts the contributors to sharing
         /// only a single resource in a Listing. And no two resources should have the
         /// same IDs. So if a contributor adds a view with a conflicting name, the
@@ -1201,20 +1150,15 @@ pub mod sharing_environment_config {
 
         /// Sets the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
         pub fn set_single_selected_resource_sharing_restriction<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.single_selected_resource_sharing_restriction = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
-        pub fn set_or_clear_single_selected_resource_sharing_restriction<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<bool>,
+        pub fn set_or_clear_single_selected_resource_sharing_restriction<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<bool>
         {
             self.single_selected_resource_sharing_restriction = v.map(|x| x.into());
             self
@@ -1222,20 +1166,15 @@ pub mod sharing_environment_config {
 
         /// Sets the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
         pub fn set_single_linked_dataset_per_cleanroom<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.single_linked_dataset_per_cleanroom = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
-        pub fn set_or_clear_single_linked_dataset_per_cleanroom<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<bool>,
+        pub fn set_or_clear_single_linked_dataset_per_cleanroom<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<bool>
         {
             self.single_linked_dataset_per_cleanroom = v.map(|x| x.into());
             self
@@ -1252,13 +1191,9 @@ pub mod sharing_environment_config {
     #[non_exhaustive]
     pub enum Environment {
         /// Default Analytics Hub data exchange, used for secured data sharing.
-        DefaultExchangeConfig(
-            std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
-        ),
+        DefaultExchangeConfig(std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>),
         /// Data Clean Room (DCR), used for privacy-safe and secured data sharing.
-        DcrExchangeConfig(
-            std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
-        ),
+        DcrExchangeConfig(std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>),
     }
 }
 
@@ -1266,6 +1201,7 @@ pub mod sharing_environment_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataProvider {
+
     /// Optional. Name of the data provider.
     pub name: std::string::String,
 
@@ -1304,6 +1240,7 @@ impl wkt::message::Message for DataProvider {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Publisher {
+
     /// Optional. Name of the listing publisher.
     pub name: std::string::String,
 
@@ -1341,6 +1278,7 @@ impl wkt::message::Message for Publisher {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDatasetReference {
+
     /// Required. A unique ID for this dataset, without the project name. The ID
     /// must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_).
     /// The maximum length is 1,024 characters.
@@ -1380,6 +1318,7 @@ impl wkt::message::Message for DestinationDatasetReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDataset {
+
     /// Required. A reference that identifies the destination dataset.
     pub dataset_reference: std::option::Option<crate::model::DestinationDatasetReference>,
 
@@ -1394,7 +1333,7 @@ pub struct DestinationDataset {
     /// You can set this property when inserting or updating a dataset.
     /// See <https://cloud.google.com/resource-manager/docs/creating-managing-labels>
     /// for more information.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The geographic location where the dataset should reside. See
     /// <https://cloud.google.com/bigquery/docs/locations> for supported
@@ -1416,8 +1355,7 @@ impl DestinationDataset {
 
     /// Sets the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
     pub fn set_dataset_reference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDatasetReference>,
+    where T: std::convert::Into<crate::model::DestinationDatasetReference>
     {
         self.dataset_reference = std::option::Option::Some(v.into());
         self
@@ -1425,8 +1363,7 @@ impl DestinationDataset {
 
     /// Sets or clears the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
     pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDatasetReference>,
+    where T: std::convert::Into<crate::model::DestinationDatasetReference>
     {
         self.dataset_reference = v.map(|x| x.into());
         self
@@ -1434,8 +1371,7 @@ impl DestinationDataset {
 
     /// Sets the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
     pub fn set_friendly_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.friendly_name = std::option::Option::Some(v.into());
         self
@@ -1443,8 +1379,7 @@ impl DestinationDataset {
 
     /// Sets or clears the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
     pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.friendly_name = v.map(|x| x.into());
         self
@@ -1452,8 +1387,7 @@ impl DestinationDataset {
 
     /// Sets the value of [description][crate::model::DestinationDataset::description].
     pub fn set_description<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.description = std::option::Option::Some(v.into());
         self
@@ -1461,8 +1395,7 @@ impl DestinationDataset {
 
     /// Sets or clears the value of [description][crate::model::DestinationDataset::description].
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.description = v.map(|x| x.into());
         self
@@ -1490,7 +1423,7 @@ impl DestinationDataset {
     pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.replica_locations = v.into_iter().map(|i| i.into()).collect();
@@ -1508,6 +1441,7 @@ impl wkt::message::Message for DestinationDataset {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationPubSubSubscription {
+
     /// Required. Destination Pub/Sub subscription resource.
     pub pubsub_subscription: std::option::Option<crate::model::PubSubSubscription>,
 
@@ -1521,8 +1455,7 @@ impl DestinationPubSubSubscription {
 
     /// Sets the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
     pub fn set_pubsub_subscription<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PubSubSubscription>,
+    where T: std::convert::Into<crate::model::PubSubSubscription>
     {
         self.pubsub_subscription = std::option::Option::Some(v.into());
         self
@@ -1530,8 +1463,7 @@ impl DestinationPubSubSubscription {
 
     /// Sets or clears the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
     pub fn set_or_clear_pubsub_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PubSubSubscription>,
+    where T: std::convert::Into<crate::model::PubSubSubscription>
     {
         self.pubsub_subscription = v.map(|x| x.into());
         self
@@ -1551,6 +1483,7 @@ impl wkt::message::Message for DestinationPubSubSubscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Listing {
+
     /// Output only. The resource name of the listing.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`
     pub name: std::string::String,
@@ -1601,8 +1534,7 @@ pub struct Listing {
 
     /// Optional. If set, restricted export configuration will be propagated and
     /// enforced on the linked dataset.
-    pub restricted_export_config:
-        std::option::Option<crate::model::listing::RestrictedExportConfig>,
+    pub restricted_export_config: std::option::Option<crate::model::listing::RestrictedExportConfig>,
 
     /// Optional. If set, stored procedure configuration will be propagated and
     /// enforced on the linked dataset.
@@ -1681,8 +1613,7 @@ impl Listing {
 
     /// Sets the value of [data_provider][crate::model::Listing::data_provider].
     pub fn set_data_provider<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataProvider>,
+    where T: std::convert::Into<crate::model::DataProvider>
     {
         self.data_provider = std::option::Option::Some(v.into());
         self
@@ -1690,8 +1621,7 @@ impl Listing {
 
     /// Sets or clears the value of [data_provider][crate::model::Listing::data_provider].
     pub fn set_or_clear_data_provider<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataProvider>,
+    where T: std::convert::Into<crate::model::DataProvider>
     {
         self.data_provider = v.map(|x| x.into());
         self
@@ -1701,7 +1631,7 @@ impl Listing {
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::listing::Category>,
+        V: std::convert::Into<crate::model::listing::Category>
     {
         use std::iter::Iterator;
         self.categories = v.into_iter().map(|i| i.into()).collect();
@@ -1710,8 +1640,7 @@ impl Listing {
 
     /// Sets the value of [publisher][crate::model::Listing::publisher].
     pub fn set_publisher<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Publisher>,
+    where T: std::convert::Into<crate::model::Publisher>
     {
         self.publisher = std::option::Option::Some(v.into());
         self
@@ -1719,8 +1648,7 @@ impl Listing {
 
     /// Sets or clears the value of [publisher][crate::model::Listing::publisher].
     pub fn set_or_clear_publisher<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Publisher>,
+    where T: std::convert::Into<crate::model::Publisher>
     {
         self.publisher = v.map(|x| x.into());
         self
@@ -1734,8 +1662,7 @@ impl Listing {
 
     /// Sets the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
     pub fn set_restricted_export_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
+    where T: std::convert::Into<crate::model::listing::RestrictedExportConfig>
     {
         self.restricted_export_config = std::option::Option::Some(v.into());
         self
@@ -1743,8 +1670,7 @@ impl Listing {
 
     /// Sets or clears the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
     pub fn set_or_clear_restricted_export_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
+    where T: std::convert::Into<crate::model::listing::RestrictedExportConfig>
     {
         self.restricted_export_config = v.map(|x| x.into());
         self
@@ -1752,8 +1678,7 @@ impl Listing {
 
     /// Sets the value of [stored_procedure_config][crate::model::Listing::stored_procedure_config].
     pub fn set_stored_procedure_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StoredProcedureConfig>,
+    where T: std::convert::Into<crate::model::StoredProcedureConfig>
     {
         self.stored_procedure_config = std::option::Option::Some(v.into());
         self
@@ -1761,8 +1686,7 @@ impl Listing {
 
     /// Sets or clears the value of [stored_procedure_config][crate::model::Listing::stored_procedure_config].
     pub fn set_or_clear_stored_procedure_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StoredProcedureConfig>,
+    where T: std::convert::Into<crate::model::StoredProcedureConfig>
     {
         self.stored_procedure_config = v.map(|x| x.into());
         self
@@ -1770,8 +1694,7 @@ impl Listing {
 
     /// Sets the value of [discovery_type][crate::model::Listing::discovery_type].
     pub fn set_discovery_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiscoveryType>,
+    where T: std::convert::Into<crate::model::DiscoveryType>
     {
         self.discovery_type = std::option::Option::Some(v.into());
         self
@@ -1779,26 +1702,21 @@ impl Listing {
 
     /// Sets or clears the value of [discovery_type][crate::model::Listing::discovery_type].
     pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DiscoveryType>,
+    where T: std::convert::Into<crate::model::DiscoveryType>
     {
         self.discovery_type = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resource_type][crate::model::Listing::resource_type].
-    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [commercial_info][crate::model::Listing::commercial_info].
     pub fn set_commercial_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::listing::CommercialInfo>,
+    where T: std::convert::Into<crate::model::listing::CommercialInfo>
     {
         self.commercial_info = std::option::Option::Some(v.into());
         self
@@ -1806,8 +1724,7 @@ impl Listing {
 
     /// Sets or clears the value of [commercial_info][crate::model::Listing::commercial_info].
     pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::listing::CommercialInfo>,
+    where T: std::convert::Into<crate::model::listing::CommercialInfo>
     {
         self.commercial_info = v.map(|x| x.into());
         self
@@ -1815,20 +1732,15 @@ impl Listing {
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
-    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
@@ -1836,8 +1748,7 @@ impl Listing {
 
     /// Sets the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
     pub fn set_allow_only_metadata_sharing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.allow_only_metadata_sharing = std::option::Option::Some(v.into());
         self
@@ -1845,8 +1756,7 @@ impl Listing {
 
     /// Sets or clears the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
     pub fn set_or_clear_allow_only_metadata_sharing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.allow_only_metadata_sharing = v.map(|x| x.into());
         self
@@ -1856,10 +1766,8 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::listing::Source>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::listing::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -1867,9 +1775,7 @@ impl Listing {
     /// The value of [source][crate::model::Listing::source]
     /// if it holds a `BigqueryDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_dataset(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::BigQueryDatasetSource>> {
+    pub fn bigquery_dataset(&self) -> std::option::Option<&std::boxed::Box<crate::model::listing::BigQueryDatasetSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::listing::Source::BigqueryDataset(v) => std::option::Option::Some(v),
@@ -1882,23 +1788,19 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_bigquery_dataset<
-        T: std::convert::Into<std::boxed::Box<crate::model::listing::BigQueryDatasetSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::listing::Source::BigqueryDataset(v.into()));
+    pub fn set_bigquery_dataset<T: std::convert::Into<std::boxed::Box<crate::model::listing::BigQueryDatasetSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::listing::Source::BigqueryDataset(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [source][crate::model::Listing::source]
     /// if it holds a `PubsubTopic`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pubsub_topic(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
+    pub fn pubsub_topic(&self) -> std::option::Option<&std::boxed::Box<crate::model::listing::PubSubTopicSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::listing::Source::PubsubTopic(v) => std::option::Option::Some(v),
@@ -1911,14 +1813,12 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_pubsub_topic<
-        T: std::convert::Into<std::boxed::Box<crate::model::listing::PubSubTopicSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::listing::Source::PubsubTopic(v.into()));
+    pub fn set_pubsub_topic<T: std::convert::Into<std::boxed::Box<crate::model::listing::PubSubTopicSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::listing::Source::PubsubTopic(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1934,6 +1834,7 @@ pub mod listing {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A reference to a shared dataset. It is an existing BigQuery dataset with a
     /// collection of objects such as tables and views that you want to share
     /// with subscribers.
@@ -1944,20 +1845,18 @@ pub mod listing {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryDatasetSource {
+
         /// Optional. Resource name of the dataset source for this listing.
         /// e.g. `projects/myproject/datasets/123`
         pub dataset: std::string::String,
 
         /// Optional. Resource in this dataset that is selectively shared.
         /// This field is required for data clean room exchanges.
-        pub selected_resources:
-            std::vec::Vec<crate::model::listing::big_query_dataset_source::SelectedResource>,
+        pub selected_resources: std::vec::Vec<crate::model::listing::big_query_dataset_source::SelectedResource>,
 
         /// Optional. If set, restricted export policy will be propagated and
         /// enforced on the linked dataset.
-        pub restricted_export_policy: std::option::Option<
-            crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
-        >,
+        pub restricted_export_policy: std::option::Option<crate::model::listing::big_query_dataset_source::RestrictedExportPolicy>,
 
         /// Optional. A list of regions where the publisher has created shared
         /// dataset replicas.
@@ -1967,8 +1866,7 @@ pub mod listing {
         /// Contains both primary and secondary replicas.
         /// Each replica includes a system-computed (output-only) state and primary
         /// designation.
-        pub effective_replicas:
-            std::vec::Vec<crate::model::listing::big_query_dataset_source::Replica>,
+        pub effective_replicas: std::vec::Vec<crate::model::listing::big_query_dataset_source::Replica>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1988,9 +1886,7 @@ pub mod listing {
         pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::listing::big_query_dataset_source::SelectedResource,
-                >,
+            V: std::convert::Into<crate::model::listing::big_query_dataset_source::SelectedResource>
         {
             use std::iter::Iterator;
             self.selected_resources = v.into_iter().map(|i| i.into()).collect();
@@ -1999,10 +1895,7 @@ pub mod listing {
 
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
         pub fn set_restricted_export_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
-                >,
+        where T: std::convert::Into<crate::model::listing::big_query_dataset_source::RestrictedExportPolicy>
         {
             self.restricted_export_policy = std::option::Option::Some(v.into());
             self
@@ -2010,10 +1903,7 @@ pub mod listing {
 
         /// Sets or clears the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
         pub fn set_or_clear_restricted_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
-                >,
+        where T: std::convert::Into<crate::model::listing::big_query_dataset_source::RestrictedExportPolicy>
         {
             self.restricted_export_policy = v.map(|x| x.into());
             self
@@ -2023,7 +1913,7 @@ pub mod listing {
         pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.replica_locations = v.into_iter().map(|i| i.into()).collect();
@@ -2034,7 +1924,7 @@ pub mod listing {
         pub fn set_effective_replicas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::listing::big_query_dataset_source::Replica>,
+            V: std::convert::Into<crate::model::listing::big_query_dataset_source::Replica>
         {
             use std::iter::Iterator;
             self.effective_replicas = v.into_iter().map(|i| i.into()).collect();
@@ -2053,13 +1943,13 @@ pub mod listing {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Resource in this dataset that is selectively shared.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SelectedResource {
-            pub resource: std::option::Option<
-                crate::model::listing::big_query_dataset_source::selected_resource::Resource,
-            >,
+
+            pub resource: std::option::Option<crate::model::listing::big_query_dataset_source::selected_resource::Resource>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -2141,6 +2031,7 @@ pub mod listing {
             #[allow(unused_imports)]
             use super::*;
 
+
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Resource {
@@ -2162,6 +2053,7 @@ pub mod listing {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RestrictedExportPolicy {
+
             /// Optional. If true, enable restricted export.
             pub enabled: std::option::Option<wkt::BoolValue>,
 
@@ -2183,8 +2075,7 @@ pub mod listing {
 
             /// Sets the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
             pub fn set_enabled<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.enabled = std::option::Option::Some(v.into());
                 self
@@ -2192,8 +2083,7 @@ pub mod listing {
 
             /// Sets or clears the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
             pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.enabled = v.map(|x| x.into());
                 self
@@ -2201,20 +2091,15 @@ pub mod listing {
 
             /// Sets the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
             pub fn set_restrict_direct_table_access<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.restrict_direct_table_access = std::option::Option::Some(v.into());
                 self
             }
 
             /// Sets or clears the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
-            pub fn set_or_clear_restrict_direct_table_access<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            pub fn set_or_clear_restrict_direct_table_access<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.restrict_direct_table_access = v.map(|x| x.into());
                 self
@@ -2222,20 +2107,15 @@ pub mod listing {
 
             /// Sets the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
             pub fn set_restrict_query_result<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.restrict_query_result = std::option::Option::Some(v.into());
                 self
             }
 
             /// Sets or clears the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
-            pub fn set_or_clear_restrict_query_result<T>(
-                mut self,
-                v: std::option::Option<T>,
-            ) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            pub fn set_or_clear_restrict_query_result<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.restrict_query_result = v.map(|x| x.into());
                 self
@@ -2255,6 +2135,7 @@ pub mod listing {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Replica {
+
             /// Output only. The geographic location where the replica resides. See
             /// [BigQuery locations](https://cloud.google.com/bigquery/docs/locations)
             /// for supported locations. Eg. "us-central1".
@@ -2262,13 +2143,10 @@ pub mod listing {
 
             /// Output only. Assigned by Analytics Hub based on real BigQuery
             /// replication state.
-            pub replica_state:
-                crate::model::listing::big_query_dataset_source::replica::ReplicaState,
+            pub replica_state: crate::model::listing::big_query_dataset_source::replica::ReplicaState,
 
             /// Output only. Indicates that this replica is the primary replica.
-            pub primary_state: std::option::Option<
-                crate::model::listing::big_query_dataset_source::replica::PrimaryState,
-            >,
+            pub primary_state: std::option::Option<crate::model::listing::big_query_dataset_source::replica::PrimaryState>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -2279,33 +2157,20 @@ pub mod listing {
             }
 
             /// Sets the value of [location][crate::model::listing::big_query_dataset_source::Replica::location].
-            pub fn set_location<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.location = v.into();
                 self
             }
 
             /// Sets the value of [replica_state][crate::model::listing::big_query_dataset_source::Replica::replica_state].
-            pub fn set_replica_state<
-                T: std::convert::Into<
-                        crate::model::listing::big_query_dataset_source::replica::ReplicaState,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_replica_state<T: std::convert::Into<crate::model::listing::big_query_dataset_source::replica::ReplicaState>>(mut self, v: T) -> Self {
                 self.replica_state = v.into();
                 self
             }
 
             /// Sets the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
             pub fn set_primary_state<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::listing::big_query_dataset_source::replica::PrimaryState,
-                    >,
+            where T: std::convert::Into<crate::model::listing::big_query_dataset_source::replica::PrimaryState>
             {
                 self.primary_state = std::option::Option::Some(v.into());
                 self
@@ -2313,10 +2178,7 @@ pub mod listing {
 
             /// Sets or clears the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
             pub fn set_or_clear_primary_state<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::listing::big_query_dataset_source::replica::PrimaryState,
-                    >,
+            where T: std::convert::Into<crate::model::listing::big_query_dataset_source::replica::PrimaryState>
             {
                 self.primary_state = v.map(|x| x.into());
                 self
@@ -2333,6 +2195,7 @@ pub mod listing {
         pub mod replica {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Replica state of the shared dataset.
             ///
@@ -2410,10 +2273,7 @@ pub mod listing {
             }
 
             impl std::fmt::Display for ReplicaState {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2424,9 +2284,7 @@ pub mod listing {
                         0 => Self::Unspecified,
                         1 => Self::ReadyToUse,
                         2 => Self::Unavailable,
-                        _ => Self::UnknownValue(replica_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(replica_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -2438,9 +2296,7 @@ pub mod listing {
                         "REPLICA_STATE_UNSPECIFIED" => Self::Unspecified,
                         "READY_TO_USE" => Self::ReadyToUse,
                         "UNAVAILABLE" => Self::Unavailable,
-                        _ => Self::UnknownValue(replica_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(replica_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -2540,10 +2396,7 @@ pub mod listing {
             }
 
             impl std::fmt::Display for PrimaryState {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2553,9 +2406,7 @@ pub mod listing {
                     match value {
                         0 => Self::Unspecified,
                         1 => Self::PrimaryReplica,
-                        _ => Self::UnknownValue(primary_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(primary_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -2566,9 +2417,7 @@ pub mod listing {
                     match value {
                         "PRIMARY_STATE_UNSPECIFIED" => Self::Unspecified,
                         "PRIMARY_REPLICA" => Self::PrimaryReplica,
-                        _ => Self::UnknownValue(primary_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(primary_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -2602,6 +2451,7 @@ pub mod listing {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubTopicSource {
+
         /// Required. Resource name of the Pub/Sub topic source for this listing.
         /// e.g. projects/myproject/topics/topicId
         pub topic: std::string::String,
@@ -2629,7 +2479,7 @@ pub mod listing {
         pub fn set_data_affinity_regions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.data_affinity_regions = v.into_iter().map(|i| i.into()).collect();
@@ -2648,6 +2498,7 @@ pub mod listing {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestrictedExportConfig {
+
         /// Optional. If true, enable restricted export.
         pub enabled: bool,
 
@@ -2674,10 +2525,7 @@ pub mod listing {
         }
 
         /// Sets the value of [restrict_direct_table_access][crate::model::listing::RestrictedExportConfig::restrict_direct_table_access].
-        pub fn set_restrict_direct_table_access<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_restrict_direct_table_access<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.restrict_direct_table_access = v.into();
             self
         }
@@ -2700,10 +2548,10 @@ pub mod listing {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommercialInfo {
+
         /// Output only. Details of the Marketplace Data Product associated with the
         /// Listing.
-        pub cloud_marketplace:
-            std::option::Option<crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo>,
+        pub cloud_marketplace: std::option::Option<crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2715,10 +2563,7 @@ pub mod listing {
 
         /// Sets the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
         pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
-                >,
+        where T: std::convert::Into<crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo>
         {
             self.cloud_marketplace = std::option::Option::Some(v.into());
             self
@@ -2726,10 +2571,7 @@ pub mod listing {
 
         /// Sets or clears the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
         pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo,
-                >,
+        where T: std::convert::Into<crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo>
         {
             self.cloud_marketplace = v.map(|x| x.into());
             self
@@ -2746,6 +2588,7 @@ pub mod listing {
     pub mod commercial_info {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Specifies the details of the Marketplace Data Product associated with the
         /// Listing.
@@ -2770,8 +2613,7 @@ pub mod listing {
 
             /// Sets the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
             pub fn set_service<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.service = std::option::Option::Some(v.into());
                 self
@@ -2779,8 +2621,7 @@ pub mod listing {
 
             /// Sets or clears the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
             pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.service = v.map(|x| x.into());
                 self
@@ -2813,6 +2654,7 @@ pub mod listing {
         pub mod google_cloud_marketplace_info {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Indicates whether this commercial access is currently active.
             ///
@@ -2873,9 +2715,7 @@ pub mod listing {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => {
-                            std::option::Option::Some("COMMERCIAL_STATE_UNSPECIFIED")
-                        }
+                        Self::Unspecified => std::option::Option::Some("COMMERCIAL_STATE_UNSPECIFIED"),
                         Self::Onboarding => std::option::Option::Some("ONBOARDING"),
                         Self::Active => std::option::Option::Some("ACTIVE"),
                         Self::UnknownValue(u) => u.0.name(),
@@ -2891,10 +2731,7 @@ pub mod listing {
             }
 
             impl std::fmt::Display for CommercialState {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2905,9 +2742,7 @@ pub mod listing {
                         0 => Self::Unspecified,
                         1 => Self::Onboarding,
                         2 => Self::Active,
-                        _ => Self::UnknownValue(commercial_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(commercial_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -2919,9 +2754,7 @@ pub mod listing {
                         "COMMERCIAL_STATE_UNSPECIFIED" => Self::Unspecified,
                         "ONBOARDING" => Self::Onboarding,
                         "ACTIVE" => Self::Active,
-                        _ => Self::UnknownValue(commercial_state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(commercial_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -3034,9 +2867,7 @@ pub mod listing {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3047,9 +2878,7 @@ pub mod listing {
             match value {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3073,8 +2902,7 @@ pub mod listing {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.bigquery.analyticshub.v1.Listing.State",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.Listing.State"))
         }
     }
 
@@ -3172,13 +3000,9 @@ pub mod listing {
             match self {
                 Self::Unspecified => std::option::Option::Some("CATEGORY_UNSPECIFIED"),
                 Self::Others => std::option::Option::Some("CATEGORY_OTHERS"),
-                Self::AdvertisingAndMarketing => {
-                    std::option::Option::Some("CATEGORY_ADVERTISING_AND_MARKETING")
-                }
+                Self::AdvertisingAndMarketing => std::option::Option::Some("CATEGORY_ADVERTISING_AND_MARKETING"),
                 Self::Commerce => std::option::Option::Some("CATEGORY_COMMERCE"),
-                Self::ClimateAndEnvironment => {
-                    std::option::Option::Some("CATEGORY_CLIMATE_AND_ENVIRONMENT")
-                }
+                Self::ClimateAndEnvironment => std::option::Option::Some("CATEGORY_CLIMATE_AND_ENVIRONMENT"),
                 Self::Demographics => std::option::Option::Some("CATEGORY_DEMOGRAPHICS"),
                 Self::Economics => std::option::Option::Some("CATEGORY_ECONOMICS"),
                 Self::Education => std::option::Option::Some("CATEGORY_EDUCATION"),
@@ -3186,23 +3010,15 @@ pub mod listing {
                 Self::Financial => std::option::Option::Some("CATEGORY_FINANCIAL"),
                 Self::Gaming => std::option::Option::Some("CATEGORY_GAMING"),
                 Self::Geospatial => std::option::Option::Some("CATEGORY_GEOSPATIAL"),
-                Self::HealthcareAndLifeScience => {
-                    std::option::Option::Some("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE")
-                }
+                Self::HealthcareAndLifeScience => std::option::Option::Some("CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE"),
                 Self::Media => std::option::Option::Some("CATEGORY_MEDIA"),
                 Self::PublicSector => std::option::Option::Some("CATEGORY_PUBLIC_SECTOR"),
                 Self::Retail => std::option::Option::Some("CATEGORY_RETAIL"),
                 Self::Sports => std::option::Option::Some("CATEGORY_SPORTS"),
-                Self::ScienceAndResearch => {
-                    std::option::Option::Some("CATEGORY_SCIENCE_AND_RESEARCH")
-                }
-                Self::TransportationAndLogistics => {
-                    std::option::Option::Some("CATEGORY_TRANSPORTATION_AND_LOGISTICS")
-                }
+                Self::ScienceAndResearch => std::option::Option::Some("CATEGORY_SCIENCE_AND_RESEARCH"),
+                Self::TransportationAndLogistics => std::option::Option::Some("CATEGORY_TRANSPORTATION_AND_LOGISTICS"),
                 Self::TravelAndTourism => std::option::Option::Some("CATEGORY_TRAVEL_AND_TOURISM"),
-                Self::GoogleEarthEngine => {
-                    std::option::Option::Some("CATEGORY_GOOGLE_EARTH_ENGINE")
-                }
+                Self::GoogleEarthEngine => std::option::Option::Some("CATEGORY_GOOGLE_EARTH_ENGINE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3245,9 +3061,7 @@ pub mod listing {
                 18 => Self::TransportationAndLogistics,
                 19 => Self::TravelAndTourism,
                 20 => Self::GoogleEarthEngine,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3277,9 +3091,7 @@ pub mod listing {
                 "CATEGORY_TRANSPORTATION_AND_LOGISTICS" => Self::TransportationAndLogistics,
                 "CATEGORY_TRAVEL_AND_TOURISM" => Self::TravelAndTourism,
                 "CATEGORY_GOOGLE_EARTH_ENGINE" => Self::GoogleEarthEngine,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3322,8 +3134,7 @@ pub mod listing {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
-                ".google.cloud.bigquery.analyticshub.v1.Listing.Category",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.Listing.Category"))
         }
     }
 
@@ -3343,12 +3154,12 @@ pub mod listing {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StoredProcedureConfig {
+
     /// Optional. If true, enable sharing of stored procedure.
     pub enabled: bool,
 
     /// Output only. Types of stored procedure supported to share.
-    pub allowed_stored_procedure_types:
-        std::vec::Vec<crate::model::stored_procedure_config::StoredProcedureType>,
+    pub allowed_stored_procedure_types: std::vec::Vec<crate::model::stored_procedure_config::StoredProcedureType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3368,7 +3179,7 @@ impl StoredProcedureConfig {
     pub fn set_allowed_stored_procedure_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::stored_procedure_config::StoredProcedureType>,
+        V: std::convert::Into<crate::model::stored_procedure_config::StoredProcedureType>
     {
         use std::iter::Iterator;
         self.allowed_stored_procedure_types = v.into_iter().map(|i| i.into()).collect();
@@ -3386,6 +3197,7 @@ impl wkt::message::Message for StoredProcedureConfig {
 pub mod stored_procedure_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum to specify the type of stored procedure to share.
     ///
@@ -3468,9 +3280,7 @@ pub mod stored_procedure_config {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::SqlProcedure,
-                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3481,9 +3291,7 @@ pub mod stored_procedure_config {
             match value {
                 "STORED_PROCEDURE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SQL_PROCEDURE" => Self::SqlProcedure,
-                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(stored_procedure_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3507,8 +3315,7 @@ pub mod stored_procedure_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StoredProcedureType>::new(
-                ".google.cloud.bigquery.analyticshub.v1.StoredProcedureConfig.StoredProcedureType",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.StoredProcedureConfig.StoredProcedureType"))
         }
     }
 }
@@ -3519,6 +3326,7 @@ pub mod stored_procedure_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
+
     /// Output only. The resource name of the subscription.
     /// e.g. `projects/myproject/locations/us/subscriptions/123`.
     pub name: std::string::String,
@@ -3545,8 +3353,7 @@ pub struct Subscription {
     ///
     /// For listing-level subscriptions, this is a map of size 1.
     /// Only contains values if state == STATE_ACTIVE.
-    pub linked_dataset_map:
-        std::collections::HashMap<std::string::String, crate::model::subscription::LinkedResource>,
+    pub linked_dataset_map: std::collections::HashMap<std::string::String,crate::model::subscription::LinkedResource>,
 
     /// Output only. Email of the subscriber.
     pub subscriber_contact: std::string::String,
@@ -3588,8 +3395,7 @@ impl Subscription {
 
     /// Sets the value of [creation_time][crate::model::Subscription::creation_time].
     pub fn set_creation_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = std::option::Option::Some(v.into());
         self
@@ -3597,8 +3403,7 @@ impl Subscription {
 
     /// Sets or clears the value of [creation_time][crate::model::Subscription::creation_time].
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = v.map(|x| x.into());
         self
@@ -3606,8 +3411,7 @@ impl Subscription {
 
     /// Sets the value of [last_modify_time][crate::model::Subscription::last_modify_time].
     pub fn set_last_modify_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modify_time = std::option::Option::Some(v.into());
         self
@@ -3615,8 +3419,7 @@ impl Subscription {
 
     /// Sets or clears the value of [last_modify_time][crate::model::Subscription::last_modify_time].
     pub fn set_or_clear_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_modify_time = v.map(|x| x.into());
         self
@@ -3629,19 +3432,13 @@ impl Subscription {
     }
 
     /// Sets the value of [organization_display_name][crate::model::Subscription::organization_display_name].
-    pub fn set_organization_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_organization_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization_display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Subscription::state].
-    pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -3659,10 +3456,7 @@ impl Subscription {
     }
 
     /// Sets the value of [subscriber_contact][crate::model::Subscription::subscriber_contact].
-    pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscriber_contact = v.into();
         self
     }
@@ -3671,7 +3465,7 @@ impl Subscription {
     pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::subscription::LinkedResource>,
+        V: std::convert::Into<crate::model::subscription::LinkedResource>
     {
         use std::iter::Iterator;
         self.linked_resources = v.into_iter().map(|i| i.into()).collect();
@@ -3679,18 +3473,14 @@ impl Subscription {
     }
 
     /// Sets the value of [resource_type][crate::model::Subscription::resource_type].
-    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [commercial_info][crate::model::Subscription::commercial_info].
     pub fn set_commercial_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::subscription::CommercialInfo>,
+    where T: std::convert::Into<crate::model::subscription::CommercialInfo>
     {
         self.commercial_info = std::option::Option::Some(v.into());
         self
@@ -3698,8 +3488,7 @@ impl Subscription {
 
     /// Sets or clears the value of [commercial_info][crate::model::Subscription::commercial_info].
     pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::subscription::CommercialInfo>,
+    where T: std::convert::Into<crate::model::subscription::CommercialInfo>
     {
         self.commercial_info = v.map(|x| x.into());
         self
@@ -3707,20 +3496,15 @@ impl Subscription {
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
-    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_log_linked_dataset_query_user_email<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.log_linked_dataset_query_user_email = v.map(|x| x.into());
         self
@@ -3728,8 +3512,7 @@ impl Subscription {
 
     /// Sets the value of [destination_dataset][crate::model::Subscription::destination_dataset].
     pub fn set_destination_dataset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDataset>,
+    where T: std::convert::Into<crate::model::DestinationDataset>
     {
         self.destination_dataset = std::option::Option::Some(v.into());
         self
@@ -3737,8 +3520,7 @@ impl Subscription {
 
     /// Sets or clears the value of [destination_dataset][crate::model::Subscription::destination_dataset].
     pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDataset>,
+    where T: std::convert::Into<crate::model::DestinationDataset>
     {
         self.destination_dataset = v.map(|x| x.into());
         self
@@ -3748,12 +3530,8 @@ impl Subscription {
     ///
     /// Note that all the setters affecting `resource_name` are mutually
     /// exclusive.
-    pub fn set_resource_name<
-        T: std::convert::Into<std::option::Option<crate::model::subscription::ResourceName>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_name<T: std::convert::Into<std::option::Option<crate::model::subscription::ResourceName>>>(mut self, v: T) -> Self
+    {
         self.resource_name = v.into();
         self
     }
@@ -3775,8 +3553,11 @@ impl Subscription {
     /// Note that all the setters affecting `resource_name` are
     /// mutually exclusive.
     pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.resource_name =
-            std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
+        self.resource_name = std::option::Option::Some(
+            crate::model::subscription::ResourceName::Listing(
+                v.into()
+            )
+        );
         self
     }
 
@@ -3786,9 +3567,7 @@ impl Subscription {
     pub fn data_exchange(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.resource_name.as_ref().and_then(|v| match v {
-            crate::model::subscription::ResourceName::DataExchange(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::subscription::ResourceName::DataExchange(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3800,7 +3579,9 @@ impl Subscription {
     /// mutually exclusive.
     pub fn set_data_exchange<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = std::option::Option::Some(
-            crate::model::subscription::ResourceName::DataExchange(v.into()),
+            crate::model::subscription::ResourceName::DataExchange(
+                v.into()
+            )
         );
         self
     }
@@ -3817,10 +3598,12 @@ pub mod subscription {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Reference to a linked resource tracked by this Subscription.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LinkedResource {
+
         /// Output only. Listing for which linked resource is created.
         pub listing: std::string::String,
 
@@ -3844,14 +3627,8 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are mutually
         /// exclusive.
-        pub fn set_reference<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::subscription::linked_resource::Reference>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_reference<T: std::convert::Into<std::option::Option<crate::model::subscription::linked_resource::Reference>>>(mut self, v: T) -> Self
+        {
             self.reference = v.into();
             self
         }
@@ -3862,9 +3639,7 @@ pub mod subscription {
         pub fn linked_dataset(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.reference.as_ref().and_then(|v| match v {
-                crate::model::subscription::linked_resource::Reference::LinkedDataset(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::subscription::linked_resource::Reference::LinkedDataset(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3874,12 +3649,11 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
-        pub fn set_linked_dataset<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_linked_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reference = std::option::Option::Some(
-                crate::model::subscription::linked_resource::Reference::LinkedDataset(v.into()),
+                crate::model::subscription::linked_resource::Reference::LinkedDataset(
+                    v.into()
+                )
             );
             self
         }
@@ -3900,14 +3674,11 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
-        pub fn set_linked_pubsub_subscription<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_linked_pubsub_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reference = std::option::Option::Some(
                 crate::model::subscription::linked_resource::Reference::LinkedPubsubSubscription(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -3923,6 +3694,7 @@ pub mod subscription {
     pub mod linked_resource {
         #[allow(unused_imports)]
         use super::*;
+
 
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -3940,11 +3712,10 @@ pub mod subscription {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CommercialInfo {
+
         /// Output only. This is set when the subscription is commercialised via
         /// Cloud Marketplace.
-        pub cloud_marketplace: std::option::Option<
-            crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
-        >,
+        pub cloud_marketplace: std::option::Option<crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3956,10 +3727,7 @@ pub mod subscription {
 
         /// Sets the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
         pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
-                >,
+        where T: std::convert::Into<crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo>
         {
             self.cloud_marketplace = std::option::Option::Some(v.into());
             self
@@ -3967,10 +3735,7 @@ pub mod subscription {
 
         /// Sets or clears the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
         pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo,
-                >,
+        where T: std::convert::Into<crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo>
         {
             self.cloud_marketplace = v.map(|x| x.into());
             self
@@ -3988,10 +3753,12 @@ pub mod subscription {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Cloud Marketplace commercial metadata for this subscription.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleCloudMarketplaceInfo {
+
             /// Resource name of the Marketplace Order.
             pub order: std::string::String,
 
@@ -4110,9 +3877,7 @@ pub mod subscription {
                 1 => Self::Active,
                 2 => Self::Stale,
                 3 => Self::Inactive,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4125,9 +3890,7 @@ pub mod subscription {
                 "STATE_ACTIVE" => Self::Active,
                 "STATE_STALE" => Self::Stale,
                 "STATE_INACTIVE" => Self::Inactive,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4153,8 +3916,7 @@ pub mod subscription {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.bigquery.analyticshub.v1.Subscription.State",
-            ))
+                ".google.cloud.bigquery.analyticshub.v1.Subscription.State"))
         }
     }
 
@@ -4174,6 +3936,7 @@ pub mod subscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataExchangesRequest {
+
     /// Required. The parent resource path of the data exchanges.
     /// e.g. `projects/myproject/locations/us`.
     pub parent: std::string::String,
@@ -4223,6 +3986,7 @@ impl wkt::message::Message for ListDataExchangesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataExchangesResponse {
+
     /// The list of data exchanges.
     pub data_exchanges: std::vec::Vec<crate::model::DataExchange>,
 
@@ -4241,7 +4005,7 @@ impl ListDataExchangesResponse {
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataExchange>,
+        V: std::convert::Into<crate::model::DataExchange>
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
@@ -4280,6 +4044,7 @@ impl gax::paginator::internal::PageableResponse for ListDataExchangesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgDataExchangesRequest {
+
     /// Required. The organization resource path of the projects containing
     /// DataExchanges. e.g. `organizations/myorg/locations/us`.
     pub organization: std::string::String,
@@ -4330,6 +4095,7 @@ impl wkt::message::Message for ListOrgDataExchangesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOrgDataExchangesResponse {
+
     /// The list of data exchanges.
     pub data_exchanges: std::vec::Vec<crate::model::DataExchange>,
 
@@ -4348,7 +4114,7 @@ impl ListOrgDataExchangesResponse {
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataExchange>,
+        V: std::convert::Into<crate::model::DataExchange>
     {
         use std::iter::Iterator;
         self.data_exchanges = v.into_iter().map(|i| i.into()).collect();
@@ -4386,6 +4152,7 @@ impl gax::paginator::internal::PageableResponse for ListOrgDataExchangesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataExchangeRequest {
+
     /// Required. The resource name of the data exchange.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     pub name: std::string::String,
@@ -4415,6 +4182,7 @@ impl wkt::message::Message for GetDataExchangeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDataExchangeRequest {
+
     /// Required. The parent resource path of the data exchange.
     /// e.g. `projects/myproject/locations/us`.
     pub parent: std::string::String,
@@ -4442,18 +4210,14 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets the value of [data_exchange_id][crate::model::CreateDataExchangeRequest::data_exchange_id].
-    pub fn set_data_exchange_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_exchange_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_exchange_id = v.into();
         self
     }
 
     /// Sets the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
     pub fn set_data_exchange<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataExchange>,
+    where T: std::convert::Into<crate::model::DataExchange>
     {
         self.data_exchange = std::option::Option::Some(v.into());
         self
@@ -4461,8 +4225,7 @@ impl CreateDataExchangeRequest {
 
     /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
     pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataExchange>,
+    where T: std::convert::Into<crate::model::DataExchange>
     {
         self.data_exchange = v.map(|x| x.into());
         self
@@ -4479,6 +4242,7 @@ impl wkt::message::Message for CreateDataExchangeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDataExchangeRequest {
+
     /// Required. Field mask specifies the fields to update in the data exchange
     /// resource. The fields specified in the
     /// `updateMask` are relative to the resource and are not a full request.
@@ -4497,8 +4261,7 @@ impl UpdateDataExchangeRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4506,8 +4269,7 @@ impl UpdateDataExchangeRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4515,8 +4277,7 @@ impl UpdateDataExchangeRequest {
 
     /// Sets the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
     pub fn set_data_exchange<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataExchange>,
+    where T: std::convert::Into<crate::model::DataExchange>
     {
         self.data_exchange = std::option::Option::Some(v.into());
         self
@@ -4524,8 +4285,7 @@ impl UpdateDataExchangeRequest {
 
     /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
     pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataExchange>,
+    where T: std::convert::Into<crate::model::DataExchange>
     {
         self.data_exchange = v.map(|x| x.into());
         self
@@ -4542,6 +4302,7 @@ impl wkt::message::Message for UpdateDataExchangeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDataExchangeRequest {
+
     /// Required. The full name of the data exchange resource that you want to
     /// delete. For example, `projects/myproject/locations/us/dataExchanges/123`.
     pub name: std::string::String,
@@ -4571,6 +4332,7 @@ impl wkt::message::Message for DeleteDataExchangeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListListingsRequest {
+
     /// Required. The parent resource path of the listing.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     pub parent: std::string::String,
@@ -4620,6 +4382,7 @@ impl wkt::message::Message for ListListingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListListingsResponse {
+
     /// The list of Listing.
     pub listings: std::vec::Vec<crate::model::Listing>,
 
@@ -4638,7 +4401,7 @@ impl ListListingsResponse {
     pub fn set_listings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Listing>,
+        V: std::convert::Into<crate::model::Listing>
     {
         use std::iter::Iterator;
         self.listings = v.into_iter().map(|i| i.into()).collect();
@@ -4676,6 +4439,7 @@ impl gax::paginator::internal::PageableResponse for ListListingsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetListingRequest {
+
     /// Required. The resource name of the listing.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     pub name: std::string::String,
@@ -4705,6 +4469,7 @@ impl wkt::message::Message for GetListingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateListingRequest {
+
     /// Required. The parent resource path of the listing.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123`.
     pub parent: std::string::String,
@@ -4739,8 +4504,7 @@ impl CreateListingRequest {
 
     /// Sets the value of [listing][crate::model::CreateListingRequest::listing].
     pub fn set_listing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Listing>,
+    where T: std::convert::Into<crate::model::Listing>
     {
         self.listing = std::option::Option::Some(v.into());
         self
@@ -4748,8 +4512,7 @@ impl CreateListingRequest {
 
     /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
     pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Listing>,
+    where T: std::convert::Into<crate::model::Listing>
     {
         self.listing = v.map(|x| x.into());
         self
@@ -4766,6 +4529,7 @@ impl wkt::message::Message for CreateListingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateListingRequest {
+
     /// Required. Field mask specifies the fields to update in the listing
     /// resource. The fields specified in the `updateMask` are relative to the
     /// resource and are not a full request.
@@ -4784,8 +4548,7 @@ impl UpdateListingRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4793,8 +4556,7 @@ impl UpdateListingRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4802,8 +4564,7 @@ impl UpdateListingRequest {
 
     /// Sets the value of [listing][crate::model::UpdateListingRequest::listing].
     pub fn set_listing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Listing>,
+    where T: std::convert::Into<crate::model::Listing>
     {
         self.listing = std::option::Option::Some(v.into());
         self
@@ -4811,8 +4572,7 @@ impl UpdateListingRequest {
 
     /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
     pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Listing>,
+    where T: std::convert::Into<crate::model::Listing>
     {
         self.listing = v.map(|x| x.into());
         self
@@ -4829,6 +4589,7 @@ impl wkt::message::Message for UpdateListingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteListingRequest {
+
     /// Required. Resource name of the listing to delete.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     pub name: std::string::String,
@@ -4869,6 +4630,7 @@ impl wkt::message::Message for DeleteListingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeListingRequest {
+
     /// Required. Resource name of the listing that you want to subscribe to.
     /// e.g. `projects/myproject/locations/us/dataExchanges/123/listings/456`.
     pub name: std::string::String,
@@ -4894,14 +4656,8 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<
-                std::option::Option<crate::model::subscribe_listing_request::Destination>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::subscribe_listing_request::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -4909,14 +4665,10 @@ impl SubscribeListingRequest {
     /// The value of [destination][crate::model::SubscribeListingRequest::destination]
     /// if it holds a `DestinationDataset`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn destination_dataset(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationDataset>> {
+    pub fn destination_dataset(&self) -> std::option::Option<&std::boxed::Box<crate::model::DestinationDataset>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::subscribe_listing_request::Destination::DestinationDataset(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::subscribe_listing_request::Destination::DestinationDataset(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4926,14 +4678,11 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_dataset<
-        T: std::convert::Into<std::boxed::Box<crate::model::DestinationDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_dataset<T: std::convert::Into<std::boxed::Box<crate::model::DestinationDataset>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::subscribe_listing_request::Destination::DestinationDataset(v.into()),
+            crate::model::subscribe_listing_request::Destination::DestinationDataset(
+                v.into()
+            )
         );
         self
     }
@@ -4941,14 +4690,10 @@ impl SubscribeListingRequest {
     /// The value of [destination][crate::model::SubscribeListingRequest::destination]
     /// if it holds a `DestinationPubsubSubscription`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn destination_pubsub_subscription(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
+    pub fn destination_pubsub_subscription(&self) -> std::option::Option<&std::boxed::Box<crate::model::DestinationPubSubSubscription>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4958,16 +4703,11 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_pubsub_subscription<
-        T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_pubsub_subscription<T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::subscribe_listing_request::Destination::DestinationPubsubSubscription(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -4983,6 +4723,7 @@ impl wkt::message::Message for SubscribeListingRequest {
 pub mod subscribe_listing_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Resulting destination of the listing that you subscribed to.
     #[derive(Clone, Debug, PartialEq)]
@@ -5000,6 +4741,7 @@ pub mod subscribe_listing_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeListingResponse {
+
     /// Subscription object created from this subscribe action.
     pub subscription: std::option::Option<crate::model::Subscription>,
 
@@ -5013,8 +4755,7 @@ impl SubscribeListingResponse {
 
     /// Sets the value of [subscription][crate::model::SubscribeListingResponse::subscription].
     pub fn set_subscription<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = std::option::Option::Some(v.into());
         self
@@ -5022,8 +4763,7 @@ impl SubscribeListingResponse {
 
     /// Sets or clears the value of [subscription][crate::model::SubscribeListingResponse::subscription].
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = v.map(|x| x.into());
         self
@@ -5040,6 +4780,7 @@ impl wkt::message::Message for SubscribeListingResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeDataExchangeRequest {
+
     /// Required. Resource name of the Data Exchange.
     /// e.g. `projects/publisherproject/locations/us/dataExchanges/123`
     pub name: std::string::String,
@@ -5080,8 +4821,7 @@ impl SubscribeDataExchangeRequest {
 
     /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
     pub fn set_destination_dataset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDataset>,
+    where T: std::convert::Into<crate::model::DestinationDataset>
     {
         self.destination_dataset = std::option::Option::Some(v.into());
         self
@@ -5089,8 +4829,7 @@ impl SubscribeDataExchangeRequest {
 
     /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
     pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DestinationDataset>,
+    where T: std::convert::Into<crate::model::DestinationDataset>
     {
         self.destination_dataset = v.map(|x| x.into());
         self
@@ -5103,10 +4842,7 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets the value of [subscriber_contact][crate::model::SubscribeDataExchangeRequest::subscriber_contact].
-    pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscriber_contact = v.into();
         self
     }
@@ -5122,6 +4858,7 @@ impl wkt::message::Message for SubscribeDataExchangeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubscribeDataExchangeResponse {
+
     /// Subscription object created from this subscribe action.
     pub subscription: std::option::Option<crate::model::Subscription>,
 
@@ -5135,8 +4872,7 @@ impl SubscribeDataExchangeResponse {
 
     /// Sets the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
     pub fn set_subscription<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = std::option::Option::Some(v.into());
         self
@@ -5144,8 +4880,7 @@ impl SubscribeDataExchangeResponse {
 
     /// Sets or clears the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = v.map(|x| x.into());
         self
@@ -5162,6 +4897,7 @@ impl wkt::message::Message for SubscribeDataExchangeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshSubscriptionRequest {
+
     /// Required. Resource name of the Subscription to refresh.
     /// e.g. `projects/subscriberproject/locations/us/subscriptions/123`
     pub name: std::string::String,
@@ -5191,6 +4927,7 @@ impl wkt::message::Message for RefreshSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RefreshSubscriptionResponse {
+
     /// The refreshed subscription resource.
     pub subscription: std::option::Option<crate::model::Subscription>,
 
@@ -5204,8 +4941,7 @@ impl RefreshSubscriptionResponse {
 
     /// Sets the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
     pub fn set_subscription<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = std::option::Option::Some(v.into());
         self
@@ -5213,8 +4949,7 @@ impl RefreshSubscriptionResponse {
 
     /// Sets or clears the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subscription>,
+    where T: std::convert::Into<crate::model::Subscription>
     {
         self.subscription = v.map(|x| x.into());
         self
@@ -5231,6 +4966,7 @@ impl wkt::message::Message for RefreshSubscriptionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
+
     /// Required. Resource name of the subscription.
     /// e.g. projects/123/locations/us/subscriptions/456
     pub name: std::string::String,
@@ -5260,6 +4996,7 @@ impl wkt::message::Message for GetSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
+
     /// Required. The parent resource path of the subscription.
     /// e.g. projects/myproject/locations/us
     pub parent: std::string::String,
@@ -5330,6 +5067,7 @@ impl wkt::message::Message for ListSubscriptionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsResponse {
+
     /// The list of subscriptions.
     pub subscriptions: std::vec::Vec<crate::model::Subscription>,
 
@@ -5348,7 +5086,7 @@ impl ListSubscriptionsResponse {
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subscription>,
+        V: std::convert::Into<crate::model::Subscription>
     {
         use std::iter::Iterator;
         self.subscriptions = v.into_iter().map(|i| i.into()).collect();
@@ -5386,6 +5124,7 @@ impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSharedResourceSubscriptionsRequest {
+
     /// Required. Resource name of the requested target. This resource may be
     /// either a Listing or a DataExchange. e.g.
     /// projects/123/locations/us/dataExchanges/456 OR e.g.
@@ -5445,6 +5184,7 @@ impl wkt::message::Message for ListSharedResourceSubscriptionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSharedResourceSubscriptionsResponse {
+
     /// The list of subscriptions.
     pub shared_resource_subscriptions: std::vec::Vec<crate::model::Subscription>,
 
@@ -5463,7 +5203,7 @@ impl ListSharedResourceSubscriptionsResponse {
     pub fn set_shared_resource_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subscription>,
+        V: std::convert::Into<crate::model::Subscription>
     {
         use std::iter::Iterator;
         self.shared_resource_subscriptions = v.into_iter().map(|i| i.into()).collect();
@@ -5501,6 +5241,7 @@ impl gax::paginator::internal::PageableResponse for ListSharedResourceSubscripti
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeSubscriptionRequest {
+
     /// Required. Resource name of the subscription to revoke.
     /// e.g. projects/123/locations/us/subscriptions/456
     pub name: std::string::String,
@@ -5542,6 +5283,7 @@ impl wkt::message::Message for RevokeSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeSubscriptionResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5561,6 +5303,7 @@ impl wkt::message::Message for RevokeSubscriptionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
+
     /// Required. Resource name of the subscription to delete.
     /// e.g. projects/123/locations/us/subscriptions/456
     pub name: std::string::String,
@@ -5590,6 +5333,7 @@ impl wkt::message::Message for DeleteSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5627,8 +5371,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5636,8 +5379,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5645,8 +5387,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5654,8 +5395,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5706,6 +5446,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubSubSubscription {
+
     /// Required. Name of the subscription.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub name: std::string::String,
@@ -5761,7 +5502,7 @@ pub struct PubSubSubscription {
 
     /// Optional. See [Creating and managing
     /// labels](https://cloud.google.com/pubsub/docs/labels).
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. If true, messages published with the same `ordering_key` in
     /// `PubsubMessage` will be delivered to the subscribers in the order in which
@@ -5833,7 +5574,7 @@ pub struct PubSubSubscription {
     /// resource. For example:
     /// "123/environment": "production",
     /// "123/costCenter": "marketing"
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5851,8 +5592,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [push_config][crate::model::PubSubSubscription::push_config].
     pub fn set_push_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = std::option::Option::Some(v.into());
         self
@@ -5860,8 +5600,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [push_config][crate::model::PubSubSubscription::push_config].
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PushConfig>,
+    where T: std::convert::Into<crate::model::PushConfig>
     {
         self.push_config = v.map(|x| x.into());
         self
@@ -5869,8 +5608,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
     pub fn set_bigquery_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryConfig>,
+    where T: std::convert::Into<crate::model::BigQueryConfig>
     {
         self.bigquery_config = std::option::Option::Some(v.into());
         self
@@ -5878,8 +5616,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
     pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BigQueryConfig>,
+    where T: std::convert::Into<crate::model::BigQueryConfig>
     {
         self.bigquery_config = v.map(|x| x.into());
         self
@@ -5887,8 +5624,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
     pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    where T: std::convert::Into<crate::model::CloudStorageConfig>
     {
         self.cloud_storage_config = std::option::Option::Some(v.into());
         self
@@ -5896,8 +5632,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
     pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudStorageConfig>,
+    where T: std::convert::Into<crate::model::CloudStorageConfig>
     {
         self.cloud_storage_config = v.map(|x| x.into());
         self
@@ -5917,8 +5652,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = std::option::Option::Some(v.into());
         self
@@ -5926,8 +5660,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.message_retention_duration = v.map(|x| x.into());
         self
@@ -5953,8 +5686,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
     pub fn set_expiration_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    where T: std::convert::Into<crate::model::ExpirationPolicy>
     {
         self.expiration_policy = std::option::Option::Some(v.into());
         self
@@ -5962,8 +5694,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
     pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExpirationPolicy>,
+    where T: std::convert::Into<crate::model::ExpirationPolicy>
     {
         self.expiration_policy = v.map(|x| x.into());
         self
@@ -5977,8 +5708,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
     pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    where T: std::convert::Into<crate::model::DeadLetterPolicy>
     {
         self.dead_letter_policy = std::option::Option::Some(v.into());
         self
@@ -5986,8 +5716,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
     pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DeadLetterPolicy>,
+    where T: std::convert::Into<crate::model::DeadLetterPolicy>
     {
         self.dead_letter_policy = v.map(|x| x.into());
         self
@@ -5995,8 +5724,7 @@ impl PubSubSubscription {
 
     /// Sets the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RetryPolicy>,
+    where T: std::convert::Into<crate::model::RetryPolicy>
     {
         self.retry_policy = std::option::Option::Some(v.into());
         self
@@ -6004,8 +5732,7 @@ impl PubSubSubscription {
 
     /// Sets or clears the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RetryPolicy>,
+    where T: std::convert::Into<crate::model::RetryPolicy>
     {
         self.retry_policy = v.map(|x| x.into());
         self
@@ -6027,7 +5754,7 @@ impl PubSubSubscription {
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageTransform>,
+        V: std::convert::Into<crate::model::MessageTransform>
     {
         use std::iter::Iterator;
         self.message_transforms = v.into_iter().map(|i| i.into()).collect();
@@ -6067,6 +5794,7 @@ impl wkt::message::Message for PubSubSubscription {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryPolicy {
+
     /// Optional. The minimum delay between consecutive deliveries of a given
     /// message. Value should be between 0 and 600 seconds. Defaults to 10 seconds.
     pub minimum_backoff: std::option::Option<wkt::Duration>,
@@ -6086,8 +5814,7 @@ impl RetryPolicy {
 
     /// Sets the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = std::option::Option::Some(v.into());
         self
@@ -6095,8 +5822,7 @@ impl RetryPolicy {
 
     /// Sets or clears the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_backoff = v.map(|x| x.into());
         self
@@ -6104,8 +5830,7 @@ impl RetryPolicy {
 
     /// Sets the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = std::option::Option::Some(v.into());
         self
@@ -6113,8 +5838,7 @@ impl RetryPolicy {
 
     /// Sets or clears the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.maximum_backoff = v.map(|x| x.into());
         self
@@ -6135,6 +5859,7 @@ impl wkt::message::Message for RetryPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeadLetterPolicy {
+
     /// Optional. The name of the topic to which dead letter messages should be
     /// published. Format is `projects/{project}/topics/{topic}`.The Pub/Sub
     /// service account associated with the enclosing subscription's parent project
@@ -6170,10 +5895,7 @@ impl DeadLetterPolicy {
     }
 
     /// Sets the value of [dead_letter_topic][crate::model::DeadLetterPolicy::dead_letter_topic].
-    pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dead_letter_topic = v.into();
         self
     }
@@ -6196,6 +5918,7 @@ impl wkt::message::Message for DeadLetterPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExpirationPolicy {
+
     /// Optional. Specifies the "time-to-live" duration for an associated resource.
     /// The resource expires if it is not active for a period of `ttl`. The
     /// definition of "activity" depends on the type of the associated resource.
@@ -6214,8 +5937,7 @@ impl ExpirationPolicy {
 
     /// Sets the value of [ttl][crate::model::ExpirationPolicy::ttl].
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -6223,8 +5945,7 @@ impl ExpirationPolicy {
 
     /// Sets or clears the value of [ttl][crate::model::ExpirationPolicy::ttl].
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -6241,6 +5962,7 @@ impl wkt::message::Message for ExpirationPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushConfig {
+
     /// Optional. A URL locating the endpoint to which messages should be pushed.
     /// For example, a Webhook endpoint might use `<https://example.com/push>`.
     pub push_endpoint: std::string::String,
@@ -6266,7 +5988,7 @@ pub struct PushConfig {
     ///
     /// For example:
     /// `attributes { "x-goog-version": "v1" }`
-    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+    pub attributes: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// An authentication method used by push endpoints to verify the source of
     /// push requests. This can be used with push endpoints that are private by
@@ -6309,12 +6031,8 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are mutually
     /// exclusive.
-    pub fn set_authentication_method<
-        T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authentication_method<T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>>(mut self, v: T) -> Self
+    {
         self.authentication_method = v.into();
         self
     }
@@ -6322,14 +6040,10 @@ impl PushConfig {
     /// The value of [authentication_method][crate::model::PushConfig::authentication_method]
     /// if it holds a `OidcToken`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn oidc_token(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
+    pub fn oidc_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::OidcToken>> {
         #[allow(unreachable_patterns)]
         self.authentication_method.as_ref().and_then(|v| match v {
-            crate::model::push_config::AuthenticationMethod::OidcToken(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::push_config::AuthenticationMethod::OidcToken(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6339,14 +6053,11 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
-    pub fn set_oidc_token<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>>(mut self, v: T) -> Self {
         self.authentication_method = std::option::Option::Some(
-            crate::model::push_config::AuthenticationMethod::OidcToken(v.into()),
+            crate::model::push_config::AuthenticationMethod::OidcToken(
+                v.into()
+            )
         );
         self
     }
@@ -6355,12 +6066,8 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are mutually
     /// exclusive.
-    pub fn set_wrapper<
-        T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_wrapper<T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>>(mut self, v: T) -> Self
+    {
         self.wrapper = v.into();
         self
     }
@@ -6368,9 +6075,7 @@ impl PushConfig {
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `PubsubWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pubsub_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
+    pub fn pubsub_wrapper(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::PubsubWrapper>> {
         #[allow(unreachable_patterns)]
         self.wrapper.as_ref().and_then(|v| match v {
             crate::model::push_config::Wrapper::PubsubWrapper(v) => std::option::Option::Some(v),
@@ -6383,23 +6088,19 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
-    pub fn set_pubsub_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::PubsubWrapper(v.into()));
+    pub fn set_pubsub_wrapper<T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>>(mut self, v: T) -> Self {
+        self.wrapper = std::option::Option::Some(
+            crate::model::push_config::Wrapper::PubsubWrapper(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [wrapper][crate::model::PushConfig::wrapper]
     /// if it holds a `NoWrapper`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn no_wrapper(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
+    pub fn no_wrapper(&self) -> std::option::Option<&std::boxed::Box<crate::model::push_config::NoWrapper>> {
         #[allow(unreachable_patterns)]
         self.wrapper.as_ref().and_then(|v| match v {
             crate::model::push_config::Wrapper::NoWrapper(v) => std::option::Option::Some(v),
@@ -6412,14 +6113,12 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
-    pub fn set_no_wrapper<
-        T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.wrapper =
-            std::option::Option::Some(crate::model::push_config::Wrapper::NoWrapper(v.into()));
+    pub fn set_no_wrapper<T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>>(mut self, v: T) -> Self {
+        self.wrapper = std::option::Option::Some(
+            crate::model::push_config::Wrapper::NoWrapper(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6435,12 +6134,14 @@ pub mod push_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains information needed for generating an
     /// [OpenID Connect
     /// token](https://developers.google.com/identity/protocols/OpenIDConnect).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct OidcToken {
+
         /// Optional. [Service account
         /// email](https://cloud.google.com/iam/docs/service-accounts)
         /// used for generating the OIDC token. For more information
@@ -6466,10 +6167,7 @@ pub mod push_config {
         }
 
         /// Sets the value of [service_account_email][crate::model::push_config::OidcToken::service_account_email].
-        pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_account_email = v.into();
             self
         }
@@ -6493,6 +6191,7 @@ pub mod push_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubsubWrapper {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6512,6 +6211,7 @@ pub mod push_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NoWrapper {
+
         /// Optional. When true, writes the Pub/Sub message metadata to
         /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
         /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
@@ -6570,6 +6270,7 @@ pub mod push_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BigQueryConfig {
+
     /// Optional. The name of the table to which to write data, of the form
     /// {projectId}.{datasetId}.{tableId}
     pub table: std::string::String,
@@ -6645,10 +6346,7 @@ impl BigQueryConfig {
     }
 
     /// Sets the value of [service_account_email][crate::model::BigQueryConfig::service_account_email].
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -6664,6 +6362,7 @@ impl wkt::message::Message for BigQueryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageConfig {
+
     /// Required. User-provided name for the Cloud Storage bucket.
     /// The bucket must be created by the user. The bucket name must be without
     /// any prefix like "gs://". See the [bucket naming
@@ -6741,18 +6440,14 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [filename_datetime_format][crate::model::CloudStorageConfig::filename_datetime_format].
-    pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_datetime_format = v.into();
         self
     }
 
     /// Sets the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
     pub fn set_max_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_duration = std::option::Option::Some(v.into());
         self
@@ -6760,8 +6455,7 @@ impl CloudStorageConfig {
 
     /// Sets or clears the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
     pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.max_duration = v.map(|x| x.into());
         self
@@ -6780,10 +6474,7 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [service_account_email][crate::model::CloudStorageConfig::service_account_email].
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
@@ -6792,12 +6483,8 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are mutually
     /// exclusive.
-    pub fn set_output_format<
-        T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_output_format<T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>>(mut self, v: T) -> Self
+    {
         self.output_format = v.into();
         self
     }
@@ -6805,14 +6492,10 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `TextConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn text_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
+    pub fn text_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::TextConfig>> {
         #[allow(unreachable_patterns)]
         self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::TextConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6822,14 +6505,11 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
-    pub fn set_text_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_text_config<T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>>(mut self, v: T) -> Self {
         self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::TextConfig(v.into()),
+            crate::model::cloud_storage_config::OutputFormat::TextConfig(
+                v.into()
+            )
         );
         self
     }
@@ -6837,14 +6517,10 @@ impl CloudStorageConfig {
     /// The value of [output_format][crate::model::CloudStorageConfig::output_format]
     /// if it holds a `AvroConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn avro_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
+    pub fn avro_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>> {
         #[allow(unreachable_patterns)]
         self.output_format.as_ref().and_then(|v| match v {
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6854,14 +6530,11 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
-    pub fn set_avro_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_avro_config<T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>>(mut self, v: T) -> Self {
         self.output_format = std::option::Option::Some(
-            crate::model::cloud_storage_config::OutputFormat::AvroConfig(v.into()),
+            crate::model::cloud_storage_config::OutputFormat::AvroConfig(
+                v.into()
+            )
         );
         self
     }
@@ -6878,12 +6551,14 @@ pub mod cloud_storage_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for writing message data in text format.
     /// Message payloads will be written to files as raw text, separated by a
     /// newline.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TextConfig {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6904,6 +6579,7 @@ pub mod cloud_storage_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AvroConfig {
+
         /// Optional. When true, write the subscription name, message_id,
         /// publish_time, attributes, and ordering_key as additional fields in the
         /// output. The subscription name, message_id, and publish_time fields are
@@ -6960,6 +6636,7 @@ pub mod cloud_storage_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageTransform {
+
     /// Optional. This field is deprecated, use the `disabled` field to disable
     /// transforms.
     #[deprecated]
@@ -6997,12 +6674,8 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are mutually
     /// exclusive.
-    pub fn set_transform<
-        T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transform<T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>>(mut self, v: T) -> Self
+    {
         self.transform = v.into();
         self
     }
@@ -7010,14 +6683,10 @@ impl MessageTransform {
     /// The value of [transform][crate::model::MessageTransform::transform]
     /// if it holds a `JavascriptUdf`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn javascript_udf(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
+    pub fn javascript_udf(&self) -> std::option::Option<&std::boxed::Box<crate::model::JavaScriptUDF>> {
         #[allow(unreachable_patterns)]
         self.transform.as_ref().and_then(|v| match v {
-            crate::model::message_transform::Transform::JavascriptUdf(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::message_transform::Transform::JavascriptUdf(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -7027,14 +6696,11 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are
     /// mutually exclusive.
-    pub fn set_javascript_udf<
-        T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_javascript_udf<T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>>(mut self, v: T) -> Self {
         self.transform = std::option::Option::Some(
-            crate::model::message_transform::Transform::JavascriptUdf(v.into()),
+            crate::model::message_transform::Transform::JavascriptUdf(
+                v.into()
+            )
         );
         self
     }
@@ -7051,6 +6717,7 @@ pub mod message_transform {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The type of transform to apply to messages.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -7066,6 +6733,7 @@ pub mod message_transform {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JavaScriptUDF {
+
     /// Required. Name of the JavasScript function that should applied to Pub/Sub
     /// messages.
     pub function_name: std::string::String,
@@ -7219,9 +6887,7 @@ impl std::convert::From<i32> for DiscoveryType {
             0 => Self::Unspecified,
             1 => Self::Private,
             2 => Self::Public,
-            _ => Self::UnknownValue(discovery_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(discovery_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -7233,9 +6899,7 @@ impl std::convert::From<&str> for DiscoveryType {
             "DISCOVERY_TYPE_UNSPECIFIED" => Self::Unspecified,
             "DISCOVERY_TYPE_PRIVATE" => Self::Private,
             "DISCOVERY_TYPE_PUBLIC" => Self::Public,
-            _ => Self::UnknownValue(discovery_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(discovery_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -7260,8 +6924,7 @@ impl<'de> serde::de::Deserialize<'de> for DiscoveryType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DiscoveryType>::new(
-            ".google.cloud.bigquery.analyticshub.v1.DiscoveryType",
-        ))
+            ".google.cloud.bigquery.analyticshub.v1.DiscoveryType"))
     }
 }
 
@@ -7351,9 +7014,7 @@ impl std::convert::From<i32> for SharedResourceType {
             0 => Self::Unspecified,
             1 => Self::BigqueryDataset,
             2 => Self::PubsubTopic,
-            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -7365,9 +7026,7 @@ impl std::convert::From<&str> for SharedResourceType {
             "SHARED_RESOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
             "BIGQUERY_DATASET" => Self::BigqueryDataset,
             "PUBSUB_TOPIC" => Self::PubsubTopic,
-            _ => Self::UnknownValue(shared_resource_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(shared_resource_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -7392,7 +7051,6 @@ impl<'de> serde::de::Deserialize<'de> for SharedResourceType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SharedResourceType>::new(
-            ".google.cloud.bigquery.analyticshub.v1.SharedResourceType",
-        ))
+            ".google.cloud.bigquery.analyticshub.v1.SharedResourceType"))
     }
 }

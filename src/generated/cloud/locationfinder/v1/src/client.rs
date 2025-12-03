@@ -72,9 +72,7 @@ impl CloudLocationFinder {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_location_finder::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_location_finder::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cloud_location_finder::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,71 +80,57 @@ impl CloudLocationFinder {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudLocationFinder + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudLocationFinder + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudLocationFinder>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudLocationFinder>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudLocationFinder> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudLocationFinder> {
         super::transport::CloudLocationFinder::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudLocationFinder> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudLocationFinder::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudLocationFinder> {
+        Self::build_transport(conf).await.map(super::tracing::CloudLocationFinder::new)
     }
 
     /// Lists cloud locations under a given project and location.
-    pub fn list_cloud_locations(
-        &self,
-    ) -> super::builder::cloud_location_finder::ListCloudLocations {
+    pub fn list_cloud_locations(&self) -> super::builder::cloud_location_finder::ListCloudLocations
+    {
         super::builder::cloud_location_finder::ListCloudLocations::new(self.inner.clone())
     }
 
     /// Retrieves a resource containing information about a cloud location.
-    pub fn get_cloud_location(&self) -> super::builder::cloud_location_finder::GetCloudLocation {
+    pub fn get_cloud_location(&self) -> super::builder::cloud_location_finder::GetCloudLocation
+    {
         super::builder::cloud_location_finder::GetCloudLocation::new(self.inner.clone())
     }
 
     /// Searches for cloud locations from a given source location.
-    pub fn search_cloud_locations(
-        &self,
-    ) -> super::builder::cloud_location_finder::SearchCloudLocations {
+    pub fn search_cloud_locations(&self) -> super::builder::cloud_location_finder::SearchCloudLocations
+    {
         super::builder::cloud_location_finder::SearchCloudLocations::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::cloud_location_finder::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cloud_location_finder::ListLocations
+    {
         super::builder::cloud_location_finder::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::cloud_location_finder::GetLocation {
+    pub fn get_location(&self) -> super::builder::cloud_location_finder::GetLocation
+    {
         super::builder::cloud_location_finder::GetLocation::new(self.inner.clone())
     }
 }

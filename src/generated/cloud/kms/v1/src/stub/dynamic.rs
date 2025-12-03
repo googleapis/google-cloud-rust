@@ -237,6 +237,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::AutokeyAdmin] also implement [AutokeyAdmin].
@@ -265,8 +266,7 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
         &self,
         req: crate::model::ShowEffectiveAutokeyConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>> {
         T::show_effective_autokey_config(self, req, options).await
     }
 
@@ -323,6 +323,7 @@ impl<T: super::AutokeyAdmin> AutokeyAdmin for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::EkmService].
@@ -405,6 +406,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::EkmService] also implement [EkmService].
@@ -526,6 +528,7 @@ impl<T: super::EkmService> EkmService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::KeyManagementService].
@@ -740,6 +743,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::KeyManagementService] also implement [KeyManagementService].
@@ -1059,4 +1063,5 @@ impl<T: super::KeyManagementService> KeyManagementService for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
+
 }

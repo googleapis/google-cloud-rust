@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Contact {
+
     /// Output only. The identifier for the contact.
     /// Format: {resource_type}/{resource_id}/contacts/{contact_id}
     pub name: std::string::String,
@@ -89,7 +90,7 @@ impl Contact {
     pub fn set_notification_category_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationCategory>,
+        V: std::convert::Into<crate::model::NotificationCategory>
     {
         use std::iter::Iterator;
         self.notification_category_subscriptions = v.into_iter().map(|i| i.into()).collect();
@@ -103,18 +104,14 @@ impl Contact {
     }
 
     /// Sets the value of [validation_state][crate::model::Contact::validation_state].
-    pub fn set_validation_state<T: std::convert::Into<crate::model::ValidationState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_state<T: std::convert::Into<crate::model::ValidationState>>(mut self, v: T) -> Self {
         self.validation_state = v.into();
         self
     }
 
     /// Sets the value of [validate_time][crate::model::Contact::validate_time].
     pub fn set_validate_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.validate_time = std::option::Option::Some(v.into());
         self
@@ -122,8 +119,7 @@ impl Contact {
 
     /// Sets or clears the value of [validate_time][crate::model::Contact::validate_time].
     pub fn set_or_clear_validate_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.validate_time = v.map(|x| x.into());
         self
@@ -140,6 +136,7 @@ impl wkt::message::Message for Contact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContactsRequest {
+
     /// Required. The parent resource name.
     /// Format: organizations/{organization_id}, folders/{folder_id} or
     /// projects/{project_id}
@@ -194,6 +191,7 @@ impl wkt::message::Message for ListContactsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListContactsResponse {
+
     /// The contacts for the specified resource.
     pub contacts: std::vec::Vec<crate::model::Contact>,
 
@@ -215,7 +213,7 @@ impl ListContactsResponse {
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Contact>,
+        V: std::convert::Into<crate::model::Contact>
     {
         use std::iter::Iterator;
         self.contacts = v.into_iter().map(|i| i.into()).collect();
@@ -253,6 +251,7 @@ impl gax::paginator::internal::PageableResponse for ListContactsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetContactRequest {
+
     /// Required. The name of the contact to retrieve.
     /// Format: organizations/{organization_id}/contacts/{contact_id},
     /// folders/{folder_id}/contacts/{contact_id} or
@@ -284,6 +283,7 @@ impl wkt::message::Message for GetContactRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteContactRequest {
+
     /// Required. The name of the contact to delete.
     /// Format: organizations/{organization_id}/contacts/{contact_id},
     /// folders/{folder_id}/contacts/{contact_id} or
@@ -315,6 +315,7 @@ impl wkt::message::Message for DeleteContactRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateContactRequest {
+
     /// Required. The resource to save this contact for.
     /// Format: organizations/{organization_id}, folders/{folder_id} or
     /// projects/{project_id}
@@ -340,8 +341,7 @@ impl CreateContactRequest {
 
     /// Sets the value of [contact][crate::model::CreateContactRequest::contact].
     pub fn set_contact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Contact>,
+    where T: std::convert::Into<crate::model::Contact>
     {
         self.contact = std::option::Option::Some(v.into());
         self
@@ -349,8 +349,7 @@ impl CreateContactRequest {
 
     /// Sets or clears the value of [contact][crate::model::CreateContactRequest::contact].
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Contact>,
+    where T: std::convert::Into<crate::model::Contact>
     {
         self.contact = v.map(|x| x.into());
         self
@@ -367,6 +366,7 @@ impl wkt::message::Message for CreateContactRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateContactRequest {
+
     /// Required. The contact resource to replace the existing saved contact. Note:
     /// the email address of the contact cannot be modified.
     pub contact: std::option::Option<crate::model::Contact>,
@@ -386,8 +386,7 @@ impl UpdateContactRequest {
 
     /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
     pub fn set_contact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Contact>,
+    where T: std::convert::Into<crate::model::Contact>
     {
         self.contact = std::option::Option::Some(v.into());
         self
@@ -395,8 +394,7 @@ impl UpdateContactRequest {
 
     /// Sets or clears the value of [contact][crate::model::UpdateContactRequest::contact].
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Contact>,
+    where T: std::convert::Into<crate::model::Contact>
     {
         self.contact = v.map(|x| x.into());
         self
@@ -404,8 +402,7 @@ impl UpdateContactRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -413,8 +410,7 @@ impl UpdateContactRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -431,6 +427,7 @@ impl wkt::message::Message for UpdateContactRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeContactsRequest {
+
     /// Required. The name of the resource to compute contacts for.
     /// Format: organizations/{organization_id},
     /// folders/{folder_id} or projects/{project_id}
@@ -471,7 +468,7 @@ impl ComputeContactsRequest {
     pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NotificationCategory>,
+        V: std::convert::Into<crate::model::NotificationCategory>
     {
         use std::iter::Iterator;
         self.notification_categories = v.into_iter().map(|i| i.into()).collect();
@@ -501,6 +498,7 @@ impl wkt::message::Message for ComputeContactsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeContactsResponse {
+
     /// All contacts for the resource that are subscribed to the specified
     /// notification categories, including contacts inherited from any parent
     /// resources.
@@ -524,7 +522,7 @@ impl ComputeContactsResponse {
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Contact>,
+        V: std::convert::Into<crate::model::Contact>
     {
         use std::iter::Iterator;
         self.contacts = v.into_iter().map(|i| i.into()).collect();
@@ -562,6 +560,7 @@ impl gax::paginator::internal::PageableResponse for ComputeContactsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SendTestMessageRequest {
+
     /// Required. The list of names of the contacts to send a test message to.
     /// Format: organizations/{organization_id}/contacts/{contact_id},
     /// folders/{folder_id}/contacts/{contact_id} or
@@ -591,7 +590,7 @@ impl SendTestMessageRequest {
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.contacts = v.into_iter().map(|i| i.into()).collect();
@@ -605,10 +604,7 @@ impl SendTestMessageRequest {
     }
 
     /// Sets the value of [notification_category][crate::model::SendTestMessageRequest::notification_category].
-    pub fn set_notification_category<T: std::convert::Into<crate::model::NotificationCategory>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_category<T: std::convert::Into<crate::model::NotificationCategory>>(mut self, v: T) -> Self {
         self.notification_category = v.into();
         self
     }
@@ -746,9 +742,7 @@ impl std::convert::From<i32> for NotificationCategory {
             8 => Self::Legal,
             9 => Self::ProductUpdates,
             10 => Self::TechnicalIncidents,
-            _ => Self::UnknownValue(notification_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(notification_category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -766,9 +760,7 @@ impl std::convert::From<&str> for NotificationCategory {
             "LEGAL" => Self::Legal,
             "PRODUCT_UPDATES" => Self::ProductUpdates,
             "TECHNICAL_INCIDENTS" => Self::TechnicalIncidents,
-            _ => Self::UnknownValue(notification_category::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(notification_category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -799,8 +791,7 @@ impl<'de> serde::de::Deserialize<'de> for NotificationCategory {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationCategory>::new(
-            ".google.cloud.essentialcontacts.v1.NotificationCategory",
-        ))
+            ".google.cloud.essentialcontacts.v1.NotificationCategory"))
     }
 }
 
@@ -893,9 +884,7 @@ impl std::convert::From<i32> for ValidationState {
             0 => Self::Unspecified,
             1 => Self::Valid,
             2 => Self::Invalid,
-            _ => Self::UnknownValue(validation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(validation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -907,9 +896,7 @@ impl std::convert::From<&str> for ValidationState {
             "VALIDATION_STATE_UNSPECIFIED" => Self::Unspecified,
             "VALID" => Self::Valid,
             "INVALID" => Self::Invalid,
-            _ => Self::UnknownValue(validation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(validation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -934,7 +921,6 @@ impl<'de> serde::de::Deserialize<'de> for ValidationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValidationState>::new(
-            ".google.cloud.essentialcontacts.v1.ValidationState",
-        ))
+            ".google.cloud.essentialcontacts.v1.ValidationState"))
     }
 }

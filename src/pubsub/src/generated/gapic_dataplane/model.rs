@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubMessage {
+
     /// Optional. The message data field. If this field is empty, the message must
     /// contain at least one attribute.
     pub data: ::bytes::Bytes,
@@ -39,7 +40,7 @@ pub struct PubsubMessage {
     /// Optional. Attributes for this message. If this field is empty, the message
     /// must contain non-empty data. This can be used to filter messages on the
     /// subscription.
-    pub attributes: std::collections::HashMap<std::string::String, std::string::String>,
+    pub attributes: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// ID of this message, assigned by the server when the message is published.
     /// Guaranteed to be unique within the topic. This value may be read by a
@@ -96,8 +97,7 @@ impl PubsubMessage {
 
     /// Sets the value of [publish_time][crate::model::PubsubMessage::publish_time].
     pub fn set_publish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = std::option::Option::Some(v.into());
         self
@@ -105,8 +105,7 @@ impl PubsubMessage {
 
     /// Sets or clears the value of [publish_time][crate::model::PubsubMessage::publish_time].
     pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = v.map(|x| x.into());
         self
@@ -129,6 +128,7 @@ impl wkt::message::Message for PubsubMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublishRequest {
+
     /// Required. The messages in the request will be published on this topic.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
@@ -154,7 +154,7 @@ impl PublishRequest {
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PubsubMessage>,
+        V: std::convert::Into<crate::model::PubsubMessage>
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
@@ -172,6 +172,7 @@ impl wkt::message::Message for PublishRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublishResponse {
+
     /// Optional. The server-assigned ID of each published message, in the same
     /// order as the messages in the request. IDs are guaranteed to be unique
     /// within the topic.
@@ -189,7 +190,7 @@ impl PublishResponse {
     pub fn set_message_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.message_ids = v.into_iter().map(|i| i.into()).collect();
@@ -207,6 +208,7 @@ impl wkt::message::Message for PublishResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReceivedMessage {
+
     /// Optional. This ID can be used to acknowledge the received message.
     pub ack_id: std::string::String,
 
@@ -247,8 +249,7 @@ impl ReceivedMessage {
 
     /// Sets the value of [message][crate::model::ReceivedMessage::message].
     pub fn set_message<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PubsubMessage>,
+    where T: std::convert::Into<crate::model::PubsubMessage>
     {
         self.message = std::option::Option::Some(v.into());
         self
@@ -256,8 +257,7 @@ impl ReceivedMessage {
 
     /// Sets or clears the value of [message][crate::model::ReceivedMessage::message].
     pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PubsubMessage>,
+    where T: std::convert::Into<crate::model::PubsubMessage>
     {
         self.message = v.map(|x| x.into());
         self
@@ -280,6 +280,7 @@ impl wkt::message::Message for ReceivedMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModifyAckDeadlineRequest {
+
     /// Required. The name of the subscription.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
@@ -316,7 +317,7 @@ impl ModifyAckDeadlineRequest {
     pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -340,6 +341,7 @@ impl wkt::message::Message for ModifyAckDeadlineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcknowledgeRequest {
+
     /// Required. The subscription whose message is being acknowledged.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
@@ -367,7 +369,7 @@ impl AcknowledgeRequest {
     pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -387,6 +389,7 @@ impl wkt::message::Message for AcknowledgeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingPullRequest {
+
     /// Required. The subscription for which to initialize the new stream. This
     /// must be provided in the first request on the stream, and must not be set in
     /// subsequent requests from client to server.
@@ -479,7 +482,7 @@ impl StreamingPullRequest {
     pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -490,7 +493,7 @@ impl StreamingPullRequest {
     pub fn set_modify_deadline_seconds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.modify_deadline_seconds = v.into_iter().map(|i| i.into()).collect();
@@ -501,7 +504,7 @@ impl StreamingPullRequest {
     pub fn set_modify_deadline_ack_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.modify_deadline_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -550,22 +553,20 @@ impl wkt::message::Message for StreamingPullRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingPullResponse {
+
     /// Optional. Received Pub/Sub messages.
     pub received_messages: std::vec::Vec<crate::model::ReceivedMessage>,
 
     /// Optional. This field will only be set if `enable_exactly_once_delivery` is
     /// set to `true` and is not guaranteed to be populated.
-    pub acknowledge_confirmation:
-        std::option::Option<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+    pub acknowledge_confirmation: std::option::Option<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
 
     /// Optional. This field will only be set if `enable_exactly_once_delivery` is
     /// set to `true` and is not guaranteed to be populated.
-    pub modify_ack_deadline_confirmation:
-        std::option::Option<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+    pub modify_ack_deadline_confirmation: std::option::Option<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
 
     /// Optional. Properties associated with this subscription.
-    pub subscription_properties:
-        std::option::Option<crate::model::streaming_pull_response::SubscriptionProperties>,
+    pub subscription_properties: std::option::Option<crate::model::streaming_pull_response::SubscriptionProperties>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -579,7 +580,7 @@ impl StreamingPullResponse {
     pub fn set_received_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReceivedMessage>,
+        V: std::convert::Into<crate::model::ReceivedMessage>
     {
         use std::iter::Iterator;
         self.received_messages = v.into_iter().map(|i| i.into()).collect();
@@ -588,8 +589,7 @@ impl StreamingPullResponse {
 
     /// Sets the value of [acknowledge_confirmation][crate::model::StreamingPullResponse::acknowledge_confirmation].
     pub fn set_acknowledge_confirmation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+    where T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>
     {
         self.acknowledge_confirmation = std::option::Option::Some(v.into());
         self
@@ -597,8 +597,7 @@ impl StreamingPullResponse {
 
     /// Sets or clears the value of [acknowledge_confirmation][crate::model::StreamingPullResponse::acknowledge_confirmation].
     pub fn set_or_clear_acknowledge_confirmation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>,
+    where T: std::convert::Into<crate::model::streaming_pull_response::AcknowledgeConfirmation>
     {
         self.acknowledge_confirmation = v.map(|x| x.into());
         self
@@ -606,20 +605,15 @@ impl StreamingPullResponse {
 
     /// Sets the value of [modify_ack_deadline_confirmation][crate::model::StreamingPullResponse::modify_ack_deadline_confirmation].
     pub fn set_modify_ack_deadline_confirmation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+    where T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>
     {
         self.modify_ack_deadline_confirmation = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [modify_ack_deadline_confirmation][crate::model::StreamingPullResponse::modify_ack_deadline_confirmation].
-    pub fn set_or_clear_modify_ack_deadline_confirmation<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>,
+    pub fn set_or_clear_modify_ack_deadline_confirmation<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::streaming_pull_response::ModifyAckDeadlineConfirmation>
     {
         self.modify_ack_deadline_confirmation = v.map(|x| x.into());
         self
@@ -627,8 +621,7 @@ impl StreamingPullResponse {
 
     /// Sets the value of [subscription_properties][crate::model::StreamingPullResponse::subscription_properties].
     pub fn set_subscription_properties<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>,
+    where T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>
     {
         self.subscription_properties = std::option::Option::Some(v.into());
         self
@@ -636,8 +629,7 @@ impl StreamingPullResponse {
 
     /// Sets or clears the value of [subscription_properties][crate::model::StreamingPullResponse::subscription_properties].
     pub fn set_or_clear_subscription_properties<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>,
+    where T: std::convert::Into<crate::model::streaming_pull_response::SubscriptionProperties>
     {
         self.subscription_properties = v.map(|x| x.into());
         self
@@ -655,11 +647,13 @@ pub mod streaming_pull_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Acknowledgment IDs sent in one or more previous requests to acknowledge a
     /// previously received message.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AcknowledgeConfirmation {
+
         /// Optional. Successfully processed acknowledgment IDs.
         pub ack_ids: std::vec::Vec<std::string::String>,
 
@@ -686,7 +680,7 @@ pub mod streaming_pull_response {
         pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -697,7 +691,7 @@ pub mod streaming_pull_response {
         pub fn set_invalid_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.invalid_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -708,7 +702,7 @@ pub mod streaming_pull_response {
         pub fn set_unordered_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.unordered_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -719,7 +713,7 @@ pub mod streaming_pull_response {
         pub fn set_temporary_failed_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.temporary_failed_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -738,6 +732,7 @@ pub mod streaming_pull_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ModifyAckDeadlineConfirmation {
+
         /// Optional. Successfully processed acknowledgment IDs.
         pub ack_ids: std::vec::Vec<std::string::String>,
 
@@ -761,7 +756,7 @@ pub mod streaming_pull_response {
         pub fn set_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -772,7 +767,7 @@ pub mod streaming_pull_response {
         pub fn set_invalid_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.invalid_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -783,7 +778,7 @@ pub mod streaming_pull_response {
         pub fn set_temporary_failed_ack_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.temporary_failed_ack_ids = v.into_iter().map(|i| i.into()).collect();
@@ -801,6 +796,7 @@ pub mod streaming_pull_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubscriptionProperties {
+
         /// Optional. True iff exactly once delivery is enabled for this
         /// subscription.
         pub exactly_once_delivery_enabled: bool,
@@ -817,10 +813,7 @@ pub mod streaming_pull_response {
         }
 
         /// Sets the value of [exactly_once_delivery_enabled][crate::model::streaming_pull_response::SubscriptionProperties::exactly_once_delivery_enabled].
-        pub fn set_exactly_once_delivery_enabled<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_exactly_once_delivery_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.exactly_once_delivery_enabled = v.into();
             self
         }

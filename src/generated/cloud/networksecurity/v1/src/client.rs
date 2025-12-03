@@ -74,9 +74,7 @@ impl AddressGroupService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::address_group_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::address_group_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::address_group_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -84,52 +82,39 @@ impl AddressGroupService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AddressGroupService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AddressGroupService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AddressGroupService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
         super::transport::AddressGroupService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AddressGroupService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AddressGroupService> {
+        Self::build_transport(conf).await.map(super::tracing::AddressGroupService::new)
     }
 
     /// Lists address groups in a given project and location.
-    pub fn list_address_groups(&self) -> super::builder::address_group_service::ListAddressGroups {
+    pub fn list_address_groups(&self) -> super::builder::address_group_service::ListAddressGroups
+    {
         super::builder::address_group_service::ListAddressGroups::new(self.inner.clone())
     }
 
     /// Gets details of a single address group.
-    pub fn get_address_group(&self) -> super::builder::address_group_service::GetAddressGroup {
+    pub fn get_address_group(&self) -> super::builder::address_group_service::GetAddressGroup
+    {
         super::builder::address_group_service::GetAddressGroup::new(self.inner.clone())
     }
 
@@ -144,9 +129,8 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_address_group(
-        &self,
-    ) -> super::builder::address_group_service::CreateAddressGroup {
+    pub fn create_address_group(&self) -> super::builder::address_group_service::CreateAddressGroup
+    {
         super::builder::address_group_service::CreateAddressGroup::new(self.inner.clone())
     }
 
@@ -161,9 +145,8 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_address_group(
-        &self,
-    ) -> super::builder::address_group_service::UpdateAddressGroup {
+    pub fn update_address_group(&self) -> super::builder::address_group_service::UpdateAddressGroup
+    {
         super::builder::address_group_service::UpdateAddressGroup::new(self.inner.clone())
     }
 
@@ -178,9 +161,8 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_address_group_items(
-        &self,
-    ) -> super::builder::address_group_service::AddAddressGroupItems {
+    pub fn add_address_group_items(&self) -> super::builder::address_group_service::AddAddressGroupItems
+    {
         super::builder::address_group_service::AddAddressGroupItems::new(self.inner.clone())
     }
 
@@ -195,9 +177,8 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_address_group_items(
-        &self,
-    ) -> super::builder::address_group_service::RemoveAddressGroupItems {
+    pub fn remove_address_group_items(&self) -> super::builder::address_group_service::RemoveAddressGroupItems
+    {
         super::builder::address_group_service::RemoveAddressGroupItems::new(self.inner.clone())
     }
 
@@ -212,9 +193,8 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn clone_address_group_items(
-        &self,
-    ) -> super::builder::address_group_service::CloneAddressGroupItems {
+    pub fn clone_address_group_items(&self) -> super::builder::address_group_service::CloneAddressGroupItems
+    {
         super::builder::address_group_service::CloneAddressGroupItems::new(self.inner.clone())
     }
 
@@ -229,26 +209,26 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_address_group(
-        &self,
-    ) -> super::builder::address_group_service::DeleteAddressGroup {
+    pub fn delete_address_group(&self) -> super::builder::address_group_service::DeleteAddressGroup
+    {
         super::builder::address_group_service::DeleteAddressGroup::new(self.inner.clone())
     }
 
     /// Lists references of an address group.
-    pub fn list_address_group_references(
-        &self,
-    ) -> super::builder::address_group_service::ListAddressGroupReferences {
+    pub fn list_address_group_references(&self) -> super::builder::address_group_service::ListAddressGroupReferences
+    {
         super::builder::address_group_service::ListAddressGroupReferences::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::address_group_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::address_group_service::ListLocations
+    {
         super::builder::address_group_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::address_group_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::address_group_service::GetLocation
+    {
         super::builder::address_group_service::GetLocation::new(self.inner.clone())
     }
 
@@ -257,13 +237,15 @@ impl AddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::address_group_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::address_group_service::SetIamPolicy
+    {
         super::builder::address_group_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::address_group_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::address_group_service::GetIamPolicy
+    {
         super::builder::address_group_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -274,37 +256,40 @@ impl AddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::address_group_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::address_group_service::TestIamPermissions
+    {
         super::builder::address_group_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::address_group_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::address_group_service::ListOperations
+    {
         super::builder::address_group_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::address_group_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::address_group_service::GetOperation
+    {
         super::builder::address_group_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::address_group_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::address_group_service::DeleteOperation
+    {
         super::builder::address_group_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::address_group_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::address_group_service::CancelOperation
+    {
         super::builder::address_group_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -367,9 +352,7 @@ impl OrganizationAddressGroupService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::organization_address_group_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::organization_address_group_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::organization_address_group_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -377,59 +360,39 @@ impl OrganizationAddressGroupService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OrganizationAddressGroupService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OrganizationAddressGroupService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::OrganizationAddressGroupService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrganizationAddressGroupService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
         super::transport::OrganizationAddressGroupService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OrganizationAddressGroupService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrganizationAddressGroupService> {
+        Self::build_transport(conf).await.map(super::tracing::OrganizationAddressGroupService::new)
     }
 
     /// Lists address groups in a given project and location.
-    pub fn list_address_groups(
-        &self,
-    ) -> super::builder::organization_address_group_service::ListAddressGroups {
-        super::builder::organization_address_group_service::ListAddressGroups::new(
-            self.inner.clone(),
-        )
+    pub fn list_address_groups(&self) -> super::builder::organization_address_group_service::ListAddressGroups
+    {
+        super::builder::organization_address_group_service::ListAddressGroups::new(self.inner.clone())
     }
 
     /// Gets details of a single address group.
-    pub fn get_address_group(
-        &self,
-    ) -> super::builder::organization_address_group_service::GetAddressGroup {
+    pub fn get_address_group(&self) -> super::builder::organization_address_group_service::GetAddressGroup
+    {
         super::builder::organization_address_group_service::GetAddressGroup::new(self.inner.clone())
     }
 
@@ -444,12 +407,9 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_address_group(
-        &self,
-    ) -> super::builder::organization_address_group_service::CreateAddressGroup {
-        super::builder::organization_address_group_service::CreateAddressGroup::new(
-            self.inner.clone(),
-        )
+    pub fn create_address_group(&self) -> super::builder::organization_address_group_service::CreateAddressGroup
+    {
+        super::builder::organization_address_group_service::CreateAddressGroup::new(self.inner.clone())
     }
 
     /// Updates parameters of an address group.
@@ -463,12 +423,9 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_address_group(
-        &self,
-    ) -> super::builder::organization_address_group_service::UpdateAddressGroup {
-        super::builder::organization_address_group_service::UpdateAddressGroup::new(
-            self.inner.clone(),
-        )
+    pub fn update_address_group(&self) -> super::builder::organization_address_group_service::UpdateAddressGroup
+    {
+        super::builder::organization_address_group_service::UpdateAddressGroup::new(self.inner.clone())
     }
 
     /// Adds items to an address group.
@@ -482,12 +439,9 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_address_group_items(
-        &self,
-    ) -> super::builder::organization_address_group_service::AddAddressGroupItems {
-        super::builder::organization_address_group_service::AddAddressGroupItems::new(
-            self.inner.clone(),
-        )
+    pub fn add_address_group_items(&self) -> super::builder::organization_address_group_service::AddAddressGroupItems
+    {
+        super::builder::organization_address_group_service::AddAddressGroupItems::new(self.inner.clone())
     }
 
     /// Removes items from an address group.
@@ -501,12 +455,9 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_address_group_items(
-        &self,
-    ) -> super::builder::organization_address_group_service::RemoveAddressGroupItems {
-        super::builder::organization_address_group_service::RemoveAddressGroupItems::new(
-            self.inner.clone(),
-        )
+    pub fn remove_address_group_items(&self) -> super::builder::organization_address_group_service::RemoveAddressGroupItems
+    {
+        super::builder::organization_address_group_service::RemoveAddressGroupItems::new(self.inner.clone())
     }
 
     /// Clones items from one address group to another.
@@ -520,12 +471,9 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn clone_address_group_items(
-        &self,
-    ) -> super::builder::organization_address_group_service::CloneAddressGroupItems {
-        super::builder::organization_address_group_service::CloneAddressGroupItems::new(
-            self.inner.clone(),
-        )
+    pub fn clone_address_group_items(&self) -> super::builder::organization_address_group_service::CloneAddressGroupItems
+    {
+        super::builder::organization_address_group_service::CloneAddressGroupItems::new(self.inner.clone())
     }
 
     /// Deletes an address group.
@@ -539,32 +487,26 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_address_group(
-        &self,
-    ) -> super::builder::organization_address_group_service::DeleteAddressGroup {
-        super::builder::organization_address_group_service::DeleteAddressGroup::new(
-            self.inner.clone(),
-        )
+    pub fn delete_address_group(&self) -> super::builder::organization_address_group_service::DeleteAddressGroup
+    {
+        super::builder::organization_address_group_service::DeleteAddressGroup::new(self.inner.clone())
     }
 
     /// Lists references of an address group.
-    pub fn list_address_group_references(
-        &self,
-    ) -> super::builder::organization_address_group_service::ListAddressGroupReferences {
-        super::builder::organization_address_group_service::ListAddressGroupReferences::new(
-            self.inner.clone(),
-        )
+    pub fn list_address_group_references(&self) -> super::builder::organization_address_group_service::ListAddressGroupReferences
+    {
+        super::builder::organization_address_group_service::ListAddressGroupReferences::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-    ) -> super::builder::organization_address_group_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::organization_address_group_service::ListLocations
+    {
         super::builder::organization_address_group_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::organization_address_group_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::organization_address_group_service::GetLocation
+    {
         super::builder::organization_address_group_service::GetLocation::new(self.inner.clone())
     }
 
@@ -573,17 +515,15 @@ impl OrganizationAddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-    ) -> super::builder::organization_address_group_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::organization_address_group_service::SetIamPolicy
+    {
         super::builder::organization_address_group_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-    ) -> super::builder::organization_address_group_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::organization_address_group_service::GetIamPolicy
+    {
         super::builder::organization_address_group_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -594,47 +534,40 @@ impl OrganizationAddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::organization_address_group_service::TestIamPermissions {
-        super::builder::organization_address_group_service::TestIamPermissions::new(
-            self.inner.clone(),
-        )
+    pub fn test_iam_permissions(&self) -> super::builder::organization_address_group_service::TestIamPermissions
+    {
+        super::builder::organization_address_group_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-    ) -> super::builder::organization_address_group_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::organization_address_group_service::ListOperations
+    {
         super::builder::organization_address_group_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-    ) -> super::builder::organization_address_group_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::organization_address_group_service::GetOperation
+    {
         super::builder::organization_address_group_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-    ) -> super::builder::organization_address_group_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::organization_address_group_service::DeleteOperation
+    {
         super::builder::organization_address_group_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-    ) -> super::builder::organization_address_group_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::organization_address_group_service::CancelOperation
+    {
         super::builder::organization_address_group_service::CancelOperation::new(self.inner.clone())
     }
 }
@@ -697,9 +630,7 @@ impl NetworkSecurity {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::network_security::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::network_security::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::network_security::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -707,56 +638,39 @@ impl NetworkSecurity {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NetworkSecurity + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NetworkSecurity + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkSecurity>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetworkSecurity>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
         super::transport::NetworkSecurity::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NetworkSecurity::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NetworkSecurity> {
+        Self::build_transport(conf).await.map(super::tracing::NetworkSecurity::new)
     }
 
     /// Lists AuthorizationPolicies in a given project and location.
-    pub fn list_authorization_policies(
-        &self,
-    ) -> super::builder::network_security::ListAuthorizationPolicies {
+    pub fn list_authorization_policies(&self) -> super::builder::network_security::ListAuthorizationPolicies
+    {
         super::builder::network_security::ListAuthorizationPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single AuthorizationPolicy.
-    pub fn get_authorization_policy(
-        &self,
-    ) -> super::builder::network_security::GetAuthorizationPolicy {
+    pub fn get_authorization_policy(&self) -> super::builder::network_security::GetAuthorizationPolicy
+    {
         super::builder::network_security::GetAuthorizationPolicy::new(self.inner.clone())
     }
 
@@ -771,9 +685,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_authorization_policy(
-        &self,
-    ) -> super::builder::network_security::CreateAuthorizationPolicy {
+    pub fn create_authorization_policy(&self) -> super::builder::network_security::CreateAuthorizationPolicy
+    {
         super::builder::network_security::CreateAuthorizationPolicy::new(self.inner.clone())
     }
 
@@ -788,9 +701,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_authorization_policy(
-        &self,
-    ) -> super::builder::network_security::UpdateAuthorizationPolicy {
+    pub fn update_authorization_policy(&self) -> super::builder::network_security::UpdateAuthorizationPolicy
+    {
         super::builder::network_security::UpdateAuthorizationPolicy::new(self.inner.clone())
     }
 
@@ -805,21 +717,20 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_authorization_policy(
-        &self,
-    ) -> super::builder::network_security::DeleteAuthorizationPolicy {
+    pub fn delete_authorization_policy(&self) -> super::builder::network_security::DeleteAuthorizationPolicy
+    {
         super::builder::network_security::DeleteAuthorizationPolicy::new(self.inner.clone())
     }
 
     /// Lists ServerTlsPolicies in a given project and location.
-    pub fn list_server_tls_policies(
-        &self,
-    ) -> super::builder::network_security::ListServerTlsPolicies {
+    pub fn list_server_tls_policies(&self) -> super::builder::network_security::ListServerTlsPolicies
+    {
         super::builder::network_security::ListServerTlsPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single ServerTlsPolicy.
-    pub fn get_server_tls_policy(&self) -> super::builder::network_security::GetServerTlsPolicy {
+    pub fn get_server_tls_policy(&self) -> super::builder::network_security::GetServerTlsPolicy
+    {
         super::builder::network_security::GetServerTlsPolicy::new(self.inner.clone())
     }
 
@@ -834,9 +745,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_server_tls_policy(
-        &self,
-    ) -> super::builder::network_security::CreateServerTlsPolicy {
+    pub fn create_server_tls_policy(&self) -> super::builder::network_security::CreateServerTlsPolicy
+    {
         super::builder::network_security::CreateServerTlsPolicy::new(self.inner.clone())
     }
 
@@ -851,9 +761,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_server_tls_policy(
-        &self,
-    ) -> super::builder::network_security::UpdateServerTlsPolicy {
+    pub fn update_server_tls_policy(&self) -> super::builder::network_security::UpdateServerTlsPolicy
+    {
         super::builder::network_security::UpdateServerTlsPolicy::new(self.inner.clone())
     }
 
@@ -868,21 +777,20 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_server_tls_policy(
-        &self,
-    ) -> super::builder::network_security::DeleteServerTlsPolicy {
+    pub fn delete_server_tls_policy(&self) -> super::builder::network_security::DeleteServerTlsPolicy
+    {
         super::builder::network_security::DeleteServerTlsPolicy::new(self.inner.clone())
     }
 
     /// Lists ClientTlsPolicies in a given project and location.
-    pub fn list_client_tls_policies(
-        &self,
-    ) -> super::builder::network_security::ListClientTlsPolicies {
+    pub fn list_client_tls_policies(&self) -> super::builder::network_security::ListClientTlsPolicies
+    {
         super::builder::network_security::ListClientTlsPolicies::new(self.inner.clone())
     }
 
     /// Gets details of a single ClientTlsPolicy.
-    pub fn get_client_tls_policy(&self) -> super::builder::network_security::GetClientTlsPolicy {
+    pub fn get_client_tls_policy(&self) -> super::builder::network_security::GetClientTlsPolicy
+    {
         super::builder::network_security::GetClientTlsPolicy::new(self.inner.clone())
     }
 
@@ -897,9 +805,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_client_tls_policy(
-        &self,
-    ) -> super::builder::network_security::CreateClientTlsPolicy {
+    pub fn create_client_tls_policy(&self) -> super::builder::network_security::CreateClientTlsPolicy
+    {
         super::builder::network_security::CreateClientTlsPolicy::new(self.inner.clone())
     }
 
@@ -914,9 +821,8 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_client_tls_policy(
-        &self,
-    ) -> super::builder::network_security::UpdateClientTlsPolicy {
+    pub fn update_client_tls_policy(&self) -> super::builder::network_security::UpdateClientTlsPolicy
+    {
         super::builder::network_security::UpdateClientTlsPolicy::new(self.inner.clone())
     }
 
@@ -931,19 +837,20 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_client_tls_policy(
-        &self,
-    ) -> super::builder::network_security::DeleteClientTlsPolicy {
+    pub fn delete_client_tls_policy(&self) -> super::builder::network_security::DeleteClientTlsPolicy
+    {
         super::builder::network_security::DeleteClientTlsPolicy::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::network_security::ListLocations {
+    pub fn list_locations(&self) -> super::builder::network_security::ListLocations
+    {
         super::builder::network_security::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::network_security::GetLocation {
+    pub fn get_location(&self) -> super::builder::network_security::GetLocation
+    {
         super::builder::network_security::GetLocation::new(self.inner.clone())
     }
 
@@ -952,13 +859,15 @@ impl NetworkSecurity {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::network_security::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::network_security::SetIamPolicy
+    {
         super::builder::network_security::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::network_security::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::network_security::GetIamPolicy
+    {
         super::builder::network_security::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -969,35 +878,40 @@ impl NetworkSecurity {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::network_security::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::network_security::TestIamPermissions
+    {
         super::builder::network_security::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::network_security::ListOperations {
+    pub fn list_operations(&self) -> super::builder::network_security::ListOperations
+    {
         super::builder::network_security::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::network_security::GetOperation {
+    pub fn get_operation(&self) -> super::builder::network_security::GetOperation
+    {
         super::builder::network_security::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::network_security::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::network_security::DeleteOperation
+    {
         super::builder::network_security::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation
+    {
         super::builder::network_security::CancelOperation::new(self.inner.clone())
     }
 }

@@ -46,6 +46,7 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::Builds] also implement [Builds].
@@ -95,6 +96,7 @@ impl<T: super::Builds> Builds for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Executions].
@@ -863,6 +865,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
 }
 
 /// All implementations of [super::Tasks] also implement [Tasks].
@@ -921,6 +924,7 @@ impl<T: super::Tasks> Tasks for T {
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::WorkerPools].

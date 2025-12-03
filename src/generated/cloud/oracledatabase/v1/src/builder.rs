@@ -39,10 +39,7 @@ pub mod oracle_database {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OracleDatabase;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod oracle_database {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -93,22 +86,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCloudExadataInfrastructures(
-        RequestBuilder<crate::model::ListCloudExadataInfrastructuresRequest>,
-    );
+    pub struct ListCloudExadataInfrastructures(RequestBuilder<crate::model::ListCloudExadataInfrastructuresRequest>);
 
     impl ListCloudExadataInfrastructures {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCloudExadataInfrastructuresRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCloudExadataInfrastructuresRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -121,19 +109,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCloudExadataInfrastructuresResponse> {
-            (*self.0.stub)
-                .list_cloud_exadata_infrastructures(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_cloud_exadata_infrastructures(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListCloudExadataInfrastructuresResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCloudExadataInfrastructuresResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -145,12 +125,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCloudExadataInfrastructuresResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCloudExadataInfrastructuresResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -213,22 +188,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCloudExadataInfrastructure(
-        RequestBuilder<crate::model::GetCloudExadataInfrastructureRequest>,
-    );
+    pub struct GetCloudExadataInfrastructure(RequestBuilder<crate::model::GetCloudExadataInfrastructureRequest>);
 
     impl GetCloudExadataInfrastructure {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCloudExadataInfrastructureRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCloudExadataInfrastructureRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -241,10 +211,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CloudExadataInfrastructure> {
-            (*self.0.stub)
-                .get_cloud_exadata_infrastructure(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_cloud_exadata_infrastructure(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloudExadataInfrastructureRequest::name].
@@ -282,22 +249,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCloudExadataInfrastructure(
-        RequestBuilder<crate::model::CreateCloudExadataInfrastructureRequest>,
-    );
+    pub struct CreateCloudExadataInfrastructure(RequestBuilder<crate::model::CreateCloudExadataInfrastructureRequest>);
 
     impl CreateCloudExadataInfrastructure {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCloudExadataInfrastructureRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCloudExadataInfrastructureRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -315,21 +277,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_cloud_exadata_infrastructure(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cloud_exadata_infrastructure`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CloudExadataInfrastructure, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CloudExadataInfrastructure, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CloudExadataInfrastructure,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CloudExadataInfrastructure, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,10 +325,7 @@ pub mod oracle_database {
         /// Sets the value of [cloud_exadata_infrastructure_id][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure_id].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cloud_exadata_infrastructure_id<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cloud_exadata_infrastructure_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cloud_exadata_infrastructure_id = v.into();
             self
         }
@@ -380,8 +334,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        where T: std::convert::Into<crate::model::CloudExadataInfrastructure>
         {
             self.0.request.cloud_exadata_infrastructure = std::option::Option::Some(v.into());
             self
@@ -390,12 +343,8 @@ pub mod oracle_database {
         /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::CreateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_cloud_exadata_infrastructure<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+        pub fn set_or_clear_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CloudExadataInfrastructure>
         {
             self.0.request.cloud_exadata_infrastructure = v.map(|x| x.into());
             self
@@ -434,22 +383,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCloudExadataInfrastructure(
-        RequestBuilder<crate::model::DeleteCloudExadataInfrastructureRequest>,
-    );
+    pub struct DeleteCloudExadataInfrastructure(RequestBuilder<crate::model::DeleteCloudExadataInfrastructureRequest>);
 
     impl DeleteCloudExadataInfrastructure {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCloudExadataInfrastructureRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCloudExadataInfrastructureRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -467,14 +411,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_cloud_exadata_infrastructure(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cloud_exadata_infrastructure`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -500,12 +445,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCloudExadataInfrastructureRequest::name].
@@ -561,17 +501,14 @@ pub mod oracle_database {
     pub struct ListCloudVmClusters(RequestBuilder<crate::model::ListCloudVmClustersRequest>);
 
     impl ListCloudVmClusters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCloudVmClustersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCloudVmClustersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -584,17 +521,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCloudVmClustersResponse> {
-            (*self.0.stub)
-                .list_cloud_vm_clusters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_cloud_vm_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -606,12 +537,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCloudVmClustersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCloudVmClustersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -671,17 +597,14 @@ pub mod oracle_database {
     pub struct GetCloudVmCluster(RequestBuilder<crate::model::GetCloudVmClusterRequest>);
 
     impl GetCloudVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCloudVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCloudVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -694,10 +617,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CloudVmCluster> {
-            (*self.0.stub)
-                .get_cloud_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_cloud_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloudVmClusterRequest::name].
@@ -738,17 +658,14 @@ pub mod oracle_database {
     pub struct CreateCloudVmCluster(RequestBuilder<crate::model::CreateCloudVmClusterRequest>);
 
     impl CreateCloudVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCloudVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCloudVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -766,21 +683,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_cloud_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_cloud_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cloud_vm_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CloudVmCluster, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CloudVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CloudVmCluster,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CloudVmCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -828,8 +740,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CloudVmCluster>,
+        where T: std::convert::Into<crate::model::CloudVmCluster>
         {
             self.0.request.cloud_vm_cluster = std::option::Option::Some(v.into());
             self
@@ -839,8 +750,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CloudVmCluster>,
+        where T: std::convert::Into<crate::model::CloudVmCluster>
         {
             self.0.request.cloud_vm_cluster = v.map(|x| x.into());
             self
@@ -882,17 +792,14 @@ pub mod oracle_database {
     pub struct DeleteCloudVmCluster(RequestBuilder<crate::model::DeleteCloudVmClusterRequest>);
 
     impl DeleteCloudVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCloudVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCloudVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -910,14 +817,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_cloud_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_cloud_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cloud_vm_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -943,12 +851,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCloudVmClusterRequest::name].
@@ -1004,17 +907,14 @@ pub mod oracle_database {
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListEntitlementsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListEntitlementsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1027,17 +927,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListEntitlementsResponse> {
-            (*self.0.stub)
-                .list_entitlements(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_entitlements(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1049,10 +943,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntitlementsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListEntitlementsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1110,10 +1001,10 @@ pub mod oracle_database {
     pub struct ListDbServers(RequestBuilder<crate::model::ListDbServersRequest>);
 
     impl ListDbServers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1130,17 +1021,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbServersResponse> {
-            (*self.0.stub)
-                .list_db_servers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_servers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1152,10 +1037,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDbServersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbServersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1213,10 +1095,10 @@ pub mod oracle_database {
     pub struct ListDbNodes(RequestBuilder<crate::model::ListDbNodesRequest>);
 
     impl ListDbNodes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1233,17 +1115,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbNodesResponse> {
-            (*self.0.stub)
-                .list_db_nodes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_nodes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1255,10 +1131,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDbNodesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbNodesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1316,10 +1189,10 @@ pub mod oracle_database {
     pub struct ListGiVersions(RequestBuilder<crate::model::ListGiVersionsRequest>);
 
     impl ListGiVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1336,17 +1209,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListGiVersionsResponse> {
-            (*self.0.stub)
-                .list_gi_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_gi_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1358,10 +1225,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGiVersionsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListGiVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1425,17 +1289,14 @@ pub mod oracle_database {
     pub struct ListMinorVersions(RequestBuilder<crate::model::ListMinorVersionsRequest>);
 
     impl ListMinorVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListMinorVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListMinorVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1448,17 +1309,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListMinorVersionsResponse> {
-            (*self.0.stub)
-                .list_minor_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_minor_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListMinorVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListMinorVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1470,10 +1325,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMinorVersionsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListMinorVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1537,17 +1389,14 @@ pub mod oracle_database {
     pub struct ListDbSystemShapes(RequestBuilder<crate::model::ListDbSystemShapesRequest>);
 
     impl ListDbSystemShapes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDbSystemShapesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDbSystemShapesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1560,17 +1409,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbSystemShapesResponse> {
-            (*self.0.stub)
-                .list_db_system_shapes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_system_shapes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1582,12 +1425,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListDbSystemShapesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbSystemShapesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1648,22 +1486,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAutonomousDatabases(
-        RequestBuilder<crate::model::ListAutonomousDatabasesRequest>,
-    );
+    pub struct ListAutonomousDatabases(RequestBuilder<crate::model::ListAutonomousDatabasesRequest>);
 
     impl ListAutonomousDatabases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAutonomousDatabasesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAutonomousDatabasesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1676,19 +1509,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAutonomousDatabasesResponse> {
-            (*self.0.stub)
-                .list_autonomous_databases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_autonomous_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListAutonomousDatabasesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAutonomousDatabasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1700,12 +1525,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAutonomousDatabasesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAutonomousDatabasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1771,17 +1591,14 @@ pub mod oracle_database {
     pub struct GetAutonomousDatabase(RequestBuilder<crate::model::GetAutonomousDatabaseRequest>);
 
     impl GetAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1794,10 +1611,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AutonomousDatabase> {
-            (*self.0.stub)
-                .get_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutonomousDatabaseRequest::name].
@@ -1835,22 +1649,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAutonomousDatabase(
-        RequestBuilder<crate::model::CreateAutonomousDatabaseRequest>,
-    );
+    pub struct CreateAutonomousDatabase(RequestBuilder<crate::model::CreateAutonomousDatabaseRequest>);
 
     impl CreateAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1868,21 +1677,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1930,8 +1734,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_autonomous_database<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        where T: std::convert::Into<crate::model::AutonomousDatabase>
         {
             self.0.request.autonomous_database = std::option::Option::Some(v.into());
             self
@@ -1941,8 +1744,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        where T: std::convert::Into<crate::model::AutonomousDatabase>
         {
             self.0.request.autonomous_database = v.map(|x| x.into());
             self
@@ -1981,22 +1783,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateAutonomousDatabase(
-        RequestBuilder<crate::model::UpdateAutonomousDatabaseRequest>,
-    );
+    pub struct UpdateAutonomousDatabase(RequestBuilder<crate::model::UpdateAutonomousDatabaseRequest>);
 
     impl UpdateAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2014,21 +1811,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_autonomous_database][crate::client::OracleDatabase::update_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2058,8 +1850,7 @@ pub mod oracle_database {
 
         /// Sets the value of [update_mask][crate::model::UpdateAutonomousDatabaseRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2067,8 +1858,7 @@ pub mod oracle_database {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateAutonomousDatabaseRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2078,8 +1868,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_autonomous_database<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        where T: std::convert::Into<crate::model::AutonomousDatabase>
         {
             self.0.request.autonomous_database = std::option::Option::Some(v.into());
             self
@@ -2089,8 +1878,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_autonomous_database<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AutonomousDatabase>,
+        where T: std::convert::Into<crate::model::AutonomousDatabase>
         {
             self.0.request.autonomous_database = v.map(|x| x.into());
             self
@@ -2129,22 +1917,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteAutonomousDatabase(
-        RequestBuilder<crate::model::DeleteAutonomousDatabaseRequest>,
-    );
+    pub struct DeleteAutonomousDatabase(RequestBuilder<crate::model::DeleteAutonomousDatabaseRequest>);
 
     impl DeleteAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2162,14 +1945,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_autonomous_database`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2195,12 +1979,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteAutonomousDatabaseRequest::name].
@@ -2244,22 +2023,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestoreAutonomousDatabase(
-        RequestBuilder<crate::model::RestoreAutonomousDatabaseRequest>,
-    );
+    pub struct RestoreAutonomousDatabase(RequestBuilder<crate::model::RestoreAutonomousDatabaseRequest>);
 
     impl RestoreAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestoreAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RestoreAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2277,21 +2051,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .restore_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restore_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2331,8 +2100,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_restore_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.restore_time = std::option::Option::Some(v.into());
             self
@@ -2342,8 +2110,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_restore_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.restore_time = v.map(|x| x.into());
             self
@@ -2375,22 +2142,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GenerateAutonomousDatabaseWallet(
-        RequestBuilder<crate::model::GenerateAutonomousDatabaseWalletRequest>,
-    );
+    pub struct GenerateAutonomousDatabaseWallet(RequestBuilder<crate::model::GenerateAutonomousDatabaseWalletRequest>);
 
     impl GenerateAutonomousDatabaseWallet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateAutonomousDatabaseWalletRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateAutonomousDatabaseWalletRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2403,10 +2165,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateAutonomousDatabaseWalletResponse> {
-            (*self.0.stub)
-                .generate_autonomous_database_wallet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).generate_autonomous_database_wallet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateAutonomousDatabaseWalletRequest::name].
@@ -2467,22 +2226,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAutonomousDbVersions(
-        RequestBuilder<crate::model::ListAutonomousDbVersionsRequest>,
-    );
+    pub struct ListAutonomousDbVersions(RequestBuilder<crate::model::ListAutonomousDbVersionsRequest>);
 
     impl ListAutonomousDbVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAutonomousDbVersionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAutonomousDbVersionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2495,19 +2249,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAutonomousDbVersionsResponse> {
-            (*self.0.stub)
-                .list_autonomous_db_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_autonomous_db_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListAutonomousDbVersionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAutonomousDbVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2519,12 +2265,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAutonomousDbVersionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAutonomousDbVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2579,22 +2320,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAutonomousDatabaseCharacterSets(
-        RequestBuilder<crate::model::ListAutonomousDatabaseCharacterSetsRequest>,
-    );
+    pub struct ListAutonomousDatabaseCharacterSets(RequestBuilder<crate::model::ListAutonomousDatabaseCharacterSetsRequest>);
 
     impl ListAutonomousDatabaseCharacterSets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAutonomousDatabaseCharacterSetsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAutonomousDatabaseCharacterSetsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2606,22 +2342,12 @@ pub mod oracle_database {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::ListAutonomousDatabaseCharacterSetsResponse> {
-            (*self.0.stub)
-                .list_autonomous_database_character_sets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::ListAutonomousDatabaseCharacterSetsResponse> {
+            (*self.0.stub).list_autonomous_database_character_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListAutonomousDatabaseCharacterSetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAutonomousDatabaseCharacterSetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2633,12 +2359,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAutonomousDatabaseCharacterSetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAutonomousDatabaseCharacterSetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2699,22 +2420,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListAutonomousDatabaseBackups(
-        RequestBuilder<crate::model::ListAutonomousDatabaseBackupsRequest>,
-    );
+    pub struct ListAutonomousDatabaseBackups(RequestBuilder<crate::model::ListAutonomousDatabaseBackupsRequest>);
 
     impl ListAutonomousDatabaseBackups {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAutonomousDatabaseBackupsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAutonomousDatabaseBackupsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2727,19 +2443,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAutonomousDatabaseBackupsResponse> {
-            (*self.0.stub)
-                .list_autonomous_database_backups(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_autonomous_database_backups(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListAutonomousDatabaseBackupsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAutonomousDatabaseBackupsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2751,12 +2459,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAutonomousDatabaseBackupsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAutonomousDatabaseBackupsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2817,17 +2520,14 @@ pub mod oracle_database {
     pub struct StopAutonomousDatabase(RequestBuilder<crate::model::StopAutonomousDatabaseRequest>);
 
     impl StopAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StopAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::StopAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2845,21 +2545,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .stop_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).stop_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2922,22 +2617,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct StartAutonomousDatabase(
-        RequestBuilder<crate::model::StartAutonomousDatabaseRequest>,
-    );
+    pub struct StartAutonomousDatabase(RequestBuilder<crate::model::StartAutonomousDatabaseRequest>);
 
     impl StartAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::StartAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::StartAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2955,21 +2645,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .start_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).start_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3032,22 +2717,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RestartAutonomousDatabase(
-        RequestBuilder<crate::model::RestartAutonomousDatabaseRequest>,
-    );
+    pub struct RestartAutonomousDatabase(RequestBuilder<crate::model::RestartAutonomousDatabaseRequest>);
 
     impl RestartAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RestartAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RestartAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3065,21 +2745,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .restart_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).restart_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restart_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3142,22 +2817,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct SwitchoverAutonomousDatabase(
-        RequestBuilder<crate::model::SwitchoverAutonomousDatabaseRequest>,
-    );
+    pub struct SwitchoverAutonomousDatabase(RequestBuilder<crate::model::SwitchoverAutonomousDatabaseRequest>);
 
     impl SwitchoverAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SwitchoverAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SwitchoverAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3175,21 +2845,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [switchover_autonomous_database][crate::client::OracleDatabase::switchover_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .switchover_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).switchover_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `switchover_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3260,22 +2925,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FailoverAutonomousDatabase(
-        RequestBuilder<crate::model::FailoverAutonomousDatabaseRequest>,
-    );
+    pub struct FailoverAutonomousDatabase(RequestBuilder<crate::model::FailoverAutonomousDatabaseRequest>);
 
     impl FailoverAutonomousDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FailoverAutonomousDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FailoverAutonomousDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3293,21 +2953,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [failover_autonomous_database][crate::client::OracleDatabase::failover_autonomous_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .failover_autonomous_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).failover_autonomous_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `failover_autonomous_database`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AutonomousDatabase, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AutonomousDatabase,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AutonomousDatabase, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3384,10 +3039,10 @@ pub mod oracle_database {
     pub struct ListOdbNetworks(RequestBuilder<crate::model::ListOdbNetworksRequest>);
 
     impl ListOdbNetworks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3404,17 +3059,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOdbNetworksResponse> {
-            (*self.0.stub)
-                .list_odb_networks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_odb_networks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOdbNetworksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOdbNetworksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3426,10 +3075,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOdbNetworksResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOdbNetworksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3495,10 +3141,10 @@ pub mod oracle_database {
     pub struct GetOdbNetwork(RequestBuilder<crate::model::GetOdbNetworkRequest>);
 
     impl GetOdbNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3515,10 +3161,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OdbNetwork> {
-            (*self.0.stub)
-                .get_odb_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_odb_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOdbNetworkRequest::name].
@@ -3559,17 +3202,14 @@ pub mod oracle_database {
     pub struct CreateOdbNetwork(RequestBuilder<crate::model::CreateOdbNetworkRequest>);
 
     impl CreateOdbNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateOdbNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateOdbNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3587,18 +3227,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_network][crate::client::OracleDatabase::create_odb_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_odb_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_odb_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_odb_network`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::OdbNetwork, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::OdbNetwork, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::OdbNetwork, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::OdbNetwork, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3646,8 +3284,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_odb_network<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::OdbNetwork>,
+        where T: std::convert::Into<crate::model::OdbNetwork>
         {
             self.0.request.odb_network = std::option::Option::Some(v.into());
             self
@@ -3657,8 +3294,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_odb_network<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::OdbNetwork>,
+        where T: std::convert::Into<crate::model::OdbNetwork>
         {
             self.0.request.odb_network = v.map(|x| x.into());
             self
@@ -3700,17 +3336,14 @@ pub mod oracle_database {
     pub struct DeleteOdbNetwork(RequestBuilder<crate::model::DeleteOdbNetworkRequest>);
 
     impl DeleteOdbNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteOdbNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteOdbNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3728,14 +3361,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_network][crate::client::OracleDatabase::delete_odb_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_odb_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_odb_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_odb_network`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3761,12 +3395,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteOdbNetworkRequest::name].
@@ -3816,10 +3445,10 @@ pub mod oracle_database {
     pub struct ListOdbSubnets(RequestBuilder<crate::model::ListOdbSubnetsRequest>);
 
     impl ListOdbSubnets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3836,17 +3465,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOdbSubnetsResponse> {
-            (*self.0.stub)
-                .list_odb_subnets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_odb_subnets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOdbSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOdbSubnetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3858,10 +3481,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOdbSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOdbSubnetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3927,10 +3547,10 @@ pub mod oracle_database {
     pub struct GetOdbSubnet(RequestBuilder<crate::model::GetOdbSubnetRequest>);
 
     impl GetOdbSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3947,10 +3567,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OdbSubnet> {
-            (*self.0.stub)
-                .get_odb_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_odb_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOdbSubnetRequest::name].
@@ -3991,10 +3608,10 @@ pub mod oracle_database {
     pub struct CreateOdbSubnet(RequestBuilder<crate::model::CreateOdbSubnetRequest>);
 
     impl CreateOdbSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4016,18 +3633,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_odb_subnet][crate::client::OracleDatabase::create_odb_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_odb_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_odb_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_odb_subnet`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::OdbSubnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::OdbSubnet, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::OdbSubnet, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::OdbSubnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4075,8 +3690,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_odb_subnet<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::OdbSubnet>,
+        where T: std::convert::Into<crate::model::OdbSubnet>
         {
             self.0.request.odb_subnet = std::option::Option::Some(v.into());
             self
@@ -4086,8 +3700,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_odb_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::OdbSubnet>,
+        where T: std::convert::Into<crate::model::OdbSubnet>
         {
             self.0.request.odb_subnet = v.map(|x| x.into());
             self
@@ -4129,10 +3742,10 @@ pub mod oracle_database {
     pub struct DeleteOdbSubnet(RequestBuilder<crate::model::DeleteOdbSubnetRequest>);
 
     impl DeleteOdbSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4154,14 +3767,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_odb_subnet][crate::client::OracleDatabase::delete_odb_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_odb_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_odb_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_odb_subnet`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4187,12 +3801,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteOdbSubnetRequest::name].
@@ -4242,17 +3851,14 @@ pub mod oracle_database {
     pub struct ListExadbVmClusters(RequestBuilder<crate::model::ListExadbVmClustersRequest>);
 
     impl ListExadbVmClusters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListExadbVmClustersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListExadbVmClustersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4265,17 +3871,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListExadbVmClustersResponse> {
-            (*self.0.stub)
-                .list_exadb_vm_clusters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_exadb_vm_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListExadbVmClustersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListExadbVmClustersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4287,12 +3887,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListExadbVmClustersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListExadbVmClustersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4358,17 +3953,14 @@ pub mod oracle_database {
     pub struct GetExadbVmCluster(RequestBuilder<crate::model::GetExadbVmClusterRequest>);
 
     impl GetExadbVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetExadbVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetExadbVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4381,10 +3973,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExadbVmCluster> {
-            (*self.0.stub)
-                .get_exadb_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_exadb_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExadbVmClusterRequest::name].
@@ -4425,17 +4014,14 @@ pub mod oracle_database {
     pub struct CreateExadbVmCluster(RequestBuilder<crate::model::CreateExadbVmClusterRequest>);
 
     impl CreateExadbVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateExadbVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateExadbVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4453,21 +4039,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exadb_vm_cluster][crate::client::OracleDatabase::create_exadb_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_exadb_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_exadb_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_exadb_vm_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExadbVmCluster,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExadbVmCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4515,8 +4096,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_exadb_vm_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExadbVmCluster>,
+        where T: std::convert::Into<crate::model::ExadbVmCluster>
         {
             self.0.request.exadb_vm_cluster = std::option::Option::Some(v.into());
             self
@@ -4526,8 +4106,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_exadb_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExadbVmCluster>,
+        where T: std::convert::Into<crate::model::ExadbVmCluster>
         {
             self.0.request.exadb_vm_cluster = v.map(|x| x.into());
             self
@@ -4569,17 +4148,14 @@ pub mod oracle_database {
     pub struct DeleteExadbVmCluster(RequestBuilder<crate::model::DeleteExadbVmClusterRequest>);
 
     impl DeleteExadbVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteExadbVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteExadbVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4597,14 +4173,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exadb_vm_cluster][crate::client::OracleDatabase::delete_exadb_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_exadb_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_exadb_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_exadb_vm_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4630,12 +4207,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExadbVmClusterRequest::name].
@@ -4682,17 +4254,14 @@ pub mod oracle_database {
     pub struct UpdateExadbVmCluster(RequestBuilder<crate::model::UpdateExadbVmClusterRequest>);
 
     impl UpdateExadbVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateExadbVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateExadbVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4710,21 +4279,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_exadb_vm_cluster][crate::client::OracleDatabase::update_exadb_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_exadb_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_exadb_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_exadb_vm_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExadbVmCluster,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExadbVmCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4754,8 +4318,7 @@ pub mod oracle_database {
 
         /// Sets the value of [update_mask][crate::model::UpdateExadbVmClusterRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4763,8 +4326,7 @@ pub mod oracle_database {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateExadbVmClusterRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4774,8 +4336,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_exadb_vm_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExadbVmCluster>,
+        where T: std::convert::Into<crate::model::ExadbVmCluster>
         {
             self.0.request.exadb_vm_cluster = std::option::Option::Some(v.into());
             self
@@ -4785,8 +4346,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_exadb_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExadbVmCluster>,
+        where T: std::convert::Into<crate::model::ExadbVmCluster>
         {
             self.0.request.exadb_vm_cluster = v.map(|x| x.into());
             self
@@ -4825,22 +4385,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RemoveVirtualMachineExadbVmCluster(
-        RequestBuilder<crate::model::RemoveVirtualMachineExadbVmClusterRequest>,
-    );
+    pub struct RemoveVirtualMachineExadbVmCluster(RequestBuilder<crate::model::RemoveVirtualMachineExadbVmClusterRequest>);
 
     impl RemoveVirtualMachineExadbVmCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RemoveVirtualMachineExadbVmClusterRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RemoveVirtualMachineExadbVmClusterRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4858,21 +4413,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [remove_virtual_machine_exadb_vm_cluster][crate::client::OracleDatabase::remove_virtual_machine_exadb_vm_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .remove_virtual_machine_exadb_vm_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).remove_virtual_machine_exadb_vm_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_virtual_machine_exadb_vm_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExadbVmCluster, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExadbVmCluster,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExadbVmCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4920,7 +4470,7 @@ pub mod oracle_database {
         pub fn set_hostnames<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.hostnames = v.into_iter().map(|i| i.into()).collect();
@@ -4957,22 +4507,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExascaleDbStorageVaults(
-        RequestBuilder<crate::model::ListExascaleDbStorageVaultsRequest>,
-    );
+    pub struct ListExascaleDbStorageVaults(RequestBuilder<crate::model::ListExascaleDbStorageVaultsRequest>);
 
     impl ListExascaleDbStorageVaults {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListExascaleDbStorageVaultsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListExascaleDbStorageVaultsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4985,19 +4530,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListExascaleDbStorageVaultsResponse> {
-            (*self.0.stub)
-                .list_exascale_db_storage_vaults(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_exascale_db_storage_vaults(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListExascaleDbStorageVaultsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListExascaleDbStorageVaultsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5009,12 +4546,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListExascaleDbStorageVaultsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListExascaleDbStorageVaultsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5077,22 +4609,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetExascaleDbStorageVault(
-        RequestBuilder<crate::model::GetExascaleDbStorageVaultRequest>,
-    );
+    pub struct GetExascaleDbStorageVault(RequestBuilder<crate::model::GetExascaleDbStorageVaultRequest>);
 
     impl GetExascaleDbStorageVault {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetExascaleDbStorageVaultRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetExascaleDbStorageVaultRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5105,10 +4632,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExascaleDbStorageVault> {
-            (*self.0.stub)
-                .get_exascale_db_storage_vault(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_exascale_db_storage_vault(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExascaleDbStorageVaultRequest::name].
@@ -5146,22 +4670,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExascaleDbStorageVault(
-        RequestBuilder<crate::model::CreateExascaleDbStorageVaultRequest>,
-    );
+    pub struct CreateExascaleDbStorageVault(RequestBuilder<crate::model::CreateExascaleDbStorageVaultRequest>);
 
     impl CreateExascaleDbStorageVault {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateExascaleDbStorageVaultRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateExascaleDbStorageVaultRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5179,21 +4698,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_exascale_db_storage_vault][crate::client::OracleDatabase::create_exascale_db_storage_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_exascale_db_storage_vault(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_exascale_db_storage_vault(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_exascale_db_storage_vault`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExascaleDbStorageVault, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExascaleDbStorageVault, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExascaleDbStorageVault,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExascaleDbStorageVault, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5232,10 +4746,7 @@ pub mod oracle_database {
         /// Sets the value of [exascale_db_storage_vault_id][crate::model::CreateExascaleDbStorageVaultRequest::exascale_db_storage_vault_id].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exascale_db_storage_vault_id<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_exascale_db_storage_vault_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.exascale_db_storage_vault_id = v.into();
             self
         }
@@ -5244,8 +4755,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_exascale_db_storage_vault<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
+        where T: std::convert::Into<crate::model::ExascaleDbStorageVault>
         {
             self.0.request.exascale_db_storage_vault = std::option::Option::Some(v.into());
             self
@@ -5254,12 +4764,8 @@ pub mod oracle_database {
         /// Sets or clears the value of [exascale_db_storage_vault][crate::model::CreateExascaleDbStorageVaultRequest::exascale_db_storage_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_exascale_db_storage_vault<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
+        pub fn set_or_clear_exascale_db_storage_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::ExascaleDbStorageVault>
         {
             self.0.request.exascale_db_storage_vault = v.map(|x| x.into());
             self
@@ -5298,22 +4804,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExascaleDbStorageVault(
-        RequestBuilder<crate::model::DeleteExascaleDbStorageVaultRequest>,
-    );
+    pub struct DeleteExascaleDbStorageVault(RequestBuilder<crate::model::DeleteExascaleDbStorageVaultRequest>);
 
     impl DeleteExascaleDbStorageVault {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteExascaleDbStorageVaultRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteExascaleDbStorageVaultRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5331,14 +4832,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_exascale_db_storage_vault][crate::client::OracleDatabase::delete_exascale_db_storage_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_exascale_db_storage_vault(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_exascale_db_storage_vault(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_exascale_db_storage_vault`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5364,12 +4866,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExascaleDbStorageVaultRequest::name].
@@ -5416,22 +4913,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDbSystemInitialStorageSizes(
-        RequestBuilder<crate::model::ListDbSystemInitialStorageSizesRequest>,
-    );
+    pub struct ListDbSystemInitialStorageSizes(RequestBuilder<crate::model::ListDbSystemInitialStorageSizesRequest>);
 
     impl ListDbSystemInitialStorageSizes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDbSystemInitialStorageSizesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDbSystemInitialStorageSizesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5444,19 +4936,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbSystemInitialStorageSizesResponse> {
-            (*self.0.stub)
-                .list_db_system_initial_storage_sizes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_system_initial_storage_sizes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListDbSystemInitialStorageSizesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbSystemInitialStorageSizesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5468,12 +4952,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListDbSystemInitialStorageSizesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbSystemInitialStorageSizesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5531,10 +5010,10 @@ pub mod oracle_database {
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5551,17 +5030,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabasesResponse> {
-            (*self.0.stub)
-                .list_databases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5573,10 +5046,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5636,10 +5106,10 @@ pub mod oracle_database {
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5656,10 +5126,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            (*self.0.stub)
-                .get_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
@@ -5703,17 +5170,14 @@ pub mod oracle_database {
     pub struct ListPluggableDatabases(RequestBuilder<crate::model::ListPluggableDatabasesRequest>);
 
     impl ListPluggableDatabases {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPluggableDatabasesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPluggableDatabasesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5726,19 +5190,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPluggableDatabasesResponse> {
-            (*self.0.stub)
-                .list_pluggable_databases(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_pluggable_databases(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListPluggableDatabasesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPluggableDatabasesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5750,12 +5206,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPluggableDatabasesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPluggableDatabasesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5815,17 +5266,14 @@ pub mod oracle_database {
     pub struct GetPluggableDatabase(RequestBuilder<crate::model::GetPluggableDatabaseRequest>);
 
     impl GetPluggableDatabase {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPluggableDatabaseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPluggableDatabaseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5838,10 +5286,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PluggableDatabase> {
-            (*self.0.stub)
-                .get_pluggable_database(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_pluggable_database(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPluggableDatabaseRequest::name].
@@ -5885,10 +5330,10 @@ pub mod oracle_database {
     pub struct ListDbSystems(RequestBuilder<crate::model::ListDbSystemsRequest>);
 
     impl ListDbSystems {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5905,17 +5350,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbSystemsResponse> {
-            (*self.0.stub)
-                .list_db_systems(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_systems(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDbSystemsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbSystemsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5927,10 +5366,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDbSystemsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbSystemsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5996,10 +5432,10 @@ pub mod oracle_database {
     pub struct GetDbSystem(RequestBuilder<crate::model::GetDbSystemRequest>);
 
     impl GetDbSystem {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6016,10 +5452,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DbSystem> {
-            (*self.0.stub)
-                .get_db_system(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_db_system(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDbSystemRequest::name].
@@ -6060,10 +5493,10 @@ pub mod oracle_database {
     pub struct CreateDbSystem(RequestBuilder<crate::model::CreateDbSystemRequest>);
 
     impl CreateDbSystem {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6085,18 +5518,16 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_db_system][crate::client::OracleDatabase::create_db_system].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_db_system(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_db_system(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_db_system`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::DbSystem, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::DbSystem, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::DbSystem, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::DbSystem, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6144,8 +5575,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_db_system<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DbSystem>,
+        where T: std::convert::Into<crate::model::DbSystem>
         {
             self.0.request.db_system = std::option::Option::Some(v.into());
             self
@@ -6155,8 +5585,7 @@ pub mod oracle_database {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_db_system<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DbSystem>,
+        where T: std::convert::Into<crate::model::DbSystem>
         {
             self.0.request.db_system = v.map(|x| x.into());
             self
@@ -6198,10 +5627,10 @@ pub mod oracle_database {
     pub struct DeleteDbSystem(RequestBuilder<crate::model::DeleteDbSystemRequest>);
 
     impl DeleteDbSystem {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6223,14 +5652,15 @@ pub mod oracle_database {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_db_system][crate::client::OracleDatabase::delete_db_system].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_db_system(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_db_system(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_db_system`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -6256,12 +5686,7 @@ pub mod oracle_database {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDbSystemRequest::name].
@@ -6311,10 +5736,10 @@ pub mod oracle_database {
     pub struct ListDbVersions(RequestBuilder<crate::model::ListDbVersionsRequest>);
 
     impl ListDbVersions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6331,17 +5756,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDbVersionsResponse> {
-            (*self.0.stub)
-                .list_db_versions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_db_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDbVersionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDbVersionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6353,10 +5772,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDbVersionsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDbVersionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6417,22 +5833,17 @@ pub mod oracle_database {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListDatabaseCharacterSets(
-        RequestBuilder<crate::model::ListDatabaseCharacterSetsRequest>,
-    );
+    pub struct ListDatabaseCharacterSets(RequestBuilder<crate::model::ListDatabaseCharacterSetsRequest>);
 
     impl ListDatabaseCharacterSets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDatabaseCharacterSetsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDatabaseCharacterSetsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6445,19 +5856,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabaseCharacterSetsResponse> {
-            (*self.0.stub)
-                .list_database_character_sets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_database_character_sets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListDatabaseCharacterSetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDatabaseCharacterSetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6469,12 +5872,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListDatabaseCharacterSetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDatabaseCharacterSetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6538,17 +5936,14 @@ pub mod oracle_database {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6561,17 +5956,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6583,10 +5972,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6644,10 +6030,10 @@ pub mod oracle_database {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6664,10 +6050,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -6709,17 +6092,14 @@ pub mod oracle_database {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6732,17 +6112,11 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6754,12 +6128,7 @@ pub mod oracle_database {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6823,17 +6192,14 @@ pub mod oracle_database {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6846,10 +6212,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6887,17 +6250,14 @@ pub mod oracle_database {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6910,10 +6270,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -6951,17 +6308,14 @@ pub mod oracle_database {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OracleDatabase>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6974,10 +6328,7 @@ pub mod oracle_database {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -6993,4 +6344,5 @@ pub mod oracle_database {
             &mut self.0.options
         }
     }
+
 }

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyRule {
+
     /// The identities that are prevented from using one or more permissions on
     /// Google Cloud resources. This field can contain the following values:
     ///
@@ -134,7 +135,7 @@ impl DenyRule {
     pub fn set_denied_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.denied_principals = v.into_iter().map(|i| i.into()).collect();
@@ -145,7 +146,7 @@ impl DenyRule {
     pub fn set_exception_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.exception_principals = v.into_iter().map(|i| i.into()).collect();
@@ -156,7 +157,7 @@ impl DenyRule {
     pub fn set_denied_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.denied_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -167,7 +168,7 @@ impl DenyRule {
     pub fn set_exception_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.exception_permissions = v.into_iter().map(|i| i.into()).collect();
@@ -176,8 +177,7 @@ impl DenyRule {
 
     /// Sets the value of [denial_condition][crate::model::DenyRule::denial_condition].
     pub fn set_denial_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.denial_condition = std::option::Option::Some(v.into());
         self
@@ -185,8 +185,7 @@ impl DenyRule {
 
     /// Sets or clears the value of [denial_condition][crate::model::DenyRule::denial_condition].
     pub fn set_or_clear_denial_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.denial_condition = v.map(|x| x.into());
         self
@@ -203,6 +202,7 @@ impl wkt::message::Message for DenyRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Immutable. The resource name of the `Policy`, which must be unique. Format:
     /// `policies/{attachment_point}/denypolicies/{policy_id}`
     ///
@@ -229,7 +229,7 @@ pub struct Policy {
 
     /// A key-value map to store arbitrary metadata for the `Policy`. Keys
     /// can be up to 63 characters. Values can be up to 255 characters.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// An opaque tag that identifies the current version of the `Policy`. IAM uses
     /// this value to help manage concurrent updates, so they do not cause one
@@ -308,8 +308,7 @@ impl Policy {
 
     /// Sets the value of [create_time][crate::model::Policy::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -317,8 +316,7 @@ impl Policy {
 
     /// Sets or clears the value of [create_time][crate::model::Policy::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -326,8 +324,7 @@ impl Policy {
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -335,8 +332,7 @@ impl Policy {
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -344,8 +340,7 @@ impl Policy {
 
     /// Sets the value of [delete_time][crate::model::Policy::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -353,8 +348,7 @@ impl Policy {
 
     /// Sets or clears the value of [delete_time][crate::model::Policy::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -364,7 +358,7 @@ impl Policy {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PolicyRule>,
+        V: std::convert::Into<crate::model::PolicyRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -372,10 +366,7 @@ impl Policy {
     }
 
     /// Sets the value of [managing_authority][crate::model::Policy::managing_authority].
-    pub fn set_managing_authority<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_managing_authority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.managing_authority = v.into();
         self
     }
@@ -391,6 +382,7 @@ impl wkt::message::Message for Policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyRule {
+
     /// A user-specified description of the rule. This value can be up to 256
     /// characters.
     pub description: std::string::String,
@@ -415,10 +407,8 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
-    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(mut self, v: T) -> Self
+    {
         self.kind = v.into();
         self
     }
@@ -439,11 +429,12 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    pub fn set_deny_rule<T: std::convert::Into<std::boxed::Box<crate::model::DenyRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyRule(v.into()));
+    pub fn set_deny_rule<T: std::convert::Into<std::boxed::Box<crate::model::DenyRule>>>(mut self, v: T) -> Self {
+        self.kind = std::option::Option::Some(
+            crate::model::policy_rule::Kind::DenyRule(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -459,6 +450,7 @@ pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -471,6 +463,7 @@ pub mod policy_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesRequest {
+
     /// Required. The resource that the policy is attached to, along with the kind of policy
     /// to list. Format:
     /// `policies/{attachment_point}/denypolicies`
@@ -531,6 +524,7 @@ impl wkt::message::Message for ListPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPoliciesResponse {
+
     /// Metadata for the policies that are attached to the resource.
     pub policies: std::vec::Vec<crate::model::Policy>,
 
@@ -552,7 +546,7 @@ impl ListPoliciesResponse {
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Policy>,
+        V: std::convert::Into<crate::model::Policy>
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
@@ -590,6 +584,7 @@ impl gax::paginator::internal::PageableResponse for ListPoliciesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyRequest {
+
     /// Required. The resource name of the policy to retrieve. Format:
     /// `policies/{attachment_point}/denypolicies/{policy_id}`
     ///
@@ -626,6 +621,7 @@ impl wkt::message::Message for GetPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePolicyRequest {
+
     /// Required. The resource that the policy is attached to, along with the kind of policy
     /// to create. Format: `policies/{attachment_point}/denypolicies`
     ///
@@ -663,8 +659,7 @@ impl CreatePolicyRequest {
 
     /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -672,8 +667,7 @@ impl CreatePolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -696,6 +690,7 @@ impl wkt::message::Message for CreatePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePolicyRequest {
+
     /// Required. The policy to update.
     ///
     /// To prevent conflicting updates, the `etag` value must match the value that
@@ -713,8 +708,7 @@ impl UpdatePolicyRequest {
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -722,8 +716,7 @@ impl UpdatePolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -740,6 +733,7 @@ impl wkt::message::Message for UpdatePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePolicyRequest {
+
     /// Required. The resource name of the policy to delete. Format:
     /// `policies/{attachment_point}/denypolicies/{policy_id}`
     ///
@@ -790,6 +784,7 @@ impl wkt::message::Message for DeletePolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyOperationMetadata {
+
     /// Timestamp when the `google.longrunning.Operation` was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -803,8 +798,7 @@ impl PolicyOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -812,8 +806,7 @@ impl PolicyOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self

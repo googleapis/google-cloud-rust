@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnvironmentRequest {
+
     /// The parent must be of the form
     /// "projects/{projectId}/locations/{locationId}".
     pub parent: std::string::String,
@@ -64,8 +65,7 @@ impl CreateEnvironmentRequest {
 
     /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
     pub fn set_environment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Environment>,
+    where T: std::convert::Into<crate::model::Environment>
     {
         self.environment = std::option::Option::Some(v.into());
         self
@@ -73,8 +73,7 @@ impl CreateEnvironmentRequest {
 
     /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Environment>,
+    where T: std::convert::Into<crate::model::Environment>
     {
         self.environment = v.map(|x| x.into());
         self
@@ -91,6 +90,7 @@ impl wkt::message::Message for CreateEnvironmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnvironmentRequest {
+
     /// The resource name of the environment to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub name: std::string::String,
@@ -120,6 +120,7 @@ impl wkt::message::Message for GetEnvironmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsRequest {
+
     /// List environments in the given project and location, in the form:
     /// "projects/{projectId}/locations/{locationId}"
     pub parent: std::string::String,
@@ -167,6 +168,7 @@ impl wkt::message::Message for ListEnvironmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnvironmentsResponse {
+
     /// The list of environments returned by a ListEnvironmentsRequest.
     pub environments: std::vec::Vec<crate::model::Environment>,
 
@@ -185,7 +187,7 @@ impl ListEnvironmentsResponse {
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Environment>,
+        V: std::convert::Into<crate::model::Environment>
     {
         use std::iter::Iterator;
         self.environments = v.into_iter().map(|i| i.into()).collect();
@@ -223,6 +225,7 @@ impl gax::paginator::internal::PageableResponse for ListEnvironmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnvironmentRequest {
+
     /// The environment to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub name: std::string::String,
@@ -252,6 +255,7 @@ impl wkt::message::Message for DeleteEnvironmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEnvironmentRequest {
+
     /// The relative resource name of the environment to update, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub name: std::string::String,
@@ -407,8 +411,7 @@ impl UpdateEnvironmentRequest {
 
     /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
     pub fn set_environment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Environment>,
+    where T: std::convert::Into<crate::model::Environment>
     {
         self.environment = std::option::Option::Some(v.into());
         self
@@ -416,8 +419,7 @@ impl UpdateEnvironmentRequest {
 
     /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Environment>,
+    where T: std::convert::Into<crate::model::Environment>
     {
         self.environment = v.map(|x| x.into());
         self
@@ -425,8 +427,7 @@ impl UpdateEnvironmentRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -434,8 +435,7 @@ impl UpdateEnvironmentRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -452,6 +452,7 @@ impl wkt::message::Message for UpdateEnvironmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecuteAirflowCommandRequest {
+
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}".
     pub environment: std::string::String,
@@ -498,7 +499,7 @@ impl ExecuteAirflowCommandRequest {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -516,6 +517,7 @@ impl wkt::message::Message for ExecuteAirflowCommandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecuteAirflowCommandResponse {
+
     /// The unique ID of the command execution for polling.
     pub execution_id: std::string::String,
 
@@ -571,6 +573,7 @@ impl wkt::message::Message for ExecuteAirflowCommandResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopAirflowCommandRequest {
+
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}".
     pub environment: std::string::String,
@@ -637,6 +640,7 @@ impl wkt::message::Message for StopAirflowCommandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopAirflowCommandResponse {
+
     /// Whether the execution is still running.
     pub is_done: bool,
 
@@ -661,7 +665,7 @@ impl StopAirflowCommandResponse {
     pub fn set_output<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.output = v.into_iter().map(|i| i.into()).collect();
@@ -679,6 +683,7 @@ impl wkt::message::Message for StopAirflowCommandResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PollAirflowCommandRequest {
+
     /// The resource name of the environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub environment: std::string::String,
@@ -744,6 +749,7 @@ impl wkt::message::Message for PollAirflowCommandRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PollAirflowCommandResponse {
+
     /// Output from the command execution. It may not contain the full output
     /// and the caller may need to poll for more lines.
     pub output: std::vec::Vec<crate::model::poll_airflow_command_response::Line>,
@@ -766,7 +772,7 @@ impl PollAirflowCommandResponse {
     pub fn set_output<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::poll_airflow_command_response::Line>,
+        V: std::convert::Into<crate::model::poll_airflow_command_response::Line>
     {
         use std::iter::Iterator;
         self.output = v.into_iter().map(|i| i.into()).collect();
@@ -781,8 +787,7 @@ impl PollAirflowCommandResponse {
 
     /// Sets the value of [exit_info][crate::model::PollAirflowCommandResponse::exit_info].
     pub fn set_exit_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>,
+    where T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>
     {
         self.exit_info = std::option::Option::Some(v.into());
         self
@@ -790,8 +795,7 @@ impl PollAirflowCommandResponse {
 
     /// Sets or clears the value of [exit_info][crate::model::PollAirflowCommandResponse::exit_info].
     pub fn set_or_clear_exit_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>,
+    where T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>
     {
         self.exit_info = v.map(|x| x.into());
         self
@@ -809,10 +813,12 @@ pub mod poll_airflow_command_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains information about a single line from logs.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Line {
+
         /// Number of the line.
         pub line_number: i32,
 
@@ -850,6 +856,7 @@ pub mod poll_airflow_command_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExitInfo {
+
         /// The exit code from the command execution.
         pub exit_code: i32,
 
@@ -888,6 +895,7 @@ pub mod poll_airflow_command_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserWorkloadsSecretRequest {
+
     /// Required. The environment name to create a Secret for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub parent: std::string::String,
@@ -911,8 +919,7 @@ impl CreateUserWorkloadsSecretRequest {
 
     /// Sets the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
     pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+    where T: std::convert::Into<crate::model::UserWorkloadsSecret>
     {
         self.user_workloads_secret = std::option::Option::Some(v.into());
         self
@@ -920,8 +927,7 @@ impl CreateUserWorkloadsSecretRequest {
 
     /// Sets or clears the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
     pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+    where T: std::convert::Into<crate::model::UserWorkloadsSecret>
     {
         self.user_workloads_secret = v.map(|x| x.into());
         self
@@ -938,6 +944,7 @@ impl wkt::message::Message for CreateUserWorkloadsSecretRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserWorkloadsSecretRequest {
+
     /// Required. The resource name of the Secret to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     pub name: std::string::String,
@@ -967,6 +974,7 @@ impl wkt::message::Message for GetUserWorkloadsSecretRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsSecretsRequest {
+
     /// Required. List Secrets in the given environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub parent: std::string::String,
@@ -1015,6 +1023,7 @@ impl wkt::message::Message for ListUserWorkloadsSecretsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUserWorkloadsSecretRequest {
+
     /// Optional. User workloads Secret to override.
     pub user_workloads_secret: std::option::Option<crate::model::UserWorkloadsSecret>,
 
@@ -1028,8 +1037,7 @@ impl UpdateUserWorkloadsSecretRequest {
 
     /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
     pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+    where T: std::convert::Into<crate::model::UserWorkloadsSecret>
     {
         self.user_workloads_secret = std::option::Option::Some(v.into());
         self
@@ -1037,8 +1045,7 @@ impl UpdateUserWorkloadsSecretRequest {
 
     /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
     pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+    where T: std::convert::Into<crate::model::UserWorkloadsSecret>
     {
         self.user_workloads_secret = v.map(|x| x.into());
         self
@@ -1055,6 +1062,7 @@ impl wkt::message::Message for UpdateUserWorkloadsSecretRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserWorkloadsSecretRequest {
+
     /// Required. The Secret to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     pub name: std::string::String,
@@ -1084,6 +1092,7 @@ impl wkt::message::Message for DeleteUserWorkloadsSecretRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateUserWorkloadsConfigMapRequest {
+
     /// Required. The environment name to create a ConfigMap for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub parent: std::string::String,
@@ -1107,8 +1116,7 @@ impl CreateUserWorkloadsConfigMapRequest {
 
     /// Sets the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
     pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+    where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
     {
         self.user_workloads_config_map = std::option::Option::Some(v.into());
         self
@@ -1116,8 +1124,7 @@ impl CreateUserWorkloadsConfigMapRequest {
 
     /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
     pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+    where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
     {
         self.user_workloads_config_map = v.map(|x| x.into());
         self
@@ -1134,6 +1141,7 @@ impl wkt::message::Message for CreateUserWorkloadsConfigMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetUserWorkloadsConfigMapRequest {
+
     /// Required. The resource name of the ConfigMap to get, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     pub name: std::string::String,
@@ -1163,6 +1171,7 @@ impl wkt::message::Message for GetUserWorkloadsConfigMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsConfigMapsRequest {
+
     /// Required. List ConfigMaps in the given environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub parent: std::string::String,
@@ -1211,6 +1220,7 @@ impl wkt::message::Message for ListUserWorkloadsConfigMapsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateUserWorkloadsConfigMapRequest {
+
     /// Optional. User workloads ConfigMap to override.
     pub user_workloads_config_map: std::option::Option<crate::model::UserWorkloadsConfigMap>,
 
@@ -1224,8 +1234,7 @@ impl UpdateUserWorkloadsConfigMapRequest {
 
     /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
     pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+    where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
     {
         self.user_workloads_config_map = std::option::Option::Some(v.into());
         self
@@ -1233,8 +1242,7 @@ impl UpdateUserWorkloadsConfigMapRequest {
 
     /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
     pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+    where T: std::convert::Into<crate::model::UserWorkloadsConfigMap>
     {
         self.user_workloads_config_map = v.map(|x| x.into());
         self
@@ -1251,6 +1259,7 @@ impl wkt::message::Message for UpdateUserWorkloadsConfigMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteUserWorkloadsConfigMapRequest {
+
     /// Required. The ConfigMap to delete, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     pub name: std::string::String,
@@ -1281,6 +1290,7 @@ impl wkt::message::Message for DeleteUserWorkloadsConfigMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserWorkloadsSecret {
+
     /// Identifier. The resource name of the Secret, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsSecrets/{userWorkloadsSecretId}"
     pub name: std::string::String,
@@ -1296,7 +1306,7 @@ pub struct UserWorkloadsSecret {
     /// "example": "ZXhhbXBsZV92YWx1ZQ==",
     /// "another-example": "YW5vdGhlcl9leGFtcGxlX3ZhbHVl"
     /// }
-    pub data: std::collections::HashMap<std::string::String, std::string::String>,
+    pub data: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1335,6 +1345,7 @@ impl wkt::message::Message for UserWorkloadsSecret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsSecretsResponse {
+
     /// The list of Secrets returned by a ListUserWorkloadsSecretsRequest.
     pub user_workloads_secrets: std::vec::Vec<crate::model::UserWorkloadsSecret>,
 
@@ -1353,7 +1364,7 @@ impl ListUserWorkloadsSecretsResponse {
     pub fn set_user_workloads_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        V: std::convert::Into<crate::model::UserWorkloadsSecret>
     {
         use std::iter::Iterator;
         self.user_workloads_secrets = v.into_iter().map(|i| i.into()).collect();
@@ -1392,6 +1403,7 @@ impl gax::paginator::internal::PageableResponse for ListUserWorkloadsSecretsResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserWorkloadsConfigMap {
+
     /// Identifier. The resource name of the ConfigMap, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}/userWorkloadsConfigMaps/{userWorkloadsConfigMapId}"
     pub name: std::string::String,
@@ -1406,7 +1418,7 @@ pub struct UserWorkloadsConfigMap {
     /// "example_key": "example_value",
     /// "another_key": "another_value"
     /// }
-    pub data: std::collections::HashMap<std::string::String, std::string::String>,
+    pub data: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1445,6 +1457,7 @@ impl wkt::message::Message for UserWorkloadsConfigMap {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListUserWorkloadsConfigMapsResponse {
+
     /// The list of ConfigMaps returned by a ListUserWorkloadsConfigMapsRequest.
     pub user_workloads_config_maps: std::vec::Vec<crate::model::UserWorkloadsConfigMap>,
 
@@ -1463,7 +1476,7 @@ impl ListUserWorkloadsConfigMapsResponse {
     pub fn set_user_workloads_config_maps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        V: std::convert::Into<crate::model::UserWorkloadsConfigMap>
     {
         use std::iter::Iterator;
         self.user_workloads_config_maps = v.into_iter().map(|i| i.into()).collect();
@@ -1501,6 +1514,7 @@ impl gax::paginator::internal::PageableResponse for ListUserWorkloadsConfigMapsR
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsRequest {
+
     /// Required. The environment name to get workloads for, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub parent: std::string::String,
@@ -1563,6 +1577,7 @@ impl wkt::message::Message for ListWorkloadsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkloadsResponse {
+
     /// The list of environment workloads.
     pub workloads: std::vec::Vec<crate::model::list_workloads_response::ComposerWorkload>,
 
@@ -1581,7 +1596,7 @@ impl ListWorkloadsResponse {
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::list_workloads_response::ComposerWorkload>,
+        V: std::convert::Into<crate::model::list_workloads_response::ComposerWorkload>
     {
         use std::iter::Iterator;
         self.workloads = v.into_iter().map(|i| i.into()).collect();
@@ -1620,10 +1635,12 @@ pub mod list_workloads_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about a single workload.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComposerWorkload {
+
         /// Name of a workload.
         pub name: std::string::String,
 
@@ -1631,8 +1648,7 @@ pub mod list_workloads_response {
         pub r#type: crate::model::list_workloads_response::ComposerWorkloadType,
 
         /// Output only. Status of a workload.
-        pub status:
-            std::option::Option<crate::model::list_workloads_response::ComposerWorkloadStatus>,
+        pub status: std::option::Option<crate::model::list_workloads_response::ComposerWorkloadStatus>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1649,20 +1665,14 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [r#type][crate::model::list_workloads_response::ComposerWorkload::type].
-        pub fn set_type<
-            T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadType>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [status][crate::model::list_workloads_response::ComposerWorkload::status].
         pub fn set_status<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>,
+        where T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>
         {
             self.status = std::option::Option::Some(v.into());
             self
@@ -1670,8 +1680,7 @@ pub mod list_workloads_response {
 
         /// Sets or clears the value of [status][crate::model::list_workloads_response::ComposerWorkload::status].
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>,
+        where T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>
         {
             self.status = v.map(|x| x.into());
             self
@@ -1688,6 +1697,7 @@ pub mod list_workloads_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComposerWorkloadStatus {
+
         /// Output only. Workload state.
         pub state: crate::model::list_workloads_response::ComposerWorkloadState,
 
@@ -1706,30 +1716,19 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [state][crate::model::list_workloads_response::ComposerWorkloadStatus::state].
-        pub fn set_state<
-            T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadState>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadState>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [status_message][crate::model::list_workloads_response::ComposerWorkloadStatus::status_message].
-        pub fn set_status_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.status_message = v.into();
             self
         }
 
         /// Sets the value of [detailed_status_message][crate::model::list_workloads_response::ComposerWorkloadStatus::detailed_status_message].
-        pub fn set_detailed_status_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_detailed_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.detailed_status_message = v.into();
             self
         }
@@ -1818,9 +1817,7 @@ pub mod list_workloads_response {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("COMPOSER_WORKLOAD_TYPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("COMPOSER_WORKLOAD_TYPE_UNSPECIFIED"),
                 Self::CeleryWorker => std::option::Option::Some("CELERY_WORKER"),
                 Self::KubernetesWorker => std::option::Option::Some("KUBERNETES_WORKER"),
                 Self::KubernetesOperatorPod => std::option::Option::Some("KUBERNETES_OPERATOR_POD"),
@@ -1859,9 +1856,7 @@ pub mod list_workloads_response {
                 6 => Self::Triggerer,
                 7 => Self::WebServer,
                 8 => Self::Redis,
-                _ => Self::UnknownValue(composer_workload_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(composer_workload_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1879,9 +1874,7 @@ pub mod list_workloads_response {
                 "TRIGGERER" => Self::Triggerer,
                 "WEB_SERVER" => Self::WebServer,
                 "REDIS" => Self::Redis,
-                _ => Self::UnknownValue(composer_workload_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(composer_workload_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1987,9 +1980,7 @@ pub mod list_workloads_response {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("COMPOSER_WORKLOAD_STATE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("COMPOSER_WORKLOAD_STATE_UNSPECIFIED"),
                 Self::Pending => std::option::Option::Some("PENDING"),
                 Self::Ok => std::option::Option::Some("OK"),
                 Self::Warning => std::option::Option::Some("WARNING"),
@@ -2024,9 +2015,7 @@ pub mod list_workloads_response {
                 4 => Self::Error,
                 5 => Self::Succeeded,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(composer_workload_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(composer_workload_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2042,9 +2031,7 @@ pub mod list_workloads_response {
                 "ERROR" => Self::Error,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(composer_workload_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(composer_workload_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2082,6 +2069,7 @@ pub mod list_workloads_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveSnapshotRequest {
+
     /// The resource name of the source environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub environment: std::string::String,
@@ -2105,10 +2093,7 @@ impl SaveSnapshotRequest {
     }
 
     /// Sets the value of [snapshot_location][crate::model::SaveSnapshotRequest::snapshot_location].
-    pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_location = v.into();
         self
     }
@@ -2124,6 +2109,7 @@ impl wkt::message::Message for SaveSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SaveSnapshotResponse {
+
     /// The fully-resolved Cloud Storage path of the created snapshot,
     /// e.g.:
     /// "gs://my-bucket/snapshots/project_location_environment_timestamp".
@@ -2155,6 +2141,7 @@ impl wkt::message::Message for SaveSnapshotResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadSnapshotRequest {
+
     /// The resource name of the target environment in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub environment: std::string::String,
@@ -2200,19 +2187,13 @@ impl LoadSnapshotRequest {
     }
 
     /// Sets the value of [skip_pypi_packages_installation][crate::model::LoadSnapshotRequest::skip_pypi_packages_installation].
-    pub fn set_skip_pypi_packages_installation<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skip_pypi_packages_installation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_pypi_packages_installation = v.into();
         self
     }
 
     /// Sets the value of [skip_environment_variables_setting][crate::model::LoadSnapshotRequest::skip_environment_variables_setting].
-    pub fn set_skip_environment_variables_setting<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_skip_environment_variables_setting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_environment_variables_setting = v.into();
         self
     }
@@ -2240,6 +2221,7 @@ impl wkt::message::Message for LoadSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoadSnapshotResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2260,6 +2242,7 @@ impl wkt::message::Message for LoadSnapshotResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseFailoverRequest {
+
     /// Target environment:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub environment: std::string::String,
@@ -2289,6 +2272,7 @@ impl wkt::message::Message for DatabaseFailoverRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseFailoverResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2308,6 +2292,7 @@ impl wkt::message::Message for DatabaseFailoverResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchDatabasePropertiesRequest {
+
     /// Required. The resource name of the environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     pub environment: std::string::String,
@@ -2337,6 +2322,7 @@ impl wkt::message::Message for FetchDatabasePropertiesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchDatabasePropertiesResponse {
+
     /// The Compute Engine zone that the instance is currently serving from.
     pub primary_gce_zone: std::string::String,
 
@@ -2358,19 +2344,13 @@ impl FetchDatabasePropertiesResponse {
     }
 
     /// Sets the value of [primary_gce_zone][crate::model::FetchDatabasePropertiesResponse::primary_gce_zone].
-    pub fn set_primary_gce_zone<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_primary_gce_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_gce_zone = v.into();
         self
     }
 
     /// Sets the value of [secondary_gce_zone][crate::model::FetchDatabasePropertiesResponse::secondary_gce_zone].
-    pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_gce_zone = v.into();
         self
     }
@@ -2392,6 +2372,7 @@ impl wkt::message::Message for FetchDatabasePropertiesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageConfig {
+
     /// Optional. The name of the Cloud Storage bucket used by the environment. No
     /// `gs://` prefix.
     pub bucket: std::string::String,
@@ -2421,6 +2402,7 @@ impl wkt::message::Message for StorageConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvironmentConfig {
+
     /// Output only. The Kubernetes Engine cluster used to run this environment.
     pub gke_cluster: std::string::String,
 
@@ -2451,8 +2433,7 @@ pub struct EnvironmentConfig {
     /// Optional. The network-level access control policy for the Airflow web
     /// server. If unspecified, no network-level access restrictions will be
     /// applied.
-    pub web_server_network_access_control:
-        std::option::Option<crate::model::WebServerNetworkAccessControl>,
+    pub web_server_network_access_control: std::option::Option<crate::model::WebServerNetworkAccessControl>,
 
     /// Optional. The configuration settings for Cloud SQL instance used internally
     /// by Apache Airflow software.
@@ -2515,8 +2496,7 @@ pub struct EnvironmentConfig {
     /// - in case of private environment: enabled with no external networks
     ///   allowlisted.
     /// - in case of public environment: disabled.
-    pub master_authorized_networks_config:
-        std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
+    pub master_authorized_networks_config: std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
 
     /// Optional. The Recovery settings configuration of an environment.
     ///
@@ -2562,8 +2542,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [software_config][crate::model::EnvironmentConfig::software_config].
     pub fn set_software_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SoftwareConfig>,
+    where T: std::convert::Into<crate::model::SoftwareConfig>
     {
         self.software_config = std::option::Option::Some(v.into());
         self
@@ -2571,8 +2550,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [software_config][crate::model::EnvironmentConfig::software_config].
     pub fn set_or_clear_software_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SoftwareConfig>,
+    where T: std::convert::Into<crate::model::SoftwareConfig>
     {
         self.software_config = v.map(|x| x.into());
         self
@@ -2580,8 +2558,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [node_config][crate::model::EnvironmentConfig::node_config].
     pub fn set_node_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeConfig>,
+    where T: std::convert::Into<crate::model::NodeConfig>
     {
         self.node_config = std::option::Option::Some(v.into());
         self
@@ -2589,8 +2566,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [node_config][crate::model::EnvironmentConfig::node_config].
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeConfig>,
+    where T: std::convert::Into<crate::model::NodeConfig>
     {
         self.node_config = v.map(|x| x.into());
         self
@@ -2598,8 +2574,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [private_environment_config][crate::model::EnvironmentConfig::private_environment_config].
     pub fn set_private_environment_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateEnvironmentConfig>,
+    where T: std::convert::Into<crate::model::PrivateEnvironmentConfig>
     {
         self.private_environment_config = std::option::Option::Some(v.into());
         self
@@ -2607,8 +2582,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [private_environment_config][crate::model::EnvironmentConfig::private_environment_config].
     pub fn set_or_clear_private_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateEnvironmentConfig>,
+    where T: std::convert::Into<crate::model::PrivateEnvironmentConfig>
     {
         self.private_environment_config = v.map(|x| x.into());
         self
@@ -2616,20 +2590,15 @@ impl EnvironmentConfig {
 
     /// Sets the value of [web_server_network_access_control][crate::model::EnvironmentConfig::web_server_network_access_control].
     pub fn set_web_server_network_access_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WebServerNetworkAccessControl>,
+    where T: std::convert::Into<crate::model::WebServerNetworkAccessControl>
     {
         self.web_server_network_access_control = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [web_server_network_access_control][crate::model::EnvironmentConfig::web_server_network_access_control].
-    pub fn set_or_clear_web_server_network_access_control<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::WebServerNetworkAccessControl>,
+    pub fn set_or_clear_web_server_network_access_control<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::WebServerNetworkAccessControl>
     {
         self.web_server_network_access_control = v.map(|x| x.into());
         self
@@ -2637,8 +2606,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [database_config][crate::model::EnvironmentConfig::database_config].
     pub fn set_database_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseConfig>,
+    where T: std::convert::Into<crate::model::DatabaseConfig>
     {
         self.database_config = std::option::Option::Some(v.into());
         self
@@ -2646,8 +2614,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [database_config][crate::model::EnvironmentConfig::database_config].
     pub fn set_or_clear_database_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseConfig>,
+    where T: std::convert::Into<crate::model::DatabaseConfig>
     {
         self.database_config = v.map(|x| x.into());
         self
@@ -2655,8 +2622,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [web_server_config][crate::model::EnvironmentConfig::web_server_config].
     pub fn set_web_server_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WebServerConfig>,
+    where T: std::convert::Into<crate::model::WebServerConfig>
     {
         self.web_server_config = std::option::Option::Some(v.into());
         self
@@ -2664,8 +2630,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [web_server_config][crate::model::EnvironmentConfig::web_server_config].
     pub fn set_or_clear_web_server_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WebServerConfig>,
+    where T: std::convert::Into<crate::model::WebServerConfig>
     {
         self.web_server_config = v.map(|x| x.into());
         self
@@ -2673,8 +2638,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [encryption_config][crate::model::EnvironmentConfig::encryption_config].
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -2682,8 +2646,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [encryption_config][crate::model::EnvironmentConfig::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -2691,8 +2654,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [maintenance_window][crate::model::EnvironmentConfig::maintenance_window].
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    where T: std::convert::Into<crate::model::MaintenanceWindow>
     {
         self.maintenance_window = std::option::Option::Some(v.into());
         self
@@ -2700,8 +2662,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [maintenance_window][crate::model::EnvironmentConfig::maintenance_window].
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    where T: std::convert::Into<crate::model::MaintenanceWindow>
     {
         self.maintenance_window = v.map(|x| x.into());
         self
@@ -2709,8 +2670,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [workloads_config][crate::model::EnvironmentConfig::workloads_config].
     pub fn set_workloads_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkloadsConfig>,
+    where T: std::convert::Into<crate::model::WorkloadsConfig>
     {
         self.workloads_config = std::option::Option::Some(v.into());
         self
@@ -2718,20 +2678,14 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [workloads_config][crate::model::EnvironmentConfig::workloads_config].
     pub fn set_or_clear_workloads_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkloadsConfig>,
+    where T: std::convert::Into<crate::model::WorkloadsConfig>
     {
         self.workloads_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [environment_size][crate::model::EnvironmentConfig::environment_size].
-    pub fn set_environment_size<
-        T: std::convert::Into<crate::model::environment_config::EnvironmentSize>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_environment_size<T: std::convert::Into<crate::model::environment_config::EnvironmentSize>>(mut self, v: T) -> Self {
         self.environment_size = v.into();
         self
     }
@@ -2743,30 +2697,22 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [airflow_byoid_uri][crate::model::EnvironmentConfig::airflow_byoid_uri].
-    pub fn set_airflow_byoid_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_airflow_byoid_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.airflow_byoid_uri = v.into();
         self
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::EnvironmentConfig::master_authorized_networks_config].
     pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    where T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>
     {
         self.master_authorized_networks_config = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [master_authorized_networks_config][crate::model::EnvironmentConfig::master_authorized_networks_config].
-    pub fn set_or_clear_master_authorized_networks_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
+    pub fn set_or_clear_master_authorized_networks_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>
     {
         self.master_authorized_networks_config = v.map(|x| x.into());
         self
@@ -2774,8 +2720,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [recovery_config][crate::model::EnvironmentConfig::recovery_config].
     pub fn set_recovery_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecoveryConfig>,
+    where T: std::convert::Into<crate::model::RecoveryConfig>
     {
         self.recovery_config = std::option::Option::Some(v.into());
         self
@@ -2783,28 +2728,21 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [recovery_config][crate::model::EnvironmentConfig::recovery_config].
     pub fn set_or_clear_recovery_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecoveryConfig>,
+    where T: std::convert::Into<crate::model::RecoveryConfig>
     {
         self.recovery_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resilience_mode][crate::model::EnvironmentConfig::resilience_mode].
-    pub fn set_resilience_mode<
-        T: std::convert::Into<crate::model::environment_config::ResilienceMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resilience_mode<T: std::convert::Into<crate::model::environment_config::ResilienceMode>>(mut self, v: T) -> Self {
         self.resilience_mode = v.into();
         self
     }
 
     /// Sets the value of [data_retention_config][crate::model::EnvironmentConfig::data_retention_config].
     pub fn set_data_retention_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataRetentionConfig>,
+    where T: std::convert::Into<crate::model::DataRetentionConfig>
     {
         self.data_retention_config = std::option::Option::Some(v.into());
         self
@@ -2812,8 +2750,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [data_retention_config][crate::model::EnvironmentConfig::data_retention_config].
     pub fn set_or_clear_data_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataRetentionConfig>,
+    where T: std::convert::Into<crate::model::DataRetentionConfig>
     {
         self.data_retention_config = v.map(|x| x.into());
         self
@@ -2830,6 +2767,7 @@ impl wkt::message::Message for EnvironmentConfig {
 pub mod environment_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The size of the Cloud Composer environment.
     ///
@@ -2922,9 +2860,7 @@ pub mod environment_config {
                 1 => Self::Small,
                 2 => Self::Medium,
                 3 => Self::Large,
-                _ => Self::UnknownValue(environment_size::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(environment_size::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2937,9 +2873,7 @@ pub mod environment_config {
                 "ENVIRONMENT_SIZE_SMALL" => Self::Small,
                 "ENVIRONMENT_SIZE_MEDIUM" => Self::Medium,
                 "ENVIRONMENT_SIZE_LARGE" => Self::Large,
-                _ => Self::UnknownValue(environment_size::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(environment_size::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2965,8 +2899,7 @@ pub mod environment_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnvironmentSize>::new(
-                ".google.cloud.orchestration.airflow.service.v1.EnvironmentConfig.EnvironmentSize",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.EnvironmentConfig.EnvironmentSize"))
         }
     }
 
@@ -3051,9 +2984,7 @@ pub mod environment_config {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::HighResilience,
-                _ => Self::UnknownValue(resilience_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(resilience_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3064,9 +2995,7 @@ pub mod environment_config {
             match value {
                 "RESILIENCE_MODE_UNSPECIFIED" => Self::Unspecified,
                 "HIGH_RESILIENCE" => Self::HighResilience,
-                _ => Self::UnknownValue(resilience_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(resilience_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3090,8 +3019,7 @@ pub mod environment_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResilienceMode>::new(
-                ".google.cloud.orchestration.airflow.service.v1.EnvironmentConfig.ResilienceMode",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.EnvironmentConfig.ResilienceMode"))
         }
     }
 }
@@ -3100,9 +3028,9 @@ pub mod environment_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebServerNetworkAccessControl {
+
     /// A collection of allowed IP ranges with descriptions.
-    pub allowed_ip_ranges:
-        std::vec::Vec<crate::model::web_server_network_access_control::AllowedIpRange>,
+    pub allowed_ip_ranges: std::vec::Vec<crate::model::web_server_network_access_control::AllowedIpRange>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3116,7 +3044,7 @@ impl WebServerNetworkAccessControl {
     pub fn set_allowed_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::web_server_network_access_control::AllowedIpRange>,
+        V: std::convert::Into<crate::model::web_server_network_access_control::AllowedIpRange>
     {
         use std::iter::Iterator;
         self.allowed_ip_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -3135,10 +3063,12 @@ pub mod web_server_network_access_control {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Allowed IP range with user-provided description.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedIpRange {
+
         /// IP address or range, defined using CIDR notation, of requests that this
         /// rule applies to.
         /// Examples: `192.168.1.1` or `192.168.0.0/16` or `2001:db8::/32`
@@ -3186,6 +3116,7 @@ pub mod web_server_network_access_control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseConfig {
+
     /// Optional. Cloud SQL machine type used by Airflow database.
     /// It has to be one of: db-n1-standard-2, db-n1-standard-4, db-n1-standard-8
     /// or db-n1-standard-16. If not specified, db-n1-standard-2 will be used.
@@ -3233,6 +3164,7 @@ impl wkt::message::Message for DatabaseConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebServerConfig {
+
     /// Optional. Machine type on which Airflow web server is running.
     /// It has to be one of: composer-n1-webserver-2, composer-n1-webserver-4 or
     /// composer-n1-webserver-8.
@@ -3268,6 +3200,7 @@ impl wkt::message::Message for WebServerConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
+
     /// Optional. Customer-managed Encryption Key available through Google's Key
     /// Management Service. Cannot be updated. If not specified, Google-managed key
     /// will be used.
@@ -3310,6 +3243,7 @@ impl wkt::message::Message for EncryptionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
+
     /// Required. Start time of the first recurrence of the maintenance window.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -3334,8 +3268,7 @@ impl MaintenanceWindow {
 
     /// Sets the value of [start_time][crate::model::MaintenanceWindow::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3343,8 +3276,7 @@ impl MaintenanceWindow {
 
     /// Sets or clears the value of [start_time][crate::model::MaintenanceWindow::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3352,8 +3284,7 @@ impl MaintenanceWindow {
 
     /// Sets the value of [end_time][crate::model::MaintenanceWindow::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3361,8 +3292,7 @@ impl MaintenanceWindow {
 
     /// Sets or clears the value of [end_time][crate::model::MaintenanceWindow::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3385,6 +3315,7 @@ impl wkt::message::Message for MaintenanceWindow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SoftwareConfig {
+
     /// Optional. The version of the software running in the environment.
     /// This encapsulates both the version of Cloud Composer functionality and the
     /// version of Apache Airflow. It must match the regular expression
@@ -3426,8 +3357,7 @@ pub struct SoftwareConfig {
     /// Certain Apache Airflow configuration property values are
     /// [blocked](/composer/docs/concepts/airflow-configurations),
     /// and cannot be overridden.
-    pub airflow_config_overrides:
-        std::collections::HashMap<std::string::String, std::string::String>,
+    pub airflow_config_overrides: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Custom Python Package Index (PyPI) packages to be installed in
     /// the environment.
@@ -3437,7 +3367,7 @@ pub struct SoftwareConfig {
     /// "==1.12.0", "[devel,gcp_api]", or "[devel]>=1.8.2, <1.9.2". To specify a
     /// package without pinning it to a version specifier, use the empty string as
     /// the value.
-    pub pypi_packages: std::collections::HashMap<std::string::String, std::string::String>,
+    pub pypi_packages: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Additional environment variables to provide to the Apache Airflow
     /// scheduler, worker, and webserver processes.
@@ -3461,7 +3391,7 @@ pub struct SoftwareConfig {
     /// * `SQL_PROJECT`
     /// * `SQL_REGION`
     /// * `SQL_USER`
-    pub env_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub env_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The major version of Python used to run the Apache Airflow
     /// scheduler, worker, and webserver processes.
@@ -3481,8 +3411,7 @@ pub struct SoftwareConfig {
     pub scheduler_count: i32,
 
     /// Optional. The configuration for Cloud Data Lineage integration.
-    pub cloud_data_lineage_integration:
-        std::option::Option<crate::model::CloudDataLineageIntegration>,
+    pub cloud_data_lineage_integration: std::option::Option<crate::model::CloudDataLineageIntegration>,
 
     /// Optional. Whether or not the web server uses custom plugins.
     /// If unspecified, the field defaults to `PLUGINS_ENABLED`.
@@ -3555,32 +3484,22 @@ impl SoftwareConfig {
 
     /// Sets the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
     pub fn set_cloud_data_lineage_integration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudDataLineageIntegration>,
+    where T: std::convert::Into<crate::model::CloudDataLineageIntegration>
     {
         self.cloud_data_lineage_integration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
-    pub fn set_or_clear_cloud_data_lineage_integration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::CloudDataLineageIntegration>,
+    pub fn set_or_clear_cloud_data_lineage_integration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::CloudDataLineageIntegration>
     {
         self.cloud_data_lineage_integration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [web_server_plugins_mode][crate::model::SoftwareConfig::web_server_plugins_mode].
-    pub fn set_web_server_plugins_mode<
-        T: std::convert::Into<crate::model::software_config::WebServerPluginsMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_web_server_plugins_mode<T: std::convert::Into<crate::model::software_config::WebServerPluginsMode>>(mut self, v: T) -> Self {
         self.web_server_plugins_mode = v.into();
         self
     }
@@ -3596,6 +3515,7 @@ impl wkt::message::Message for SoftwareConfig {
 pub mod software_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Web server plugins mode of the Cloud Composer environment.
     ///
@@ -3656,9 +3576,7 @@ pub mod software_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("WEB_SERVER_PLUGINS_MODE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("WEB_SERVER_PLUGINS_MODE_UNSPECIFIED"),
                 Self::PluginsDisabled => std::option::Option::Some("PLUGINS_DISABLED"),
                 Self::PluginsEnabled => std::option::Option::Some("PLUGINS_ENABLED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -3685,9 +3603,7 @@ pub mod software_config {
                 0 => Self::Unspecified,
                 1 => Self::PluginsDisabled,
                 2 => Self::PluginsEnabled,
-                _ => Self::UnknownValue(web_server_plugins_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(web_server_plugins_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3699,9 +3615,7 @@ pub mod software_config {
                 "WEB_SERVER_PLUGINS_MODE_UNSPECIFIED" => Self::Unspecified,
                 "PLUGINS_DISABLED" => Self::PluginsDisabled,
                 "PLUGINS_ENABLED" => Self::PluginsEnabled,
-                _ => Self::UnknownValue(web_server_plugins_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(web_server_plugins_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3736,6 +3650,7 @@ pub mod software_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IPAllocationPolicy {
+
     /// Optional. Whether or not to enable Alias IPs in the GKE cluster.
     /// If `true`, a VPC-native cluster is created.
     ///
@@ -3745,12 +3660,10 @@ pub struct IPAllocationPolicy {
     pub use_ip_aliases: bool,
 
     /// Configuration of allocating IP addresses for pods in the GKE cluster.
-    pub cluster_ip_allocation:
-        std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
+    pub cluster_ip_allocation: std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
 
     /// Configuration of allocating IP addresses for services in the GKE cluster.
-    pub services_ip_allocation:
-        std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
+    pub services_ip_allocation: std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3770,14 +3683,8 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are mutually
     /// exclusive.
-    pub fn set_cluster_ip_allocation<
-        T: std::convert::Into<
-                std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_ip_allocation<T: std::convert::Into<std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>>>(mut self, v: T) -> Self
+    {
         self.cluster_ip_allocation = v.into();
         self
     }
@@ -3788,9 +3695,7 @@ impl IPAllocationPolicy {
     pub fn cluster_secondary_range_name(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3800,14 +3705,11 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are
     /// mutually exclusive.
-    pub fn set_cluster_secondary_range_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_secondary_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_ip_allocation = std::option::Option::Some(
             crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3818,9 +3720,7 @@ impl IPAllocationPolicy {
     pub fn cluster_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.cluster_ip_allocation.as_ref().and_then(|v| match v {
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3830,12 +3730,11 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are
     /// mutually exclusive.
-    pub fn set_cluster_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_ip_allocation = std::option::Option::Some(
-            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(v.into()),
+            crate::model::ip_allocation_policy::ClusterIpAllocation::ClusterIpv4CidrBlock(
+                v.into()
+            )
         );
         self
     }
@@ -3844,14 +3743,8 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are mutually
     /// exclusive.
-    pub fn set_services_ip_allocation<
-        T: std::convert::Into<
-                std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_services_ip_allocation<T: std::convert::Into<std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>>>(mut self, v: T) -> Self
+    {
         self.services_ip_allocation = v.into();
         self
     }
@@ -3872,14 +3765,11 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are
     /// mutually exclusive.
-    pub fn set_services_secondary_range_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_services_secondary_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.services_ip_allocation = std::option::Option::Some(
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesSecondaryRangeName(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3890,9 +3780,7 @@ impl IPAllocationPolicy {
     pub fn services_ipv4_cidr_block(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.services_ip_allocation.as_ref().and_then(|v| match v {
-            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3902,14 +3790,11 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are
     /// mutually exclusive.
-    pub fn set_services_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_services_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.services_ip_allocation = std::option::Option::Some(
             crate::model::ip_allocation_policy::ServicesIpAllocation::ServicesIpv4CidrBlock(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3925,6 +3810,7 @@ impl wkt::message::Message for IPAllocationPolicy {
 pub mod ip_allocation_policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Configuration of allocating IP addresses for pods in the GKE cluster.
     #[derive(Clone, Debug, PartialEq)]
@@ -3990,6 +3876,7 @@ pub mod ip_allocation_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeConfig {
+
     /// Optional. The Compute Engine [zone](/compute/docs/regions-zones) in which
     /// to deploy the VMs used to run the Apache Airflow software, specified as a
     /// [relative resource
@@ -4162,7 +4049,7 @@ impl NodeConfig {
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.oauth_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -4179,7 +4066,7 @@ impl NodeConfig {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -4188,8 +4075,7 @@ impl NodeConfig {
 
     /// Sets the value of [ip_allocation_policy][crate::model::NodeConfig::ip_allocation_policy].
     pub fn set_ip_allocation_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IPAllocationPolicy>,
+    where T: std::convert::Into<crate::model::IPAllocationPolicy>
     {
         self.ip_allocation_policy = std::option::Option::Some(v.into());
         self
@@ -4197,8 +4083,7 @@ impl NodeConfig {
 
     /// Sets or clears the value of [ip_allocation_policy][crate::model::NodeConfig::ip_allocation_policy].
     pub fn set_or_clear_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IPAllocationPolicy>,
+    where T: std::convert::Into<crate::model::IPAllocationPolicy>
     {
         self.ip_allocation_policy = v.map(|x| x.into());
         self
@@ -4211,19 +4096,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [composer_network_attachment][crate::model::NodeConfig::composer_network_attachment].
-    pub fn set_composer_network_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_composer_network_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.composer_network_attachment = v.into();
         self
     }
 
     /// Sets the value of [composer_internal_ipv4_cidr_block][crate::model::NodeConfig::composer_internal_ipv4_cidr_block].
-    pub fn set_composer_internal_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_composer_internal_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.composer_internal_ipv4_cidr_block = v.into();
         self
     }
@@ -4240,6 +4119,7 @@ impl wkt::message::Message for NodeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateClusterConfig {
+
     /// Optional. If `true`, access to the public endpoint of the GKE cluster is
     /// denied.
     pub enable_private_endpoint: bool,
@@ -4270,19 +4150,13 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [master_ipv4_cidr_block][crate::model::PrivateClusterConfig::master_ipv4_cidr_block].
-    pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.master_ipv4_cidr_block = v.into();
         self
     }
 
     /// Sets the value of [master_ipv4_reserved_range][crate::model::PrivateClusterConfig::master_ipv4_reserved_range].
-    pub fn set_master_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_master_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.master_ipv4_reserved_range = v.into();
         self
     }
@@ -4299,6 +4173,7 @@ impl wkt::message::Message for PrivateClusterConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkingConfig {
+
     /// Optional. Indicates the user requested specific connection type between
     /// Tenant and Customer projects. You cannot set networking connection type in
     /// public IP environment.
@@ -4313,12 +4188,7 @@ impl NetworkingConfig {
     }
 
     /// Sets the value of [connection_type][crate::model::NetworkingConfig::connection_type].
-    pub fn set_connection_type<
-        T: std::convert::Into<crate::model::networking_config::ConnectionType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connection_type<T: std::convert::Into<crate::model::networking_config::ConnectionType>>(mut self, v: T) -> Self {
         self.connection_type = v.into();
         self
     }
@@ -4334,6 +4204,7 @@ impl wkt::message::Message for NetworkingConfig {
 pub mod networking_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents connection type between Composer environment in Customer
     /// Project and the corresponding Tenant project, from a predefined list
@@ -4426,9 +4297,7 @@ pub mod networking_config {
                 0 => Self::Unspecified,
                 1 => Self::VpcPeering,
                 2 => Self::PrivateServiceConnect,
-                _ => Self::UnknownValue(connection_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(connection_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4440,9 +4309,7 @@ pub mod networking_config {
                 "CONNECTION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "VPC_PEERING" => Self::VpcPeering,
                 "PRIVATE_SERVICE_CONNECT" => Self::PrivateServiceConnect,
-                _ => Self::UnknownValue(connection_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(connection_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4467,8 +4334,7 @@ pub mod networking_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectionType>::new(
-                ".google.cloud.orchestration.airflow.service.v1.NetworkingConfig.ConnectionType",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.NetworkingConfig.ConnectionType"))
         }
     }
 }
@@ -4478,6 +4344,7 @@ pub mod networking_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateEnvironmentConfig {
+
     /// Optional. If `true`, a Private IP Cloud Composer environment is created.
     /// If this field is set to true, `IPAllocationPolicy.use_ip_aliases` must be
     /// set to true for Cloud Composer environments in versions
@@ -4572,8 +4439,7 @@ impl PrivateEnvironmentConfig {
 
     /// Sets the value of [private_cluster_config][crate::model::PrivateEnvironmentConfig::private_cluster_config].
     pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    where T: std::convert::Into<crate::model::PrivateClusterConfig>
     {
         self.private_cluster_config = std::option::Option::Some(v.into());
         self
@@ -4581,84 +4447,57 @@ impl PrivateEnvironmentConfig {
 
     /// Sets or clears the value of [private_cluster_config][crate::model::PrivateEnvironmentConfig::private_cluster_config].
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateClusterConfig>,
+    where T: std::convert::Into<crate::model::PrivateClusterConfig>
     {
         self.private_cluster_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [web_server_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::web_server_ipv4_cidr_block].
-    pub fn set_web_server_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_web_server_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_server_ipv4_cidr_block = v.into();
         self
     }
 
     /// Sets the value of [cloud_sql_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::cloud_sql_ipv4_cidr_block].
-    pub fn set_cloud_sql_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_sql_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_sql_ipv4_cidr_block = v.into();
         self
     }
 
     /// Sets the value of [web_server_ipv4_reserved_range][crate::model::PrivateEnvironmentConfig::web_server_ipv4_reserved_range].
-    pub fn set_web_server_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_web_server_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_server_ipv4_reserved_range = v.into();
         self
     }
 
     /// Sets the value of [cloud_composer_network_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::cloud_composer_network_ipv4_cidr_block].
-    pub fn set_cloud_composer_network_ipv4_cidr_block<
-        T: std::convert::Into<std::string::String>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_composer_network_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_composer_network_ipv4_cidr_block = v.into();
         self
     }
 
     /// Sets the value of [cloud_composer_network_ipv4_reserved_range][crate::model::PrivateEnvironmentConfig::cloud_composer_network_ipv4_reserved_range].
-    pub fn set_cloud_composer_network_ipv4_reserved_range<
-        T: std::convert::Into<std::string::String>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_composer_network_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_composer_network_ipv4_reserved_range = v.into();
         self
     }
 
     /// Sets the value of [enable_privately_used_public_ips][crate::model::PrivateEnvironmentConfig::enable_privately_used_public_ips].
-    pub fn set_enable_privately_used_public_ips<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enable_privately_used_public_ips<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_privately_used_public_ips = v.into();
         self
     }
 
     /// Sets the value of [cloud_composer_connection_subnetwork][crate::model::PrivateEnvironmentConfig::cloud_composer_connection_subnetwork].
-    pub fn set_cloud_composer_connection_subnetwork<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_composer_connection_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_composer_connection_subnetwork = v.into();
         self
     }
 
     /// Sets the value of [networking_config][crate::model::PrivateEnvironmentConfig::networking_config].
     pub fn set_networking_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkingConfig>,
+    where T: std::convert::Into<crate::model::NetworkingConfig>
     {
         self.networking_config = std::option::Option::Some(v.into());
         self
@@ -4666,8 +4505,7 @@ impl PrivateEnvironmentConfig {
 
     /// Sets or clears the value of [networking_config][crate::model::PrivateEnvironmentConfig::networking_config].
     pub fn set_or_clear_networking_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkingConfig>,
+    where T: std::convert::Into<crate::model::NetworkingConfig>
     {
         self.networking_config = v.map(|x| x.into());
         self
@@ -4686,6 +4524,7 @@ impl wkt::message::Message for PrivateEnvironmentConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkloadsConfig {
+
     /// Optional. Resources used by Airflow schedulers.
     pub scheduler: std::option::Option<crate::model::workloads_config::SchedulerResource>,
 
@@ -4714,8 +4553,7 @@ impl WorkloadsConfig {
 
     /// Sets the value of [scheduler][crate::model::WorkloadsConfig::scheduler].
     pub fn set_scheduler<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::SchedulerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::SchedulerResource>
     {
         self.scheduler = std::option::Option::Some(v.into());
         self
@@ -4723,8 +4561,7 @@ impl WorkloadsConfig {
 
     /// Sets or clears the value of [scheduler][crate::model::WorkloadsConfig::scheduler].
     pub fn set_or_clear_scheduler<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::SchedulerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::SchedulerResource>
     {
         self.scheduler = v.map(|x| x.into());
         self
@@ -4732,8 +4569,7 @@ impl WorkloadsConfig {
 
     /// Sets the value of [web_server][crate::model::WorkloadsConfig::web_server].
     pub fn set_web_server<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::WebServerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::WebServerResource>
     {
         self.web_server = std::option::Option::Some(v.into());
         self
@@ -4741,8 +4577,7 @@ impl WorkloadsConfig {
 
     /// Sets or clears the value of [web_server][crate::model::WorkloadsConfig::web_server].
     pub fn set_or_clear_web_server<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::WebServerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::WebServerResource>
     {
         self.web_server = v.map(|x| x.into());
         self
@@ -4750,8 +4585,7 @@ impl WorkloadsConfig {
 
     /// Sets the value of [worker][crate::model::WorkloadsConfig::worker].
     pub fn set_worker<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::WorkerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::WorkerResource>
     {
         self.worker = std::option::Option::Some(v.into());
         self
@@ -4759,8 +4593,7 @@ impl WorkloadsConfig {
 
     /// Sets or clears the value of [worker][crate::model::WorkloadsConfig::worker].
     pub fn set_or_clear_worker<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::WorkerResource>,
+    where T: std::convert::Into<crate::model::workloads_config::WorkerResource>
     {
         self.worker = v.map(|x| x.into());
         self
@@ -4768,8 +4601,7 @@ impl WorkloadsConfig {
 
     /// Sets the value of [triggerer][crate::model::WorkloadsConfig::triggerer].
     pub fn set_triggerer<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::TriggererResource>,
+    where T: std::convert::Into<crate::model::workloads_config::TriggererResource>
     {
         self.triggerer = std::option::Option::Some(v.into());
         self
@@ -4777,8 +4609,7 @@ impl WorkloadsConfig {
 
     /// Sets or clears the value of [triggerer][crate::model::WorkloadsConfig::triggerer].
     pub fn set_or_clear_triggerer<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::TriggererResource>,
+    where T: std::convert::Into<crate::model::workloads_config::TriggererResource>
     {
         self.triggerer = v.map(|x| x.into());
         self
@@ -4786,8 +4617,7 @@ impl WorkloadsConfig {
 
     /// Sets the value of [dag_processor][crate::model::WorkloadsConfig::dag_processor].
     pub fn set_dag_processor<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>,
+    where T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>
     {
         self.dag_processor = std::option::Option::Some(v.into());
         self
@@ -4795,8 +4625,7 @@ impl WorkloadsConfig {
 
     /// Sets or clears the value of [dag_processor][crate::model::WorkloadsConfig::dag_processor].
     pub fn set_or_clear_dag_processor<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>,
+    where T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>
     {
         self.dag_processor = v.map(|x| x.into());
         self
@@ -4814,10 +4643,12 @@ pub mod workloads_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for resources used by Airflow schedulers.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchedulerResource {
+
         /// Optional. CPU request and limit for a single Airflow scheduler replica.
         pub cpu: f32,
 
@@ -4875,6 +4706,7 @@ pub mod workloads_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WebServerResource {
+
         /// Optional. CPU request and limit for Airflow web server.
         pub cpu: f32,
 
@@ -4921,6 +4753,7 @@ pub mod workloads_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkerResource {
+
         /// Optional. CPU request and limit for a single Airflow worker replica.
         pub cpu: f32,
 
@@ -4987,6 +4820,7 @@ pub mod workloads_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TriggererResource {
+
         /// Optional. The number of triggerers.
         pub count: i32,
 
@@ -5037,6 +4871,7 @@ pub mod workloads_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DagProcessorResource {
+
         /// Optional. CPU request and limit for a single Airflow DAG processor
         /// replica.
         pub cpu: f32,
@@ -5097,6 +4932,7 @@ pub mod workloads_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecoveryConfig {
+
     /// Optional. The configuration for scheduled snapshot creation mechanism.
     pub scheduled_snapshots_config: std::option::Option<crate::model::ScheduledSnapshotsConfig>,
 
@@ -5110,8 +4946,7 @@ impl RecoveryConfig {
 
     /// Sets the value of [scheduled_snapshots_config][crate::model::RecoveryConfig::scheduled_snapshots_config].
     pub fn set_scheduled_snapshots_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>,
+    where T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>
     {
         self.scheduled_snapshots_config = std::option::Option::Some(v.into());
         self
@@ -5119,8 +4954,7 @@ impl RecoveryConfig {
 
     /// Sets or clears the value of [scheduled_snapshots_config][crate::model::RecoveryConfig::scheduled_snapshots_config].
     pub fn set_or_clear_scheduled_snapshots_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>,
+    where T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>
     {
         self.scheduled_snapshots_config = v.map(|x| x.into());
         self
@@ -5137,6 +4971,7 @@ impl wkt::message::Message for RecoveryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduledSnapshotsConfig {
+
     /// Optional. Whether scheduled snapshots creation is enabled.
     pub enabled: bool,
 
@@ -5168,19 +5003,13 @@ impl ScheduledSnapshotsConfig {
     }
 
     /// Sets the value of [snapshot_location][crate::model::ScheduledSnapshotsConfig::snapshot_location].
-    pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_location = v.into();
         self
     }
 
     /// Sets the value of [snapshot_creation_schedule][crate::model::ScheduledSnapshotsConfig::snapshot_creation_schedule].
-    pub fn set_snapshot_creation_schedule<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_snapshot_creation_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_creation_schedule = v.into();
         self
     }
@@ -5205,6 +5034,7 @@ impl wkt::message::Message for ScheduledSnapshotsConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MasterAuthorizedNetworksConfig {
+
     /// Optional. Whether or not master authorized networks feature is enabled.
     pub enabled: bool,
 
@@ -5230,7 +5060,7 @@ impl MasterAuthorizedNetworksConfig {
     pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::master_authorized_networks_config::CidrBlock>,
+        V: std::convert::Into<crate::model::master_authorized_networks_config::CidrBlock>
     {
         use std::iter::Iterator;
         self.cidr_blocks = v.into_iter().map(|i| i.into()).collect();
@@ -5249,10 +5079,12 @@ pub mod master_authorized_networks_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// CIDR block with an optional name.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CidrBlock {
+
         /// User-defined name that identifies the CIDR block.
         pub display_name: std::string::String,
 
@@ -5268,10 +5100,7 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [display_name][crate::model::master_authorized_networks_config::CidrBlock::display_name].
-        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.display_name = v.into();
             self
         }
@@ -5294,6 +5123,7 @@ pub mod master_authorized_networks_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudDataLineageIntegration {
+
     /// Optional. Whether or not Cloud Data Lineage integration is enabled.
     pub enabled: bool,
 
@@ -5322,6 +5152,7 @@ impl wkt::message::Message for CloudDataLineageIntegration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Environment {
+
     /// Identifier. The resource name of the environment, in the form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
     ///
@@ -5353,7 +5184,7 @@ pub struct Environment {
     /// * Values must conform to regexp:  [\p{Ll}\p{Lo}\p{N}_-]{0,63}
     /// * Both keys and values are additionally constrained to be <= 128 bytes in
     ///   size.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
@@ -5380,8 +5211,7 @@ impl Environment {
 
     /// Sets the value of [config][crate::model::Environment::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -5389,8 +5219,7 @@ impl Environment {
 
     /// Sets or clears the value of [config][crate::model::Environment::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -5403,18 +5232,14 @@ impl Environment {
     }
 
     /// Sets the value of [state][crate::model::Environment::state].
-    pub fn set_state<T: std::convert::Into<crate::model::environment::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::environment::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Environment::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5422,8 +5247,7 @@ impl Environment {
 
     /// Sets or clears the value of [create_time][crate::model::Environment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5431,8 +5255,7 @@ impl Environment {
 
     /// Sets the value of [update_time][crate::model::Environment::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5440,8 +5263,7 @@ impl Environment {
 
     /// Sets or clears the value of [update_time][crate::model::Environment::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5473,8 +5295,7 @@ impl Environment {
 
     /// Sets the value of [storage_config][crate::model::Environment::storage_config].
     pub fn set_storage_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageConfig>,
+    where T: std::convert::Into<crate::model::StorageConfig>
     {
         self.storage_config = std::option::Option::Some(v.into());
         self
@@ -5482,8 +5303,7 @@ impl Environment {
 
     /// Sets or clears the value of [storage_config][crate::model::Environment::storage_config].
     pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageConfig>,
+    where T: std::convert::Into<crate::model::StorageConfig>
     {
         self.storage_config = v.map(|x| x.into());
         self
@@ -5500,6 +5320,7 @@ impl wkt::message::Message for Environment {
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the environment.
     ///
@@ -5603,9 +5424,7 @@ pub mod environment {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5620,9 +5439,7 @@ pub mod environment {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5650,8 +5467,7 @@ pub mod environment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.orchestration.airflow.service.v1.Environment.State",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.Environment.State"))
         }
     }
 }
@@ -5660,6 +5476,7 @@ pub mod environment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckUpgradeRequest {
+
     /// Required. The resource name of the environment to check upgrade for, in the
     /// form:
     /// "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
@@ -5723,6 +5540,7 @@ impl wkt::message::Message for CheckUpgradeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckUpgradeResponse {
+
     /// Output only. Url for a docker build log of an upgraded image.
     pub build_log_uri: std::string::String,
 
@@ -5738,7 +5556,7 @@ pub struct CheckUpgradeResponse {
 
     /// Pypi dependencies specified in the environment configuration, at the time
     /// when the build was triggered.
-    pub pypi_dependencies: std::collections::HashMap<std::string::String, std::string::String>,
+    pub pypi_dependencies: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5755,21 +5573,13 @@ impl CheckUpgradeResponse {
     }
 
     /// Sets the value of [contains_pypi_modules_conflict][crate::model::CheckUpgradeResponse::contains_pypi_modules_conflict].
-    pub fn set_contains_pypi_modules_conflict<
-        T: std::convert::Into<crate::model::check_upgrade_response::ConflictResult>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_contains_pypi_modules_conflict<T: std::convert::Into<crate::model::check_upgrade_response::ConflictResult>>(mut self, v: T) -> Self {
         self.contains_pypi_modules_conflict = v.into();
         self
     }
 
     /// Sets the value of [pypi_conflict_build_log_extract][crate::model::CheckUpgradeResponse::pypi_conflict_build_log_extract].
-    pub fn set_pypi_conflict_build_log_extract<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pypi_conflict_build_log_extract<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pypi_conflict_build_log_extract = v.into();
         self
     }
@@ -5803,6 +5613,7 @@ impl wkt::message::Message for CheckUpgradeResponse {
 pub mod check_upgrade_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Whether there were python modules conflict during image build.
     ///
@@ -5890,9 +5701,7 @@ pub mod check_upgrade_response {
                 0 => Self::Unspecified,
                 1 => Self::Conflict,
                 2 => Self::NoConflict,
-                _ => Self::UnknownValue(conflict_result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(conflict_result::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5904,9 +5713,7 @@ pub mod check_upgrade_response {
                 "CONFLICT_RESULT_UNSPECIFIED" => Self::Unspecified,
                 "CONFLICT" => Self::Conflict,
                 "NO_CONFLICT" => Self::NoConflict,
-                _ => Self::UnknownValue(conflict_result::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(conflict_result::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5940,9 +5747,9 @@ pub mod check_upgrade_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataRetentionConfig {
+
     /// Optional. The retention policy for airflow metadata database.
-    pub airflow_metadata_retention_config:
-        std::option::Option<crate::model::AirflowMetadataRetentionPolicyConfig>,
+    pub airflow_metadata_retention_config: std::option::Option<crate::model::AirflowMetadataRetentionPolicyConfig>,
 
     /// Optional. The configuration settings for task logs retention
     pub task_logs_retention_config: std::option::Option<crate::model::TaskLogsRetentionConfig>,
@@ -5957,20 +5764,15 @@ impl DataRetentionConfig {
 
     /// Sets the value of [airflow_metadata_retention_config][crate::model::DataRetentionConfig::airflow_metadata_retention_config].
     pub fn set_airflow_metadata_retention_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AirflowMetadataRetentionPolicyConfig>,
+    where T: std::convert::Into<crate::model::AirflowMetadataRetentionPolicyConfig>
     {
         self.airflow_metadata_retention_config = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [airflow_metadata_retention_config][crate::model::DataRetentionConfig::airflow_metadata_retention_config].
-    pub fn set_or_clear_airflow_metadata_retention_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::AirflowMetadataRetentionPolicyConfig>,
+    pub fn set_or_clear_airflow_metadata_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::AirflowMetadataRetentionPolicyConfig>
     {
         self.airflow_metadata_retention_config = v.map(|x| x.into());
         self
@@ -5978,8 +5780,7 @@ impl DataRetentionConfig {
 
     /// Sets the value of [task_logs_retention_config][crate::model::DataRetentionConfig::task_logs_retention_config].
     pub fn set_task_logs_retention_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskLogsRetentionConfig>,
+    where T: std::convert::Into<crate::model::TaskLogsRetentionConfig>
     {
         self.task_logs_retention_config = std::option::Option::Some(v.into());
         self
@@ -5987,8 +5788,7 @@ impl DataRetentionConfig {
 
     /// Sets or clears the value of [task_logs_retention_config][crate::model::DataRetentionConfig::task_logs_retention_config].
     pub fn set_or_clear_task_logs_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskLogsRetentionConfig>,
+    where T: std::convert::Into<crate::model::TaskLogsRetentionConfig>
     {
         self.task_logs_retention_config = v.map(|x| x.into());
         self
@@ -6005,6 +5805,7 @@ impl wkt::message::Message for DataRetentionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskLogsRetentionConfig {
+
     /// Optional. The mode of storage for Airflow workers task logs.
     pub storage_mode: crate::model::task_logs_retention_config::TaskLogsStorageMode,
 
@@ -6017,12 +5818,7 @@ impl TaskLogsRetentionConfig {
     }
 
     /// Sets the value of [storage_mode][crate::model::TaskLogsRetentionConfig::storage_mode].
-    pub fn set_storage_mode<
-        T: std::convert::Into<crate::model::task_logs_retention_config::TaskLogsStorageMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_mode<T: std::convert::Into<crate::model::task_logs_retention_config::TaskLogsStorageMode>>(mut self, v: T) -> Self {
         self.storage_mode = v.into();
         self
     }
@@ -6038,6 +5834,7 @@ impl wkt::message::Message for TaskLogsRetentionConfig {
 pub mod task_logs_retention_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The definition of task_logs_storage_mode.
     ///
@@ -6099,12 +5896,8 @@ pub mod task_logs_retention_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("TASK_LOGS_STORAGE_MODE_UNSPECIFIED")
-                }
-                Self::CloudLoggingAndCloudStorage => {
-                    std::option::Option::Some("CLOUD_LOGGING_AND_CLOUD_STORAGE")
-                }
+                Self::Unspecified => std::option::Option::Some("TASK_LOGS_STORAGE_MODE_UNSPECIFIED"),
+                Self::CloudLoggingAndCloudStorage => std::option::Option::Some("CLOUD_LOGGING_AND_CLOUD_STORAGE"),
                 Self::CloudLoggingOnly => std::option::Option::Some("CLOUD_LOGGING_ONLY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -6130,9 +5923,7 @@ pub mod task_logs_retention_config {
                 0 => Self::Unspecified,
                 1 => Self::CloudLoggingAndCloudStorage,
                 2 => Self::CloudLoggingOnly,
-                _ => Self::UnknownValue(task_logs_storage_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(task_logs_storage_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6144,9 +5935,7 @@ pub mod task_logs_retention_config {
                 "TASK_LOGS_STORAGE_MODE_UNSPECIFIED" => Self::Unspecified,
                 "CLOUD_LOGGING_AND_CLOUD_STORAGE" => Self::CloudLoggingAndCloudStorage,
                 "CLOUD_LOGGING_ONLY" => Self::CloudLoggingOnly,
-                _ => Self::UnknownValue(task_logs_storage_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(task_logs_storage_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6180,6 +5969,7 @@ pub mod task_logs_retention_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AirflowMetadataRetentionPolicyConfig {
+
     /// Optional. Retention can be either enabled or disabled.
     pub retention_mode: crate::model::airflow_metadata_retention_policy_config::RetentionMode,
 
@@ -6195,12 +5985,7 @@ impl AirflowMetadataRetentionPolicyConfig {
     }
 
     /// Sets the value of [retention_mode][crate::model::AirflowMetadataRetentionPolicyConfig::retention_mode].
-    pub fn set_retention_mode<
-        T: std::convert::Into<crate::model::airflow_metadata_retention_policy_config::RetentionMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retention_mode<T: std::convert::Into<crate::model::airflow_metadata_retention_policy_config::RetentionMode>>(mut self, v: T) -> Self {
         self.retention_mode = v.into();
         self
     }
@@ -6222,6 +6007,7 @@ impl wkt::message::Message for AirflowMetadataRetentionPolicyConfig {
 pub mod airflow_metadata_retention_policy_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Describes retention policy.
     ///
@@ -6309,9 +6095,7 @@ pub mod airflow_metadata_retention_policy_config {
                 0 => Self::Unspecified,
                 1 => Self::Enabled,
                 2 => Self::Disabled,
-                _ => Self::UnknownValue(retention_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(retention_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6323,9 +6107,7 @@ pub mod airflow_metadata_retention_policy_config {
                 "RETENTION_MODE_UNSPECIFIED" => Self::Unspecified,
                 "RETENTION_MODE_ENABLED" => Self::Enabled,
                 "RETENTION_MODE_DISABLED" => Self::Disabled,
-                _ => Self::UnknownValue(retention_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(retention_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6359,6 +6141,7 @@ pub mod airflow_metadata_retention_policy_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImageVersionsRequest {
+
     /// List ImageVersions in the given project and location, in the form:
     /// "projects/{projectId}/locations/{locationId}"
     pub parent: std::string::String,
@@ -6415,6 +6198,7 @@ impl wkt::message::Message for ListImageVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListImageVersionsResponse {
+
     /// The list of supported ImageVersions in a location.
     pub image_versions: std::vec::Vec<crate::model::ImageVersion>,
 
@@ -6433,7 +6217,7 @@ impl ListImageVersionsResponse {
     pub fn set_image_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ImageVersion>,
+        V: std::convert::Into<crate::model::ImageVersion>
     {
         use std::iter::Iterator;
         self.image_versions = v.into_iter().map(|i| i.into()).collect();
@@ -6471,6 +6255,7 @@ impl gax::paginator::internal::PageableResponse for ListImageVersionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageVersion {
+
     /// The string identifier of the ImageVersion, in the form:
     /// "composer-x.y.z-airflow-a.b.c"
     pub image_version_id: std::string::String,
@@ -6501,10 +6286,7 @@ impl ImageVersion {
     }
 
     /// Sets the value of [image_version_id][crate::model::ImageVersion::image_version_id].
-    pub fn set_image_version_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_image_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_version_id = v.into();
         self
     }
@@ -6519,7 +6301,7 @@ impl ImageVersion {
     pub fn set_supported_python_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.supported_python_versions = v.into_iter().map(|i| i.into()).collect();
@@ -6528,8 +6310,7 @@ impl ImageVersion {
 
     /// Sets the value of [release_date][crate::model::ImageVersion::release_date].
     pub fn set_release_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.release_date = std::option::Option::Some(v.into());
         self
@@ -6537,8 +6318,7 @@ impl ImageVersion {
 
     /// Sets or clears the value of [release_date][crate::model::ImageVersion::release_date].
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.release_date = v.map(|x| x.into());
         self
@@ -6567,6 +6347,7 @@ impl wkt::message::Message for ImageVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The current operation state.
     pub state: crate::model::operation_metadata::State,
 
@@ -6596,19 +6377,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::OperationMetadata::state].
-    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [operation_type][crate::model::OperationMetadata::operation_type].
-    pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(mut self, v: T) -> Self {
         self.operation_type = v.into();
         self
     }
@@ -6627,8 +6402,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6636,8 +6410,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6645,8 +6418,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -6654,8 +6426,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -6672,6 +6443,7 @@ impl wkt::message::Message for OperationMetadata {
 pub mod operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// An enum describing the overall state of an operation.
     ///
@@ -6772,9 +6544,7 @@ pub mod operation_metadata {
                 2 => Self::Running,
                 3 => Self::Succeeded,
                 4 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6789,9 +6559,7 @@ pub mod operation_metadata {
                 "SUCCEEDED" => Self::Succeeded,
                 "SUCCESSFUL" => Self::Successful,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6819,8 +6587,7 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.orchestration.airflow.service.v1.OperationMetadata.State",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.OperationMetadata.State"))
         }
     }
 
@@ -6936,9 +6703,7 @@ pub mod operation_metadata {
                 5 => Self::SaveSnapshot,
                 6 => Self::LoadSnapshot,
                 7 => Self::DatabaseFailover,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6955,9 +6720,7 @@ pub mod operation_metadata {
                 "SAVE_SNAPSHOT" => Self::SaveSnapshot,
                 "LOAD_SNAPSHOT" => Self::LoadSnapshot,
                 "DATABASE_FAILOVER" => Self::DatabaseFailover,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6987,8 +6750,7 @@ pub mod operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.orchestration.airflow.service.v1.OperationMetadata.Type",
-            ))
+                ".google.cloud.orchestration.airflow.service.v1.OperationMetadata.Type"))
         }
     }
 }

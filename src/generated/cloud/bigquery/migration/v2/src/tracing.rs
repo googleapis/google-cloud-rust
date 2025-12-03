@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [MigrationService](super::stub::MigrationService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MigrationService for MigrationService<T>
-where
-    T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MigrationService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_migration_workflow(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_migration_workflow",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_migration_workflow(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_migration_workflow(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_migration_workflow",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_migration_workflow(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_migration_workflow(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_migration_workflows",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_migration_workflows(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_migration_workflows(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_migration_workflow",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_migration_workflow(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_migration_workflow(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "start_migration_workflow",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .start_migration_workflow(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.start_migration_workflow(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_migration_subtask",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_migration_subtask(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_migration_subtask(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_migration_subtasks",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_migration_subtasks(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_migration_subtasks(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -304,3 +277,4 @@ where
         self.inner.list_migration_subtasks(req, options).await
     }
 }
+

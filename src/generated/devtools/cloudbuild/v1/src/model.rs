@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetryBuildRequest {
+
     /// The name of the `Build` to retry.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     pub name: std::string::String,
@@ -88,6 +89,7 @@ impl wkt::message::Message for RetryBuildRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunBuildTriggerRequest {
+
     /// The name of the `Trigger` to run.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     pub name: std::string::String,
@@ -130,8 +132,7 @@ impl RunBuildTriggerRequest {
 
     /// Sets the value of [source][crate::model::RunBuildTriggerRequest::source].
     pub fn set_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -139,8 +140,7 @@ impl RunBuildTriggerRequest {
 
     /// Sets or clears the value of [source][crate::model::RunBuildTriggerRequest::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.source = v.map(|x| x.into());
         self
@@ -157,6 +157,7 @@ impl wkt::message::Message for RunBuildTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageSource {
+
     /// Cloud Storage bucket containing the source (see
     /// [Bucket Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
@@ -202,12 +203,7 @@ impl StorageSource {
     }
 
     /// Sets the value of [source_fetcher][crate::model::StorageSource::source_fetcher].
-    pub fn set_source_fetcher<
-        T: std::convert::Into<crate::model::storage_source::SourceFetcher>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_fetcher<T: std::convert::Into<crate::model::storage_source::SourceFetcher>>(mut self, v: T) -> Self {
         self.source_fetcher = v.into();
         self
     }
@@ -223,6 +219,7 @@ impl wkt::message::Message for StorageSource {
 pub mod storage_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the tool to fetch the source file for the build.
     ///
@@ -310,9 +307,7 @@ pub mod storage_source {
                 0 => Self::Unspecified,
                 1 => Self::Gsutil,
                 2 => Self::GcsFetcher,
-                _ => Self::UnknownValue(source_fetcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(source_fetcher::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -324,9 +319,7 @@ pub mod storage_source {
                 "SOURCE_FETCHER_UNSPECIFIED" => Self::Unspecified,
                 "GSUTIL" => Self::Gsutil,
                 "GCS_FETCHER" => Self::GcsFetcher,
-                _ => Self::UnknownValue(source_fetcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(source_fetcher::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -351,8 +344,7 @@ pub mod storage_source {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceFetcher>::new(
-                ".google.devtools.cloudbuild.v1.StorageSource.SourceFetcher",
-            ))
+                ".google.devtools.cloudbuild.v1.StorageSource.SourceFetcher"))
         }
     }
 }
@@ -361,6 +353,7 @@ pub mod storage_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitSource {
+
     /// Location of the Git repo to build.
     ///
     /// This will be used as a `git remote`, see
@@ -421,6 +414,7 @@ impl wkt::message::Message for GitSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepoSource {
+
     /// ID of the project that owns the Cloud Source Repository. If omitted, the
     /// project ID requesting the build is assumed.
     pub project_id: std::string::String,
@@ -440,7 +434,7 @@ pub struct RepoSource {
 
     /// Substitutions to use in a triggered build.
     /// Should only be used with RunBuildTrigger
-    pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub substitutions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// A revision within the Cloud Source Repository must be specified in
     /// one of these ways.
@@ -494,12 +488,8 @@ impl RepoSource {
     ///
     /// Note that all the setters affecting `revision` are mutually
     /// exclusive.
-    pub fn set_revision<
-        T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_revision<T: std::convert::Into<std::option::Option<crate::model::repo_source::Revision>>>(mut self, v: T) -> Self
+    {
         self.revision = v.into();
         self
     }
@@ -521,8 +511,11 @@ impl RepoSource {
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
     pub fn set_branch_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::BranchName(v.into()));
+        self.revision = std::option::Option::Some(
+            crate::model::repo_source::Revision::BranchName(
+                v.into()
+            )
+        );
         self
     }
 
@@ -543,8 +536,11 @@ impl RepoSource {
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
     pub fn set_tag_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::TagName(v.into()));
+        self.revision = std::option::Option::Some(
+            crate::model::repo_source::Revision::TagName(
+                v.into()
+            )
+        );
         self
     }
 
@@ -565,8 +561,11 @@ impl RepoSource {
     /// Note that all the setters affecting `revision` are
     /// mutually exclusive.
     pub fn set_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.revision =
-            std::option::Option::Some(crate::model::repo_source::Revision::CommitSha(v.into()));
+        self.revision = std::option::Option::Some(
+            crate::model::repo_source::Revision::CommitSha(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -581,6 +580,7 @@ impl wkt::message::Message for RepoSource {
 pub mod repo_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A revision within the Cloud Source Repository must be specified in
     /// one of these ways.
@@ -608,6 +608,7 @@ pub mod repo_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageSourceManifest {
+
     /// Cloud Storage bucket containing the source manifest (see [Bucket
     /// Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
@@ -659,6 +660,7 @@ impl wkt::message::Message for StorageSourceManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Source {
+
     /// Location of source.
     pub source: std::option::Option<crate::model::source::Source>,
 
@@ -674,10 +676,8 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::source::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -685,9 +685,7 @@ impl Source {
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `StorageSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn storage_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
+    pub fn storage_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::StorageSource(v) => std::option::Option::Some(v),
@@ -700,14 +698,12 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_storage_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::source::Source::StorageSource(v.into()));
+    pub fn set_storage_source<T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::source::Source::StorageSource(
+                v.into()
+            )
+        );
         self
     }
 
@@ -727,11 +723,12 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_repo_source<T: std::convert::Into<std::boxed::Box<crate::model::RepoSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(crate::model::source::Source::RepoSource(v.into()));
+    pub fn set_repo_source<T: std::convert::Into<std::boxed::Box<crate::model::RepoSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::source::Source::RepoSource(
+                v.into()
+            )
+        );
         self
     }
 
@@ -751,20 +748,19 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_git_source<T: std::convert::Into<std::boxed::Box<crate::model::GitSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source = std::option::Option::Some(crate::model::source::Source::GitSource(v.into()));
+    pub fn set_git_source<T: std::convert::Into<std::boxed::Box<crate::model::GitSource>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::source::Source::GitSource(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [source][crate::model::Source::source]
     /// if it holds a `StorageSourceManifest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn storage_source_manifest(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSourceManifest>> {
+    pub fn storage_source_manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::StorageSourceManifest>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
             crate::model::source::Source::StorageSourceManifest(v) => std::option::Option::Some(v),
@@ -777,14 +773,11 @@ impl Source {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_storage_source_manifest<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageSourceManifest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_source_manifest<T: std::convert::Into<std::boxed::Box<crate::model::StorageSourceManifest>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::source::Source::StorageSourceManifest(v.into()),
+            crate::model::source::Source::StorageSourceManifest(
+                v.into()
+            )
         );
         self
     }
@@ -800,6 +793,7 @@ impl wkt::message::Message for Source {
 pub mod source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Location of source.
     #[derive(Clone, Debug, PartialEq)]
@@ -823,6 +817,7 @@ pub mod source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuiltImage {
+
     /// Name used to push the container image to Google Container Registry, as
     /// presented to `docker push`.
     pub name: std::string::String,
@@ -855,8 +850,7 @@ impl BuiltImage {
 
     /// Sets the value of [push_timing][crate::model::BuiltImage::push_timing].
     pub fn set_push_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = std::option::Option::Some(v.into());
         self
@@ -864,8 +858,7 @@ impl BuiltImage {
 
     /// Sets or clears the value of [push_timing][crate::model::BuiltImage::push_timing].
     pub fn set_or_clear_push_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = v.map(|x| x.into());
         self
@@ -882,6 +875,7 @@ impl wkt::message::Message for BuiltImage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadedPythonPackage {
+
     /// URI of the uploaded artifact.
     pub uri: std::string::String,
 
@@ -907,8 +901,7 @@ impl UploadedPythonPackage {
 
     /// Sets the value of [file_hashes][crate::model::UploadedPythonPackage::file_hashes].
     pub fn set_file_hashes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = std::option::Option::Some(v.into());
         self
@@ -916,8 +909,7 @@ impl UploadedPythonPackage {
 
     /// Sets or clears the value of [file_hashes][crate::model::UploadedPythonPackage::file_hashes].
     pub fn set_or_clear_file_hashes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = v.map(|x| x.into());
         self
@@ -925,8 +917,7 @@ impl UploadedPythonPackage {
 
     /// Sets the value of [push_timing][crate::model::UploadedPythonPackage::push_timing].
     pub fn set_push_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = std::option::Option::Some(v.into());
         self
@@ -934,8 +925,7 @@ impl UploadedPythonPackage {
 
     /// Sets or clears the value of [push_timing][crate::model::UploadedPythonPackage::push_timing].
     pub fn set_or_clear_push_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = v.map(|x| x.into());
         self
@@ -952,6 +942,7 @@ impl wkt::message::Message for UploadedPythonPackage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadedMavenArtifact {
+
     /// URI of the uploaded artifact.
     pub uri: std::string::String,
 
@@ -977,8 +968,7 @@ impl UploadedMavenArtifact {
 
     /// Sets the value of [file_hashes][crate::model::UploadedMavenArtifact::file_hashes].
     pub fn set_file_hashes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = std::option::Option::Some(v.into());
         self
@@ -986,8 +976,7 @@ impl UploadedMavenArtifact {
 
     /// Sets or clears the value of [file_hashes][crate::model::UploadedMavenArtifact::file_hashes].
     pub fn set_or_clear_file_hashes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = v.map(|x| x.into());
         self
@@ -995,8 +984,7 @@ impl UploadedMavenArtifact {
 
     /// Sets the value of [push_timing][crate::model::UploadedMavenArtifact::push_timing].
     pub fn set_push_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = std::option::Option::Some(v.into());
         self
@@ -1004,8 +992,7 @@ impl UploadedMavenArtifact {
 
     /// Sets or clears the value of [push_timing][crate::model::UploadedMavenArtifact::push_timing].
     pub fn set_or_clear_push_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = v.map(|x| x.into());
         self
@@ -1023,6 +1010,7 @@ impl wkt::message::Message for UploadedMavenArtifact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadedGoModule {
+
     /// URI of the uploaded artifact.
     pub uri: std::string::String,
 
@@ -1048,8 +1036,7 @@ impl UploadedGoModule {
 
     /// Sets the value of [file_hashes][crate::model::UploadedGoModule::file_hashes].
     pub fn set_file_hashes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = std::option::Option::Some(v.into());
         self
@@ -1057,8 +1044,7 @@ impl UploadedGoModule {
 
     /// Sets or clears the value of [file_hashes][crate::model::UploadedGoModule::file_hashes].
     pub fn set_or_clear_file_hashes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = v.map(|x| x.into());
         self
@@ -1066,8 +1052,7 @@ impl UploadedGoModule {
 
     /// Sets the value of [push_timing][crate::model::UploadedGoModule::push_timing].
     pub fn set_push_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = std::option::Option::Some(v.into());
         self
@@ -1075,8 +1060,7 @@ impl UploadedGoModule {
 
     /// Sets or clears the value of [push_timing][crate::model::UploadedGoModule::push_timing].
     pub fn set_or_clear_push_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = v.map(|x| x.into());
         self
@@ -1094,6 +1078,7 @@ impl wkt::message::Message for UploadedGoModule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UploadedNpmPackage {
+
     /// URI of the uploaded npm package.
     pub uri: std::string::String,
 
@@ -1119,8 +1104,7 @@ impl UploadedNpmPackage {
 
     /// Sets the value of [file_hashes][crate::model::UploadedNpmPackage::file_hashes].
     pub fn set_file_hashes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = std::option::Option::Some(v.into());
         self
@@ -1128,8 +1112,7 @@ impl UploadedNpmPackage {
 
     /// Sets or clears the value of [file_hashes][crate::model::UploadedNpmPackage::file_hashes].
     pub fn set_or_clear_file_hashes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FileHashes>,
+    where T: std::convert::Into<crate::model::FileHashes>
     {
         self.file_hashes = v.map(|x| x.into());
         self
@@ -1137,8 +1120,7 @@ impl UploadedNpmPackage {
 
     /// Sets the value of [push_timing][crate::model::UploadedNpmPackage::push_timing].
     pub fn set_push_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = std::option::Option::Some(v.into());
         self
@@ -1146,8 +1128,7 @@ impl UploadedNpmPackage {
 
     /// Sets or clears the value of [push_timing][crate::model::UploadedNpmPackage::push_timing].
     pub fn set_or_clear_push_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.push_timing = v.map(|x| x.into());
         self
@@ -1164,6 +1145,7 @@ impl wkt::message::Message for UploadedNpmPackage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildStep {
+
     /// Required. The name of the container image that will run this particular
     /// build step.
     ///
@@ -1299,7 +1281,7 @@ impl BuildStep {
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.env = v.into_iter().map(|i| i.into()).collect();
@@ -1310,7 +1292,7 @@ impl BuildStep {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -1333,7 +1315,7 @@ impl BuildStep {
     pub fn set_wait_for<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.wait_for = v.into_iter().map(|i| i.into()).collect();
@@ -1350,7 +1332,7 @@ impl BuildStep {
     pub fn set_secret_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.secret_env = v.into_iter().map(|i| i.into()).collect();
@@ -1361,7 +1343,7 @@ impl BuildStep {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -1370,8 +1352,7 @@ impl BuildStep {
 
     /// Sets the value of [timing][crate::model::BuildStep::timing].
     pub fn set_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.timing = std::option::Option::Some(v.into());
         self
@@ -1379,8 +1360,7 @@ impl BuildStep {
 
     /// Sets or clears the value of [timing][crate::model::BuildStep::timing].
     pub fn set_or_clear_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.timing = v.map(|x| x.into());
         self
@@ -1388,8 +1368,7 @@ impl BuildStep {
 
     /// Sets the value of [pull_timing][crate::model::BuildStep::pull_timing].
     pub fn set_pull_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.pull_timing = std::option::Option::Some(v.into());
         self
@@ -1397,8 +1376,7 @@ impl BuildStep {
 
     /// Sets or clears the value of [pull_timing][crate::model::BuildStep::pull_timing].
     pub fn set_or_clear_pull_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.pull_timing = v.map(|x| x.into());
         self
@@ -1406,8 +1384,7 @@ impl BuildStep {
 
     /// Sets the value of [timeout][crate::model::BuildStep::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -1415,8 +1392,7 @@ impl BuildStep {
 
     /// Sets or clears the value of [timeout][crate::model::BuildStep::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -1444,7 +1420,7 @@ impl BuildStep {
     pub fn set_allow_exit_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.allow_exit_codes = v.into_iter().map(|i| i.into()).collect();
@@ -1459,8 +1435,7 @@ impl BuildStep {
 
     /// Sets the value of [automap_substitutions][crate::model::BuildStep::automap_substitutions].
     pub fn set_automap_substitutions<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.automap_substitutions = std::option::Option::Some(v.into());
         self
@@ -1468,8 +1443,7 @@ impl BuildStep {
 
     /// Sets or clears the value of [automap_substitutions][crate::model::BuildStep::automap_substitutions].
     pub fn set_or_clear_automap_substitutions<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.automap_substitutions = v.map(|x| x.into());
         self
@@ -1487,6 +1461,7 @@ impl wkt::message::Message for BuildStep {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Volume {
+
     /// Name of the volume to mount.
     ///
     /// Volume names must be unique per build step and must be valid names for
@@ -1530,6 +1505,7 @@ impl wkt::message::Message for Volume {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Results {
+
     /// Container images that were built as a part of the build.
     pub images: std::vec::Vec<crate::model::BuiltImage>,
 
@@ -1582,7 +1558,7 @@ impl Results {
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuiltImage>,
+        V: std::convert::Into<crate::model::BuiltImage>
     {
         use std::iter::Iterator;
         self.images = v.into_iter().map(|i| i.into()).collect();
@@ -1593,7 +1569,7 @@ impl Results {
     pub fn set_build_step_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.build_step_images = v.into_iter().map(|i| i.into()).collect();
@@ -1601,10 +1577,7 @@ impl Results {
     }
 
     /// Sets the value of [artifact_manifest][crate::model::Results::artifact_manifest].
-    pub fn set_artifact_manifest<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_artifact_manifest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_manifest = v.into();
         self
     }
@@ -1619,7 +1592,7 @@ impl Results {
     pub fn set_build_step_outputs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<::bytes::Bytes>,
+        V: std::convert::Into<::bytes::Bytes>
     {
         use std::iter::Iterator;
         self.build_step_outputs = v.into_iter().map(|i| i.into()).collect();
@@ -1628,8 +1601,7 @@ impl Results {
 
     /// Sets the value of [artifact_timing][crate::model::Results::artifact_timing].
     pub fn set_artifact_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.artifact_timing = std::option::Option::Some(v.into());
         self
@@ -1637,8 +1609,7 @@ impl Results {
 
     /// Sets or clears the value of [artifact_timing][crate::model::Results::artifact_timing].
     pub fn set_or_clear_artifact_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TimeSpan>,
+    where T: std::convert::Into<crate::model::TimeSpan>
     {
         self.artifact_timing = v.map(|x| x.into());
         self
@@ -1648,7 +1619,7 @@ impl Results {
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UploadedPythonPackage>,
+        V: std::convert::Into<crate::model::UploadedPythonPackage>
     {
         use std::iter::Iterator;
         self.python_packages = v.into_iter().map(|i| i.into()).collect();
@@ -1659,7 +1630,7 @@ impl Results {
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UploadedMavenArtifact>,
+        V: std::convert::Into<crate::model::UploadedMavenArtifact>
     {
         use std::iter::Iterator;
         self.maven_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -1670,7 +1641,7 @@ impl Results {
     pub fn set_go_modules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UploadedGoModule>,
+        V: std::convert::Into<crate::model::UploadedGoModule>
     {
         use std::iter::Iterator;
         self.go_modules = v.into_iter().map(|i| i.into()).collect();
@@ -1681,7 +1652,7 @@ impl Results {
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UploadedNpmPackage>,
+        V: std::convert::Into<crate::model::UploadedNpmPackage>
     {
         use std::iter::Iterator;
         self.npm_packages = v.into_iter().map(|i| i.into()).collect();
@@ -1700,6 +1671,7 @@ impl wkt::message::Message for Results {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ArtifactResult {
+
     /// The path of an artifact in a Cloud Storage bucket, with the
     /// generation number. For example,
     /// `gs://mybucket/path/to/output.jar#generation`.
@@ -1726,7 +1698,7 @@ impl ArtifactResult {
     pub fn set_file_hash<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FileHashes>,
+        V: std::convert::Into<crate::model::FileHashes>
     {
         use std::iter::Iterator;
         self.file_hash = v.into_iter().map(|i| i.into()).collect();
@@ -1762,6 +1734,7 @@ impl wkt::message::Message for ArtifactResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Build {
+
     /// Output only. The 'Build' name with format:
     /// `projects/{project}/locations/{location}/builds/{build}`, where {build}
     /// is a unique identifier generated by the service.
@@ -1852,7 +1825,7 @@ pub struct Build {
     pub log_url: std::string::String,
 
     /// Substitutions data for `Build` resource.
-    pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub substitutions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Tags for annotation of a `Build`. These are not docker tags.
     pub tags: std::vec::Vec<std::string::String>,
@@ -1875,7 +1848,7 @@ pub struct Build {
     ///
     /// If the build does not specify source or images,
     /// these keys will not be included.
-    pub timing: std::collections::HashMap<std::string::String, crate::model::TimeSpan>,
+    pub timing: std::collections::HashMap<std::string::String,crate::model::TimeSpan>,
 
     /// Output only. Describes this build's approval configuration, status,
     /// and result.
@@ -1943,8 +1916,7 @@ impl Build {
 
     /// Sets the value of [source][crate::model::Build::source].
     pub fn set_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Source>,
+    where T: std::convert::Into<crate::model::Source>
     {
         self.source = std::option::Option::Some(v.into());
         self
@@ -1952,8 +1924,7 @@ impl Build {
 
     /// Sets or clears the value of [source][crate::model::Build::source].
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Source>,
+    where T: std::convert::Into<crate::model::Source>
     {
         self.source = v.map(|x| x.into());
         self
@@ -1963,7 +1934,7 @@ impl Build {
     pub fn set_steps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuildStep>,
+        V: std::convert::Into<crate::model::BuildStep>
     {
         use std::iter::Iterator;
         self.steps = v.into_iter().map(|i| i.into()).collect();
@@ -1972,8 +1943,7 @@ impl Build {
 
     /// Sets the value of [results][crate::model::Build::results].
     pub fn set_results<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Results>,
+    where T: std::convert::Into<crate::model::Results>
     {
         self.results = std::option::Option::Some(v.into());
         self
@@ -1981,8 +1951,7 @@ impl Build {
 
     /// Sets or clears the value of [results][crate::model::Build::results].
     pub fn set_or_clear_results<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Results>,
+    where T: std::convert::Into<crate::model::Results>
     {
         self.results = v.map(|x| x.into());
         self
@@ -1990,8 +1959,7 @@ impl Build {
 
     /// Sets the value of [create_time][crate::model::Build::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1999,8 +1967,7 @@ impl Build {
 
     /// Sets or clears the value of [create_time][crate::model::Build::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2008,8 +1975,7 @@ impl Build {
 
     /// Sets the value of [start_time][crate::model::Build::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2017,8 +1983,7 @@ impl Build {
 
     /// Sets or clears the value of [start_time][crate::model::Build::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2026,8 +1991,7 @@ impl Build {
 
     /// Sets the value of [finish_time][crate::model::Build::finish_time].
     pub fn set_finish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = std::option::Option::Some(v.into());
         self
@@ -2035,8 +1999,7 @@ impl Build {
 
     /// Sets or clears the value of [finish_time][crate::model::Build::finish_time].
     pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finish_time = v.map(|x| x.into());
         self
@@ -2044,8 +2007,7 @@ impl Build {
 
     /// Sets the value of [timeout][crate::model::Build::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -2053,8 +2015,7 @@ impl Build {
 
     /// Sets or clears the value of [timeout][crate::model::Build::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -2064,7 +2025,7 @@ impl Build {
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.images = v.into_iter().map(|i| i.into()).collect();
@@ -2073,8 +2034,7 @@ impl Build {
 
     /// Sets the value of [queue_ttl][crate::model::Build::queue_ttl].
     pub fn set_queue_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.queue_ttl = std::option::Option::Some(v.into());
         self
@@ -2082,8 +2042,7 @@ impl Build {
 
     /// Sets or clears the value of [queue_ttl][crate::model::Build::queue_ttl].
     pub fn set_or_clear_queue_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.queue_ttl = v.map(|x| x.into());
         self
@@ -2091,8 +2050,7 @@ impl Build {
 
     /// Sets the value of [artifacts][crate::model::Build::artifacts].
     pub fn set_artifacts<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Artifacts>,
+    where T: std::convert::Into<crate::model::Artifacts>
     {
         self.artifacts = std::option::Option::Some(v.into());
         self
@@ -2100,8 +2058,7 @@ impl Build {
 
     /// Sets or clears the value of [artifacts][crate::model::Build::artifacts].
     pub fn set_or_clear_artifacts<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Artifacts>,
+    where T: std::convert::Into<crate::model::Artifacts>
     {
         self.artifacts = v.map(|x| x.into());
         self
@@ -2115,8 +2072,7 @@ impl Build {
 
     /// Sets the value of [source_provenance][crate::model::Build::source_provenance].
     pub fn set_source_provenance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SourceProvenance>,
+    where T: std::convert::Into<crate::model::SourceProvenance>
     {
         self.source_provenance = std::option::Option::Some(v.into());
         self
@@ -2124,26 +2080,21 @@ impl Build {
 
     /// Sets or clears the value of [source_provenance][crate::model::Build::source_provenance].
     pub fn set_or_clear_source_provenance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SourceProvenance>,
+    where T: std::convert::Into<crate::model::SourceProvenance>
     {
         self.source_provenance = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [build_trigger_id][crate::model::Build::build_trigger_id].
-    pub fn set_build_trigger_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_build_trigger_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build_trigger_id = v.into();
         self
     }
 
     /// Sets the value of [options][crate::model::Build::options].
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildOptions>,
+    where T: std::convert::Into<crate::model::BuildOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -2151,8 +2102,7 @@ impl Build {
 
     /// Sets or clears the value of [options][crate::model::Build::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildOptions>,
+    where T: std::convert::Into<crate::model::BuildOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -2180,7 +2130,7 @@ impl Build {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -2191,7 +2141,7 @@ impl Build {
     pub fn set_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Secret>,
+        V: std::convert::Into<crate::model::Secret>
     {
         use std::iter::Iterator;
         self.secrets = v.into_iter().map(|i| i.into()).collect();
@@ -2212,8 +2162,7 @@ impl Build {
 
     /// Sets the value of [approval][crate::model::Build::approval].
     pub fn set_approval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildApproval>,
+    where T: std::convert::Into<crate::model::BuildApproval>
     {
         self.approval = std::option::Option::Some(v.into());
         self
@@ -2221,8 +2170,7 @@ impl Build {
 
     /// Sets or clears the value of [approval][crate::model::Build::approval].
     pub fn set_or_clear_approval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildApproval>,
+    where T: std::convert::Into<crate::model::BuildApproval>
     {
         self.approval = v.map(|x| x.into());
         self
@@ -2236,8 +2184,7 @@ impl Build {
 
     /// Sets the value of [available_secrets][crate::model::Build::available_secrets].
     pub fn set_available_secrets<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Secrets>,
+    where T: std::convert::Into<crate::model::Secrets>
     {
         self.available_secrets = std::option::Option::Some(v.into());
         self
@@ -2245,8 +2192,7 @@ impl Build {
 
     /// Sets or clears the value of [available_secrets][crate::model::Build::available_secrets].
     pub fn set_or_clear_available_secrets<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Secrets>,
+    where T: std::convert::Into<crate::model::Secrets>
     {
         self.available_secrets = v.map(|x| x.into());
         self
@@ -2256,7 +2202,7 @@ impl Build {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::build::Warning>,
+        V: std::convert::Into<crate::model::build::Warning>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -2265,8 +2211,7 @@ impl Build {
 
     /// Sets the value of [git_config][crate::model::Build::git_config].
     pub fn set_git_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GitConfig>,
+    where T: std::convert::Into<crate::model::GitConfig>
     {
         self.git_config = std::option::Option::Some(v.into());
         self
@@ -2274,8 +2219,7 @@ impl Build {
 
     /// Sets or clears the value of [git_config][crate::model::Build::git_config].
     pub fn set_or_clear_git_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GitConfig>,
+    where T: std::convert::Into<crate::model::GitConfig>
     {
         self.git_config = v.map(|x| x.into());
         self
@@ -2283,8 +2227,7 @@ impl Build {
 
     /// Sets the value of [failure_info][crate::model::Build::failure_info].
     pub fn set_failure_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::build::FailureInfo>,
+    where T: std::convert::Into<crate::model::build::FailureInfo>
     {
         self.failure_info = std::option::Option::Some(v.into());
         self
@@ -2292,8 +2235,7 @@ impl Build {
 
     /// Sets or clears the value of [failure_info][crate::model::Build::failure_info].
     pub fn set_or_clear_failure_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::build::FailureInfo>,
+    where T: std::convert::Into<crate::model::build::FailureInfo>
     {
         self.failure_info = v.map(|x| x.into());
         self
@@ -2303,7 +2245,7 @@ impl Build {
     pub fn set_dependencies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Dependency>,
+        V: std::convert::Into<crate::model::Dependency>
     {
         use std::iter::Iterator;
         self.dependencies = v.into_iter().map(|i| i.into()).collect();
@@ -2322,10 +2264,12 @@ pub mod build {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A non-fatal problem encountered during the execution of the build.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Warning {
+
         /// Explanation of the warning generated.
         pub text: std::string::String,
 
@@ -2347,10 +2291,7 @@ pub mod build {
         }
 
         /// Sets the value of [priority][crate::model::build::Warning::priority].
-        pub fn set_priority<T: std::convert::Into<crate::model::build::warning::Priority>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_priority<T: std::convert::Into<crate::model::build::warning::Priority>>(mut self, v: T) -> Self {
             self.priority = v.into();
             self
         }
@@ -2366,6 +2307,7 @@ pub mod build {
     pub mod warning {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The relative importance of this warning.
         ///
@@ -2446,10 +2388,7 @@ pub mod build {
         }
 
         impl std::fmt::Display for Priority {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2461,9 +2400,7 @@ pub mod build {
                     1 => Self::Info,
                     2 => Self::Warning,
                     3 => Self::Alert,
-                    _ => Self::UnknownValue(priority::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2476,9 +2413,7 @@ pub mod build {
                     "INFO" => Self::Info,
                     "WARNING" => Self::Warning,
                     "ALERT" => Self::Alert,
-                    _ => Self::UnknownValue(priority::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2504,8 +2439,7 @@ pub mod build {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Priority>::new(
-                    ".google.devtools.cloudbuild.v1.Build.Warning.Priority",
-                ))
+                    ".google.devtools.cloudbuild.v1.Build.Warning.Priority"))
             }
         }
     }
@@ -2514,6 +2448,7 @@ pub mod build {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FailureInfo {
+
         /// The name of the failure.
         pub r#type: crate::model::build::failure_info::FailureType,
 
@@ -2529,10 +2464,7 @@ pub mod build {
         }
 
         /// Sets the value of [r#type][crate::model::build::FailureInfo::type].
-        pub fn set_type<T: std::convert::Into<crate::model::build::failure_info::FailureType>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::build::failure_info::FailureType>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -2554,6 +2486,7 @@ pub mod build {
     pub mod failure_info {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The name of a fatal problem encountered during the execution of the
         /// build.
@@ -2647,10 +2580,7 @@ pub mod build {
         }
 
         impl std::fmt::Display for FailureType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2665,9 +2595,7 @@ pub mod build {
                     4 => Self::LoggingFailure,
                     5 => Self::UserBuildStep,
                     6 => Self::FetchSourceFailed,
-                    _ => Self::UnknownValue(failure_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(failure_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2683,9 +2611,7 @@ pub mod build {
                     "LOGGING_FAILURE" => Self::LoggingFailure,
                     "USER_BUILD_STEP" => Self::UserBuildStep,
                     "FETCH_SOURCE_FAILED" => Self::FetchSourceFailed,
-                    _ => Self::UnknownValue(failure_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(failure_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2714,8 +2640,7 @@ pub mod build {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureType>::new(
-                    ".google.devtools.cloudbuild.v1.Build.FailureInfo.FailureType",
-                ))
+                    ".google.devtools.cloudbuild.v1.Build.FailureInfo.FailureType"))
             }
         }
     }
@@ -2842,9 +2767,7 @@ pub mod build {
                 7 => Self::Cancelled,
                 9 => Self::Expired,
                 10 => Self::Pending,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2863,9 +2786,7 @@ pub mod build {
                 "TIMEOUT" => Self::Timeout,
                 "CANCELLED" => Self::Cancelled,
                 "EXPIRED" => Self::Expired,
-                _ => Self::UnknownValue(status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2897,8 +2818,7 @@ pub mod build {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
-                ".google.devtools.cloudbuild.v1.Build.Status",
-            ))
+                ".google.devtools.cloudbuild.v1.Build.Status"))
         }
     }
 }
@@ -2908,6 +2828,7 @@ pub mod build {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Dependency {
+
     /// The type of dependency to fetch.
     pub dep: std::option::Option<crate::model::dependency::Dep>,
 
@@ -2923,10 +2844,8 @@ impl Dependency {
     ///
     /// Note that all the setters affecting `dep` are mutually
     /// exclusive.
-    pub fn set_dep<T: std::convert::Into<std::option::Option<crate::model::dependency::Dep>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dep<T: std::convert::Into<std::option::Option<crate::model::dependency::Dep>>>(mut self, v: T) -> Self
+    {
         self.dep = v.into();
         self
     }
@@ -2948,16 +2867,18 @@ impl Dependency {
     /// Note that all the setters affecting `dep` are
     /// mutually exclusive.
     pub fn set_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.dep = std::option::Option::Some(crate::model::dependency::Dep::Empty(v.into()));
+        self.dep = std::option::Option::Some(
+            crate::model::dependency::Dep::Empty(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [dep][crate::model::Dependency::dep]
     /// if it holds a `GitSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn git_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dependency::GitSourceDependency>> {
+    pub fn git_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::dependency::GitSourceDependency>> {
         #[allow(unreachable_patterns)]
         self.dep.as_ref().and_then(|v| match v {
             crate::model::dependency::Dep::GitSource(v) => std::option::Option::Some(v),
@@ -2970,13 +2891,12 @@ impl Dependency {
     ///
     /// Note that all the setters affecting `dep` are
     /// mutually exclusive.
-    pub fn set_git_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::dependency::GitSourceDependency>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dep = std::option::Option::Some(crate::model::dependency::Dep::GitSource(v.into()));
+    pub fn set_git_source<T: std::convert::Into<std::boxed::Box<crate::model::dependency::GitSourceDependency>>>(mut self, v: T) -> Self {
+        self.dep = std::option::Option::Some(
+            crate::model::dependency::Dep::GitSource(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2992,10 +2912,12 @@ pub mod dependency {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a git repository as a build dependency.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitSourceDependency {
+
         /// Required. The kind of repo (url or dev connect).
         pub repository: std::option::Option<crate::model::dependency::GitSourceRepository>,
 
@@ -3022,8 +2944,7 @@ pub mod dependency {
 
         /// Sets the value of [repository][crate::model::dependency::GitSourceDependency::repository].
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::dependency::GitSourceRepository>,
+        where T: std::convert::Into<crate::model::dependency::GitSourceRepository>
         {
             self.repository = std::option::Option::Some(v.into());
             self
@@ -3031,8 +2952,7 @@ pub mod dependency {
 
         /// Sets or clears the value of [repository][crate::model::dependency::GitSourceDependency::repository].
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::dependency::GitSourceRepository>,
+        where T: std::convert::Into<crate::model::dependency::GitSourceRepository>
         {
             self.repository = v.map(|x| x.into());
             self
@@ -3073,9 +2993,9 @@ pub mod dependency {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitSourceRepository {
+
         /// The type of git source repo (url or dev connect).
-        pub repotype:
-            std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
+        pub repotype: std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3089,14 +3009,8 @@ pub mod dependency {
         ///
         /// Note that all the setters affecting `repotype` are mutually
         /// exclusive.
-        pub fn set_repotype<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_repotype<T: std::convert::Into<std::option::Option<crate::model::dependency::git_source_repository::Repotype>>>(mut self, v: T) -> Self
+        {
             self.repotype = v.into();
             self
         }
@@ -3107,9 +3021,7 @@ pub mod dependency {
         pub fn url(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.repotype.as_ref().and_then(|v| match v {
-                crate::model::dependency::git_source_repository::Repotype::Url(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::dependency::git_source_repository::Repotype::Url(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3121,7 +3033,9 @@ pub mod dependency {
         /// mutually exclusive.
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repotype = std::option::Option::Some(
-                crate::model::dependency::git_source_repository::Repotype::Url(v.into()),
+                crate::model::dependency::git_source_repository::Repotype::Url(
+                    v.into()
+                )
             );
             self
         }
@@ -3132,9 +3046,7 @@ pub mod dependency {
         pub fn developer_connect(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.repotype.as_ref().and_then(|v| match v {
-                crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3144,14 +3056,11 @@ pub mod dependency {
         ///
         /// Note that all the setters affecting `repotype` are
         /// mutually exclusive.
-        pub fn set_developer_connect<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_developer_connect<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repotype = std::option::Option::Some(
                 crate::model::dependency::git_source_repository::Repotype::DeveloperConnect(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -3167,6 +3076,7 @@ pub mod dependency {
     pub mod git_source_repository {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The type of git source repo (url or dev connect).
         #[derive(Clone, Debug, PartialEq)]
@@ -3197,6 +3107,7 @@ pub mod dependency {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitConfig {
+
     /// Configuration for HTTP related git operations.
     pub http: std::option::Option<crate::model::git_config::HttpConfig>,
 
@@ -3210,8 +3121,7 @@ impl GitConfig {
 
     /// Sets the value of [http][crate::model::GitConfig::http].
     pub fn set_http<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::git_config::HttpConfig>,
+    where T: std::convert::Into<crate::model::git_config::HttpConfig>
     {
         self.http = std::option::Option::Some(v.into());
         self
@@ -3219,8 +3129,7 @@ impl GitConfig {
 
     /// Sets or clears the value of [http][crate::model::GitConfig::http].
     pub fn set_or_clear_http<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::git_config::HttpConfig>,
+    where T: std::convert::Into<crate::model::git_config::HttpConfig>
     {
         self.http = v.map(|x| x.into());
         self
@@ -3238,10 +3147,12 @@ pub mod git_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// HttpConfig is a configuration for HTTP related git operations.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HttpConfig {
+
         /// SecretVersion resource of the HTTP proxy URL. The Service Account used in
         /// the build (either the default Service Account or
         /// user-specified Service Account) should have
@@ -3258,10 +3169,7 @@ pub mod git_config {
         }
 
         /// Sets the value of [proxy_secret_version_name][crate::model::git_config::HttpConfig::proxy_secret_version_name].
-        pub fn set_proxy_secret_version_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_proxy_secret_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.proxy_secret_version_name = v.into();
             self
         }
@@ -3279,6 +3187,7 @@ pub mod git_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Artifacts {
+
     /// A list of images to be pushed upon the successful completion of all build
     /// steps.
     ///
@@ -3349,7 +3258,7 @@ impl Artifacts {
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.images = v.into_iter().map(|i| i.into()).collect();
@@ -3358,8 +3267,7 @@ impl Artifacts {
 
     /// Sets the value of [objects][crate::model::Artifacts::objects].
     pub fn set_objects<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::artifacts::ArtifactObjects>,
+    where T: std::convert::Into<crate::model::artifacts::ArtifactObjects>
     {
         self.objects = std::option::Option::Some(v.into());
         self
@@ -3367,8 +3275,7 @@ impl Artifacts {
 
     /// Sets or clears the value of [objects][crate::model::Artifacts::objects].
     pub fn set_or_clear_objects<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::artifacts::ArtifactObjects>,
+    where T: std::convert::Into<crate::model::artifacts::ArtifactObjects>
     {
         self.objects = v.map(|x| x.into());
         self
@@ -3378,7 +3285,7 @@ impl Artifacts {
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::artifacts::MavenArtifact>,
+        V: std::convert::Into<crate::model::artifacts::MavenArtifact>
     {
         use std::iter::Iterator;
         self.maven_artifacts = v.into_iter().map(|i| i.into()).collect();
@@ -3389,7 +3296,7 @@ impl Artifacts {
     pub fn set_go_modules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::artifacts::GoModule>,
+        V: std::convert::Into<crate::model::artifacts::GoModule>
     {
         use std::iter::Iterator;
         self.go_modules = v.into_iter().map(|i| i.into()).collect();
@@ -3400,7 +3307,7 @@ impl Artifacts {
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::artifacts::PythonPackage>,
+        V: std::convert::Into<crate::model::artifacts::PythonPackage>
     {
         use std::iter::Iterator;
         self.python_packages = v.into_iter().map(|i| i.into()).collect();
@@ -3411,7 +3318,7 @@ impl Artifacts {
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::artifacts::NpmPackage>,
+        V: std::convert::Into<crate::model::artifacts::NpmPackage>
     {
         use std::iter::Iterator;
         self.npm_packages = v.into_iter().map(|i| i.into()).collect();
@@ -3430,11 +3337,13 @@ pub mod artifacts {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Files in the workspace to upload to Cloud Storage upon successful
     /// completion of all build steps.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ArtifactObjects {
+
         /// Cloud Storage bucket and optional object path, in the form
         /// "gs://bucket/path/to/somewhere/". (see [Bucket Name
         /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
@@ -3467,7 +3376,7 @@ pub mod artifacts {
         pub fn set_paths<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.paths = v.into_iter().map(|i| i.into()).collect();
@@ -3476,8 +3385,7 @@ pub mod artifacts {
 
         /// Sets the value of [timing][crate::model::artifacts::ArtifactObjects::timing].
         pub fn set_timing<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TimeSpan>,
+        where T: std::convert::Into<crate::model::TimeSpan>
         {
             self.timing = std::option::Option::Some(v.into());
             self
@@ -3485,8 +3393,7 @@ pub mod artifacts {
 
         /// Sets or clears the value of [timing][crate::model::artifacts::ArtifactObjects::timing].
         pub fn set_or_clear_timing<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TimeSpan>,
+        where T: std::convert::Into<crate::model::TimeSpan>
         {
             self.timing = v.map(|x| x.into());
             self
@@ -3504,6 +3411,7 @@ pub mod artifacts {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MavenArtifact {
+
         /// Artifact Registry repository, in the form
         /// "https://$REGION-maven.pkg.dev/$PROJECT/$REPOSITORY"
         ///
@@ -3581,6 +3489,7 @@ pub mod artifacts {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GoModule {
+
         /// Optional. Artifact Registry repository name.
         ///
         /// Specified Go modules will be zipped and uploaded to Artifact Registry
@@ -3620,28 +3529,19 @@ pub mod artifacts {
         }
 
         /// Sets the value of [repository_name][crate::model::artifacts::GoModule::repository_name].
-        pub fn set_repository_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_repository_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository_name = v.into();
             self
         }
 
         /// Sets the value of [repository_location][crate::model::artifacts::GoModule::repository_location].
-        pub fn set_repository_location<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_repository_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository_location = v.into();
             self
         }
 
         /// Sets the value of [repository_project_id][crate::model::artifacts::GoModule::repository_project_id].
-        pub fn set_repository_project_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_repository_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository_project_id = v.into();
             self
         }
@@ -3659,10 +3559,7 @@ pub mod artifacts {
         }
 
         /// Sets the value of [module_version][crate::model::artifacts::GoModule::module_version].
-        pub fn set_module_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_module_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.module_version = v.into();
             self
         }
@@ -3680,6 +3577,7 @@ pub mod artifacts {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PythonPackage {
+
         /// Artifact Registry repository, in the form
         /// "https://$REGION-python.pkg.dev/$PROJECT/$REPOSITORY"
         ///
@@ -3710,7 +3608,7 @@ pub mod artifacts {
         pub fn set_paths<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.paths = v.into_iter().map(|i| i.into()).collect();
@@ -3729,6 +3627,7 @@ pub mod artifacts {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NpmPackage {
+
         /// Artifact Registry repository, in the form
         /// "https://$REGION-npm.pkg.dev/$PROJECT/$REPOSITORY"
         ///
@@ -3755,10 +3654,7 @@ pub mod artifacts {
         }
 
         /// Sets the value of [package_path][crate::model::artifacts::NpmPackage::package_path].
-        pub fn set_package_path<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_package_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.package_path = v.into();
             self
         }
@@ -3775,6 +3671,7 @@ pub mod artifacts {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeSpan {
+
     /// Start of time span.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -3791,8 +3688,7 @@ impl TimeSpan {
 
     /// Sets the value of [start_time][crate::model::TimeSpan::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3800,8 +3696,7 @@ impl TimeSpan {
 
     /// Sets or clears the value of [start_time][crate::model::TimeSpan::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3809,8 +3704,7 @@ impl TimeSpan {
 
     /// Sets the value of [end_time][crate::model::TimeSpan::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3818,8 +3712,7 @@ impl TimeSpan {
 
     /// Sets or clears the value of [end_time][crate::model::TimeSpan::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3836,6 +3729,7 @@ impl wkt::message::Message for TimeSpan {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildOperationMetadata {
+
     /// The build that the operation is tracking.
     pub build: std::option::Option<crate::model::Build>,
 
@@ -3849,8 +3743,7 @@ impl BuildOperationMetadata {
 
     /// Sets the value of [build][crate::model::BuildOperationMetadata::build].
     pub fn set_build<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Build>,
+    where T: std::convert::Into<crate::model::Build>
     {
         self.build = std::option::Option::Some(v.into());
         self
@@ -3858,8 +3751,7 @@ impl BuildOperationMetadata {
 
     /// Sets or clears the value of [build][crate::model::BuildOperationMetadata::build].
     pub fn set_or_clear_build<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Build>,
+    where T: std::convert::Into<crate::model::Build>
     {
         self.build = v.map(|x| x.into());
         self
@@ -3877,6 +3769,7 @@ impl wkt::message::Message for BuildOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceProvenance {
+
     /// A copy of the build's `source.storage_source`, if exists, with any
     /// generations resolved.
     pub resolved_storage_source: std::option::Option<crate::model::StorageSource>,
@@ -3900,7 +3793,7 @@ pub struct SourceProvenance {
     ///
     /// If the build source came in a single package such as a gzipped tarfile
     /// (`.tar.gz`), the `FileHash` will be for the single path to that file.
-    pub file_hashes: std::collections::HashMap<std::string::String, crate::model::FileHashes>,
+    pub file_hashes: std::collections::HashMap<std::string::String,crate::model::FileHashes>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3912,8 +3805,7 @@ impl SourceProvenance {
 
     /// Sets the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
     pub fn set_resolved_storage_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageSource>,
+    where T: std::convert::Into<crate::model::StorageSource>
     {
         self.resolved_storage_source = std::option::Option::Some(v.into());
         self
@@ -3921,8 +3813,7 @@ impl SourceProvenance {
 
     /// Sets or clears the value of [resolved_storage_source][crate::model::SourceProvenance::resolved_storage_source].
     pub fn set_or_clear_resolved_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageSource>,
+    where T: std::convert::Into<crate::model::StorageSource>
     {
         self.resolved_storage_source = v.map(|x| x.into());
         self
@@ -3930,8 +3821,7 @@ impl SourceProvenance {
 
     /// Sets the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
     pub fn set_resolved_repo_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.resolved_repo_source = std::option::Option::Some(v.into());
         self
@@ -3939,8 +3829,7 @@ impl SourceProvenance {
 
     /// Sets or clears the value of [resolved_repo_source][crate::model::SourceProvenance::resolved_repo_source].
     pub fn set_or_clear_resolved_repo_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.resolved_repo_source = v.map(|x| x.into());
         self
@@ -3948,20 +3837,15 @@ impl SourceProvenance {
 
     /// Sets the value of [resolved_storage_source_manifest][crate::model::SourceProvenance::resolved_storage_source_manifest].
     pub fn set_resolved_storage_source_manifest<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageSourceManifest>,
+    where T: std::convert::Into<crate::model::StorageSourceManifest>
     {
         self.resolved_storage_source_manifest = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [resolved_storage_source_manifest][crate::model::SourceProvenance::resolved_storage_source_manifest].
-    pub fn set_or_clear_resolved_storage_source_manifest<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageSourceManifest>,
+    pub fn set_or_clear_resolved_storage_source_manifest<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::StorageSourceManifest>
     {
         self.resolved_storage_source_manifest = v.map(|x| x.into());
         self
@@ -3991,6 +3875,7 @@ impl wkt::message::Message for SourceProvenance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileHashes {
+
     /// Collection of file hashes.
     pub file_hash: std::vec::Vec<crate::model::Hash>,
 
@@ -4006,7 +3891,7 @@ impl FileHashes {
     pub fn set_file_hash<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Hash>,
+        V: std::convert::Into<crate::model::Hash>
     {
         use std::iter::Iterator;
         self.file_hash = v.into_iter().map(|i| i.into()).collect();
@@ -4024,6 +3909,7 @@ impl wkt::message::Message for FileHashes {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hash {
+
     /// The type of hash that was performed.
     pub r#type: crate::model::hash::HashType,
 
@@ -4061,6 +3947,7 @@ impl wkt::message::Message for Hash {
 pub mod hash {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the hash algorithm, if any.
     ///
@@ -4158,9 +4045,7 @@ pub mod hash {
                 2 => Self::Md5,
                 3 => Self::GoModuleH1,
                 4 => Self::Sha512,
-                _ => Self::UnknownValue(hash_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(hash_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4174,9 +4059,7 @@ pub mod hash {
                 "MD5" => Self::Md5,
                 "GO_MODULE_H1" => Self::GoModuleH1,
                 "SHA512" => Self::Sha512,
-                _ => Self::UnknownValue(hash_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(hash_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4203,8 +4086,7 @@ pub mod hash {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<HashType>::new(
-                ".google.devtools.cloudbuild.v1.Hash.HashType",
-            ))
+                ".google.devtools.cloudbuild.v1.Hash.HashType"))
         }
     }
 }
@@ -4213,6 +4095,7 @@ pub mod hash {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secrets {
+
     /// Secrets in Secret Manager and associated secret environment variable.
     pub secret_manager: std::vec::Vec<crate::model::SecretManagerSecret>,
 
@@ -4232,7 +4115,7 @@ impl Secrets {
     pub fn set_secret_manager<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SecretManagerSecret>,
+        V: std::convert::Into<crate::model::SecretManagerSecret>
     {
         use std::iter::Iterator;
         self.secret_manager = v.into_iter().map(|i| i.into()).collect();
@@ -4243,7 +4126,7 @@ impl Secrets {
     pub fn set_inline<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InlineSecret>,
+        V: std::convert::Into<crate::model::InlineSecret>
     {
         use std::iter::Iterator;
         self.inline = v.into_iter().map(|i| i.into()).collect();
@@ -4262,6 +4145,7 @@ impl wkt::message::Message for Secrets {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InlineSecret {
+
     /// Resource name of Cloud KMS crypto key to decrypt the encrypted value.
     /// In format: projects/*/locations/*/keyRings/*/cryptoKeys/*
     pub kms_key_name: std::string::String,
@@ -4272,7 +4156,7 @@ pub struct InlineSecret {
     /// secrets, and must be used by at least one build step. Values can be at most
     /// 64 KB in size. There can be at most 100 secret values across all of a
     /// build's secrets.
-    pub env_map: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+    pub env_map: std::collections::HashMap<std::string::String,::bytes::Bytes>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4311,6 +4195,7 @@ impl wkt::message::Message for InlineSecret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretManagerSecret {
+
     /// Resource name of the SecretVersion. In format:
     /// projects/*/secrets/*/versions/*
     pub version_name: std::string::String,
@@ -4355,6 +4240,7 @@ impl wkt::message::Message for SecretManagerSecret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Secret {
+
     /// Cloud KMS key name to use to decrypt these envs.
     pub kms_key_name: std::string::String,
 
@@ -4364,7 +4250,7 @@ pub struct Secret {
     /// secrets, and must be used by at least one build step. Values can be at most
     /// 64 KB in size. There can be at most 100 secret values across all of a
     /// build's secrets.
-    pub secret_env: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+    pub secret_env: std::collections::HashMap<std::string::String,::bytes::Bytes>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4403,6 +4289,7 @@ impl wkt::message::Message for Secret {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBuildRequest {
+
     /// The parent resource where this build will be created.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -4435,8 +4322,7 @@ impl CreateBuildRequest {
 
     /// Sets the value of [build][crate::model::CreateBuildRequest::build].
     pub fn set_build<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Build>,
+    where T: std::convert::Into<crate::model::Build>
     {
         self.build = std::option::Option::Some(v.into());
         self
@@ -4444,8 +4330,7 @@ impl CreateBuildRequest {
 
     /// Sets or clears the value of [build][crate::model::CreateBuildRequest::build].
     pub fn set_or_clear_build<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Build>,
+    where T: std::convert::Into<crate::model::Build>
     {
         self.build = v.map(|x| x.into());
         self
@@ -4462,6 +4347,7 @@ impl wkt::message::Message for CreateBuildRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBuildRequest {
+
     /// The name of the `Build` to retrieve.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     pub name: std::string::String,
@@ -4509,6 +4395,7 @@ impl wkt::message::Message for GetBuildRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBuildsRequest {
+
     /// The parent of the collection of `Builds`.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -4582,6 +4469,7 @@ impl wkt::message::Message for ListBuildsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBuildsResponse {
+
     /// Builds will be sorted by `create_time`, descending.
     pub builds: std::vec::Vec<crate::model::Build>,
 
@@ -4601,7 +4489,7 @@ impl ListBuildsResponse {
     pub fn set_builds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Build>,
+        V: std::convert::Into<crate::model::Build>
     {
         use std::iter::Iterator;
         self.builds = v.into_iter().map(|i| i.into()).collect();
@@ -4639,6 +4527,7 @@ impl gax::paginator::internal::PageableResponse for ListBuildsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelBuildRequest {
+
     /// The name of the `Build` to cancel.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     pub name: std::string::String,
@@ -4686,6 +4575,7 @@ impl wkt::message::Message for CancelBuildRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApproveBuildRequest {
+
     /// Required. Name of the target build.
     /// For example: "projects/{$project_id}/builds/{$build_id}"
     pub name: std::string::String,
@@ -4709,8 +4599,7 @@ impl ApproveBuildRequest {
 
     /// Sets the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
     pub fn set_approval_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalResult>,
+    where T: std::convert::Into<crate::model::ApprovalResult>
     {
         self.approval_result = std::option::Option::Some(v.into());
         self
@@ -4718,8 +4607,7 @@ impl ApproveBuildRequest {
 
     /// Sets or clears the value of [approval_result][crate::model::ApproveBuildRequest::approval_result].
     pub fn set_or_clear_approval_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalResult>,
+    where T: std::convert::Into<crate::model::ApprovalResult>
     {
         self.approval_result = v.map(|x| x.into());
         self
@@ -4737,6 +4625,7 @@ impl wkt::message::Message for ApproveBuildRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildApproval {
+
     /// Output only. The state of this build's approval.
     pub state: crate::model::build_approval::State,
 
@@ -4755,18 +4644,14 @@ impl BuildApproval {
     }
 
     /// Sets the value of [state][crate::model::BuildApproval::state].
-    pub fn set_state<T: std::convert::Into<crate::model::build_approval::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::build_approval::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::BuildApproval::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalConfig>,
+    where T: std::convert::Into<crate::model::ApprovalConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -4774,8 +4659,7 @@ impl BuildApproval {
 
     /// Sets or clears the value of [config][crate::model::BuildApproval::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalConfig>,
+    where T: std::convert::Into<crate::model::ApprovalConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -4783,8 +4667,7 @@ impl BuildApproval {
 
     /// Sets the value of [result][crate::model::BuildApproval::result].
     pub fn set_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalResult>,
+    where T: std::convert::Into<crate::model::ApprovalResult>
     {
         self.result = std::option::Option::Some(v.into());
         self
@@ -4792,8 +4675,7 @@ impl BuildApproval {
 
     /// Sets or clears the value of [result][crate::model::BuildApproval::result].
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ApprovalResult>,
+    where T: std::convert::Into<crate::model::ApprovalResult>
     {
         self.result = v.map(|x| x.into());
         self
@@ -4810,6 +4692,7 @@ impl wkt::message::Message for BuildApproval {
 pub mod build_approval {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies the current state of a build's approval.
     ///
@@ -4907,9 +4790,7 @@ pub mod build_approval {
                 2 => Self::Approved,
                 3 => Self::Rejected,
                 5 => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4923,9 +4804,7 @@ pub mod build_approval {
                 "APPROVED" => Self::Approved,
                 "REJECTED" => Self::Rejected,
                 "CANCELLED" => Self::Cancelled,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4952,8 +4831,7 @@ pub mod build_approval {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.devtools.cloudbuild.v1.BuildApproval.State",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildApproval.State"))
         }
     }
 }
@@ -4962,6 +4840,7 @@ pub mod build_approval {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApprovalConfig {
+
     /// Whether or not approval is needed. If this is set on a build, it will
     /// become pending when created, and will need to be explicitly approved
     /// to start.
@@ -4993,6 +4872,7 @@ impl wkt::message::Message for ApprovalConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApprovalResult {
+
     /// Output only. Email of the user that called the ApproveBuild API to
     /// approve or reject a build at the time that the API was called.
     pub approver_account: std::string::String,
@@ -5021,18 +4901,14 @@ impl ApprovalResult {
     }
 
     /// Sets the value of [approver_account][crate::model::ApprovalResult::approver_account].
-    pub fn set_approver_account<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_approver_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.approver_account = v.into();
         self
     }
 
     /// Sets the value of [approval_time][crate::model::ApprovalResult::approval_time].
     pub fn set_approval_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approval_time = std::option::Option::Some(v.into());
         self
@@ -5040,18 +4916,14 @@ impl ApprovalResult {
 
     /// Sets or clears the value of [approval_time][crate::model::ApprovalResult::approval_time].
     pub fn set_or_clear_approval_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.approval_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [decision][crate::model::ApprovalResult::decision].
-    pub fn set_decision<T: std::convert::Into<crate::model::approval_result::Decision>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_decision<T: std::convert::Into<crate::model::approval_result::Decision>>(mut self, v: T) -> Self {
         self.decision = v.into();
         self
     }
@@ -5079,6 +4951,7 @@ impl wkt::message::Message for ApprovalResult {
 pub mod approval_result {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies whether or not this manual approval result is to approve
     /// or reject a build.
@@ -5167,9 +5040,7 @@ pub mod approval_result {
                 0 => Self::Unspecified,
                 1 => Self::Approved,
                 2 => Self::Rejected,
-                _ => Self::UnknownValue(decision::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(decision::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5181,9 +5052,7 @@ pub mod approval_result {
                 "DECISION_UNSPECIFIED" => Self::Unspecified,
                 "APPROVED" => Self::Approved,
                 "REJECTED" => Self::Rejected,
-                _ => Self::UnknownValue(decision::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(decision::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5208,8 +5077,7 @@ pub mod approval_result {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Decision>::new(
-                ".google.devtools.cloudbuild.v1.ApprovalResult.Decision",
-            ))
+                ".google.devtools.cloudbuild.v1.ApprovalResult.Decision"))
         }
     }
 }
@@ -5218,6 +5086,7 @@ pub mod approval_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitRepoSource {
+
     /// The URI of the repo (e.g. <https://github.com/user/repo.git>).
     /// Either `uri` or `repository` can be specified and is required.
     pub uri: std::string::String,
@@ -5256,10 +5125,7 @@ impl GitRepoSource {
     }
 
     /// Sets the value of [repo_type][crate::model::GitRepoSource::repo_type].
-    pub fn set_repo_type<T: std::convert::Into<crate::model::git_file_source::RepoType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repo_type<T: std::convert::Into<crate::model::git_file_source::RepoType>>(mut self, v: T) -> Self {
         self.repo_type = v.into();
         self
     }
@@ -5268,12 +5134,8 @@ impl GitRepoSource {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::git_repo_source::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::git_repo_source::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -5295,8 +5157,11 @@ impl GitRepoSource {
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::git_repo_source::Source::Repository(v.into()));
+        self.source = std::option::Option::Some(
+            crate::model::git_repo_source::Source::Repository(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5304,12 +5169,8 @@ impl GitRepoSource {
     ///
     /// Note that all the setters affecting `enterprise_config` are mutually
     /// exclusive.
-    pub fn set_enterprise_config<
-        T: std::convert::Into<std::option::Option<crate::model::git_repo_source::EnterpriseConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enterprise_config<T: std::convert::Into<std::option::Option<crate::model::git_repo_source::EnterpriseConfig>>>(mut self, v: T) -> Self
+    {
         self.enterprise_config = v.into();
         self
     }
@@ -5320,9 +5181,7 @@ impl GitRepoSource {
     pub fn github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.enterprise_config.as_ref().and_then(|v| match v {
-            crate::model::git_repo_source::EnterpriseConfig::GithubEnterpriseConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::git_repo_source::EnterpriseConfig::GithubEnterpriseConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5332,12 +5191,11 @@ impl GitRepoSource {
     ///
     /// Note that all the setters affecting `enterprise_config` are
     /// mutually exclusive.
-    pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.enterprise_config = std::option::Option::Some(
-            crate::model::git_repo_source::EnterpriseConfig::GithubEnterpriseConfig(v.into()),
+            crate::model::git_repo_source::EnterpriseConfig::GithubEnterpriseConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5353,6 +5211,7 @@ impl wkt::message::Message for GitRepoSource {
 pub mod git_repo_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source of the SCM repo.
     #[derive(Clone, Debug, PartialEq)]
@@ -5381,6 +5240,7 @@ pub mod git_repo_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitFileSource {
+
     /// The path of the file, with the repo root as the root of the path.
     pub path: std::string::String,
 
@@ -5429,10 +5289,7 @@ impl GitFileSource {
     }
 
     /// Sets the value of [repo_type][crate::model::GitFileSource::repo_type].
-    pub fn set_repo_type<T: std::convert::Into<crate::model::git_file_source::RepoType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repo_type<T: std::convert::Into<crate::model::git_file_source::RepoType>>(mut self, v: T) -> Self {
         self.repo_type = v.into();
         self
     }
@@ -5447,12 +5304,8 @@ impl GitFileSource {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::git_file_source::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::git_file_source::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -5474,8 +5327,11 @@ impl GitFileSource {
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::git_file_source::Source::Repository(v.into()));
+        self.source = std::option::Option::Some(
+            crate::model::git_file_source::Source::Repository(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5483,12 +5339,8 @@ impl GitFileSource {
     ///
     /// Note that all the setters affecting `enterprise_config` are mutually
     /// exclusive.
-    pub fn set_enterprise_config<
-        T: std::convert::Into<std::option::Option<crate::model::git_file_source::EnterpriseConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enterprise_config<T: std::convert::Into<std::option::Option<crate::model::git_file_source::EnterpriseConfig>>>(mut self, v: T) -> Self
+    {
         self.enterprise_config = v.into();
         self
     }
@@ -5499,9 +5351,7 @@ impl GitFileSource {
     pub fn github_enterprise_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.enterprise_config.as_ref().and_then(|v| match v {
-            crate::model::git_file_source::EnterpriseConfig::GithubEnterpriseConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::git_file_source::EnterpriseConfig::GithubEnterpriseConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5511,12 +5361,11 @@ impl GitFileSource {
     ///
     /// Note that all the setters affecting `enterprise_config` are
     /// mutually exclusive.
-    pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_github_enterprise_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.enterprise_config = std::option::Option::Some(
-            crate::model::git_file_source::EnterpriseConfig::GithubEnterpriseConfig(v.into()),
+            crate::model::git_file_source::EnterpriseConfig::GithubEnterpriseConfig(
+                v.into()
+            )
         );
         self
     }
@@ -5532,6 +5381,7 @@ impl wkt::message::Message for GitFileSource {
 pub mod git_file_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of the repo, since it may not be explicit from the `repo` field
     /// (e.g from a URL).
@@ -5602,9 +5452,7 @@ pub mod git_file_source {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unknown => std::option::Option::Some("UNKNOWN"),
-                Self::CloudSourceRepositories => {
-                    std::option::Option::Some("CLOUD_SOURCE_REPOSITORIES")
-                }
+                Self::CloudSourceRepositories => std::option::Option::Some("CLOUD_SOURCE_REPOSITORIES"),
                 Self::Github => std::option::Option::Some("GITHUB"),
                 Self::BitbucketServer => std::option::Option::Some("BITBUCKET_SERVER"),
                 Self::Gitlab => std::option::Option::Some("GITLAB"),
@@ -5634,9 +5482,7 @@ pub mod git_file_source {
                 2 => Self::Github,
                 3 => Self::BitbucketServer,
                 4 => Self::Gitlab,
-                _ => Self::UnknownValue(repo_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(repo_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5650,9 +5496,7 @@ pub mod git_file_source {
                 "GITHUB" => Self::Github,
                 "BITBUCKET_SERVER" => Self::BitbucketServer,
                 "GITLAB" => Self::Gitlab,
-                _ => Self::UnknownValue(repo_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(repo_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5679,8 +5523,7 @@ pub mod git_file_source {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepoType>::new(
-                ".google.devtools.cloudbuild.v1.GitFileSource.RepoType",
-            ))
+                ".google.devtools.cloudbuild.v1.GitFileSource.RepoType"))
         }
     }
 
@@ -5713,6 +5556,7 @@ pub mod git_file_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildTrigger {
+
     /// The `Trigger` name with format:
     /// `projects/{project}/locations/{location}/triggers/{trigger}`, where
     /// {trigger} is a unique identifier generated by the service.
@@ -5766,7 +5610,7 @@ pub struct BuildTrigger {
 
     /// Substitutions for Build resource. The keys must match the following
     /// regular expression: `^_[A-Z0-9_]+$`.
-    pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub substitutions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// ignored_files and included_files are file glob matches using
     /// <https://golang.org/pkg/path/filepath/#Match> extended with support for "**".
@@ -5852,7 +5696,7 @@ impl BuildTrigger {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -5861,8 +5705,7 @@ impl BuildTrigger {
 
     /// Sets the value of [trigger_template][crate::model::BuildTrigger::trigger_template].
     pub fn set_trigger_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.trigger_template = std::option::Option::Some(v.into());
         self
@@ -5870,8 +5713,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [trigger_template][crate::model::BuildTrigger::trigger_template].
     pub fn set_or_clear_trigger_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepoSource>,
+    where T: std::convert::Into<crate::model::RepoSource>
     {
         self.trigger_template = v.map(|x| x.into());
         self
@@ -5879,8 +5721,7 @@ impl BuildTrigger {
 
     /// Sets the value of [github][crate::model::BuildTrigger::github].
     pub fn set_github<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GitHubEventsConfig>,
+    where T: std::convert::Into<crate::model::GitHubEventsConfig>
     {
         self.github = std::option::Option::Some(v.into());
         self
@@ -5888,8 +5729,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [github][crate::model::BuildTrigger::github].
     pub fn set_or_clear_github<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GitHubEventsConfig>,
+    where T: std::convert::Into<crate::model::GitHubEventsConfig>
     {
         self.github = v.map(|x| x.into());
         self
@@ -5897,8 +5737,7 @@ impl BuildTrigger {
 
     /// Sets the value of [pubsub_config][crate::model::BuildTrigger::pubsub_config].
     pub fn set_pubsub_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PubsubConfig>,
+    where T: std::convert::Into<crate::model::PubsubConfig>
     {
         self.pubsub_config = std::option::Option::Some(v.into());
         self
@@ -5906,8 +5745,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [pubsub_config][crate::model::BuildTrigger::pubsub_config].
     pub fn set_or_clear_pubsub_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PubsubConfig>,
+    where T: std::convert::Into<crate::model::PubsubConfig>
     {
         self.pubsub_config = v.map(|x| x.into());
         self
@@ -5915,8 +5753,7 @@ impl BuildTrigger {
 
     /// Sets the value of [webhook_config][crate::model::BuildTrigger::webhook_config].
     pub fn set_webhook_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WebhookConfig>,
+    where T: std::convert::Into<crate::model::WebhookConfig>
     {
         self.webhook_config = std::option::Option::Some(v.into());
         self
@@ -5924,8 +5761,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [webhook_config][crate::model::BuildTrigger::webhook_config].
     pub fn set_or_clear_webhook_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WebhookConfig>,
+    where T: std::convert::Into<crate::model::WebhookConfig>
     {
         self.webhook_config = v.map(|x| x.into());
         self
@@ -5933,8 +5769,7 @@ impl BuildTrigger {
 
     /// Sets the value of [create_time][crate::model::BuildTrigger::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5942,8 +5777,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [create_time][crate::model::BuildTrigger::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5971,7 +5805,7 @@ impl BuildTrigger {
     pub fn set_ignored_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ignored_files = v.into_iter().map(|i| i.into()).collect();
@@ -5982,7 +5816,7 @@ impl BuildTrigger {
     pub fn set_included_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.included_files = v.into_iter().map(|i| i.into()).collect();
@@ -5997,8 +5831,7 @@ impl BuildTrigger {
 
     /// Sets the value of [source_to_build][crate::model::BuildTrigger::source_to_build].
     pub fn set_source_to_build<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GitRepoSource>,
+    where T: std::convert::Into<crate::model::GitRepoSource>
     {
         self.source_to_build = std::option::Option::Some(v.into());
         self
@@ -6006,8 +5839,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [source_to_build][crate::model::BuildTrigger::source_to_build].
     pub fn set_or_clear_source_to_build<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GitRepoSource>,
+    where T: std::convert::Into<crate::model::GitRepoSource>
     {
         self.source_to_build = v.map(|x| x.into());
         self
@@ -6021,8 +5853,7 @@ impl BuildTrigger {
 
     /// Sets the value of [repository_event_config][crate::model::BuildTrigger::repository_event_config].
     pub fn set_repository_event_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepositoryEventConfig>,
+    where T: std::convert::Into<crate::model::RepositoryEventConfig>
     {
         self.repository_event_config = std::option::Option::Some(v.into());
         self
@@ -6030,8 +5861,7 @@ impl BuildTrigger {
 
     /// Sets or clears the value of [repository_event_config][crate::model::BuildTrigger::repository_event_config].
     pub fn set_or_clear_repository_event_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepositoryEventConfig>,
+    where T: std::convert::Into<crate::model::RepositoryEventConfig>
     {
         self.repository_event_config = v.map(|x| x.into());
         self
@@ -6041,12 +5871,8 @@ impl BuildTrigger {
     ///
     /// Note that all the setters affecting `build_template` are mutually
     /// exclusive.
-    pub fn set_build_template<
-        T: std::convert::Into<std::option::Option<crate::model::build_trigger::BuildTemplate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_build_template<T: std::convert::Into<std::option::Option<crate::model::build_trigger::BuildTemplate>>>(mut self, v: T) -> Self
+    {
         self.build_template = v.into();
         self
     }
@@ -6057,9 +5883,7 @@ impl BuildTrigger {
     pub fn autodetect(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.build_template.as_ref().and_then(|v| match v {
-            crate::model::build_trigger::BuildTemplate::Autodetect(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::build_trigger::BuildTemplate::Autodetect(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6071,7 +5895,9 @@ impl BuildTrigger {
     /// mutually exclusive.
     pub fn set_autodetect<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.build_template = std::option::Option::Some(
-            crate::model::build_trigger::BuildTemplate::Autodetect(v.into()),
+            crate::model::build_trigger::BuildTemplate::Autodetect(
+                v.into()
+            )
         );
         self
     }
@@ -6092,12 +5918,12 @@ impl BuildTrigger {
     ///
     /// Note that all the setters affecting `build_template` are
     /// mutually exclusive.
-    pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::Build>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.build_template =
-            std::option::Option::Some(crate::model::build_trigger::BuildTemplate::Build(v.into()));
+    pub fn set_build<T: std::convert::Into<std::boxed::Box<crate::model::Build>>>(mut self, v: T) -> Self {
+        self.build_template = std::option::Option::Some(
+            crate::model::build_trigger::BuildTemplate::Build(
+                v.into()
+            )
+        );
         self
     }
 
@@ -6119,7 +5945,9 @@ impl BuildTrigger {
     /// mutually exclusive.
     pub fn set_filename<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build_template = std::option::Option::Some(
-            crate::model::build_trigger::BuildTemplate::Filename(v.into()),
+            crate::model::build_trigger::BuildTemplate::Filename(
+                v.into()
+            )
         );
         self
     }
@@ -6127,14 +5955,10 @@ impl BuildTrigger {
     /// The value of [build_template][crate::model::BuildTrigger::build_template]
     /// if it holds a `GitFileSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn git_file_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GitFileSource>> {
+    pub fn git_file_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::GitFileSource>> {
         #[allow(unreachable_patterns)]
         self.build_template.as_ref().and_then(|v| match v {
-            crate::model::build_trigger::BuildTemplate::GitFileSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::build_trigger::BuildTemplate::GitFileSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6144,14 +5968,11 @@ impl BuildTrigger {
     ///
     /// Note that all the setters affecting `build_template` are
     /// mutually exclusive.
-    pub fn set_git_file_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::GitFileSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_git_file_source<T: std::convert::Into<std::boxed::Box<crate::model::GitFileSource>>>(mut self, v: T) -> Self {
         self.build_template = std::option::Option::Some(
-            crate::model::build_trigger::BuildTemplate::GitFileSource(v.into()),
+            crate::model::build_trigger::BuildTemplate::GitFileSource(
+                v.into()
+            )
         );
         self
     }
@@ -6167,6 +5988,7 @@ impl wkt::message::Message for BuildTrigger {
 pub mod build_trigger {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Template describing the Build request to make when the trigger is matched.
     /// At least one of the template fields must be provided.
@@ -6198,6 +6020,7 @@ pub mod build_trigger {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepositoryEventConfig {
+
     /// The resource name of the Repo API resource.
     pub repository: std::string::String,
 
@@ -6222,12 +6045,7 @@ impl RepositoryEventConfig {
     }
 
     /// Sets the value of [repository_type][crate::model::RepositoryEventConfig::repository_type].
-    pub fn set_repository_type<
-        T: std::convert::Into<crate::model::repository_event_config::RepositoryType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_repository_type<T: std::convert::Into<crate::model::repository_event_config::RepositoryType>>(mut self, v: T) -> Self {
         self.repository_type = v.into();
         self
     }
@@ -6236,12 +6054,8 @@ impl RepositoryEventConfig {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
-    pub fn set_filter<
-        T: std::convert::Into<std::option::Option<crate::model::repository_event_config::Filter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<crate::model::repository_event_config::Filter>>>(mut self, v: T) -> Self
+    {
         self.filter = v.into();
         self
     }
@@ -6249,14 +6063,10 @@ impl RepositoryEventConfig {
     /// The value of [filter][crate::model::RepositoryEventConfig::filter]
     /// if it holds a `PullRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pull_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
+    pub fn pull_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::repository_event_config::Filter::PullRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::repository_event_config::Filter::PullRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6266,14 +6076,11 @@ impl RepositoryEventConfig {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
-    pub fn set_pull_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::PullRequestFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pull_request<T: std::convert::Into<std::boxed::Box<crate::model::PullRequestFilter>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::repository_event_config::Filter::PullRequest(v.into()),
+            crate::model::repository_event_config::Filter::PullRequest(
+                v.into()
+            )
         );
         self
     }
@@ -6294,12 +6101,11 @@ impl RepositoryEventConfig {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
-    pub fn set_push<T: std::convert::Into<std::boxed::Box<crate::model::PushFilter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_push<T: std::convert::Into<std::boxed::Box<crate::model::PushFilter>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::repository_event_config::Filter::Push(v.into()),
+            crate::model::repository_event_config::Filter::Push(
+                v.into()
+            )
         );
         self
     }
@@ -6315,6 +6121,7 @@ impl wkt::message::Message for RepositoryEventConfig {
 pub mod repository_event_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// All possible SCM repo types from Repo API.
     ///
@@ -6407,9 +6214,7 @@ pub mod repository_event_config {
                 1 => Self::Github,
                 2 => Self::GithubEnterprise,
                 3 => Self::GitlabEnterprise,
-                _ => Self::UnknownValue(repository_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(repository_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6422,9 +6227,7 @@ pub mod repository_event_config {
                 "GITHUB" => Self::Github,
                 "GITHUB_ENTERPRISE" => Self::GithubEnterprise,
                 "GITLAB_ENTERPRISE" => Self::GitlabEnterprise,
-                _ => Self::UnknownValue(repository_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(repository_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6450,8 +6253,7 @@ pub mod repository_event_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RepositoryType>::new(
-                ".google.devtools.cloudbuild.v1.RepositoryEventConfig.RepositoryType",
-            ))
+                ".google.devtools.cloudbuild.v1.RepositoryEventConfig.RepositoryType"))
         }
     }
 
@@ -6471,6 +6273,7 @@ pub mod repository_event_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitHubEventsConfig {
+
     /// The installationID that emits the GitHub event.
     #[deprecated]
     pub installation_id: i64,
@@ -6519,12 +6322,8 @@ impl GitHubEventsConfig {
     ///
     /// Note that all the setters affecting `event` are mutually
     /// exclusive.
-    pub fn set_event<
-        T: std::convert::Into<std::option::Option<crate::model::git_hub_events_config::Event>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event<T: std::convert::Into<std::option::Option<crate::model::git_hub_events_config::Event>>>(mut self, v: T) -> Self
+    {
         self.event = v.into();
         self
     }
@@ -6532,14 +6331,10 @@ impl GitHubEventsConfig {
     /// The value of [event][crate::model::GitHubEventsConfig::event]
     /// if it holds a `PullRequest`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pull_request(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
+    pub fn pull_request(&self) -> std::option::Option<&std::boxed::Box<crate::model::PullRequestFilter>> {
         #[allow(unreachable_patterns)]
         self.event.as_ref().and_then(|v| match v {
-            crate::model::git_hub_events_config::Event::PullRequest(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::git_hub_events_config::Event::PullRequest(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -6549,14 +6344,11 @@ impl GitHubEventsConfig {
     ///
     /// Note that all the setters affecting `event` are
     /// mutually exclusive.
-    pub fn set_pull_request<
-        T: std::convert::Into<std::boxed::Box<crate::model::PullRequestFilter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pull_request<T: std::convert::Into<std::boxed::Box<crate::model::PullRequestFilter>>>(mut self, v: T) -> Self {
         self.event = std::option::Option::Some(
-            crate::model::git_hub_events_config::Event::PullRequest(v.into()),
+            crate::model::git_hub_events_config::Event::PullRequest(
+                v.into()
+            )
         );
         self
     }
@@ -6577,12 +6369,12 @@ impl GitHubEventsConfig {
     ///
     /// Note that all the setters affecting `event` are
     /// mutually exclusive.
-    pub fn set_push<T: std::convert::Into<std::boxed::Box<crate::model::PushFilter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.event =
-            std::option::Option::Some(crate::model::git_hub_events_config::Event::Push(v.into()));
+    pub fn set_push<T: std::convert::Into<std::boxed::Box<crate::model::PushFilter>>>(mut self, v: T) -> Self {
+        self.event = std::option::Option::Some(
+            crate::model::git_hub_events_config::Event::Push(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6597,6 +6389,7 @@ impl wkt::message::Message for GitHubEventsConfig {
 pub mod git_hub_events_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Filter describing the types of events to trigger a build.
     /// Currently supported event types: push, pull_request.
@@ -6615,6 +6408,7 @@ pub mod git_hub_events_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PubsubConfig {
+
     /// Output only. Name of the subscription. Format is
     /// `projects/{project}/subscriptions/{subscription}`.
     pub subscription: std::string::String,
@@ -6651,19 +6445,13 @@ impl PubsubConfig {
     }
 
     /// Sets the value of [service_account_email][crate::model::PubsubConfig::service_account_email].
-    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PubsubConfig::state].
-    pub fn set_state<T: std::convert::Into<crate::model::pubsub_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::pubsub_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -6679,6 +6467,7 @@ impl wkt::message::Message for PubsubConfig {
 pub mod pubsub_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enumerates potential issues with the underlying Pub/Sub subscription
     /// configuration.
@@ -6750,9 +6539,7 @@ pub mod pubsub_config {
                 Self::Ok => std::option::Option::Some("OK"),
                 Self::SubscriptionDeleted => std::option::Option::Some("SUBSCRIPTION_DELETED"),
                 Self::TopicDeleted => std::option::Option::Some("TOPIC_DELETED"),
-                Self::SubscriptionMisconfigured => {
-                    std::option::Option::Some("SUBSCRIPTION_MISCONFIGURED")
-                }
+                Self::SubscriptionMisconfigured => std::option::Option::Some("SUBSCRIPTION_MISCONFIGURED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6779,9 +6566,7 @@ pub mod pubsub_config {
                 2 => Self::SubscriptionDeleted,
                 3 => Self::TopicDeleted,
                 4 => Self::SubscriptionMisconfigured,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6795,9 +6580,7 @@ pub mod pubsub_config {
                 "SUBSCRIPTION_DELETED" => Self::SubscriptionDeleted,
                 "TOPIC_DELETED" => Self::TopicDeleted,
                 "SUBSCRIPTION_MISCONFIGURED" => Self::SubscriptionMisconfigured,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6824,8 +6607,7 @@ pub mod pubsub_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.devtools.cloudbuild.v1.PubsubConfig.State",
-            ))
+                ".google.devtools.cloudbuild.v1.PubsubConfig.State"))
         }
     }
 }
@@ -6835,6 +6617,7 @@ pub mod pubsub_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WebhookConfig {
+
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
     pub state: crate::model::webhook_config::State,
@@ -6851,10 +6634,7 @@ impl WebhookConfig {
     }
 
     /// Sets the value of [state][crate::model::WebhookConfig::state].
-    pub fn set_state<T: std::convert::Into<crate::model::webhook_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::webhook_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -6863,12 +6643,8 @@ impl WebhookConfig {
     ///
     /// Note that all the setters affecting `auth_method` are mutually
     /// exclusive.
-    pub fn set_auth_method<
-        T: std::convert::Into<std::option::Option<crate::model::webhook_config::AuthMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_auth_method<T: std::convert::Into<std::option::Option<crate::model::webhook_config::AuthMethod>>>(mut self, v: T) -> Self
+    {
         self.auth_method = v.into();
         self
     }
@@ -6890,8 +6666,11 @@ impl WebhookConfig {
     /// Note that all the setters affecting `auth_method` are
     /// mutually exclusive.
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.auth_method =
-            std::option::Option::Some(crate::model::webhook_config::AuthMethod::Secret(v.into()));
+        self.auth_method = std::option::Option::Some(
+            crate::model::webhook_config::AuthMethod::Secret(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6906,6 +6685,7 @@ impl wkt::message::Message for WebhookConfig {
 pub mod webhook_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enumerates potential issues with the Secret Manager secret provided by the
     /// user.
@@ -6994,9 +6774,7 @@ pub mod webhook_config {
                 0 => Self::Unspecified,
                 1 => Self::Ok,
                 2 => Self::SecretDeleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7008,9 +6786,7 @@ pub mod webhook_config {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "OK" => Self::Ok,
                 "SECRET_DELETED" => Self::SecretDeleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7035,8 +6811,7 @@ pub mod webhook_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.devtools.cloudbuild.v1.WebhookConfig.State",
-            ))
+                ".google.devtools.cloudbuild.v1.WebhookConfig.State"))
         }
     }
 
@@ -7054,6 +6829,7 @@ pub mod webhook_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullRequestFilter {
+
     /// If CommentControl is enabled, depending on the setting, builds may not
     /// fire until a repository writer comments `/gcbrun` on a pull
     /// request or `/gcbrun` is in the pull request description.
@@ -7080,12 +6856,7 @@ impl PullRequestFilter {
     }
 
     /// Sets the value of [comment_control][crate::model::PullRequestFilter::comment_control].
-    pub fn set_comment_control<
-        T: std::convert::Into<crate::model::pull_request_filter::CommentControl>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_comment_control<T: std::convert::Into<crate::model::pull_request_filter::CommentControl>>(mut self, v: T) -> Self {
         self.comment_control = v.into();
         self
     }
@@ -7100,12 +6871,8 @@ impl PullRequestFilter {
     ///
     /// Note that all the setters affecting `git_ref` are mutually
     /// exclusive.
-    pub fn set_git_ref<
-        T: std::convert::Into<std::option::Option<crate::model::pull_request_filter::GitRef>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_git_ref<T: std::convert::Into<std::option::Option<crate::model::pull_request_filter::GitRef>>>(mut self, v: T) -> Self
+    {
         self.git_ref = v.into();
         self
     }
@@ -7127,8 +6894,11 @@ impl PullRequestFilter {
     /// Note that all the setters affecting `git_ref` are
     /// mutually exclusive.
     pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.git_ref =
-            std::option::Option::Some(crate::model::pull_request_filter::GitRef::Branch(v.into()));
+        self.git_ref = std::option::Option::Some(
+            crate::model::pull_request_filter::GitRef::Branch(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -7143,6 +6913,7 @@ impl wkt::message::Message for PullRequestFilter {
 pub mod pull_request_filter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Controls whether or not a `/gcbrun` comment is required from a user with
     /// repository write permission or above in order to
@@ -7225,9 +6996,7 @@ pub mod pull_request_filter {
             match self {
                 Self::CommentsDisabled => std::option::Option::Some("COMMENTS_DISABLED"),
                 Self::CommentsEnabled => std::option::Option::Some("COMMENTS_ENABLED"),
-                Self::CommentsEnabledForExternalContributorsOnly => {
-                    std::option::Option::Some("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY")
-                }
+                Self::CommentsEnabledForExternalContributorsOnly => std::option::Option::Some("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7252,9 +7021,7 @@ pub mod pull_request_filter {
                 0 => Self::CommentsDisabled,
                 1 => Self::CommentsEnabled,
                 2 => Self::CommentsEnabledForExternalContributorsOnly,
-                _ => Self::UnknownValue(comment_control::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(comment_control::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7265,12 +7032,8 @@ pub mod pull_request_filter {
             match value {
                 "COMMENTS_DISABLED" => Self::CommentsDisabled,
                 "COMMENTS_ENABLED" => Self::CommentsEnabled,
-                "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY" => {
-                    Self::CommentsEnabledForExternalContributorsOnly
-                }
-                _ => Self::UnknownValue(comment_control::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY" => Self::CommentsEnabledForExternalContributorsOnly,
+                _ => Self::UnknownValue(comment_control::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7295,8 +7058,7 @@ pub mod pull_request_filter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CommentControl>::new(
-                ".google.devtools.cloudbuild.v1.PullRequestFilter.CommentControl",
-            ))
+                ".google.devtools.cloudbuild.v1.PullRequestFilter.CommentControl"))
         }
     }
 
@@ -7317,6 +7079,7 @@ pub mod pull_request_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushFilter {
+
     /// When true, only trigger a build if the revision regex does NOT match the
     /// git_ref regex.
     pub invert_regex: bool,
@@ -7343,12 +7106,8 @@ impl PushFilter {
     ///
     /// Note that all the setters affecting `git_ref` are mutually
     /// exclusive.
-    pub fn set_git_ref<
-        T: std::convert::Into<std::option::Option<crate::model::push_filter::GitRef>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_git_ref<T: std::convert::Into<std::option::Option<crate::model::push_filter::GitRef>>>(mut self, v: T) -> Self
+    {
         self.git_ref = v.into();
         self
     }
@@ -7370,8 +7129,11 @@ impl PushFilter {
     /// Note that all the setters affecting `git_ref` are
     /// mutually exclusive.
     pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.git_ref =
-            std::option::Option::Some(crate::model::push_filter::GitRef::Branch(v.into()));
+        self.git_ref = std::option::Option::Some(
+            crate::model::push_filter::GitRef::Branch(
+                v.into()
+            )
+        );
         self
     }
 
@@ -7392,7 +7154,11 @@ impl PushFilter {
     /// Note that all the setters affecting `git_ref` are
     /// mutually exclusive.
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.git_ref = std::option::Option::Some(crate::model::push_filter::GitRef::Tag(v.into()));
+        self.git_ref = std::option::Option::Some(
+            crate::model::push_filter::GitRef::Tag(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -7407,6 +7173,7 @@ impl wkt::message::Message for PushFilter {
 pub mod push_filter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Modified refs to match.
     /// A modified refs are the refs modified by a git push operation.
@@ -7430,6 +7197,7 @@ pub mod push_filter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBuildTriggerRequest {
+
     /// The parent resource where this trigger will be created.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -7462,8 +7230,7 @@ impl CreateBuildTriggerRequest {
 
     /// Sets the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
     pub fn set_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildTrigger>,
+    where T: std::convert::Into<crate::model::BuildTrigger>
     {
         self.trigger = std::option::Option::Some(v.into());
         self
@@ -7471,8 +7238,7 @@ impl CreateBuildTriggerRequest {
 
     /// Sets or clears the value of [trigger][crate::model::CreateBuildTriggerRequest::trigger].
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildTrigger>,
+    where T: std::convert::Into<crate::model::BuildTrigger>
     {
         self.trigger = v.map(|x| x.into());
         self
@@ -7489,6 +7255,7 @@ impl wkt::message::Message for CreateBuildTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBuildTriggerRequest {
+
     /// The name of the `Trigger` to retrieve.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     pub name: std::string::String,
@@ -7536,6 +7303,7 @@ impl wkt::message::Message for GetBuildTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBuildTriggersRequest {
+
     /// The parent of the collection of `Triggers`.
     /// Format: `projects/{project}/locations/{location}`
     pub parent: std::string::String,
@@ -7592,6 +7360,7 @@ impl wkt::message::Message for ListBuildTriggersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBuildTriggersResponse {
+
     /// `BuildTriggers` for the project, sorted by `create_time` descending.
     pub triggers: std::vec::Vec<crate::model::BuildTrigger>,
 
@@ -7610,7 +7379,7 @@ impl ListBuildTriggersResponse {
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BuildTrigger>,
+        V: std::convert::Into<crate::model::BuildTrigger>
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
@@ -7648,6 +7417,7 @@ impl gax::paginator::internal::PageableResponse for ListBuildTriggersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBuildTriggerRequest {
+
     /// The name of the `Trigger` to delete.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     pub name: std::string::String,
@@ -7695,6 +7465,7 @@ impl wkt::message::Message for DeleteBuildTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBuildTriggerRequest {
+
     /// Required. ID of the project that owns the trigger.
     pub project_id: std::string::String,
 
@@ -7731,8 +7502,7 @@ impl UpdateBuildTriggerRequest {
 
     /// Sets the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
     pub fn set_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildTrigger>,
+    where T: std::convert::Into<crate::model::BuildTrigger>
     {
         self.trigger = std::option::Option::Some(v.into());
         self
@@ -7740,8 +7510,7 @@ impl UpdateBuildTriggerRequest {
 
     /// Sets or clears the value of [trigger][crate::model::UpdateBuildTriggerRequest::trigger].
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildTrigger>,
+    where T: std::convert::Into<crate::model::BuildTrigger>
     {
         self.trigger = v.map(|x| x.into());
         self
@@ -7749,8 +7518,7 @@ impl UpdateBuildTriggerRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -7758,8 +7526,7 @@ impl UpdateBuildTriggerRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBuildTriggerRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -7776,6 +7543,7 @@ impl wkt::message::Message for UpdateBuildTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildOptions {
+
     /// Requested hash for SourceProvenance.
     pub source_provenance_hash: std::vec::Vec<crate::model::hash::HashType>,
 
@@ -7875,7 +7643,7 @@ impl BuildOptions {
     pub fn set_source_provenance_hash<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::hash::HashType>,
+        V: std::convert::Into<crate::model::hash::HashType>
     {
         use std::iter::Iterator;
         self.source_provenance_hash = v.into_iter().map(|i| i.into()).collect();
@@ -7883,21 +7651,13 @@ impl BuildOptions {
     }
 
     /// Sets the value of [requested_verify_option][crate::model::BuildOptions::requested_verify_option].
-    pub fn set_requested_verify_option<
-        T: std::convert::Into<crate::model::build_options::VerifyOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_requested_verify_option<T: std::convert::Into<crate::model::build_options::VerifyOption>>(mut self, v: T) -> Self {
         self.requested_verify_option = v.into();
         self
     }
 
     /// Sets the value of [machine_type][crate::model::BuildOptions::machine_type].
-    pub fn set_machine_type<T: std::convert::Into<crate::model::build_options::MachineType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_machine_type<T: std::convert::Into<crate::model::build_options::MachineType>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
@@ -7909,12 +7669,7 @@ impl BuildOptions {
     }
 
     /// Sets the value of [substitution_option][crate::model::BuildOptions::substitution_option].
-    pub fn set_substitution_option<
-        T: std::convert::Into<crate::model::build_options::SubstitutionOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_substitution_option<T: std::convert::Into<crate::model::build_options::SubstitutionOption>>(mut self, v: T) -> Self {
         self.substitution_option = v.into();
         self
     }
@@ -7932,12 +7687,7 @@ impl BuildOptions {
     }
 
     /// Sets the value of [log_streaming_option][crate::model::BuildOptions::log_streaming_option].
-    pub fn set_log_streaming_option<
-        T: std::convert::Into<crate::model::build_options::LogStreamingOption>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_log_streaming_option<T: std::convert::Into<crate::model::build_options::LogStreamingOption>>(mut self, v: T) -> Self {
         self.log_streaming_option = v.into();
         self
     }
@@ -7951,8 +7701,7 @@ impl BuildOptions {
 
     /// Sets the value of [pool][crate::model::BuildOptions::pool].
     pub fn set_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::build_options::PoolOption>,
+    where T: std::convert::Into<crate::model::build_options::PoolOption>
     {
         self.pool = std::option::Option::Some(v.into());
         self
@@ -7960,18 +7709,14 @@ impl BuildOptions {
 
     /// Sets or clears the value of [pool][crate::model::BuildOptions::pool].
     pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::build_options::PoolOption>,
+    where T: std::convert::Into<crate::model::build_options::PoolOption>
     {
         self.pool = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [logging][crate::model::BuildOptions::logging].
-    pub fn set_logging<T: std::convert::Into<crate::model::build_options::LoggingMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_logging<T: std::convert::Into<crate::model::build_options::LoggingMode>>(mut self, v: T) -> Self {
         self.logging = v.into();
         self
     }
@@ -7980,7 +7725,7 @@ impl BuildOptions {
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.env = v.into_iter().map(|i| i.into()).collect();
@@ -7991,7 +7736,7 @@ impl BuildOptions {
     pub fn set_secret_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.secret_env = v.into_iter().map(|i| i.into()).collect();
@@ -8002,7 +7747,7 @@ impl BuildOptions {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -8010,12 +7755,7 @@ impl BuildOptions {
     }
 
     /// Sets the value of [default_logs_bucket_behavior][crate::model::BuildOptions::default_logs_bucket_behavior].
-    pub fn set_default_logs_bucket_behavior<
-        T: std::convert::Into<crate::model::build_options::DefaultLogsBucketBehavior>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_logs_bucket_behavior<T: std::convert::Into<crate::model::build_options::DefaultLogsBucketBehavior>>(mut self, v: T) -> Self {
         self.default_logs_bucket_behavior = v.into();
         self
     }
@@ -8038,6 +7778,7 @@ pub mod build_options {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details about how a build should be executed on a `WorkerPool`.
     ///
     /// See [running builds in a private
@@ -8046,6 +7787,7 @@ pub mod build_options {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PoolOption {
+
         /// The `WorkerPool` resource to execute the build on.
         /// You must have `cloudbuild.workerpools.use` on the project hosting the
         /// WorkerPool.
@@ -8164,9 +7906,7 @@ pub mod build_options {
             match value {
                 0 => Self::NotVerified,
                 1 => Self::Verified,
-                _ => Self::UnknownValue(verify_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(verify_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8177,9 +7917,7 @@ pub mod build_options {
             match value {
                 "NOT_VERIFIED" => Self::NotVerified,
                 "VERIFIED" => Self::Verified,
-                _ => Self::UnknownValue(verify_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(verify_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8203,8 +7941,7 @@ pub mod build_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VerifyOption>::new(
-                ".google.devtools.cloudbuild.v1.BuildOptions.VerifyOption",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildOptions.VerifyOption"))
         }
     }
 
@@ -8311,9 +8048,7 @@ pub mod build_options {
                 5 => Self::E2Highcpu8,
                 6 => Self::E2Highcpu32,
                 7 => Self::E2Medium,
-                _ => Self::UnknownValue(machine_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(machine_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8328,9 +8063,7 @@ pub mod build_options {
                 "E2_HIGHCPU_8" => Self::E2Highcpu8,
                 "E2_HIGHCPU_32" => Self::E2Highcpu32,
                 "E2_MEDIUM" => Self::E2Medium,
-                _ => Self::UnknownValue(machine_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(machine_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8358,8 +8091,7 @@ pub mod build_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MachineType>::new(
-                ".google.devtools.cloudbuild.v1.BuildOptions.MachineType",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildOptions.MachineType"))
         }
     }
 
@@ -8445,9 +8177,7 @@ pub mod build_options {
             match value {
                 0 => Self::MustMatch,
                 1 => Self::AllowLoose,
-                _ => Self::UnknownValue(substitution_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(substitution_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8458,9 +8188,7 @@ pub mod build_options {
             match value {
                 "MUST_MATCH" => Self::MustMatch,
                 "ALLOW_LOOSE" => Self::AllowLoose,
-                _ => Self::UnknownValue(substitution_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(substitution_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8484,8 +8212,7 @@ pub mod build_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SubstitutionOption>::new(
-                ".google.devtools.cloudbuild.v1.BuildOptions.SubstitutionOption",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildOptions.SubstitutionOption"))
         }
     }
 
@@ -8576,9 +8303,7 @@ pub mod build_options {
                 0 => Self::StreamDefault,
                 1 => Self::StreamOn,
                 2 => Self::StreamOff,
-                _ => Self::UnknownValue(log_streaming_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(log_streaming_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8590,9 +8315,7 @@ pub mod build_options {
                 "STREAM_DEFAULT" => Self::StreamDefault,
                 "STREAM_ON" => Self::StreamOn,
                 "STREAM_OFF" => Self::StreamOff,
-                _ => Self::UnknownValue(log_streaming_option::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(log_streaming_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8617,8 +8340,7 @@ pub mod build_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogStreamingOption>::new(
-                ".google.devtools.cloudbuild.v1.BuildOptions.LogStreamingOption",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildOptions.LogStreamingOption"))
         }
     }
 
@@ -8727,9 +8449,7 @@ pub mod build_options {
                 3 => Self::StackdriverOnly,
                 4 => Self::None,
                 5 => Self::CloudLoggingOnly,
-                _ => Self::UnknownValue(logging_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(logging_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8744,9 +8464,7 @@ pub mod build_options {
                 "STACKDRIVER_ONLY" => Self::StackdriverOnly,
                 "CLOUD_LOGGING_ONLY" => Self::CloudLoggingOnly,
                 "NONE" => Self::None,
-                _ => Self::UnknownValue(logging_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(logging_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8774,8 +8492,7 @@ pub mod build_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoggingMode>::new(
-                ".google.devtools.cloudbuild.v1.BuildOptions.LoggingMode",
-            ))
+                ".google.devtools.cloudbuild.v1.BuildOptions.LoggingMode"))
         }
     }
 
@@ -8840,12 +8557,8 @@ pub mod build_options {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED")
-                }
-                Self::RegionalUserOwnedBucket => {
-                    std::option::Option::Some("REGIONAL_USER_OWNED_BUCKET")
-                }
+                Self::Unspecified => std::option::Option::Some("DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED"),
+                Self::RegionalUserOwnedBucket => std::option::Option::Some("REGIONAL_USER_OWNED_BUCKET"),
                 Self::LegacyBucket => std::option::Option::Some("LEGACY_BUCKET"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -8871,9 +8584,7 @@ pub mod build_options {
                 0 => Self::Unspecified,
                 1 => Self::RegionalUserOwnedBucket,
                 2 => Self::LegacyBucket,
-                _ => Self::UnknownValue(default_logs_bucket_behavior::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(default_logs_bucket_behavior::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8885,9 +8596,7 @@ pub mod build_options {
                 "DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
                 "REGIONAL_USER_OWNED_BUCKET" => Self::RegionalUserOwnedBucket,
                 "LEGACY_BUCKET" => Self::LegacyBucket,
-                _ => Self::UnknownValue(default_logs_bucket_behavior::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(default_logs_bucket_behavior::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8911,11 +8620,8 @@ pub mod build_options {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<DefaultLogsBucketBehavior>::new(
-                    ".google.devtools.cloudbuild.v1.BuildOptions.DefaultLogsBucketBehavior",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DefaultLogsBucketBehavior>::new(
+                ".google.devtools.cloudbuild.v1.BuildOptions.DefaultLogsBucketBehavior"))
         }
     }
 }
@@ -8925,6 +8631,7 @@ pub mod build_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReceiveTriggerWebhookRequest {
+
     /// The name of the `ReceiveTriggerWebhook` to retrieve.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     pub name: std::string::String,
@@ -8957,8 +8664,7 @@ impl ReceiveTriggerWebhookRequest {
 
     /// Sets the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<api::model::HttpBody>,
+    where T: std::convert::Into<api::model::HttpBody>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -8966,8 +8672,7 @@ impl ReceiveTriggerWebhookRequest {
 
     /// Sets or clears the value of [body][crate::model::ReceiveTriggerWebhookRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<api::model::HttpBody>,
+    where T: std::convert::Into<api::model::HttpBody>
     {
         self.body = v.map(|x| x.into());
         self
@@ -9003,6 +8708,7 @@ impl wkt::message::Message for ReceiveTriggerWebhookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReceiveTriggerWebhookResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9023,6 +8729,7 @@ impl wkt::message::Message for ReceiveTriggerWebhookResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitHubEnterpriseConfig {
+
     /// Optional. The full resource name for the GitHubEnterpriseConfig
     /// For example:
     /// "projects/{$project_id}/locations/{$location_id}/githubEnterpriseConfigs/{$config_id}"
@@ -9091,8 +8798,7 @@ impl GitHubEnterpriseConfig {
 
     /// Sets the value of [create_time][crate::model::GitHubEnterpriseConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9100,8 +8806,7 @@ impl GitHubEnterpriseConfig {
 
     /// Sets or clears the value of [create_time][crate::model::GitHubEnterpriseConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9121,8 +8826,7 @@ impl GitHubEnterpriseConfig {
 
     /// Sets the value of [secrets][crate::model::GitHubEnterpriseConfig::secrets].
     pub fn set_secrets<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GitHubEnterpriseSecrets>,
+    where T: std::convert::Into<crate::model::GitHubEnterpriseSecrets>
     {
         self.secrets = std::option::Option::Some(v.into());
         self
@@ -9130,8 +8834,7 @@ impl GitHubEnterpriseConfig {
 
     /// Sets or clears the value of [secrets][crate::model::GitHubEnterpriseConfig::secrets].
     pub fn set_or_clear_secrets<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GitHubEnterpriseSecrets>,
+    where T: std::convert::Into<crate::model::GitHubEnterpriseSecrets>
     {
         self.secrets = v.map(|x| x.into());
         self
@@ -9162,6 +8865,7 @@ impl wkt::message::Message for GitHubEnterpriseConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitHubEnterpriseSecrets {
+
     /// The resource name for the private key secret version.
     pub private_key_version_name: std::string::String,
 
@@ -9183,37 +8887,25 @@ impl GitHubEnterpriseSecrets {
     }
 
     /// Sets the value of [private_key_version_name][crate::model::GitHubEnterpriseSecrets::private_key_version_name].
-    pub fn set_private_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_key_version_name = v.into();
         self
     }
 
     /// Sets the value of [webhook_secret_version_name][crate::model::GitHubEnterpriseSecrets::webhook_secret_version_name].
-    pub fn set_webhook_secret_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_webhook_secret_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook_secret_version_name = v.into();
         self
     }
 
     /// Sets the value of [oauth_secret_version_name][crate::model::GitHubEnterpriseSecrets::oauth_secret_version_name].
-    pub fn set_oauth_secret_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oauth_secret_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oauth_secret_version_name = v.into();
         self
     }
 
     /// Sets the value of [oauth_client_id_version_name][crate::model::GitHubEnterpriseSecrets::oauth_client_id_version_name].
-    pub fn set_oauth_client_id_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_oauth_client_id_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oauth_client_id_version_name = v.into();
         self
     }
@@ -9241,6 +8933,7 @@ impl wkt::message::Message for GitHubEnterpriseSecrets {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkerPool {
+
     /// Output only. The resource name of the `WorkerPool`, with format
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
     /// The value of `{worker_pool}` is provided by `worker_pool_id` in
@@ -9257,7 +8950,7 @@ pub struct WorkerPool {
 
     /// User specified annotations. See <https://google.aip.dev/128#annotations>
     /// for more details such as format and size limitations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Time at which the request to create the `WorkerPool` was
     /// received.
@@ -9322,8 +9015,7 @@ impl WorkerPool {
 
     /// Sets the value of [create_time][crate::model::WorkerPool::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9331,8 +9023,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [create_time][crate::model::WorkerPool::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9340,8 +9031,7 @@ impl WorkerPool {
 
     /// Sets the value of [update_time][crate::model::WorkerPool::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9349,8 +9039,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [update_time][crate::model::WorkerPool::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9358,8 +9047,7 @@ impl WorkerPool {
 
     /// Sets the value of [delete_time][crate::model::WorkerPool::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -9367,18 +9055,14 @@ impl WorkerPool {
 
     /// Sets or clears the value of [delete_time][crate::model::WorkerPool::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::WorkerPool::state].
-    pub fn set_state<T: std::convert::Into<crate::model::worker_pool::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::worker_pool::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9393,12 +9077,8 @@ impl WorkerPool {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::worker_pool::Config>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::worker_pool::Config>>>(mut self, v: T) -> Self
+    {
         self.config = v.into();
         self
     }
@@ -9406,14 +9086,10 @@ impl WorkerPool {
     /// The value of [config][crate::model::WorkerPool::config]
     /// if it holds a `PrivatePoolV1Config`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn private_pool_v1_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePoolV1Config>> {
+    pub fn private_pool_v1_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrivatePoolV1Config>> {
         #[allow(unreachable_patterns)]
         self.config.as_ref().and_then(|v| match v {
-            crate::model::worker_pool::Config::PrivatePoolV1Config(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::worker_pool::Config::PrivatePoolV1Config(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9423,14 +9099,11 @@ impl WorkerPool {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
-    pub fn set_private_pool_v1_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrivatePoolV1Config>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_pool_v1_config<T: std::convert::Into<std::boxed::Box<crate::model::PrivatePoolV1Config>>>(mut self, v: T) -> Self {
         self.config = std::option::Option::Some(
-            crate::model::worker_pool::Config::PrivatePoolV1Config(v.into()),
+            crate::model::worker_pool::Config::PrivatePoolV1Config(
+                v.into()
+            )
         );
         self
     }
@@ -9446,6 +9119,7 @@ impl wkt::message::Message for WorkerPool {
 pub mod worker_pool {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the `WorkerPool`.
     ///
@@ -9548,9 +9222,7 @@ pub mod worker_pool {
                 3 => Self::Deleting,
                 4 => Self::Deleted,
                 5 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9565,9 +9237,7 @@ pub mod worker_pool {
                 "DELETING" => Self::Deleting,
                 "DELETED" => Self::Deleted,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9595,8 +9265,7 @@ pub mod worker_pool {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.devtools.cloudbuild.v1.WorkerPool.State",
-            ))
+                ".google.devtools.cloudbuild.v1.WorkerPool.State"))
         }
     }
 
@@ -9613,6 +9282,7 @@ pub mod worker_pool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivatePoolV1Config {
+
     /// Machine configuration for the workers in the pool.
     pub worker_config: std::option::Option<crate::model::private_pool_v_1_config::WorkerConfig>,
 
@@ -9620,8 +9290,7 @@ pub struct PrivatePoolV1Config {
     pub network_config: std::option::Option<crate::model::private_pool_v_1_config::NetworkConfig>,
 
     /// Immutable. Private Service Connect(PSC) Network configuration for the pool.
-    pub private_service_connect:
-        std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
+    pub private_service_connect: std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9633,8 +9302,7 @@ impl PrivatePoolV1Config {
 
     /// Sets the value of [worker_config][crate::model::PrivatePoolV1Config::worker_config].
     pub fn set_worker_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::WorkerConfig>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::WorkerConfig>
     {
         self.worker_config = std::option::Option::Some(v.into());
         self
@@ -9642,8 +9310,7 @@ impl PrivatePoolV1Config {
 
     /// Sets or clears the value of [worker_config][crate::model::PrivatePoolV1Config::worker_config].
     pub fn set_or_clear_worker_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::WorkerConfig>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::WorkerConfig>
     {
         self.worker_config = v.map(|x| x.into());
         self
@@ -9651,8 +9318,7 @@ impl PrivatePoolV1Config {
 
     /// Sets the value of [network_config][crate::model::PrivatePoolV1Config::network_config].
     pub fn set_network_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::NetworkConfig>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::NetworkConfig>
     {
         self.network_config = std::option::Option::Some(v.into());
         self
@@ -9660,8 +9326,7 @@ impl PrivatePoolV1Config {
 
     /// Sets or clears the value of [network_config][crate::model::PrivatePoolV1Config::network_config].
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::NetworkConfig>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::NetworkConfig>
     {
         self.network_config = v.map(|x| x.into());
         self
@@ -9669,8 +9334,7 @@ impl PrivatePoolV1Config {
 
     /// Sets the value of [private_service_connect][crate::model::PrivatePoolV1Config::private_service_connect].
     pub fn set_private_service_connect<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>
     {
         self.private_service_connect = std::option::Option::Some(v.into());
         self
@@ -9678,8 +9342,7 @@ impl PrivatePoolV1Config {
 
     /// Sets or clears the value of [private_service_connect][crate::model::PrivatePoolV1Config::private_service_connect].
     pub fn set_or_clear_private_service_connect<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
+    where T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>
     {
         self.private_service_connect = v.map(|x| x.into());
         self
@@ -9697,11 +9360,13 @@ pub mod private_pool_v_1_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines the configuration to be used for creating workers in
     /// the pool.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkerConfig {
+
         /// Optional. Machine type of a worker, such as `e2-medium`.
         /// See [Worker pool config
         /// file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema).
@@ -9728,10 +9393,7 @@ pub mod private_pool_v_1_config {
         }
 
         /// Sets the value of [machine_type][crate::model::private_pool_v_1_config::WorkerConfig::machine_type].
-        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.machine_type = v.into();
             self
         }
@@ -9744,20 +9406,15 @@ pub mod private_pool_v_1_config {
 
         /// Sets the value of [enable_nested_virtualization][crate::model::private_pool_v_1_config::WorkerConfig::enable_nested_virtualization].
         pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.enable_nested_virtualization = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [enable_nested_virtualization][crate::model::private_pool_v_1_config::WorkerConfig::enable_nested_virtualization].
-        pub fn set_or_clear_enable_nested_virtualization<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<bool>,
+        pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<bool>
         {
             self.enable_nested_virtualization = v.map(|x| x.into());
             self
@@ -9774,6 +9431,7 @@ pub mod private_pool_v_1_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkConfig {
+
         /// Required. Immutable. The network definition that the workers are peered
         /// to. If this section is left empty, the workers will be peered to
         /// `WorkerPool.project_id` on the service producer network. Must be in the
@@ -9806,30 +9464,19 @@ pub mod private_pool_v_1_config {
         }
 
         /// Sets the value of [peered_network][crate::model::private_pool_v_1_config::NetworkConfig::peered_network].
-        pub fn set_peered_network<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peered_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peered_network = v.into();
             self
         }
 
         /// Sets the value of [egress_option][crate::model::private_pool_v_1_config::NetworkConfig::egress_option].
-        pub fn set_egress_option<
-            T: std::convert::Into<crate::model::private_pool_v_1_config::network_config::EgressOption>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_egress_option<T: std::convert::Into<crate::model::private_pool_v_1_config::network_config::EgressOption>>(mut self, v: T) -> Self {
             self.egress_option = v.into();
             self
         }
 
         /// Sets the value of [peered_network_ip_range][crate::model::private_pool_v_1_config::NetworkConfig::peered_network_ip_range].
-        pub fn set_peered_network_ip_range<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_peered_network_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peered_network_ip_range = v.into();
             self
         }
@@ -9845,6 +9492,7 @@ pub mod private_pool_v_1_config {
     pub mod network_config {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Defines the egress option for the pool.
         ///
@@ -9923,10 +9571,7 @@ pub mod private_pool_v_1_config {
         }
 
         impl std::fmt::Display for EgressOption {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -9937,9 +9582,7 @@ pub mod private_pool_v_1_config {
                     0 => Self::Unspecified,
                     1 => Self::NoPublicEgress,
                     2 => Self::PublicEgress,
-                    _ => Self::UnknownValue(egress_option::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(egress_option::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -9951,9 +9594,7 @@ pub mod private_pool_v_1_config {
                     "EGRESS_OPTION_UNSPECIFIED" => Self::Unspecified,
                     "NO_PUBLIC_EGRESS" => Self::NoPublicEgress,
                     "PUBLIC_EGRESS" => Self::PublicEgress,
-                    _ => Self::UnknownValue(egress_option::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(egress_option::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -9978,8 +9619,7 @@ pub mod private_pool_v_1_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<EgressOption>::new(
-                    ".google.devtools.cloudbuild.v1.PrivatePoolV1Config.NetworkConfig.EgressOption",
-                ))
+                    ".google.devtools.cloudbuild.v1.PrivatePoolV1Config.NetworkConfig.EgressOption"))
             }
         }
     }
@@ -9988,6 +9628,7 @@ pub mod private_pool_v_1_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrivateServiceConnect {
+
         /// Required. Immutable. The network attachment that the worker network
         /// interface is peered to. Must be in the format
         /// `projects/{project}/regions/{region}/networkAttachments/{networkAttachment}`.
@@ -10024,10 +9665,7 @@ pub mod private_pool_v_1_config {
         }
 
         /// Sets the value of [network_attachment][crate::model::private_pool_v_1_config::PrivateServiceConnect::network_attachment].
-        pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network_attachment = v.into();
             self
         }
@@ -10056,6 +9694,7 @@ pub mod private_pool_v_1_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkerPoolRequest {
+
     /// Required. The parent resource where this worker pool will be created.
     /// Format: `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -10090,8 +9729,7 @@ impl CreateWorkerPoolRequest {
 
     /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = std::option::Option::Some(v.into());
         self
@@ -10099,8 +9737,7 @@ impl CreateWorkerPoolRequest {
 
     /// Sets or clears the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = v.map(|x| x.into());
         self
@@ -10129,6 +9766,7 @@ impl wkt::message::Message for CreateWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkerPoolRequest {
+
     /// Required. The name of the `WorkerPool` to retrieve.
     /// Format: `projects/{project}/locations/{location}/workerPools/{workerPool}`.
     pub name: std::string::String,
@@ -10158,6 +9796,7 @@ impl wkt::message::Message for GetWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkerPoolRequest {
+
     /// Required. The name of the `WorkerPool` to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{workerPool}`.
@@ -10218,6 +9857,7 @@ impl wkt::message::Message for DeleteWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkerPoolRequest {
+
     /// Required. The `WorkerPool` to update.
     ///
     /// The `name` field is used to identify the `WorkerPool` to update.
@@ -10241,8 +9881,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = std::option::Option::Some(v.into());
         self
@@ -10250,8 +9889,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets or clears the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = v.map(|x| x.into());
         self
@@ -10259,8 +9897,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10268,8 +9905,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -10292,6 +9928,7 @@ impl wkt::message::Message for UpdateWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkerPoolsRequest {
+
     /// Required. The parent of the collection of `WorkerPools`.
     /// Format: `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
@@ -10341,6 +9978,7 @@ impl wkt::message::Message for ListWorkerPoolsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkerPoolsResponse {
+
     /// `WorkerPools` for the specified project.
     pub worker_pools: std::vec::Vec<crate::model::WorkerPool>,
 
@@ -10361,7 +9999,7 @@ impl ListWorkerPoolsResponse {
     pub fn set_worker_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkerPool>,
+        V: std::convert::Into<crate::model::WorkerPool>
     {
         use std::iter::Iterator;
         self.worker_pools = v.into_iter().map(|i| i.into()).collect();
@@ -10399,6 +10037,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkerPoolOperationMetadata {
+
     /// The resource name of the `WorkerPool` to create.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
@@ -10426,8 +10065,7 @@ impl CreateWorkerPoolOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::CreateWorkerPoolOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10435,8 +10073,7 @@ impl CreateWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::CreateWorkerPoolOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10444,8 +10081,7 @@ impl CreateWorkerPoolOperationMetadata {
 
     /// Sets the value of [complete_time][crate::model::CreateWorkerPoolOperationMetadata::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -10453,8 +10089,7 @@ impl CreateWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [complete_time][crate::model::CreateWorkerPoolOperationMetadata::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
@@ -10471,6 +10106,7 @@ impl wkt::message::Message for CreateWorkerPoolOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkerPoolOperationMetadata {
+
     /// The resource name of the `WorkerPool` being updated.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
@@ -10498,8 +10134,7 @@ impl UpdateWorkerPoolOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::UpdateWorkerPoolOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10507,8 +10142,7 @@ impl UpdateWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::UpdateWorkerPoolOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10516,8 +10150,7 @@ impl UpdateWorkerPoolOperationMetadata {
 
     /// Sets the value of [complete_time][crate::model::UpdateWorkerPoolOperationMetadata::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -10525,8 +10158,7 @@ impl UpdateWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [complete_time][crate::model::UpdateWorkerPoolOperationMetadata::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
@@ -10543,6 +10175,7 @@ impl wkt::message::Message for UpdateWorkerPoolOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkerPoolOperationMetadata {
+
     /// The resource name of the `WorkerPool` being deleted.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
@@ -10570,8 +10203,7 @@ impl DeleteWorkerPoolOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::DeleteWorkerPoolOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10579,8 +10211,7 @@ impl DeleteWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::DeleteWorkerPoolOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10588,8 +10219,7 @@ impl DeleteWorkerPoolOperationMetadata {
 
     /// Sets the value of [complete_time][crate::model::DeleteWorkerPoolOperationMetadata::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -10597,8 +10227,7 @@ impl DeleteWorkerPoolOperationMetadata {
 
     /// Sets or clears the value of [complete_time][crate::model::DeleteWorkerPoolOperationMetadata::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self

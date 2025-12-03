@@ -38,10 +38,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("engine_configs", &self.engine_configs);
         debug_struct.field("node_config", &self.node_config);
         debug_struct.field("zone_distribution_config", &self.zone_distribution_config);
-        debug_struct.field(
-            "deletion_protection_enabled",
-            &self.deletion_protection_enabled,
-        );
+        debug_struct.field("deletion_protection_enabled", &self.deletion_protection_enabled);
         debug_struct.field("psc_auto_connections", &self.psc_auto_connections);
         debug_struct.field("psc_attachment_details", &self.psc_attachment_details);
         debug_struct.field("endpoints", &self.endpoints);
@@ -49,14 +46,8 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("ondemand_maintenance", &self.ondemand_maintenance);
         debug_struct.field("maintenance_policy", &self.maintenance_policy);
         debug_struct.field("maintenance_schedule", &self.maintenance_schedule);
-        debug_struct.field(
-            "cross_instance_replication_config",
-            &self.cross_instance_replication_config,
-        );
-        debug_struct.field(
-            "async_instance_endpoints_deletion_enabled",
-            &self.async_instance_endpoints_deletion_enabled,
-        );
+        debug_struct.field("cross_instance_replication_config", &self.cross_instance_replication_config);
+        debug_struct.field("async_instance_endpoints_deletion_enabled", &self.async_instance_endpoints_deletion_enabled);
         debug_struct.field("backup_collection", &self.backup_collection);
         debug_struct.field("automated_backup_config", &self.automated_backup_config);
         debug_struct.field("import_sources", &self.import_sources);
@@ -135,6 +126,8 @@ impl std::fmt::Debug for super::instance::ConnectionDetail {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::AutomatedBackupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

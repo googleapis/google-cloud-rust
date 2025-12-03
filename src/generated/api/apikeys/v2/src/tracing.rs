@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ApiKeys](super::stub::ApiKeys) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ApiKeys<T>
-where
-    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ApiKeys<T>
-where
-    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ApiKeys for ApiKeys<T>
-where
-    T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ApiKeys + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_key(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_keys",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_keys(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_keys(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -120,18 +108,20 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
         use tracing::Instrument;
-        let span_name = concat!(env!("CARGO_PKG_NAME"), "::client::", "ApiKeys", "::get_key");
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ApiKeys",
+            "::get_key"
+        );
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -162,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_key_string",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_key_string(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_key_string(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -200,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -238,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -276,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "undelete_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .undelete_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.undelete_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -314,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "lookup_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .lookup_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.lookup_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -352,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -389,3 +361,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

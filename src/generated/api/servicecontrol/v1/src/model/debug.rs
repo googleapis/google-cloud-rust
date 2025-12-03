@@ -101,10 +101,7 @@ impl std::fmt::Debug for super::HttpRequest {
         debug_struct.field("latency", &self.latency);
         debug_struct.field("cache_lookup", &self.cache_lookup);
         debug_struct.field("cache_hit", &self.cache_hit);
-        debug_struct.field(
-            "cache_validated_with_origin_server",
-            &self.cache_validated_with_origin_server,
-        );
+        debug_struct.field("cache_validated_with_origin_server", &self.cache_validated_with_origin_server);
         debug_struct.field("cache_fill_bytes", &self.cache_fill_bytes);
         debug_struct.field("protocol", &self.protocol);
         if !self._unknown_fields.is_empty() {
@@ -133,6 +130,7 @@ impl std::fmt::Debug for super::LogEntry {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::LogEntryOperation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -175,6 +173,7 @@ impl std::fmt::Debug for super::MetricValue {
     }
 }
 
+
 impl std::fmt::Debug for super::MetricValueSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetricValueSet");
@@ -207,6 +206,7 @@ impl std::fmt::Debug for super::Operation {
     }
 }
 
+
 impl std::fmt::Debug for super::AllocateQuotaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllocateQuotaRequest");
@@ -235,6 +235,7 @@ impl std::fmt::Debug for super::QuotaOperation {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::AllocateQuotaResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [Publisher](super::stub::Publisher) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Publisher<T>
-where
-    T: super::stub::Publisher + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Publisher + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Publisher<T>
-where
-    T: super::stub::Publisher + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Publisher + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Publisher for Publisher<T>
-where
-    T: super::stub::Publisher + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Publisher + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn publish(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "publish",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .publish(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.publish(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -80,25 +71,46 @@ where
 /// Implements a [Subscriber](super::stub::Subscriber) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Subscriber<T>
-where
-    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Subscriber + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Subscriber<T>
-where
-    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Subscriber + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Subscriber for Subscriber<T>
-where
-    T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Subscriber + std::fmt::Debug + Send + Sync {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Subscriber",
+            "::modify_ack_deadline"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "modify_ack_deadline",
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self.inner.modify_ack_deadline(req, options)
+            .instrument(client_request_span.clone()).await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn modify_ack_deadline(
         &self,
@@ -107,7 +119,33 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.modify_ack_deadline(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Subscriber",
+            "::acknowledge"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "acknowledge",
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self.inner.acknowledge(req, options)
+            .instrument(client_request_span.clone()).await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn acknowledge(
         &self,
@@ -117,3 +155,4 @@ where
         self.inner.acknowledge(req, options).await
     }
 }
+

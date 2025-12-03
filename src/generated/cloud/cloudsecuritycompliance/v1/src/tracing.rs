@@ -18,32 +18,25 @@ use crate::Result;
 /// Implements a [Audit](super::stub::Audit) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Audit<T>
-where
-    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Audit<T>
-where
-    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Audit for Audit<T>
-where
-    T: super::stub::Audit + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Audit + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn generate_framework_audit_scope_report(
         &self,
         req: crate::model::GenerateFrameworkAuditScopeReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>>
-    {
+    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -54,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "generate_framework_audit_scope_report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .generate_framework_audit_scope_report(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.generate_framework_audit_scope_report(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -73,11 +63,8 @@ where
         &self,
         req: crate::model::GenerateFrameworkAuditScopeReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>>
-    {
-        self.inner
-            .generate_framework_audit_scope_report(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::GenerateFrameworkAuditScopeReportResponse>> {
+        self.inner.generate_framework_audit_scope_report(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_framework_audit(
@@ -95,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_framework_audit",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_framework_audit(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_framework_audit(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -133,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_framework_audits",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_framework_audits(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_framework_audits(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -171,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_framework_audit",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_framework_audit(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_framework_audit(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -209,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -247,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -285,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -323,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -361,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -399,14 +362,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -440,25 +400,19 @@ where
 /// Implements a [CmEnrollmentService](super::stub::CmEnrollmentService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CmEnrollmentService<T>
-where
-    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CmEnrollmentService<T>
-where
-    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CmEnrollmentService for CmEnrollmentService<T>
-where
-    T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CmEnrollmentService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn update_cm_enrollment(
         &self,
@@ -475,14 +429,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_cm_enrollment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_cm_enrollment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_cm_enrollment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -513,14 +464,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "calculate_effective_cm_enrollment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .calculate_effective_cm_enrollment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.calculate_effective_cm_enrollment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -533,9 +481,7 @@ where
         req: crate::model::CalculateEffectiveCmEnrollmentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CalculateEffectiveCmEnrollmentResponse>> {
-        self.inner
-            .calculate_effective_cm_enrollment(req, options)
-            .await
+        self.inner.calculate_effective_cm_enrollment(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
@@ -553,14 +499,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -591,14 +534,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -629,14 +569,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -667,14 +604,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -705,14 +639,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -743,14 +674,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -770,25 +698,19 @@ where
 /// Implements a [Config](super::stub::Config) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Config<T>
-where
-    T: super::stub::Config + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Config + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Config<T>
-where
-    T: super::stub::Config + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Config + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Config for Config<T>
-where
-    T: super::stub::Config + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Config + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_frameworks(
         &self,
@@ -805,14 +727,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_frameworks",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_frameworks(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_frameworks(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -843,14 +762,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_framework",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_framework(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_framework(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -881,14 +797,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_framework",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_framework(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_framework(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -919,14 +832,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_framework",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_framework(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_framework(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -957,14 +867,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_framework",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_framework(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_framework(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -995,14 +902,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_cloud_controls",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_cloud_controls(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_cloud_controls(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1033,14 +937,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_cloud_control",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_cloud_control(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_cloud_control(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1071,14 +972,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_cloud_control",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_cloud_control(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_cloud_control(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1109,14 +1007,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_cloud_control",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_cloud_control(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_cloud_control(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1147,14 +1042,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_cloud_control",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_cloud_control(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_cloud_control(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1185,14 +1077,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1223,14 +1112,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1261,14 +1147,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1299,14 +1182,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1337,14 +1217,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1375,14 +1252,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1402,25 +1276,19 @@ where
 /// Implements a [Deployment](super::stub::Deployment) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Deployment<T>
-where
-    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Deployment<T>
-where
-    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Deployment for Deployment<T>
-where
-    T: super::stub::Deployment + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Deployment + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_framework_deployment(
         &self,
@@ -1437,14 +1305,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_framework_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_framework_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_framework_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1475,14 +1340,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_framework_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_framework_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_framework_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1513,14 +1375,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_framework_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_framework_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_framework_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1551,14 +1410,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_framework_deployments",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_framework_deployments(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_framework_deployments(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1589,14 +1445,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_cloud_control_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_cloud_control_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_cloud_control_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1627,14 +1480,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_cloud_control_deployments",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_cloud_control_deployments(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_cloud_control_deployments(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1647,9 +1497,7 @@ where
         req: crate::model::ListCloudControlDeploymentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCloudControlDeploymentsResponse>> {
-        self.inner
-            .list_cloud_control_deployments(req, options)
-            .await
+        self.inner.list_cloud_control_deployments(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
@@ -1667,14 +1515,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1705,14 +1550,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1743,14 +1585,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1781,14 +1620,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1819,14 +1655,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1857,14 +1690,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1898,32 +1728,25 @@ where
 /// Implements a [Monitoring](super::stub::Monitoring) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Monitoring<T>
-where
-    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> Monitoring<T>
-where
-    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::Monitoring for Monitoring<T>
-where
-    T: super::stub::Monitoring + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::Monitoring + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_framework_compliance_summaries(
         &self,
         req: crate::model::ListFrameworkComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>>
-    {
+    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -1934,14 +1757,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_framework_compliance_summaries",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_framework_compliance_summaries(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_framework_compliance_summaries(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1953,11 +1773,8 @@ where
         &self,
         req: crate::model::ListFrameworkComplianceSummariesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>>
-    {
-        self.inner
-            .list_framework_compliance_summaries(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListFrameworkComplianceSummariesResponse>> {
+        self.inner.list_framework_compliance_summaries(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_finding_summaries(
@@ -1975,14 +1792,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_finding_summaries",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_finding_summaries(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_finding_summaries(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2013,14 +1827,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_framework_compliance_report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_framework_compliance_report(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_framework_compliance_report(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2033,9 +1844,7 @@ where
         req: crate::model::FetchFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FrameworkComplianceReport>> {
-        self.inner
-            .fetch_framework_compliance_report(req, options)
-            .await
+        self.inner.fetch_framework_compliance_report(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_control_compliance_summaries(
@@ -2053,14 +1862,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_control_compliance_summaries",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_control_compliance_summaries(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_control_compliance_summaries(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2073,17 +1879,14 @@ where
         req: crate::model::ListControlComplianceSummariesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListControlComplianceSummariesResponse>> {
-        self.inner
-            .list_control_compliance_summaries(req, options)
-            .await
+        self.inner.list_control_compliance_summaries(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn aggregate_framework_compliance_report(
         &self,
         req: crate::model::AggregateFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>>
-    {
+    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -2094,14 +1897,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "aggregate_framework_compliance_report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .aggregate_framework_compliance_report(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.aggregate_framework_compliance_report(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2113,11 +1913,8 @@ where
         &self,
         req: crate::model::AggregateFrameworkComplianceReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>>
-    {
-        self.inner
-            .aggregate_framework_compliance_report(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::AggregateFrameworkComplianceReportResponse>> {
+        self.inner.aggregate_framework_compliance_report(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_locations(
@@ -2135,14 +1932,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_locations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_locations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2173,14 +1967,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_location(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_location(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2211,14 +2002,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_operations(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_operations(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2249,14 +2037,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2287,14 +2072,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2325,14 +2107,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -2348,3 +2127,4 @@ where
         self.inner.cancel_operation(req, options).await
     }
 }
+

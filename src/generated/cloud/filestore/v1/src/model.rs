@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate cloud_common;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// The name of the Google Compute Engine
     /// [VPC network](https://cloud.google.com/vpc/docs/vpc) to which the
     /// instance is connected.
@@ -99,7 +100,7 @@ impl NetworkConfig {
     pub fn set_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::network_config::AddressMode>,
+        V: std::convert::Into<crate::model::network_config::AddressMode>
     {
         use std::iter::Iterator;
         self.modes = v.into_iter().map(|i| i.into()).collect();
@@ -107,10 +108,7 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [reserved_ip_range][crate::model::NetworkConfig::reserved_ip_range].
-    pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reserved_ip_range = v.into();
         self
     }
@@ -119,7 +117,7 @@ impl NetworkConfig {
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -127,10 +125,7 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [connect_mode][crate::model::NetworkConfig::connect_mode].
-    pub fn set_connect_mode<T: std::convert::Into<crate::model::network_config::ConnectMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connect_mode<T: std::convert::Into<crate::model::network_config::ConnectMode>>(mut self, v: T) -> Self {
         self.connect_mode = v.into();
         self
     }
@@ -146,6 +141,7 @@ impl wkt::message::Message for NetworkConfig {
 pub mod network_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Internet protocol versions supported by Filestore.
     ///
@@ -228,9 +224,7 @@ pub mod network_config {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::ModeIpv4,
-                _ => Self::UnknownValue(address_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(address_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -241,9 +235,7 @@ pub mod network_config {
             match value {
                 "ADDRESS_MODE_UNSPECIFIED" => Self::Unspecified,
                 "MODE_IPV4" => Self::ModeIpv4,
-                _ => Self::UnknownValue(address_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(address_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -267,8 +259,7 @@ pub mod network_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AddressMode>::new(
-                ".google.cloud.filestore.v1.NetworkConfig.AddressMode",
-            ))
+                ".google.cloud.filestore.v1.NetworkConfig.AddressMode"))
         }
     }
 
@@ -360,9 +351,7 @@ pub mod network_config {
                 0 => Self::Unspecified,
                 1 => Self::DirectPeering,
                 2 => Self::PrivateServiceAccess,
-                _ => Self::UnknownValue(connect_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(connect_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -374,9 +363,7 @@ pub mod network_config {
                 "CONNECT_MODE_UNSPECIFIED" => Self::Unspecified,
                 "DIRECT_PEERING" => Self::DirectPeering,
                 "PRIVATE_SERVICE_ACCESS" => Self::PrivateServiceAccess,
-                _ => Self::UnknownValue(connect_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(connect_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -401,8 +388,7 @@ pub mod network_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectMode>::new(
-                ".google.cloud.filestore.v1.NetworkConfig.ConnectMode",
-            ))
+                ".google.cloud.filestore.v1.NetworkConfig.ConnectMode"))
         }
     }
 }
@@ -411,6 +397,7 @@ pub mod network_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileShareConfig {
+
     /// Required. The name of the file share. Must use 1-16 characters for the
     /// basic service tier and 1-63 characters for all other service tiers.
     /// Must use lowercase letters, numbers, or underscores `[a-z0-9_]`. Must
@@ -453,7 +440,7 @@ impl FileShareConfig {
     pub fn set_nfs_export_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NfsExportOptions>,
+        V: std::convert::Into<crate::model::NfsExportOptions>
     {
         use std::iter::Iterator;
         self.nfs_export_options = v.into_iter().map(|i| i.into()).collect();
@@ -464,12 +451,8 @@ impl FileShareConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::file_share_config::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::file_share_config::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -480,9 +463,7 @@ impl FileShareConfig {
     pub fn source_backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::file_share_config::Source::SourceBackup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::file_share_config::Source::SourceBackup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -494,7 +475,9 @@ impl FileShareConfig {
     /// mutually exclusive.
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::file_share_config::Source::SourceBackup(v.into()),
+            crate::model::file_share_config::Source::SourceBackup(
+                v.into()
+            )
         );
         self
     }
@@ -510,6 +493,7 @@ impl wkt::message::Message for FileShareConfig {
 pub mod file_share_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source that this file share has been restored from. Empty if the file
     /// share is created from scratch.
@@ -527,6 +511,7 @@ pub mod file_share_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NfsExportOptions {
+
     /// List of either an IPv4 addresses in the format
     /// `{octet1}.{octet2}.{octet3}.{octet4}` or CIDR ranges in the format
     /// `{octet1}.{octet2}.{octet3}.{octet4}/{mask size}` which may mount the
@@ -571,7 +556,7 @@ impl NfsExportOptions {
     pub fn set_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ip_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -579,19 +564,13 @@ impl NfsExportOptions {
     }
 
     /// Sets the value of [access_mode][crate::model::NfsExportOptions::access_mode].
-    pub fn set_access_mode<T: std::convert::Into<crate::model::nfs_export_options::AccessMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_access_mode<T: std::convert::Into<crate::model::nfs_export_options::AccessMode>>(mut self, v: T) -> Self {
         self.access_mode = v.into();
         self
     }
 
     /// Sets the value of [squash_mode][crate::model::NfsExportOptions::squash_mode].
-    pub fn set_squash_mode<T: std::convert::Into<crate::model::nfs_export_options::SquashMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_squash_mode<T: std::convert::Into<crate::model::nfs_export_options::SquashMode>>(mut self, v: T) -> Self {
         self.squash_mode = v.into();
         self
     }
@@ -619,6 +598,7 @@ impl wkt::message::Message for NfsExportOptions {
 pub mod nfs_export_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The access mode.
     ///
@@ -706,9 +686,7 @@ pub mod nfs_export_options {
                 0 => Self::Unspecified,
                 1 => Self::ReadOnly,
                 2 => Self::ReadWrite,
-                _ => Self::UnknownValue(access_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(access_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -720,9 +698,7 @@ pub mod nfs_export_options {
                 "ACCESS_MODE_UNSPECIFIED" => Self::Unspecified,
                 "READ_ONLY" => Self::ReadOnly,
                 "READ_WRITE" => Self::ReadWrite,
-                _ => Self::UnknownValue(access_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(access_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -747,8 +723,7 @@ pub mod nfs_export_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessMode>::new(
-                ".google.cloud.filestore.v1.NfsExportOptions.AccessMode",
-            ))
+                ".google.cloud.filestore.v1.NfsExportOptions.AccessMode"))
         }
     }
 
@@ -838,9 +813,7 @@ pub mod nfs_export_options {
                 0 => Self::Unspecified,
                 1 => Self::NoRootSquash,
                 2 => Self::RootSquash,
-                _ => Self::UnknownValue(squash_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(squash_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -852,9 +825,7 @@ pub mod nfs_export_options {
                 "SQUASH_MODE_UNSPECIFIED" => Self::Unspecified,
                 "NO_ROOT_SQUASH" => Self::NoRootSquash,
                 "ROOT_SQUASH" => Self::RootSquash,
-                _ => Self::UnknownValue(squash_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(squash_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -879,8 +850,7 @@ pub mod nfs_export_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SquashMode>::new(
-                ".google.cloud.filestore.v1.NfsExportOptions.SquashMode",
-            ))
+                ".google.cloud.filestore.v1.NfsExportOptions.SquashMode"))
         }
     }
 }
@@ -889,6 +859,7 @@ pub mod nfs_export_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaConfig {
+
     /// Output only. The replica state.
     pub state: crate::model::replica_config::State,
 
@@ -912,10 +883,7 @@ impl ReplicaConfig {
     }
 
     /// Sets the value of [state][crate::model::ReplicaConfig::state].
-    pub fn set_state<T: std::convert::Into<crate::model::replica_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::replica_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -924,7 +892,7 @@ impl ReplicaConfig {
     pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::replica_config::StateReason>,
+        V: std::convert::Into<crate::model::replica_config::StateReason>
     {
         use std::iter::Iterator;
         self.state_reasons = v.into_iter().map(|i| i.into()).collect();
@@ -939,8 +907,7 @@ impl ReplicaConfig {
 
     /// Sets the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
     pub fn set_last_active_sync_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_active_sync_time = std::option::Option::Some(v.into());
         self
@@ -948,8 +915,7 @@ impl ReplicaConfig {
 
     /// Sets or clears the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
     pub fn set_or_clear_last_active_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_active_sync_time = v.map(|x| x.into());
         self
@@ -966,6 +932,7 @@ impl wkt::message::Message for ReplicaConfig {
 pub mod replica_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The replica state.
     ///
@@ -1065,9 +1032,7 @@ pub mod replica_config {
                 3 => Self::Ready,
                 4 => Self::Removing,
                 5 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1081,9 +1046,7 @@ pub mod replica_config {
                 "READY" => Self::Ready,
                 "REMOVING" => Self::Removing,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1110,8 +1073,7 @@ pub mod replica_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.filestore.v1.ReplicaConfig.State",
-            ))
+                ".google.cloud.filestore.v1.ReplicaConfig.State"))
         }
     }
 
@@ -1175,9 +1137,7 @@ pub mod replica_config {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("STATE_REASON_UNSPECIFIED"),
-                Self::PeerInstanceUnreachable => {
-                    std::option::Option::Some("PEER_INSTANCE_UNREACHABLE")
-                }
+                Self::PeerInstanceUnreachable => std::option::Option::Some("PEER_INSTANCE_UNREACHABLE"),
                 Self::RemoveFailed => std::option::Option::Some("REMOVE_FAILED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -1203,9 +1163,7 @@ pub mod replica_config {
                 0 => Self::Unspecified,
                 1 => Self::PeerInstanceUnreachable,
                 2 => Self::RemoveFailed,
-                _ => Self::UnknownValue(state_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1217,9 +1175,7 @@ pub mod replica_config {
                 "STATE_REASON_UNSPECIFIED" => Self::Unspecified,
                 "PEER_INSTANCE_UNREACHABLE" => Self::PeerInstanceUnreachable,
                 "REMOVE_FAILED" => Self::RemoveFailed,
-                _ => Self::UnknownValue(state_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1244,8 +1200,7 @@ pub mod replica_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StateReason>::new(
-                ".google.cloud.filestore.v1.ReplicaConfig.StateReason",
-            ))
+                ".google.cloud.filestore.v1.ReplicaConfig.StateReason"))
         }
     }
 }
@@ -1254,6 +1209,7 @@ pub mod replica_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Replication {
+
     /// Optional. The replication role.
     pub role: crate::model::replication::Role,
 
@@ -1270,10 +1226,7 @@ impl Replication {
     }
 
     /// Sets the value of [role][crate::model::Replication::role].
-    pub fn set_role<T: std::convert::Into<crate::model::replication::Role>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_role<T: std::convert::Into<crate::model::replication::Role>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
@@ -1282,7 +1235,7 @@ impl Replication {
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReplicaConfig>,
+        V: std::convert::Into<crate::model::ReplicaConfig>
     {
         use std::iter::Iterator;
         self.replicas = v.into_iter().map(|i| i.into()).collect();
@@ -1300,6 +1253,7 @@ impl wkt::message::Message for Replication {
 pub mod replication {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Replication role.
     ///
@@ -1389,9 +1343,7 @@ pub mod replication {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Standby,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1403,9 +1355,7 @@ pub mod replication {
                 "ROLE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "STANDBY" => Self::Standby,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1430,8 +1380,7 @@ pub mod replication {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Role>::new(
-                ".google.cloud.filestore.v1.Replication.Role",
-            ))
+                ".google.cloud.filestore.v1.Replication.Role"))
         }
     }
 }
@@ -1440,6 +1389,7 @@ pub mod replication {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Output only. The resource name of the instance, in the format
     /// `projects/{project}/locations/{location}/instances/{instance}`.
     pub name: std::string::String,
@@ -1460,7 +1410,7 @@ pub struct Instance {
     pub tier: crate::model::instance::Tier,
 
     /// Resource labels to represent user provided metadata.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// File system shares on the instance.
     /// For this version, only a single file share is supported.
@@ -1501,7 +1451,7 @@ pub struct Instance {
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
     /// - Short name:
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Immutable. The protocol indicates the access protocol for all shares in the
     /// instance. This field is immutable and it cannot be changed after the
@@ -1559,8 +1509,7 @@ impl Instance {
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1568,8 +1517,7 @@ impl Instance {
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1597,7 +1545,7 @@ impl Instance {
     pub fn set_file_shares<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FileShareConfig>,
+        V: std::convert::Into<crate::model::FileShareConfig>
     {
         use std::iter::Iterator;
         self.file_shares = v.into_iter().map(|i| i.into()).collect();
@@ -1608,7 +1556,7 @@ impl Instance {
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkConfig>,
+        V: std::convert::Into<crate::model::NetworkConfig>
     {
         use std::iter::Iterator;
         self.networks = v.into_iter().map(|i| i.into()).collect();
@@ -1623,8 +1571,7 @@ impl Instance {
 
     /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -1632,8 +1579,7 @@ impl Instance {
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -1655,7 +1601,7 @@ impl Instance {
     pub fn set_suspension_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance::SuspensionReason>,
+        V: std::convert::Into<crate::model::instance::SuspensionReason>
     {
         use std::iter::Iterator;
         self.suspension_reasons = v.into_iter().map(|i| i.into()).collect();
@@ -1664,8 +1610,7 @@ impl Instance {
 
     /// Sets the value of [replication][crate::model::Instance::replication].
     pub fn set_replication<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Replication>,
+    where T: std::convert::Into<crate::model::Replication>
     {
         self.replication = std::option::Option::Some(v.into());
         self
@@ -1673,8 +1618,7 @@ impl Instance {
 
     /// Sets or clears the value of [replication][crate::model::Instance::replication].
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Replication>,
+    where T: std::convert::Into<crate::model::Replication>
     {
         self.replication = v.map(|x| x.into());
         self
@@ -1693,10 +1637,7 @@ impl Instance {
     }
 
     /// Sets the value of [protocol][crate::model::Instance::protocol].
-    pub fn set_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
@@ -1709,8 +1650,7 @@ impl Instance {
 
     /// Sets the value of [performance_config][crate::model::Instance::performance_config].
     pub fn set_performance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PerformanceConfig>,
+    where T: std::convert::Into<crate::model::instance::PerformanceConfig>
     {
         self.performance_config = std::option::Option::Some(v.into());
         self
@@ -1718,8 +1658,7 @@ impl Instance {
 
     /// Sets or clears the value of [performance_config][crate::model::Instance::performance_config].
     pub fn set_or_clear_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PerformanceConfig>,
+    where T: std::convert::Into<crate::model::instance::PerformanceConfig>
     {
         self.performance_config = v.map(|x| x.into());
         self
@@ -1727,8 +1666,7 @@ impl Instance {
 
     /// Sets the value of [performance_limits][crate::model::Instance::performance_limits].
     pub fn set_performance_limits<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PerformanceLimits>,
+    where T: std::convert::Into<crate::model::instance::PerformanceLimits>
     {
         self.performance_limits = std::option::Option::Some(v.into());
         self
@@ -1736,8 +1674,7 @@ impl Instance {
 
     /// Sets or clears the value of [performance_limits][crate::model::Instance::performance_limits].
     pub fn set_or_clear_performance_limits<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance::PerformanceLimits>,
+    where T: std::convert::Into<crate::model::instance::PerformanceLimits>
     {
         self.performance_limits = v.map(|x| x.into());
         self
@@ -1750,10 +1687,7 @@ impl Instance {
     }
 
     /// Sets the value of [deletion_protection_reason][crate::model::Instance::deletion_protection_reason].
-    pub fn set_deletion_protection_reason<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deletion_protection_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deletion_protection_reason = v.into();
         self
     }
@@ -1770,11 +1704,13 @@ pub mod instance {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// IOPS per TB.
     /// Filestore defines TB as 1024^4 bytes (TiB).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IOPSPerTB {
+
         /// Required. Maximum IOPS per TiB.
         pub max_iops_per_tb: i64,
 
@@ -1803,6 +1739,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FixedIOPS {
+
         /// Required. Maximum IOPS.
         pub max_iops: i64,
 
@@ -1837,6 +1774,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceConfig {
+
         pub mode: std::option::Option<crate::model::instance::performance_config::Mode>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1851,14 +1789,8 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are mutually
         /// exclusive.
-        pub fn set_mode<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::instance::performance_config::Mode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::instance::performance_config::Mode>>>(mut self, v: T) -> Self
+        {
             self.mode = v.into();
             self
         }
@@ -1866,14 +1798,10 @@ pub mod instance {
         /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// if it holds a `IopsPerTb`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn iops_per_tb(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::IOPSPerTB>> {
+        pub fn iops_per_tb(&self) -> std::option::Option<&std::boxed::Box<crate::model::instance::IOPSPerTB>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::instance::performance_config::Mode::IopsPerTb(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::instance::performance_config::Mode::IopsPerTb(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1883,14 +1811,11 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_iops_per_tb<
-            T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_iops_per_tb<T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::instance::performance_config::Mode::IopsPerTb(v.into()),
+                crate::model::instance::performance_config::Mode::IopsPerTb(
+                    v.into()
+                )
             );
             self
         }
@@ -1898,14 +1823,10 @@ pub mod instance {
         /// The value of [mode][crate::model::instance::PerformanceConfig::mode]
         /// if it holds a `FixedIops`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn fixed_iops(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
+        pub fn fixed_iops(&self) -> std::option::Option<&std::boxed::Box<crate::model::instance::FixedIOPS>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::instance::performance_config::Mode::FixedIops(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::instance::performance_config::Mode::FixedIops(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1915,14 +1836,11 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_fixed_iops<
-            T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_fixed_iops<T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::instance::performance_config::Mode::FixedIops(v.into()),
+                crate::model::instance::performance_config::Mode::FixedIops(
+                    v.into()
+                )
             );
             self
         }
@@ -1938,6 +1856,7 @@ pub mod instance {
     pub mod performance_config {
         #[allow(unused_imports)]
         use super::*;
+
 
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -1972,6 +1891,7 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceLimits {
+
         /// Output only. The max IOPS.
         pub max_iops: i64,
 
@@ -2168,9 +2088,7 @@ pub mod instance {
                 10 => Self::Resuming,
                 12 => Self::Reverting,
                 13 => Self::Promoting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2191,9 +2109,7 @@ pub mod instance {
                 "RESUMING" => Self::Resuming,
                 "REVERTING" => Self::Reverting,
                 "PROMOTING" => Self::Promoting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2227,8 +2143,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.filestore.v1.Instance.State",
-            ))
+                ".google.cloud.filestore.v1.Instance.State"))
         }
     }
 
@@ -2356,9 +2271,7 @@ pub mod instance {
                 6 => Self::Enterprise,
                 7 => Self::Zonal,
                 8 => Self::Regional,
-                _ => Self::UnknownValue(tier::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(tier::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2376,9 +2289,7 @@ pub mod instance {
                 "ENTERPRISE" => Self::Enterprise,
                 "ZONAL" => Self::Zonal,
                 "REGIONAL" => Self::Regional,
-                _ => Self::UnknownValue(tier::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(tier::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2409,8 +2320,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Tier>::new(
-                ".google.cloud.filestore.v1.Instance.Tier",
-            ))
+                ".google.cloud.filestore.v1.Instance.Tier"))
         }
     }
 
@@ -2495,9 +2405,7 @@ pub mod instance {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::KmsKeyIssue,
-                _ => Self::UnknownValue(suspension_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2508,9 +2416,7 @@ pub mod instance {
             match value {
                 "SUSPENSION_REASON_UNSPECIFIED" => Self::Unspecified,
                 "KMS_KEY_ISSUE" => Self::KmsKeyIssue,
-                _ => Self::UnknownValue(suspension_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2534,8 +2440,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SuspensionReason>::new(
-                ".google.cloud.filestore.v1.Instance.SuspensionReason",
-            ))
+                ".google.cloud.filestore.v1.Instance.SuspensionReason"))
         }
     }
 
@@ -2626,9 +2531,7 @@ pub mod instance {
                 0 => Self::Unspecified,
                 1 => Self::NfsV3,
                 2 => Self::NfsV41,
-                _ => Self::UnknownValue(file_protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(file_protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2640,9 +2543,7 @@ pub mod instance {
                 "FILE_PROTOCOL_UNSPECIFIED" => Self::Unspecified,
                 "NFS_V3" => Self::NfsV3,
                 "NFS_V4_1" => Self::NfsV41,
-                _ => Self::UnknownValue(file_protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(file_protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2667,8 +2568,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileProtocol>::new(
-                ".google.cloud.filestore.v1.Instance.FileProtocol",
-            ))
+                ".google.cloud.filestore.v1.Instance.FileProtocol"))
         }
     }
 }
@@ -2677,6 +2577,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+
     /// Required. The instance's project and location, in the format
     /// `projects/{project_id}/locations/{location}`. In Filestore,
     /// locations map to Google Cloud zones, for example **us-west1-b**.
@@ -2713,8 +2614,7 @@ impl CreateInstanceRequest {
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2722,8 +2622,7 @@ impl CreateInstanceRequest {
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2740,6 +2639,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. The instance resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`.
     pub name: std::string::String,
@@ -2769,6 +2669,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
+
     /// Mask of fields to update.  At least one path must be supplied in this
     /// field.  The elements of the repeated paths field may only include these
     /// fields:
@@ -2794,8 +2695,7 @@ impl UpdateInstanceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2803,8 +2703,7 @@ impl UpdateInstanceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2812,8 +2711,7 @@ impl UpdateInstanceRequest {
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -2821,8 +2719,7 @@ impl UpdateInstanceRequest {
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -2840,6 +2737,7 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreInstanceRequest {
+
     /// Required. The resource name of the instance, in the format
     /// `projects/{project_number}/locations/{location_id}/instances/{instance_id}`.
     pub name: std::string::String,
@@ -2874,12 +2772,8 @@ impl RestoreInstanceRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::restore_instance_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::restore_instance_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -2890,9 +2784,7 @@ impl RestoreInstanceRequest {
     pub fn source_backup(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::restore_instance_request::Source::SourceBackup(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::restore_instance_request::Source::SourceBackup(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2904,7 +2796,9 @@ impl RestoreInstanceRequest {
     /// mutually exclusive.
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::restore_instance_request::Source::SourceBackup(v.into()),
+            crate::model::restore_instance_request::Source::SourceBackup(
+                v.into()
+            )
         );
         self
     }
@@ -2921,6 +2815,7 @@ pub mod restore_instance_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
@@ -2935,6 +2830,7 @@ pub mod restore_instance_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevertInstanceRequest {
+
     /// Required. The resource name of the instance, in the format
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
     pub name: std::string::String,
@@ -2959,10 +2855,7 @@ impl RevertInstanceRequest {
     }
 
     /// Sets the value of [target_snapshot_id][crate::model::RevertInstanceRequest::target_snapshot_id].
-    pub fn set_target_snapshot_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_target_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_snapshot_id = v.into();
         self
     }
@@ -2978,6 +2871,7 @@ impl wkt::message::Message for RevertInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+
     /// Required. The instance resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub name: std::string::String,
@@ -3017,6 +2911,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. The project and location for which to retrieve instance
     /// information, in the format `projects/{project_id}/locations/{location}`. In
     /// Cloud Filestore, locations map to Google Cloud zones, for example
@@ -3087,6 +2982,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// A list of instances in the project for the specified location.
     ///
     /// If the `{location}` value in the request is "-", the response contains a
@@ -3114,7 +3010,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -3131,7 +3027,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3163,6 +3059,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Snapshot {
+
     /// Output only. The resource name of the snapshot, in the format
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}/snapshots/{snapshot_id}`.
     pub name: std::string::String,
@@ -3178,7 +3075,7 @@ pub struct Snapshot {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Resource labels to represent user provided metadata.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The amount of bytes needed to allocate a full copy of the
     /// snapshot content
@@ -3195,7 +3092,7 @@ pub struct Snapshot {
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
     /// - Short name:
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3225,8 +3122,7 @@ impl Snapshot {
 
     /// Sets the value of [create_time][crate::model::Snapshot::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3234,8 +3130,7 @@ impl Snapshot {
 
     /// Sets or clears the value of [create_time][crate::model::Snapshot::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3282,6 +3177,7 @@ impl wkt::message::Message for Snapshot {
 pub mod snapshot {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The snapshot state.
     ///
@@ -3374,9 +3270,7 @@ pub mod snapshot {
                 1 => Self::Creating,
                 2 => Self::Ready,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3389,9 +3283,7 @@ pub mod snapshot {
                 "CREATING" => Self::Creating,
                 "READY" => Self::Ready,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3417,8 +3309,7 @@ pub mod snapshot {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.filestore.v1.Snapshot.State",
-            ))
+                ".google.cloud.filestore.v1.Snapshot.State"))
         }
     }
 }
@@ -3427,6 +3318,7 @@ pub mod snapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnapshotRequest {
+
     /// Required. The Filestore Instance to create the snapshots of, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     pub parent: std::string::String,
@@ -3463,8 +3355,7 @@ impl CreateSnapshotRequest {
 
     /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
     pub fn set_snapshot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = std::option::Option::Some(v.into());
         self
@@ -3472,8 +3363,7 @@ impl CreateSnapshotRequest {
 
     /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = v.map(|x| x.into());
         self
@@ -3490,6 +3380,7 @@ impl wkt::message::Message for CreateSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnapshotRequest {
+
     /// Required. The snapshot resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}/snapshots/{snapshot_id}`
     pub name: std::string::String,
@@ -3519,6 +3410,7 @@ impl wkt::message::Message for GetSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSnapshotRequest {
+
     /// Required. The snapshot resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}/snapshots/{snapshot_id}`
     pub name: std::string::String,
@@ -3548,6 +3440,7 @@ impl wkt::message::Message for DeleteSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSnapshotRequest {
+
     /// Required. Mask of fields to update. At least one path must be supplied in
     /// this field.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -3565,8 +3458,7 @@ impl UpdateSnapshotRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3574,8 +3466,7 @@ impl UpdateSnapshotRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3583,8 +3474,7 @@ impl UpdateSnapshotRequest {
 
     /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
     pub fn set_snapshot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = std::option::Option::Some(v.into());
         self
@@ -3592,8 +3482,7 @@ impl UpdateSnapshotRequest {
 
     /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Snapshot>,
+    where T: std::convert::Into<crate::model::Snapshot>
     {
         self.snapshot = v.map(|x| x.into());
         self
@@ -3610,6 +3499,7 @@ impl wkt::message::Message for UpdateSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsRequest {
+
     /// Required. The instance for which to retrieve snapshot information,
     /// in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`.
@@ -3687,6 +3577,7 @@ impl wkt::message::Message for ListSnapshotsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsResponse {
+
     /// A list of snapshots in the project for the specified instance.
     pub snapshots: std::vec::Vec<crate::model::Snapshot>,
 
@@ -3709,7 +3600,7 @@ impl ListSnapshotsResponse {
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Snapshot>,
+        V: std::convert::Into<crate::model::Snapshot>
     {
         use std::iter::Iterator;
         self.snapshots = v.into_iter().map(|i| i.into()).collect();
@@ -3726,7 +3617,7 @@ impl ListSnapshotsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3758,6 +3649,7 @@ impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
+
     /// Output only. The resource name of the backup, in the format
     /// `projects/{project_number}/locations/{location_id}/backups/{backup_id}`.
     pub name: std::string::String,
@@ -3773,7 +3665,7 @@ pub struct Backup {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Resource labels to represent user provided metadata.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Capacity of the source file share when the backup was created.
     pub capacity_gb: i64,
@@ -3820,7 +3712,7 @@ pub struct Backup {
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_key>
     /// - Short name:
     ///   <https://cloud.google.com/resource-manager/docs/tags/tags-creating-and-managing#retrieving_tag_value>
-    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+    pub tags: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The file system protocol of the source Filestore instance that
     /// this backup is created from.
@@ -3854,8 +3746,7 @@ impl Backup {
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3863,8 +3754,7 @@ impl Backup {
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3901,19 +3791,13 @@ impl Backup {
     }
 
     /// Sets the value of [source_file_share][crate::model::Backup::source_file_share].
-    pub fn set_source_file_share<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_file_share<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_file_share = v.into();
         self
     }
 
     /// Sets the value of [source_instance_tier][crate::model::Backup::source_instance_tier].
-    pub fn set_source_instance_tier<T: std::convert::Into<crate::model::instance::Tier>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_instance_tier<T: std::convert::Into<crate::model::instance::Tier>>(mut self, v: T) -> Self {
         self.source_instance_tier = v.into();
         self
     }
@@ -3926,8 +3810,7 @@ impl Backup {
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -3935,8 +3818,7 @@ impl Backup {
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
@@ -3967,10 +3849,7 @@ impl Backup {
     }
 
     /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
-    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(mut self, v: T) -> Self {
         self.file_system_protocol = v.into();
         self
     }
@@ -3986,6 +3865,7 @@ impl wkt::message::Message for Backup {
 pub mod backup {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The backup state.
     ///
@@ -4090,9 +3970,7 @@ pub mod backup {
                 3 => Self::Ready,
                 4 => Self::Deleting,
                 5 => Self::Invalid,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4107,9 +3985,7 @@ pub mod backup {
                 "READY" => Self::Ready,
                 "DELETING" => Self::Deleting,
                 "INVALID" => Self::Invalid,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4137,8 +4013,7 @@ pub mod backup {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.filestore.v1.Backup.State",
-            ))
+                ".google.cloud.filestore.v1.Backup.State"))
         }
     }
 }
@@ -4147,6 +4022,7 @@ pub mod backup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
+
     /// Required. The backup's project and location, in the format
     /// `projects/{project_number}/locations/{location}`. In Filestore,
     /// backup locations map to Google Cloud regions, for example **us-west1**.
@@ -4182,8 +4058,7 @@ impl CreateBackupRequest {
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -4191,8 +4066,7 @@ impl CreateBackupRequest {
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -4215,6 +4089,7 @@ impl wkt::message::Message for CreateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
+
     /// Required. The backup resource name, in the format
     /// `projects/{project_number}/locations/{location}/backups/{backup_id}`
     pub name: std::string::String,
@@ -4244,6 +4119,7 @@ impl wkt::message::Message for DeleteBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
+
     /// Required. A [backup resource][google.cloud.filestore.v1.Backup]
     ///
     /// [google.cloud.filestore.v1.Backup]: crate::model::Backup
@@ -4263,8 +4139,7 @@ impl UpdateBackupRequest {
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -4272,8 +4147,7 @@ impl UpdateBackupRequest {
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -4281,8 +4155,7 @@ impl UpdateBackupRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4290,8 +4163,7 @@ impl UpdateBackupRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4308,6 +4180,7 @@ impl wkt::message::Message for UpdateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PromoteReplicaRequest {
+
     /// Required. The resource name of the instance, in the format
     /// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`.
     pub name: std::string::String,
@@ -4349,6 +4222,7 @@ impl wkt::message::Message for PromoteReplicaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
+
     /// Required. The backup resource name, in the format
     /// `projects/{project_number}/locations/{location}/backups/{backup_id}`.
     pub name: std::string::String,
@@ -4378,6 +4252,7 @@ impl wkt::message::Message for GetBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
+
     /// Required. The project and location for which to retrieve backup
     /// information, in the format
     /// `projects/{project_number}/locations/{location}`. In Filestore, backup
@@ -4448,6 +4323,7 @@ impl wkt::message::Message for ListBackupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
+
     /// A list of backups in the project for the specified location.
     ///
     /// If the `{location}` value in the request is "-", the response contains a
@@ -4476,7 +4352,7 @@ impl ListBackupsResponse {
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Backup>,
+        V: std::convert::Into<crate::model::Backup>
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
@@ -4493,7 +4369,7 @@ impl ListBackupsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();

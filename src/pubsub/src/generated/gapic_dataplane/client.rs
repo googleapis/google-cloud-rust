@@ -23,52 +23,40 @@ pub struct Publisher {
 }
 
 impl Publisher {
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Publisher + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Publisher + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Publisher>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Publisher>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Publisher> {
         super::transport::Publisher::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Publisher> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Publisher::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Publisher> {
+        Self::build_transport(conf).await.map(super::tracing::Publisher::new)
     }
 
     /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
     /// does not exist.
-    pub fn publish(&self) -> super::builder::publisher::Publish {
+    pub fn publish(&self) -> super::builder::publisher::Publish
+    {
         super::builder::publisher::Publish::new(self.inner.clone())
     }
 }
@@ -80,47 +68,34 @@ pub struct Subscriber {
 }
 
 impl Subscriber {
+
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Subscriber + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Subscriber + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subscriber>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subscriber>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Subscriber> {
         super::transport::Subscriber::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Subscriber::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Subscriber> {
+        Self::build_transport(conf).await.map(super::tracing::Subscriber::new)
     }
 
     /// Modifies the ack deadline for a specific message. This method is useful
@@ -128,7 +103,8 @@ impl Subscriber {
     /// subscriber, or to make the message available for redelivery if the
     /// processing was interrupted. Note that this does not modify the
     /// subscription-level `ackDeadlineSeconds` used for subsequent messages.
-    pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline {
+    pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline
+    {
         super::builder::subscriber::ModifyAckDeadline::new(self.inner.clone())
     }
 
@@ -139,7 +115,8 @@ impl Subscriber {
     /// Acknowledging a message whose ack deadline has expired may succeed,
     /// but such a message may be redelivered later. Acknowledging a message more
     /// than once will not result in an error.
-    pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
+    pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge
+    {
         super::builder::subscriber::Acknowledge::new(self.inner.clone())
     }
 }

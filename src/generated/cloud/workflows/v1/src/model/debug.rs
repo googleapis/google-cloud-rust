@@ -58,6 +58,9 @@ impl std::fmt::Debug for super::workflow::StateError {
     }
 }
 
+
+
+
 impl std::fmt::Debug for super::ListWorkflowsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListWorkflowsRequest");

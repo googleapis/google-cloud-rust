@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ConnectionService](super::stub::ConnectionService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ConnectionService for ConnectionService<T>
-where
-    T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ConnectionService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_connections(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_connections",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_connections(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_connections(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -76,3 +67,4 @@ where
         self.inner.list_connections(req, options).await
     }
 }
+

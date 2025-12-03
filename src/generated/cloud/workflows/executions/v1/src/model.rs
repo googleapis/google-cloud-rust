@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Execution {
+
     /// Output only. The resource name of the execution.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
@@ -90,7 +91,7 @@ pub struct Execution {
     /// International characters are allowed.
     /// By default, labels are inherited from the workflow but are overridden by
     /// any labels associated with the execution.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Error regarding the state of the Execution resource. For
     /// example, this field will have error details if the execution data is
@@ -113,8 +114,7 @@ impl Execution {
 
     /// Sets the value of [start_time][crate::model::Execution::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -122,8 +122,7 @@ impl Execution {
 
     /// Sets or clears the value of [start_time][crate::model::Execution::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -131,8 +130,7 @@ impl Execution {
 
     /// Sets the value of [end_time][crate::model::Execution::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -140,8 +138,7 @@ impl Execution {
 
     /// Sets or clears the value of [end_time][crate::model::Execution::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -149,8 +146,7 @@ impl Execution {
 
     /// Sets the value of [duration][crate::model::Execution::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -158,18 +154,14 @@ impl Execution {
 
     /// Sets or clears the value of [duration][crate::model::Execution::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::Execution::state].
-    pub fn set_state<T: std::convert::Into<crate::model::execution::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::execution::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -188,8 +180,7 @@ impl Execution {
 
     /// Sets the value of [error][crate::model::Execution::error].
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::Error>,
+    where T: std::convert::Into<crate::model::execution::Error>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -197,35 +188,27 @@ impl Execution {
 
     /// Sets or clears the value of [error][crate::model::Execution::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::Error>,
+    where T: std::convert::Into<crate::model::execution::Error>
     {
         self.error = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [workflow_revision_id][crate::model::Execution::workflow_revision_id].
-    pub fn set_workflow_revision_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_workflow_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workflow_revision_id = v.into();
         self
     }
 
     /// Sets the value of [call_log_level][crate::model::Execution::call_log_level].
-    pub fn set_call_log_level<T: std::convert::Into<crate::model::execution::CallLogLevel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_call_log_level<T: std::convert::Into<crate::model::execution::CallLogLevel>>(mut self, v: T) -> Self {
         self.call_log_level = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::Execution::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::Status>,
+    where T: std::convert::Into<crate::model::execution::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -233,8 +216,7 @@ impl Execution {
 
     /// Sets or clears the value of [status][crate::model::Execution::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::Status>,
+    where T: std::convert::Into<crate::model::execution::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -254,8 +236,7 @@ impl Execution {
 
     /// Sets the value of [state_error][crate::model::Execution::state_error].
     pub fn set_state_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::StateError>,
+    where T: std::convert::Into<crate::model::execution::StateError>
     {
         self.state_error = std::option::Option::Some(v.into());
         self
@@ -263,8 +244,7 @@ impl Execution {
 
     /// Sets or clears the value of [state_error][crate::model::Execution::state_error].
     pub fn set_or_clear_state_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::execution::StateError>,
+    where T: std::convert::Into<crate::model::execution::StateError>
     {
         self.state_error = v.map(|x| x.into());
         self
@@ -282,10 +262,12 @@ pub mod execution {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A single stack element (frame) where an error occurred.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackTraceElement {
+
         /// The step the error occurred at.
         pub step: std::string::String,
 
@@ -317,8 +299,7 @@ pub mod execution {
 
         /// Sets the value of [position][crate::model::execution::StackTraceElement::position].
         pub fn set_position<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
+        where T: std::convert::Into<crate::model::execution::stack_trace_element::Position>
         {
             self.position = std::option::Option::Some(v.into());
             self
@@ -326,8 +307,7 @@ pub mod execution {
 
         /// Sets or clears the value of [position][crate::model::execution::StackTraceElement::position].
         pub fn set_or_clear_position<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::execution::stack_trace_element::Position>,
+        where T: std::convert::Into<crate::model::execution::stack_trace_element::Position>
         {
             self.position = v.map(|x| x.into());
             self
@@ -345,12 +325,14 @@ pub mod execution {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Position contains source position information about the stack trace
         /// element such as line number, column number and length of the code block
         /// in bytes.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Position {
+
             /// The source code line number the current instruction was generated from.
             pub line: i64,
 
@@ -399,6 +381,7 @@ pub mod execution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StackTrace {
+
         /// An array of stack elements.
         pub elements: std::vec::Vec<crate::model::execution::StackTraceElement>,
 
@@ -414,7 +397,7 @@ pub mod execution {
         pub fn set_elements<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::execution::StackTraceElement>,
+            V: std::convert::Into<crate::model::execution::StackTraceElement>
         {
             use std::iter::Iterator;
             self.elements = v.into_iter().map(|i| i.into()).collect();
@@ -432,6 +415,7 @@ pub mod execution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Error {
+
         /// Error message and data returned represented as a JSON string.
         pub payload: std::string::String,
 
@@ -463,8 +447,7 @@ pub mod execution {
 
         /// Sets the value of [stack_trace][crate::model::execution::Error::stack_trace].
         pub fn set_stack_trace<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::execution::StackTrace>,
+        where T: std::convert::Into<crate::model::execution::StackTrace>
         {
             self.stack_trace = std::option::Option::Some(v.into());
             self
@@ -472,8 +455,7 @@ pub mod execution {
 
         /// Sets or clears the value of [stack_trace][crate::model::execution::Error::stack_trace].
         pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::execution::StackTrace>,
+        where T: std::convert::Into<crate::model::execution::StackTrace>
         {
             self.stack_trace = v.map(|x| x.into());
             self
@@ -490,6 +472,7 @@ pub mod execution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Status {
+
         /// A list of currently executing or last executed step names for the
         /// workflow execution currently running. If the workflow has succeeded or
         /// failed, this is the last attempted or executed step. Presently, if the
@@ -511,7 +494,7 @@ pub mod execution {
         pub fn set_current_steps<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::execution::status::Step>,
+            V: std::convert::Into<crate::model::execution::status::Step>
         {
             use std::iter::Iterator;
             self.current_steps = v.into_iter().map(|i| i.into()).collect();
@@ -530,10 +513,12 @@ pub mod execution {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Represents a step of the workflow this execution is running.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Step {
+
             /// Name of a routine within the workflow.
             pub routine: std::string::String,
 
@@ -572,6 +557,7 @@ pub mod execution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateError {
+
         /// Provides specifics about the error.
         pub details: std::string::String,
 
@@ -593,10 +579,7 @@ pub mod execution {
         }
 
         /// Sets the value of [r#type][crate::model::execution::StateError::type].
-        pub fn set_type<T: std::convert::Into<crate::model::execution::state_error::Type>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::execution::state_error::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -612,6 +595,7 @@ pub mod execution {
     pub mod state_error {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Describes the possible types of a state error.
         ///
@@ -684,10 +668,7 @@ pub mod execution {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -697,9 +678,7 @@ pub mod execution {
                 match value {
                     0 => Self::Unspecified,
                     1 => Self::KmsError,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -710,9 +689,7 @@ pub mod execution {
                 match value {
                     "TYPE_UNSPECIFIED" => Self::Unspecified,
                     "KMS_ERROR" => Self::KmsError,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -736,8 +713,7 @@ pub mod execution {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.cloud.workflows.executions.v1.Execution.StateError.Type",
-                ))
+                    ".google.cloud.workflows.executions.v1.Execution.StateError.Type"))
             }
         }
     }
@@ -849,9 +825,7 @@ pub mod execution {
                 4 => Self::Cancelled,
                 5 => Self::Unavailable,
                 6 => Self::Queued,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -867,9 +841,7 @@ pub mod execution {
                 "CANCELLED" => Self::Cancelled,
                 "UNAVAILABLE" => Self::Unavailable,
                 "QUEUED" => Self::Queued,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -898,8 +870,7 @@ pub mod execution {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.workflows.executions.v1.Execution.State",
-            ))
+                ".google.cloud.workflows.executions.v1.Execution.State"))
         }
     }
 
@@ -996,9 +967,7 @@ pub mod execution {
                 1 => Self::LogAllCalls,
                 2 => Self::LogErrorsOnly,
                 3 => Self::LogNone,
-                _ => Self::UnknownValue(call_log_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(call_log_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1011,9 +980,7 @@ pub mod execution {
                 "LOG_ALL_CALLS" => Self::LogAllCalls,
                 "LOG_ERRORS_ONLY" => Self::LogErrorsOnly,
                 "LOG_NONE" => Self::LogNone,
-                _ => Self::UnknownValue(call_log_level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(call_log_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1039,8 +1006,7 @@ pub mod execution {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CallLogLevel>::new(
-                ".google.cloud.workflows.executions.v1.Execution.CallLogLevel",
-            ))
+                ".google.cloud.workflows.executions.v1.Execution.CallLogLevel"))
         }
     }
 }
@@ -1051,6 +1017,7 @@ pub mod execution {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsRequest {
+
     /// Required. Name of the workflow for which the executions should be listed.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     pub parent: std::string::String,
@@ -1147,6 +1114,7 @@ impl wkt::message::Message for ListExecutionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsResponse {
+
     /// The executions which match the request.
     pub executions: std::vec::Vec<crate::model::Execution>,
 
@@ -1166,7 +1134,7 @@ impl ListExecutionsResponse {
     pub fn set_executions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Execution>,
+        V: std::convert::Into<crate::model::Execution>
     {
         use std::iter::Iterator;
         self.executions = v.into_iter().map(|i| i.into()).collect();
@@ -1208,6 +1176,7 @@ impl gax::paginator::internal::PageableResponse for ListExecutionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExecutionRequest {
+
     /// Required. Name of the workflow for which an execution should be created.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     /// The latest revision of the workflow will be used.
@@ -1232,8 +1201,7 @@ impl CreateExecutionRequest {
 
     /// Sets the value of [execution][crate::model::CreateExecutionRequest::execution].
     pub fn set_execution<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Execution>,
+    where T: std::convert::Into<crate::model::Execution>
     {
         self.execution = std::option::Option::Some(v.into());
         self
@@ -1241,8 +1209,7 @@ impl CreateExecutionRequest {
 
     /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
     pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Execution>,
+    where T: std::convert::Into<crate::model::Execution>
     {
         self.execution = v.map(|x| x.into());
         self
@@ -1263,6 +1230,7 @@ impl wkt::message::Message for CreateExecutionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExecutionRequest {
+
     /// Required. Name of the execution to be retrieved.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
@@ -1307,6 +1275,7 @@ impl wkt::message::Message for GetExecutionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelExecutionRequest {
+
     /// Required. Name of the execution to be cancelled.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
@@ -1421,9 +1390,7 @@ impl std::convert::From<i32> for ExecutionView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(execution_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(execution_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1435,9 +1402,7 @@ impl std::convert::From<&str> for ExecutionView {
             "EXECUTION_VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(execution_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(execution_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1462,7 +1427,6 @@ impl<'de> serde::de::Deserialize<'de> for ExecutionView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionView>::new(
-            ".google.cloud.workflows.executions.v1.ExecutionView",
-        ))
+            ".google.cloud.workflows.executions.v1.ExecutionView"))
     }
 }

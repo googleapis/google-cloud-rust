@@ -80,42 +80,28 @@ impl Policies {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Policies + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Policies + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Policies> {
         super::transport::Policies::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Policies> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Policies::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Policies> {
+        Self::build_transport(conf).await.map(super::tracing::Policies::new)
     }
 
     /// Retrieves the policies of the specified kind that are attached to a
@@ -123,12 +109,14 @@ impl Policies {
     ///
     /// The response lists only policy metadata. In particular, policy rules are
     /// omitted.
-    pub fn list_policies(&self) -> super::builder::policies::ListPolicies {
+    pub fn list_policies(&self) -> super::builder::policies::ListPolicies
+    {
         super::builder::policies::ListPolicies::new(self.inner.clone())
     }
 
     /// Gets a policy.
-    pub fn get_policy(&self) -> super::builder::policies::GetPolicy {
+    pub fn get_policy(&self) -> super::builder::policies::GetPolicy
+    {
         super::builder::policies::GetPolicy::new(self.inner.clone())
     }
 
@@ -143,7 +131,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy(&self) -> super::builder::policies::CreatePolicy {
+    pub fn create_policy(&self) -> super::builder::policies::CreatePolicy
+    {
         super::builder::policies::CreatePolicy::new(self.inner.clone())
     }
 
@@ -170,7 +159,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy(&self) -> super::builder::policies::UpdatePolicy {
+    pub fn update_policy(&self) -> super::builder::policies::UpdatePolicy
+    {
         super::builder::policies::UpdatePolicy::new(self.inner.clone())
     }
 
@@ -185,14 +175,16 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy(&self) -> super::builder::policies::DeletePolicy {
+    pub fn delete_policy(&self) -> super::builder::policies::DeletePolicy
+    {
         super::builder::policies::DeletePolicy::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::policies::GetOperation {
+    pub fn get_operation(&self) -> super::builder::policies::GetOperation
+    {
         super::builder::policies::GetOperation::new(self.inner.clone())
     }
 }

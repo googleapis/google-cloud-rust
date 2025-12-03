@@ -22,27 +22,12 @@ impl std::fmt::Debug for super::Policy {
         let mut debug_struct = f.debug_struct("Policy");
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
-        debug_struct.field(
-            "global_policy_evaluation_mode",
-            &self.global_policy_evaluation_mode,
-        );
-        debug_struct.field(
-            "admission_whitelist_patterns",
-            &self.admission_whitelist_patterns,
-        );
+        debug_struct.field("global_policy_evaluation_mode", &self.global_policy_evaluation_mode);
+        debug_struct.field("admission_whitelist_patterns", &self.admission_whitelist_patterns);
         debug_struct.field("cluster_admission_rules", &self.cluster_admission_rules);
-        debug_struct.field(
-            "kubernetes_namespace_admission_rules",
-            &self.kubernetes_namespace_admission_rules,
-        );
-        debug_struct.field(
-            "kubernetes_service_account_admission_rules",
-            &self.kubernetes_service_account_admission_rules,
-        );
-        debug_struct.field(
-            "istio_service_identity_admission_rules",
-            &self.istio_service_identity_admission_rules,
-        );
+        debug_struct.field("kubernetes_namespace_admission_rules", &self.kubernetes_namespace_admission_rules);
+        debug_struct.field("kubernetes_service_account_admission_rules", &self.kubernetes_service_account_admission_rules);
+        debug_struct.field("istio_service_identity_admission_rules", &self.istio_service_identity_admission_rules);
         debug_struct.field("default_admission_rule", &self.default_admission_rule);
         debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {
@@ -51,6 +36,10 @@ impl std::fmt::Debug for super::Policy {
         debug_struct.finish()
     }
 }
+
+
+
+
 
 impl std::fmt::Debug for super::AdmissionWhitelistPattern {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -95,10 +84,7 @@ impl std::fmt::Debug for super::UserOwnedGrafeasNote {
         let mut debug_struct = f.debug_struct("UserOwnedGrafeasNote");
         debug_struct.field("note_reference", &self.note_reference);
         debug_struct.field("public_keys", &self.public_keys);
-        debug_struct.field(
-            "delegation_service_account_email",
-            &self.delegation_service_account_email,
-        );
+        debug_struct.field("delegation_service_account_email", &self.delegation_service_account_email);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

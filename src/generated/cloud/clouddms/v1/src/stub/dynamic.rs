@@ -255,9 +255,7 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>>;
 
     async fn fetch_static_ips(
         &self,
@@ -545,8 +543,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::ListConversionWorkspacesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListConversionWorkspacesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConversionWorkspacesResponse>> {
         T::list_conversion_workspaces(self, req, options).await
     }
 
@@ -672,8 +669,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DescribeDatabaseEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>> {
         T::describe_database_entities(self, req, options).await
     }
 
@@ -691,9 +687,7 @@ impl<T: super::DataMigrationService> DataMigrationService for T {
         &self,
         req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>> {
         T::describe_conversion_workspace_revisions(self, req, options).await
     }
 

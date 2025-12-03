@@ -100,10 +100,7 @@ impl std::fmt::Debug for super::StreamingPullRequest {
         debug_struct.field("ack_ids", &self.ack_ids);
         debug_struct.field("modify_deadline_seconds", &self.modify_deadline_seconds);
         debug_struct.field("modify_deadline_ack_ids", &self.modify_deadline_ack_ids);
-        debug_struct.field(
-            "stream_ack_deadline_seconds",
-            &self.stream_ack_deadline_seconds,
-        );
+        debug_struct.field("stream_ack_deadline_seconds", &self.stream_ack_deadline_seconds);
         debug_struct.field("client_id", &self.client_id);
         debug_struct.field("max_outstanding_messages", &self.max_outstanding_messages);
         debug_struct.field("max_outstanding_bytes", &self.max_outstanding_bytes);
@@ -120,10 +117,7 @@ impl std::fmt::Debug for super::StreamingPullResponse {
         let mut debug_struct = f.debug_struct("StreamingPullResponse");
         debug_struct.field("received_messages", &self.received_messages);
         debug_struct.field("acknowledge_confirmation", &self.acknowledge_confirmation);
-        debug_struct.field(
-            "modify_ack_deadline_confirmation",
-            &self.modify_ack_deadline_confirmation,
-        );
+        debug_struct.field("modify_ack_deadline_confirmation", &self.modify_ack_deadline_confirmation);
         debug_struct.field("subscription_properties", &self.subscription_properties);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -162,10 +156,7 @@ impl std::fmt::Debug for super::streaming_pull_response::ModifyAckDeadlineConfir
 impl std::fmt::Debug for super::streaming_pull_response::SubscriptionProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SubscriptionProperties");
-        debug_struct.field(
-            "exactly_once_delivery_enabled",
-            &self.exactly_once_delivery_enabled,
-        );
+        debug_struct.field("exactly_once_delivery_enabled", &self.exactly_once_delivery_enabled);
         debug_struct.field("message_ordering_enabled", &self.message_ordering_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -33,6 +33,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Version of the `Policy`. Default version is 0;
     pub version: i32,
 
@@ -107,8 +108,7 @@ impl Policy {
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -116,8 +116,7 @@ impl Policy {
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -127,12 +126,8 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are mutually
     /// exclusive.
-    pub fn set_policy_type<
-        T: std::convert::Into<std::option::Option<crate::model::policy::PolicyType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy_type<T: std::convert::Into<std::option::Option<crate::model::policy::PolicyType>>>(mut self, v: T) -> Self
+    {
         self.policy_type = v.into();
         self
     }
@@ -140,9 +135,7 @@ impl Policy {
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `ListPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn list_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::ListPolicy>> {
+    pub fn list_policy(&self) -> std::option::Option<&std::boxed::Box<crate::model::policy::ListPolicy>> {
         #[allow(unreachable_patterns)]
         self.policy_type.as_ref().and_then(|v| match v {
             crate::model::policy::PolicyType::ListPolicy(v) => std::option::Option::Some(v),
@@ -155,23 +148,19 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    pub fn set_list_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::ListPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::ListPolicy(v.into()));
+    pub fn set_list_policy<T: std::convert::Into<std::boxed::Box<crate::model::policy::ListPolicy>>>(mut self, v: T) -> Self {
+        self.policy_type = std::option::Option::Some(
+            crate::model::policy::PolicyType::ListPolicy(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `BooleanPolicy`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn boolean_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
+    pub fn boolean_policy(&self) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
         #[allow(unreachable_patterns)]
         self.policy_type.as_ref().and_then(|v| match v {
             crate::model::policy::PolicyType::BooleanPolicy(v) => std::option::Option::Some(v),
@@ -184,23 +173,19 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    pub fn set_boolean_policy<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::BooleanPolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::BooleanPolicy(v.into()));
+    pub fn set_boolean_policy<T: std::convert::Into<std::boxed::Box<crate::model::policy::BooleanPolicy>>>(mut self, v: T) -> Self {
+        self.policy_type = std::option::Option::Some(
+            crate::model::policy::PolicyType::BooleanPolicy(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [policy_type][crate::model::Policy::policy_type]
     /// if it holds a `RestoreDefault`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn restore_default(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
+    pub fn restore_default(&self) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
         #[allow(unreachable_patterns)]
         self.policy_type.as_ref().and_then(|v| match v {
             crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
@@ -213,14 +198,12 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    pub fn set_restore_default<
-        T: std::convert::Into<std::boxed::Box<crate::model::policy::RestoreDefault>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy_type =
-            std::option::Option::Some(crate::model::policy::PolicyType::RestoreDefault(v.into()));
+    pub fn set_restore_default<T: std::convert::Into<std::boxed::Box<crate::model::policy::RestoreDefault>>>(mut self, v: T) -> Self {
+        self.policy_type = std::option::Option::Some(
+            crate::model::policy::PolicyType::RestoreDefault(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -235,6 +218,7 @@ impl wkt::message::Message for Policy {
 pub mod policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Used in `policy_type` to specify how `list_policy` behaves at this
     /// resource.
@@ -262,6 +246,7 @@ pub mod policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListPolicy {
+
         /// List of values allowed  at this resource. Can only be set if `all_values`
         /// is set to `ALL_VALUES_UNSPECIFIED`.
         pub allowed_values: std::vec::Vec<std::string::String>,
@@ -390,7 +375,7 @@ pub mod policy {
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.allowed_values = v.into_iter().map(|i| i.into()).collect();
@@ -401,7 +386,7 @@ pub mod policy {
         pub fn set_denied_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.denied_values = v.into_iter().map(|i| i.into()).collect();
@@ -409,21 +394,13 @@ pub mod policy {
         }
 
         /// Sets the value of [all_values][crate::model::policy::ListPolicy::all_values].
-        pub fn set_all_values<
-            T: std::convert::Into<crate::model::policy::list_policy::AllValues>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_all_values<T: std::convert::Into<crate::model::policy::list_policy::AllValues>>(mut self, v: T) -> Self {
             self.all_values = v.into();
             self
         }
 
         /// Sets the value of [suggested_value][crate::model::policy::ListPolicy::suggested_value].
-        pub fn set_suggested_value<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_suggested_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.suggested_value = v.into();
             self
         }
@@ -445,6 +422,7 @@ pub mod policy {
     pub mod list_policy {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// This enum can be used to set `Policies` that apply to all possible
         /// configuration values rather than specific values in `allowed_values` or
@@ -529,10 +507,7 @@ pub mod policy {
         }
 
         impl std::fmt::Display for AllValues {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -543,9 +518,7 @@ pub mod policy {
                     0 => Self::Unspecified,
                     1 => Self::Allow,
                     2 => Self::Deny,
-                    _ => Self::UnknownValue(all_values::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(all_values::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -557,9 +530,7 @@ pub mod policy {
                     "ALL_VALUES_UNSPECIFIED" => Self::Unspecified,
                     "ALLOW" => Self::Allow,
                     "DENY" => Self::Deny,
-                    _ => Self::UnknownValue(all_values::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(all_values::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -584,8 +555,7 @@ pub mod policy {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<AllValues>::new(
-                    ".google.cloud.orgpolicy.v1.Policy.ListPolicy.AllValues",
-                ))
+                    ".google.cloud.orgpolicy.v1.Policy.ListPolicy.AllValues"))
             }
         }
     }
@@ -595,6 +565,7 @@ pub mod policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BooleanPolicy {
+
         /// If `true`, then the `Policy` is enforced. If `false`, then any
         /// configuration is acceptable.
         ///
@@ -678,6 +649,7 @@ pub mod policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestoreDefault {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 

@@ -39,10 +39,7 @@ pub mod public_certificate_authority_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PublicCertificateAuthorityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,14 +54,8 @@ pub mod public_certificate_authority_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<
-                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
-            >,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -91,24 +82,17 @@ pub mod public_certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExternalAccountKey(
-        RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,
-    );
+    pub struct CreateExternalAccountKey(RequestBuilder<crate::model::CreateExternalAccountKeyRequest>);
 
     impl CreateExternalAccountKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<
-                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
-            >,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateExternalAccountKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateExternalAccountKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -121,10 +105,7 @@ pub mod public_certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExternalAccountKey> {
-            (*self.0.stub)
-                .create_external_account_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_external_account_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].
@@ -139,8 +120,7 @@ pub mod public_certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_external_account_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        where T: std::convert::Into<crate::model::ExternalAccountKey>
         {
             self.0.request.external_account_key = std::option::Option::Some(v.into());
             self
@@ -150,8 +130,7 @@ pub mod public_certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        where T: std::convert::Into<crate::model::ExternalAccountKey>
         {
             self.0.request.external_account_key = v.map(|x| x.into());
             self
@@ -164,4 +143,5 @@ pub mod public_certificate_authority_service {
             &mut self.0.options
         }
     }
+
 }

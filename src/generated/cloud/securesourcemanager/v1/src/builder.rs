@@ -39,10 +39,7 @@ pub mod secure_source_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecureSourceManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod secure_source_manager {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod secure_source_manager {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancesResponse> {
-            (*self.0.stub)
-                .list_instances(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_instances(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -207,10 +191,10 @@ pub mod secure_source_manager {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -227,10 +211,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            (*self.0.stub)
-                .get_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -271,10 +252,10 @@ pub mod secure_source_manager {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -296,18 +277,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance][crate::client::SecureSourceManager::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -355,8 +334,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_instance<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Instance>,
+        where T: std::convert::Into<crate::model::Instance>
         {
             self.0.request.instance = std::option::Option::Some(v.into());
             self
@@ -366,8 +344,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Instance>,
+        where T: std::convert::Into<crate::model::Instance>
         {
             self.0.request.instance = v.map(|x| x.into());
             self
@@ -409,10 +386,10 @@ pub mod secure_source_manager {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -434,14 +411,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_instance][crate::client::SecureSourceManager::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_instance(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_instance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -467,12 +445,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -522,17 +495,14 @@ pub mod secure_source_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListRepositoriesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -545,17 +515,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListRepositoriesResponse> {
-            (*self.0.stub)
-                .list_repositories(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_repositories(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -567,10 +531,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -636,10 +597,10 @@ pub mod secure_source_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -656,10 +617,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Repository> {
-            (*self.0.stub)
-                .get_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -700,17 +658,14 @@ pub mod secure_source_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -728,18 +683,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_repository][crate::client::SecureSourceManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_repository`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -779,8 +732,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -790,8 +742,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -835,17 +786,14 @@ pub mod secure_source_manager {
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -863,18 +811,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_repository][crate::client::SecureSourceManager::update_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_repository`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -904,8 +850,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -913,8 +858,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -924,8 +868,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_repository<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = std::option::Option::Some(v.into());
             self
@@ -935,8 +878,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Repository>,
+        where T: std::convert::Into<crate::model::Repository>
         {
             self.0.request.repository = v.map(|x| x.into());
             self
@@ -978,17 +920,14 @@ pub mod secure_source_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteRepositoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1006,14 +945,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_repository][crate::client::SecureSourceManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_repository(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_repository(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1039,12 +979,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -1094,10 +1029,10 @@ pub mod secure_source_manager {
     pub struct ListHooks(RequestBuilder<crate::model::ListHooksRequest>);
 
     impl ListHooks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1114,17 +1049,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListHooksResponse> {
-            (*self.0.stub)
-                .list_hooks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_hooks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListHooksResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListHooksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1136,10 +1065,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListHooksResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListHooksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1193,10 +1119,10 @@ pub mod secure_source_manager {
     pub struct GetHook(RequestBuilder<crate::model::GetHookRequest>);
 
     impl GetHook {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1213,10 +1139,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Hook> {
-            (*self.0.stub)
-                .get_hook(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_hook(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHookRequest::name].
@@ -1257,10 +1180,10 @@ pub mod secure_source_manager {
     pub struct CreateHook(RequestBuilder<crate::model::CreateHookRequest>);
 
     impl CreateHook {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1282,18 +1205,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_hook][crate::client::SecureSourceManager::create_hook].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_hook(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_hook(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_hook`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1333,8 +1254,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_hook<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Hook>,
+        where T: std::convert::Into<crate::model::Hook>
         {
             self.0.request.hook = std::option::Option::Some(v.into());
             self
@@ -1344,8 +1264,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Hook>,
+        where T: std::convert::Into<crate::model::Hook>
         {
             self.0.request.hook = v.map(|x| x.into());
             self
@@ -1389,10 +1308,10 @@ pub mod secure_source_manager {
     pub struct UpdateHook(RequestBuilder<crate::model::UpdateHookRequest>);
 
     impl UpdateHook {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1414,18 +1333,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_hook][crate::client::SecureSourceManager::update_hook].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_hook(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_hook(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_hook`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Hook, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Hook, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1457,8 +1374,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1468,8 +1384,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1479,8 +1394,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_hook<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Hook>,
+        where T: std::convert::Into<crate::model::Hook>
         {
             self.0.request.hook = std::option::Option::Some(v.into());
             self
@@ -1490,8 +1404,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hook<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Hook>,
+        where T: std::convert::Into<crate::model::Hook>
         {
             self.0.request.hook = v.map(|x| x.into());
             self
@@ -1527,10 +1440,10 @@ pub mod secure_source_manager {
     pub struct DeleteHook(RequestBuilder<crate::model::DeleteHookRequest>);
 
     impl DeleteHook {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1552,14 +1465,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_hook][crate::client::SecureSourceManager::delete_hook].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_hook(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_hook(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_hook`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1585,12 +1499,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteHookRequest::name].
@@ -1630,10 +1539,10 @@ pub mod secure_source_manager {
     pub struct GetIamPolicyRepo(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicyRepo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1650,10 +1559,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy_repo(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy_repo(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1666,8 +1572,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -1675,8 +1580,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -1711,10 +1615,10 @@ pub mod secure_source_manager {
     pub struct SetIamPolicyRepo(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicyRepo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1731,10 +1635,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy_repo(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy_repo(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1749,8 +1650,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -1760,8 +1660,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -1769,8 +1668,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1778,8 +1676,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1814,17 +1711,14 @@ pub mod secure_source_manager {
     pub struct TestIamPermissionsRepo(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissionsRepo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1837,10 +1731,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions_repo(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions_repo(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1857,7 +1748,7 @@ pub mod secure_source_manager {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -1894,17 +1785,14 @@ pub mod secure_source_manager {
     pub struct CreateBranchRule(RequestBuilder<crate::model::CreateBranchRuleRequest>);
 
     impl CreateBranchRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateBranchRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateBranchRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1922,18 +1810,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_branch_rule][crate::client::SecureSourceManager::create_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_branch_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_branch_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_branch_rule`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1973,8 +1859,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_branch_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BranchRule>,
+        where T: std::convert::Into<crate::model::BranchRule>
         {
             self.0.request.branch_rule = std::option::Option::Some(v.into());
             self
@@ -1984,8 +1869,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BranchRule>,
+        where T: std::convert::Into<crate::model::BranchRule>
         {
             self.0.request.branch_rule = v.map(|x| x.into());
             self
@@ -2032,10 +1916,10 @@ pub mod secure_source_manager {
     pub struct ListBranchRules(RequestBuilder<crate::model::ListBranchRulesRequest>);
 
     impl ListBranchRules {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2052,17 +1936,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBranchRulesResponse> {
-            (*self.0.stub)
-                .list_branch_rules(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_branch_rules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListBranchRulesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListBranchRulesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2074,10 +1952,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBranchRulesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListBranchRulesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2131,10 +2006,10 @@ pub mod secure_source_manager {
     pub struct GetBranchRule(RequestBuilder<crate::model::GetBranchRuleRequest>);
 
     impl GetBranchRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2151,10 +2026,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BranchRule> {
-            (*self.0.stub)
-                .get_branch_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_branch_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBranchRuleRequest::name].
@@ -2195,17 +2067,14 @@ pub mod secure_source_manager {
     pub struct UpdateBranchRule(RequestBuilder<crate::model::UpdateBranchRuleRequest>);
 
     impl UpdateBranchRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateBranchRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateBranchRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2223,18 +2092,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_branch_rule][crate::client::SecureSourceManager::update_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_branch_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_branch_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_branch_rule`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BranchRule, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BranchRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2266,8 +2133,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_branch_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::BranchRule>,
+        where T: std::convert::Into<crate::model::BranchRule>
         {
             self.0.request.branch_rule = std::option::Option::Some(v.into());
             self
@@ -2277,8 +2143,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_branch_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::BranchRule>,
+        where T: std::convert::Into<crate::model::BranchRule>
         {
             self.0.request.branch_rule = v.map(|x| x.into());
             self
@@ -2294,8 +2159,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2305,8 +2169,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2342,17 +2205,14 @@ pub mod secure_source_manager {
     pub struct DeleteBranchRule(RequestBuilder<crate::model::DeleteBranchRuleRequest>);
 
     impl DeleteBranchRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteBranchRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteBranchRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2370,14 +2230,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_branch_rule][crate::client::SecureSourceManager::delete_branch_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_branch_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_branch_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_branch_rule`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2403,12 +2264,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBranchRuleRequest::name].
@@ -2455,17 +2311,14 @@ pub mod secure_source_manager {
     pub struct CreatePullRequest(RequestBuilder<crate::model::CreatePullRequestRequest>);
 
     impl CreatePullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePullRequestRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePullRequestRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2483,20 +2336,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_pull_request][crate::client::SecureSourceManager::create_pull_request].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_pull_request`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequest,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PullRequest, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2536,8 +2385,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_pull_request<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequest>,
+        where T: std::convert::Into<crate::model::PullRequest>
         {
             self.0.request.pull_request = std::option::Option::Some(v.into());
             self
@@ -2547,8 +2395,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequest>,
+        where T: std::convert::Into<crate::model::PullRequest>
         {
             self.0.request.pull_request = v.map(|x| x.into());
             self
@@ -2583,10 +2430,10 @@ pub mod secure_source_manager {
     pub struct GetPullRequest(RequestBuilder<crate::model::GetPullRequestRequest>);
 
     impl GetPullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2603,10 +2450,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PullRequest> {
-            (*self.0.stub)
-                .get_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPullRequestRequest::name].
@@ -2650,17 +2494,14 @@ pub mod secure_source_manager {
     pub struct ListPullRequests(RequestBuilder<crate::model::ListPullRequestsRequest>);
 
     impl ListPullRequests {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPullRequestsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPullRequestsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2673,17 +2514,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPullRequestsResponse> {
-            (*self.0.stub)
-                .list_pull_requests(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_pull_requests(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPullRequestsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPullRequestsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2695,10 +2530,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPullRequestsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPullRequestsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2753,17 +2585,14 @@ pub mod secure_source_manager {
     pub struct UpdatePullRequest(RequestBuilder<crate::model::UpdatePullRequestRequest>);
 
     impl UpdatePullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePullRequestRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePullRequestRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2781,20 +2610,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_pull_request][crate::client::SecureSourceManager::update_pull_request].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_pull_request`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequest,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PullRequest, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2826,8 +2651,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_pull_request<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequest>,
+        where T: std::convert::Into<crate::model::PullRequest>
         {
             self.0.request.pull_request = std::option::Option::Some(v.into());
             self
@@ -2837,8 +2661,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequest>,
+        where T: std::convert::Into<crate::model::PullRequest>
         {
             self.0.request.pull_request = v.map(|x| x.into());
             self
@@ -2846,8 +2669,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2855,8 +2677,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2892,17 +2713,14 @@ pub mod secure_source_manager {
     pub struct MergePullRequest(RequestBuilder<crate::model::MergePullRequestRequest>);
 
     impl MergePullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::MergePullRequestRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::MergePullRequestRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2920,20 +2738,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [merge_pull_request][crate::client::SecureSourceManager::merge_pull_request].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .merge_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).merge_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `merge_pull_request`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequest,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PullRequest, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2999,10 +2813,10 @@ pub mod secure_source_manager {
     pub struct OpenPullRequest(RequestBuilder<crate::model::OpenPullRequestRequest>);
 
     impl OpenPullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3024,20 +2838,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [open_pull_request][crate::client::SecureSourceManager::open_pull_request].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .open_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).open_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `open_pull_request`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequest,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PullRequest, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3103,17 +2913,14 @@ pub mod secure_source_manager {
     pub struct ClosePullRequest(RequestBuilder<crate::model::ClosePullRequestRequest>);
 
     impl ClosePullRequest {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ClosePullRequestRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ClosePullRequestRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3131,20 +2938,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [close_pull_request][crate::client::SecureSourceManager::close_pull_request].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .close_pull_request(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).close_pull_request(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `close_pull_request`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequest,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequest, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PullRequest, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3210,22 +3013,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPullRequestFileDiffs(
-        RequestBuilder<crate::model::ListPullRequestFileDiffsRequest>,
-    );
+    pub struct ListPullRequestFileDiffs(RequestBuilder<crate::model::ListPullRequestFileDiffsRequest>);
 
     impl ListPullRequestFileDiffs {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPullRequestFileDiffsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPullRequestFileDiffsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3238,19 +3036,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPullRequestFileDiffsResponse> {
-            (*self.0.stub)
-                .list_pull_request_file_diffs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_pull_request_file_diffs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListPullRequestFileDiffsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPullRequestFileDiffsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3262,12 +3052,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPullRequestFileDiffsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPullRequestFileDiffsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3325,10 +3110,10 @@ pub mod secure_source_manager {
     pub struct FetchTree(RequestBuilder<crate::model::FetchTreeRequest>);
 
     impl FetchTree {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3345,17 +3130,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchTreeResponse> {
-            (*self.0.stub)
-                .fetch_tree(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_tree(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::FetchTreeResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::FetchTreeResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3367,10 +3146,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::FetchTreeResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::FetchTreeResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3436,10 +3212,10 @@ pub mod secure_source_manager {
     pub struct FetchBlob(RequestBuilder<crate::model::FetchBlobRequest>);
 
     impl FetchBlob {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3456,10 +3232,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchBlobResponse> {
-            (*self.0.stub)
-                .fetch_blob(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_blob(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchBlobRequest::repository].
@@ -3508,10 +3281,10 @@ pub mod secure_source_manager {
     pub struct CreateIssue(RequestBuilder<crate::model::CreateIssueRequest>);
 
     impl CreateIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3533,18 +3306,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_issue][crate::client::SecureSourceManager::create_issue].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_issue`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3584,8 +3355,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_issue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = std::option::Option::Some(v.into());
             self
@@ -3595,8 +3365,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = v.map(|x| x.into());
             self
@@ -3631,10 +3400,10 @@ pub mod secure_source_manager {
     pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3651,10 +3420,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Issue> {
-            (*self.0.stub)
-                .get_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueRequest::name].
@@ -3698,10 +3464,10 @@ pub mod secure_source_manager {
     pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3718,17 +3484,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIssuesResponse> {
-            (*self.0.stub)
-                .list_issues(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_issues(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListIssuesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIssuesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3740,10 +3500,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIssuesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIssuesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3804,10 +3561,10 @@ pub mod secure_source_manager {
     pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3829,18 +3586,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_issue][crate::client::SecureSourceManager::update_issue].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_issue`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3872,8 +3627,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_issue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = std::option::Option::Some(v.into());
             self
@@ -3883,8 +3637,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Issue>,
+        where T: std::convert::Into<crate::model::Issue>
         {
             self.0.request.issue = v.map(|x| x.into());
             self
@@ -3892,8 +3645,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3901,8 +3653,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3938,10 +3689,10 @@ pub mod secure_source_manager {
     pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3963,14 +3714,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_issue][crate::client::SecureSourceManager::delete_issue].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_issue`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3996,12 +3748,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
@@ -4048,10 +3795,10 @@ pub mod secure_source_manager {
     pub struct OpenIssue(RequestBuilder<crate::model::OpenIssueRequest>);
 
     impl OpenIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4073,18 +3820,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [open_issue][crate::client::SecureSourceManager::open_issue].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .open_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).open_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `open_issue`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4156,10 +3901,10 @@ pub mod secure_source_manager {
     pub struct CloseIssue(RequestBuilder<crate::model::CloseIssueRequest>);
 
     impl CloseIssue {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -4181,18 +3926,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [close_issue][crate::client::SecureSourceManager::close_issue].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .close_issue(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).close_issue(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `close_issue`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Issue, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Issue, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4263,17 +4006,14 @@ pub mod secure_source_manager {
     pub struct GetPullRequestComment(RequestBuilder<crate::model::GetPullRequestCommentRequest>);
 
     impl GetPullRequestComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPullRequestCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPullRequestCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4286,10 +4026,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PullRequestComment> {
-            (*self.0.stub)
-                .get_pull_request_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_pull_request_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPullRequestCommentRequest::name].
@@ -4330,22 +4067,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPullRequestComments(
-        RequestBuilder<crate::model::ListPullRequestCommentsRequest>,
-    );
+    pub struct ListPullRequestComments(RequestBuilder<crate::model::ListPullRequestCommentsRequest>);
 
     impl ListPullRequestComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPullRequestCommentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPullRequestCommentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4358,19 +4090,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPullRequestCommentsResponse> {
-            (*self.0.stub)
-                .list_pull_request_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_pull_request_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListPullRequestCommentsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPullRequestCommentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4382,12 +4106,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPullRequestCommentsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPullRequestCommentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4439,22 +4158,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePullRequestComment(
-        RequestBuilder<crate::model::CreatePullRequestCommentRequest>,
-    );
+    pub struct CreatePullRequestComment(RequestBuilder<crate::model::CreatePullRequestCommentRequest>);
 
     impl CreatePullRequestComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePullRequestCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePullRequestCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4472,21 +4186,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_pull_request_comment][crate::client::SecureSourceManager::create_pull_request_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_pull_request_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_pull_request_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_pull_request_comment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequestComment,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::PullRequestComment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4526,8 +4235,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequestComment>,
+        where T: std::convert::Into<crate::model::PullRequestComment>
         {
             self.0.request.pull_request_comment = std::option::Option::Some(v.into());
             self
@@ -4537,8 +4245,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequestComment>,
+        where T: std::convert::Into<crate::model::PullRequestComment>
         {
             self.0.request.pull_request_comment = v.map(|x| x.into());
             self
@@ -4571,22 +4278,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePullRequestComment(
-        RequestBuilder<crate::model::UpdatePullRequestCommentRequest>,
-    );
+    pub struct UpdatePullRequestComment(RequestBuilder<crate::model::UpdatePullRequestCommentRequest>);
 
     impl UpdatePullRequestComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePullRequestCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePullRequestCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4604,21 +4306,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_pull_request_comment][crate::client::SecureSourceManager::update_pull_request_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_pull_request_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_pull_request_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_pull_request_comment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::PullRequestComment, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::PullRequestComment,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::PullRequestComment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4650,8 +4347,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_pull_request_comment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequestComment>,
+        where T: std::convert::Into<crate::model::PullRequestComment>
         {
             self.0.request.pull_request_comment = std::option::Option::Some(v.into());
             self
@@ -4661,8 +4357,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_pull_request_comment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PullRequestComment>,
+        where T: std::convert::Into<crate::model::PullRequestComment>
         {
             self.0.request.pull_request_comment = v.map(|x| x.into());
             self
@@ -4670,8 +4365,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4679,8 +4373,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdatePullRequestCommentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4713,22 +4406,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePullRequestComment(
-        RequestBuilder<crate::model::DeletePullRequestCommentRequest>,
-    );
+    pub struct DeletePullRequestComment(RequestBuilder<crate::model::DeletePullRequestCommentRequest>);
 
     impl DeletePullRequestComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePullRequestCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePullRequestCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4746,14 +4434,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_pull_request_comment][crate::client::SecureSourceManager::delete_pull_request_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_pull_request_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_pull_request_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_pull_request_comment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4779,12 +4468,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePullRequestCommentRequest::name].
@@ -4822,22 +4506,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchCreatePullRequestComments(
-        RequestBuilder<crate::model::BatchCreatePullRequestCommentsRequest>,
-    );
+    pub struct BatchCreatePullRequestComments(RequestBuilder<crate::model::BatchCreatePullRequestCommentsRequest>);
 
     impl BatchCreatePullRequestComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCreatePullRequestCommentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchCreatePullRequestCommentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4855,23 +4534,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [batch_create_pull_request_comments][crate::client::SecureSourceManager::batch_create_pull_request_comments].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .batch_create_pull_request_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_create_pull_request_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_pull_request_comments`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::BatchCreatePullRequestCommentsResponse,
-            crate::model::OperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::BatchCreatePullRequestCommentsResponse,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::BatchCreatePullRequestCommentsResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::BatchCreatePullRequestCommentsResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4913,7 +4585,7 @@ pub mod secure_source_manager {
         pub fn set_requests<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::CreatePullRequestCommentRequest>,
+            V: std::convert::Into<crate::model::CreatePullRequestCommentRequest>
         {
             use std::iter::Iterator;
             self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
@@ -4947,22 +4619,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResolvePullRequestComments(
-        RequestBuilder<crate::model::ResolvePullRequestCommentsRequest>,
-    );
+    pub struct ResolvePullRequestComments(RequestBuilder<crate::model::ResolvePullRequestCommentsRequest>);
 
     impl ResolvePullRequestComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResolvePullRequestCommentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ResolvePullRequestCommentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4980,23 +4647,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [resolve_pull_request_comments][crate::client::SecureSourceManager::resolve_pull_request_comments].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .resolve_pull_request_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).resolve_pull_request_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resolve_pull_request_comments`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::ResolvePullRequestCommentsResponse,
-            crate::model::OperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::ResolvePullRequestCommentsResponse,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::ResolvePullRequestCommentsResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::ResolvePullRequestCommentsResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5038,7 +4698,7 @@ pub mod secure_source_manager {
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
@@ -5078,22 +4738,17 @@ pub mod secure_source_manager {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UnresolvePullRequestComments(
-        RequestBuilder<crate::model::UnresolvePullRequestCommentsRequest>,
-    );
+    pub struct UnresolvePullRequestComments(RequestBuilder<crate::model::UnresolvePullRequestCommentsRequest>);
 
     impl UnresolvePullRequestComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UnresolvePullRequestCommentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UnresolvePullRequestCommentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5111,23 +4766,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [unresolve_pull_request_comments][crate::client::SecureSourceManager::unresolve_pull_request_comments].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .unresolve_pull_request_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).unresolve_pull_request_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `unresolve_pull_request_comments`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::UnresolvePullRequestCommentsResponse,
-            crate::model::OperationMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::UnresolvePullRequestCommentsResponse,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::UnresolvePullRequestCommentsResponse, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::UnresolvePullRequestCommentsResponse, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5169,7 +4817,7 @@ pub mod secure_source_manager {
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
@@ -5212,17 +4860,14 @@ pub mod secure_source_manager {
     pub struct CreateIssueComment(RequestBuilder<crate::model::CreateIssueCommentRequest>);
 
     impl CreateIssueComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateIssueCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateIssueCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5240,20 +4885,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_issue_comment][crate::client::SecureSourceManager::create_issue_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_issue_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_issue_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_issue_comment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::IssueComment,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::IssueComment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5293,8 +4934,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_issue_comment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueComment>,
+        where T: std::convert::Into<crate::model::IssueComment>
         {
             self.0.request.issue_comment = std::option::Option::Some(v.into());
             self
@@ -5304,8 +4944,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueComment>,
+        where T: std::convert::Into<crate::model::IssueComment>
         {
             self.0.request.issue_comment = v.map(|x| x.into());
             self
@@ -5340,10 +4979,10 @@ pub mod secure_source_manager {
     pub struct GetIssueComment(RequestBuilder<crate::model::GetIssueCommentRequest>);
 
     impl GetIssueComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5360,10 +4999,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IssueComment> {
-            (*self.0.stub)
-                .get_issue_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_issue_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueCommentRequest::name].
@@ -5407,17 +5043,14 @@ pub mod secure_source_manager {
     pub struct ListIssueComments(RequestBuilder<crate::model::ListIssueCommentsRequest>);
 
     impl ListIssueComments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListIssueCommentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListIssueCommentsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5430,17 +5063,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListIssueCommentsResponse> {
-            (*self.0.stub)
-                .list_issue_comments(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_issue_comments(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListIssueCommentsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListIssueCommentsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5452,10 +5079,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIssueCommentsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListIssueCommentsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5510,17 +5134,14 @@ pub mod secure_source_manager {
     pub struct UpdateIssueComment(RequestBuilder<crate::model::UpdateIssueCommentRequest>);
 
     impl UpdateIssueComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateIssueCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateIssueCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5538,20 +5159,16 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_issue_comment][crate::client::SecureSourceManager::update_issue_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_issue_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_issue_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_issue_comment`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::IssueComment,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::IssueComment, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::IssueComment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5583,8 +5200,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_issue_comment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueComment>,
+        where T: std::convert::Into<crate::model::IssueComment>
         {
             self.0.request.issue_comment = std::option::Option::Some(v.into());
             self
@@ -5594,8 +5210,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_issue_comment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IssueComment>,
+        where T: std::convert::Into<crate::model::IssueComment>
         {
             self.0.request.issue_comment = v.map(|x| x.into());
             self
@@ -5603,8 +5218,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5612,8 +5226,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateIssueCommentRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -5649,17 +5262,14 @@ pub mod secure_source_manager {
     pub struct DeleteIssueComment(RequestBuilder<crate::model::DeleteIssueCommentRequest>);
 
     impl DeleteIssueComment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteIssueCommentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteIssueCommentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5677,14 +5287,15 @@ pub mod secure_source_manager {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_issue_comment][crate::client::SecureSourceManager::delete_issue_comment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_issue_comment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_issue_comment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_issue_comment`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -5710,12 +5321,7 @@ pub mod secure_source_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueCommentRequest::name].
@@ -5759,17 +5365,14 @@ pub mod secure_source_manager {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5782,17 +5385,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5804,10 +5401,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5865,10 +5459,10 @@ pub mod secure_source_manager {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5885,10 +5479,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -5926,10 +5517,10 @@ pub mod secure_source_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -5946,10 +5537,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -5964,8 +5552,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -5975,8 +5562,7 @@ pub mod secure_source_manager {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -5984,8 +5570,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5993,8 +5578,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6029,10 +5613,10 @@ pub mod secure_source_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -6049,10 +5633,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -6065,8 +5646,7 @@ pub mod secure_source_manager {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -6074,8 +5654,7 @@ pub mod secure_source_manager {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -6110,17 +5689,14 @@ pub mod secure_source_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6133,10 +5709,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -6153,7 +5726,7 @@ pub mod secure_source_manager {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -6193,17 +5766,14 @@ pub mod secure_source_manager {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6216,17 +5786,11 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6238,12 +5802,7 @@ pub mod secure_source_manager {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6307,17 +5866,14 @@ pub mod secure_source_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6330,10 +5886,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6371,17 +5924,14 @@ pub mod secure_source_manager {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6394,10 +5944,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -6435,17 +5982,14 @@ pub mod secure_source_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::SecureSourceManager>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6458,10 +6002,7 @@ pub mod secure_source_manager {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -6477,4 +6018,5 @@ pub mod secure_source_manager {
             &mut self.0.options
         }
     }
+
 }

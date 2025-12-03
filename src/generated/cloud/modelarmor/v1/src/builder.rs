@@ -39,10 +39,7 @@ pub mod model_armor {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ModelArmor;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod model_armor {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod model_armor {
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListTemplatesResponse> {
-            (*self.0.stub)
-                .list_templates(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_templates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListTemplatesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListTemplatesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod model_armor {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTemplatesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListTemplatesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -207,10 +191,10 @@ pub mod model_armor {
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -227,10 +211,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Template> {
-            (*self.0.stub)
-                .get_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTemplateRequest::name].
@@ -270,10 +251,10 @@ pub mod model_armor {
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -290,10 +271,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Template> {
-            (*self.0.stub)
-                .create_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
@@ -316,8 +294,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_template<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Template>,
+        where T: std::convert::Into<crate::model::Template>
         {
             self.0.request.template = std::option::Option::Some(v.into());
             self
@@ -327,8 +304,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Template>,
+        where T: std::convert::Into<crate::model::Template>
         {
             self.0.request.template = v.map(|x| x.into());
             self
@@ -369,10 +345,10 @@ pub mod model_armor {
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -389,18 +365,14 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Template> {
-            (*self.0.stub)
-                .update_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -410,8 +382,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -421,8 +392,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_template<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Template>,
+        where T: std::convert::Into<crate::model::Template>
         {
             self.0.request.template = std::option::Option::Some(v.into());
             self
@@ -432,8 +402,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Template>,
+        where T: std::convert::Into<crate::model::Template>
         {
             self.0.request.template = v.map(|x| x.into());
             self
@@ -474,10 +443,10 @@ pub mod model_armor {
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -494,10 +463,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
@@ -543,10 +509,10 @@ pub mod model_armor {
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
     impl GetFloorSetting {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -563,10 +529,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FloorSetting> {
-            (*self.0.stub)
-                .get_floor_setting(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_floor_setting(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFloorSettingRequest::name].
@@ -606,17 +569,14 @@ pub mod model_armor {
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
     impl UpdateFloorSetting {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateFloorSettingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateFloorSettingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -629,18 +589,14 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FloorSetting> {
-            (*self.0.stub)
-                .update_floor_setting(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_floor_setting(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
         ///
         /// This is a **required** field for requests.
         pub fn set_floor_setting<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::FloorSetting>,
+        where T: std::convert::Into<crate::model::FloorSetting>
         {
             self.0.request.floor_setting = std::option::Option::Some(v.into());
             self
@@ -650,8 +606,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::FloorSetting>,
+        where T: std::convert::Into<crate::model::FloorSetting>
         {
             self.0.request.floor_setting = v.map(|x| x.into());
             self
@@ -659,8 +614,7 @@ pub mod model_armor {
 
         /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -668,8 +622,7 @@ pub mod model_armor {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -704,17 +657,14 @@ pub mod model_armor {
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
     impl SanitizeUserPrompt {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SanitizeUserPromptRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SanitizeUserPromptRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -727,10 +677,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SanitizeUserPromptResponse> {
-            (*self.0.stub)
-                .sanitize_user_prompt(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).sanitize_user_prompt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SanitizeUserPromptRequest::name].
@@ -745,8 +692,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DataItem>,
+        where T: std::convert::Into<crate::model::DataItem>
         {
             self.0.request.user_prompt_data = std::option::Option::Some(v.into());
             self
@@ -756,8 +702,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DataItem>,
+        where T: std::convert::Into<crate::model::DataItem>
         {
             self.0.request.user_prompt_data = v.map(|x| x.into());
             self
@@ -765,20 +710,15 @@ pub mod model_armor {
 
         /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
         pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
         {
             self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
-        pub fn set_or_clear_multi_language_detection_metadata<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        pub fn set_or_clear_multi_language_detection_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
         {
             self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
@@ -813,17 +753,14 @@ pub mod model_armor {
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
     impl SanitizeModelResponse {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SanitizeModelResponseRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SanitizeModelResponseRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -836,10 +773,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SanitizeModelResponseResponse> {
-            (*self.0.stub)
-                .sanitize_model_response(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).sanitize_model_response(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SanitizeModelResponseRequest::name].
@@ -854,8 +788,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_model_response_data<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DataItem>,
+        where T: std::convert::Into<crate::model::DataItem>
         {
             self.0.request.model_response_data = std::option::Option::Some(v.into());
             self
@@ -865,8 +798,7 @@ pub mod model_armor {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DataItem>,
+        where T: std::convert::Into<crate::model::DataItem>
         {
             self.0.request.model_response_data = v.map(|x| x.into());
             self
@@ -880,20 +812,15 @@ pub mod model_armor {
 
         /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
         pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
         {
             self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
-        pub fn set_or_clear_multi_language_detection_metadata<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        pub fn set_or_clear_multi_language_detection_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>
         {
             self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
@@ -932,17 +859,14 @@ pub mod model_armor {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -955,17 +879,11 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -977,10 +895,7 @@ pub mod model_armor {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1038,10 +953,10 @@ pub mod model_armor {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1058,10 +973,7 @@ pub mod model_armor {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1077,4 +989,5 @@ pub mod model_armor {
             &mut self.0.options
         }
     }
+
 }

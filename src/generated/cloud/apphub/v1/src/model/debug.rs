@@ -31,10 +31,7 @@ impl std::fmt::Debug for super::LookupServiceProjectAttachmentRequest {
 impl std::fmt::Debug for super::LookupServiceProjectAttachmentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LookupServiceProjectAttachmentResponse");
-        debug_struct.field(
-            "service_project_attachment",
-            &self.service_project_attachment,
-        );
+        debug_struct.field("service_project_attachment", &self.service_project_attachment);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -60,10 +57,7 @@ impl std::fmt::Debug for super::ListServiceProjectAttachmentsRequest {
 impl std::fmt::Debug for super::ListServiceProjectAttachmentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListServiceProjectAttachmentsResponse");
-        debug_struct.field(
-            "service_project_attachments",
-            &self.service_project_attachments,
-        );
+        debug_struct.field("service_project_attachments", &self.service_project_attachments);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
@@ -77,14 +71,8 @@ impl std::fmt::Debug for super::CreateServiceProjectAttachmentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateServiceProjectAttachmentRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "service_project_attachment_id",
-            &self.service_project_attachment_id,
-        );
-        debug_struct.field(
-            "service_project_attachment",
-            &self.service_project_attachment,
-        );
+        debug_struct.field("service_project_attachment_id", &self.service_project_attachment_id);
+        debug_struct.field("service_project_attachment", &self.service_project_attachment);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

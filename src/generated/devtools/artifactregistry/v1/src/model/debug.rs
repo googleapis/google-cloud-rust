@@ -679,10 +679,7 @@ impl std::fmt::Debug for super::RemoteRepositoryConfig {
         let mut debug_struct = f.debug_struct("RemoteRepositoryConfig");
         debug_struct.field("description", &self.description);
         debug_struct.field("upstream_credentials", &self.upstream_credentials);
-        debug_struct.field(
-            "disable_upstream_validation",
-            &self.disable_upstream_validation,
-        );
+        debug_struct.field("disable_upstream_validation", &self.disable_upstream_validation);
         debug_struct.field("remote_source", &self.remote_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -702,9 +699,7 @@ impl std::fmt::Debug for super::remote_repository_config::UpstreamCredentials {
     }
 }
 
-impl std::fmt::Debug
-    for super::remote_repository_config::upstream_credentials::UsernamePasswordCredentials
-{
+impl std::fmt::Debug for super::remote_repository_config::upstream_credentials::UsernamePasswordCredentials {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UsernamePasswordCredentials");
         debug_struct.field("username", &self.username);
@@ -898,10 +893,7 @@ impl std::fmt::Debug for super::Repository {
         debug_struct.field("size_bytes", &self.size_bytes);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("cleanup_policy_dry_run", &self.cleanup_policy_dry_run);
-        debug_struct.field(
-            "vulnerability_scanning_config",
-            &self.vulnerability_scanning_config,
-        );
+        debug_struct.field("vulnerability_scanning_config", &self.vulnerability_scanning_config);
         debug_struct.field("disallow_unspecified_mode", &self.disallow_unspecified_mode);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("registry_uri", &self.registry_uri);
@@ -950,6 +942,8 @@ impl std::fmt::Debug for super::repository::VulnerabilityScanningConfig {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::ListRepositoriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

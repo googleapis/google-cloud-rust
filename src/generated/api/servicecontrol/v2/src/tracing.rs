@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ServiceController](super::stub::ServiceController) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ServiceController<T>
-where
-    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ServiceController<T>
-where
-    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ServiceController for ServiceController<T>
-where
-    T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ServiceController + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn check(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "check",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .check(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.check(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .report(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.report(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -114,3 +102,4 @@ where
         self.inner.report(req, options).await
     }
 }
+

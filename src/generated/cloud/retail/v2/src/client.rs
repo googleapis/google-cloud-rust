@@ -73,9 +73,7 @@ impl AnalyticsService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::analytics_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::analytics_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::analytics_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -83,43 +81,28 @@ impl AnalyticsService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AnalyticsService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AnalyticsService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnalyticsService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
         super::transport::AnalyticsService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AnalyticsService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AnalyticsService> {
+        Self::build_transport(conf).await.map(super::tracing::AnalyticsService::new)
     }
 
     /// Exports analytics metrics.
@@ -136,23 +119,24 @@ impl AnalyticsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_analytics_metrics(
-        &self,
-    ) -> super::builder::analytics_service::ExportAnalyticsMetrics {
+    pub fn export_analytics_metrics(&self) -> super::builder::analytics_service::ExportAnalyticsMetrics
+    {
         super::builder::analytics_service::ExportAnalyticsMetrics::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::analytics_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::analytics_service::ListOperations
+    {
         super::builder::analytics_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::analytics_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::analytics_service::GetOperation
+    {
         super::builder::analytics_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -221,56 +205,44 @@ impl CatalogService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CatalogService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CatalogService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CatalogService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CatalogService> {
         super::transport::CatalogService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CatalogService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CatalogService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CatalogService> {
+        Self::build_transport(conf).await.map(super::tracing::CatalogService::new)
     }
 
     /// Lists all the [Catalog][google.cloud.retail.v2.Catalog]s associated with
     /// the project.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn list_catalogs(&self) -> super::builder::catalog_service::ListCatalogs {
+    pub fn list_catalogs(&self) -> super::builder::catalog_service::ListCatalogs
+    {
         super::builder::catalog_service::ListCatalogs::new(self.inner.clone())
     }
 
     /// Updates the [Catalog][google.cloud.retail.v2.Catalog]s.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn update_catalog(&self) -> super::builder::catalog_service::UpdateCatalog {
+    pub fn update_catalog(&self) -> super::builder::catalog_service::UpdateCatalog
+    {
         super::builder::catalog_service::UpdateCatalog::new(self.inner.clone())
     }
 
@@ -313,7 +285,8 @@ impl CatalogService {
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.SearchRequest.branch]: crate::model::SearchRequest::branch
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
-    pub fn set_default_branch(&self) -> super::builder::catalog_service::SetDefaultBranch {
+    pub fn set_default_branch(&self) -> super::builder::catalog_service::SetDefaultBranch
+    {
         super::builder::catalog_service::SetDefaultBranch::new(self.inner.clone())
     }
 
@@ -322,30 +295,32 @@ impl CatalogService {
     /// method under a specified parent catalog.
     ///
     /// [google.cloud.retail.v2.CatalogService.SetDefaultBranch]: crate::client::CatalogService::set_default_branch
-    pub fn get_default_branch(&self) -> super::builder::catalog_service::GetDefaultBranch {
+    pub fn get_default_branch(&self) -> super::builder::catalog_service::GetDefaultBranch
+    {
         super::builder::catalog_service::GetDefaultBranch::new(self.inner.clone())
     }
 
     /// Gets a [CompletionConfig][google.cloud.retail.v2.CompletionConfig].
     ///
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
-    pub fn get_completion_config(&self) -> super::builder::catalog_service::GetCompletionConfig {
+    pub fn get_completion_config(&self) -> super::builder::catalog_service::GetCompletionConfig
+    {
         super::builder::catalog_service::GetCompletionConfig::new(self.inner.clone())
     }
 
     /// Updates the [CompletionConfig][google.cloud.retail.v2.CompletionConfig]s.
     ///
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
-    pub fn update_completion_config(
-        &self,
-    ) -> super::builder::catalog_service::UpdateCompletionConfig {
+    pub fn update_completion_config(&self) -> super::builder::catalog_service::UpdateCompletionConfig
+    {
         super::builder::catalog_service::UpdateCompletionConfig::new(self.inner.clone())
     }
 
     /// Gets an [AttributesConfig][google.cloud.retail.v2.AttributesConfig].
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
-    pub fn get_attributes_config(&self) -> super::builder::catalog_service::GetAttributesConfig {
+    pub fn get_attributes_config(&self) -> super::builder::catalog_service::GetAttributesConfig
+    {
         super::builder::catalog_service::GetAttributesConfig::new(self.inner.clone())
     }
 
@@ -359,9 +334,8 @@ impl CatalogService {
     /// catalog attribute fields, e.g., searchable and dynamic facetable options.
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
-    pub fn update_attributes_config(
-        &self,
-    ) -> super::builder::catalog_service::UpdateAttributesConfig {
+    pub fn update_attributes_config(&self) -> super::builder::catalog_service::UpdateAttributesConfig
+    {
         super::builder::catalog_service::UpdateAttributesConfig::new(self.inner.clone())
     }
 
@@ -374,7 +348,8 @@ impl CatalogService {
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-    pub fn add_catalog_attribute(&self) -> super::builder::catalog_service::AddCatalogAttribute {
+    pub fn add_catalog_attribute(&self) -> super::builder::catalog_service::AddCatalogAttribute
+    {
         super::builder::catalog_service::AddCatalogAttribute::new(self.inner.clone())
     }
 
@@ -387,9 +362,8 @@ impl CatalogService {
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
-    pub fn remove_catalog_attribute(
-        &self,
-    ) -> super::builder::catalog_service::RemoveCatalogAttribute {
+    pub fn remove_catalog_attribute(&self) -> super::builder::catalog_service::RemoveCatalogAttribute
+    {
         super::builder::catalog_service::RemoveCatalogAttribute::new(self.inner.clone())
     }
 
@@ -405,23 +379,24 @@ impl CatalogService {
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
     /// [google.cloud.retail.v2.CatalogAttribute.key]: crate::model::CatalogAttribute::key
-    pub fn replace_catalog_attribute(
-        &self,
-    ) -> super::builder::catalog_service::ReplaceCatalogAttribute {
+    pub fn replace_catalog_attribute(&self) -> super::builder::catalog_service::ReplaceCatalogAttribute
+    {
         super::builder::catalog_service::ReplaceCatalogAttribute::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::catalog_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::catalog_service::ListOperations
+    {
         super::builder::catalog_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation
+    {
         super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -485,9 +460,7 @@ impl CompletionService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::completion_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::completion_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::completion_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -495,50 +468,36 @@ impl CompletionService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CompletionService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CompletionService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompletionService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompletionService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CompletionService> {
         super::transport::CompletionService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CompletionService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CompletionService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CompletionService> {
+        Self::build_transport(conf).await.map(super::tracing::CompletionService::new)
     }
 
     /// Completes the specified prefix with keyword suggestions.
     ///
     /// This feature is only available for users who have Retail Search enabled.
     /// Enable Retail Search on Cloud Console before using this feature.
-    pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery {
+    pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery
+    {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
     }
 
@@ -561,23 +520,24 @@ impl CompletionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_completion_data(
-        &self,
-    ) -> super::builder::completion_service::ImportCompletionData {
+    pub fn import_completion_data(&self) -> super::builder::completion_service::ImportCompletionData
+    {
         super::builder::completion_service::ImportCompletionData::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::completion_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::completion_service::ListOperations
+    {
         super::builder::completion_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::completion_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::completion_service::GetOperation
+    {
         super::builder::completion_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -646,42 +606,28 @@ impl ControlService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ControlService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ControlService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ControlService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ControlService> {
         super::transport::ControlService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ControlService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ControlService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ControlService> {
+        Self::build_transport(conf).await.map(super::tracing::ControlService::new)
     }
 
     /// Creates a Control.
@@ -690,7 +636,8 @@ impl ControlService {
     /// an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn create_control(&self) -> super::builder::control_service::CreateControl {
+    pub fn create_control(&self) -> super::builder::control_service::CreateControl
+    {
         super::builder::control_service::CreateControl::new(self.inner.clone())
     }
 
@@ -700,7 +647,8 @@ impl ControlService {
     /// a NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn delete_control(&self) -> super::builder::control_service::DeleteControl {
+    pub fn delete_control(&self) -> super::builder::control_service::DeleteControl
+    {
         super::builder::control_service::DeleteControl::new(self.inner.clone())
     }
 
@@ -712,12 +660,14 @@ impl ControlService {
     /// NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
-    pub fn update_control(&self) -> super::builder::control_service::UpdateControl {
+    pub fn update_control(&self) -> super::builder::control_service::UpdateControl
+    {
         super::builder::control_service::UpdateControl::new(self.inner.clone())
     }
 
     /// Gets a Control.
-    pub fn get_control(&self) -> super::builder::control_service::GetControl {
+    pub fn get_control(&self) -> super::builder::control_service::GetControl
+    {
         super::builder::control_service::GetControl::new(self.inner.clone())
     }
 
@@ -725,21 +675,24 @@ impl ControlService {
     /// [Catalog][google.cloud.retail.v2.Catalog].
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
-    pub fn list_controls(&self) -> super::builder::control_service::ListControls {
+    pub fn list_controls(&self) -> super::builder::control_service::ListControls
+    {
         super::builder::control_service::ListControls::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::control_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::control_service::ListOperations
+    {
         super::builder::control_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::control_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::control_service::GetOperation
+    {
         super::builder::control_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -804,9 +757,7 @@ impl ConversationalSearchService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::conversational_search_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::conversational_search_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -814,57 +765,43 @@ impl ConversationalSearchService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ConversationalSearchService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ConversationalSearchService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConversationalSearchService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
         super::transport::ConversationalSearchService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ConversationalSearchService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConversationalSearchService> {
+        Self::build_transport(conf).await.map(super::tracing::ConversationalSearchService::new)
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::conversational_search_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::conversational_search_service::ListOperations
+    {
         super::builder::conversational_search_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation
+    {
         super::builder::conversational_search_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -925,9 +862,7 @@ impl GenerativeQuestionService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::generative_question_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::generative_question_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::generative_question_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -935,104 +870,75 @@ impl GenerativeQuestionService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::GenerativeQuestionService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::GenerativeQuestionService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::GenerativeQuestionService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GenerativeQuestionService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
         super::transport::GenerativeQuestionService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::GenerativeQuestionService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::GenerativeQuestionService> {
+        Self::build_transport(conf).await.map(super::tracing::GenerativeQuestionService::new)
     }
 
     /// Manages overal generative question feature state -- enables toggling
     /// feature on and off.
-    pub fn update_generative_questions_feature_config(
-        &self,
-    ) -> super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig {
-        super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig::new(
-            self.inner.clone(),
-        )
+    pub fn update_generative_questions_feature_config(&self) -> super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig
+    {
+        super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig::new(self.inner.clone())
     }
 
     /// Manages overal generative question feature state -- enables toggling
     /// feature on and off.
-    pub fn get_generative_questions_feature_config(
-        &self,
-    ) -> super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig {
-        super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig::new(
-            self.inner.clone(),
-        )
+    pub fn get_generative_questions_feature_config(&self) -> super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig
+    {
+        super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig::new(self.inner.clone())
     }
 
     /// Returns all questions for a given catalog.
-    pub fn list_generative_question_configs(
-        &self,
-    ) -> super::builder::generative_question_service::ListGenerativeQuestionConfigs {
-        super::builder::generative_question_service::ListGenerativeQuestionConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn list_generative_question_configs(&self) -> super::builder::generative_question_service::ListGenerativeQuestionConfigs
+    {
+        super::builder::generative_question_service::ListGenerativeQuestionConfigs::new(self.inner.clone())
     }
 
     /// Allows management of individual questions.
-    pub fn update_generative_question_config(
-        &self,
-    ) -> super::builder::generative_question_service::UpdateGenerativeQuestionConfig {
-        super::builder::generative_question_service::UpdateGenerativeQuestionConfig::new(
-            self.inner.clone(),
-        )
+    pub fn update_generative_question_config(&self) -> super::builder::generative_question_service::UpdateGenerativeQuestionConfig
+    {
+        super::builder::generative_question_service::UpdateGenerativeQuestionConfig::new(self.inner.clone())
     }
 
     /// Allows management of multiple questions.
-    pub fn batch_update_generative_question_configs(
-        &self,
-    ) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
-        super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(
-            self.inner.clone(),
-        )
+    pub fn batch_update_generative_question_configs(&self) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs
+    {
+        super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::generative_question_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::generative_question_service::ListOperations
+    {
         super::builder::generative_question_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::generative_question_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::generative_question_service::GetOperation
+    {
         super::builder::generative_question_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -1112,42 +1018,28 @@ impl ModelService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ModelService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ModelService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ModelService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ModelService> {
+        Self::build_transport(conf).await.map(super::tracing::ModelService::new)
     }
 
     /// Creates a new model.
@@ -1161,32 +1053,38 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_model(&self) -> super::builder::model_service::CreateModel {
+    pub fn create_model(&self) -> super::builder::model_service::CreateModel
+    {
         super::builder::model_service::CreateModel::new(self.inner.clone())
     }
 
     /// Gets a model.
-    pub fn get_model(&self) -> super::builder::model_service::GetModel {
+    pub fn get_model(&self) -> super::builder::model_service::GetModel
+    {
         super::builder::model_service::GetModel::new(self.inner.clone())
     }
 
     /// Pauses the training of an existing model.
-    pub fn pause_model(&self) -> super::builder::model_service::PauseModel {
+    pub fn pause_model(&self) -> super::builder::model_service::PauseModel
+    {
         super::builder::model_service::PauseModel::new(self.inner.clone())
     }
 
     /// Resumes the training of an existing model.
-    pub fn resume_model(&self) -> super::builder::model_service::ResumeModel {
+    pub fn resume_model(&self) -> super::builder::model_service::ResumeModel
+    {
         super::builder::model_service::ResumeModel::new(self.inner.clone())
     }
 
     /// Deletes an existing model.
-    pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
+    pub fn delete_model(&self) -> super::builder::model_service::DeleteModel
+    {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists all the models linked to this event store.
-    pub fn list_models(&self) -> super::builder::model_service::ListModels {
+    pub fn list_models(&self) -> super::builder::model_service::ListModels
+    {
         super::builder::model_service::ListModels::new(self.inner.clone())
     }
 
@@ -1194,7 +1092,8 @@ impl ModelService {
     /// currently can be updated are: `filtering_option` and
     /// `periodic_tuning_state`.
     /// If other values are provided, this API method ignores them.
-    pub fn update_model(&self) -> super::builder::model_service::UpdateModel {
+    pub fn update_model(&self) -> super::builder::model_service::UpdateModel
+    {
         super::builder::model_service::UpdateModel::new(self.inner.clone())
     }
 
@@ -1209,21 +1108,24 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn tune_model(&self) -> super::builder::model_service::TuneModel {
+    pub fn tune_model(&self) -> super::builder::model_service::TuneModel
+    {
         super::builder::model_service::TuneModel::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::model_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::model_service::ListOperations
+    {
         super::builder::model_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::model_service::GetOperation
+    {
         super::builder::model_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -1284,9 +1186,7 @@ impl PredictionService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::prediction_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::prediction_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::prediction_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -1294,61 +1194,49 @@ impl PredictionService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::PredictionService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::PredictionService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PredictionService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PredictionService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PredictionService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PredictionService> {
         super::transport::PredictionService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::PredictionService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::PredictionService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::PredictionService> {
+        Self::build_transport(conf).await.map(super::tracing::PredictionService::new)
     }
 
     /// Makes a recommendation prediction.
-    pub fn predict(&self) -> super::builder::prediction_service::Predict {
+    pub fn predict(&self) -> super::builder::prediction_service::Predict
+    {
         super::builder::prediction_service::Predict::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::prediction_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::prediction_service::ListOperations
+    {
         super::builder::prediction_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation
+    {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -1420,76 +1308,67 @@ impl ProductService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ProductService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ProductService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ProductService> {
         super::transport::ProductService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ProductService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ProductService> {
+        Self::build_transport(conf).await.map(super::tracing::ProductService::new)
     }
 
     /// Creates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn create_product(&self) -> super::builder::product_service::CreateProduct {
+    pub fn create_product(&self) -> super::builder::product_service::CreateProduct
+    {
         super::builder::product_service::CreateProduct::new(self.inner.clone())
     }
 
     /// Gets a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn get_product(&self) -> super::builder::product_service::GetProduct {
+    pub fn get_product(&self) -> super::builder::product_service::GetProduct
+    {
         super::builder::product_service::GetProduct::new(self.inner.clone())
     }
 
     /// Gets a list of [Product][google.cloud.retail.v2.Product]s.
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn list_products(&self) -> super::builder::product_service::ListProducts {
+    pub fn list_products(&self) -> super::builder::product_service::ListProducts
+    {
         super::builder::product_service::ListProducts::new(self.inner.clone())
     }
 
     /// Updates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn update_product(&self) -> super::builder::product_service::UpdateProduct {
+    pub fn update_product(&self) -> super::builder::product_service::UpdateProduct
+    {
         super::builder::product_service::UpdateProduct::new(self.inner.clone())
     }
 
     /// Deletes a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
-    pub fn delete_product(&self) -> super::builder::product_service::DeleteProduct {
+    pub fn delete_product(&self) -> super::builder::product_service::DeleteProduct
+    {
         super::builder::product_service::DeleteProduct::new(self.inner.clone())
     }
 
@@ -1525,7 +1404,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_products(&self) -> super::builder::product_service::PurgeProducts {
+    pub fn purge_products(&self) -> super::builder::product_service::PurgeProducts
+    {
         super::builder::product_service::PurgeProducts::new(self.inner.clone())
     }
 
@@ -1548,7 +1428,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_products(&self) -> super::builder::product_service::ImportProducts {
+    pub fn import_products(&self) -> super::builder::product_service::ImportProducts
+    {
         super::builder::product_service::ImportProducts::new(self.inner.clone())
     }
 
@@ -1624,7 +1505,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn set_inventory(&self) -> super::builder::product_service::SetInventory {
+    pub fn set_inventory(&self) -> super::builder::product_service::SetInventory
+    {
         super::builder::product_service::SetInventory::new(self.inner.clone())
     }
 
@@ -1677,7 +1559,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_fulfillment_places(&self) -> super::builder::product_service::AddFulfillmentPlaces {
+    pub fn add_fulfillment_places(&self) -> super::builder::product_service::AddFulfillmentPlaces
+    {
         super::builder::product_service::AddFulfillmentPlaces::new(self.inner.clone())
     }
 
@@ -1730,9 +1613,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_fulfillment_places(
-        &self,
-    ) -> super::builder::product_service::RemoveFulfillmentPlaces {
+    pub fn remove_fulfillment_places(&self) -> super::builder::product_service::RemoveFulfillmentPlaces
+    {
         super::builder::product_service::RemoveFulfillmentPlaces::new(self.inner.clone())
     }
 
@@ -1782,7 +1664,8 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_local_inventories(&self) -> super::builder::product_service::AddLocalInventories {
+    pub fn add_local_inventories(&self) -> super::builder::product_service::AddLocalInventories
+    {
         super::builder::product_service::AddLocalInventories::new(self.inner.clone())
     }
 
@@ -1830,23 +1713,24 @@ impl ProductService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_local_inventories(
-        &self,
-    ) -> super::builder::product_service::RemoveLocalInventories {
+    pub fn remove_local_inventories(&self) -> super::builder::product_service::RemoveLocalInventories
+    {
         super::builder::product_service::RemoveLocalInventories::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::product_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::product_service::ListOperations
+    {
         super::builder::product_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::product_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::product_service::GetOperation
+    {
         super::builder::product_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -1918,63 +1802,52 @@ impl SearchService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SearchService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SearchService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SearchService> {
         super::transport::SearchService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SearchService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SearchService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SearchService> {
+        Self::build_transport(conf).await.map(super::tracing::SearchService::new)
     }
 
     /// Performs a search.
     ///
     /// This feature is only available for users who have Retail Search enabled.
     /// Enable Retail Search on Cloud Console before using this feature.
-    pub fn search(&self) -> super::builder::search_service::Search {
+    pub fn search(&self) -> super::builder::search_service::Search
+    {
         super::builder::search_service::Search::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::search_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::search_service::ListOperations
+    {
         super::builder::search_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::search_service::GetOperation
+    {
         super::builder::search_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -2035,9 +1908,7 @@ impl ServingConfigService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::serving_config_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::serving_config_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2045,43 +1916,28 @@ impl ServingConfigService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ServingConfigService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ServingConfigService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServingConfigService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
         super::transport::ServingConfigService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ServingConfigService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServingConfigService> {
+        Self::build_transport(conf).await.map(super::tracing::ServingConfigService::new)
     }
 
     /// Creates a ServingConfig.
@@ -2092,39 +1948,36 @@ impl ServingConfigService {
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
-    pub fn create_serving_config(
-        &self,
-    ) -> super::builder::serving_config_service::CreateServingConfig {
+    pub fn create_serving_config(&self) -> super::builder::serving_config_service::CreateServingConfig
+    {
         super::builder::serving_config_service::CreateServingConfig::new(self.inner.clone())
     }
 
     /// Deletes a ServingConfig.
     ///
     /// Returns a NotFound error if the ServingConfig does not exist.
-    pub fn delete_serving_config(
-        &self,
-    ) -> super::builder::serving_config_service::DeleteServingConfig {
+    pub fn delete_serving_config(&self) -> super::builder::serving_config_service::DeleteServingConfig
+    {
         super::builder::serving_config_service::DeleteServingConfig::new(self.inner.clone())
     }
 
     /// Updates a ServingConfig.
-    pub fn update_serving_config(
-        &self,
-    ) -> super::builder::serving_config_service::UpdateServingConfig {
+    pub fn update_serving_config(&self) -> super::builder::serving_config_service::UpdateServingConfig
+    {
         super::builder::serving_config_service::UpdateServingConfig::new(self.inner.clone())
     }
 
     /// Gets a ServingConfig.
     ///
     /// Returns a NotFound error if the ServingConfig does not exist.
-    pub fn get_serving_config(&self) -> super::builder::serving_config_service::GetServingConfig {
+    pub fn get_serving_config(&self) -> super::builder::serving_config_service::GetServingConfig
+    {
         super::builder::serving_config_service::GetServingConfig::new(self.inner.clone())
     }
 
     /// Lists all ServingConfigs linked to this catalog.
-    pub fn list_serving_configs(
-        &self,
-    ) -> super::builder::serving_config_service::ListServingConfigs {
+    pub fn list_serving_configs(&self) -> super::builder::serving_config_service::ListServingConfigs
+    {
         super::builder::serving_config_service::ListServingConfigs::new(self.inner.clone())
     }
 
@@ -2135,7 +1988,8 @@ impl ServingConfigService {
     /// Returns a ALREADY_EXISTS error if the control has already been applied.
     /// Returns a FAILED_PRECONDITION error if the addition could exceed maximum
     /// number of control allowed for that type of control.
-    pub fn add_control(&self) -> super::builder::serving_config_service::AddControl {
+    pub fn add_control(&self) -> super::builder::serving_config_service::AddControl
+    {
         super::builder::serving_config_service::AddControl::new(self.inner.clone())
     }
 
@@ -2143,21 +1997,24 @@ impl ServingConfigService {
     /// The control is removed from the ServingConfig.
     /// Returns a NOT_FOUND error if the Control is not enabled for the
     /// ServingConfig.
-    pub fn remove_control(&self) -> super::builder::serving_config_service::RemoveControl {
+    pub fn remove_control(&self) -> super::builder::serving_config_service::RemoveControl
+    {
         super::builder::serving_config_service::RemoveControl::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::serving_config_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::serving_config_service::ListOperations
+    {
         super::builder::serving_config_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation
+    {
         super::builder::serving_config_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -2218,9 +2075,7 @@ impl UserEventService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::user_event_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::user_event_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::user_event_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -2228,47 +2083,33 @@ impl UserEventService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::UserEventService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::UserEventService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UserEventService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UserEventService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::UserEventService> {
         super::transport::UserEventService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::UserEventService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::UserEventService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::UserEventService> {
+        Self::build_transport(conf).await.map(super::tracing::UserEventService::new)
     }
 
     /// Writes a single user event.
-    pub fn write_user_event(&self) -> super::builder::user_event_service::WriteUserEvent {
+    pub fn write_user_event(&self) -> super::builder::user_event_service::WriteUserEvent
+    {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
     }
 
@@ -2279,7 +2120,8 @@ impl UserEventService {
     ///
     /// This method is used only by the Retail API JavaScript pixel and Google Tag
     /// Manager. Users should not call this method directly.
-    pub fn collect_user_event(&self) -> super::builder::user_event_service::CollectUserEvent {
+    pub fn collect_user_event(&self) -> super::builder::user_event_service::CollectUserEvent
+    {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
     }
 
@@ -2297,7 +2139,8 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_user_events(&self) -> super::builder::user_event_service::PurgeUserEvents {
+    pub fn purge_user_events(&self) -> super::builder::user_event_service::PurgeUserEvents
+    {
         super::builder::user_event_service::PurgeUserEvents::new(self.inner.clone())
     }
 
@@ -2318,7 +2161,8 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_user_events(&self) -> super::builder::user_event_service::ImportUserEvents {
+    pub fn import_user_events(&self) -> super::builder::user_event_service::ImportUserEvents
+    {
         super::builder::user_event_service::ImportUserEvents::new(self.inner.clone())
     }
 
@@ -2340,21 +2184,24 @@ impl UserEventService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rejoin_user_events(&self) -> super::builder::user_event_service::RejoinUserEvents {
+    pub fn rejoin_user_events(&self) -> super::builder::user_event_service::RejoinUserEvents
+    {
         super::builder::user_event_service::RejoinUserEvents::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::user_event_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::user_event_service::ListOperations
+    {
         super::builder::user_event_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation
+    {
         super::builder::user_event_service::GetOperation::new(self.inner.clone())
     }
 }

@@ -71,9 +71,7 @@ impl TimeseriesInsightsController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::timeseries_insights_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::timeseries_insights_controller::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::timeseries_insights_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -81,44 +79,28 @@ impl TimeseriesInsightsController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TimeseriesInsightsController + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TimeseriesInsightsController + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::TimeseriesInsightsController>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TimeseriesInsightsController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TimeseriesInsightsController> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TimeseriesInsightsController> {
         super::transport::TimeseriesInsightsController::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TimeseriesInsightsController> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TimeseriesInsightsController::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TimeseriesInsightsController> {
+        Self::build_transport(conf).await.map(super::tracing::TimeseriesInsightsController::new)
     }
 
     /// Lists [DataSets][google.cloud.timeseriesinsights.v1.DataSet] under the project.
@@ -128,7 +110,8 @@ impl TimeseriesInsightsController {
     /// of this list.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn list_data_sets(&self) -> super::builder::timeseries_insights_controller::ListDataSets {
+    pub fn list_data_sets(&self) -> super::builder::timeseries_insights_controller::ListDataSets
+    {
         super::builder::timeseries_insights_controller::ListDataSets::new(self.inner.clone())
     }
 
@@ -140,7 +123,8 @@ impl TimeseriesInsightsController {
     /// might result.  For more information, see [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn create_data_set(&self) -> super::builder::timeseries_insights_controller::CreateDataSet {
+    pub fn create_data_set(&self) -> super::builder::timeseries_insights_controller::CreateDataSet
+    {
         super::builder::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
     }
 
@@ -150,14 +134,16 @@ impl TimeseriesInsightsController {
     /// processed, it will be aborted and deleted.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn delete_data_set(&self) -> super::builder::timeseries_insights_controller::DeleteDataSet {
+    pub fn delete_data_set(&self) -> super::builder::timeseries_insights_controller::DeleteDataSet
+    {
         super::builder::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
     }
 
     /// Append events to a `LOADED` [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn append_events(&self) -> super::builder::timeseries_insights_controller::AppendEvents {
+    pub fn append_events(&self) -> super::builder::timeseries_insights_controller::AppendEvents
+    {
         super::builder::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
     }
 
@@ -165,21 +151,22 @@ impl TimeseriesInsightsController {
     /// [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn query_data_set(&self) -> super::builder::timeseries_insights_controller::QueryDataSet {
+    pub fn query_data_set(&self) -> super::builder::timeseries_insights_controller::QueryDataSet
+    {
         super::builder::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
     }
 
     /// Evaluate an explicit slice from a loaded [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
-    pub fn evaluate_slice(&self) -> super::builder::timeseries_insights_controller::EvaluateSlice {
+    pub fn evaluate_slice(&self) -> super::builder::timeseries_insights_controller::EvaluateSlice
+    {
         super::builder::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
     }
 
     /// Evaluate an explicit timeseries.
-    pub fn evaluate_timeseries(
-        &self,
-    ) -> super::builder::timeseries_insights_controller::EvaluateTimeseries {
+    pub fn evaluate_timeseries(&self) -> super::builder::timeseries_insights_controller::EvaluateTimeseries
+    {
         super::builder::timeseries_insights_controller::EvaluateTimeseries::new(self.inner.clone())
     }
 }

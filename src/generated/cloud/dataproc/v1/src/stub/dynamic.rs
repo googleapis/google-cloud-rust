@@ -88,6 +88,7 @@ pub trait AutoscalingPolicyService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::AutoscalingPolicyService] also implement [AutoscalingPolicyService].
@@ -200,6 +201,7 @@ impl<T: super::AutoscalingPolicyService> AutoscalingPolicyService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::BatchController].
@@ -1154,6 +1156,7 @@ pub trait SessionTemplateController: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SessionTemplateController] also implement [SessionTemplateController].
@@ -1266,6 +1269,7 @@ impl<T: super::SessionTemplateController> SessionTemplateController for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SessionController].

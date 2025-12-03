@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Folder {
+
     /// Output only. The resource name of the folder.
     /// Its format is `folders/{folder_id}`, for example: "folders/1234".
     pub name: std::string::String,
@@ -119,8 +120,7 @@ impl Folder {
 
     /// Sets the value of [create_time][crate::model::Folder::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -128,8 +128,7 @@ impl Folder {
 
     /// Sets or clears the value of [create_time][crate::model::Folder::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -137,8 +136,7 @@ impl Folder {
 
     /// Sets the value of [update_time][crate::model::Folder::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -146,8 +144,7 @@ impl Folder {
 
     /// Sets or clears the value of [update_time][crate::model::Folder::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -155,8 +152,7 @@ impl Folder {
 
     /// Sets the value of [delete_time][crate::model::Folder::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -164,8 +160,7 @@ impl Folder {
 
     /// Sets or clears the value of [delete_time][crate::model::Folder::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -188,6 +183,7 @@ impl wkt::message::Message for Folder {
 pub mod folder {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Folder lifecycle states.
     ///
@@ -275,9 +271,7 @@ pub mod folder {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -289,9 +283,7 @@ pub mod folder {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETE_REQUESTED" => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -316,8 +308,7 @@ pub mod folder {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.resourcemanager.v3.Folder.State",
-            ))
+                ".google.cloud.resourcemanager.v3.Folder.State"))
         }
     }
 }
@@ -326,6 +317,7 @@ pub mod folder {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFolderRequest {
+
     /// Required. The resource name of the folder to retrieve.
     /// Must be of the form `folders/{folder_id}`.
     pub name: std::string::String,
@@ -355,6 +347,7 @@ impl wkt::message::Message for GetFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersRequest {
+
     /// Required. The name of the parent resource whose folders are being listed.
     /// Only children of this parent resource are listed; descendants are not
     /// listed.
@@ -425,6 +418,7 @@ impl wkt::message::Message for ListFoldersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFoldersResponse {
+
     /// A possibly paginated list of folders that are direct descendants of
     /// the specified parent resource.
     pub folders: std::vec::Vec<crate::model::Folder>,
@@ -445,7 +439,7 @@ impl ListFoldersResponse {
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Folder>,
+        V: std::convert::Into<crate::model::Folder>
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
@@ -483,6 +477,7 @@ impl gax::paginator::internal::PageableResponse for ListFoldersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFoldersRequest {
+
     /// Optional. The maximum number of folders to return in the response. The
     /// server can return fewer folders than requested. If unspecified, server
     /// picks an appropriate default.
@@ -562,6 +557,7 @@ impl wkt::message::Message for SearchFoldersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFoldersResponse {
+
     /// A possibly paginated folder search results.
     /// the specified parent resource.
     pub folders: std::vec::Vec<crate::model::Folder>,
@@ -582,7 +578,7 @@ impl SearchFoldersResponse {
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Folder>,
+        V: std::convert::Into<crate::model::Folder>
     {
         use std::iter::Iterator;
         self.folders = v.into_iter().map(|i| i.into()).collect();
@@ -620,6 +616,7 @@ impl gax::paginator::internal::PageableResponse for SearchFoldersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderRequest {
+
     /// Required. The folder being created, only the display name and parent will
     /// be consulted. All other fields will be ignored.
     pub folder: std::option::Option<crate::model::Folder>,
@@ -634,8 +631,7 @@ impl CreateFolderRequest {
 
     /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
     pub fn set_folder<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Folder>,
+    where T: std::convert::Into<crate::model::Folder>
     {
         self.folder = std::option::Option::Some(v.into());
         self
@@ -643,8 +639,7 @@ impl CreateFolderRequest {
 
     /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Folder>,
+    where T: std::convert::Into<crate::model::Folder>
     {
         self.folder = v.map(|x| x.into());
         self
@@ -661,6 +656,7 @@ impl wkt::message::Message for CreateFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFolderMetadata {
+
     /// The display name of the folder.
     pub display_name: std::string::String,
 
@@ -708,6 +704,7 @@ impl wkt::message::Message for CreateFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderRequest {
+
     /// Required. The new definition of the Folder. It must include the `name`
     /// field, which cannot be changed.
     pub folder: std::option::Option<crate::model::Folder>,
@@ -726,8 +723,7 @@ impl UpdateFolderRequest {
 
     /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
     pub fn set_folder<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Folder>,
+    where T: std::convert::Into<crate::model::Folder>
     {
         self.folder = std::option::Option::Some(v.into());
         self
@@ -735,8 +731,7 @@ impl UpdateFolderRequest {
 
     /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Folder>,
+    where T: std::convert::Into<crate::model::Folder>
     {
         self.folder = v.map(|x| x.into());
         self
@@ -744,8 +739,7 @@ impl UpdateFolderRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -753,8 +747,7 @@ impl UpdateFolderRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -772,6 +765,7 @@ impl wkt::message::Message for UpdateFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFolderMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -791,6 +785,7 @@ impl wkt::message::Message for UpdateFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFolderRequest {
+
     /// Required. The resource name of the Folder to move.
     /// Must be of the form folders/{folder_id}
     pub name: std::string::String,
@@ -815,10 +810,7 @@ impl MoveFolderRequest {
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveFolderRequest::destination_parent].
-    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_parent = v.into();
         self
     }
@@ -834,6 +826,7 @@ impl wkt::message::Message for MoveFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFolderMetadata {
+
     /// The display name of the folder.
     pub display_name: std::string::String,
 
@@ -864,10 +857,7 @@ impl MoveFolderMetadata {
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveFolderMetadata::destination_parent].
-    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_parent = v.into();
         self
     }
@@ -883,6 +873,7 @@ impl wkt::message::Message for MoveFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderRequest {
+
     /// Required. The resource name of the folder to be deleted.
     /// Must be of the form `folders/{folder_id}`.
     pub name: std::string::String,
@@ -913,6 +904,7 @@ impl wkt::message::Message for DeleteFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFolderMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -932,6 +924,7 @@ impl wkt::message::Message for DeleteFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteFolderRequest {
+
     /// Required. The resource name of the folder to undelete.
     /// Must be of the form `folders/{folder_id}`.
     pub name: std::string::String,
@@ -962,6 +955,7 @@ impl wkt::message::Message for UndeleteFolderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteFolderMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -982,6 +976,7 @@ impl wkt::message::Message for UndeleteFolderMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Organization {
+
     /// Output only. The resource name of the organization. This is the
     /// organization's relative path in the API. Its format is
     /// "organizations/[organization_id]". For example, "organizations/1234".
@@ -1039,18 +1034,14 @@ impl Organization {
     }
 
     /// Sets the value of [state][crate::model::Organization::state].
-    pub fn set_state<T: std::convert::Into<crate::model::organization::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::organization::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Organization::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1058,8 +1049,7 @@ impl Organization {
 
     /// Sets or clears the value of [create_time][crate::model::Organization::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1067,8 +1057,7 @@ impl Organization {
 
     /// Sets the value of [update_time][crate::model::Organization::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1076,8 +1065,7 @@ impl Organization {
 
     /// Sets or clears the value of [update_time][crate::model::Organization::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1085,8 +1073,7 @@ impl Organization {
 
     /// Sets the value of [delete_time][crate::model::Organization::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -1094,8 +1081,7 @@ impl Organization {
 
     /// Sets or clears the value of [delete_time][crate::model::Organization::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -1111,12 +1097,8 @@ impl Organization {
     ///
     /// Note that all the setters affecting `owner` are mutually
     /// exclusive.
-    pub fn set_owner<
-        T: std::convert::Into<std::option::Option<crate::model::organization::Owner>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_owner<T: std::convert::Into<std::option::Option<crate::model::organization::Owner>>>(mut self, v: T) -> Self
+    {
         self.owner = v.into();
         self
     }
@@ -1127,9 +1109,7 @@ impl Organization {
     pub fn directory_customer_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.owner.as_ref().and_then(|v| match v {
-            crate::model::organization::Owner::DirectoryCustomerId(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::organization::Owner::DirectoryCustomerId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1139,12 +1119,11 @@ impl Organization {
     ///
     /// Note that all the setters affecting `owner` are
     /// mutually exclusive.
-    pub fn set_directory_customer_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_directory_customer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.owner = std::option::Option::Some(
-            crate::model::organization::Owner::DirectoryCustomerId(v.into()),
+            crate::model::organization::Owner::DirectoryCustomerId(
+                v.into()
+            )
         );
         self
     }
@@ -1160,6 +1139,7 @@ impl wkt::message::Message for Organization {
 pub mod organization {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Organization lifecycle states.
     ///
@@ -1247,9 +1227,7 @@ pub mod organization {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1261,9 +1239,7 @@ pub mod organization {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETE_REQUESTED" => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1288,8 +1264,7 @@ pub mod organization {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.resourcemanager.v3.Organization.State",
-            ))
+                ".google.cloud.resourcemanager.v3.Organization.State"))
         }
     }
 
@@ -1312,6 +1287,7 @@ pub mod organization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOrganizationRequest {
+
     /// Required. The resource name of the Organization to fetch. This is the
     /// organization's relative path in the API, formatted as
     /// "organizations/[organizationId]". For example, "organizations/1234".
@@ -1342,6 +1318,7 @@ impl wkt::message::Message for GetOrganizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchOrganizationsRequest {
+
     /// Optional. The maximum number of organizations to return in the response.
     /// The server can return fewer organizations than requested. If unspecified,
     /// server picks an appropriate default.
@@ -1408,6 +1385,7 @@ impl wkt::message::Message for SearchOrganizationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchOrganizationsResponse {
+
     /// The list of Organizations that matched the search query, possibly
     /// paginated.
     pub organizations: std::vec::Vec<crate::model::Organization>,
@@ -1431,7 +1409,7 @@ impl SearchOrganizationsResponse {
     pub fn set_organizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Organization>,
+        V: std::convert::Into<crate::model::Organization>
     {
         use std::iter::Iterator;
         self.organizations = v.into_iter().map(|i| i.into()).collect();
@@ -1470,6 +1448,7 @@ impl gax::paginator::internal::PageableResponse for SearchOrganizationsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOrganizationMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1490,6 +1469,7 @@ impl wkt::message::Message for DeleteOrganizationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteOrganizationMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1511,6 +1491,7 @@ impl wkt::message::Message for UndeleteOrganizationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Project {
+
     /// Output only. The unique resource name of the project. It is an int64
     /// generated number prefixed by "projects/".
     ///
@@ -1568,7 +1549,7 @@ pub struct Project {
     /// depend on specific characters being disallowed.
     ///
     /// Example: `"myBusinessDimension" : "businessValue"`
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1610,8 +1591,7 @@ impl Project {
 
     /// Sets the value of [create_time][crate::model::Project::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1619,8 +1599,7 @@ impl Project {
 
     /// Sets or clears the value of [create_time][crate::model::Project::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1628,8 +1607,7 @@ impl Project {
 
     /// Sets the value of [update_time][crate::model::Project::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1637,8 +1615,7 @@ impl Project {
 
     /// Sets or clears the value of [update_time][crate::model::Project::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1646,8 +1623,7 @@ impl Project {
 
     /// Sets the value of [delete_time][crate::model::Project::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -1655,8 +1631,7 @@ impl Project {
 
     /// Sets or clears the value of [delete_time][crate::model::Project::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -1691,6 +1666,7 @@ impl wkt::message::Message for Project {
 pub mod project {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Project lifecycle states.
     ///
@@ -1786,9 +1762,7 @@ pub mod project {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1800,9 +1774,7 @@ pub mod project {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "DELETE_REQUESTED" => Self::DeleteRequested,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1827,8 +1799,7 @@ pub mod project {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.resourcemanager.v3.Project.State",
-            ))
+                ".google.cloud.resourcemanager.v3.Project.State"))
         }
     }
 }
@@ -1841,6 +1812,7 @@ pub mod project {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProjectRequest {
+
     /// Required. The name of the project (for example, `projects/415104041262`).
     pub name: std::string::String,
 
@@ -1873,6 +1845,7 @@ impl wkt::message::Message for GetProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectsRequest {
+
     /// Required. The name of the parent resource whose projects are being listed.
     /// Only children of this parent resource are listed; descendants are not
     /// listed.
@@ -1949,6 +1922,7 @@ impl wkt::message::Message for ListProjectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProjectsResponse {
+
     /// The list of Projects under the parent. This list can be paginated.
     pub projects: std::vec::Vec<crate::model::Project>,
 
@@ -1977,7 +1951,7 @@ impl ListProjectsResponse {
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Project>,
+        V: std::convert::Into<crate::model::Project>
     {
         use std::iter::Iterator;
         self.projects = v.into_iter().map(|i| i.into()).collect();
@@ -2019,6 +1993,7 @@ impl gax::paginator::internal::PageableResponse for ListProjectsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProjectsRequest {
+
     /// Optional. A query string for searching for projects that the caller has
     /// `resourcemanager.projects.get` permission to. If multiple fields are
     /// included in the query, then it will return results that match any of the
@@ -2108,6 +2083,7 @@ impl wkt::message::Message for SearchProjectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProjectsResponse {
+
     /// The list of Projects that matched the list filter query. This list can
     /// be paginated.
     pub projects: std::vec::Vec<crate::model::Project>,
@@ -2137,7 +2113,7 @@ impl SearchProjectsResponse {
     pub fn set_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Project>,
+        V: std::convert::Into<crate::model::Project>
     {
         use std::iter::Iterator;
         self.projects = v.into_iter().map(|i| i.into()).collect();
@@ -2179,6 +2155,7 @@ impl gax::paginator::internal::PageableResponse for SearchProjectsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProjectRequest {
+
     /// Required. The Project to create.
     ///
     /// Project ID is required. If the requested ID is unavailable, the request
@@ -2200,8 +2177,7 @@ impl CreateProjectRequest {
 
     /// Sets the value of [project][crate::model::CreateProjectRequest::project].
     pub fn set_project<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Project>,
+    where T: std::convert::Into<crate::model::Project>
     {
         self.project = std::option::Option::Some(v.into());
         self
@@ -2209,8 +2185,7 @@ impl CreateProjectRequest {
 
     /// Sets or clears the value of [project][crate::model::CreateProjectRequest::project].
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Project>,
+    where T: std::convert::Into<crate::model::Project>
     {
         self.project = v.map(|x| x.into());
         self
@@ -2229,6 +2204,7 @@ impl wkt::message::Message for CreateProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateProjectMetadata {
+
     /// Creation time of the project creation workflow.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2250,8 +2226,7 @@ impl CreateProjectMetadata {
 
     /// Sets the value of [create_time][crate::model::CreateProjectMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2259,8 +2234,7 @@ impl CreateProjectMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::CreateProjectMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2298,6 +2272,7 @@ impl wkt::message::Message for CreateProjectMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectRequest {
+
     /// Required. The new definition of the project.
     pub project: std::option::Option<crate::model::Project>,
 
@@ -2314,8 +2289,7 @@ impl UpdateProjectRequest {
 
     /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
     pub fn set_project<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Project>,
+    where T: std::convert::Into<crate::model::Project>
     {
         self.project = std::option::Option::Some(v.into());
         self
@@ -2323,8 +2297,7 @@ impl UpdateProjectRequest {
 
     /// Sets or clears the value of [project][crate::model::UpdateProjectRequest::project].
     pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Project>,
+    where T: std::convert::Into<crate::model::Project>
     {
         self.project = v.map(|x| x.into());
         self
@@ -2332,8 +2305,7 @@ impl UpdateProjectRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2341,8 +2313,7 @@ impl UpdateProjectRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2360,6 +2331,7 @@ impl wkt::message::Message for UpdateProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateProjectMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2383,6 +2355,7 @@ impl wkt::message::Message for UpdateProjectMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveProjectRequest {
+
     /// Required. The name of the project to move.
     pub name: std::string::String,
 
@@ -2404,10 +2377,7 @@ impl MoveProjectRequest {
     }
 
     /// Sets the value of [destination_parent][crate::model::MoveProjectRequest::destination_parent].
-    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_parent = v.into();
         self
     }
@@ -2424,6 +2394,7 @@ impl wkt::message::Message for MoveProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveProjectMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2446,6 +2417,7 @@ impl wkt::message::Message for MoveProjectMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProjectRequest {
+
     /// Required. The name of the Project (for example, `projects/415104041262`).
     pub name: std::string::String,
 
@@ -2475,6 +2447,7 @@ impl wkt::message::Message for DeleteProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteProjectMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2496,6 +2469,7 @@ impl wkt::message::Message for DeleteProjectMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteProjectRequest {
+
     /// Required. The name of the project (for example, `projects/415104041262`).
     ///
     /// Required.
@@ -2527,6 +2501,7 @@ impl wkt::message::Message for UndeleteProjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteProjectMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2548,6 +2523,7 @@ impl wkt::message::Message for UndeleteProjectMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagBinding {
+
     /// Output only. The name of the TagBinding. This is a String of the form:
     /// `tagBindings/{full-resource-name}/{tag-value-name}` (e.g.
     /// `tagBindings/%2F%2Fcloudresourcemanager.googleapis.com%2Fprojects%2F123/tagValues/456`).
@@ -2597,10 +2573,7 @@ impl TagBinding {
     }
 
     /// Sets the value of [tag_value_namespaced_name][crate::model::TagBinding::tag_value_namespaced_name].
-    pub fn set_tag_value_namespaced_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tag_value_namespaced_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_value_namespaced_name = v.into();
         self
     }
@@ -2616,6 +2589,7 @@ impl wkt::message::Message for TagBinding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagBindingMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2635,6 +2609,7 @@ impl wkt::message::Message for CreateTagBindingMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagBindingRequest {
+
     /// Required. The TagBinding to be created.
     pub tag_binding: std::option::Option<crate::model::TagBinding>,
 
@@ -2652,8 +2627,7 @@ impl CreateTagBindingRequest {
 
     /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
     pub fn set_tag_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagBinding>,
+    where T: std::convert::Into<crate::model::TagBinding>
     {
         self.tag_binding = std::option::Option::Some(v.into());
         self
@@ -2661,8 +2635,7 @@ impl CreateTagBindingRequest {
 
     /// Sets or clears the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
     pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagBinding>,
+    where T: std::convert::Into<crate::model::TagBinding>
     {
         self.tag_binding = v.map(|x| x.into());
         self
@@ -2685,6 +2658,7 @@ impl wkt::message::Message for CreateTagBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagBindingMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2704,6 +2678,7 @@ impl wkt::message::Message for DeleteTagBindingMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagBindingRequest {
+
     /// Required. The name of the TagBinding. This is a String of the form:
     /// `tagBindings/{id}` (e.g.
     /// `tagBindings/%2F%2Fcloudresourcemanager.googleapis.com%2Fprojects%2F123/tagValues/456`).
@@ -2734,6 +2709,7 @@ impl wkt::message::Message for DeleteTagBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagBindingsRequest {
+
     /// Required. The full resource name of a resource for which you want to list
     /// existing TagBindings. E.g.
     /// "//cloudresourcemanager.googleapis.com/projects/123"
@@ -2785,6 +2761,7 @@ impl wkt::message::Message for ListTagBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagBindingsResponse {
+
     /// A possibly paginated list of TagBindings for the specified resource.
     pub tag_bindings: std::vec::Vec<crate::model::TagBinding>,
 
@@ -2813,7 +2790,7 @@ impl ListTagBindingsResponse {
     pub fn set_tag_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TagBinding>,
+        V: std::convert::Into<crate::model::TagBinding>
     {
         use std::iter::Iterator;
         self.tag_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -2851,6 +2828,7 @@ impl gax::paginator::internal::PageableResponse for ListTagBindingsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEffectiveTagsRequest {
+
     /// Required. The full resource name of a resource for which you want to list
     /// the effective tags. E.g.
     /// "//cloudresourcemanager.googleapis.com/projects/123"
@@ -2902,6 +2880,7 @@ impl wkt::message::Message for ListEffectiveTagsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEffectiveTagsResponse {
+
     /// A possibly paginated list of effective tags for the specified resource.
     pub effective_tags: std::vec::Vec<crate::model::EffectiveTag>,
 
@@ -2930,7 +2909,7 @@ impl ListEffectiveTagsResponse {
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EffectiveTag>,
+        V: std::convert::Into<crate::model::EffectiveTag>
     {
         use std::iter::Iterator;
         self.effective_tags = v.into_iter().map(|i| i.into()).collect();
@@ -2972,6 +2951,7 @@ impl gax::paginator::internal::PageableResponse for ListEffectiveTagsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EffectiveTag {
+
     /// Resource name for TagValue in the format `tagValues/456`.
     pub tag_value: std::string::String,
 
@@ -3017,10 +2997,7 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [namespaced_tag_value][crate::model::EffectiveTag::namespaced_tag_value].
-    pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespaced_tag_value = v.into();
         self
     }
@@ -3032,19 +3009,13 @@ impl EffectiveTag {
     }
 
     /// Sets the value of [namespaced_tag_key][crate::model::EffectiveTag::namespaced_tag_key].
-    pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespaced_tag_key = v.into();
         self
     }
 
     /// Sets the value of [tag_key_parent_name][crate::model::EffectiveTag::tag_key_parent_name].
-    pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_key_parent_name = v.into();
         self
     }
@@ -3069,6 +3040,7 @@ impl wkt::message::Message for EffectiveTag {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagHold {
+
     /// Output only. The resource name of a TagHold. This is a String of the form:
     /// `tagValues/{tag-value-id}/tagHolds/{tag-hold-id}`
     /// (e.g. `tagValues/123/tagHolds/456`). This resource name is generated by
@@ -3128,8 +3100,7 @@ impl TagHold {
 
     /// Sets the value of [create_time][crate::model::TagHold::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3137,8 +3108,7 @@ impl TagHold {
 
     /// Sets or clears the value of [create_time][crate::model::TagHold::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3155,6 +3125,7 @@ impl wkt::message::Message for TagHold {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagHoldRequest {
+
     /// Required. The resource name of the TagHold's parent TagValue. Must be of
     /// the form: `tagValues/{tag-value-id}`.
     pub parent: std::string::String,
@@ -3182,8 +3153,7 @@ impl CreateTagHoldRequest {
 
     /// Sets the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
     pub fn set_tag_hold<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagHold>,
+    where T: std::convert::Into<crate::model::TagHold>
     {
         self.tag_hold = std::option::Option::Some(v.into());
         self
@@ -3191,8 +3161,7 @@ impl CreateTagHoldRequest {
 
     /// Sets or clears the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
     pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagHold>,
+    where T: std::convert::Into<crate::model::TagHold>
     {
         self.tag_hold = v.map(|x| x.into());
         self
@@ -3217,6 +3186,7 @@ impl wkt::message::Message for CreateTagHoldRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagHoldMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3236,6 +3206,7 @@ impl wkt::message::Message for CreateTagHoldMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagHoldRequest {
+
     /// Required. The resource name of the TagHold to delete. Must be of the form:
     /// `tagValues/{tag-value-id}/tagHolds/{tag-hold-id}`.
     pub name: std::string::String,
@@ -3277,6 +3248,7 @@ impl wkt::message::Message for DeleteTagHoldRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagHoldMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3296,6 +3268,7 @@ impl wkt::message::Message for DeleteTagHoldMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagHoldsRequest {
+
     /// Required. The resource name of the parent TagValue. Must be of the form:
     /// `tagValues/{tag-value-id}`.
     pub parent: std::string::String,
@@ -3365,6 +3338,7 @@ impl wkt::message::Message for ListTagHoldsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagHoldsResponse {
+
     /// A possibly paginated list of TagHolds.
     pub tag_holds: std::vec::Vec<crate::model::TagHold>,
 
@@ -3393,7 +3367,7 @@ impl ListTagHoldsResponse {
     pub fn set_tag_holds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TagHold>,
+        V: std::convert::Into<crate::model::TagHold>
     {
         use std::iter::Iterator;
         self.tag_holds = v.into_iter().map(|i| i.into()).collect();
@@ -3431,6 +3405,7 @@ impl gax::paginator::internal::PageableResponse for ListTagHoldsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagKey {
+
     /// Immutable. The resource name for a TagKey. Must be in the format
     /// `tagKeys/{tag_key_id}`, where `tag_key_id` is the generated numeric id for
     /// the TagKey.
@@ -3484,7 +3459,7 @@ pub struct TagKey {
     /// intended for. See documentation for `Purpose` for formatting of this field.
     ///
     /// Purpose data cannot be changed once set.
-    pub purpose_data: std::collections::HashMap<std::string::String, std::string::String>,
+    pub purpose_data: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3526,8 +3501,7 @@ impl TagKey {
 
     /// Sets the value of [create_time][crate::model::TagKey::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3535,8 +3509,7 @@ impl TagKey {
 
     /// Sets or clears the value of [create_time][crate::model::TagKey::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3544,8 +3517,7 @@ impl TagKey {
 
     /// Sets the value of [update_time][crate::model::TagKey::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3553,8 +3525,7 @@ impl TagKey {
 
     /// Sets or clears the value of [update_time][crate::model::TagKey::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3595,6 +3566,7 @@ impl wkt::message::Message for TagKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagKeysRequest {
+
     /// Required. The resource name of the TagKey's parent.
     /// Must be of the form `organizations/{org_id}` or `projects/{project_id}` or
     /// `projects/{project_number}`
@@ -3646,6 +3618,7 @@ impl wkt::message::Message for ListTagKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagKeysResponse {
+
     /// List of TagKeys that live under the specified parent in the request.
     pub tag_keys: std::vec::Vec<crate::model::TagKey>,
 
@@ -3665,7 +3638,7 @@ impl ListTagKeysResponse {
     pub fn set_tag_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TagKey>,
+        V: std::convert::Into<crate::model::TagKey>
     {
         use std::iter::Iterator;
         self.tag_keys = v.into_iter().map(|i| i.into()).collect();
@@ -3703,6 +3676,7 @@ impl gax::paginator::internal::PageableResponse for ListTagKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagKeyRequest {
+
     /// Required. A resource name in the format `tagKeys/{id}`, such as
     /// `tagKeys/123`.
     pub name: std::string::String,
@@ -3732,6 +3706,7 @@ impl wkt::message::Message for GetTagKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespacedTagKeyRequest {
+
     /// Required. A namespaced tag key name in the format
     /// `{parentId}/{tagKeyShort}`, such as `42/foo` for a key with short name
     /// "foo" under the organization with ID 42 or `r2-d2/bar` for a key with short
@@ -3763,6 +3738,7 @@ impl wkt::message::Message for GetNamespacedTagKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagKeyRequest {
+
     /// Required. The TagKey to be created. Only fields `short_name`,
     /// `description`, and `parent` are considered during the creation request.
     pub tag_key: std::option::Option<crate::model::TagKey>,
@@ -3781,8 +3757,7 @@ impl CreateTagKeyRequest {
 
     /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
     pub fn set_tag_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagKey>,
+    where T: std::convert::Into<crate::model::TagKey>
     {
         self.tag_key = std::option::Option::Some(v.into());
         self
@@ -3790,8 +3765,7 @@ impl CreateTagKeyRequest {
 
     /// Sets or clears the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagKey>,
+    where T: std::convert::Into<crate::model::TagKey>
     {
         self.tag_key = v.map(|x| x.into());
         self
@@ -3814,6 +3788,7 @@ impl wkt::message::Message for CreateTagKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagKeyMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3833,6 +3808,7 @@ impl wkt::message::Message for CreateTagKeyMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagKeyRequest {
+
     /// Required. The new definition of the TagKey. Only the `description` and
     /// `etag` fields can be updated by this request. If the `etag` field is not
     /// empty, it must match the `etag` field of the existing tag key. Otherwise,
@@ -3858,8 +3834,7 @@ impl UpdateTagKeyRequest {
 
     /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
     pub fn set_tag_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagKey>,
+    where T: std::convert::Into<crate::model::TagKey>
     {
         self.tag_key = std::option::Option::Some(v.into());
         self
@@ -3867,8 +3842,7 @@ impl UpdateTagKeyRequest {
 
     /// Sets or clears the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagKey>,
+    where T: std::convert::Into<crate::model::TagKey>
     {
         self.tag_key = v.map(|x| x.into());
         self
@@ -3876,8 +3850,7 @@ impl UpdateTagKeyRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3885,8 +3858,7 @@ impl UpdateTagKeyRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3909,6 +3881,7 @@ impl wkt::message::Message for UpdateTagKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagKeyMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3928,6 +3901,7 @@ impl wkt::message::Message for UpdateTagKeyMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagKeyRequest {
+
     /// Required. The resource name of a TagKey to be deleted in the format
     /// `tagKeys/123`. The TagKey cannot be a parent of any existing TagValues or
     /// it will not be deleted successfully.
@@ -3978,6 +3952,7 @@ impl wkt::message::Message for DeleteTagKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagKeyMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3998,6 +3973,7 @@ impl wkt::message::Message for DeleteTagKeyMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TagValue {
+
     /// Immutable. Resource name for TagValue in the format `tagValues/456`.
     pub name: std::string::String,
 
@@ -4076,8 +4052,7 @@ impl TagValue {
 
     /// Sets the value of [create_time][crate::model::TagValue::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4085,8 +4060,7 @@ impl TagValue {
 
     /// Sets or clears the value of [create_time][crate::model::TagValue::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4094,8 +4068,7 @@ impl TagValue {
 
     /// Sets the value of [update_time][crate::model::TagValue::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4103,8 +4076,7 @@ impl TagValue {
 
     /// Sets or clears the value of [update_time][crate::model::TagValue::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4129,6 +4101,7 @@ impl wkt::message::Message for TagValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagValuesRequest {
+
     /// Required.
     pub parent: std::string::String,
 
@@ -4178,6 +4151,7 @@ impl wkt::message::Message for ListTagValuesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTagValuesResponse {
+
     /// A possibly paginated list of TagValues that are direct descendants of
     /// the specified parent TagKey.
     pub tag_values: std::vec::Vec<crate::model::TagValue>,
@@ -4199,7 +4173,7 @@ impl ListTagValuesResponse {
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TagValue>,
+        V: std::convert::Into<crate::model::TagValue>
     {
         use std::iter::Iterator;
         self.tag_values = v.into_iter().map(|i| i.into()).collect();
@@ -4237,6 +4211,7 @@ impl gax::paginator::internal::PageableResponse for ListTagValuesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTagValueRequest {
+
     /// Required. Resource name for TagValue to be fetched in the format
     /// `tagValues/456`.
     pub name: std::string::String,
@@ -4266,6 +4241,7 @@ impl wkt::message::Message for GetTagValueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespacedTagValueRequest {
+
     /// Required. A namespaced tag value name in the following format:
     ///
     /// `{parentId}/{tagKeyShort}/{tagValueShort}`
@@ -4303,6 +4279,7 @@ impl wkt::message::Message for GetNamespacedTagValueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagValueRequest {
+
     /// Required. The TagValue to be created. Only fields `short_name`,
     /// `description`, and `parent` are considered during the creation request.
     pub tag_value: std::option::Option<crate::model::TagValue>,
@@ -4321,8 +4298,7 @@ impl CreateTagValueRequest {
 
     /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
     pub fn set_tag_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagValue>,
+    where T: std::convert::Into<crate::model::TagValue>
     {
         self.tag_value = std::option::Option::Some(v.into());
         self
@@ -4330,8 +4306,7 @@ impl CreateTagValueRequest {
 
     /// Sets or clears the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagValue>,
+    where T: std::convert::Into<crate::model::TagValue>
     {
         self.tag_value = v.map(|x| x.into());
         self
@@ -4354,6 +4329,7 @@ impl wkt::message::Message for CreateTagValueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTagValueMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4373,6 +4349,7 @@ impl wkt::message::Message for CreateTagValueMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagValueRequest {
+
     /// Required. The new definition of the TagValue. Only fields `description` and
     /// `etag` fields can be updated by this request. If the `etag` field is
     /// nonempty, it must match the `etag` field of the existing ControlGroup.
@@ -4396,8 +4373,7 @@ impl UpdateTagValueRequest {
 
     /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
     pub fn set_tag_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TagValue>,
+    where T: std::convert::Into<crate::model::TagValue>
     {
         self.tag_value = std::option::Option::Some(v.into());
         self
@@ -4405,8 +4381,7 @@ impl UpdateTagValueRequest {
 
     /// Sets or clears the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TagValue>,
+    where T: std::convert::Into<crate::model::TagValue>
     {
         self.tag_value = v.map(|x| x.into());
         self
@@ -4414,8 +4389,7 @@ impl UpdateTagValueRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4423,8 +4397,7 @@ impl UpdateTagValueRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4447,6 +4420,7 @@ impl wkt::message::Message for UpdateTagValueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTagValueMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4466,6 +4440,7 @@ impl wkt::message::Message for UpdateTagValueMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagValueRequest {
+
     /// Required. Resource name for TagValue to be deleted in the format
     /// tagValues/456.
     pub name: std::string::String,
@@ -4515,6 +4490,7 @@ impl wkt::message::Message for DeleteTagValueRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTagValueMetadata {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4628,9 +4604,7 @@ impl std::convert::From<i32> for Purpose {
         match value {
             0 => Self::Unspecified,
             1 => Self::GceFirewall,
-            _ => Self::UnknownValue(purpose::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(purpose::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4641,9 +4615,7 @@ impl std::convert::From<&str> for Purpose {
         match value {
             "PURPOSE_UNSPECIFIED" => Self::Unspecified,
             "GCE_FIREWALL" => Self::GceFirewall,
-            _ => Self::UnknownValue(purpose::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(purpose::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4667,7 +4639,6 @@ impl<'de> serde::de::Deserialize<'de> for Purpose {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Purpose>::new(
-            ".google.cloud.resourcemanager.v3.Purpose",
-        ))
+            ".google.cloud.resourcemanager.v3.Purpose"))
     }
 }

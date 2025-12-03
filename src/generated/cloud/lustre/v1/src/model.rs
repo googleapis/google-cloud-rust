@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Identifier. The name of the instance.
     pub name: std::string::String,
 
@@ -76,7 +77,7 @@ pub struct Instance {
     pub description: std::string::String,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. The throughput of the instance in MB/s/TiB.
     /// Valid values are 125, 250, 500, 1000.
@@ -134,8 +135,7 @@ impl Instance {
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -143,8 +143,7 @@ impl Instance {
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -152,8 +151,7 @@ impl Instance {
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -161,8 +159,7 @@ impl Instance {
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -210,6 +207,7 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The possible states of an instance.
     ///
@@ -322,9 +320,7 @@ pub mod instance {
                 5 => Self::Repairing,
                 6 => Self::Stopped,
                 7 => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -341,9 +337,7 @@ pub mod instance {
                 "REPAIRING" => Self::Repairing,
                 "STOPPED" => Self::Stopped,
                 "UPDATING" => Self::Updating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -373,8 +367,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.lustre.v1.Instance.State",
-            ))
+                ".google.cloud.lustre.v1.Instance.State"))
         }
     }
 }
@@ -383,6 +376,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. The project and location for which to retrieve a list of
     /// instances, in the format `projects/{projectId}/locations/{location}`.
     ///
@@ -452,6 +446,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// Response from [ListInstances][google.cloud.lustre.v1.Lustre.ListInstances].
     ///
     /// [google.cloud.lustre.v1.Lustre.ListInstances]: crate::client::Lustre::list_instances
@@ -475,7 +470,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -492,7 +487,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -524,6 +519,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. The instance resource name, in the format
     /// `projects/{projectId}/locations/{location}/instances/{instanceId}`.
     pub name: std::string::String,
@@ -553,6 +549,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+
     /// Required. The instance's project and location, in the format
     /// `projects/{project}/locations/{location}`. Locations map to Google Cloud
     /// zones; for example, `us-west1-b`.
@@ -606,8 +603,7 @@ impl CreateInstanceRequest {
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -615,8 +611,7 @@ impl CreateInstanceRequest {
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -639,6 +634,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInstanceRequest {
+
     /// Optional. Specifies the fields to be overwritten in the instance resource
     /// by the update.
     ///
@@ -677,8 +673,7 @@ impl UpdateInstanceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -686,8 +681,7 @@ impl UpdateInstanceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -695,8 +689,7 @@ impl UpdateInstanceRequest {
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = std::option::Option::Some(v.into());
         self
@@ -704,8 +697,7 @@ impl UpdateInstanceRequest {
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Instance>,
+    where T: std::convert::Into<crate::model::Instance>
     {
         self.instance = v.map(|x| x.into());
         self
@@ -728,6 +720,7 @@ impl wkt::message::Message for UpdateInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+
     /// Required. The resource name of the instance to delete, in the format
     /// `projects/{projectId}/locations/{location}/instances/{instanceId}`.
     pub name: std::string::String,
@@ -778,6 +771,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -815,8 +809,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -824,8 +817,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -833,8 +825,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -842,8 +833,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -890,6 +880,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataRequest {
+
     /// Required. The name of the Managed Lustre instance in the format
     /// `projects/{project}/locations/{location}/instances/{instance}`.
     pub name: std::string::String,
@@ -938,12 +929,8 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::import_data_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::import_data_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -964,12 +951,12 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source =
-            std::option::Option::Some(crate::model::import_data_request::Source::GcsPath(v.into()));
+    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::import_data_request::Source::GcsPath(
+                v.into()
+            )
+        );
         self
     }
 
@@ -977,12 +964,8 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::import_data_request::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::import_data_request::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -993,9 +976,7 @@ impl ImportDataRequest {
     pub fn lustre_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::import_data_request::Destination::LustrePath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::import_data_request::Destination::LustrePath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1005,12 +986,11 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::import_data_request::Destination::LustrePath(v.into()),
+            crate::model::import_data_request::Destination::LustrePath(
+                v.into()
+            )
         );
         self
     }
@@ -1026,6 +1006,7 @@ impl wkt::message::Message for ImportDataRequest {
 pub mod import_data_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A Cloud Storage URI of a folder to import file data from, in the
     /// form of `gs://<bucket_name>/<path_inside_bucket>/`.
@@ -1051,6 +1032,7 @@ pub mod import_data_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataRequest {
+
     /// Required. The name of the Managed Lustre instance in the format
     /// `projects/{project}/locations/{location}/instances/{instance}`.
     pub name: std::string::String,
@@ -1098,12 +1080,8 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::export_data_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::export_data_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -1114,9 +1092,7 @@ impl ExportDataRequest {
     pub fn lustre_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::export_data_request::Source::LustrePath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::export_data_request::Source::LustrePath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1126,12 +1102,11 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::export_data_request::Source::LustrePath(v.into()),
+            crate::model::export_data_request::Source::LustrePath(
+                v.into()
+            )
         );
         self
     }
@@ -1140,12 +1115,8 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::export_data_request::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::export_data_request::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -1156,9 +1127,7 @@ impl ExportDataRequest {
     pub fn gcs_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::export_data_request::Destination::GcsPath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::export_data_request::Destination::GcsPath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1168,12 +1137,11 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::export_data_request::Destination::GcsPath(v.into()),
+            crate::model::export_data_request::Destination::GcsPath(
+                v.into()
+            )
         );
         self
     }
@@ -1189,6 +1157,7 @@ impl wkt::message::Message for ExportDataRequest {
 pub mod export_data_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source of the data transfer.
     #[derive(Clone, Debug, PartialEq)]
@@ -1215,6 +1184,7 @@ pub mod export_data_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1234,6 +1204,7 @@ impl wkt::message::Message for ExportDataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1253,6 +1224,7 @@ impl wkt::message::Message for ImportDataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportDataMetadata {
+
     /// Data transfer operation metadata.
     pub operation_metadata: std::option::Option<crate::model::TransferOperationMetadata>,
 
@@ -1295,8 +1267,7 @@ impl ExportDataMetadata {
 
     /// Sets the value of [operation_metadata][crate::model::ExportDataMetadata::operation_metadata].
     pub fn set_operation_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    where T: std::convert::Into<crate::model::TransferOperationMetadata>
     {
         self.operation_metadata = std::option::Option::Some(v.into());
         self
@@ -1304,8 +1275,7 @@ impl ExportDataMetadata {
 
     /// Sets or clears the value of [operation_metadata][crate::model::ExportDataMetadata::operation_metadata].
     pub fn set_or_clear_operation_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    where T: std::convert::Into<crate::model::TransferOperationMetadata>
     {
         self.operation_metadata = v.map(|x| x.into());
         self
@@ -1313,8 +1283,7 @@ impl ExportDataMetadata {
 
     /// Sets the value of [create_time][crate::model::ExportDataMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1322,8 +1291,7 @@ impl ExportDataMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::ExportDataMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1331,8 +1299,7 @@ impl ExportDataMetadata {
 
     /// Sets the value of [end_time][crate::model::ExportDataMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1340,8 +1307,7 @@ impl ExportDataMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::ExportDataMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1388,6 +1354,7 @@ impl wkt::message::Message for ExportDataMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportDataMetadata {
+
     /// Data transfer operation metadata.
     pub operation_metadata: std::option::Option<crate::model::TransferOperationMetadata>,
 
@@ -1427,8 +1394,7 @@ impl ImportDataMetadata {
 
     /// Sets the value of [operation_metadata][crate::model::ImportDataMetadata::operation_metadata].
     pub fn set_operation_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    where T: std::convert::Into<crate::model::TransferOperationMetadata>
     {
         self.operation_metadata = std::option::Option::Some(v.into());
         self
@@ -1436,8 +1402,7 @@ impl ImportDataMetadata {
 
     /// Sets or clears the value of [operation_metadata][crate::model::ImportDataMetadata::operation_metadata].
     pub fn set_or_clear_operation_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferOperationMetadata>,
+    where T: std::convert::Into<crate::model::TransferOperationMetadata>
     {
         self.operation_metadata = v.map(|x| x.into());
         self
@@ -1445,8 +1410,7 @@ impl ImportDataMetadata {
 
     /// Sets the value of [create_time][crate::model::ImportDataMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1454,8 +1418,7 @@ impl ImportDataMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::ImportDataMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1463,8 +1426,7 @@ impl ImportDataMetadata {
 
     /// Sets the value of [end_time][crate::model::ImportDataMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1472,8 +1434,7 @@ impl ImportDataMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::ImportDataMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1514,6 +1475,7 @@ impl wkt::message::Message for ImportDataMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsPath {
+
     /// Required. The URI to a Cloud Storage bucket, or a path within a bucket,
     /// using the format `gs://<bucket_name>/<optional_path_inside_bucket>/`. If a
     /// path inside the bucket is specified, it must end with a forward slash
@@ -1545,6 +1507,7 @@ impl wkt::message::Message for GcsPath {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LustrePath {
+
     /// Optional. The root directory path to the Managed Lustre file system. Must
     /// start with
     /// `/`. Default is `/`. If you're importing data into Managed Lustre, any
@@ -1576,6 +1539,7 @@ impl wkt::message::Message for LustrePath {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferCounters {
+
     /// Objects found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
@@ -1673,6 +1637,7 @@ impl wkt::message::Message for TransferCounters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorLogEntry {
+
     /// Required. A URL that refers to the target (a data source, a data sink,
     /// or an object) with which the error is associated.
     pub uri: std::string::String,
@@ -1698,7 +1663,7 @@ impl ErrorLogEntry {
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.error_details = v.into_iter().map(|i| i.into()).collect();
@@ -1717,6 +1682,7 @@ impl wkt::message::Message for ErrorLogEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorSummary {
+
     /// Required.
     pub error_code: rpc::model::Code,
 
@@ -1753,7 +1719,7 @@ impl ErrorSummary {
     pub fn set_error_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorLogEntry>,
+        V: std::convert::Into<crate::model::ErrorLogEntry>
     {
         use std::iter::Iterator;
         self.error_log_entries = v.into_iter().map(|i| i.into()).collect();
@@ -1771,6 +1737,7 @@ impl wkt::message::Message for ErrorSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferOperationMetadata {
+
     /// Output only. The progress of the transfer operation.
     pub counters: std::option::Option<crate::model::TransferCounters>,
 
@@ -1796,8 +1763,7 @@ impl TransferOperationMetadata {
 
     /// Sets the value of [counters][crate::model::TransferOperationMetadata::counters].
     pub fn set_counters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferCounters>,
+    where T: std::convert::Into<crate::model::TransferCounters>
     {
         self.counters = std::option::Option::Some(v.into());
         self
@@ -1805,18 +1771,14 @@ impl TransferOperationMetadata {
 
     /// Sets or clears the value of [counters][crate::model::TransferOperationMetadata::counters].
     pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferCounters>,
+    where T: std::convert::Into<crate::model::TransferCounters>
     {
         self.counters = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [transfer_type][crate::model::TransferOperationMetadata::transfer_type].
-    pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(mut self, v: T) -> Self {
         self.transfer_type = v.into();
         self
     }
@@ -1825,7 +1787,7 @@ impl TransferOperationMetadata {
     pub fn set_error_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ErrorSummary>,
+        V: std::convert::Into<crate::model::ErrorSummary>
     {
         use std::iter::Iterator;
         self.error_summaries = v.into_iter().map(|i| i.into()).collect();
@@ -1836,12 +1798,8 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -1849,14 +1807,10 @@ impl TransferOperationMetadata {
     /// The value of [source][crate::model::TransferOperationMetadata::source]
     /// if it holds a `SourceLustrePath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_lustre_path(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
+    pub fn source_lustre_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Source::SourceLustrePath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_operation_metadata::Source::SourceLustrePath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1866,14 +1820,11 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_source_lustre_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Source::SourceLustrePath(v.into()),
+            crate::model::transfer_operation_metadata::Source::SourceLustrePath(
+                v.into()
+            )
         );
         self
     }
@@ -1884,9 +1835,7 @@ impl TransferOperationMetadata {
     pub fn source_gcs_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1896,12 +1845,11 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_source_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Source::SourceGcsPath(v.into()),
+            crate::model::transfer_operation_metadata::Source::SourceGcsPath(
+                v.into()
+            )
         );
         self
     }
@@ -1910,14 +1858,8 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<
-                std::option::Option<crate::model::transfer_operation_metadata::Destination>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -1925,14 +1867,10 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationGcsPath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn destination_gcs_path(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
+    pub fn destination_gcs_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::GcsPath>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1942,14 +1880,11 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_gcs_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_gcs_path<T: std::convert::Into<std::boxed::Box<crate::model::GcsPath>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(v.into()),
+            crate::model::transfer_operation_metadata::Destination::DestinationGcsPath(
+                v.into()
+            )
         );
         self
     }
@@ -1957,14 +1892,10 @@ impl TransferOperationMetadata {
     /// The value of [destination][crate::model::TransferOperationMetadata::destination]
     /// if it holds a `DestinationLustrePath`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn destination_lustre_path(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
+    pub fn destination_lustre_path(&self) -> std::option::Option<&std::boxed::Box<crate::model::LustrePath>> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1974,14 +1905,11 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_lustre_path<
-        T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_lustre_path<T: std::convert::Into<std::boxed::Box<crate::model::LustrePath>>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(v.into()),
+            crate::model::transfer_operation_metadata::Destination::DestinationLustrePath(
+                v.into()
+            )
         );
         self
     }
@@ -1997,6 +1925,7 @@ impl wkt::message::Message for TransferOperationMetadata {
 pub mod transfer_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The source of transfer operation.
     #[derive(Clone, Debug, PartialEq)]
@@ -2105,9 +2034,7 @@ impl std::convert::From<i32> for TransferType {
             0 => Self::Unspecified,
             1 => Self::Import,
             2 => Self::Export,
-            _ => Self::UnknownValue(transfer_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(transfer_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2119,9 +2046,7 @@ impl std::convert::From<&str> for TransferType {
             "TRANSFER_TYPE_UNSPECIFIED" => Self::Unspecified,
             "IMPORT" => Self::Import,
             "EXPORT" => Self::Export,
-            _ => Self::UnknownValue(transfer_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(transfer_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2146,7 +2071,6 @@ impl<'de> serde::de::Deserialize<'de> for TransferType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransferType>::new(
-            ".google.cloud.lustre.v1.TransferType",
-        ))
+            ".google.cloud.lustre.v1.TransferType"))
     }
 }

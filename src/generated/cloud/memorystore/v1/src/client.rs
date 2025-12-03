@@ -80,51 +80,39 @@ impl Memorystore {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Memorystore + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Memorystore + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Memorystore>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Memorystore>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Memorystore> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Memorystore> {
         super::transport::Memorystore::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Memorystore> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Memorystore::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Memorystore> {
+        Self::build_transport(conf).await.map(super::tracing::Memorystore::new)
     }
 
     /// Lists Instances in a given project and location.
-    pub fn list_instances(&self) -> super::builder::memorystore::ListInstances {
+    pub fn list_instances(&self) -> super::builder::memorystore::ListInstances
+    {
         super::builder::memorystore::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(&self) -> super::builder::memorystore::GetInstance {
+    pub fn get_instance(&self) -> super::builder::memorystore::GetInstance
+    {
         super::builder::memorystore::GetInstance::new(self.inner.clone())
     }
 
@@ -139,7 +127,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::memorystore::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::memorystore::CreateInstance
+    {
         super::builder::memorystore::CreateInstance::new(self.inner.clone())
     }
 
@@ -154,7 +143,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::memorystore::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::memorystore::UpdateInstance
+    {
         super::builder::memorystore::UpdateInstance::new(self.inner.clone())
     }
 
@@ -169,14 +159,14 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::memorystore::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::memorystore::DeleteInstance
+    {
         super::builder::memorystore::DeleteInstance::new(self.inner.clone())
     }
 
     /// Gets details about the certificate authority for an Instance.
-    pub fn get_certificate_authority(
-        &self,
-    ) -> super::builder::memorystore::GetCertificateAuthority {
+    pub fn get_certificate_authority(&self) -> super::builder::memorystore::GetCertificateAuthority
+    {
         super::builder::memorystore::GetCertificateAuthority::new(self.inner.clone())
     }
 
@@ -191,7 +181,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reschedule_maintenance(&self) -> super::builder::memorystore::RescheduleMaintenance {
+    pub fn reschedule_maintenance(&self) -> super::builder::memorystore::RescheduleMaintenance
+    {
         super::builder::memorystore::RescheduleMaintenance::new(self.inner.clone())
     }
 
@@ -200,22 +191,26 @@ impl Memorystore {
     ///
     /// If `location_id` is specified as `-` (wildcard), then all regions
     /// available to the project are queried, and the results are aggregated.
-    pub fn list_backup_collections(&self) -> super::builder::memorystore::ListBackupCollections {
+    pub fn list_backup_collections(&self) -> super::builder::memorystore::ListBackupCollections
+    {
         super::builder::memorystore::ListBackupCollections::new(self.inner.clone())
     }
 
     /// Get a backup collection.
-    pub fn get_backup_collection(&self) -> super::builder::memorystore::GetBackupCollection {
+    pub fn get_backup_collection(&self) -> super::builder::memorystore::GetBackupCollection
+    {
         super::builder::memorystore::GetBackupCollection::new(self.inner.clone())
     }
 
     /// Lists all backups owned by a backup collection.
-    pub fn list_backups(&self) -> super::builder::memorystore::ListBackups {
+    pub fn list_backups(&self) -> super::builder::memorystore::ListBackups
+    {
         super::builder::memorystore::ListBackups::new(self.inner.clone())
     }
 
     /// Gets the details of a specific backup.
-    pub fn get_backup(&self) -> super::builder::memorystore::GetBackup {
+    pub fn get_backup(&self) -> super::builder::memorystore::GetBackup
+    {
         super::builder::memorystore::GetBackup::new(self.inner.clone())
     }
 
@@ -230,7 +225,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(&self) -> super::builder::memorystore::DeleteBackup {
+    pub fn delete_backup(&self) -> super::builder::memorystore::DeleteBackup
+    {
         super::builder::memorystore::DeleteBackup::new(self.inner.clone())
     }
 
@@ -245,7 +241,8 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_backup(&self) -> super::builder::memorystore::ExportBackup {
+    pub fn export_backup(&self) -> super::builder::memorystore::ExportBackup
+    {
         super::builder::memorystore::ExportBackup::new(self.inner.clone())
     }
 
@@ -271,45 +268,52 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn backup_instance(&self) -> super::builder::memorystore::BackupInstance {
+    pub fn backup_instance(&self) -> super::builder::memorystore::BackupInstance
+    {
         super::builder::memorystore::BackupInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::memorystore::ListLocations {
+    pub fn list_locations(&self) -> super::builder::memorystore::ListLocations
+    {
         super::builder::memorystore::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::memorystore::GetLocation {
+    pub fn get_location(&self) -> super::builder::memorystore::GetLocation
+    {
         super::builder::memorystore::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::memorystore::ListOperations {
+    pub fn list_operations(&self) -> super::builder::memorystore::ListOperations
+    {
         super::builder::memorystore::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::memorystore::GetOperation {
+    pub fn get_operation(&self) -> super::builder::memorystore::GetOperation
+    {
         super::builder::memorystore::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::memorystore::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::memorystore::DeleteOperation
+    {
         super::builder::memorystore::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::memorystore::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::memorystore::CancelOperation
+    {
         super::builder::memorystore::CancelOperation::new(self.inner.clone())
     }
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [AccessApproval](super::stub::AccessApproval) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct AccessApproval<T>
-where
-    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> AccessApproval<T>
-where
-    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::AccessApproval for AccessApproval<T>
-where
-    T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_approval_requests(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_approval_requests",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_approval_requests(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_approval_requests(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_approval_request",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_approval_request(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_approval_request(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "approve_approval_request",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .approve_approval_request(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.approve_approval_request(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "dismiss_approval_request",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .dismiss_approval_request(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.dismiss_approval_request(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "invalidate_approval_request",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .invalidate_approval_request(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.invalidate_approval_request(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_access_approval_settings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_access_approval_settings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_access_approval_settings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_access_approval_settings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_access_approval_settings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_access_approval_settings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -301,9 +274,7 @@ where
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
-        self.inner
-            .update_access_approval_settings(req, options)
-            .await
+        self.inner.update_access_approval_settings(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn delete_access_approval_settings(
@@ -321,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_access_approval_settings",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_access_approval_settings(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_access_approval_settings(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -341,9 +309,7 @@ where
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .delete_access_approval_settings(req, options)
-            .await
+        self.inner.delete_access_approval_settings(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_access_approval_service_account(
@@ -361,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_access_approval_service_account",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_access_approval_service_account(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_access_approval_service_account(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -381,8 +344,7 @@ where
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
-        self.inner
-            .get_access_approval_service_account(req, options)
-            .await
+        self.inner.get_access_approval_service_account(req, options).await
     }
 }
+

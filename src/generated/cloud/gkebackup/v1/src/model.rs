@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -46,6 +46,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backup {
+
     /// Output only. The fully qualified name of the Backup.
     /// `projects/*/locations/*/backupPlans/*/backups/*`
     pub name: std::string::String,
@@ -66,7 +67,7 @@ pub struct Backup {
     pub manual: bool,
 
     /// Optional. A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Minimum age for this Backup (in days). If this field is set to a
     /// non-zero value, the Backup will be "locked" against deletion (either manual
@@ -231,8 +232,7 @@ impl Backup {
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -240,8 +240,7 @@ impl Backup {
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -249,8 +248,7 @@ impl Backup {
 
     /// Sets the value of [update_time][crate::model::Backup::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -258,8 +256,7 @@ impl Backup {
 
     /// Sets or clears the value of [update_time][crate::model::Backup::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -291,8 +288,7 @@ impl Backup {
 
     /// Sets the value of [delete_lock_expire_time][crate::model::Backup::delete_lock_expire_time].
     pub fn set_delete_lock_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_lock_expire_time = std::option::Option::Some(v.into());
         self
@@ -300,8 +296,7 @@ impl Backup {
 
     /// Sets or clears the value of [delete_lock_expire_time][crate::model::Backup::delete_lock_expire_time].
     pub fn set_or_clear_delete_lock_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_lock_expire_time = v.map(|x| x.into());
         self
@@ -315,8 +310,7 @@ impl Backup {
 
     /// Sets the value of [retain_expire_time][crate::model::Backup::retain_expire_time].
     pub fn set_retain_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.retain_expire_time = std::option::Option::Some(v.into());
         self
@@ -324,8 +318,7 @@ impl Backup {
 
     /// Sets or clears the value of [retain_expire_time][crate::model::Backup::retain_expire_time].
     pub fn set_or_clear_retain_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.retain_expire_time = v.map(|x| x.into());
         self
@@ -333,8 +326,7 @@ impl Backup {
 
     /// Sets the value of [encryption_key][crate::model::Backup::encryption_key].
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionKey>,
+    where T: std::convert::Into<crate::model::EncryptionKey>
     {
         self.encryption_key = std::option::Option::Some(v.into());
         self
@@ -342,8 +334,7 @@ impl Backup {
 
     /// Sets or clears the value of [encryption_key][crate::model::Backup::encryption_key].
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionKey>,
+    where T: std::convert::Into<crate::model::EncryptionKey>
     {
         self.encryption_key = v.map(|x| x.into());
         self
@@ -363,8 +354,7 @@ impl Backup {
 
     /// Sets the value of [cluster_metadata][crate::model::Backup::cluster_metadata].
     pub fn set_cluster_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup::ClusterMetadata>,
+    where T: std::convert::Into<crate::model::backup::ClusterMetadata>
     {
         self.cluster_metadata = std::option::Option::Some(v.into());
         self
@@ -372,8 +362,7 @@ impl Backup {
 
     /// Sets or clears the value of [cluster_metadata][crate::model::Backup::cluster_metadata].
     pub fn set_or_clear_cluster_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup::ClusterMetadata>,
+    where T: std::convert::Into<crate::model::backup::ClusterMetadata>
     {
         self.cluster_metadata = v.map(|x| x.into());
         self
@@ -393,8 +382,7 @@ impl Backup {
 
     /// Sets the value of [complete_time][crate::model::Backup::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -402,8 +390,7 @@ impl Backup {
 
     /// Sets or clears the value of [complete_time][crate::model::Backup::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
@@ -473,12 +460,8 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are mutually
     /// exclusive.
-    pub fn set_backup_scope<
-        T: std::convert::Into<std::option::Option<crate::model::backup::BackupScope>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_scope<T: std::convert::Into<std::option::Option<crate::model::backup::BackupScope>>>(mut self, v: T) -> Self
+    {
         self.backup_scope = v.into();
         self
     }
@@ -500,22 +483,21 @@ impl Backup {
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
     pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.backup_scope =
-            std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
+        self.backup_scope = std::option::Option::Some(
+            crate::model::backup::BackupScope::AllNamespaces(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn selected_namespaces(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+    pub fn selected_namespaces(&self) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
         self.backup_scope.as_ref().and_then(|v| match v {
-            crate::model::backup::BackupScope::SelectedNamespaces(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backup::BackupScope::SelectedNamespaces(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -525,14 +507,11 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
-    pub fn set_selected_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_namespaces<T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>>(mut self, v: T) -> Self {
         self.backup_scope = std::option::Option::Some(
-            crate::model::backup::BackupScope::SelectedNamespaces(v.into()),
+            crate::model::backup::BackupScope::SelectedNamespaces(
+                v.into()
+            )
         );
         self
     }
@@ -540,14 +519,10 @@ impl Backup {
     /// The value of [backup_scope][crate::model::Backup::backup_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+    pub fn selected_applications(&self) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]
         self.backup_scope.as_ref().and_then(|v| match v {
-            crate::model::backup::BackupScope::SelectedApplications(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backup::BackupScope::SelectedApplications(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -557,14 +532,11 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
-    pub fn set_selected_applications<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_applications<T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>>(mut self, v: T) -> Self {
         self.backup_scope = std::option::Option::Some(
-            crate::model::backup::BackupScope::SelectedApplications(v.into()),
+            crate::model::backup::BackupScope::SelectedApplications(
+                v.into()
+            )
         );
         self
     }
@@ -581,10 +553,12 @@ pub mod backup {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information about the GKE cluster from which this Backup was created.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterMetadata {
+
         /// Output only. The source cluster from which this Backup was created.
         /// Valid formats:
         ///
@@ -602,12 +576,10 @@ pub mod backup {
 
         /// Output only. A list of the Backup for GKE CRD versions found in the
         /// cluster.
-        pub backup_crd_versions:
-            std::collections::HashMap<std::string::String, std::string::String>,
+        pub backup_crd_versions: std::collections::HashMap<std::string::String,std::string::String>,
 
         /// Platform-specific version
-        pub platform_version:
-            std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
+        pub platform_version: std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -645,14 +617,8 @@ pub mod backup {
         ///
         /// Note that all the setters affecting `platform_version` are mutually
         /// exclusive.
-        pub fn set_platform_version<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_platform_version<T: std::convert::Into<std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>>>(mut self, v: T) -> Self
+        {
             self.platform_version = v.into();
             self
         }
@@ -663,9 +629,7 @@ pub mod backup {
         pub fn gke_version(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.platform_version.as_ref().and_then(|v| match v {
-                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -677,7 +641,9 @@ pub mod backup {
         /// mutually exclusive.
         pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
+                crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(
+                    v.into()
+                )
             );
             self
         }
@@ -688,9 +654,7 @@ pub mod backup {
         pub fn anthos_version(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.platform_version.as_ref().and_then(|v| match v {
-                crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -700,12 +664,11 @@ pub mod backup {
         ///
         /// Note that all the setters affecting `platform_version` are
         /// mutually exclusive.
-        pub fn set_anthos_version<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_anthos_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.platform_version = std::option::Option::Some(
-                crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(v.into()),
+                crate::model::backup::cluster_metadata::PlatformVersion::AnthosVersion(
+                    v.into()
+                )
             );
             self
         }
@@ -721,6 +684,7 @@ pub mod backup {
     pub mod cluster_metadata {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Platform-specific version
         #[derive(Clone, Debug, PartialEq)]
@@ -837,9 +801,7 @@ pub mod backup {
                 3 => Self::Succeeded,
                 4 => Self::Failed,
                 5 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -854,9 +816,7 @@ pub mod backup {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -884,8 +844,7 @@ pub mod backup {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.Backup.State",
-            ))
+                ".google.cloud.gkebackup.v1.Backup.State"))
         }
     }
 
@@ -917,6 +876,7 @@ pub mod backup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupChannel {
+
     /// Identifier. The fully qualified name of the BackupChannel.
     /// `projects/*/locations/*/backupChannels/*`
     pub name: std::string::String,
@@ -937,7 +897,7 @@ pub struct BackupChannel {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. User specified descriptive string for this BackupChannel.
     pub description: std::string::String,
@@ -974,10 +934,7 @@ impl BackupChannel {
     }
 
     /// Sets the value of [destination_project][crate::model::BackupChannel::destination_project].
-    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_project = v.into();
         self
     }
@@ -990,8 +947,7 @@ impl BackupChannel {
 
     /// Sets the value of [create_time][crate::model::BackupChannel::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -999,8 +955,7 @@ impl BackupChannel {
 
     /// Sets or clears the value of [create_time][crate::model::BackupChannel::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1008,8 +963,7 @@ impl BackupChannel {
 
     /// Sets the value of [update_time][crate::model::BackupChannel::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1017,8 +971,7 @@ impl BackupChannel {
 
     /// Sets or clears the value of [update_time][crate::model::BackupChannel::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1049,10 +1002,7 @@ impl BackupChannel {
     }
 
     /// Sets the value of [destination_project_id][crate::model::BackupChannel::destination_project_id].
-    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_project_id = v.into();
         self
     }
@@ -1068,6 +1018,7 @@ impl wkt::message::Message for BackupChannel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupPlan {
+
     /// Output only. The full name of the BackupPlan resource.
     /// Format: `projects/*/locations/*/backupPlans/*`
     pub name: std::string::String,
@@ -1098,7 +1049,7 @@ pub struct BackupPlan {
     pub retention_policy: std::option::Option<crate::model::backup_plan::RetentionPolicy>,
 
     /// Optional. A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Defines a schedule for automatic Backup creation via this
     /// BackupPlan.
@@ -1184,8 +1135,7 @@ impl BackupPlan {
 
     /// Sets the value of [create_time][crate::model::BackupPlan::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1193,8 +1143,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlan::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1202,8 +1151,7 @@ impl BackupPlan {
 
     /// Sets the value of [update_time][crate::model::BackupPlan::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1211,8 +1159,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlan::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1232,8 +1179,7 @@ impl BackupPlan {
 
     /// Sets the value of [retention_policy][crate::model::BackupPlan::retention_policy].
     pub fn set_retention_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>,
+    where T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>
     {
         self.retention_policy = std::option::Option::Some(v.into());
         self
@@ -1241,8 +1187,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [retention_policy][crate::model::BackupPlan::retention_policy].
     pub fn set_or_clear_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>,
+    where T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>
     {
         self.retention_policy = v.map(|x| x.into());
         self
@@ -1262,8 +1207,7 @@ impl BackupPlan {
 
     /// Sets the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::Schedule>,
+    where T: std::convert::Into<crate::model::backup_plan::Schedule>
     {
         self.backup_schedule = std::option::Option::Some(v.into());
         self
@@ -1271,8 +1215,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::Schedule>,
+    where T: std::convert::Into<crate::model::backup_plan::Schedule>
     {
         self.backup_schedule = v.map(|x| x.into());
         self
@@ -1292,8 +1235,7 @@ impl BackupPlan {
 
     /// Sets the value of [backup_config][crate::model::BackupPlan::backup_config].
     pub fn set_backup_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::BackupConfig>,
+    where T: std::convert::Into<crate::model::backup_plan::BackupConfig>
     {
         self.backup_config = std::option::Option::Some(v.into());
         self
@@ -1301,8 +1243,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [backup_config][crate::model::BackupPlan::backup_config].
     pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan::BackupConfig>,
+    where T: std::convert::Into<crate::model::backup_plan::BackupConfig>
     {
         self.backup_config = v.map(|x| x.into());
         self
@@ -1315,10 +1256,7 @@ impl BackupPlan {
     }
 
     /// Sets the value of [state][crate::model::BackupPlan::state].
-    pub fn set_state<T: std::convert::Into<crate::model::backup_plan::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::backup_plan::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1349,8 +1287,7 @@ impl BackupPlan {
 
     /// Sets the value of [last_successful_backup_time][crate::model::BackupPlan::last_successful_backup_time].
     pub fn set_last_successful_backup_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_successful_backup_time = std::option::Option::Some(v.into());
         self
@@ -1358,8 +1295,7 @@ impl BackupPlan {
 
     /// Sets or clears the value of [last_successful_backup_time][crate::model::BackupPlan::last_successful_backup_time].
     pub fn set_or_clear_last_successful_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_successful_backup_time = v.map(|x| x.into());
         self
@@ -1377,10 +1313,12 @@ pub mod backup_plan {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// RetentionPolicy defines a Backup retention policy for a BackupPlan.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetentionPolicy {
+
         /// Optional. Minimum age for Backups created via this BackupPlan (in days).
         /// This field MUST be an integer value between 0-90 (inclusive).
         /// A Backup created under this BackupPlan will NOT be deletable until it
@@ -1462,6 +1400,7 @@ pub mod backup_plan {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Schedule {
+
         /// Optional. A standard [cron](https://wikipedia.com/wiki/cron) string that
         /// defines a repeating schedule for creating Backups via this BackupPlan.
         /// This is mutually exclusive with the
@@ -1510,10 +1449,7 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [cron_schedule][crate::model::backup_plan::Schedule::cron_schedule].
-        pub fn set_cron_schedule<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cron_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cron_schedule = v.into();
             self
         }
@@ -1526,8 +1462,7 @@ pub mod backup_plan {
 
         /// Sets the value of [rpo_config][crate::model::backup_plan::Schedule::rpo_config].
         pub fn set_rpo_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RpoConfig>,
+        where T: std::convert::Into<crate::model::RpoConfig>
         {
             self.rpo_config = std::option::Option::Some(v.into());
             self
@@ -1535,8 +1470,7 @@ pub mod backup_plan {
 
         /// Sets or clears the value of [rpo_config][crate::model::backup_plan::Schedule::rpo_config].
         pub fn set_or_clear_rpo_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RpoConfig>,
+        where T: std::convert::Into<crate::model::RpoConfig>
         {
             self.rpo_config = v.map(|x| x.into());
             self
@@ -1544,20 +1478,15 @@ pub mod backup_plan {
 
         /// Sets the value of [next_scheduled_backup_time][crate::model::backup_plan::Schedule::next_scheduled_backup_time].
         pub fn set_next_scheduled_backup_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.next_scheduled_backup_time = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [next_scheduled_backup_time][crate::model::backup_plan::Schedule::next_scheduled_backup_time].
-        pub fn set_or_clear_next_scheduled_backup_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_next_scheduled_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.next_scheduled_backup_time = v.map(|x| x.into());
             self
@@ -1575,6 +1504,7 @@ pub mod backup_plan {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackupConfig {
+
         /// Optional. This flag specifies whether volume data should be backed up
         /// when PVCs are included in the scope of a Backup.
         ///
@@ -1604,8 +1534,7 @@ pub mod backup_plan {
         /// This defines the "scope" of the Backup - which namespaced
         /// resources in the cluster will be included in a Backup.
         /// Exactly one of the fields of backup_scope MUST be specified.
-        pub backup_scope:
-            std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
+        pub backup_scope: std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1629,8 +1558,7 @@ pub mod backup_plan {
 
         /// Sets the value of [encryption_key][crate::model::backup_plan::BackupConfig::encryption_key].
         pub fn set_encryption_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionKey>,
+        where T: std::convert::Into<crate::model::EncryptionKey>
         {
             self.encryption_key = std::option::Option::Some(v.into());
             self
@@ -1638,8 +1566,7 @@ pub mod backup_plan {
 
         /// Sets or clears the value of [encryption_key][crate::model::backup_plan::BackupConfig::encryption_key].
         pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::EncryptionKey>,
+        where T: std::convert::Into<crate::model::EncryptionKey>
         {
             self.encryption_key = v.map(|x| x.into());
             self
@@ -1655,14 +1582,8 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are mutually
         /// exclusive.
-        pub fn set_backup_scope<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_backup_scope<T: std::convert::Into<std::option::Option<crate::model::backup_plan::backup_config::BackupScope>>>(mut self, v: T) -> Self
+        {
             self.backup_scope = v.into();
             self
         }
@@ -1673,9 +1594,7 @@ pub mod backup_plan {
         pub fn all_namespaces(&self) -> std::option::Option<&bool> {
             #[allow(unreachable_patterns)]
             self.backup_scope.as_ref().and_then(|v| match v {
-                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1687,7 +1606,9 @@ pub mod backup_plan {
         /// mutually exclusive.
         pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
+                crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(
+                    v.into()
+                )
             );
             self
         }
@@ -1695,14 +1616,10 @@ pub mod backup_plan {
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn selected_namespaces(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+        pub fn selected_namespaces(&self) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
             #[allow(unreachable_patterns)]
             self.backup_scope.as_ref().and_then(|v| match v {
-                crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1712,14 +1629,11 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are
         /// mutually exclusive.
-        pub fn set_selected_namespaces<
-            T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_selected_namespaces<T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>>(mut self, v: T) -> Self {
             self.backup_scope = std::option::Option::Some(
-                crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(v.into()),
+                crate::model::backup_plan::backup_config::BackupScope::SelectedNamespaces(
+                    v.into()
+                )
             );
             self
         }
@@ -1727,14 +1641,10 @@ pub mod backup_plan {
         /// The value of [backup_scope][crate::model::backup_plan::BackupConfig::backup_scope]
         /// if it holds a `SelectedApplications`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn selected_applications(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+        pub fn selected_applications(&self) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
             #[allow(unreachable_patterns)]
             self.backup_scope.as_ref().and_then(|v| match v {
-                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1744,16 +1654,11 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are
         /// mutually exclusive.
-        pub fn set_selected_applications<
-            T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_selected_applications<T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>>(mut self, v: T) -> Self {
             self.backup_scope = std::option::Option::Some(
                 crate::model::backup_plan::backup_config::BackupScope::SelectedApplications(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1769,6 +1674,7 @@ pub mod backup_plan {
     pub mod backup_config {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// This defines the "scope" of the Backup - which namespaced
         /// resources in the cluster will be included in a Backup.
@@ -1892,9 +1798,7 @@ pub mod backup_plan {
                 4 => Self::Failed,
                 5 => Self::Deactivated,
                 6 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1910,9 +1814,7 @@ pub mod backup_plan {
                 "FAILED" => Self::Failed,
                 "DEACTIVATED" => Self::Deactivated,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1941,8 +1843,7 @@ pub mod backup_plan {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.BackupPlan.State",
-            ))
+                ".google.cloud.gkebackup.v1.BackupPlan.State"))
         }
     }
 }
@@ -1952,6 +1853,7 @@ pub mod backup_plan {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RpoConfig {
+
     /// Required. Defines the target RPO for the BackupPlan in minutes, which means
     /// the target maximum data loss in time that is acceptable for this
     /// BackupPlan. This must be at least 60, i.e., 1 hour, and at most 86400,
@@ -1988,7 +1890,7 @@ impl RpoConfig {
     pub fn set_exclusion_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExclusionWindow>,
+        V: std::convert::Into<crate::model::ExclusionWindow>
     {
         use std::iter::Iterator;
         self.exclusion_windows = v.into_iter().map(|i| i.into()).collect();
@@ -2007,6 +1909,7 @@ impl wkt::message::Message for RpoConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExclusionWindow {
+
     /// Required. Specifies the start time of the window using time of the day in
     /// UTC.
     pub start_time: std::option::Option<gtype::model::TimeOfDay>,
@@ -2038,8 +1941,7 @@ impl ExclusionWindow {
 
     /// Sets the value of [start_time][crate::model::ExclusionWindow::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2047,8 +1949,7 @@ impl ExclusionWindow {
 
     /// Sets or clears the value of [start_time][crate::model::ExclusionWindow::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::TimeOfDay>,
+    where T: std::convert::Into<gtype::model::TimeOfDay>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2056,8 +1957,7 @@ impl ExclusionWindow {
 
     /// Sets the value of [duration][crate::model::ExclusionWindow::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -2065,8 +1965,7 @@ impl ExclusionWindow {
 
     /// Sets or clears the value of [duration][crate::model::ExclusionWindow::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -2076,12 +1975,8 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are mutually
     /// exclusive.
-    pub fn set_recurrence<
-        T: std::convert::Into<std::option::Option<crate::model::exclusion_window::Recurrence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_recurrence<T: std::convert::Into<std::option::Option<crate::model::exclusion_window::Recurrence>>>(mut self, v: T) -> Self
+    {
         self.recurrence = v.into();
         self
     }
@@ -2089,14 +1984,10 @@ impl ExclusionWindow {
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `SingleOccurrenceDate`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn single_occurrence_date(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
+    pub fn single_occurrence_date(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Date>> {
         #[allow(unreachable_patterns)]
         self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2106,14 +1997,11 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
-    pub fn set_single_occurrence_date<
-        T: std::convert::Into<std::boxed::Box<gtype::model::Date>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_single_occurrence_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(mut self, v: T) -> Self {
         self.recurrence = std::option::Option::Some(
-            crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(v.into()),
+            crate::model::exclusion_window::Recurrence::SingleOccurrenceDate(
+                v.into()
+            )
         );
         self
     }
@@ -2135,22 +2023,21 @@ impl ExclusionWindow {
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
     pub fn set_daily<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.recurrence =
-            std::option::Option::Some(crate::model::exclusion_window::Recurrence::Daily(v.into()));
+        self.recurrence = std::option::Option::Some(
+            crate::model::exclusion_window::Recurrence::Daily(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [recurrence][crate::model::ExclusionWindow::recurrence]
     /// if it holds a `DaysOfWeek`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn days_of_week(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
+    pub fn days_of_week(&self) -> std::option::Option<&std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>> {
         #[allow(unreachable_patterns)]
         self.recurrence.as_ref().and_then(|v| match v {
-            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::exclusion_window::Recurrence::DaysOfWeek(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2160,14 +2047,11 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
-    pub fn set_days_of_week<
-        T: std::convert::Into<std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_days_of_week<T: std::convert::Into<std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>>>(mut self, v: T) -> Self {
         self.recurrence = std::option::Option::Some(
-            crate::model::exclusion_window::Recurrence::DaysOfWeek(v.into()),
+            crate::model::exclusion_window::Recurrence::DaysOfWeek(
+                v.into()
+            )
         );
         self
     }
@@ -2184,10 +2068,12 @@ pub mod exclusion_window {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Holds repeated DaysOfWeek values as a container.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DayOfWeekList {
+
         /// Optional. A list of days of week.
         pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
 
@@ -2203,7 +2089,7 @@ pub mod exclusion_window {
         pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<gtype::model::DayOfWeek>,
+            V: std::convert::Into<gtype::model::DayOfWeek>
         {
             use std::iter::Iterator;
             self.days_of_week = v.into_iter().map(|i| i.into()).collect();
@@ -2240,6 +2126,7 @@ pub mod exclusion_window {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupPlanBinding {
+
     /// Identifier. The fully qualified name of the BackupPlanBinding.
     /// `projects/*/locations/*/backupChannels/*/backupPlanBindings/*`
     pub name: std::string::String,
@@ -2267,8 +2154,7 @@ pub struct BackupPlanBinding {
     pub cluster: std::string::String,
 
     /// Output only. Contains details about the backup plan/backup.
-    pub backup_plan_details:
-        std::option::Option<crate::model::backup_plan_binding::BackupPlanDetails>,
+    pub backup_plan_details: std::option::Option<crate::model::backup_plan_binding::BackupPlanDetails>,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to
     /// help prevent simultaneous updates of a BackupPlanBinding from overwriting
@@ -2303,8 +2189,7 @@ impl BackupPlanBinding {
 
     /// Sets the value of [create_time][crate::model::BackupPlanBinding::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2312,8 +2197,7 @@ impl BackupPlanBinding {
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlanBinding::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2321,8 +2205,7 @@ impl BackupPlanBinding {
 
     /// Sets the value of [update_time][crate::model::BackupPlanBinding::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2330,8 +2213,7 @@ impl BackupPlanBinding {
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlanBinding::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2351,8 +2233,7 @@ impl BackupPlanBinding {
 
     /// Sets the value of [backup_plan_details][crate::model::BackupPlanBinding::backup_plan_details].
     pub fn set_backup_plan_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>,
+    where T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>
     {
         self.backup_plan_details = std::option::Option::Some(v.into());
         self
@@ -2360,8 +2241,7 @@ impl BackupPlanBinding {
 
     /// Sets or clears the value of [backup_plan_details][crate::model::BackupPlanBinding::backup_plan_details].
     pub fn set_or_clear_backup_plan_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>,
+    where T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>
     {
         self.backup_plan_details = v.map(|x| x.into());
         self
@@ -2385,10 +2265,12 @@ pub mod backup_plan_binding {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains metadata about the backup plan/backup.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BackupPlanDetails {
+
         /// Output only. The number of Kubernetes Pods backed up in the
         /// last successful Backup created via this BackupPlan.
         pub protected_pod_count: i32,
@@ -2416,15 +2298,11 @@ pub mod backup_plan_binding {
 
         /// Output only. Contains details about the BackupConfig of Backups created
         /// via this BackupPlan.
-        pub backup_config_details: std::option::Option<
-            crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
-        >,
+        pub backup_config_details: std::option::Option<crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails>,
 
         /// Output only. Contains details about the RetentionPolicy of Backups
         /// created via this BackupPlan.
-        pub retention_policy_details: std::option::Option<
-            crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
-        >,
+        pub retention_policy_details: std::option::Option<crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2441,32 +2319,22 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [state][crate::model::backup_plan_binding::BackupPlanDetails::state].
-        pub fn set_state<
-            T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [last_successful_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup_time].
         pub fn set_last_successful_backup_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_successful_backup_time = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [last_successful_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup_time].
-        pub fn set_or_clear_last_successful_backup_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_last_successful_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_successful_backup_time = v.map(|x| x.into());
             self
@@ -2474,20 +2342,15 @@ pub mod backup_plan_binding {
 
         /// Sets the value of [next_scheduled_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::next_scheduled_backup_time].
         pub fn set_next_scheduled_backup_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.next_scheduled_backup_time = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [next_scheduled_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::next_scheduled_backup_time].
-        pub fn set_or_clear_next_scheduled_backup_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_next_scheduled_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.next_scheduled_backup_time = v.map(|x| x.into());
             self
@@ -2500,20 +2363,14 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [last_successful_backup][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup].
-        pub fn set_last_successful_backup<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_last_successful_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.last_successful_backup = v.into();
             self
         }
 
         /// Sets the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
         pub fn set_backup_config_details<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
-                >,
+        where T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails>
         {
             self.backup_config_details = std::option::Option::Some(v.into());
             self
@@ -2521,10 +2378,7 @@ pub mod backup_plan_binding {
 
         /// Sets or clears the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
         pub fn set_or_clear_backup_config_details<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails,
-                >,
+        where T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails>
         {
             self.backup_config_details = v.map(|x| x.into());
             self
@@ -2532,10 +2386,7 @@ pub mod backup_plan_binding {
 
         /// Sets the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
         pub fn set_retention_policy_details<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
-                >,
+        where T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails>
         {
             self.retention_policy_details = std::option::Option::Some(v.into());
             self
@@ -2543,10 +2394,7 @@ pub mod backup_plan_binding {
 
         /// Sets or clears the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
         pub fn set_or_clear_retention_policy_details<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails,
-                >,
+        where T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails>
         {
             self.retention_policy_details = v.map(|x| x.into());
             self
@@ -2563,6 +2411,7 @@ pub mod backup_plan_binding {
     pub mod backup_plan_details {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// BackupConfigDetails defines the configuration of Backups created via this
         /// BackupPlan.
@@ -2616,8 +2465,7 @@ pub mod backup_plan_binding {
 
             /// Sets the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
             pub fn set_encryption_key<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::EncryptionKey>,
+            where T: std::convert::Into<crate::model::EncryptionKey>
             {
                 self.encryption_key = std::option::Option::Some(v.into());
                 self
@@ -2625,8 +2473,7 @@ pub mod backup_plan_binding {
 
             /// Sets or clears the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
             pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::EncryptionKey>,
+            where T: std::convert::Into<crate::model::EncryptionKey>
             {
                 self.encryption_key = v.map(|x| x.into());
                 self
@@ -2670,9 +2517,7 @@ pub mod backup_plan_binding {
             /// The value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
             /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn selected_namespaces(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+            pub fn selected_namespaces(&self) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
                 #[allow(unreachable_patterns)]
                 self.backup_scope.as_ref().and_then(|v| match v {
                     crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedNamespaces(v) => std::option::Option::Some(v),
@@ -2685,12 +2530,7 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are
             /// mutually exclusive.
-            pub fn set_selected_namespaces<
-                T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_selected_namespaces<T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>>(mut self, v: T) -> Self {
                 self.backup_scope = std::option::Option::Some(
                     crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedNamespaces(
                         v.into()
@@ -2702,9 +2542,7 @@ pub mod backup_plan_binding {
             /// The value of [backup_scope][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::backup_scope]
             /// if it holds a `SelectedApplications`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn selected_applications(
-                &self,
-            ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+            pub fn selected_applications(&self) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
                 #[allow(unreachable_patterns)]
                 self.backup_scope.as_ref().and_then(|v| match v {
                     crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedApplications(v) => std::option::Option::Some(v),
@@ -2717,12 +2555,7 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are
             /// mutually exclusive.
-            pub fn set_selected_applications<
-                T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_selected_applications<T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>>(mut self, v: T) -> Self {
                 self.backup_scope = std::option::Option::Some(
                     crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::SelectedApplications(
                         v.into()
@@ -2742,6 +2575,7 @@ pub mod backup_plan_binding {
         pub mod backup_config_details {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// This defines the "scope" of the Backup - which namespaced
             /// resources in the cluster will be included in a Backup.
@@ -2765,6 +2599,7 @@ pub mod backup_plan_binding {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RetentionPolicyDetails {
+
             /// Optional. Minimum age for Backups created via this BackupPlan (in
             /// days). This field MUST be an integer value between 0-90 (inclusive). A
             /// Backup created under this BackupPlan will NOT be deletable until it
@@ -2903,10 +2738,7 @@ pub mod backup_plan_binding {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2921,9 +2753,7 @@ pub mod backup_plan_binding {
                     4 => Self::Failed,
                     5 => Self::Deactivated,
                     6 => Self::Deleting,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2939,9 +2769,7 @@ pub mod backup_plan_binding {
                     "FAILED" => Self::Failed,
                     "DEACTIVATED" => Self::Deactivated,
                     "DELETING" => Self::Deleting,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2970,8 +2798,7 @@ pub mod backup_plan_binding {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails.State",
-                ))
+                    ".google.cloud.gkebackup.v1.BackupPlanBinding.BackupPlanDetails.State"))
             }
         }
     }
@@ -2981,6 +2808,7 @@ pub mod backup_plan_binding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Namespaces {
+
     /// Optional. A list of Kubernetes Namespaces.
     pub namespaces: std::vec::Vec<std::string::String>,
 
@@ -2996,7 +2824,7 @@ impl Namespaces {
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -3014,6 +2842,7 @@ impl wkt::message::Message for Namespaces {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NamespacedName {
+
     /// Optional. The Namespace of the Kubernetes resource.
     pub namespace: std::string::String,
 
@@ -3051,6 +2880,7 @@ impl wkt::message::Message for NamespacedName {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NamespacedNames {
+
     /// Optional. A list of namespaced Kubernetes resources.
     pub namespaced_names: std::vec::Vec<crate::model::NamespacedName>,
 
@@ -3066,7 +2896,7 @@ impl NamespacedNames {
     pub fn set_namespaced_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NamespacedName>,
+        V: std::convert::Into<crate::model::NamespacedName>
     {
         use std::iter::Iterator;
         self.namespaced_names = v.into_iter().map(|i| i.into()).collect();
@@ -3085,6 +2915,7 @@ impl wkt::message::Message for NamespacedNames {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionKey {
+
     /// Optional. Google Cloud KMS encryption key. Format:
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`
     pub gcp_kms_encryption_key: std::string::String,
@@ -3098,10 +2929,7 @@ impl EncryptionKey {
     }
 
     /// Sets the value of [gcp_kms_encryption_key][crate::model::EncryptionKey::gcp_kms_encryption_key].
-    pub fn set_gcp_kms_encryption_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcp_kms_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_kms_encryption_key = v.into();
         self
     }
@@ -3117,6 +2945,7 @@ impl wkt::message::Message for EncryptionKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeTypeEnum {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3136,6 +2965,7 @@ impl wkt::message::Message for VolumeTypeEnum {
 pub mod volume_type_enum {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported volume types.
     ///
@@ -3218,9 +3048,7 @@ pub mod volume_type_enum {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3231,9 +3059,7 @@ pub mod volume_type_enum {
             match value {
                 "VOLUME_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3257,8 +3083,7 @@ pub mod volume_type_enum {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeType>::new(
-                ".google.cloud.gkebackup.v1.VolumeTypeEnum.VolumeType",
-            ))
+                ".google.cloud.gkebackup.v1.VolumeTypeEnum.VolumeType"))
         }
     }
 }
@@ -3267,6 +3092,7 @@ pub mod volume_type_enum {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3306,8 +3132,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3315,8 +3140,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3324,8 +3148,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3333,8 +3156,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3381,6 +3203,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupPlanRequest {
+
     /// Required. The location within which to create the BackupPlan.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -3414,8 +3237,7 @@ impl CreateBackupPlanRequest {
 
     /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupPlan>,
+    where T: std::convert::Into<crate::model::BackupPlan>
     {
         self.backup_plan = std::option::Option::Some(v.into());
         self
@@ -3423,8 +3245,7 @@ impl CreateBackupPlanRequest {
 
     /// Sets or clears the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupPlan>,
+    where T: std::convert::Into<crate::model::BackupPlan>
     {
         self.backup_plan = v.map(|x| x.into());
         self
@@ -3447,6 +3268,7 @@ impl wkt::message::Message for CreateBackupPlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlansRequest {
+
     /// Required. The location that contains the BackupPlans to list.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -3526,6 +3348,7 @@ impl wkt::message::Message for ListBackupPlansRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlansResponse {
+
     /// The list of BackupPlans matching the given criteria.
     pub backup_plans: std::vec::Vec<crate::model::BackupPlan>,
 
@@ -3553,7 +3376,7 @@ impl ListBackupPlansResponse {
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupPlan>,
+        V: std::convert::Into<crate::model::BackupPlan>
     {
         use std::iter::Iterator;
         self.backup_plans = v.into_iter().map(|i| i.into()).collect();
@@ -3570,7 +3393,7 @@ impl ListBackupPlansResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3602,6 +3425,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupPlansResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupPlanRequest {
+
     /// Required. Fully qualified BackupPlan name.
     /// Format: `projects/*/locations/*/backupPlans/*`
     pub name: std::string::String,
@@ -3631,6 +3455,7 @@ impl wkt::message::Message for GetBackupPlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupPlanRequest {
+
     /// Required. A new version of the BackupPlan resource that contains updated
     /// fields. This may be sparsely populated if an `update_mask` is provided.
     pub backup_plan: std::option::Option<crate::model::BackupPlan>,
@@ -3656,8 +3481,7 @@ impl UpdateBackupPlanRequest {
 
     /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupPlan>,
+    where T: std::convert::Into<crate::model::BackupPlan>
     {
         self.backup_plan = std::option::Option::Some(v.into());
         self
@@ -3665,8 +3489,7 @@ impl UpdateBackupPlanRequest {
 
     /// Sets or clears the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupPlan>,
+    where T: std::convert::Into<crate::model::BackupPlan>
     {
         self.backup_plan = v.map(|x| x.into());
         self
@@ -3674,8 +3497,7 @@ impl UpdateBackupPlanRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3683,8 +3505,7 @@ impl UpdateBackupPlanRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3701,6 +3522,7 @@ impl wkt::message::Message for UpdateBackupPlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupPlanRequest {
+
     /// Required. Fully qualified BackupPlan name.
     /// Format: `projects/*/locations/*/backupPlans/*`
     pub name: std::string::String,
@@ -3743,6 +3565,7 @@ impl wkt::message::Message for DeleteBackupPlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupChannelRequest {
+
     /// Required. The location within which to create the BackupChannel.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -3777,8 +3600,7 @@ impl CreateBackupChannelRequest {
 
     /// Sets the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
     pub fn set_backup_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupChannel>,
+    where T: std::convert::Into<crate::model::BackupChannel>
     {
         self.backup_channel = std::option::Option::Some(v.into());
         self
@@ -3786,18 +3608,14 @@ impl CreateBackupChannelRequest {
 
     /// Sets or clears the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
     pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupChannel>,
+    where T: std::convert::Into<crate::model::BackupChannel>
     {
         self.backup_channel = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [backup_channel_id][crate::model::CreateBackupChannelRequest::backup_channel_id].
-    pub fn set_backup_channel_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_channel_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_channel_id = v.into();
         self
     }
@@ -3813,6 +3631,7 @@ impl wkt::message::Message for CreateBackupChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupChannelsRequest {
+
     /// Required. The location that contains the BackupChannels to list.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -3893,6 +3712,7 @@ impl wkt::message::Message for ListBackupChannelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupChannelsResponse {
+
     /// The list of BackupChannels matching the given criteria.
     pub backup_channels: std::vec::Vec<crate::model::BackupChannel>,
 
@@ -3920,7 +3740,7 @@ impl ListBackupChannelsResponse {
     pub fn set_backup_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupChannel>,
+        V: std::convert::Into<crate::model::BackupChannel>
     {
         use std::iter::Iterator;
         self.backup_channels = v.into_iter().map(|i| i.into()).collect();
@@ -3937,7 +3757,7 @@ impl ListBackupChannelsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3969,6 +3789,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupChannelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupChannelRequest {
+
     /// Required. Fully qualified BackupChannel name.
     /// Format: `projects/*/locations/*/backupChannels/*`
     pub name: std::string::String,
@@ -3998,6 +3819,7 @@ impl wkt::message::Message for GetBackupChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupChannelRequest {
+
     /// Required. A new version of the BackupChannel resource that contains updated
     /// fields. This may be sparsely populated if an `update_mask` is provided.
     pub backup_channel: std::option::Option<crate::model::BackupChannel>,
@@ -4023,8 +3845,7 @@ impl UpdateBackupChannelRequest {
 
     /// Sets the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
     pub fn set_backup_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupChannel>,
+    where T: std::convert::Into<crate::model::BackupChannel>
     {
         self.backup_channel = std::option::Option::Some(v.into());
         self
@@ -4032,8 +3853,7 @@ impl UpdateBackupChannelRequest {
 
     /// Sets or clears the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
     pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupChannel>,
+    where T: std::convert::Into<crate::model::BackupChannel>
     {
         self.backup_channel = v.map(|x| x.into());
         self
@@ -4041,8 +3861,7 @@ impl UpdateBackupChannelRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4050,8 +3869,7 @@ impl UpdateBackupChannelRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4068,6 +3886,7 @@ impl wkt::message::Message for UpdateBackupChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupChannelRequest {
+
     /// Required. Fully qualified BackupChannel name.
     /// Format: `projects/*/locations/*/backupChannels/*`
     pub name: std::string::String,
@@ -4121,6 +3940,7 @@ impl wkt::message::Message for DeleteBackupChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlanBindingsRequest {
+
     /// Required. The BackupChannel that contains the BackupPlanBindings to list.
     /// Format: `projects/*/locations/*/backupChannels/*`
     pub parent: std::string::String,
@@ -4201,6 +4021,7 @@ impl wkt::message::Message for ListBackupPlanBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupPlanBindingsResponse {
+
     /// The list of BackupPlanBindings matching the given criteria.
     pub backup_plan_bindings: std::vec::Vec<crate::model::BackupPlanBinding>,
 
@@ -4228,7 +4049,7 @@ impl ListBackupPlanBindingsResponse {
     pub fn set_backup_plan_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupPlanBinding>,
+        V: std::convert::Into<crate::model::BackupPlanBinding>
     {
         use std::iter::Iterator;
         self.backup_plan_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -4245,7 +4066,7 @@ impl ListBackupPlanBindingsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4277,6 +4098,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupPlanBindingsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupPlanBindingRequest {
+
     /// Required. Fully qualified BackupPlanBinding name.
     /// Format:
     /// `projects/*/locations/*/backupChannels/*/backupPlanBindings/*`
@@ -4307,6 +4129,7 @@ impl wkt::message::Message for GetBackupPlanBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBackupRequest {
+
     /// Required. The BackupPlan within which to create the Backup.
     /// Format: `projects/*/locations/*/backupPlans/*`
     pub parent: std::string::String,
@@ -4340,8 +4163,7 @@ impl CreateBackupRequest {
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -4349,8 +4171,7 @@ impl CreateBackupRequest {
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -4373,6 +4194,7 @@ impl wkt::message::Message for CreateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsRequest {
+
     /// Required. The BackupPlan that contains the Backups to list.
     /// Format: `projects/*/locations/*/backupPlans/*`
     pub parent: std::string::String,
@@ -4462,6 +4284,7 @@ impl wkt::message::Message for ListBackupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBackupsResponse {
+
     /// The list of Backups matching the given criteria.
     pub backups: std::vec::Vec<crate::model::Backup>,
 
@@ -4488,7 +4311,7 @@ impl ListBackupsResponse {
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Backup>,
+        V: std::convert::Into<crate::model::Backup>
     {
         use std::iter::Iterator;
         self.backups = v.into_iter().map(|i| i.into()).collect();
@@ -4505,7 +4328,7 @@ impl ListBackupsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4537,6 +4360,7 @@ impl gax::paginator::internal::PageableResponse for ListBackupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupRequest {
+
     /// Required. Full name of the Backup resource.
     /// Format: `projects/*/locations/*/backupPlans/*/backups/*`
     pub name: std::string::String,
@@ -4566,6 +4390,7 @@ impl wkt::message::Message for GetBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBackupRequest {
+
     /// Required. A new version of the Backup resource that contains updated
     /// fields. This may be sparsely populated if an `update_mask` is provided.
     pub backup: std::option::Option<crate::model::Backup>,
@@ -4590,8 +4415,7 @@ impl UpdateBackupRequest {
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = std::option::Option::Some(v.into());
         self
@@ -4599,8 +4423,7 @@ impl UpdateBackupRequest {
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backup>,
+    where T: std::convert::Into<crate::model::Backup>
     {
         self.backup = v.map(|x| x.into());
         self
@@ -4608,8 +4431,7 @@ impl UpdateBackupRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4617,8 +4439,7 @@ impl UpdateBackupRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4635,6 +4456,7 @@ impl wkt::message::Message for UpdateBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBackupRequest {
+
     /// Required. Name of the Backup resource.
     /// Format: `projects/*/locations/*/backupPlans/*/backups/*`
     pub name: std::string::String,
@@ -4688,6 +4510,7 @@ impl wkt::message::Message for DeleteBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeBackupsRequest {
+
     /// Required. The Backup that contains the VolumeBackups to list.
     /// Format: `projects/*/locations/*/backupPlans/*/backups/*`
     pub parent: std::string::String,
@@ -4767,6 +4590,7 @@ impl wkt::message::Message for ListVolumeBackupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeBackupsResponse {
+
     /// The list of VolumeBackups matching the given criteria.
     pub volume_backups: std::vec::Vec<crate::model::VolumeBackup>,
 
@@ -4791,7 +4615,7 @@ impl ListVolumeBackupsResponse {
     pub fn set_volume_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeBackup>,
+        V: std::convert::Into<crate::model::VolumeBackup>
     {
         use std::iter::Iterator;
         self.volume_backups = v.into_iter().map(|i| i.into()).collect();
@@ -4829,6 +4653,7 @@ impl gax::paginator::internal::PageableResponse for ListVolumeBackupsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeBackupRequest {
+
     /// Required. Full name of the VolumeBackup resource.
     /// Format: `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`
     pub name: std::string::String,
@@ -4858,6 +4683,7 @@ impl wkt::message::Message for GetVolumeBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestorePlanRequest {
+
     /// Required. The location within which to create the RestorePlan.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -4891,8 +4717,7 @@ impl CreateRestorePlanRequest {
 
     /// Sets the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
     pub fn set_restore_plan<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestorePlan>,
+    where T: std::convert::Into<crate::model::RestorePlan>
     {
         self.restore_plan = std::option::Option::Some(v.into());
         self
@@ -4900,8 +4725,7 @@ impl CreateRestorePlanRequest {
 
     /// Sets or clears the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
     pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestorePlan>,
+    where T: std::convert::Into<crate::model::RestorePlan>
     {
         self.restore_plan = v.map(|x| x.into());
         self
@@ -4924,6 +4748,7 @@ impl wkt::message::Message for CreateRestorePlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlansRequest {
+
     /// Required. The location that contains the RestorePlans to list.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -5003,6 +4828,7 @@ impl wkt::message::Message for ListRestorePlansRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlansResponse {
+
     /// The list of RestorePlans matching the given criteria.
     pub restore_plans: std::vec::Vec<crate::model::RestorePlan>,
 
@@ -5030,7 +4856,7 @@ impl ListRestorePlansResponse {
     pub fn set_restore_plans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RestorePlan>,
+        V: std::convert::Into<crate::model::RestorePlan>
     {
         use std::iter::Iterator;
         self.restore_plans = v.into_iter().map(|i| i.into()).collect();
@@ -5047,7 +4873,7 @@ impl ListRestorePlansResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5079,6 +4905,7 @@ impl gax::paginator::internal::PageableResponse for ListRestorePlansResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestorePlanRequest {
+
     /// Required. Fully qualified RestorePlan name.
     /// Format: `projects/*/locations/*/restorePlans/*`
     pub name: std::string::String,
@@ -5108,6 +4935,7 @@ impl wkt::message::Message for GetRestorePlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestorePlanRequest {
+
     /// Required. A new version of the RestorePlan resource that contains updated
     /// fields. This may be sparsely populated if an `update_mask` is provided.
     pub restore_plan: std::option::Option<crate::model::RestorePlan>,
@@ -5132,8 +4960,7 @@ impl UpdateRestorePlanRequest {
 
     /// Sets the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
     pub fn set_restore_plan<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestorePlan>,
+    where T: std::convert::Into<crate::model::RestorePlan>
     {
         self.restore_plan = std::option::Option::Some(v.into());
         self
@@ -5141,8 +4968,7 @@ impl UpdateRestorePlanRequest {
 
     /// Sets or clears the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
     pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestorePlan>,
+    where T: std::convert::Into<crate::model::RestorePlan>
     {
         self.restore_plan = v.map(|x| x.into());
         self
@@ -5150,8 +4976,7 @@ impl UpdateRestorePlanRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRestorePlanRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5159,8 +4984,7 @@ impl UpdateRestorePlanRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestorePlanRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5177,6 +5001,7 @@ impl wkt::message::Message for UpdateRestorePlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestorePlanRequest {
+
     /// Required. Fully qualified RestorePlan name.
     /// Format: `projects/*/locations/*/restorePlans/*`
     pub name: std::string::String,
@@ -5230,6 +5055,7 @@ impl wkt::message::Message for DeleteRestorePlanRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestoreChannelRequest {
+
     /// Required. The location within which to create the RestoreChannel.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -5264,8 +5090,7 @@ impl CreateRestoreChannelRequest {
 
     /// Sets the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
     pub fn set_restore_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreChannel>,
+    where T: std::convert::Into<crate::model::RestoreChannel>
     {
         self.restore_channel = std::option::Option::Some(v.into());
         self
@@ -5273,18 +5098,14 @@ impl CreateRestoreChannelRequest {
 
     /// Sets or clears the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
     pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreChannel>,
+    where T: std::convert::Into<crate::model::RestoreChannel>
     {
         self.restore_channel = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [restore_channel_id][crate::model::CreateRestoreChannelRequest::restore_channel_id].
-    pub fn set_restore_channel_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_restore_channel_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_channel_id = v.into();
         self
     }
@@ -5300,6 +5121,7 @@ impl wkt::message::Message for CreateRestoreChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoreChannelsRequest {
+
     /// Required. The location that contains the RestoreChannels to list.
     /// Format: `projects/*/locations/*`
     pub parent: std::string::String,
@@ -5380,6 +5202,7 @@ impl wkt::message::Message for ListRestoreChannelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoreChannelsResponse {
+
     /// The list of RestoreChannels matching the given criteria.
     pub restore_channels: std::vec::Vec<crate::model::RestoreChannel>,
 
@@ -5407,7 +5230,7 @@ impl ListRestoreChannelsResponse {
     pub fn set_restore_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RestoreChannel>,
+        V: std::convert::Into<crate::model::RestoreChannel>
     {
         use std::iter::Iterator;
         self.restore_channels = v.into_iter().map(|i| i.into()).collect();
@@ -5424,7 +5247,7 @@ impl ListRestoreChannelsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5456,6 +5279,7 @@ impl gax::paginator::internal::PageableResponse for ListRestoreChannelsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestoreChannelRequest {
+
     /// Required. Fully qualified RestoreChannel name.
     /// Format: `projects/*/locations/*/restoreChannels/*`
     pub name: std::string::String,
@@ -5485,6 +5309,7 @@ impl wkt::message::Message for GetRestoreChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestoreChannelRequest {
+
     /// Required. A new version of the RestoreChannel resource that contains
     /// updated fields. This may be sparsely populated if an `update_mask` is
     /// provided.
@@ -5511,8 +5336,7 @@ impl UpdateRestoreChannelRequest {
 
     /// Sets the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
     pub fn set_restore_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreChannel>,
+    where T: std::convert::Into<crate::model::RestoreChannel>
     {
         self.restore_channel = std::option::Option::Some(v.into());
         self
@@ -5520,8 +5344,7 @@ impl UpdateRestoreChannelRequest {
 
     /// Sets or clears the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
     pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreChannel>,
+    where T: std::convert::Into<crate::model::RestoreChannel>
     {
         self.restore_channel = v.map(|x| x.into());
         self
@@ -5529,8 +5352,7 @@ impl UpdateRestoreChannelRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5538,8 +5360,7 @@ impl UpdateRestoreChannelRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5556,6 +5377,7 @@ impl wkt::message::Message for UpdateRestoreChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestoreChannelRequest {
+
     /// Required. Fully qualified RestoreChannel name.
     /// Format: `projects/*/locations/*/restoreChannels/*`
     pub name: std::string::String,
@@ -5599,6 +5421,7 @@ impl wkt::message::Message for DeleteRestoreChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlanBindingsRequest {
+
     /// Required. The RestoreChannel that contains the ListRestorePlanBindings to
     /// list. Format: `projects/*/locations/*/restoreChannels/*`
     pub parent: std::string::String,
@@ -5679,6 +5502,7 @@ impl wkt::message::Message for ListRestorePlanBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestorePlanBindingsResponse {
+
     /// The list of RestorePlanBindings matching the given criteria.
     pub restore_plan_bindings: std::vec::Vec<crate::model::RestorePlanBinding>,
 
@@ -5706,7 +5530,7 @@ impl ListRestorePlanBindingsResponse {
     pub fn set_restore_plan_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RestorePlanBinding>,
+        V: std::convert::Into<crate::model::RestorePlanBinding>
     {
         use std::iter::Iterator;
         self.restore_plan_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -5723,7 +5547,7 @@ impl ListRestorePlanBindingsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5755,6 +5579,7 @@ impl gax::paginator::internal::PageableResponse for ListRestorePlanBindingsRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestorePlanBindingRequest {
+
     /// Required. Fully qualified RestorePlanBinding name.
     /// Format:
     /// `projects/*/locations/*/restoreChannels/*/restorePlanBindings/*`
@@ -5785,6 +5610,7 @@ impl wkt::message::Message for GetRestorePlanBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRestoreRequest {
+
     /// Required. The RestorePlan within which to create the Restore.
     /// Format: `projects/*/locations/*/restorePlans/*`
     pub parent: std::string::String,
@@ -5818,8 +5644,7 @@ impl CreateRestoreRequest {
 
     /// Sets the value of [restore][crate::model::CreateRestoreRequest::restore].
     pub fn set_restore<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Restore>,
+    where T: std::convert::Into<crate::model::Restore>
     {
         self.restore = std::option::Option::Some(v.into());
         self
@@ -5827,8 +5652,7 @@ impl CreateRestoreRequest {
 
     /// Sets or clears the value of [restore][crate::model::CreateRestoreRequest::restore].
     pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Restore>,
+    where T: std::convert::Into<crate::model::Restore>
     {
         self.restore = v.map(|x| x.into());
         self
@@ -5851,6 +5675,7 @@ impl wkt::message::Message for CreateRestoreRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoresRequest {
+
     /// Required. The RestorePlan that contains the Restores to list.
     /// Format: `projects/*/locations/*/restorePlans/*`
     pub parent: std::string::String,
@@ -5930,6 +5755,7 @@ impl wkt::message::Message for ListRestoresRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRestoresResponse {
+
     /// The list of Restores matching the given criteria.
     pub restores: std::vec::Vec<crate::model::Restore>,
 
@@ -5956,7 +5782,7 @@ impl ListRestoresResponse {
     pub fn set_restores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Restore>,
+        V: std::convert::Into<crate::model::Restore>
     {
         use std::iter::Iterator;
         self.restores = v.into_iter().map(|i| i.into()).collect();
@@ -5973,7 +5799,7 @@ impl ListRestoresResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -6005,6 +5831,7 @@ impl gax::paginator::internal::PageableResponse for ListRestoresResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRestoreRequest {
+
     /// Required. Name of the restore resource.
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*`
     pub name: std::string::String,
@@ -6034,6 +5861,7 @@ impl wkt::message::Message for GetRestoreRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRestoreRequest {
+
     /// Required. A new version of the Restore resource that contains updated
     /// fields. This may be sparsely populated if an `update_mask` is provided.
     pub restore: std::option::Option<crate::model::Restore>,
@@ -6058,8 +5886,7 @@ impl UpdateRestoreRequest {
 
     /// Sets the value of [restore][crate::model::UpdateRestoreRequest::restore].
     pub fn set_restore<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Restore>,
+    where T: std::convert::Into<crate::model::Restore>
     {
         self.restore = std::option::Option::Some(v.into());
         self
@@ -6067,8 +5894,7 @@ impl UpdateRestoreRequest {
 
     /// Sets or clears the value of [restore][crate::model::UpdateRestoreRequest::restore].
     pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Restore>,
+    where T: std::convert::Into<crate::model::Restore>
     {
         self.restore = v.map(|x| x.into());
         self
@@ -6076,8 +5902,7 @@ impl UpdateRestoreRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRestoreRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6085,8 +5910,7 @@ impl UpdateRestoreRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestoreRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6103,6 +5927,7 @@ impl wkt::message::Message for UpdateRestoreRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRestoreRequest {
+
     /// Required. Full name of the Restore
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*`
     pub name: std::string::String,
@@ -6156,6 +5981,7 @@ impl wkt::message::Message for DeleteRestoreRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeRestoresRequest {
+
     /// Required. The Restore that contains the VolumeRestores to list.
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*`
     pub parent: std::string::String,
@@ -6235,6 +6061,7 @@ impl wkt::message::Message for ListVolumeRestoresRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVolumeRestoresResponse {
+
     /// The list of VolumeRestores matching the given criteria.
     pub volume_restores: std::vec::Vec<crate::model::VolumeRestore>,
 
@@ -6259,7 +6086,7 @@ impl ListVolumeRestoresResponse {
     pub fn set_volume_restores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeRestore>,
+        V: std::convert::Into<crate::model::VolumeRestore>
     {
         use std::iter::Iterator;
         self.volume_restores = v.into_iter().map(|i| i.into()).collect();
@@ -6297,6 +6124,7 @@ impl gax::paginator::internal::PageableResponse for ListVolumeRestoresResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVolumeRestoreRequest {
+
     /// Required. Full name of the VolumeRestore resource.
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*/volumeRestores/*`
     pub name: std::string::String,
@@ -6326,6 +6154,7 @@ impl wkt::message::Message for GetVolumeRestoreRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupIndexDownloadUrlRequest {
+
     /// Required. Full name of Backup resource.
     /// Format:
     /// projects/{project}/locations/{location}/backupPlans/{backup_plan}/backups/{backup}
@@ -6356,6 +6185,7 @@ impl wkt::message::Message for GetBackupIndexDownloadUrlRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBackupIndexDownloadUrlResponse {
+
     /// Required. The signed URL for downloading the backup index.
     pub signed_url: std::string::String,
 
@@ -6385,6 +6215,7 @@ impl wkt::message::Message for GetBackupIndexDownloadUrlResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Restore {
+
     /// Output only. The full name of the Restore resource.
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*`
     pub name: std::string::String,
@@ -6434,7 +6265,7 @@ pub struct Restore {
     pub restore_config: std::option::Option<crate::model::RestoreConfig>,
 
     /// A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The current state of the Restore.
     pub state: crate::model::restore::State,
@@ -6485,8 +6316,7 @@ pub struct Restore {
 
     /// Optional. Immutable. Overrides the volume data restore policies selected in
     /// the Restore Config for override-scoped resources.
-    pub volume_data_restore_policy_overrides:
-        std::vec::Vec<crate::model::VolumeDataRestorePolicyOverride>,
+    pub volume_data_restore_policy_overrides: std::vec::Vec<crate::model::VolumeDataRestorePolicyOverride>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6510,8 +6340,7 @@ impl Restore {
 
     /// Sets the value of [create_time][crate::model::Restore::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6519,8 +6348,7 @@ impl Restore {
 
     /// Sets or clears the value of [create_time][crate::model::Restore::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6528,8 +6356,7 @@ impl Restore {
 
     /// Sets the value of [update_time][crate::model::Restore::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6537,8 +6364,7 @@ impl Restore {
 
     /// Sets or clears the value of [update_time][crate::model::Restore::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6564,8 +6390,7 @@ impl Restore {
 
     /// Sets the value of [restore_config][crate::model::Restore::restore_config].
     pub fn set_restore_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreConfig>,
+    where T: std::convert::Into<crate::model::RestoreConfig>
     {
         self.restore_config = std::option::Option::Some(v.into());
         self
@@ -6573,8 +6398,7 @@ impl Restore {
 
     /// Sets or clears the value of [restore_config][crate::model::Restore::restore_config].
     pub fn set_or_clear_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreConfig>,
+    where T: std::convert::Into<crate::model::RestoreConfig>
     {
         self.restore_config = v.map(|x| x.into());
         self
@@ -6606,8 +6430,7 @@ impl Restore {
 
     /// Sets the value of [complete_time][crate::model::Restore::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -6615,8 +6438,7 @@ impl Restore {
 
     /// Sets or clears the value of [complete_time][crate::model::Restore::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
@@ -6654,8 +6476,7 @@ impl Restore {
 
     /// Sets the value of [filter][crate::model::Restore::filter].
     pub fn set_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::restore::Filter>,
+    where T: std::convert::Into<crate::model::restore::Filter>
     {
         self.filter = std::option::Option::Some(v.into());
         self
@@ -6663,8 +6484,7 @@ impl Restore {
 
     /// Sets or clears the value of [filter][crate::model::Restore::filter].
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::restore::Filter>,
+    where T: std::convert::Into<crate::model::restore::Filter>
     {
         self.filter = v.map(|x| x.into());
         self
@@ -6674,7 +6494,7 @@ impl Restore {
     pub fn set_volume_data_restore_policy_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeDataRestorePolicyOverride>,
+        V: std::convert::Into<crate::model::VolumeDataRestorePolicyOverride>
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_overrides = v.into_iter().map(|i| i.into()).collect();
@@ -6693,6 +6513,7 @@ pub mod restore {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines the filter for `Restore`. This filter can be used to further
     /// refine the resource selection of the `Restore` beyond the coarse-grained
     /// scope defined in the `RestorePlan`. `exclusion_filters` take precedence
@@ -6701,6 +6522,7 @@ pub mod restore {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Filter {
+
         /// Optional. Selects resources for restoration. If specified, only resources
         /// which match `inclusion_filters` will be selected for restoration. A
         /// resource will be selected if it matches any `ResourceSelector` of the
@@ -6724,7 +6546,7 @@ pub mod restore {
         pub fn set_inclusion_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ResourceSelector>,
+            V: std::convert::Into<crate::model::ResourceSelector>
         {
             use std::iter::Iterator;
             self.inclusion_filters = v.into_iter().map(|i| i.into()).collect();
@@ -6735,7 +6557,7 @@ pub mod restore {
         pub fn set_exclusion_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ResourceSelector>,
+            V: std::convert::Into<crate::model::ResourceSelector>
         {
             use std::iter::Iterator;
             self.exclusion_filters = v.into_iter().map(|i| i.into()).collect();
@@ -6859,9 +6681,7 @@ pub mod restore {
                 4 => Self::Failed,
                 5 => Self::Deleting,
                 6 => Self::Validating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6877,9 +6697,7 @@ pub mod restore {
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
                 "VALIDATING" => Self::Validating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6908,8 +6726,7 @@ pub mod restore {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.Restore.State",
-            ))
+                ".google.cloud.gkebackup.v1.Restore.State"))
         }
     }
 }
@@ -6918,6 +6735,7 @@ pub mod restore {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreConfig {
+
     /// Optional. Specifies the mechanism to be used to restore volume data.
     /// Default: VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED (will be treated as
     /// NO_VOLUME_DATA_RESTORATION).
@@ -6931,20 +6749,17 @@ pub struct RestoreConfig {
     /// is not empty.
     ///
     /// [google.cloud.gkebackup.v1.RestoreConfig.cluster_resource_restore_scope]: crate::model::RestoreConfig::cluster_resource_restore_scope
-    pub cluster_resource_conflict_policy:
-        crate::model::restore_config::ClusterResourceConflictPolicy,
+    pub cluster_resource_conflict_policy: crate::model::restore_config::ClusterResourceConflictPolicy,
 
     /// Optional. Defines the behavior for handling the situation where sets of
     /// namespaced resources being restored already exist in the target cluster.
     /// This MUST be set to a value other than
     /// NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED.
-    pub namespaced_resource_restore_mode:
-        crate::model::restore_config::NamespacedResourceRestoreMode,
+    pub namespaced_resource_restore_mode: crate::model::restore_config::NamespacedResourceRestoreMode,
 
     /// Optional. Identifies the cluster-scoped resources to restore from the
     /// Backup. Not specifying it means NO cluster resource will be restored.
-    pub cluster_resource_restore_scope:
-        std::option::Option<crate::model::restore_config::ClusterResourceRestoreScope>,
+    pub cluster_resource_restore_scope: std::option::Option<crate::model::restore_config::ClusterResourceRestoreScope>,
 
     /// Optional. A list of transformation rules to be applied against Kubernetes
     /// resources as they are selected for restoration from a Backup. Rules are
@@ -6963,8 +6778,7 @@ pub struct RestoreConfig {
     /// Optional. A table that binds volumes by their scope to a restore policy.
     /// Bindings must have a unique scope. Any volumes not scoped in the bindings
     /// are subject to the policy defined in volume_data_restore_policy.
-    pub volume_data_restore_policy_bindings:
-        std::vec::Vec<crate::model::restore_config::VolumeDataRestorePolicyBinding>,
+    pub volume_data_restore_policy_bindings: std::vec::Vec<crate::model::restore_config::VolumeDataRestorePolicyBinding>,
 
     /// Optional. RestoreOrder contains custom ordering to use on a Restore.
     pub restore_order: std::option::Option<crate::model::restore_config::RestoreOrder>,
@@ -6980,8 +6794,7 @@ pub struct RestoreConfig {
     /// selected. Listing them explicitly will result in an error.
     ///
     /// [google.cloud.gkebackup.v1.RestoreConfig.all_namespaces]: crate::model::RestoreConfig::namespaced_resource_restore_scope
-    pub namespaced_resource_restore_scope:
-        std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
+    pub namespaced_resource_restore_scope: std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6992,54 +6805,34 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [volume_data_restore_policy][crate::model::RestoreConfig::volume_data_restore_policy].
-    pub fn set_volume_data_restore_policy<
-        T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_volume_data_restore_policy<T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>>(mut self, v: T) -> Self {
         self.volume_data_restore_policy = v.into();
         self
     }
 
     /// Sets the value of [cluster_resource_conflict_policy][crate::model::RestoreConfig::cluster_resource_conflict_policy].
-    pub fn set_cluster_resource_conflict_policy<
-        T: std::convert::Into<crate::model::restore_config::ClusterResourceConflictPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_resource_conflict_policy<T: std::convert::Into<crate::model::restore_config::ClusterResourceConflictPolicy>>(mut self, v: T) -> Self {
         self.cluster_resource_conflict_policy = v.into();
         self
     }
 
     /// Sets the value of [namespaced_resource_restore_mode][crate::model::RestoreConfig::namespaced_resource_restore_mode].
-    pub fn set_namespaced_resource_restore_mode<
-        T: std::convert::Into<crate::model::restore_config::NamespacedResourceRestoreMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_namespaced_resource_restore_mode<T: std::convert::Into<crate::model::restore_config::NamespacedResourceRestoreMode>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_mode = v.into();
         self
     }
 
     /// Sets the value of [cluster_resource_restore_scope][crate::model::RestoreConfig::cluster_resource_restore_scope].
     pub fn set_cluster_resource_restore_scope<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::ClusterResourceRestoreScope>,
+    where T: std::convert::Into<crate::model::restore_config::ClusterResourceRestoreScope>
     {
         self.cluster_resource_restore_scope = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [cluster_resource_restore_scope][crate::model::RestoreConfig::cluster_resource_restore_scope].
-    pub fn set_or_clear_cluster_resource_restore_scope<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::ClusterResourceRestoreScope>,
+    pub fn set_or_clear_cluster_resource_restore_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::restore_config::ClusterResourceRestoreScope>
     {
         self.cluster_resource_restore_scope = v.map(|x| x.into());
         self
@@ -7049,7 +6842,7 @@ impl RestoreConfig {
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::restore_config::SubstitutionRule>,
+        V: std::convert::Into<crate::model::restore_config::SubstitutionRule>
     {
         use std::iter::Iterator;
         self.substitution_rules = v.into_iter().map(|i| i.into()).collect();
@@ -7060,7 +6853,7 @@ impl RestoreConfig {
     pub fn set_transformation_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::restore_config::TransformationRule>,
+        V: std::convert::Into<crate::model::restore_config::TransformationRule>
     {
         use std::iter::Iterator;
         self.transformation_rules = v.into_iter().map(|i| i.into()).collect();
@@ -7071,7 +6864,7 @@ impl RestoreConfig {
     pub fn set_volume_data_restore_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicyBinding>,
+        V: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicyBinding>
     {
         use std::iter::Iterator;
         self.volume_data_restore_policy_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -7080,8 +6873,7 @@ impl RestoreConfig {
 
     /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
     pub fn set_restore_order<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::RestoreOrder>,
+    where T: std::convert::Into<crate::model::restore_config::RestoreOrder>
     {
         self.restore_order = std::option::Option::Some(v.into());
         self
@@ -7089,8 +6881,7 @@ impl RestoreConfig {
 
     /// Sets or clears the value of [restore_order][crate::model::RestoreConfig::restore_order].
     pub fn set_or_clear_restore_order<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::RestoreOrder>,
+    where T: std::convert::Into<crate::model::restore_config::RestoreOrder>
     {
         self.restore_order = v.map(|x| x.into());
         self
@@ -7100,14 +6891,8 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are mutually
     /// exclusive.
-    pub fn set_namespaced_resource_restore_scope<
-        T: std::convert::Into<
-                std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_namespaced_resource_restore_scope<T: std::convert::Into<std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>>>(mut self, v: T) -> Self
+    {
         self.namespaced_resource_restore_scope = v.into();
         self
     }
@@ -7117,14 +6902,10 @@ impl RestoreConfig {
     /// holds a different branch.
     pub fn all_namespaces(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope
-            .as_ref()
-            .and_then(|v| match v {
-                crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -7134,7 +6915,9 @@ impl RestoreConfig {
     /// mutually exclusive.
     pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
+            crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(
+                v.into()
+            )
         );
         self
     }
@@ -7142,9 +6925,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn selected_namespaces(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+    pub fn selected_namespaces(&self) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
         self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedNamespaces(v) => std::option::Option::Some(v),
@@ -7157,16 +6938,11 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    pub fn set_selected_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_namespaces<T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedNamespaces(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -7174,9 +6950,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `SelectedApplications`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn selected_applications(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+    pub fn selected_applications(&self) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]
         self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(v) => std::option::Option::Some(v),
@@ -7189,16 +6963,11 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    pub fn set_selected_applications<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_applications<T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
             crate::model::restore_config::NamespacedResourceRestoreScope::SelectedApplications(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -7208,14 +6977,10 @@ impl RestoreConfig {
     /// holds a different branch.
     pub fn no_namespaces(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
-        self.namespaced_resource_restore_scope
-            .as_ref()
-            .and_then(|v| match v {
-                crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
+        self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
+            crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
@@ -7225,7 +6990,9 @@ impl RestoreConfig {
     /// mutually exclusive.
     pub fn set_no_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
-            crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v.into()),
+            crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(
+                v.into()
+            )
         );
         self
     }
@@ -7233,9 +7000,7 @@ impl RestoreConfig {
     /// The value of [namespaced_resource_restore_scope][crate::model::RestoreConfig::namespaced_resource_restore_scope]
     /// if it holds a `ExcludedNamespaces`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn excluded_namespaces(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
+    pub fn excluded_namespaces(&self) -> std::option::Option<&std::boxed::Box<crate::model::Namespaces>> {
         #[allow(unreachable_patterns)]
         self.namespaced_resource_restore_scope.as_ref().and_then(|v| match v {
             crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(v) => std::option::Option::Some(v),
@@ -7248,16 +7013,11 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    pub fn set_excluded_namespaces<
-        T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_excluded_namespaces<T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
             crate::model::restore_config::NamespacedResourceRestoreScope::ExcludedNamespaces(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -7274,12 +7034,14 @@ pub mod restore_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// This is a direct map to the Kubernetes GroupKind type
     /// [GroupKind](https://godoc.org/k8s.io/apimachinery/pkg/runtime/schema#GroupKind)
     /// and is used for identifying specific "types" of resources to restore.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GroupKind {
+
         /// Optional. API group string of a Kubernetes resource, e.g.
         /// "apiextensions.k8s.io", "storage.k8s.io", etc.
         /// Note: use empty string for core API group.
@@ -7299,19 +7061,13 @@ pub mod restore_config {
         }
 
         /// Sets the value of [resource_group][crate::model::restore_config::GroupKind::resource_group].
-        pub fn set_resource_group<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_resource_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_group = v.into();
             self
         }
 
         /// Sets the value of [resource_kind][crate::model::restore_config::GroupKind::resource_kind].
-        pub fn set_resource_kind<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_resource_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_kind = v.into();
             self
         }
@@ -7348,6 +7104,7 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ClusterResourceRestoreScope {
+
         /// Optional. A list of cluster-scoped resource group kinds to restore from
         /// the backup. If specified, only the selected resources will be restored.
         /// Mutually exclusive to any other field in the message.
@@ -7380,7 +7137,7 @@ pub mod restore_config {
         pub fn set_selected_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>
         {
             use std::iter::Iterator;
             self.selected_group_kinds = v.into_iter().map(|i| i.into()).collect();
@@ -7391,7 +7148,7 @@ pub mod restore_config {
         pub fn set_excluded_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>
         {
             use std::iter::Iterator;
             self.excluded_group_kinds = v.into_iter().map(|i| i.into()).collect();
@@ -7423,6 +7180,7 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SubstitutionRule {
+
         /// Optional. (Filtering parameter) Any resource subject to substitution must
         /// be contained within one of the listed Kubernetes Namespace in the Backup.
         /// If this field is not provided, no namespace filtering will be performed
@@ -7476,7 +7234,7 @@ pub mod restore_config {
         pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.target_namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -7487,7 +7245,7 @@ pub mod restore_config {
         pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>
         {
             use std::iter::Iterator;
             self.target_group_kinds = v.into_iter().map(|i| i.into()).collect();
@@ -7495,19 +7253,13 @@ pub mod restore_config {
         }
 
         /// Sets the value of [target_json_path][crate::model::restore_config::SubstitutionRule::target_json_path].
-        pub fn set_target_json_path<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_json_path = v.into();
             self
         }
 
         /// Sets the value of [original_value_pattern][crate::model::restore_config::SubstitutionRule::original_value_pattern].
-        pub fn set_original_value_pattern<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_original_value_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.original_value_pattern = v.into();
             self
         }
@@ -7530,6 +7282,7 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransformationRuleAction {
+
         /// Required. op specifies the operation to perform.
         pub op: crate::model::restore_config::transformation_rule_action::Op,
 
@@ -7554,12 +7307,7 @@ pub mod restore_config {
         }
 
         /// Sets the value of [op][crate::model::restore_config::TransformationRuleAction::op].
-        pub fn set_op<
-            T: std::convert::Into<crate::model::restore_config::transformation_rule_action::Op>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_op<T: std::convert::Into<crate::model::restore_config::transformation_rule_action::Op>>(mut self, v: T) -> Self {
             self.op = v.into();
             self
         }
@@ -7593,6 +7341,7 @@ pub mod restore_config {
     pub mod transformation_rule_action {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Possible values for operations of a transformation rule action.
         ///
@@ -7698,10 +7447,7 @@ pub mod restore_config {
         }
 
         impl std::fmt::Display for Op {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -7716,9 +7462,7 @@ pub mod restore_config {
                     4 => Self::Add,
                     5 => Self::Test,
                     6 => Self::Replace,
-                    _ => Self::UnknownValue(op::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(op::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -7734,9 +7478,7 @@ pub mod restore_config {
                     "ADD" => Self::Add,
                     "TEST" => Self::Test,
                     "REPLACE" => Self::Replace,
-                    _ => Self::UnknownValue(op::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(op::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -7765,8 +7507,7 @@ pub mod restore_config {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Op>::new(
-                    ".google.cloud.gkebackup.v1.RestoreConfig.TransformationRuleAction.Op",
-                ))
+                    ".google.cloud.gkebackup.v1.RestoreConfig.TransformationRuleAction.Op"))
             }
         }
     }
@@ -7777,6 +7518,7 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceFilter {
+
         /// Optional. (Filtering parameter) Any resource subject to transformation
         /// must be contained within one of the listed Kubernetes Namespace in the
         /// Backup. If this field is not provided, no namespace filtering will be
@@ -7810,7 +7552,7 @@ pub mod restore_config {
         pub fn set_namespaces<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -7821,7 +7563,7 @@ pub mod restore_config {
         pub fn set_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::GroupKind>,
+            V: std::convert::Into<crate::model::restore_config::GroupKind>
         {
             use std::iter::Iterator;
             self.group_kinds = v.into_iter().map(|i| i.into()).collect();
@@ -7847,6 +7589,7 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TransformationRule {
+
         /// Required. A list of transformation rule actions to take against candidate
         /// resources. Actions are executed in order defined - this order matters, as
         /// they could potentially interfere with each other and the first operation
@@ -7875,7 +7618,7 @@ pub mod restore_config {
         pub fn set_field_actions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>,
+            V: std::convert::Into<crate::model::restore_config::TransformationRuleAction>
         {
             use std::iter::Iterator;
             self.field_actions = v.into_iter().map(|i| i.into()).collect();
@@ -7884,8 +7627,7 @@ pub mod restore_config {
 
         /// Sets the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
         pub fn set_resource_filter<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::restore_config::ResourceFilter>,
+        where T: std::convert::Into<crate::model::restore_config::ResourceFilter>
         {
             self.resource_filter = std::option::Option::Some(v.into());
             self
@@ -7893,8 +7635,7 @@ pub mod restore_config {
 
         /// Sets or clears the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
         pub fn set_or_clear_resource_filter<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::restore_config::ResourceFilter>,
+        where T: std::convert::Into<crate::model::restore_config::ResourceFilter>
         {
             self.resource_filter = v.map(|x| x.into());
             self
@@ -7917,13 +7658,12 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VolumeDataRestorePolicyBinding {
+
         /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
         /// scope.
         pub policy: crate::model::restore_config::VolumeDataRestorePolicy,
 
-        pub scope: std::option::Option<
-            crate::model::restore_config::volume_data_restore_policy_binding::Scope,
-        >,
+        pub scope: std::option::Option<crate::model::restore_config::volume_data_restore_policy_binding::Scope>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7934,12 +7674,7 @@ pub mod restore_config {
         }
 
         /// Sets the value of [policy][crate::model::restore_config::VolumeDataRestorePolicyBinding::policy].
-        pub fn set_policy<
-            T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_policy<T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>>(mut self, v: T) -> Self {
             self.policy = v.into();
             self
         }
@@ -7948,16 +7683,8 @@ pub mod restore_config {
         ///
         /// Note that all the setters affecting `scope` are mutually
         /// exclusive.
-        pub fn set_scope<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::restore_config::volume_data_restore_policy_binding::Scope,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::restore_config::volume_data_restore_policy_binding::Scope>>>(mut self, v: T) -> Self
+        {
             self.scope = v.into();
             self
         }
@@ -7965,9 +7692,7 @@ pub mod restore_config {
         /// The value of [scope][crate::model::restore_config::VolumeDataRestorePolicyBinding::scope]
         /// if it holds a `VolumeType`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn volume_type(
-            &self,
-        ) -> std::option::Option<&crate::model::volume_type_enum::VolumeType> {
+        pub fn volume_type(&self) -> std::option::Option<&crate::model::volume_type_enum::VolumeType> {
             #[allow(unreachable_patterns)]
             self.scope.as_ref().and_then(|v| match v {
                 crate::model::restore_config::volume_data_restore_policy_binding::Scope::VolumeType(v) => std::option::Option::Some(v),
@@ -7980,16 +7705,11 @@ pub mod restore_config {
         ///
         /// Note that all the setters affecting `scope` are
         /// mutually exclusive.
-        pub fn set_volume_type<
-            T: std::convert::Into<crate::model::volume_type_enum::VolumeType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_volume_type<T: std::convert::Into<crate::model::volume_type_enum::VolumeType>>(mut self, v: T) -> Self {
             self.scope = std::option::Option::Some(
                 crate::model::restore_config::volume_data_restore_policy_binding::Scope::VolumeType(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -8006,6 +7726,7 @@ pub mod restore_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Scope {
@@ -8020,11 +7741,11 @@ pub mod restore_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestoreOrder {
+
         /// Optional. Contains a list of group kind dependency pairs provided
         /// by the customer, that is used by Backup for GKE to
         /// generate a group kind restore order.
-        pub group_kind_dependencies:
-            std::vec::Vec<crate::model::restore_config::restore_order::GroupKindDependency>,
+        pub group_kind_dependencies: std::vec::Vec<crate::model::restore_config::restore_order::GroupKindDependency>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8038,7 +7759,7 @@ pub mod restore_config {
         pub fn set_group_kind_dependencies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::restore_config::restore_order::GroupKindDependency>,
+            V: std::convert::Into<crate::model::restore_config::restore_order::GroupKindDependency>
         {
             use std::iter::Iterator;
             self.group_kind_dependencies = v.into_iter().map(|i| i.into()).collect();
@@ -8057,10 +7778,12 @@ pub mod restore_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Defines a dependency between two group kinds.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GroupKindDependency {
+
             /// Required. The satisfying group kind must be restored first
             /// in order to satisfy the dependency.
             pub satisfying: std::option::Option<crate::model::restore_config::GroupKind>,
@@ -8079,8 +7802,7 @@ pub mod restore_config {
 
             /// Sets the value of [satisfying][crate::model::restore_config::restore_order::GroupKindDependency::satisfying].
             pub fn set_satisfying<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::restore_config::GroupKind>,
+            where T: std::convert::Into<crate::model::restore_config::GroupKind>
             {
                 self.satisfying = std::option::Option::Some(v.into());
                 self
@@ -8088,8 +7810,7 @@ pub mod restore_config {
 
             /// Sets or clears the value of [satisfying][crate::model::restore_config::restore_order::GroupKindDependency::satisfying].
             pub fn set_or_clear_satisfying<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::restore_config::GroupKind>,
+            where T: std::convert::Into<crate::model::restore_config::GroupKind>
             {
                 self.satisfying = v.map(|x| x.into());
                 self
@@ -8097,8 +7818,7 @@ pub mod restore_config {
 
             /// Sets the value of [requiring][crate::model::restore_config::restore_order::GroupKindDependency::requiring].
             pub fn set_requiring<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::restore_config::GroupKind>,
+            where T: std::convert::Into<crate::model::restore_config::GroupKind>
             {
                 self.requiring = std::option::Option::Some(v.into());
                 self
@@ -8106,8 +7826,7 @@ pub mod restore_config {
 
             /// Sets or clears the value of [requiring][crate::model::restore_config::restore_order::GroupKindDependency::requiring].
             pub fn set_or_clear_requiring<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::restore_config::GroupKind>,
+            where T: std::convert::Into<crate::model::restore_config::GroupKind>
             {
                 self.requiring = v.map(|x| x.into());
                 self
@@ -8189,18 +7908,10 @@ pub mod restore_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED")
-                }
-                Self::RestoreVolumeDataFromBackup => {
-                    std::option::Option::Some("RESTORE_VOLUME_DATA_FROM_BACKUP")
-                }
-                Self::ReuseVolumeHandleFromBackup => {
-                    std::option::Option::Some("REUSE_VOLUME_HANDLE_FROM_BACKUP")
-                }
-                Self::NoVolumeDataRestoration => {
-                    std::option::Option::Some("NO_VOLUME_DATA_RESTORATION")
-                }
+                Self::Unspecified => std::option::Option::Some("VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED"),
+                Self::RestoreVolumeDataFromBackup => std::option::Option::Some("RESTORE_VOLUME_DATA_FROM_BACKUP"),
+                Self::ReuseVolumeHandleFromBackup => std::option::Option::Some("REUSE_VOLUME_HANDLE_FROM_BACKUP"),
+                Self::NoVolumeDataRestoration => std::option::Option::Some("NO_VOLUME_DATA_RESTORATION"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8226,9 +7937,7 @@ pub mod restore_config {
                 1 => Self::RestoreVolumeDataFromBackup,
                 2 => Self::ReuseVolumeHandleFromBackup,
                 3 => Self::NoVolumeDataRestoration,
-                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8241,9 +7950,7 @@ pub mod restore_config {
                 "RESTORE_VOLUME_DATA_FROM_BACKUP" => Self::RestoreVolumeDataFromBackup,
                 "REUSE_VOLUME_HANDLE_FROM_BACKUP" => Self::ReuseVolumeHandleFromBackup,
                 "NO_VOLUME_DATA_RESTORATION" => Self::NoVolumeDataRestoration,
-                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(volume_data_restore_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8268,11 +7975,8 @@ pub mod restore_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<VolumeDataRestorePolicy>::new(
-                    ".google.cloud.gkebackup.v1.RestoreConfig.VolumeDataRestorePolicy",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeDataRestorePolicy>::new(
+                ".google.cloud.gkebackup.v1.RestoreConfig.VolumeDataRestorePolicy"))
         }
     }
 
@@ -8340,9 +8044,7 @@ pub mod restore_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED"),
                 Self::UseExistingVersion => std::option::Option::Some("USE_EXISTING_VERSION"),
                 Self::UseBackupVersion => std::option::Option::Some("USE_BACKUP_VERSION"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -8369,9 +8071,7 @@ pub mod restore_config {
                 0 => Self::Unspecified,
                 1 => Self::UseExistingVersion,
                 2 => Self::UseBackupVersion,
-                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8383,9 +8083,7 @@ pub mod restore_config {
                 "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "USE_EXISTING_VERSION" => Self::UseExistingVersion,
                 "USE_BACKUP_VERSION" => Self::UseBackupVersion,
-                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(cluster_resource_conflict_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8409,11 +8107,8 @@ pub mod restore_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<ClusterResourceConflictPolicy>::new(
-                    ".google.cloud.gkebackup.v1.RestoreConfig.ClusterResourceConflictPolicy",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterResourceConflictPolicy>::new(
+                ".google.cloud.gkebackup.v1.RestoreConfig.ClusterResourceConflictPolicy"))
         }
     }
 
@@ -8521,18 +8216,12 @@ pub mod restore_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED"),
                 Self::DeleteAndRestore => std::option::Option::Some("DELETE_AND_RESTORE"),
                 Self::FailOnConflict => std::option::Option::Some("FAIL_ON_CONFLICT"),
                 Self::MergeSkipOnConflict => std::option::Option::Some("MERGE_SKIP_ON_CONFLICT"),
-                Self::MergeReplaceVolumeOnConflict => {
-                    std::option::Option::Some("MERGE_REPLACE_VOLUME_ON_CONFLICT")
-                }
-                Self::MergeReplaceOnConflict => {
-                    std::option::Option::Some("MERGE_REPLACE_ON_CONFLICT")
-                }
+                Self::MergeReplaceVolumeOnConflict => std::option::Option::Some("MERGE_REPLACE_VOLUME_ON_CONFLICT"),
+                Self::MergeReplaceOnConflict => std::option::Option::Some("MERGE_REPLACE_ON_CONFLICT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8560,9 +8249,7 @@ pub mod restore_config {
                 3 => Self::MergeSkipOnConflict,
                 4 => Self::MergeReplaceVolumeOnConflict,
                 5 => Self::MergeReplaceOnConflict,
-                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8577,9 +8264,7 @@ pub mod restore_config {
                 "MERGE_SKIP_ON_CONFLICT" => Self::MergeSkipOnConflict,
                 "MERGE_REPLACE_VOLUME_ON_CONFLICT" => Self::MergeReplaceVolumeOnConflict,
                 "MERGE_REPLACE_ON_CONFLICT" => Self::MergeReplaceOnConflict,
-                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(namespaced_resource_restore_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8606,11 +8291,8 @@ pub mod restore_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<NamespacedResourceRestoreMode>::new(
-                    ".google.cloud.gkebackup.v1.RestoreConfig.NamespacedResourceRestoreMode",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NamespacedResourceRestoreMode>::new(
+                ".google.cloud.gkebackup.v1.RestoreConfig.NamespacedResourceRestoreMode"))
         }
     }
 
@@ -8656,6 +8338,7 @@ pub mod restore_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceSelector {
+
     /// Optional. Selects resources using their Kubernetes GroupKinds. If
     /// specified, only resources of provided GroupKind will be selected.
     pub group_kind: std::option::Option<crate::model::restore_config::GroupKind>,
@@ -8678,7 +8361,7 @@ pub struct ResourceSelector {
     /// [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
     /// If specified, a resource will be selected if and only if the resource
     /// has all of the provided labels and all the label values match.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8690,8 +8373,7 @@ impl ResourceSelector {
 
     /// Sets the value of [group_kind][crate::model::ResourceSelector::group_kind].
     pub fn set_group_kind<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::GroupKind>,
+    where T: std::convert::Into<crate::model::restore_config::GroupKind>
     {
         self.group_kind = std::option::Option::Some(v.into());
         self
@@ -8699,8 +8381,7 @@ impl ResourceSelector {
 
     /// Sets or clears the value of [group_kind][crate::model::ResourceSelector::group_kind].
     pub fn set_or_clear_group_kind<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::restore_config::GroupKind>,
+    where T: std::convert::Into<crate::model::restore_config::GroupKind>
     {
         self.group_kind = v.map(|x| x.into());
         self
@@ -8741,6 +8422,7 @@ impl wkt::message::Message for ResourceSelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeDataRestorePolicyOverride {
+
     /// Required. The VolumeDataRestorePolicy to apply when restoring volumes in
     /// scope.
     pub policy: crate::model::restore_config::VolumeDataRestorePolicy,
@@ -8756,12 +8438,7 @@ impl VolumeDataRestorePolicyOverride {
     }
 
     /// Sets the value of [policy][crate::model::VolumeDataRestorePolicyOverride::policy].
-    pub fn set_policy<
-        T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_policy<T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
@@ -8770,14 +8447,8 @@ impl VolumeDataRestorePolicyOverride {
     ///
     /// Note that all the setters affecting `scope` are mutually
     /// exclusive.
-    pub fn set_scope<
-        T: std::convert::Into<
-                std::option::Option<crate::model::volume_data_restore_policy_override::Scope>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::volume_data_restore_policy_override::Scope>>>(mut self, v: T) -> Self
+    {
         self.scope = v.into();
         self
     }
@@ -8785,14 +8456,10 @@ impl VolumeDataRestorePolicyOverride {
     /// The value of [scope][crate::model::VolumeDataRestorePolicyOverride::scope]
     /// if it holds a `SelectedPvcs`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn selected_pvcs(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
+    pub fn selected_pvcs(&self) -> std::option::Option<&std::boxed::Box<crate::model::NamespacedNames>> {
         #[allow(unreachable_patterns)]
         self.scope.as_ref().and_then(|v| match v {
-            crate::model::volume_data_restore_policy_override::Scope::SelectedPvcs(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::volume_data_restore_policy_override::Scope::SelectedPvcs(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8802,14 +8469,11 @@ impl VolumeDataRestorePolicyOverride {
     ///
     /// Note that all the setters affecting `scope` are
     /// mutually exclusive.
-    pub fn set_selected_pvcs<
-        T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_selected_pvcs<T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>>(mut self, v: T) -> Self {
         self.scope = std::option::Option::Some(
-            crate::model::volume_data_restore_policy_override::Scope::SelectedPvcs(v.into()),
+            crate::model::volume_data_restore_policy_override::Scope::SelectedPvcs(
+                v.into()
+            )
         );
         self
     }
@@ -8826,6 +8490,7 @@ pub mod volume_data_restore_policy_override {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
@@ -8841,6 +8506,7 @@ pub mod volume_data_restore_policy_override {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreChannel {
+
     /// Identifier. The fully qualified name of the RestoreChannel.
     /// `projects/*/locations/*/restoreChannels/*`
     pub name: std::string::String,
@@ -8860,7 +8526,7 @@ pub struct RestoreChannel {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. User specified descriptive string for this RestoreChannel.
     pub description: std::string::String,
@@ -8897,10 +8563,7 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [destination_project][crate::model::RestoreChannel::destination_project].
-    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_project = v.into();
         self
     }
@@ -8913,8 +8576,7 @@ impl RestoreChannel {
 
     /// Sets the value of [create_time][crate::model::RestoreChannel::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8922,8 +8584,7 @@ impl RestoreChannel {
 
     /// Sets or clears the value of [create_time][crate::model::RestoreChannel::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8931,8 +8592,7 @@ impl RestoreChannel {
 
     /// Sets the value of [update_time][crate::model::RestoreChannel::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8940,8 +8600,7 @@ impl RestoreChannel {
 
     /// Sets or clears the value of [update_time][crate::model::RestoreChannel::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8972,10 +8631,7 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [destination_project_id][crate::model::RestoreChannel::destination_project_id].
-    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_project_id = v.into();
         self
     }
@@ -8992,6 +8648,7 @@ impl wkt::message::Message for RestoreChannel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestorePlan {
+
     /// Output only. The full name of the RestorePlan resource.
     /// Format: `projects/*/locations/*/restorePlans/*`.
     pub name: std::string::String,
@@ -9031,7 +8688,7 @@ pub struct RestorePlan {
     pub restore_config: std::option::Option<crate::model::RestoreConfig>,
 
     /// Optional. A set of custom labels supplied by user.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. `etag` is used for optimistic concurrency control as a way to
     /// help prevent simultaneous updates of a restore from overwriting each other.
@@ -9082,8 +8739,7 @@ impl RestorePlan {
 
     /// Sets the value of [create_time][crate::model::RestorePlan::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9091,8 +8747,7 @@ impl RestorePlan {
 
     /// Sets or clears the value of [create_time][crate::model::RestorePlan::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9100,8 +8755,7 @@ impl RestorePlan {
 
     /// Sets the value of [update_time][crate::model::RestorePlan::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9109,8 +8763,7 @@ impl RestorePlan {
 
     /// Sets or clears the value of [update_time][crate::model::RestorePlan::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9136,8 +8789,7 @@ impl RestorePlan {
 
     /// Sets the value of [restore_config][crate::model::RestorePlan::restore_config].
     pub fn set_restore_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreConfig>,
+    where T: std::convert::Into<crate::model::RestoreConfig>
     {
         self.restore_config = std::option::Option::Some(v.into());
         self
@@ -9145,8 +8797,7 @@ impl RestorePlan {
 
     /// Sets or clears the value of [restore_config][crate::model::RestorePlan::restore_config].
     pub fn set_or_clear_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreConfig>,
+    where T: std::convert::Into<crate::model::RestoreConfig>
     {
         self.restore_config = v.map(|x| x.into());
         self
@@ -9171,10 +8822,7 @@ impl RestorePlan {
     }
 
     /// Sets the value of [state][crate::model::RestorePlan::state].
-    pub fn set_state<T: std::convert::Into<crate::model::restore_plan::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::restore_plan::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9202,6 +8850,7 @@ impl wkt::message::Message for RestorePlan {
 pub mod restore_plan {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State
     ///
@@ -9299,9 +8948,7 @@ pub mod restore_plan {
                 2 => Self::Ready,
                 3 => Self::Failed,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9315,9 +8962,7 @@ pub mod restore_plan {
                 "READY" => Self::Ready,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9344,8 +8989,7 @@ pub mod restore_plan {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.RestorePlan.State",
-            ))
+                ".google.cloud.gkebackup.v1.RestorePlan.State"))
         }
     }
 }
@@ -9357,6 +9001,7 @@ pub mod restore_plan {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestorePlanBinding {
+
     /// Identifier. The fully qualified name of the RestorePlanBinding.
     /// `projects/*/locations/*/restoreChannels/*/restorePlanBindings/*`
     pub name: std::string::String,
@@ -9412,8 +9057,7 @@ impl RestorePlanBinding {
 
     /// Sets the value of [create_time][crate::model::RestorePlanBinding::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9421,8 +9065,7 @@ impl RestorePlanBinding {
 
     /// Sets or clears the value of [create_time][crate::model::RestorePlanBinding::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9430,8 +9073,7 @@ impl RestorePlanBinding {
 
     /// Sets the value of [update_time][crate::model::RestorePlanBinding::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9439,8 +9081,7 @@ impl RestorePlanBinding {
 
     /// Sets or clears the value of [update_time][crate::model::RestorePlanBinding::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9477,6 +9118,7 @@ impl wkt::message::Message for RestorePlanBinding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeBackup {
+
     /// Output only. The full name of the VolumeBackup resource.
     /// Format: `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`.
     pub name: std::string::String,
@@ -9563,8 +9205,7 @@ impl VolumeBackup {
 
     /// Sets the value of [create_time][crate::model::VolumeBackup::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9572,8 +9213,7 @@ impl VolumeBackup {
 
     /// Sets or clears the value of [create_time][crate::model::VolumeBackup::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9581,8 +9221,7 @@ impl VolumeBackup {
 
     /// Sets the value of [update_time][crate::model::VolumeBackup::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9590,8 +9229,7 @@ impl VolumeBackup {
 
     /// Sets or clears the value of [update_time][crate::model::VolumeBackup::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9599,8 +9237,7 @@ impl VolumeBackup {
 
     /// Sets the value of [source_pvc][crate::model::VolumeBackup::source_pvc].
     pub fn set_source_pvc<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NamespacedName>,
+    where T: std::convert::Into<crate::model::NamespacedName>
     {
         self.source_pvc = std::option::Option::Some(v.into());
         self
@@ -9608,27 +9245,20 @@ impl VolumeBackup {
 
     /// Sets or clears the value of [source_pvc][crate::model::VolumeBackup::source_pvc].
     pub fn set_or_clear_source_pvc<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NamespacedName>,
+    where T: std::convert::Into<crate::model::NamespacedName>
     {
         self.source_pvc = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [volume_backup_handle][crate::model::VolumeBackup::volume_backup_handle].
-    pub fn set_volume_backup_handle<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_volume_backup_handle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_backup_handle = v.into();
         self
     }
 
     /// Sets the value of [format][crate::model::VolumeBackup::format].
-    pub fn set_format<T: std::convert::Into<crate::model::volume_backup::VolumeBackupFormat>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_format<T: std::convert::Into<crate::model::volume_backup::VolumeBackupFormat>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
@@ -9647,8 +9277,7 @@ impl VolumeBackup {
 
     /// Sets the value of [complete_time][crate::model::VolumeBackup::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -9656,18 +9285,14 @@ impl VolumeBackup {
 
     /// Sets or clears the value of [complete_time][crate::model::VolumeBackup::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::VolumeBackup::state].
-    pub fn set_state<T: std::convert::Into<crate::model::volume_backup::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::volume_backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9707,6 +9332,7 @@ impl wkt::message::Message for VolumeBackup {
 pub mod volume_backup {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Identifies the format used for the volume backup.
     ///
@@ -9789,9 +9415,7 @@ pub mod volume_backup {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_backup_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(volume_backup_format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9802,9 +9426,7 @@ pub mod volume_backup {
             match value {
                 "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_backup_format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(volume_backup_format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9828,8 +9450,7 @@ pub mod volume_backup {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeBackupFormat>::new(
-                ".google.cloud.gkebackup.v1.VolumeBackup.VolumeBackupFormat",
-            ))
+                ".google.cloud.gkebackup.v1.VolumeBackup.VolumeBackupFormat"))
         }
     }
 
@@ -9951,9 +9572,7 @@ pub mod volume_backup {
                 5 => Self::Failed,
                 6 => Self::Deleting,
                 7 => Self::CleanedUp,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9970,9 +9589,7 @@ pub mod volume_backup {
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
                 "CLEANED_UP" => Self::CleanedUp,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10002,8 +9619,7 @@ pub mod volume_backup {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.VolumeBackup.State",
-            ))
+                ".google.cloud.gkebackup.v1.VolumeBackup.State"))
         }
     }
 }
@@ -10012,6 +9628,7 @@ pub mod volume_backup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeRestore {
+
     /// Output only. Full name of the VolumeRestore resource.
     /// Format: `projects/*/locations/*/restorePlans/*/restores/*/volumeRestores/*`
     pub name: std::string::String,
@@ -10083,8 +9700,7 @@ impl VolumeRestore {
 
     /// Sets the value of [create_time][crate::model::VolumeRestore::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10092,8 +9708,7 @@ impl VolumeRestore {
 
     /// Sets or clears the value of [create_time][crate::model::VolumeRestore::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10101,8 +9716,7 @@ impl VolumeRestore {
 
     /// Sets the value of [update_time][crate::model::VolumeRestore::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10110,8 +9724,7 @@ impl VolumeRestore {
 
     /// Sets or clears the value of [update_time][crate::model::VolumeRestore::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10125,8 +9738,7 @@ impl VolumeRestore {
 
     /// Sets the value of [target_pvc][crate::model::VolumeRestore::target_pvc].
     pub fn set_target_pvc<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NamespacedName>,
+    where T: std::convert::Into<crate::model::NamespacedName>
     {
         self.target_pvc = std::option::Option::Some(v.into());
         self
@@ -10134,8 +9746,7 @@ impl VolumeRestore {
 
     /// Sets or clears the value of [target_pvc][crate::model::VolumeRestore::target_pvc].
     pub fn set_or_clear_target_pvc<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NamespacedName>,
+    where T: std::convert::Into<crate::model::NamespacedName>
     {
         self.target_pvc = v.map(|x| x.into());
         self
@@ -10148,18 +9759,14 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [volume_type][crate::model::VolumeRestore::volume_type].
-    pub fn set_volume_type<T: std::convert::Into<crate::model::volume_restore::VolumeType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_volume_type<T: std::convert::Into<crate::model::volume_restore::VolumeType>>(mut self, v: T) -> Self {
         self.volume_type = v.into();
         self
     }
 
     /// Sets the value of [complete_time][crate::model::VolumeRestore::complete_time].
     pub fn set_complete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = std::option::Option::Some(v.into());
         self
@@ -10167,18 +9774,14 @@ impl VolumeRestore {
 
     /// Sets or clears the value of [complete_time][crate::model::VolumeRestore::complete_time].
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.complete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::VolumeRestore::state].
-    pub fn set_state<T: std::convert::Into<crate::model::volume_restore::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::volume_restore::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -10206,6 +9809,7 @@ impl wkt::message::Message for VolumeRestore {
 pub mod volume_restore {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported volume types.
     ///
@@ -10288,9 +9892,7 @@ pub mod volume_restore {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10301,9 +9903,7 @@ pub mod volume_restore {
             match value {
                 "VOLUME_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GCE_PERSISTENT_DISK" => Self::GcePersistentDisk,
-                _ => Self::UnknownValue(volume_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(volume_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10327,8 +9927,7 @@ pub mod volume_restore {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VolumeType>::new(
-                ".google.cloud.gkebackup.v1.VolumeRestore.VolumeType",
-            ))
+                ".google.cloud.gkebackup.v1.VolumeRestore.VolumeType"))
         }
     }
 
@@ -10434,9 +10033,7 @@ pub mod volume_restore {
                 3 => Self::Succeeded,
                 4 => Self::Failed,
                 5 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10451,9 +10048,7 @@ pub mod volume_restore {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10481,8 +10076,7 @@ pub mod volume_restore {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.gkebackup.v1.VolumeRestore.State",
-            ))
+                ".google.cloud.gkebackup.v1.VolumeRestore.State"))
         }
     }
 }

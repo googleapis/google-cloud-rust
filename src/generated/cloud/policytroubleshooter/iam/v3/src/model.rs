@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyRequest {
+
     /// The information to use for checking whether a principal has a permission
     /// for a resource.
     pub access_tuple: std::option::Option<crate::model::AccessTuple>,
@@ -59,8 +60,7 @@ impl TroubleshootIamPolicyRequest {
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = std::option::Option::Some(v.into());
         self
@@ -68,8 +68,7 @@ impl TroubleshootIamPolicyRequest {
 
     /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = v.map(|x| x.into());
         self
@@ -89,6 +88,7 @@ impl wkt::message::Message for TroubleshootIamPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyResponse {
+
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all types of the applicable IAM
     /// policies.
@@ -115,20 +115,14 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets the value of [overall_access_state][crate::model::TroubleshootIamPolicyResponse::overall_access_state].
-    pub fn set_overall_access_state<
-        T: std::convert::Into<crate::model::troubleshoot_iam_policy_response::OverallAccessState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_overall_access_state<T: std::convert::Into<crate::model::troubleshoot_iam_policy_response::OverallAccessState>>(mut self, v: T) -> Self {
         self.overall_access_state = v.into();
         self
     }
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyResponse::access_tuple].
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = std::option::Option::Some(v.into());
         self
@@ -136,8 +130,7 @@ impl TroubleshootIamPolicyResponse {
 
     /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyResponse::access_tuple].
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = v.map(|x| x.into());
         self
@@ -145,8 +138,7 @@ impl TroubleshootIamPolicyResponse {
 
     /// Sets the value of [allow_policy_explanation][crate::model::TroubleshootIamPolicyResponse::allow_policy_explanation].
     pub fn set_allow_policy_explanation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AllowPolicyExplanation>,
+    where T: std::convert::Into<crate::model::AllowPolicyExplanation>
     {
         self.allow_policy_explanation = std::option::Option::Some(v.into());
         self
@@ -154,8 +146,7 @@ impl TroubleshootIamPolicyResponse {
 
     /// Sets or clears the value of [allow_policy_explanation][crate::model::TroubleshootIamPolicyResponse::allow_policy_explanation].
     pub fn set_or_clear_allow_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AllowPolicyExplanation>,
+    where T: std::convert::Into<crate::model::AllowPolicyExplanation>
     {
         self.allow_policy_explanation = v.map(|x| x.into());
         self
@@ -163,8 +154,7 @@ impl TroubleshootIamPolicyResponse {
 
     /// Sets the value of [deny_policy_explanation][crate::model::TroubleshootIamPolicyResponse::deny_policy_explanation].
     pub fn set_deny_policy_explanation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DenyPolicyExplanation>,
+    where T: std::convert::Into<crate::model::DenyPolicyExplanation>
     {
         self.deny_policy_explanation = std::option::Option::Some(v.into());
         self
@@ -172,8 +162,7 @@ impl TroubleshootIamPolicyResponse {
 
     /// Sets or clears the value of [deny_policy_explanation][crate::model::TroubleshootIamPolicyResponse::deny_policy_explanation].
     pub fn set_or_clear_deny_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DenyPolicyExplanation>,
+    where T: std::convert::Into<crate::model::DenyPolicyExplanation>
     {
         self.deny_policy_explanation = v.map(|x| x.into());
         self
@@ -190,6 +179,7 @@ impl wkt::message::Message for TroubleshootIamPolicyResponse {
 pub mod troubleshoot_iam_policy_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Whether the principal has the permission on the resource.
     ///
@@ -290,9 +280,7 @@ pub mod troubleshoot_iam_policy_response {
                 2 => Self::CannotAccess,
                 3 => Self::UnknownInfo,
                 4 => Self::UnknownConditional,
-                _ => Self::UnknownValue(overall_access_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(overall_access_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -306,9 +294,7 @@ pub mod troubleshoot_iam_policy_response {
                 "CANNOT_ACCESS" => Self::CannotAccess,
                 "UNKNOWN_INFO" => Self::UnknownInfo,
                 "UNKNOWN_CONDITIONAL" => Self::UnknownConditional,
-                _ => Self::UnknownValue(overall_access_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(overall_access_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -344,6 +330,7 @@ pub mod troubleshoot_iam_policy_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessTuple {
+
     /// Required. The email address of the principal whose access you want to
     /// check. For example, `alice@example.com` or
     /// `my-service-account@my-project.iam.gserviceaccount.com`.
@@ -396,10 +383,7 @@ impl AccessTuple {
     }
 
     /// Sets the value of [full_resource_name][crate::model::AccessTuple::full_resource_name].
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -418,8 +402,7 @@ impl AccessTuple {
 
     /// Sets the value of [condition_context][crate::model::AccessTuple::condition_context].
     pub fn set_condition_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionContext>,
+    where T: std::convert::Into<crate::model::ConditionContext>
     {
         self.condition_context = std::option::Option::Some(v.into());
         self
@@ -427,8 +410,7 @@ impl AccessTuple {
 
     /// Sets or clears the value of [condition_context][crate::model::AccessTuple::condition_context].
     pub fn set_or_clear_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionContext>,
+    where T: std::convert::Into<crate::model::ConditionContext>
     {
         self.condition_context = v.map(|x| x.into());
         self
@@ -446,6 +428,7 @@ impl wkt::message::Message for AccessTuple {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionContext {
+
     /// Represents a target resource that is involved with a network activity.
     /// If multiple resources are involved with an activity, this must be the
     /// primary one.
@@ -473,8 +456,7 @@ impl ConditionContext {
 
     /// Sets the value of [resource][crate::model::ConditionContext::resource].
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Resource>,
+    where T: std::convert::Into<crate::model::condition_context::Resource>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -482,8 +464,7 @@ impl ConditionContext {
 
     /// Sets or clears the value of [resource][crate::model::ConditionContext::resource].
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Resource>,
+    where T: std::convert::Into<crate::model::condition_context::Resource>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -491,8 +472,7 @@ impl ConditionContext {
 
     /// Sets the value of [destination][crate::model::ConditionContext::destination].
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Peer>,
+    where T: std::convert::Into<crate::model::condition_context::Peer>
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -500,8 +480,7 @@ impl ConditionContext {
 
     /// Sets or clears the value of [destination][crate::model::ConditionContext::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Peer>,
+    where T: std::convert::Into<crate::model::condition_context::Peer>
     {
         self.destination = v.map(|x| x.into());
         self
@@ -509,8 +488,7 @@ impl ConditionContext {
 
     /// Sets the value of [request][crate::model::ConditionContext::request].
     pub fn set_request<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Request>,
+    where T: std::convert::Into<crate::model::condition_context::Request>
     {
         self.request = std::option::Option::Some(v.into());
         self
@@ -518,8 +496,7 @@ impl ConditionContext {
 
     /// Sets or clears the value of [request][crate::model::ConditionContext::request].
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::condition_context::Request>,
+    where T: std::convert::Into<crate::model::condition_context::Request>
     {
         self.request = v.map(|x| x.into());
         self
@@ -529,7 +506,7 @@ impl ConditionContext {
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::condition_context::EffectiveTag>,
+        V: std::convert::Into<crate::model::condition_context::EffectiveTag>
     {
         use std::iter::Iterator;
         self.effective_tags = v.into_iter().map(|i| i.into()).collect();
@@ -548,12 +525,14 @@ pub mod condition_context {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Core attributes for a resource. A resource is an
     /// addressable (named) entity provided by the destination service. For
     /// example, a Compute Engine instance.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Resource {
+
         /// The name of the service that this resource belongs to, such as
         /// `compute.googleapis.com`. The service name might not match the DNS
         /// hostname that actually serves the request.
@@ -617,6 +596,7 @@ pub mod condition_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Peer {
+
         /// The IPv4 or IPv6 address of the peer.
         pub ip: std::string::String,
 
@@ -656,6 +636,7 @@ pub mod condition_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Request {
+
         /// Optional. The timestamp when the destination service receives the first
         /// byte of the request.
         pub receive_time: std::option::Option<wkt::Timestamp>,
@@ -670,8 +651,7 @@ pub mod condition_context {
 
         /// Sets the value of [receive_time][crate::model::condition_context::Request::receive_time].
         pub fn set_receive_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.receive_time = std::option::Option::Some(v.into());
             self
@@ -679,8 +659,7 @@ pub mod condition_context {
 
         /// Sets or clears the value of [receive_time][crate::model::condition_context::Request::receive_time].
         pub fn set_or_clear_receive_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.receive_time = v.map(|x| x.into());
             self
@@ -701,6 +680,7 @@ pub mod condition_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveTag {
+
         /// Output only. Resource name for TagValue in the format `tagValues/456`.
         pub tag_value: std::string::String,
 
@@ -746,10 +726,7 @@ pub mod condition_context {
         }
 
         /// Sets the value of [namespaced_tag_value][crate::model::condition_context::EffectiveTag::namespaced_tag_value].
-        pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.namespaced_tag_value = v.into();
             self
         }
@@ -761,19 +738,13 @@ pub mod condition_context {
         }
 
         /// Sets the value of [namespaced_tag_key][crate::model::condition_context::EffectiveTag::namespaced_tag_key].
-        pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.namespaced_tag_key = v.into();
             self
         }
 
         /// Sets the value of [tag_key_parent_name][crate::model::condition_context::EffectiveTag::tag_key_parent_name].
-        pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tag_key_parent_name = v.into();
             self
         }
@@ -797,6 +768,7 @@ pub mod condition_context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowPolicyExplanation {
+
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all applicable IAM allow policies.
     pub allow_access_state: crate::model::AllowAccessState,
@@ -825,10 +797,7 @@ impl AllowPolicyExplanation {
     }
 
     /// Sets the value of [allow_access_state][crate::model::AllowPolicyExplanation::allow_access_state].
-    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(mut self, v: T) -> Self {
         self.allow_access_state = v.into();
         self
     }
@@ -837,7 +806,7 @@ impl AllowPolicyExplanation {
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplainedAllowPolicy>,
+        V: std::convert::Into<crate::model::ExplainedAllowPolicy>
     {
         use std::iter::Iterator;
         self.explained_policies = v.into_iter().map(|i| i.into()).collect();
@@ -845,10 +814,7 @@ impl AllowPolicyExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::AllowPolicyExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
@@ -865,6 +831,7 @@ impl wkt::message::Message for AllowPolicyExplanation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedAllowPolicy {
+
     /// Required. Indicates whether _this policy_ provides the specified permission
     /// to the specified principal for the specified resource.
     ///
@@ -919,19 +886,13 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [allow_access_state][crate::model::ExplainedAllowPolicy::allow_access_state].
-    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(mut self, v: T) -> Self {
         self.allow_access_state = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedAllowPolicy::full_resource_name].
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -940,7 +901,7 @@ impl ExplainedAllowPolicy {
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AllowBindingExplanation>,
+        V: std::convert::Into<crate::model::AllowBindingExplanation>
     {
         use std::iter::Iterator;
         self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
@@ -948,18 +909,14 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedAllowPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::ExplainedAllowPolicy::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<iam_v1::model::Policy>,
+    where T: std::convert::Into<iam_v1::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -967,8 +924,7 @@ impl ExplainedAllowPolicy {
 
     /// Sets or clears the value of [policy][crate::model::ExplainedAllowPolicy::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<iam_v1::model::Policy>,
+    where T: std::convert::Into<iam_v1::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -986,6 +942,7 @@ impl wkt::message::Message for ExplainedAllowPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllowBindingExplanation {
+
     /// Required. Indicates whether _this role binding_ gives the specified
     /// permission to the specified principal on the specified resource.
     ///
@@ -1015,8 +972,7 @@ pub struct AllowBindingExplanation {
 
     /// The combined result of all memberships. Indicates if the principal is
     /// included in any role binding, either directly or indirectly.
-    pub combined_membership:
-        std::option::Option<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
+    pub combined_membership: std::option::Option<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
 
     /// Indicates whether each role binding includes the principal specified in the
     /// request, either directly or indirectly. Each key identifies a principal in
@@ -1038,10 +994,7 @@ pub struct AllowBindingExplanation {
     /// For the second principal in the role binding, the key is
     /// `group:product-eng@example.com`, and the `membership` field in the value is
     /// set to `INCLUDED`.
-    pub memberships: std::collections::HashMap<
-        std::string::String,
-        crate::model::allow_binding_explanation::AnnotatedAllowMembership,
-    >,
+    pub memberships: std::collections::HashMap<std::string::String,crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
 
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
@@ -1065,10 +1018,7 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [allow_access_state][crate::model::AllowBindingExplanation::allow_access_state].
-    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(mut self, v: T) -> Self {
         self.allow_access_state = v.into();
         self
     }
@@ -1080,31 +1030,20 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [role_permission][crate::model::AllowBindingExplanation::role_permission].
-    pub fn set_role_permission<
-        T: std::convert::Into<crate::model::RolePermissionInclusionState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_role_permission<T: std::convert::Into<crate::model::RolePermissionInclusionState>>(mut self, v: T) -> Self {
         self.role_permission = v.into();
         self
     }
 
     /// Sets the value of [role_permission_relevance][crate::model::AllowBindingExplanation::role_permission_relevance].
-    pub fn set_role_permission_relevance<
-        T: std::convert::Into<crate::model::HeuristicRelevance>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_role_permission_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.role_permission_relevance = v.into();
         self
     }
 
     /// Sets the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
     pub fn set_combined_membership<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
+    where T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>
     {
         self.combined_membership = std::option::Option::Some(v.into());
         self
@@ -1112,8 +1051,7 @@ impl AllowBindingExplanation {
 
     /// Sets or clears the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
     pub fn set_or_clear_combined_membership<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
+    where T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>
     {
         self.combined_membership = v.map(|x| x.into());
         self
@@ -1132,18 +1070,14 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::AllowBindingExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::AllowBindingExplanation::condition].
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1151,8 +1085,7 @@ impl AllowBindingExplanation {
 
     /// Sets or clears the value of [condition][crate::model::AllowBindingExplanation::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -1160,8 +1093,7 @@ impl AllowBindingExplanation {
 
     /// Sets the value of [condition_explanation][crate::model::AllowBindingExplanation::condition_explanation].
     pub fn set_condition_explanation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionExplanation>,
+    where T: std::convert::Into<crate::model::ConditionExplanation>
     {
         self.condition_explanation = std::option::Option::Some(v.into());
         self
@@ -1169,8 +1101,7 @@ impl AllowBindingExplanation {
 
     /// Sets or clears the value of [condition_explanation][crate::model::AllowBindingExplanation::condition_explanation].
     pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionExplanation>,
+    where T: std::convert::Into<crate::model::ConditionExplanation>
     {
         self.condition_explanation = v.map(|x| x.into());
         self
@@ -1188,10 +1119,12 @@ pub mod allow_binding_explanation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details about whether the role binding includes the principal.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedAllowMembership {
+
         /// Indicates whether the role binding includes the principal.
         pub membership: crate::model::MembershipMatchingState,
 
@@ -1208,19 +1141,13 @@ pub mod allow_binding_explanation {
         }
 
         /// Sets the value of [membership][crate::model::allow_binding_explanation::AnnotatedAllowMembership::membership].
-        pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(mut self, v: T) -> Self {
             self.membership = v.into();
             self
         }
 
         /// Sets the value of [relevance][crate::model::allow_binding_explanation::AnnotatedAllowMembership::relevance].
-        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
             self.relevance = v.into();
             self
         }
@@ -1238,6 +1165,7 @@ pub mod allow_binding_explanation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyPolicyExplanation {
+
     /// Indicates whether the principal is denied the specified permission for
     /// the specified resource, based on evaluating all applicable IAM deny
     /// policies.
@@ -1273,10 +1201,7 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [deny_access_state][crate::model::DenyPolicyExplanation::deny_access_state].
-    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(mut self, v: T) -> Self {
         self.deny_access_state = v.into();
         self
     }
@@ -1285,7 +1210,7 @@ impl DenyPolicyExplanation {
     pub fn set_explained_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplainedDenyResource>,
+        V: std::convert::Into<crate::model::ExplainedDenyResource>
     {
         use std::iter::Iterator;
         self.explained_resources = v.into_iter().map(|i| i.into()).collect();
@@ -1293,10 +1218,7 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::DenyPolicyExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
@@ -1319,6 +1241,7 @@ impl wkt::message::Message for DenyPolicyExplanation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyResource {
+
     /// Required. Indicates whether any policies attached to _this resource_ deny
     /// the specific permission to the specified principal for the specified
     /// resource.
@@ -1365,19 +1288,13 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [deny_access_state][crate::model::ExplainedDenyResource::deny_access_state].
-    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(mut self, v: T) -> Self {
         self.deny_access_state = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedDenyResource::full_resource_name].
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -1386,7 +1303,7 @@ impl ExplainedDenyResource {
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplainedDenyPolicy>,
+        V: std::convert::Into<crate::model::ExplainedDenyPolicy>
     {
         use std::iter::Iterator;
         self.explained_policies = v.into_iter().map(|i| i.into()).collect();
@@ -1394,10 +1311,7 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedDenyResource::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
@@ -1416,6 +1330,7 @@ impl wkt::message::Message for ExplainedDenyResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedDenyPolicy {
+
     /// Required. Indicates whether _this policy_ denies the specified permission
     /// to the specified principal for the specified resource.
     ///
@@ -1460,18 +1375,14 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [deny_access_state][crate::model::ExplainedDenyPolicy::deny_access_state].
-    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(mut self, v: T) -> Self {
         self.deny_access_state = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::ExplainedDenyPolicy::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<iam_v2::model::Policy>,
+    where T: std::convert::Into<iam_v2::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -1479,8 +1390,7 @@ impl ExplainedDenyPolicy {
 
     /// Sets or clears the value of [policy][crate::model::ExplainedDenyPolicy::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<iam_v2::model::Policy>,
+    where T: std::convert::Into<iam_v2::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -1490,7 +1400,7 @@ impl ExplainedDenyPolicy {
     pub fn set_rule_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DenyRuleExplanation>,
+        V: std::convert::Into<crate::model::DenyRuleExplanation>
     {
         use std::iter::Iterator;
         self.rule_explanations = v.into_iter().map(|i| i.into()).collect();
@@ -1498,10 +1408,7 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedDenyPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
@@ -1518,6 +1425,7 @@ impl wkt::message::Message for ExplainedDenyPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyRuleExplanation {
+
     /// Required. Indicates whether _this rule_ denies the specified permission to
     /// the specified principal for the specified resource.
     ///
@@ -1532,8 +1440,7 @@ pub struct DenyRuleExplanation {
 
     /// Indicates whether the permission in the request is listed as a denied
     /// permission in the deny rule.
-    pub combined_denied_permission:
-        std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    pub combined_denied_permission: std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
 
     /// Lists all denied permissions in the deny rule and indicates whether each
     /// permission matches the permission in the request.
@@ -1541,15 +1448,11 @@ pub struct DenyRuleExplanation {
     /// Each key identifies a denied permission in the rule, and each value
     /// indicates whether the denied permission matches the permission in the
     /// request.
-    pub denied_permissions: std::collections::HashMap<
-        std::string::String,
-        crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
-    >,
+    pub denied_permissions: std::collections::HashMap<std::string::String,crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
 
     /// Indicates whether the permission in the request is listed as an exception
     /// permission in the deny rule.
-    pub combined_exception_permission:
-        std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    pub combined_exception_permission: std::option::Option<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
 
     /// Lists all exception permissions in the deny rule and indicates whether each
     /// permission matches the permission in the request.
@@ -1557,15 +1460,11 @@ pub struct DenyRuleExplanation {
     /// Each key identifies a exception permission in the rule, and each value
     /// indicates whether the exception permission matches the permission in the
     /// request.
-    pub exception_permissions: std::collections::HashMap<
-        std::string::String,
-        crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
-    >,
+    pub exception_permissions: std::collections::HashMap<std::string::String,crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
 
     /// Indicates whether the principal is listed as a denied principal in the
     /// deny rule, either directly or through membership in a principal set.
-    pub combined_denied_principal:
-        std::option::Option<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    pub combined_denied_principal: std::option::Option<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
 
     /// Lists all denied principals in the deny rule and indicates whether each
     /// principal matches the principal in the request, either directly or through
@@ -1574,15 +1473,11 @@ pub struct DenyRuleExplanation {
     /// Each key identifies a denied principal in the rule, and each value
     /// indicates whether the denied principal matches the principal in the
     /// request.
-    pub denied_principals: std::collections::HashMap<
-        std::string::String,
-        crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
-    >,
+    pub denied_principals: std::collections::HashMap<std::string::String,crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
 
     /// Indicates whether the principal is listed as an exception principal in the
     /// deny rule, either directly or through membership in a principal set.
-    pub combined_exception_principal:
-        std::option::Option<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    pub combined_exception_principal: std::option::Option<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
 
     /// Lists all exception principals in the deny rule and indicates whether each
     /// principal matches the principal in the request, either directly or through
@@ -1591,10 +1486,7 @@ pub struct DenyRuleExplanation {
     /// Each key identifies a exception principal in the rule, and each value
     /// indicates whether the exception principal matches the principal in the
     /// request.
-    pub exception_principals: std::collections::HashMap<
-        std::string::String,
-        crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
-    >,
+    pub exception_principals: std::collections::HashMap<std::string::String,crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
 
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
@@ -1619,18 +1511,14 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [deny_access_state][crate::model::DenyRuleExplanation::deny_access_state].
-    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(mut self, v: T) -> Self {
         self.deny_access_state = v.into();
         self
     }
 
     /// Sets the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
     pub fn set_combined_denied_permission<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>
     {
         self.combined_denied_permission = std::option::Option::Some(v.into());
         self
@@ -1638,8 +1526,7 @@ impl DenyRuleExplanation {
 
     /// Sets or clears the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
     pub fn set_or_clear_combined_denied_permission<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>
     {
         self.combined_denied_permission = v.map(|x| x.into());
         self
@@ -1659,20 +1546,15 @@ impl DenyRuleExplanation {
 
     /// Sets the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
     pub fn set_combined_exception_permission<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>
     {
         self.combined_exception_permission = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
-    pub fn set_or_clear_combined_exception_permission<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
+    pub fn set_or_clear_combined_exception_permission<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>
     {
         self.combined_exception_permission = v.map(|x| x.into());
         self
@@ -1692,8 +1574,7 @@ impl DenyRuleExplanation {
 
     /// Sets the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
     pub fn set_combined_denied_principal<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>
     {
         self.combined_denied_principal = std::option::Option::Some(v.into());
         self
@@ -1701,8 +1582,7 @@ impl DenyRuleExplanation {
 
     /// Sets or clears the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
     pub fn set_or_clear_combined_denied_principal<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>
     {
         self.combined_denied_principal = v.map(|x| x.into());
         self
@@ -1722,8 +1602,7 @@ impl DenyRuleExplanation {
 
     /// Sets the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
     pub fn set_combined_exception_principal<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>
     {
         self.combined_exception_principal = std::option::Option::Some(v.into());
         self
@@ -1731,8 +1610,7 @@ impl DenyRuleExplanation {
 
     /// Sets or clears the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
     pub fn set_or_clear_combined_exception_principal<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
+    where T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>
     {
         self.combined_exception_principal = v.map(|x| x.into());
         self
@@ -1751,18 +1629,14 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::DenyRuleExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::DenyRuleExplanation::condition].
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1770,8 +1644,7 @@ impl DenyRuleExplanation {
 
     /// Sets or clears the value of [condition][crate::model::DenyRuleExplanation::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -1779,8 +1652,7 @@ impl DenyRuleExplanation {
 
     /// Sets the value of [condition_explanation][crate::model::DenyRuleExplanation::condition_explanation].
     pub fn set_condition_explanation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionExplanation>,
+    where T: std::convert::Into<crate::model::ConditionExplanation>
     {
         self.condition_explanation = std::option::Option::Some(v.into());
         self
@@ -1788,8 +1660,7 @@ impl DenyRuleExplanation {
 
     /// Sets or clears the value of [condition_explanation][crate::model::DenyRuleExplanation::condition_explanation].
     pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConditionExplanation>,
+    where T: std::convert::Into<crate::model::ConditionExplanation>
     {
         self.condition_explanation = v.map(|x| x.into());
         self
@@ -1807,11 +1678,13 @@ pub mod deny_rule_explanation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details about whether the permission in the request is denied by the
     /// deny rule.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedPermissionMatching {
+
         /// Indicates whether the permission in the request is denied by the deny
         /// rule.
         pub permission_matching_state: crate::model::PermissionPatternMatchingState,
@@ -1829,21 +1702,13 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [permission_matching_state][crate::model::deny_rule_explanation::AnnotatedPermissionMatching::permission_matching_state].
-        pub fn set_permission_matching_state<
-            T: std::convert::Into<crate::model::PermissionPatternMatchingState>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_permission_matching_state<T: std::convert::Into<crate::model::PermissionPatternMatchingState>>(mut self, v: T) -> Self {
             self.permission_matching_state = v.into();
             self
         }
 
         /// Sets the value of [relevance][crate::model::deny_rule_explanation::AnnotatedPermissionMatching::relevance].
-        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
             self.relevance = v.into();
             self
         }
@@ -1861,6 +1726,7 @@ pub mod deny_rule_explanation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedDenyPrincipalMatching {
+
         /// Indicates whether the principal is listed as a denied principal in the
         /// deny rule, either directly or through membership in a principal set.
         pub membership: crate::model::MembershipMatchingState,
@@ -1878,19 +1744,13 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [membership][crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching::membership].
-        pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(mut self, v: T) -> Self {
             self.membership = v.into();
             self
         }
 
         /// Sets the value of [relevance][crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching::relevance].
-        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
             self.relevance = v.into();
             self
         }
@@ -1907,6 +1767,7 @@ pub mod deny_rule_explanation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConditionExplanation {
+
     /// Value of the condition.
     pub value: std::option::Option<wkt::Value>,
 
@@ -1928,8 +1789,7 @@ impl ConditionExplanation {
 
     /// Sets the value of [value][crate::model::ConditionExplanation::value].
     pub fn set_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Value>,
+    where T: std::convert::Into<wkt::Value>
     {
         self.value = std::option::Option::Some(v.into());
         self
@@ -1937,8 +1797,7 @@ impl ConditionExplanation {
 
     /// Sets or clears the value of [value][crate::model::ConditionExplanation::value].
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Value>,
+    where T: std::convert::Into<wkt::Value>
     {
         self.value = v.map(|x| x.into());
         self
@@ -1948,7 +1807,7 @@ impl ConditionExplanation {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -1959,7 +1818,7 @@ impl ConditionExplanation {
     pub fn set_evaluation_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::condition_explanation::EvaluationState>,
+        V: std::convert::Into<crate::model::condition_explanation::EvaluationState>
     {
         use std::iter::Iterator;
         self.evaluation_states = v.into_iter().map(|i| i.into()).collect();
@@ -1978,10 +1837,12 @@ pub mod condition_explanation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Evaluated state of a condition expression.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EvaluationState {
+
         /// Start position of an expression in the condition, by character.
         pub start: i32,
 
@@ -2019,8 +1880,7 @@ pub mod condition_explanation {
 
         /// Sets the value of [value][crate::model::condition_explanation::EvaluationState::value].
         pub fn set_value<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.value = std::option::Option::Some(v.into());
             self
@@ -2028,8 +1888,7 @@ pub mod condition_explanation {
 
         /// Sets or clears the value of [value][crate::model::condition_explanation::EvaluationState::value].
         pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Value>,
+        where T: std::convert::Into<wkt::Value>
         {
             self.value = v.map(|x| x.into());
             self
@@ -2039,7 +1898,7 @@ pub mod condition_explanation {
         pub fn set_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc::model::Status>,
+            V: std::convert::Into<rpc::model::Status>
         {
             use std::iter::Iterator;
             self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -2126,9 +1985,7 @@ impl AllowAccessState {
             Self::Unspecified => std::option::Option::Some("ALLOW_ACCESS_STATE_UNSPECIFIED"),
             Self::Granted => std::option::Option::Some("ALLOW_ACCESS_STATE_GRANTED"),
             Self::NotGranted => std::option::Option::Some("ALLOW_ACCESS_STATE_NOT_GRANTED"),
-            Self::UnknownConditional => {
-                std::option::Option::Some("ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL")
-            }
+            Self::UnknownConditional => std::option::Option::Some("ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL"),
             Self::UnknownInfo => std::option::Option::Some("ALLOW_ACCESS_STATE_UNKNOWN_INFO"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -2156,9 +2013,7 @@ impl std::convert::From<i32> for AllowAccessState {
             2 => Self::NotGranted,
             3 => Self::UnknownConditional,
             4 => Self::UnknownInfo,
-            _ => Self::UnknownValue(allow_access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(allow_access_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2172,9 +2027,7 @@ impl std::convert::From<&str> for AllowAccessState {
             "ALLOW_ACCESS_STATE_NOT_GRANTED" => Self::NotGranted,
             "ALLOW_ACCESS_STATE_UNKNOWN_CONDITIONAL" => Self::UnknownConditional,
             "ALLOW_ACCESS_STATE_UNKNOWN_INFO" => Self::UnknownInfo,
-            _ => Self::UnknownValue(allow_access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(allow_access_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2201,8 +2054,7 @@ impl<'de> serde::de::Deserialize<'de> for AllowAccessState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AllowAccessState>::new(
-            ".google.cloud.policytroubleshooter.iam.v3.AllowAccessState",
-        ))
+            ".google.cloud.policytroubleshooter.iam.v3.AllowAccessState"))
     }
 }
 
@@ -2278,9 +2130,7 @@ impl DenyAccessState {
             Self::Unspecified => std::option::Option::Some("DENY_ACCESS_STATE_UNSPECIFIED"),
             Self::Denied => std::option::Option::Some("DENY_ACCESS_STATE_DENIED"),
             Self::NotDenied => std::option::Option::Some("DENY_ACCESS_STATE_NOT_DENIED"),
-            Self::UnknownConditional => {
-                std::option::Option::Some("DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL")
-            }
+            Self::UnknownConditional => std::option::Option::Some("DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL"),
             Self::UnknownInfo => std::option::Option::Some("DENY_ACCESS_STATE_UNKNOWN_INFO"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -2308,9 +2158,7 @@ impl std::convert::From<i32> for DenyAccessState {
             2 => Self::NotDenied,
             3 => Self::UnknownConditional,
             4 => Self::UnknownInfo,
-            _ => Self::UnknownValue(deny_access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(deny_access_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2324,9 +2172,7 @@ impl std::convert::From<&str> for DenyAccessState {
             "DENY_ACCESS_STATE_NOT_DENIED" => Self::NotDenied,
             "DENY_ACCESS_STATE_UNKNOWN_CONDITIONAL" => Self::UnknownConditional,
             "DENY_ACCESS_STATE_UNKNOWN_INFO" => Self::UnknownInfo,
-            _ => Self::UnknownValue(deny_access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(deny_access_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2353,8 +2199,7 @@ impl<'de> serde::de::Deserialize<'de> for DenyAccessState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DenyAccessState>::new(
-            ".google.cloud.policytroubleshooter.iam.v3.DenyAccessState",
-        ))
+            ".google.cloud.policytroubleshooter.iam.v3.DenyAccessState"))
     }
 }
 
@@ -2420,16 +2265,10 @@ impl RolePermissionInclusionState {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("ROLE_PERMISSION_INCLUSION_STATE_UNSPECIFIED"),
             Self::RolePermissionIncluded => std::option::Option::Some("ROLE_PERMISSION_INCLUDED"),
-            Self::RolePermissionNotIncluded => {
-                std::option::Option::Some("ROLE_PERMISSION_NOT_INCLUDED")
-            }
-            Self::RolePermissionUnknownInfo => {
-                std::option::Option::Some("ROLE_PERMISSION_UNKNOWN_INFO")
-            }
+            Self::RolePermissionNotIncluded => std::option::Option::Some("ROLE_PERMISSION_NOT_INCLUDED"),
+            Self::RolePermissionUnknownInfo => std::option::Option::Some("ROLE_PERMISSION_UNKNOWN_INFO"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2455,9 +2294,7 @@ impl std::convert::From<i32> for RolePermissionInclusionState {
             1 => Self::RolePermissionIncluded,
             2 => Self::RolePermissionNotIncluded,
             3 => Self::RolePermissionUnknownInfo,
-            _ => Self::UnknownValue(role_permission_inclusion_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(role_permission_inclusion_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2470,9 +2307,7 @@ impl std::convert::From<&str> for RolePermissionInclusionState {
             "ROLE_PERMISSION_INCLUDED" => Self::RolePermissionIncluded,
             "ROLE_PERMISSION_NOT_INCLUDED" => Self::RolePermissionNotIncluded,
             "ROLE_PERMISSION_UNKNOWN_INFO" => Self::RolePermissionUnknownInfo,
-            _ => Self::UnknownValue(role_permission_inclusion_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(role_permission_inclusion_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2497,11 +2332,8 @@ impl<'de> serde::de::Deserialize<'de> for RolePermissionInclusionState {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<RolePermissionInclusionState>::new(
-                ".google.cloud.policytroubleshooter.iam.v3.RolePermissionInclusionState",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolePermissionInclusionState>::new(
+            ".google.cloud.policytroubleshooter.iam.v3.RolePermissionInclusionState"))
     }
 }
 
@@ -2564,15 +2396,9 @@ impl PermissionPatternMatchingState {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED")
-            }
-            Self::PermissionPatternMatched => {
-                std::option::Option::Some("PERMISSION_PATTERN_MATCHED")
-            }
-            Self::PermissionPatternNotMatched => {
-                std::option::Option::Some("PERMISSION_PATTERN_NOT_MATCHED")
-            }
+            Self::Unspecified => std::option::Option::Some("PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED"),
+            Self::PermissionPatternMatched => std::option::Option::Some("PERMISSION_PATTERN_MATCHED"),
+            Self::PermissionPatternNotMatched => std::option::Option::Some("PERMISSION_PATTERN_NOT_MATCHED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2597,9 +2423,7 @@ impl std::convert::From<i32> for PermissionPatternMatchingState {
             0 => Self::Unspecified,
             1 => Self::PermissionPatternMatched,
             2 => Self::PermissionPatternNotMatched,
-            _ => Self::UnknownValue(permission_pattern_matching_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(permission_pattern_matching_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2611,9 +2435,7 @@ impl std::convert::From<&str> for PermissionPatternMatchingState {
             "PERMISSION_PATTERN_MATCHING_STATE_UNSPECIFIED" => Self::Unspecified,
             "PERMISSION_PATTERN_MATCHED" => Self::PermissionPatternMatched,
             "PERMISSION_PATTERN_NOT_MATCHED" => Self::PermissionPatternNotMatched,
-            _ => Self::UnknownValue(permission_pattern_matching_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(permission_pattern_matching_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2637,11 +2459,8 @@ impl<'de> serde::de::Deserialize<'de> for PermissionPatternMatchingState {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<PermissionPatternMatchingState>::new(
-                ".google.cloud.policytroubleshooter.iam.v3.PermissionPatternMatchingState",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<PermissionPatternMatchingState>::new(
+            ".google.cloud.policytroubleshooter.iam.v3.PermissionPatternMatchingState"))
     }
 }
 
@@ -2723,9 +2542,7 @@ impl MembershipMatchingState {
             Self::MembershipMatched => std::option::Option::Some("MEMBERSHIP_MATCHED"),
             Self::MembershipNotMatched => std::option::Option::Some("MEMBERSHIP_NOT_MATCHED"),
             Self::MembershipUnknownInfo => std::option::Option::Some("MEMBERSHIP_UNKNOWN_INFO"),
-            Self::MembershipUnknownUnsupported => {
-                std::option::Option::Some("MEMBERSHIP_UNKNOWN_UNSUPPORTED")
-            }
+            Self::MembershipUnknownUnsupported => std::option::Option::Some("MEMBERSHIP_UNKNOWN_UNSUPPORTED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2752,9 +2569,7 @@ impl std::convert::From<i32> for MembershipMatchingState {
             2 => Self::MembershipNotMatched,
             3 => Self::MembershipUnknownInfo,
             4 => Self::MembershipUnknownUnsupported,
-            _ => Self::UnknownValue(membership_matching_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(membership_matching_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2768,9 +2583,7 @@ impl std::convert::From<&str> for MembershipMatchingState {
             "MEMBERSHIP_NOT_MATCHED" => Self::MembershipNotMatched,
             "MEMBERSHIP_UNKNOWN_INFO" => Self::MembershipUnknownInfo,
             "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => Self::MembershipUnknownUnsupported,
-            _ => Self::UnknownValue(membership_matching_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(membership_matching_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2797,8 +2610,7 @@ impl<'de> serde::de::Deserialize<'de> for MembershipMatchingState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<MembershipMatchingState>::new(
-            ".google.cloud.policytroubleshooter.iam.v3.MembershipMatchingState",
-        ))
+            ".google.cloud.policytroubleshooter.iam.v3.MembershipMatchingState"))
     }
 }
 
@@ -2891,9 +2703,7 @@ impl std::convert::From<i32> for HeuristicRelevance {
             0 => Self::Unspecified,
             1 => Self::Normal,
             2 => Self::High,
-            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2905,9 +2715,7 @@ impl std::convert::From<&str> for HeuristicRelevance {
             "HEURISTIC_RELEVANCE_UNSPECIFIED" => Self::Unspecified,
             "HEURISTIC_RELEVANCE_NORMAL" => Self::Normal,
             "HEURISTIC_RELEVANCE_HIGH" => Self::High,
-            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2932,7 +2740,6 @@ impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HeuristicRelevance>::new(
-            ".google.cloud.policytroubleshooter.iam.v3.HeuristicRelevance",
-        ))
+            ".google.cloud.policytroubleshooter.iam.v3.HeuristicRelevance"))
     }
 }

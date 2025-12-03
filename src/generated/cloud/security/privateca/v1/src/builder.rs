@@ -39,10 +39,7 @@ pub mod certificate_authority_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CertificateAuthorityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod certificate_authority_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod certificate_authority_service {
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCertificateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCertificateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Certificate> {
-            (*self.0.stub)
-                .create_certificate(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_certificate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
@@ -139,8 +126,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Certificate>,
+        where T: std::convert::Into<crate::model::Certificate>
         {
             self.0.request.certificate = std::option::Option::Some(v.into());
             self
@@ -150,8 +136,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Certificate>,
+        where T: std::convert::Into<crate::model::Certificate>
         {
             self.0.request.certificate = v.map(|x| x.into());
             self
@@ -170,10 +155,7 @@ pub mod certificate_authority_service {
         }
 
         /// Sets the value of [issuing_certificate_authority_id][crate::model::CreateCertificateRequest::issuing_certificate_authority_id].
-        pub fn set_issuing_certificate_authority_id<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_issuing_certificate_authority_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.issuing_certificate_authority_id = v.into();
             self
         }
@@ -207,10 +189,10 @@ pub mod certificate_authority_service {
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -227,10 +209,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Certificate> {
-            (*self.0.stub)
-                .get_certificate(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_certificate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRequest::name].
@@ -274,17 +253,14 @@ pub mod certificate_authority_service {
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCertificatesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCertificatesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -297,17 +273,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCertificatesResponse> {
-            (*self.0.stub)
-                .list_certificates(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_certificates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -319,10 +289,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificatesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificatesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -388,17 +355,14 @@ pub mod certificate_authority_service {
     pub struct RevokeCertificate(RequestBuilder<crate::model::RevokeCertificateRequest>);
 
     impl RevokeCertificate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RevokeCertificateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RevokeCertificateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -411,10 +375,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Certificate> {
-            (*self.0.stub)
-                .revoke_certificate(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).revoke_certificate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RevokeCertificateRequest::name].
@@ -468,17 +429,14 @@ pub mod certificate_authority_service {
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCertificateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCertificateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -491,18 +449,14 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Certificate> {
-            (*self.0.stub)
-                .update_certificate(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_certificate(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Certificate>,
+        where T: std::convert::Into<crate::model::Certificate>
         {
             self.0.request.certificate = std::option::Option::Some(v.into());
             self
@@ -512,8 +466,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Certificate>,
+        where T: std::convert::Into<crate::model::Certificate>
         {
             self.0.request.certificate = v.map(|x| x.into());
             self
@@ -523,8 +476,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -534,8 +486,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -574,22 +525,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ActivateCertificateAuthority(
-        RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
-    );
+    pub struct ActivateCertificateAuthority(RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>);
 
     impl ActivateCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ActivateCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ActivateCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -607,21 +553,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .activate_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).activate_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `activate_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -669,8 +610,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_subordinate_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SubordinateConfig>,
+        where T: std::convert::Into<crate::model::SubordinateConfig>
         {
             self.0.request.subordinate_config = std::option::Option::Some(v.into());
             self
@@ -680,8 +620,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SubordinateConfig>,
+        where T: std::convert::Into<crate::model::SubordinateConfig>
         {
             self.0.request.subordinate_config = v.map(|x| x.into());
             self
@@ -720,22 +659,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCertificateAuthority(
-        RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
-    );
+    pub struct CreateCertificateAuthority(RequestBuilder<crate::model::CreateCertificateAuthorityRequest>);
 
     impl CreateCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -753,21 +687,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -815,8 +744,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate_authority<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateAuthority>,
+        where T: std::convert::Into<crate::model::CertificateAuthority>
         {
             self.0.request.certificate_authority = std::option::Option::Some(v.into());
             self
@@ -826,8 +754,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateAuthority>,
+        where T: std::convert::Into<crate::model::CertificateAuthority>
         {
             self.0.request.certificate_authority = v.map(|x| x.into());
             self
@@ -866,22 +793,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DisableCertificateAuthority(
-        RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
-    );
+    pub struct DisableCertificateAuthority(RequestBuilder<crate::model::DisableCertificateAuthorityRequest>);
 
     impl DisableCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DisableCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DisableCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -899,21 +821,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .disable_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).disable_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -988,22 +905,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct EnableCertificateAuthority(
-        RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
-    );
+    pub struct EnableCertificateAuthority(RequestBuilder<crate::model::EnableCertificateAuthorityRequest>);
 
     impl EnableCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::EnableCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::EnableCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1021,21 +933,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .enable_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).enable_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1103,22 +1010,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchCertificateAuthorityCsr(
-        RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
-    );
+    pub struct FetchCertificateAuthorityCsr(RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>);
 
     impl FetchCertificateAuthorityCsr {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchCertificateAuthorityCsrRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchCertificateAuthorityCsrRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1131,10 +1033,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchCertificateAuthorityCsrResponse> {
-            (*self.0.stub)
-                .fetch_certificate_authority_csr(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_certificate_authority_csr(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchCertificateAuthorityCsrRequest::name].
@@ -1171,22 +1070,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificateAuthority(
-        RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
-    );
+    pub struct GetCertificateAuthority(RequestBuilder<crate::model::GetCertificateAuthorityRequest>);
 
     impl GetCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1199,10 +1093,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CertificateAuthority> {
-            (*self.0.stub)
-                .get_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateAuthorityRequest::name].
@@ -1243,22 +1134,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificateAuthorities(
-        RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
-    );
+    pub struct ListCertificateAuthorities(RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>);
 
     impl ListCertificateAuthorities {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCertificateAuthoritiesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCertificateAuthoritiesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1271,19 +1157,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCertificateAuthoritiesResponse> {
-            (*self.0.stub)
-                .list_certificate_authorities(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_certificate_authorities(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListCertificateAuthoritiesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCertificateAuthoritiesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1295,12 +1173,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCertificateAuthoritiesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificateAuthoritiesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1364,22 +1237,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UndeleteCertificateAuthority(
-        RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
-    );
+    pub struct UndeleteCertificateAuthority(RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>);
 
     impl UndeleteCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeleteCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeleteCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1397,21 +1265,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .undelete_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).undelete_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1480,22 +1343,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCertificateAuthority(
-        RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
-    );
+    pub struct DeleteCertificateAuthority(RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>);
 
     impl DeleteCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1513,21 +1371,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1614,22 +1467,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificateAuthority(
-        RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
-    );
+    pub struct UpdateCertificateAuthority(RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>);
 
     impl UpdateCertificateAuthority {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCertificateAuthorityRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCertificateAuthorityRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1647,21 +1495,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_certificate_authority(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_certificate_authority(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_authority`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateAuthority,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1693,8 +1536,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate_authority<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateAuthority>,
+        where T: std::convert::Into<crate::model::CertificateAuthority>
         {
             self.0.request.certificate_authority = std::option::Option::Some(v.into());
             self
@@ -1704,8 +1546,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateAuthority>,
+        where T: std::convert::Into<crate::model::CertificateAuthority>
         {
             self.0.request.certificate_authority = v.map(|x| x.into());
             self
@@ -1715,8 +1556,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1726,8 +1566,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1769,10 +1608,10 @@ pub mod certificate_authority_service {
     pub struct CreateCaPool(RequestBuilder<crate::model::CreateCaPoolRequest>);
 
     impl CreateCaPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1794,18 +1633,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_ca_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_ca_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_ca_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1853,8 +1690,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ca_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CaPool>,
+        where T: std::convert::Into<crate::model::CaPool>
         {
             self.0.request.ca_pool = std::option::Option::Some(v.into());
             self
@@ -1864,8 +1700,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CaPool>,
+        where T: std::convert::Into<crate::model::CaPool>
         {
             self.0.request.ca_pool = v.map(|x| x.into());
             self
@@ -1907,10 +1742,10 @@ pub mod certificate_authority_service {
     pub struct UpdateCaPool(RequestBuilder<crate::model::UpdateCaPoolRequest>);
 
     impl UpdateCaPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1932,18 +1767,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_ca_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_ca_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_ca_pool`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1975,8 +1808,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ca_pool<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CaPool>,
+        where T: std::convert::Into<crate::model::CaPool>
         {
             self.0.request.ca_pool = std::option::Option::Some(v.into());
             self
@@ -1986,8 +1818,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CaPool>,
+        where T: std::convert::Into<crate::model::CaPool>
         {
             self.0.request.ca_pool = v.map(|x| x.into());
             self
@@ -1997,8 +1828,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2008,8 +1838,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2050,10 +1879,10 @@ pub mod certificate_authority_service {
     pub struct GetCaPool(RequestBuilder<crate::model::GetCaPoolRequest>);
 
     impl GetCaPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2070,10 +1899,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CaPool> {
-            (*self.0.stub)
-                .get_ca_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_ca_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCaPoolRequest::name].
@@ -2117,10 +1943,10 @@ pub mod certificate_authority_service {
     pub struct ListCaPools(RequestBuilder<crate::model::ListCaPoolsRequest>);
 
     impl ListCaPools {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2137,17 +1963,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCaPoolsResponse> {
-            (*self.0.stub)
-                .list_ca_pools(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_ca_pools(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListCaPoolsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCaPoolsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2159,10 +1979,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCaPoolsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCaPoolsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2229,10 +2046,10 @@ pub mod certificate_authority_service {
     pub struct DeleteCaPool(RequestBuilder<crate::model::DeleteCaPoolRequest>);
 
     impl DeleteCaPool {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2254,14 +2071,15 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_ca_pool(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_ca_pool(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_ca_pool`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2287,12 +2105,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCaPoolRequest::name].
@@ -2344,10 +2157,10 @@ pub mod certificate_authority_service {
     pub struct FetchCaCerts(RequestBuilder<crate::model::FetchCaCertsRequest>);
 
     impl FetchCaCerts {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2364,10 +2177,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FetchCaCertsResponse> {
-            (*self.0.stub)
-                .fetch_ca_certs(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).fetch_ca_certs(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ca_pool][crate::model::FetchCaCertsRequest::ca_pool].
@@ -2410,22 +2220,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetCertificateRevocationList(
-        RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
-    );
+    pub struct GetCertificateRevocationList(RequestBuilder<crate::model::GetCertificateRevocationListRequest>);
 
     impl GetCertificateRevocationList {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCertificateRevocationListRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCertificateRevocationListRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2438,10 +2243,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CertificateRevocationList> {
-            (*self.0.stub)
-                .get_certificate_revocation_list(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_certificate_revocation_list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRevocationListRequest::name].
@@ -2482,22 +2284,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificateRevocationLists(
-        RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
-    );
+    pub struct ListCertificateRevocationLists(RequestBuilder<crate::model::ListCertificateRevocationListsRequest>);
 
     impl ListCertificateRevocationLists {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCertificateRevocationListsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCertificateRevocationListsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2510,19 +2307,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCertificateRevocationListsResponse> {
-            (*self.0.stub)
-                .list_certificate_revocation_lists(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_certificate_revocation_lists(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListCertificateRevocationListsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCertificateRevocationListsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2534,12 +2323,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCertificateRevocationListsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificateRevocationListsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2603,22 +2387,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificateRevocationList(
-        RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
-    );
+    pub struct UpdateCertificateRevocationList(RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>);
 
     impl UpdateCertificateRevocationList {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCertificateRevocationListRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCertificateRevocationListRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2636,21 +2415,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_certificate_revocation_list(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_certificate_revocation_list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_revocation_list`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateRevocationList, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateRevocationList, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateRevocationList,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateRevocationList, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2682,8 +2456,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate_revocation_list<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        where T: std::convert::Into<crate::model::CertificateRevocationList>
         {
             self.0.request.certificate_revocation_list = std::option::Option::Some(v.into());
             self
@@ -2692,12 +2465,8 @@ pub mod certificate_authority_service {
         /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_certificate_revocation_list<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        pub fn set_or_clear_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::CertificateRevocationList>
         {
             self.0.request.certificate_revocation_list = v.map(|x| x.into());
             self
@@ -2707,8 +2476,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2718,8 +2486,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2758,22 +2525,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateCertificateTemplate(
-        RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
-    );
+    pub struct CreateCertificateTemplate(RequestBuilder<crate::model::CreateCertificateTemplateRequest>);
 
     impl CreateCertificateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateCertificateTemplateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateCertificateTemplateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2791,21 +2553,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_certificate_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_certificate_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_certificate_template`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateTemplate,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2853,8 +2610,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate_template<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateTemplate>,
+        where T: std::convert::Into<crate::model::CertificateTemplate>
         {
             self.0.request.certificate_template = std::option::Option::Some(v.into());
             self
@@ -2864,8 +2620,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateTemplate>,
+        where T: std::convert::Into<crate::model::CertificateTemplate>
         {
             self.0.request.certificate_template = v.map(|x| x.into());
             self
@@ -2904,22 +2659,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteCertificateTemplate(
-        RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
-    );
+    pub struct DeleteCertificateTemplate(RequestBuilder<crate::model::DeleteCertificateTemplateRequest>);
 
     impl DeleteCertificateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteCertificateTemplateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteCertificateTemplateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2937,14 +2687,15 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_certificate_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_certificate_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_template`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2970,12 +2721,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateTemplateRequest::name].
@@ -3021,17 +2767,14 @@ pub mod certificate_authority_service {
     pub struct GetCertificateTemplate(RequestBuilder<crate::model::GetCertificateTemplateRequest>);
 
     impl GetCertificateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetCertificateTemplateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetCertificateTemplateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3044,10 +2787,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CertificateTemplate> {
-            (*self.0.stub)
-                .get_certificate_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_certificate_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateTemplateRequest::name].
@@ -3088,22 +2828,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListCertificateTemplates(
-        RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
-    );
+    pub struct ListCertificateTemplates(RequestBuilder<crate::model::ListCertificateTemplatesRequest>);
 
     impl ListCertificateTemplates {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListCertificateTemplatesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListCertificateTemplatesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3116,19 +2851,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListCertificateTemplatesResponse> {
-            (*self.0.stub)
-                .list_certificate_templates(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_certificate_templates(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListCertificateTemplatesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListCertificateTemplatesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3140,12 +2867,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListCertificateTemplatesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificateTemplatesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3209,22 +2931,17 @@ pub mod certificate_authority_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateCertificateTemplate(
-        RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
-    );
+    pub struct UpdateCertificateTemplate(RequestBuilder<crate::model::UpdateCertificateTemplateRequest>);
 
     impl UpdateCertificateTemplate {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateCertificateTemplateRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateCertificateTemplateRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3242,21 +2959,16 @@ pub mod certificate_authority_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_certificate_template(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_certificate_template(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_template`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::CertificateTemplate,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3288,8 +3000,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_certificate_template<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateTemplate>,
+        where T: std::convert::Into<crate::model::CertificateTemplate>
         {
             self.0.request.certificate_template = std::option::Option::Some(v.into());
             self
@@ -3299,8 +3010,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::CertificateTemplate>,
+        where T: std::convert::Into<crate::model::CertificateTemplate>
         {
             self.0.request.certificate_template = v.map(|x| x.into());
             self
@@ -3310,8 +3020,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3321,8 +3030,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3367,17 +3075,14 @@ pub mod certificate_authority_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3390,17 +3095,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3412,10 +3111,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3473,10 +3169,10 @@ pub mod certificate_authority_service {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3493,10 +3189,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3534,10 +3227,10 @@ pub mod certificate_authority_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3554,10 +3247,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3572,8 +3262,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -3583,8 +3272,7 @@ pub mod certificate_authority_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -3592,8 +3280,7 @@ pub mod certificate_authority_service {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3601,8 +3288,7 @@ pub mod certificate_authority_service {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3637,10 +3323,10 @@ pub mod certificate_authority_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3657,10 +3343,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3673,8 +3356,7 @@ pub mod certificate_authority_service {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -3682,8 +3364,7 @@ pub mod certificate_authority_service {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -3718,17 +3399,14 @@ pub mod certificate_authority_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3741,10 +3419,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3761,7 +3436,7 @@ pub mod certificate_authority_service {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -3801,17 +3476,14 @@ pub mod certificate_authority_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3824,17 +3496,11 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3846,12 +3512,7 @@ pub mod certificate_authority_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3915,17 +3576,14 @@ pub mod certificate_authority_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3938,10 +3596,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3979,17 +3634,14 @@ pub mod certificate_authority_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4002,10 +3654,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4043,17 +3692,14 @@ pub mod certificate_authority_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::CancelOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4066,10 +3712,7 @@ pub mod certificate_authority_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4085,4 +3728,5 @@ pub mod certificate_authority_service {
             &mut self.0.options
         }
     }
+
 }

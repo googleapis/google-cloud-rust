@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffRequest {
+
     /// Required. The threat list to update. Only a single ThreatType should be
     /// specified per request. If you want to handle multiple ThreatTypes, you must
     /// make one request per ThreatType.
@@ -53,8 +54,7 @@ pub struct ComputeThreatListDiffRequest {
     pub version_token: ::bytes::Bytes,
 
     /// Required. The constraints associated with this request.
-    pub constraints:
-        std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
+    pub constraints: std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -65,10 +65,7 @@ impl ComputeThreatListDiffRequest {
     }
 
     /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
-    pub fn set_threat_type<T: std::convert::Into<crate::model::ThreatType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_threat_type<T: std::convert::Into<crate::model::ThreatType>>(mut self, v: T) -> Self {
         self.threat_type = v.into();
         self
     }
@@ -81,8 +78,7 @@ impl ComputeThreatListDiffRequest {
 
     /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
     pub fn set_constraints<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+    where T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>
     {
         self.constraints = std::option::Option::Some(v.into());
         self
@@ -90,8 +86,7 @@ impl ComputeThreatListDiffRequest {
 
     /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
     pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+    where T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>
     {
         self.constraints = v.map(|x| x.into());
         self
@@ -109,10 +104,12 @@ pub mod compute_threat_list_diff_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The constraints for this diff.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Constraints {
+
         /// The maximum size in number of entries. The diff will not contain more
         /// entries than this value.  This should be a power of 2 between 2**10 and
         /// 2**20.  If zero, no diff size limit is set.
@@ -150,7 +147,7 @@ pub mod compute_threat_list_diff_request {
         pub fn set_supported_compressions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::CompressionType>,
+            V: std::convert::Into<crate::model::CompressionType>
         {
             use std::iter::Iterator;
             self.supported_compressions = v.into_iter().map(|i| i.into()).collect();
@@ -168,6 +165,7 @@ pub mod compute_threat_list_diff_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffResponse {
+
     /// The type of response. This may indicate that an action must be taken by the
     /// client when the response is received.
     pub response_type: crate::model::compute_threat_list_diff_response::ResponseType,
@@ -205,20 +203,14 @@ impl ComputeThreatListDiffResponse {
     }
 
     /// Sets the value of [response_type][crate::model::ComputeThreatListDiffResponse::response_type].
-    pub fn set_response_type<
-        T: std::convert::Into<crate::model::compute_threat_list_diff_response::ResponseType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_response_type<T: std::convert::Into<crate::model::compute_threat_list_diff_response::ResponseType>>(mut self, v: T) -> Self {
         self.response_type = v.into();
         self
     }
 
     /// Sets the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
     pub fn set_additions<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatEntryAdditions>,
+    where T: std::convert::Into<crate::model::ThreatEntryAdditions>
     {
         self.additions = std::option::Option::Some(v.into());
         self
@@ -226,8 +218,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets or clears the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
     pub fn set_or_clear_additions<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatEntryAdditions>,
+    where T: std::convert::Into<crate::model::ThreatEntryAdditions>
     {
         self.additions = v.map(|x| x.into());
         self
@@ -235,8 +226,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
     pub fn set_removals<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatEntryRemovals>,
+    where T: std::convert::Into<crate::model::ThreatEntryRemovals>
     {
         self.removals = std::option::Option::Some(v.into());
         self
@@ -244,8 +234,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets or clears the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
     pub fn set_or_clear_removals<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatEntryRemovals>,
+    where T: std::convert::Into<crate::model::ThreatEntryRemovals>
     {
         self.removals = v.map(|x| x.into());
         self
@@ -259,8 +248,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
     pub fn set_checksum<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>,
+    where T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>
     {
         self.checksum = std::option::Option::Some(v.into());
         self
@@ -268,8 +256,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets or clears the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
     pub fn set_or_clear_checksum<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>,
+    where T: std::convert::Into<crate::model::compute_threat_list_diff_response::Checksum>
     {
         self.checksum = v.map(|x| x.into());
         self
@@ -277,8 +264,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
     pub fn set_recommended_next_diff<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.recommended_next_diff = std::option::Option::Some(v.into());
         self
@@ -286,8 +272,7 @@ impl ComputeThreatListDiffResponse {
 
     /// Sets or clears the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
     pub fn set_or_clear_recommended_next_diff<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.recommended_next_diff = v.map(|x| x.into());
         self
@@ -305,10 +290,12 @@ pub mod compute_threat_list_diff_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The expected state of a client's local database.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Checksum {
+
         /// The SHA256 hash of the client state; that is, of the sorted list of all
         /// hashes present in the database.
         pub sha256: ::bytes::Bytes,
@@ -422,9 +409,7 @@ pub mod compute_threat_list_diff_response {
                 0 => Self::Unspecified,
                 1 => Self::Diff,
                 2 => Self::Reset,
-                _ => Self::UnknownValue(response_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(response_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -436,9 +421,7 @@ pub mod compute_threat_list_diff_response {
                 "RESPONSE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "DIFF" => Self::Diff,
                 "RESET" => Self::Reset,
-                _ => Self::UnknownValue(response_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(response_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -463,8 +446,7 @@ pub mod compute_threat_list_diff_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResponseType>::new(
-                ".google.cloud.webrisk.v1.ComputeThreatListDiffResponse.ResponseType",
-            ))
+                ".google.cloud.webrisk.v1.ComputeThreatListDiffResponse.ResponseType"))
         }
     }
 }
@@ -473,6 +455,7 @@ pub mod compute_threat_list_diff_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisRequest {
+
     /// Required. The URI to be checked for matches.
     pub uri: std::string::String,
 
@@ -498,7 +481,7 @@ impl SearchUrisRequest {
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ThreatType>,
+        V: std::convert::Into<crate::model::ThreatType>
     {
         use std::iter::Iterator;
         self.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -515,6 +498,7 @@ impl wkt::message::Message for SearchUrisRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisResponse {
+
     /// The threat list matches. This might be empty if the URI is on no list.
     pub threat: std::option::Option<crate::model::search_uris_response::ThreatUri>,
 
@@ -528,8 +512,7 @@ impl SearchUrisResponse {
 
     /// Sets the value of [threat][crate::model::SearchUrisResponse::threat].
     pub fn set_threat<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::search_uris_response::ThreatUri>,
+    where T: std::convert::Into<crate::model::search_uris_response::ThreatUri>
     {
         self.threat = std::option::Option::Some(v.into());
         self
@@ -537,8 +520,7 @@ impl SearchUrisResponse {
 
     /// Sets or clears the value of [threat][crate::model::SearchUrisResponse::threat].
     pub fn set_or_clear_threat<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::search_uris_response::ThreatUri>,
+    where T: std::convert::Into<crate::model::search_uris_response::ThreatUri>
     {
         self.threat = v.map(|x| x.into());
         self
@@ -556,10 +538,12 @@ pub mod search_uris_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains threat information on a matching uri.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatUri {
+
         /// The ThreatList this threat belongs to.
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
@@ -579,7 +563,7 @@ pub mod search_uris_response {
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ThreatType>,
+            V: std::convert::Into<crate::model::ThreatType>
         {
             use std::iter::Iterator;
             self.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -588,8 +572,7 @@ pub mod search_uris_response {
 
         /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.expire_time = std::option::Option::Some(v.into());
             self
@@ -597,8 +580,7 @@ pub mod search_uris_response {
 
         /// Sets or clears the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.expire_time = v.map(|x| x.into());
             self
@@ -616,6 +598,7 @@ pub mod search_uris_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesRequest {
+
     /// A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
     /// hash. For JSON requests, this field is base64-encoded.
     /// Note that if this parameter is provided by a URI, it must be encoded using
@@ -644,7 +627,7 @@ impl SearchHashesRequest {
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ThreatType>,
+        V: std::convert::Into<crate::model::ThreatType>
     {
         use std::iter::Iterator;
         self.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -661,6 +644,7 @@ impl wkt::message::Message for SearchHashesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesResponse {
+
     /// The full hashes that matched the requested prefixes.
     /// The hash will be populated in the key.
     pub threats: std::vec::Vec<crate::model::search_hashes_response::ThreatHash>,
@@ -681,7 +665,7 @@ impl SearchHashesResponse {
     pub fn set_threats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::search_hashes_response::ThreatHash>,
+        V: std::convert::Into<crate::model::search_hashes_response::ThreatHash>
     {
         use std::iter::Iterator;
         self.threats = v.into_iter().map(|i| i.into()).collect();
@@ -690,8 +674,7 @@ impl SearchHashesResponse {
 
     /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
     pub fn set_negative_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.negative_expire_time = std::option::Option::Some(v.into());
         self
@@ -699,8 +682,7 @@ impl SearchHashesResponse {
 
     /// Sets or clears the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
     pub fn set_or_clear_negative_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.negative_expire_time = v.map(|x| x.into());
         self
@@ -718,10 +700,12 @@ pub mod search_hashes_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Contains threat information on a matching hash.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatHash {
+
         /// The ThreatList this threat belongs to.
         /// This must contain at least one entry.
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
@@ -746,7 +730,7 @@ pub mod search_hashes_response {
         pub fn set_threat_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ThreatType>,
+            V: std::convert::Into<crate::model::ThreatType>
         {
             use std::iter::Iterator;
             self.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -761,8 +745,7 @@ pub mod search_hashes_response {
 
         /// Sets the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
         pub fn set_expire_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.expire_time = std::option::Option::Some(v.into());
             self
@@ -770,8 +753,7 @@ pub mod search_hashes_response {
 
         /// Sets or clears the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.expire_time = v.map(|x| x.into());
             self
@@ -790,6 +772,7 @@ pub mod search_hashes_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryAdditions {
+
     /// The raw SHA256-formatted entries.
     /// Repeated to allow returning sets of hashes with different prefix sizes.
     pub raw_hashes: std::vec::Vec<crate::model::RawHashes>,
@@ -811,7 +794,7 @@ impl ThreatEntryAdditions {
     pub fn set_raw_hashes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RawHashes>,
+        V: std::convert::Into<crate::model::RawHashes>
     {
         use std::iter::Iterator;
         self.raw_hashes = v.into_iter().map(|i| i.into()).collect();
@@ -820,8 +803,7 @@ impl ThreatEntryAdditions {
 
     /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
     pub fn set_rice_hashes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RiceDeltaEncoding>,
+    where T: std::convert::Into<crate::model::RiceDeltaEncoding>
     {
         self.rice_hashes = std::option::Option::Some(v.into());
         self
@@ -829,8 +811,7 @@ impl ThreatEntryAdditions {
 
     /// Sets or clears the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
     pub fn set_or_clear_rice_hashes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RiceDeltaEncoding>,
+    where T: std::convert::Into<crate::model::RiceDeltaEncoding>
     {
         self.rice_hashes = v.map(|x| x.into());
         self
@@ -847,6 +828,7 @@ impl wkt::message::Message for ThreatEntryAdditions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryRemovals {
+
     /// The raw removal indices for a local list.
     pub raw_indices: std::option::Option<crate::model::RawIndices>,
 
@@ -866,8 +848,7 @@ impl ThreatEntryRemovals {
 
     /// Sets the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
     pub fn set_raw_indices<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RawIndices>,
+    where T: std::convert::Into<crate::model::RawIndices>
     {
         self.raw_indices = std::option::Option::Some(v.into());
         self
@@ -875,8 +856,7 @@ impl ThreatEntryRemovals {
 
     /// Sets or clears the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
     pub fn set_or_clear_raw_indices<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RawIndices>,
+    where T: std::convert::Into<crate::model::RawIndices>
     {
         self.raw_indices = v.map(|x| x.into());
         self
@@ -884,8 +864,7 @@ impl ThreatEntryRemovals {
 
     /// Sets the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
     pub fn set_rice_indices<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RiceDeltaEncoding>,
+    where T: std::convert::Into<crate::model::RiceDeltaEncoding>
     {
         self.rice_indices = std::option::Option::Some(v.into());
         self
@@ -893,8 +872,7 @@ impl ThreatEntryRemovals {
 
     /// Sets or clears the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
     pub fn set_or_clear_rice_indices<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RiceDeltaEncoding>,
+    where T: std::convert::Into<crate::model::RiceDeltaEncoding>
     {
         self.rice_indices = v.map(|x| x.into());
         self
@@ -911,6 +889,7 @@ impl wkt::message::Message for ThreatEntryRemovals {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawIndices {
+
     /// The indices to remove from a lexicographically-sorted local list.
     pub indices: std::vec::Vec<i32>,
 
@@ -926,7 +905,7 @@ impl RawIndices {
     pub fn set_indices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.indices = v.into_iter().map(|i| i.into()).collect();
@@ -951,6 +930,7 @@ impl wkt::message::Message for RawIndices {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawHashes {
+
     /// The number of bytes for each prefix encoded below.  This field can be
     /// anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
     /// In practice this is almost always 4, except in exceptional circumstances.
@@ -993,6 +973,7 @@ impl wkt::message::Message for RawHashes {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiceDeltaEncoding {
+
     /// The offset of the first entry in the encoded data, or, if only a single
     /// integer was encoded, that single integer's value. If the field is empty or
     /// missing, assume zero.
@@ -1053,6 +1034,7 @@ impl wkt::message::Message for RiceDeltaEncoding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Submission {
+
     /// Required. The URI that is being reported for malicious content to be
     /// analyzed.
     pub uri: std::string::String,
@@ -1080,7 +1062,7 @@ impl Submission {
     pub fn set_threat_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ThreatType>,
+        V: std::convert::Into<crate::model::ThreatType>
     {
         use std::iter::Iterator;
         self.threat_types = v.into_iter().map(|i| i.into()).collect();
@@ -1099,6 +1081,7 @@ impl wkt::message::Message for Submission {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatInfo {
+
     /// The type of abuse.
     pub abuse_type: crate::model::threat_info::AbuseType,
 
@@ -1117,18 +1100,14 @@ impl ThreatInfo {
     }
 
     /// Sets the value of [abuse_type][crate::model::ThreatInfo::abuse_type].
-    pub fn set_abuse_type<T: std::convert::Into<crate::model::threat_info::AbuseType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_abuse_type<T: std::convert::Into<crate::model::threat_info::AbuseType>>(mut self, v: T) -> Self {
         self.abuse_type = v.into();
         self
     }
 
     /// Sets the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
     pub fn set_threat_confidence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::threat_info::Confidence>,
+    where T: std::convert::Into<crate::model::threat_info::Confidence>
     {
         self.threat_confidence = std::option::Option::Some(v.into());
         self
@@ -1136,8 +1115,7 @@ impl ThreatInfo {
 
     /// Sets or clears the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
     pub fn set_or_clear_threat_confidence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::threat_info::Confidence>,
+    where T: std::convert::Into<crate::model::threat_info::Confidence>
     {
         self.threat_confidence = v.map(|x| x.into());
         self
@@ -1145,8 +1123,7 @@ impl ThreatInfo {
 
     /// Sets the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
     pub fn set_threat_justification<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::threat_info::ThreatJustification>,
+    where T: std::convert::Into<crate::model::threat_info::ThreatJustification>
     {
         self.threat_justification = std::option::Option::Some(v.into());
         self
@@ -1154,8 +1131,7 @@ impl ThreatInfo {
 
     /// Sets or clears the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
     pub fn set_or_clear_threat_justification<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::threat_info::ThreatJustification>,
+    where T: std::convert::Into<crate::model::threat_info::ThreatJustification>
     {
         self.threat_justification = v.map(|x| x.into());
         self
@@ -1173,10 +1149,12 @@ pub mod threat_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Confidence that a URI is unsafe.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Confidence {
+
         pub value: std::option::Option<crate::model::threat_info::confidence::Value>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1191,12 +1169,8 @@ pub mod threat_info {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
-        pub fn set_value<
-            T: std::convert::Into<std::option::Option<crate::model::threat_info::confidence::Value>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::threat_info::confidence::Value>>>(mut self, v: T) -> Self
+        {
             self.value = v.into();
             self
         }
@@ -1207,9 +1181,7 @@ pub mod threat_info {
         pub fn score(&self) -> std::option::Option<&f32> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::threat_info::confidence::Value::Score(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::threat_info::confidence::Value::Score(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1221,7 +1193,9 @@ pub mod threat_info {
         /// mutually exclusive.
         pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
-                crate::model::threat_info::confidence::Value::Score(v.into()),
+                crate::model::threat_info::confidence::Value::Score(
+                    v.into()
+                )
             );
             self
         }
@@ -1229,14 +1203,10 @@ pub mod threat_info {
         /// The value of [value][crate::model::threat_info::Confidence::value]
         /// if it holds a `Level`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn level(
-            &self,
-        ) -> std::option::Option<&crate::model::threat_info::confidence::ConfidenceLevel> {
+        pub fn level(&self) -> std::option::Option<&crate::model::threat_info::confidence::ConfidenceLevel> {
             #[allow(unreachable_patterns)]
             self.value.as_ref().and_then(|v| match v {
-                crate::model::threat_info::confidence::Value::Level(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::threat_info::confidence::Value::Level(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1246,14 +1216,11 @@ pub mod threat_info {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
-        pub fn set_level<
-            T: std::convert::Into<crate::model::threat_info::confidence::ConfidenceLevel>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_level<T: std::convert::Into<crate::model::threat_info::confidence::ConfidenceLevel>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
-                crate::model::threat_info::confidence::Value::Level(v.into()),
+                crate::model::threat_info::confidence::Value::Level(
+                    v.into()
+                )
             );
             self
         }
@@ -1269,6 +1236,7 @@ pub mod threat_info {
     pub mod confidence {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum representation of confidence.
         ///
@@ -1349,10 +1317,7 @@ pub mod threat_info {
         }
 
         impl std::fmt::Display for ConfidenceLevel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1364,9 +1329,7 @@ pub mod threat_info {
                     1 => Self::Low,
                     2 => Self::Medium,
                     3 => Self::High,
-                    _ => Self::UnknownValue(confidence_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(confidence_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1379,9 +1342,7 @@ pub mod threat_info {
                     "LOW" => Self::Low,
                     "MEDIUM" => Self::Medium,
                     "HIGH" => Self::High,
-                    _ => Self::UnknownValue(confidence_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(confidence_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1407,8 +1368,7 @@ pub mod threat_info {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfidenceLevel>::new(
-                    ".google.cloud.webrisk.v1.ThreatInfo.Confidence.ConfidenceLevel",
-                ))
+                    ".google.cloud.webrisk.v1.ThreatInfo.Confidence.ConfidenceLevel"))
             }
         }
 
@@ -1428,9 +1388,9 @@ pub mod threat_info {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatJustification {
+
         /// Labels associated with this URI that explain how it was classified.
-        pub labels:
-            std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>,
+        pub labels: std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>,
 
         /// Free-form context on why this URI is unsafe.
         pub comments: std::vec::Vec<std::string::String>,
@@ -1447,9 +1407,7 @@ pub mod threat_info {
         pub fn set_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::threat_info::threat_justification::JustificationLabel,
-                >,
+            V: std::convert::Into<crate::model::threat_info::threat_justification::JustificationLabel>
         {
             use std::iter::Iterator;
             self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -1460,7 +1418,7 @@ pub mod threat_info {
         pub fn set_comments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.comments = v.into_iter().map(|i| i.into()).collect();
@@ -1478,6 +1436,7 @@ pub mod threat_info {
     pub mod threat_justification {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Labels that explain how the URI was classified.
         ///
@@ -1541,9 +1500,7 @@ pub mod threat_info {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => {
-                        std::option::Option::Some("JUSTIFICATION_LABEL_UNSPECIFIED")
-                    }
+                    Self::Unspecified => std::option::Option::Some("JUSTIFICATION_LABEL_UNSPECIFIED"),
                     Self::ManualVerification => std::option::Option::Some("MANUAL_VERIFICATION"),
                     Self::UserReport => std::option::Option::Some("USER_REPORT"),
                     Self::AutomatedReport => std::option::Option::Some("AUTOMATED_REPORT"),
@@ -1560,10 +1517,7 @@ pub mod threat_info {
         }
 
         impl std::fmt::Display for JustificationLabel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1575,9 +1529,7 @@ pub mod threat_info {
                     1 => Self::ManualVerification,
                     2 => Self::UserReport,
                     3 => Self::AutomatedReport,
-                    _ => Self::UnknownValue(justification_label::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(justification_label::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1590,9 +1542,7 @@ pub mod threat_info {
                     "MANUAL_VERIFICATION" => Self::ManualVerification,
                     "USER_REPORT" => Self::UserReport,
                     "AUTOMATED_REPORT" => Self::AutomatedReport,
-                    _ => Self::UnknownValue(justification_label::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(justification_label::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1618,8 +1568,7 @@ pub mod threat_info {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<JustificationLabel>::new(
-                    ".google.cloud.webrisk.v1.ThreatInfo.ThreatJustification.JustificationLabel",
-                ))
+                    ".google.cloud.webrisk.v1.ThreatInfo.ThreatJustification.JustificationLabel"))
             }
         }
     }
@@ -1715,9 +1664,7 @@ pub mod threat_info {
                 1 => Self::Malware,
                 2 => Self::SocialEngineering,
                 3 => Self::UnwantedSoftware,
-                _ => Self::UnknownValue(abuse_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(abuse_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1730,9 +1677,7 @@ pub mod threat_info {
                 "MALWARE" => Self::Malware,
                 "SOCIAL_ENGINEERING" => Self::SocialEngineering,
                 "UNWANTED_SOFTWARE" => Self::UnwantedSoftware,
-                _ => Self::UnknownValue(abuse_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(abuse_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1758,8 +1703,7 @@ pub mod threat_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AbuseType>::new(
-                ".google.cloud.webrisk.v1.ThreatInfo.AbuseType",
-            ))
+                ".google.cloud.webrisk.v1.ThreatInfo.AbuseType"))
         }
     }
 }
@@ -1768,6 +1712,7 @@ pub mod threat_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatDiscovery {
+
     /// Platform on which the threat was discovered.
     pub platform: crate::model::threat_discovery::Platform,
 
@@ -1784,10 +1729,7 @@ impl ThreatDiscovery {
     }
 
     /// Sets the value of [platform][crate::model::ThreatDiscovery::platform].
-    pub fn set_platform<T: std::convert::Into<crate::model::threat_discovery::Platform>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_platform<T: std::convert::Into<crate::model::threat_discovery::Platform>>(mut self, v: T) -> Self {
         self.platform = v.into();
         self
     }
@@ -1796,7 +1738,7 @@ impl ThreatDiscovery {
     pub fn set_region_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.region_codes = v.into_iter().map(|i| i.into()).collect();
@@ -1814,6 +1756,7 @@ impl wkt::message::Message for ThreatDiscovery {
 pub mod threat_discovery {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Platform types.
     ///
@@ -1911,9 +1854,7 @@ pub mod threat_discovery {
                 2 => Self::Ios,
                 3 => Self::Macos,
                 4 => Self::Windows,
-                _ => Self::UnknownValue(platform::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(platform::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1927,9 +1868,7 @@ pub mod threat_discovery {
                 "IOS" => Self::Ios,
                 "MACOS" => Self::Macos,
                 "WINDOWS" => Self::Windows,
-                _ => Self::UnknownValue(platform::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(platform::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1956,8 +1895,7 @@ pub mod threat_discovery {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Platform>::new(
-                ".google.cloud.webrisk.v1.ThreatDiscovery.Platform",
-            ))
+                ".google.cloud.webrisk.v1.ThreatDiscovery.Platform"))
         }
     }
 }
@@ -1966,6 +1904,7 @@ pub mod threat_discovery {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSubmissionRequest {
+
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
     pub parent: std::string::String,
@@ -1989,8 +1928,7 @@ impl CreateSubmissionRequest {
 
     /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
     pub fn set_submission<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Submission>,
+    where T: std::convert::Into<crate::model::Submission>
     {
         self.submission = std::option::Option::Some(v.into());
         self
@@ -1998,8 +1936,7 @@ impl CreateSubmissionRequest {
 
     /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Submission>,
+    where T: std::convert::Into<crate::model::Submission>
     {
         self.submission = v.map(|x| x.into());
         self
@@ -2016,6 +1953,7 @@ impl wkt::message::Message for CreateSubmissionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriRequest {
+
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
     pub parent: std::string::String,
@@ -2045,8 +1983,7 @@ impl SubmitUriRequest {
 
     /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
     pub fn set_submission<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Submission>,
+    where T: std::convert::Into<crate::model::Submission>
     {
         self.submission = std::option::Option::Some(v.into());
         self
@@ -2054,8 +1991,7 @@ impl SubmitUriRequest {
 
     /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
     pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Submission>,
+    where T: std::convert::Into<crate::model::Submission>
     {
         self.submission = v.map(|x| x.into());
         self
@@ -2063,8 +1999,7 @@ impl SubmitUriRequest {
 
     /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
     pub fn set_threat_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatInfo>,
+    where T: std::convert::Into<crate::model::ThreatInfo>
     {
         self.threat_info = std::option::Option::Some(v.into());
         self
@@ -2072,8 +2007,7 @@ impl SubmitUriRequest {
 
     /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
     pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatInfo>,
+    where T: std::convert::Into<crate::model::ThreatInfo>
     {
         self.threat_info = v.map(|x| x.into());
         self
@@ -2081,8 +2015,7 @@ impl SubmitUriRequest {
 
     /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
     pub fn set_threat_discovery<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatDiscovery>,
+    where T: std::convert::Into<crate::model::ThreatDiscovery>
     {
         self.threat_discovery = std::option::Option::Some(v.into());
         self
@@ -2090,8 +2023,7 @@ impl SubmitUriRequest {
 
     /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
     pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ThreatDiscovery>,
+    where T: std::convert::Into<crate::model::ThreatDiscovery>
     {
         self.threat_discovery = v.map(|x| x.into());
         self
@@ -2108,6 +2040,7 @@ impl wkt::message::Message for SubmitUriRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriMetadata {
+
     /// The state of the operation.
     pub state: crate::model::submit_uri_metadata::State,
 
@@ -2126,18 +2059,14 @@ impl SubmitUriMetadata {
     }
 
     /// Sets the value of [state][crate::model::SubmitUriMetadata::state].
-    pub fn set_state<T: std::convert::Into<crate::model::submit_uri_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::submit_uri_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::SubmitUriMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2145,8 +2074,7 @@ impl SubmitUriMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::SubmitUriMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2154,8 +2082,7 @@ impl SubmitUriMetadata {
 
     /// Sets the value of [update_time][crate::model::SubmitUriMetadata::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2163,8 +2090,7 @@ impl SubmitUriMetadata {
 
     /// Sets or clears the value of [update_time][crate::model::SubmitUriMetadata::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2181,6 +2107,7 @@ impl wkt::message::Message for SubmitUriMetadata {
 pub mod submit_uri_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum that represents the state of the long-running operation.
     ///
@@ -2283,9 +2210,7 @@ pub mod submit_uri_metadata {
                 3 => Self::Cancelled,
                 4 => Self::Failed,
                 5 => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2300,9 +2225,7 @@ pub mod submit_uri_metadata {
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
                 "CLOSED" => Self::Closed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2330,8 +2253,7 @@ pub mod submit_uri_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.webrisk.v1.SubmitUriMetadata.State",
-            ))
+                ".google.cloud.webrisk.v1.SubmitUriMetadata.State"))
         }
     }
 }
@@ -2407,9 +2329,7 @@ impl ThreatType {
             Self::Malware => std::option::Option::Some("MALWARE"),
             Self::SocialEngineering => std::option::Option::Some("SOCIAL_ENGINEERING"),
             Self::UnwantedSoftware => std::option::Option::Some("UNWANTED_SOFTWARE"),
-            Self::SocialEngineeringExtendedCoverage => {
-                std::option::Option::Some("SOCIAL_ENGINEERING_EXTENDED_COVERAGE")
-            }
+            Self::SocialEngineeringExtendedCoverage => std::option::Option::Some("SOCIAL_ENGINEERING_EXTENDED_COVERAGE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2436,9 +2356,7 @@ impl std::convert::From<i32> for ThreatType {
             2 => Self::SocialEngineering,
             3 => Self::UnwantedSoftware,
             4 => Self::SocialEngineeringExtendedCoverage,
-            _ => Self::UnknownValue(threat_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(threat_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2452,9 +2370,7 @@ impl std::convert::From<&str> for ThreatType {
             "SOCIAL_ENGINEERING" => Self::SocialEngineering,
             "UNWANTED_SOFTWARE" => Self::UnwantedSoftware,
             "SOCIAL_ENGINEERING_EXTENDED_COVERAGE" => Self::SocialEngineeringExtendedCoverage,
-            _ => Self::UnknownValue(threat_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(threat_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2481,8 +2397,7 @@ impl<'de> serde::de::Deserialize<'de> for ThreatType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ThreatType>::new(
-            ".google.cloud.webrisk.v1.ThreatType",
-        ))
+            ".google.cloud.webrisk.v1.ThreatType"))
     }
 }
 
@@ -2572,9 +2487,7 @@ impl std::convert::From<i32> for CompressionType {
             0 => Self::Unspecified,
             1 => Self::Raw,
             2 => Self::Rice,
-            _ => Self::UnknownValue(compression_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(compression_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2586,9 +2499,7 @@ impl std::convert::From<&str> for CompressionType {
             "COMPRESSION_TYPE_UNSPECIFIED" => Self::Unspecified,
             "RAW" => Self::Raw,
             "RICE" => Self::Rice,
-            _ => Self::UnknownValue(compression_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(compression_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2613,7 +2524,6 @@ impl<'de> serde::de::Deserialize<'de> for CompressionType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompressionType>::new(
-            ".google.cloud.webrisk.v1.CompressionType",
-        ))
+            ".google.cloud.webrisk.v1.CompressionType"))
     }
 }

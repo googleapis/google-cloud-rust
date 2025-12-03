@@ -17,7 +17,7 @@
 #[allow(unused_imports)]
 use super::*;
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::Answer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Answer");
@@ -42,7 +42,7 @@ impl std::fmt::Debug for super::Answer {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::Citation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Citation");
@@ -56,7 +56,7 @@ impl std::fmt::Debug for super::answer::Citation {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::CitationSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CitationSource");
@@ -68,7 +68,7 @@ impl std::fmt::Debug for super::answer::CitationSource {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::GroundingSupport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSupport");
@@ -84,7 +84,7 @@ impl std::fmt::Debug for super::answer::GroundingSupport {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
@@ -96,7 +96,7 @@ impl std::fmt::Debug for super::answer::Reference {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::reference::UnstructuredDocumentInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnstructuredDocumentInfo");
@@ -112,7 +112,7 @@ impl std::fmt::Debug for super::answer::reference::UnstructuredDocumentInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::reference::unstructured_document_info::ChunkContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkContent");
@@ -126,7 +126,7 @@ impl std::fmt::Debug for super::answer::reference::unstructured_document_info::C
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::reference::ChunkInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkInfo");
@@ -141,7 +141,7 @@ impl std::fmt::Debug for super::answer::reference::ChunkInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::reference::chunk_info::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
@@ -157,7 +157,7 @@ impl std::fmt::Debug for super::answer::reference::chunk_info::DocumentMetadata 
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::reference::StructuredDocumentInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StructuredDocumentInfo");
@@ -172,7 +172,7 @@ impl std::fmt::Debug for super::answer::reference::StructuredDocumentInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::Step {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Step");
@@ -187,7 +187,7 @@ impl std::fmt::Debug for super::answer::Step {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::Action {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Action");
@@ -200,7 +200,7 @@ impl std::fmt::Debug for super::answer::step::Action {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::action::SearchAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAction");
@@ -212,7 +212,7 @@ impl std::fmt::Debug for super::answer::step::action::SearchAction {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::action::Observation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Observation");
@@ -224,7 +224,7 @@ impl std::fmt::Debug for super::answer::step::action::Observation {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::action::observation::SearchResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResult");
@@ -241,7 +241,7 @@ impl std::fmt::Debug for super::answer::step::action::observation::SearchResult 
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::action::observation::search_result::SnippetInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnippetInfo");
@@ -254,7 +254,7 @@ impl std::fmt::Debug for super::answer::step::action::observation::search_result
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::step::action::observation::search_result::ChunkInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkInfo");
@@ -268,7 +268,7 @@ impl std::fmt::Debug for super::answer::step::action::observation::search_result
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::QueryUnderstandingInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryUnderstandingInfo");
@@ -280,7 +280,7 @@ impl std::fmt::Debug for super::answer::QueryUnderstandingInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::answer::query_understanding_info::QueryClassificationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryClassificationInfo");
@@ -293,11 +293,7 @@ impl std::fmt::Debug for super::answer::query_understanding_info::QueryClassific
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::AssistAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistAnswer");
@@ -312,11 +308,7 @@ impl std::fmt::Debug for super::AssistAnswer {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assist_answer::Reply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reply");
@@ -328,11 +320,7 @@ impl std::fmt::Debug for super::assist_answer::Reply {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::AssistantContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistantContent");
@@ -346,11 +334,7 @@ impl std::fmt::Debug for super::AssistantContent {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_content::Blob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Blob");
@@ -363,11 +347,7 @@ impl std::fmt::Debug for super::assistant_content::Blob {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_content::File {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("File");
@@ -380,11 +360,7 @@ impl std::fmt::Debug for super::assistant_content::File {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_content::ExecutableCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExecutableCode");
@@ -396,11 +372,7 @@ impl std::fmt::Debug for super::assistant_content::ExecutableCode {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_content::CodeExecutionResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CodeExecutionResult");
@@ -413,11 +385,7 @@ impl std::fmt::Debug for super::assistant_content::CodeExecutionResult {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::AssistantGroundedContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistantGroundedContent");
@@ -430,11 +398,7 @@ impl std::fmt::Debug for super::AssistantGroundedContent {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_grounded_content::TextGroundingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextGroundingMetadata");
@@ -447,11 +411,7 @@ impl std::fmt::Debug for super::assistant_grounded_content::TextGroundingMetadat
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::Segment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Segment");
@@ -467,11 +427,7 @@ impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metad
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
@@ -484,14 +440,8 @@ impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metad
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug
-    for super::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata
-{
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
+impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
         debug_struct.field("document", &self.document);
@@ -506,29 +456,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(all(
-    feature = "assistant-service",
-    feature = "cmek-config-service",
-    feature = "completion-service",
-    feature = "control-service",
-    feature = "conversational-search-service",
-    feature = "data-store-service",
-    feature = "document-service",
-    feature = "engine-service",
-    feature = "grounded-generation-service",
-    feature = "identity-mapping-store-service",
-    feature = "project-service",
-    feature = "rank-service",
-    feature = "recommendation-service",
-    feature = "schema-service",
-    feature = "search-service",
-    feature = "search-tuning-service",
-    feature = "serving-config-service",
-    feature = "session-service",
-    feature = "site-search-engine-service",
-    feature = "user-event-service",
-    feature = "user-license-service",
-))]
+#[cfg(all ( feature = "assistant-service",feature = "cmek-config-service",feature = "completion-service",feature = "control-service",feature = "conversational-search-service",feature = "data-store-service",feature = "document-service",feature = "engine-service",feature = "grounded-generation-service",feature = "identity-mapping-store-service",feature = "project-service",feature = "rank-service",feature = "recommendation-service",feature = "schema-service",feature = "search-service",feature = "search-tuning-service",feature = "serving-config-service",feature = "session-service",feature = "site-search-engine-service",feature = "user-event-service",feature = "user-license-service", ) )]
 impl std::fmt::Debug for super::Assistant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Assistant");
@@ -540,7 +468,7 @@ impl std::fmt::Debug for super::Assistant {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::AssistUserMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistUserMetadata");
@@ -553,7 +481,7 @@ impl std::fmt::Debug for super::AssistUserMetadata {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::StreamAssistRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamAssistRequest");
@@ -570,7 +498,7 @@ impl std::fmt::Debug for super::StreamAssistRequest {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::ToolsSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ToolsSpec");
@@ -585,7 +513,7 @@ impl std::fmt::Debug for super::stream_assist_request::ToolsSpec {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::tools_spec::VertexAiSearchSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VertexAiSearchSpec");
@@ -598,7 +526,7 @@ impl std::fmt::Debug for super::stream_assist_request::tools_spec::VertexAiSearc
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::tools_spec::WebGroundingSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WebGroundingSpec");
@@ -609,7 +537,7 @@ impl std::fmt::Debug for super::stream_assist_request::tools_spec::WebGroundingS
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::tools_spec::ImageGenerationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageGenerationSpec");
@@ -620,7 +548,7 @@ impl std::fmt::Debug for super::stream_assist_request::tools_spec::ImageGenerati
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::tools_spec::VideoGenerationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VideoGenerationSpec");
@@ -631,7 +559,7 @@ impl std::fmt::Debug for super::stream_assist_request::tools_spec::VideoGenerati
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_request::GenerationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerationSpec");
@@ -643,7 +571,7 @@ impl std::fmt::Debug for super::stream_assist_request::GenerationSpec {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::StreamAssistResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StreamAssistResponse");
@@ -657,7 +585,7 @@ impl std::fmt::Debug for super::StreamAssistResponse {
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(feature = "assistant-service" )]
 impl std::fmt::Debug for super::stream_assist_response::SessionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionInfo");
@@ -669,7 +597,7 @@ impl std::fmt::Debug for super::stream_assist_response::SessionInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::Chunk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Chunk");
@@ -691,7 +619,7 @@ impl std::fmt::Debug for super::Chunk {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::chunk::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
@@ -705,7 +633,7 @@ impl std::fmt::Debug for super::chunk::DocumentMetadata {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::chunk::PageSpan {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PageSpan");
@@ -718,7 +646,7 @@ impl std::fmt::Debug for super::chunk::PageSpan {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::chunk::ChunkMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkMetadata");
@@ -731,7 +659,7 @@ impl std::fmt::Debug for super::chunk::ChunkMetadata {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::chunk::StructuredContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StructuredContent");
@@ -744,7 +672,7 @@ impl std::fmt::Debug for super::chunk::StructuredContent {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::chunk::AnnotationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnnotationMetadata");
@@ -757,7 +685,7 @@ impl std::fmt::Debug for super::chunk::AnnotationMetadata {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::UpdateCmekConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCmekConfigRequest");
@@ -770,7 +698,7 @@ impl std::fmt::Debug for super::UpdateCmekConfigRequest {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::GetCmekConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetCmekConfigRequest");
@@ -782,11 +710,7 @@ impl std::fmt::Debug for super::GetCmekConfigRequest {
     }
 }
 
-#[cfg(any(
-    feature = "cmek-config-service",
-    feature = "data-store-service",
-    feature = "identity-mapping-store-service",
-))]
+#[cfg(any ( feature = "cmek-config-service",feature = "data-store-service",feature = "identity-mapping-store-service", ) )]
 impl std::fmt::Debug for super::SingleRegionKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SingleRegionKey");
@@ -798,11 +722,7 @@ impl std::fmt::Debug for super::SingleRegionKey {
     }
 }
 
-#[cfg(any(
-    feature = "cmek-config-service",
-    feature = "data-store-service",
-    feature = "identity-mapping-store-service",
-))]
+#[cfg(any ( feature = "cmek-config-service",feature = "data-store-service",feature = "identity-mapping-store-service", ) )]
 impl std::fmt::Debug for super::CmekConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CmekConfig");
@@ -811,10 +731,7 @@ impl std::fmt::Debug for super::CmekConfig {
         debug_struct.field("kms_key_version", &self.kms_key_version);
         debug_struct.field("state", &self.state);
         debug_struct.field("is_default", &self.is_default);
-        debug_struct.field(
-            "last_rotation_timestamp_micros",
-            &self.last_rotation_timestamp_micros,
-        );
+        debug_struct.field("last_rotation_timestamp_micros", &self.last_rotation_timestamp_micros);
         debug_struct.field("single_region_keys", &self.single_region_keys);
         debug_struct.field("notebooklm_state", &self.notebooklm_state);
         if !self._unknown_fields.is_empty() {
@@ -824,7 +741,7 @@ impl std::fmt::Debug for super::CmekConfig {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::UpdateCmekConfigMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateCmekConfigMetadata");
@@ -837,7 +754,7 @@ impl std::fmt::Debug for super::UpdateCmekConfigMetadata {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::ListCmekConfigsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCmekConfigsRequest");
@@ -849,7 +766,7 @@ impl std::fmt::Debug for super::ListCmekConfigsRequest {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::ListCmekConfigsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCmekConfigsResponse");
@@ -861,7 +778,7 @@ impl std::fmt::Debug for super::ListCmekConfigsResponse {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::DeleteCmekConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCmekConfigRequest");
@@ -873,7 +790,7 @@ impl std::fmt::Debug for super::DeleteCmekConfigRequest {
     }
 }
 
-#[cfg(feature = "cmek-config-service")]
+#[cfg(feature = "cmek-config-service" )]
 impl std::fmt::Debug for super::DeleteCmekConfigMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteCmekConfigMetadata");
@@ -886,12 +803,7 @@ impl std::fmt::Debug for super::DeleteCmekConfigMetadata {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::Interval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Interval");
@@ -904,7 +816,7 @@ impl std::fmt::Debug for super::Interval {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::CustomAttribute {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomAttribute");
@@ -917,14 +829,7 @@ impl std::fmt::Debug for super::CustomAttribute {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "recommendation-service",feature = "search-service",feature = "serving-config-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::UserInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserInfo");
@@ -938,7 +843,7 @@ impl std::fmt::Debug for super::UserInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::DoubleList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DoubleList");
@@ -950,12 +855,7 @@ impl std::fmt::Debug for super::DoubleList {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::Principal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Principal");
@@ -967,18 +867,12 @@ impl std::fmt::Debug for super::Principal {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::HealthcareFhirConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HealthcareFhirConfig");
-        debug_struct.field(
-            "enable_configurable_schema",
-            &self.enable_configurable_schema,
-        );
-        debug_struct.field(
-            "enable_static_indexing_for_batch_ingestion",
-            &self.enable_static_indexing_for_batch_ingestion,
-        );
+        debug_struct.field("enable_configurable_schema", &self.enable_configurable_schema);
+        debug_struct.field("enable_static_indexing_for_batch_ingestion", &self.enable_static_indexing_for_batch_ingestion);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -986,11 +880,7 @@ impl std::fmt::Debug for super::HealthcareFhirConfig {
     }
 }
 
-#[cfg(any(
-    feature = "control-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "control-service",feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::SearchLinkPromotion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchLinkPromotion");
@@ -1007,7 +897,7 @@ impl std::fmt::Debug for super::SearchLinkPromotion {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::SuggestionDenyListEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SuggestionDenyListEntry");
@@ -1020,7 +910,7 @@ impl std::fmt::Debug for super::SuggestionDenyListEntry {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::CompletionSuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompletionSuggestion");
@@ -1037,7 +927,7 @@ impl std::fmt::Debug for super::CompletionSuggestion {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::CompleteQueryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompleteQueryRequest");
@@ -1053,7 +943,7 @@ impl std::fmt::Debug for super::CompleteQueryRequest {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::CompleteQueryResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompleteQueryResponse");
@@ -1066,7 +956,7 @@ impl std::fmt::Debug for super::CompleteQueryResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::complete_query_response::QuerySuggestion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuerySuggestion");
@@ -1079,7 +969,7 @@ impl std::fmt::Debug for super::complete_query_response::QuerySuggestion {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::Condition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Condition");
@@ -1093,7 +983,7 @@ impl std::fmt::Debug for super::Condition {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::condition::QueryTerm {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryTerm");
@@ -1106,7 +996,7 @@ impl std::fmt::Debug for super::condition::QueryTerm {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::condition::TimeRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TimeRange");
@@ -1119,16 +1009,13 @@ impl std::fmt::Debug for super::condition::TimeRange {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::Control {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Control");
         debug_struct.field("name", &self.name);
         debug_struct.field("display_name", &self.display_name);
-        debug_struct.field(
-            "associated_serving_config_ids",
-            &self.associated_serving_config_ids,
-        );
+        debug_struct.field("associated_serving_config_ids", &self.associated_serving_config_ids);
         debug_struct.field("solution_type", &self.solution_type);
         debug_struct.field("use_cases", &self.use_cases);
         debug_struct.field("conditions", &self.conditions);
@@ -1140,7 +1027,7 @@ impl std::fmt::Debug for super::Control {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::BoostAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostAction");
@@ -1155,7 +1042,7 @@ impl std::fmt::Debug for super::control::BoostAction {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::boost_action::InterpolationBoostSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InterpolationBoostSpec");
@@ -1170,7 +1057,7 @@ impl std::fmt::Debug for super::control::boost_action::InterpolationBoostSpec {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::boost_action::interpolation_boost_spec::ControlPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ControlPoint");
@@ -1183,7 +1070,7 @@ impl std::fmt::Debug for super::control::boost_action::interpolation_boost_spec:
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::FilterAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FilterAction");
@@ -1196,7 +1083,7 @@ impl std::fmt::Debug for super::control::FilterAction {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::RedirectAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RedirectAction");
@@ -1208,7 +1095,7 @@ impl std::fmt::Debug for super::control::RedirectAction {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::SynonymsAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SynonymsAction");
@@ -1220,7 +1107,7 @@ impl std::fmt::Debug for super::control::SynonymsAction {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::control::PromoteAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PromoteAction");
@@ -1233,7 +1120,7 @@ impl std::fmt::Debug for super::control::PromoteAction {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::CreateControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateControlRequest");
@@ -1247,7 +1134,7 @@ impl std::fmt::Debug for super::CreateControlRequest {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::UpdateControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateControlRequest");
@@ -1260,7 +1147,7 @@ impl std::fmt::Debug for super::UpdateControlRequest {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::DeleteControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteControlRequest");
@@ -1272,7 +1159,7 @@ impl std::fmt::Debug for super::DeleteControlRequest {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::GetControlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetControlRequest");
@@ -1284,7 +1171,7 @@ impl std::fmt::Debug for super::GetControlRequest {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::ListControlsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListControlsRequest");
@@ -1299,7 +1186,7 @@ impl std::fmt::Debug for super::ListControlsRequest {
     }
 }
 
-#[cfg(feature = "control-service")]
+#[cfg(feature = "control-service" )]
 impl std::fmt::Debug for super::ListControlsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListControlsResponse");
@@ -1312,7 +1199,7 @@ impl std::fmt::Debug for super::ListControlsResponse {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::Conversation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Conversation");
@@ -1329,7 +1216,7 @@ impl std::fmt::Debug for super::Conversation {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::Reply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reply");
@@ -1341,7 +1228,7 @@ impl std::fmt::Debug for super::Reply {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ConversationContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationContext");
@@ -1354,7 +1241,7 @@ impl std::fmt::Debug for super::ConversationContext {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::TextInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextInput");
@@ -1367,7 +1254,7 @@ impl std::fmt::Debug for super::TextInput {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ConversationMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversationMessage");
@@ -1380,7 +1267,7 @@ impl std::fmt::Debug for super::ConversationMessage {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ConverseConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConverseConversationRequest");
@@ -1400,7 +1287,7 @@ impl std::fmt::Debug for super::ConverseConversationRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ConverseConversationResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConverseConversationResponse");
@@ -1414,7 +1301,7 @@ impl std::fmt::Debug for super::ConverseConversationResponse {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::CreateConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateConversationRequest");
@@ -1427,7 +1314,7 @@ impl std::fmt::Debug for super::CreateConversationRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::UpdateConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateConversationRequest");
@@ -1440,7 +1327,7 @@ impl std::fmt::Debug for super::UpdateConversationRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::DeleteConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteConversationRequest");
@@ -1452,7 +1339,7 @@ impl std::fmt::Debug for super::DeleteConversationRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::GetConversationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetConversationRequest");
@@ -1464,7 +1351,7 @@ impl std::fmt::Debug for super::GetConversationRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ListConversationsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationsRequest");
@@ -1480,7 +1367,7 @@ impl std::fmt::Debug for super::ListConversationsRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::ListConversationsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListConversationsResponse");
@@ -1493,7 +1380,7 @@ impl std::fmt::Debug for super::ListConversationsResponse {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::AnswerQueryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerQueryRequest");
@@ -1517,7 +1404,7 @@ impl std::fmt::Debug for super::AnswerQueryRequest {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::SafetySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SafetySpec");
@@ -1530,7 +1417,7 @@ impl std::fmt::Debug for super::answer_query_request::SafetySpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::safety_spec::SafetySetting {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SafetySetting");
@@ -1543,7 +1430,7 @@ impl std::fmt::Debug for super::answer_query_request::safety_spec::SafetySetting
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::RelatedQuestionsSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelatedQuestionsSpec");
@@ -1555,14 +1442,11 @@ impl std::fmt::Debug for super::answer_query_request::RelatedQuestionsSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::GroundingSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSpec");
-        debug_struct.field(
-            "include_grounding_supports",
-            &self.include_grounding_supports,
-        );
+        debug_struct.field("include_grounding_supports", &self.include_grounding_supports);
         debug_struct.field("filtering_level", &self.filtering_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1571,7 +1455,7 @@ impl std::fmt::Debug for super::answer_query_request::GroundingSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::AnswerGenerationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerGenerationSpec");
@@ -1580,18 +1464,9 @@ impl std::fmt::Debug for super::answer_query_request::AnswerGenerationSpec {
         debug_struct.field("include_citations", &self.include_citations);
         debug_struct.field("answer_language_code", &self.answer_language_code);
         debug_struct.field("ignore_adversarial_query", &self.ignore_adversarial_query);
-        debug_struct.field(
-            "ignore_non_answer_seeking_query",
-            &self.ignore_non_answer_seeking_query,
-        );
-        debug_struct.field(
-            "ignore_low_relevant_content",
-            &self.ignore_low_relevant_content,
-        );
-        debug_struct.field(
-            "ignore_jail_breaking_query",
-            &self.ignore_jail_breaking_query,
-        );
+        debug_struct.field("ignore_non_answer_seeking_query", &self.ignore_non_answer_seeking_query);
+        debug_struct.field("ignore_low_relevant_content", &self.ignore_low_relevant_content);
+        debug_struct.field("ignore_jail_breaking_query", &self.ignore_jail_breaking_query);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1599,7 +1474,7 @@ impl std::fmt::Debug for super::answer_query_request::AnswerGenerationSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::answer_generation_spec::ModelSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelSpec");
@@ -1611,7 +1486,7 @@ impl std::fmt::Debug for super::answer_query_request::answer_generation_spec::Mo
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::answer_generation_spec::PromptSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PromptSpec");
@@ -1623,7 +1498,7 @@ impl std::fmt::Debug for super::answer_query_request::answer_generation_spec::Pr
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::SearchSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchSpec");
@@ -1635,7 +1510,7 @@ impl std::fmt::Debug for super::answer_query_request::SearchSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::SearchParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchParams");
@@ -1652,7 +1527,7 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::SearchParams 
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::SearchResultList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResultList");
@@ -1664,10 +1539,8 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::SearchResultL
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
-impl std::fmt::Debug
-    for super::answer_query_request::search_spec::search_result_list::SearchResult
-{
+#[cfg(feature = "conversational-search-service" )]
+impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::SearchResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResult");
         debug_struct.field("content", &self.content);
@@ -1678,7 +1551,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UnstructuredDocumentInfo");
@@ -1695,7 +1568,7 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::search_result
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::DocumentContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentContext");
@@ -1708,7 +1581,7 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::search_result
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveSegment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExtractiveSegment");
@@ -1721,7 +1594,7 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::search_result
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveAnswer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExtractiveAnswer");
@@ -1734,10 +1607,8 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::search_result
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
-impl std::fmt::Debug
-    for super::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo
-{
+#[cfg(feature = "conversational-search-service" )]
+impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkInfo");
         debug_struct.field("chunk", &self.chunk);
@@ -1750,7 +1621,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::search_spec::search_result_list::search_result::chunk_info::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
@@ -1763,7 +1634,7 @@ impl std::fmt::Debug for super::answer_query_request::search_spec::search_result
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::QueryUnderstandingSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryUnderstandingSpec");
@@ -1777,10 +1648,8 @@ impl std::fmt::Debug for super::answer_query_request::QueryUnderstandingSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
-impl std::fmt::Debug
-    for super::answer_query_request::query_understanding_spec::QueryClassificationSpec
-{
+#[cfg(feature = "conversational-search-service" )]
+impl std::fmt::Debug for super::answer_query_request::query_understanding_spec::QueryClassificationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryClassificationSpec");
         debug_struct.field("types", &self.types);
@@ -1791,7 +1660,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::query_understanding_spec::QueryRephraserSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryRephraserSpec");
@@ -1805,10 +1674,8 @@ impl std::fmt::Debug for super::answer_query_request::query_understanding_spec::
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
-impl std::fmt::Debug
-    for super::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec
-{
+#[cfg(feature = "conversational-search-service" )]
+impl std::fmt::Debug for super::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelSpec");
         debug_struct.field("model_type", &self.model_type);
@@ -1819,7 +1686,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::EndUserSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EndUserSpec");
@@ -1831,7 +1698,7 @@ impl std::fmt::Debug for super::answer_query_request::EndUserSpec {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::end_user_spec::EndUserMetaData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EndUserMetaData");
@@ -1843,7 +1710,7 @@ impl std::fmt::Debug for super::answer_query_request::end_user_spec::EndUserMeta
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkInfo");
@@ -1856,10 +1723,8 @@ impl std::fmt::Debug for super::answer_query_request::end_user_spec::end_user_me
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
-impl std::fmt::Debug
-    for super::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata
-{
+#[cfg(feature = "conversational-search-service" )]
+impl std::fmt::Debug for super::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
         debug_struct.field("title", &self.title);
@@ -1870,7 +1735,8 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::AnswerQueryResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AnswerQueryResponse");
@@ -1884,7 +1750,7 @@ impl std::fmt::Debug for super::AnswerQueryResponse {
     }
 }
 
-#[cfg(feature = "conversational-search-service")]
+#[cfg(feature = "conversational-search-service" )]
 impl std::fmt::Debug for super::GetAnswerRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetAnswerRequest");
@@ -1896,7 +1762,7 @@ impl std::fmt::Debug for super::GetAnswerRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::CreateSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSessionRequest");
@@ -1909,7 +1775,7 @@ impl std::fmt::Debug for super::CreateSessionRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::UpdateSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSessionRequest");
@@ -1922,7 +1788,7 @@ impl std::fmt::Debug for super::UpdateSessionRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::DeleteSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSessionRequest");
@@ -1934,7 +1800,7 @@ impl std::fmt::Debug for super::DeleteSessionRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::GetSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSessionRequest");
@@ -1947,7 +1813,7 @@ impl std::fmt::Debug for super::GetSessionRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::ListSessionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSessionsRequest");
@@ -1963,7 +1829,7 @@ impl std::fmt::Debug for super::ListSessionsRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::ListSessionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSessionsResponse");
@@ -1976,7 +1842,7 @@ impl std::fmt::Debug for super::ListSessionsResponse {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::CustomTuningModel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomTuningModel");
@@ -1995,7 +1861,8 @@ impl std::fmt::Debug for super::CustomTuningModel {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::DataStore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataStore");
@@ -2006,19 +1873,13 @@ impl std::fmt::Debug for super::DataStore {
         debug_struct.field("default_schema_id", &self.default_schema_id);
         debug_struct.field("content_config", &self.content_config);
         debug_struct.field("create_time", &self.create_time);
-        debug_struct.field(
-            "advanced_site_search_config",
-            &self.advanced_site_search_config,
-        );
+        debug_struct.field("advanced_site_search_config", &self.advanced_site_search_config);
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("cmek_config", &self.cmek_config);
         debug_struct.field("billing_estimation", &self.billing_estimation);
         debug_struct.field("acl_enabled", &self.acl_enabled);
         debug_struct.field("workspace_config", &self.workspace_config);
-        debug_struct.field(
-            "document_processing_config",
-            &self.document_processing_config,
-        );
+        debug_struct.field("document_processing_config", &self.document_processing_config);
         debug_struct.field("starting_schema", &self.starting_schema);
         debug_struct.field("healthcare_fhir_config", &self.healthcare_fhir_config);
         debug_struct.field("identity_mapping_store", &self.identity_mapping_store);
@@ -2029,21 +1890,15 @@ impl std::fmt::Debug for super::DataStore {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::data_store::BillingEstimation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BillingEstimation");
         debug_struct.field("structured_data_size", &self.structured_data_size);
         debug_struct.field("unstructured_data_size", &self.unstructured_data_size);
         debug_struct.field("website_data_size", &self.website_data_size);
-        debug_struct.field(
-            "structured_data_update_time",
-            &self.structured_data_update_time,
-        );
-        debug_struct.field(
-            "unstructured_data_update_time",
-            &self.unstructured_data_update_time,
-        );
+        debug_struct.field("structured_data_update_time", &self.structured_data_update_time);
+        debug_struct.field("unstructured_data_update_time", &self.unstructured_data_update_time);
         debug_struct.field("website_data_update_time", &self.website_data_update_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2052,7 +1907,7 @@ impl std::fmt::Debug for super::data_store::BillingEstimation {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::AdvancedSiteSearchConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdvancedSiteSearchConfig");
@@ -2065,16 +1920,13 @@ impl std::fmt::Debug for super::AdvancedSiteSearchConfig {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::WorkspaceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkspaceConfig");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("dasher_customer_id", &self.dasher_customer_id);
-        debug_struct.field(
-            "super_admin_service_account",
-            &self.super_admin_service_account,
-        );
+        debug_struct.field("super_admin_service_account", &self.super_admin_service_account);
         debug_struct.field("super_admin_email_address", &self.super_admin_email_address);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2083,21 +1935,15 @@ impl std::fmt::Debug for super::WorkspaceConfig {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::CreateDataStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDataStoreRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("data_store", &self.data_store);
         debug_struct.field("data_store_id", &self.data_store_id);
-        debug_struct.field(
-            "create_advanced_site_search",
-            &self.create_advanced_site_search,
-        );
-        debug_struct.field(
-            "skip_default_schema_creation",
-            &self.skip_default_schema_creation,
-        );
+        debug_struct.field("create_advanced_site_search", &self.create_advanced_site_search);
+        debug_struct.field("skip_default_schema_creation", &self.skip_default_schema_creation);
         debug_struct.field("cmek_options", &self.cmek_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2106,7 +1952,7 @@ impl std::fmt::Debug for super::CreateDataStoreRequest {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::GetDataStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDataStoreRequest");
@@ -2118,7 +1964,7 @@ impl std::fmt::Debug for super::GetDataStoreRequest {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::CreateDataStoreMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDataStoreMetadata");
@@ -2131,7 +1977,7 @@ impl std::fmt::Debug for super::CreateDataStoreMetadata {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::ListDataStoresRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDataStoresRequest");
@@ -2146,7 +1992,7 @@ impl std::fmt::Debug for super::ListDataStoresRequest {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::ListDataStoresResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDataStoresResponse");
@@ -2159,7 +2005,7 @@ impl std::fmt::Debug for super::ListDataStoresResponse {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::DeleteDataStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDataStoreRequest");
@@ -2171,7 +2017,7 @@ impl std::fmt::Debug for super::DeleteDataStoreRequest {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::UpdateDataStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDataStoreRequest");
@@ -2184,7 +2030,7 @@ impl std::fmt::Debug for super::UpdateDataStoreRequest {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::DeleteDataStoreMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDataStoreMetadata");
@@ -2197,12 +2043,7 @@ impl std::fmt::Debug for super::DeleteDataStoreMetadata {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::Document {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Document");
@@ -2223,12 +2064,7 @@ impl std::fmt::Debug for super::Document {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::document::Content {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Content");
@@ -2241,12 +2077,7 @@ impl std::fmt::Debug for super::document::Content {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::document::AclInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AclInfo");
@@ -2258,12 +2089,7 @@ impl std::fmt::Debug for super::document::AclInfo {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::document::acl_info::AccessRestriction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AccessRestriction");
@@ -2276,12 +2102,7 @@ impl std::fmt::Debug for super::document::acl_info::AccessRestriction {
     }
 }
 
-#[cfg(any(
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-))]
+#[cfg(any ( feature = "conversational-search-service",feature = "document-service",feature = "recommendation-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::document::IndexStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IndexStatus");
@@ -2295,7 +2116,7 @@ impl std::fmt::Debug for super::document::IndexStatus {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::DocumentProcessingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentProcessingConfig");
@@ -2310,7 +2131,7 @@ impl std::fmt::Debug for super::DocumentProcessingConfig {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::document_processing_config::ChunkingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkingConfig");
@@ -2322,10 +2143,8 @@ impl std::fmt::Debug for super::document_processing_config::ChunkingConfig {
     }
 }
 
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug
-    for super::document_processing_config::chunking_config::LayoutBasedChunkingConfig
-{
+#[cfg(feature = "data-store-service" )]
+impl std::fmt::Debug for super::document_processing_config::chunking_config::LayoutBasedChunkingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LayoutBasedChunkingConfig");
         debug_struct.field("chunk_size", &self.chunk_size);
@@ -2337,7 +2156,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::document_processing_config::ParsingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ParsingConfig");
@@ -2349,7 +2168,7 @@ impl std::fmt::Debug for super::document_processing_config::ParsingConfig {
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::document_processing_config::parsing_config::DigitalParsingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DigitalParsingConfig");
@@ -2360,14 +2179,11 @@ impl std::fmt::Debug for super::document_processing_config::parsing_config::Digi
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::document_processing_config::parsing_config::OcrParsingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OcrParsingConfig");
-        debug_struct.field(
-            "enhanced_document_elements",
-            &self.enhanced_document_elements,
-        );
+        debug_struct.field("enhanced_document_elements", &self.enhanced_document_elements);
         debug_struct.field("use_native_text", &self.use_native_text);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2376,7 +2192,7 @@ impl std::fmt::Debug for super::document_processing_config::parsing_config::OcrP
     }
 }
 
-#[cfg(feature = "data-store-service")]
+#[cfg(feature = "data-store-service" )]
 impl std::fmt::Debug for super::document_processing_config::parsing_config::LayoutParsingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LayoutParsingConfig");
@@ -2393,7 +2209,8 @@ impl std::fmt::Debug for super::document_processing_config::parsing_config::Layo
     }
 }
 
-#[cfg(feature = "document-service")]
+
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::GetDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDocumentRequest");
@@ -2405,7 +2222,7 @@ impl std::fmt::Debug for super::GetDocumentRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::ListDocumentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDocumentsRequest");
@@ -2419,7 +2236,7 @@ impl std::fmt::Debug for super::ListDocumentsRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::ListDocumentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDocumentsResponse");
@@ -2432,7 +2249,7 @@ impl std::fmt::Debug for super::ListDocumentsResponse {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::CreateDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateDocumentRequest");
@@ -2446,7 +2263,7 @@ impl std::fmt::Debug for super::CreateDocumentRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::UpdateDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateDocumentRequest");
@@ -2460,7 +2277,7 @@ impl std::fmt::Debug for super::UpdateDocumentRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::DeleteDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteDocumentRequest");
@@ -2472,7 +2289,7 @@ impl std::fmt::Debug for super::DeleteDocumentRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::BatchGetDocumentsMetadataRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchGetDocumentsMetadataRequest");
@@ -2485,7 +2302,7 @@ impl std::fmt::Debug for super::BatchGetDocumentsMetadataRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::batch_get_documents_metadata_request::UrisMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UrisMatcher");
@@ -2497,7 +2314,7 @@ impl std::fmt::Debug for super::batch_get_documents_metadata_request::UrisMatche
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::batch_get_documents_metadata_request::FhirMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FhirMatcher");
@@ -2509,7 +2326,7 @@ impl std::fmt::Debug for super::batch_get_documents_metadata_request::FhirMatche
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::batch_get_documents_metadata_request::Matcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Matcher");
@@ -2521,7 +2338,7 @@ impl std::fmt::Debug for super::batch_get_documents_metadata_request::Matcher {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::BatchGetDocumentsMetadataResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchGetDocumentsMetadataResponse");
@@ -2533,7 +2350,7 @@ impl std::fmt::Debug for super::BatchGetDocumentsMetadataResponse {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::batch_get_documents_metadata_response::DocumentMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
@@ -2548,10 +2365,8 @@ impl std::fmt::Debug for super::batch_get_documents_metadata_response::DocumentM
     }
 }
 
-#[cfg(feature = "document-service")]
-impl std::fmt::Debug
-    for super::batch_get_documents_metadata_response::document_metadata::MatcherValue
-{
+#[cfg(feature = "document-service" )]
+impl std::fmt::Debug for super::batch_get_documents_metadata_response::document_metadata::MatcherValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MatcherValue");
         debug_struct.field("matcher_value", &self.matcher_value);
@@ -2562,7 +2377,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::Engine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Engine");
@@ -2584,7 +2399,7 @@ impl std::fmt::Debug for super::Engine {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::SearchEngineConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEngineConfig");
@@ -2597,16 +2412,13 @@ impl std::fmt::Debug for super::engine::SearchEngineConfig {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::MediaRecommendationEngineConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MediaRecommendationEngineConfig");
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("optimization_objective", &self.optimization_objective);
-        debug_struct.field(
-            "optimization_objective_config",
-            &self.optimization_objective_config,
-        );
+        debug_struct.field("optimization_objective_config", &self.optimization_objective_config);
         debug_struct.field("training_state", &self.training_state);
         debug_struct.field("engine_features_config", &self.engine_features_config);
         if !self._unknown_fields.is_empty() {
@@ -2616,10 +2428,8 @@ impl std::fmt::Debug for super::engine::MediaRecommendationEngineConfig {
     }
 }
 
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug
-    for super::engine::media_recommendation_engine_config::OptimizationObjectiveConfig
-{
+#[cfg(feature = "engine-service" )]
+impl std::fmt::Debug for super::engine::media_recommendation_engine_config::OptimizationObjectiveConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OptimizationObjectiveConfig");
         debug_struct.field("target_field", &self.target_field);
@@ -2631,7 +2441,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::media_recommendation_engine_config::EngineFeaturesConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EngineFeaturesConfig");
@@ -2643,10 +2453,8 @@ impl std::fmt::Debug for super::engine::media_recommendation_engine_config::Engi
     }
 }
 
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug
-    for super::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig
-{
+#[cfg(feature = "engine-service" )]
+impl std::fmt::Debug for super::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendedForYouFeatureConfig");
         debug_struct.field("context_event_type", &self.context_event_type);
@@ -2657,10 +2465,8 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug
-    for super::engine::media_recommendation_engine_config::MostPopularFeatureConfig
-{
+#[cfg(feature = "engine-service" )]
+impl std::fmt::Debug for super::engine::media_recommendation_engine_config::MostPopularFeatureConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MostPopularFeatureConfig");
         debug_struct.field("time_window_days", &self.time_window_days);
@@ -2671,7 +2477,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::ChatEngineConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChatEngineConfig");
@@ -2685,7 +2491,7 @@ impl std::fmt::Debug for super::engine::ChatEngineConfig {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::chat_engine_config::AgentCreationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AgentCreationConfig");
@@ -2700,7 +2506,7 @@ impl std::fmt::Debug for super::engine::chat_engine_config::AgentCreationConfig 
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::CommonConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CommonConfig");
@@ -2712,7 +2518,7 @@ impl std::fmt::Debug for super::engine::CommonConfig {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::engine::ChatEngineMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChatEngineMetadata");
@@ -2724,7 +2530,7 @@ impl std::fmt::Debug for super::engine::ChatEngineMetadata {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::CreateEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEngineRequest");
@@ -2738,7 +2544,7 @@ impl std::fmt::Debug for super::CreateEngineRequest {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::CreateEngineMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateEngineMetadata");
@@ -2751,7 +2557,7 @@ impl std::fmt::Debug for super::CreateEngineMetadata {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::DeleteEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEngineRequest");
@@ -2763,7 +2569,7 @@ impl std::fmt::Debug for super::DeleteEngineRequest {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::DeleteEngineMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEngineMetadata");
@@ -2776,7 +2582,7 @@ impl std::fmt::Debug for super::DeleteEngineMetadata {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::GetEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEngineRequest");
@@ -2788,7 +2594,7 @@ impl std::fmt::Debug for super::GetEngineRequest {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::ListEnginesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEnginesRequest");
@@ -2803,7 +2609,7 @@ impl std::fmt::Debug for super::ListEnginesRequest {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::ListEnginesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListEnginesResponse");
@@ -2816,7 +2622,7 @@ impl std::fmt::Debug for super::ListEnginesResponse {
     }
 }
 
-#[cfg(feature = "engine-service")]
+#[cfg(feature = "engine-service" )]
 impl std::fmt::Debug for super::UpdateEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateEngineRequest");
@@ -2829,7 +2635,7 @@ impl std::fmt::Debug for super::UpdateEngineRequest {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::GroundedGenerationContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundedGenerationContent");
@@ -2842,7 +2648,7 @@ impl std::fmt::Debug for super::GroundedGenerationContent {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::grounded_generation_content::Part {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Part");
@@ -2854,7 +2660,7 @@ impl std::fmt::Debug for super::grounded_generation_content::Part {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::GenerateGroundedContentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateGroundedContentRequest");
@@ -2871,7 +2677,7 @@ impl std::fmt::Debug for super::GenerateGroundedContentRequest {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::GenerationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerationSpec");
@@ -2891,7 +2697,7 @@ impl std::fmt::Debug for super::generate_grounded_content_request::GenerationSpe
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::DynamicRetrievalConfiguration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DynamicRetrievalConfiguration");
@@ -2903,7 +2709,7 @@ impl std::fmt::Debug for super::generate_grounded_content_request::DynamicRetrie
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::dynamic_retrieval_configuration::DynamicRetrievalPredictor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DynamicRetrievalPredictor");
@@ -2916,7 +2722,7 @@ impl std::fmt::Debug for super::generate_grounded_content_request::dynamic_retri
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::GroundingSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSource");
@@ -2928,7 +2734,7 @@ impl std::fmt::Debug for super::generate_grounded_content_request::GroundingSour
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::grounding_source::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -2941,7 +2747,7 @@ impl std::fmt::Debug for super::generate_grounded_content_request::grounding_sou
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::grounding_source::SearchSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchSource");
@@ -2956,10 +2762,8 @@ impl std::fmt::Debug for super::generate_grounded_content_request::grounding_sou
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_request::grounding_source::GoogleSearchSource
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_request::grounding_source::GoogleSearchSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GoogleSearchSource");
         debug_struct.field("dynamic_retrieval_config", &self.dynamic_retrieval_config);
@@ -2970,10 +2774,8 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnterpriseWebRetrievalSource");
         if !self._unknown_fields.is_empty() {
@@ -2983,7 +2785,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_request::GroundingSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSpec");
@@ -2995,7 +2797,8 @@ impl std::fmt::Debug for super::generate_grounded_content_request::GroundingSpec
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::GenerateGroundedContentResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerateGroundedContentResponse");
@@ -3007,7 +2810,7 @@ impl std::fmt::Debug for super::GenerateGroundedContentResponse {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::Candidate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Candidate");
@@ -3022,7 +2825,7 @@ impl std::fmt::Debug for super::generate_grounded_content_response::Candidate {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::candidate::GroundingMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingMetadata");
@@ -3039,17 +2842,12 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::G
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_response::candidate::grounding_metadata::RetrievalMetadata
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::RetrievalMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetrievalMetadata");
         debug_struct.field("source", &self.source);
-        debug_struct.field(
-            "dynamic_retrieval_metadata",
-            &self.dynamic_retrieval_metadata,
-        );
+        debug_struct.field("dynamic_retrieval_metadata", &self.dynamic_retrieval_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3057,7 +2855,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DynamicRetrievalMetadata");
@@ -3069,7 +2867,7 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalPredictorMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DynamicRetrievalPredictorMetadata");
@@ -3082,10 +2880,8 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEntryPoint");
         debug_struct.field("rendered_content", &self.rendered_content);
@@ -3097,10 +2893,8 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingSupport");
         debug_struct.field("claim_text", &self.claim_text);
@@ -3113,10 +2907,8 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata
-{
+#[cfg(feature = "grounded-generation-service" )]
+impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageMetadata");
         debug_struct.field("image", &self.image);
@@ -3129,7 +2921,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WebsiteInfo");
@@ -3142,7 +2934,7 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Image");
@@ -3156,7 +2948,7 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::CheckGroundingSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckGroundingSpec");
@@ -3169,7 +2961,7 @@ impl std::fmt::Debug for super::CheckGroundingSpec {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::CheckGroundingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckGroundingRequest");
@@ -3185,7 +2977,7 @@ impl std::fmt::Debug for super::CheckGroundingRequest {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::CheckGroundingResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckGroundingResponse");
@@ -3200,7 +2992,7 @@ impl std::fmt::Debug for super::CheckGroundingResponse {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::check_grounding_response::CheckGroundingFactChunk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CheckGroundingFactChunk");
@@ -3212,7 +3004,7 @@ impl std::fmt::Debug for super::check_grounding_response::CheckGroundingFactChun
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::check_grounding_response::Claim {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Claim");
@@ -3229,7 +3021,7 @@ impl std::fmt::Debug for super::check_grounding_response::Claim {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::GroundingFact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GroundingFact");
@@ -3242,7 +3034,7 @@ impl std::fmt::Debug for super::GroundingFact {
     }
 }
 
-#[cfg(feature = "grounded-generation-service")]
+#[cfg(feature = "grounded-generation-service" )]
 impl std::fmt::Debug for super::FactChunk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FactChunk");
@@ -3260,7 +3052,7 @@ impl std::fmt::Debug for super::FactChunk {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::IdentityMappingStore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IdentityMappingStore");
@@ -3274,7 +3066,7 @@ impl std::fmt::Debug for super::IdentityMappingStore {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::IdentityMappingEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IdentityMappingEntry");
@@ -3287,7 +3079,7 @@ impl std::fmt::Debug for super::IdentityMappingEntry {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::CreateIdentityMappingStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateIdentityMappingStoreRequest");
@@ -3302,7 +3094,7 @@ impl std::fmt::Debug for super::CreateIdentityMappingStoreRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::GetIdentityMappingStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetIdentityMappingStoreRequest");
@@ -3314,7 +3106,7 @@ impl std::fmt::Debug for super::GetIdentityMappingStoreRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::DeleteIdentityMappingStoreRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteIdentityMappingStoreRequest");
@@ -3326,7 +3118,7 @@ impl std::fmt::Debug for super::DeleteIdentityMappingStoreRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ImportIdentityMappingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportIdentityMappingsRequest");
@@ -3339,7 +3131,7 @@ impl std::fmt::Debug for super::ImportIdentityMappingsRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::import_identity_mappings_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3351,7 +3143,7 @@ impl std::fmt::Debug for super::import_identity_mappings_request::InlineSource {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ImportIdentityMappingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportIdentityMappingsResponse");
@@ -3363,7 +3155,7 @@ impl std::fmt::Debug for super::ImportIdentityMappingsResponse {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::PurgeIdentityMappingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeIdentityMappingsRequest");
@@ -3378,7 +3170,7 @@ impl std::fmt::Debug for super::PurgeIdentityMappingsRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::purge_identity_mappings_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3390,7 +3182,7 @@ impl std::fmt::Debug for super::purge_identity_mappings_request::InlineSource {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ListIdentityMappingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIdentityMappingsRequest");
@@ -3404,7 +3196,7 @@ impl std::fmt::Debug for super::ListIdentityMappingsRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ListIdentityMappingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIdentityMappingsResponse");
@@ -3417,7 +3209,7 @@ impl std::fmt::Debug for super::ListIdentityMappingsResponse {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ListIdentityMappingStoresRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIdentityMappingStoresRequest");
@@ -3431,7 +3223,7 @@ impl std::fmt::Debug for super::ListIdentityMappingStoresRequest {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::ListIdentityMappingStoresResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListIdentityMappingStoresResponse");
@@ -3444,7 +3236,7 @@ impl std::fmt::Debug for super::ListIdentityMappingStoresResponse {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::IdentityMappingEntryOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IdentityMappingEntryOperationMetadata");
@@ -3458,7 +3250,7 @@ impl std::fmt::Debug for super::IdentityMappingEntryOperationMetadata {
     }
 }
 
-#[cfg(feature = "identity-mapping-store-service")]
+#[cfg(feature = "identity-mapping-store-service" )]
 impl std::fmt::Debug for super::DeleteIdentityMappingStoreMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteIdentityMappingStoreMetadata");
@@ -3471,11 +3263,7 @@ impl std::fmt::Debug for super::DeleteIdentityMappingStoreMetadata {
     }
 }
 
-#[cfg(any(
-    feature = "completion-service",
-    feature = "document-service",
-    feature = "user-event-service",
-))]
+#[cfg(any ( feature = "completion-service",feature = "document-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::GcsSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsSource");
@@ -3488,11 +3276,7 @@ impl std::fmt::Debug for super::GcsSource {
     }
 }
 
-#[cfg(any(
-    feature = "completion-service",
-    feature = "document-service",
-    feature = "user-event-service",
-))]
+#[cfg(any ( feature = "completion-service",feature = "document-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::BigQuerySource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQuerySource");
@@ -3509,7 +3293,7 @@ impl std::fmt::Debug for super::BigQuerySource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::SpannerSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpannerSource");
@@ -3525,7 +3309,7 @@ impl std::fmt::Debug for super::SpannerSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::BigtableOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableOptions");
@@ -3538,7 +3322,7 @@ impl std::fmt::Debug for super::BigtableOptions {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::bigtable_options::BigtableColumnFamily {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableColumnFamily");
@@ -3553,7 +3337,7 @@ impl std::fmt::Debug for super::bigtable_options::BigtableColumnFamily {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::bigtable_options::BigtableColumn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableColumn");
@@ -3568,7 +3352,8 @@ impl std::fmt::Debug for super::bigtable_options::BigtableColumn {
     }
 }
 
-#[cfg(feature = "document-service")]
+
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::BigtableSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigtableSource");
@@ -3583,17 +3368,14 @@ impl std::fmt::Debug for super::BigtableSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::FhirStoreSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FhirStoreSource");
         debug_struct.field("fhir_store", &self.fhir_store);
         debug_struct.field("gcs_staging_dir", &self.gcs_staging_dir);
         debug_struct.field("resource_types", &self.resource_types);
-        debug_struct.field(
-            "update_from_latest_predefined_schema",
-            &self.update_from_latest_predefined_schema,
-        );
+        debug_struct.field("update_from_latest_predefined_schema", &self.update_from_latest_predefined_schema);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3601,7 +3383,7 @@ impl std::fmt::Debug for super::FhirStoreSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::CloudSqlSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlSource");
@@ -3618,7 +3400,7 @@ impl std::fmt::Debug for super::CloudSqlSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::AlloyDbSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AlloyDbSource");
@@ -3635,7 +3417,7 @@ impl std::fmt::Debug for super::AlloyDbSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::FirestoreSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FirestoreSource");
@@ -3650,12 +3432,7 @@ impl std::fmt::Debug for super::FirestoreSource {
     }
 }
 
-#[cfg(any(
-    feature = "completion-service",
-    feature = "document-service",
-    feature = "search-tuning-service",
-    feature = "user-event-service",
-))]
+#[cfg(any ( feature = "completion-service",feature = "document-service",feature = "search-tuning-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::ImportErrorConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportErrorConfig");
@@ -3667,7 +3444,7 @@ impl std::fmt::Debug for super::ImportErrorConfig {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::ImportUserEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportUserEventsRequest");
@@ -3681,7 +3458,7 @@ impl std::fmt::Debug for super::ImportUserEventsRequest {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::import_user_events_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3693,7 +3470,7 @@ impl std::fmt::Debug for super::import_user_events_request::InlineSource {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::ImportUserEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportUserEventsResponse");
@@ -3708,7 +3485,7 @@ impl std::fmt::Debug for super::ImportUserEventsResponse {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::ImportUserEventsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportUserEventsMetadata");
@@ -3723,7 +3500,7 @@ impl std::fmt::Debug for super::ImportUserEventsMetadata {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::ImportDocumentsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentsMetadata");
@@ -3739,7 +3516,7 @@ impl std::fmt::Debug for super::ImportDocumentsMetadata {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::ImportDocumentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentsRequest");
@@ -3758,7 +3535,7 @@ impl std::fmt::Debug for super::ImportDocumentsRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::import_documents_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3770,7 +3547,7 @@ impl std::fmt::Debug for super::import_documents_request::InlineSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::ImportDocumentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportDocumentsResponse");
@@ -3783,7 +3560,7 @@ impl std::fmt::Debug for super::ImportDocumentsResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportSuggestionDenyListEntriesRequest");
@@ -3796,7 +3573,7 @@ impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesRequest {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::import_suggestion_deny_list_entries_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3808,7 +3585,7 @@ impl std::fmt::Debug for super::import_suggestion_deny_list_entries_request::Inl
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportSuggestionDenyListEntriesResponse");
@@ -3822,7 +3599,7 @@ impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportSuggestionDenyListEntriesMetadata");
@@ -3835,7 +3612,7 @@ impl std::fmt::Debug for super::ImportSuggestionDenyListEntriesMetadata {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportCompletionSuggestionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportCompletionSuggestionsRequest");
@@ -3849,7 +3626,7 @@ impl std::fmt::Debug for super::ImportCompletionSuggestionsRequest {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::import_completion_suggestions_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -3861,7 +3638,7 @@ impl std::fmt::Debug for super::import_completion_suggestions_request::InlineSou
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportCompletionSuggestionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportCompletionSuggestionsResponse");
@@ -3874,7 +3651,7 @@ impl std::fmt::Debug for super::ImportCompletionSuggestionsResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::ImportCompletionSuggestionsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImportCompletionSuggestionsMetadata");
@@ -3889,7 +3666,7 @@ impl std::fmt::Debug for super::ImportCompletionSuggestionsMetadata {
     }
 }
 
-#[cfg(feature = "project-service")]
+#[cfg(feature = "project-service" )]
 impl std::fmt::Debug for super::Project {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Project");
@@ -3904,7 +3681,7 @@ impl std::fmt::Debug for super::Project {
     }
 }
 
-#[cfg(feature = "project-service")]
+#[cfg(feature = "project-service" )]
 impl std::fmt::Debug for super::project::ServiceTerms {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceTerms");
@@ -3920,7 +3697,8 @@ impl std::fmt::Debug for super::project::ServiceTerms {
     }
 }
 
-#[cfg(feature = "project-service")]
+
+#[cfg(feature = "project-service" )]
 impl std::fmt::Debug for super::ProvisionProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProvisionProjectRequest");
@@ -3934,7 +3712,7 @@ impl std::fmt::Debug for super::ProvisionProjectRequest {
     }
 }
 
-#[cfg(feature = "project-service")]
+#[cfg(feature = "project-service" )]
 impl std::fmt::Debug for super::ProvisionProjectMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProvisionProjectMetadata");
@@ -3945,7 +3723,7 @@ impl std::fmt::Debug for super::ProvisionProjectMetadata {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::PurgeUserEventsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeUserEventsRequest");
@@ -3959,7 +3737,7 @@ impl std::fmt::Debug for super::PurgeUserEventsRequest {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::PurgeUserEventsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeUserEventsResponse");
@@ -3971,7 +3749,7 @@ impl std::fmt::Debug for super::PurgeUserEventsResponse {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::PurgeUserEventsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeUserEventsMetadata");
@@ -3986,7 +3764,7 @@ impl std::fmt::Debug for super::PurgeUserEventsMetadata {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::PurgeErrorConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeErrorConfig");
@@ -3998,7 +3776,7 @@ impl std::fmt::Debug for super::PurgeErrorConfig {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::PurgeDocumentsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeDocumentsRequest");
@@ -4014,7 +3792,7 @@ impl std::fmt::Debug for super::PurgeDocumentsRequest {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::purge_documents_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -4026,7 +3804,7 @@ impl std::fmt::Debug for super::purge_documents_request::InlineSource {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::PurgeDocumentsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeDocumentsResponse");
@@ -4039,7 +3817,7 @@ impl std::fmt::Debug for super::PurgeDocumentsResponse {
     }
 }
 
-#[cfg(feature = "document-service")]
+#[cfg(feature = "document-service" )]
 impl std::fmt::Debug for super::PurgeDocumentsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeDocumentsMetadata");
@@ -4055,7 +3833,7 @@ impl std::fmt::Debug for super::PurgeDocumentsMetadata {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeSuggestionDenyListEntriesRequest");
@@ -4067,7 +3845,7 @@ impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesRequest {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeSuggestionDenyListEntriesResponse");
@@ -4080,7 +3858,7 @@ impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeSuggestionDenyListEntriesMetadata");
@@ -4093,7 +3871,7 @@ impl std::fmt::Debug for super::PurgeSuggestionDenyListEntriesMetadata {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeCompletionSuggestionsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeCompletionSuggestionsRequest");
@@ -4105,7 +3883,7 @@ impl std::fmt::Debug for super::PurgeCompletionSuggestionsRequest {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeCompletionSuggestionsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeCompletionSuggestionsResponse");
@@ -4118,7 +3896,7 @@ impl std::fmt::Debug for super::PurgeCompletionSuggestionsResponse {
     }
 }
 
-#[cfg(feature = "completion-service")]
+#[cfg(feature = "completion-service" )]
 impl std::fmt::Debug for super::PurgeCompletionSuggestionsMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PurgeCompletionSuggestionsMetadata");
@@ -4131,7 +3909,7 @@ impl std::fmt::Debug for super::PurgeCompletionSuggestionsMetadata {
     }
 }
 
-#[cfg(feature = "rank-service")]
+#[cfg(feature = "rank-service" )]
 impl std::fmt::Debug for super::RankingRecord {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RankingRecord");
@@ -4146,7 +3924,7 @@ impl std::fmt::Debug for super::RankingRecord {
     }
 }
 
-#[cfg(feature = "rank-service")]
+#[cfg(feature = "rank-service" )]
 impl std::fmt::Debug for super::RankRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RankRequest");
@@ -4155,10 +3933,7 @@ impl std::fmt::Debug for super::RankRequest {
         debug_struct.field("top_n", &self.top_n);
         debug_struct.field("query", &self.query);
         debug_struct.field("records", &self.records);
-        debug_struct.field(
-            "ignore_record_details_in_response",
-            &self.ignore_record_details_in_response,
-        );
+        debug_struct.field("ignore_record_details_in_response", &self.ignore_record_details_in_response);
         debug_struct.field("user_labels", &self.user_labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -4167,7 +3942,7 @@ impl std::fmt::Debug for super::RankRequest {
     }
 }
 
-#[cfg(feature = "rank-service")]
+#[cfg(feature = "rank-service" )]
 impl std::fmt::Debug for super::RankResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RankResponse");
@@ -4179,7 +3954,7 @@ impl std::fmt::Debug for super::RankResponse {
     }
 }
 
-#[cfg(feature = "recommendation-service")]
+#[cfg(feature = "recommendation-service" )]
 impl std::fmt::Debug for super::RecommendRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendRequest");
@@ -4197,7 +3972,7 @@ impl std::fmt::Debug for super::RecommendRequest {
     }
 }
 
-#[cfg(feature = "recommendation-service")]
+#[cfg(feature = "recommendation-service" )]
 impl std::fmt::Debug for super::RecommendResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendResponse");
@@ -4212,7 +3987,7 @@ impl std::fmt::Debug for super::RecommendResponse {
     }
 }
 
-#[cfg(feature = "recommendation-service")]
+#[cfg(feature = "recommendation-service" )]
 impl std::fmt::Debug for super::recommend_response::RecommendationResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecommendationResult");
@@ -4226,7 +4001,7 @@ impl std::fmt::Debug for super::recommend_response::RecommendationResult {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::SafetyRating {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SafetyRating");
@@ -4243,7 +4018,7 @@ impl std::fmt::Debug for super::SafetyRating {
     }
 }
 
-#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
+#[cfg(any ( feature = "data-store-service",feature = "schema-service", ) )]
 impl std::fmt::Debug for super::Schema {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Schema");
@@ -4256,7 +4031,7 @@ impl std::fmt::Debug for super::Schema {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::GetSchemaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSchemaRequest");
@@ -4268,7 +4043,7 @@ impl std::fmt::Debug for super::GetSchemaRequest {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::ListSchemasRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemasRequest");
@@ -4282,7 +4057,7 @@ impl std::fmt::Debug for super::ListSchemasRequest {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::ListSchemasResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSchemasResponse");
@@ -4295,7 +4070,7 @@ impl std::fmt::Debug for super::ListSchemasResponse {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::CreateSchemaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSchemaRequest");
@@ -4309,7 +4084,7 @@ impl std::fmt::Debug for super::CreateSchemaRequest {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::UpdateSchemaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSchemaRequest");
@@ -4322,7 +4097,7 @@ impl std::fmt::Debug for super::UpdateSchemaRequest {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::DeleteSchemaRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaRequest");
@@ -4334,7 +4109,7 @@ impl std::fmt::Debug for super::DeleteSchemaRequest {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::CreateSchemaMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSchemaMetadata");
@@ -4347,7 +4122,7 @@ impl std::fmt::Debug for super::CreateSchemaMetadata {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::UpdateSchemaMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateSchemaMetadata");
@@ -4360,7 +4135,7 @@ impl std::fmt::Debug for super::UpdateSchemaMetadata {
     }
 }
 
-#[cfg(feature = "schema-service")]
+#[cfg(feature = "schema-service" )]
 impl std::fmt::Debug for super::DeleteSchemaMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSchemaMetadata");
@@ -4373,12 +4148,7 @@ impl std::fmt::Debug for super::DeleteSchemaMetadata {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::SearchRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchRequest");
@@ -4412,10 +4182,7 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("relevance_threshold", &self.relevance_threshold);
         debug_struct.field("relevance_score_spec", &self.relevance_score_spec);
         debug_struct.field("ranking_expression", &self.ranking_expression);
-        debug_struct.field(
-            "ranking_expression_backend",
-            &self.ranking_expression_backend,
-        );
+        debug_struct.field("ranking_expression_backend", &self.ranking_expression_backend);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4423,12 +4190,7 @@ impl std::fmt::Debug for super::SearchRequest {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::ImageQuery {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageQuery");
@@ -4440,12 +4202,7 @@ impl std::fmt::Debug for super::search_request::ImageQuery {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::DataStoreSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataStoreSpec");
@@ -4460,12 +4217,7 @@ impl std::fmt::Debug for super::search_request::DataStoreSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::FacetSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FacetSpec");
@@ -4480,12 +4232,7 @@ impl std::fmt::Debug for super::search_request::FacetSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::facet_spec::FacetKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FacetKey");
@@ -4503,12 +4250,7 @@ impl std::fmt::Debug for super::search_request::facet_spec::FacetKey {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::BoostSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostSpec");
@@ -4520,12 +4262,7 @@ impl std::fmt::Debug for super::search_request::BoostSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::boost_spec::ConditionBoostSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConditionBoostSpec");
@@ -4539,12 +4276,7 @@ impl std::fmt::Debug for super::search_request::boost_spec::ConditionBoostSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::boost_spec::condition_boost_spec::BoostControlSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BoostControlSpec");
@@ -4559,15 +4291,8 @@ impl std::fmt::Debug for super::search_request::boost_spec::condition_boost_spec
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
-impl std::fmt::Debug
-    for super::search_request::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint
-{
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
+impl std::fmt::Debug for super::search_request::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ControlPoint");
         debug_struct.field("attribute_value", &self.attribute_value);
@@ -4579,12 +4304,7 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::QueryExpansionSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryExpansionSpec");
@@ -4597,12 +4317,7 @@ impl std::fmt::Debug for super::search_request::QueryExpansionSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::SpellCorrectionSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpellCorrectionSpec");
@@ -4614,12 +4329,7 @@ impl std::fmt::Debug for super::search_request::SpellCorrectionSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::ContentSearchSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContentSearchSpec");
@@ -4635,12 +4345,7 @@ impl std::fmt::Debug for super::search_request::ContentSearchSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::SnippetSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnippetSpec");
@@ -4654,30 +4359,16 @@ impl std::fmt::Debug for super::search_request::content_search_spec::SnippetSpec
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::SummarySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummarySpec");
         debug_struct.field("summary_result_count", &self.summary_result_count);
         debug_struct.field("include_citations", &self.include_citations);
         debug_struct.field("ignore_adversarial_query", &self.ignore_adversarial_query);
-        debug_struct.field(
-            "ignore_non_summary_seeking_query",
-            &self.ignore_non_summary_seeking_query,
-        );
-        debug_struct.field(
-            "ignore_low_relevant_content",
-            &self.ignore_low_relevant_content,
-        );
-        debug_struct.field(
-            "ignore_jail_breaking_query",
-            &self.ignore_jail_breaking_query,
-        );
+        debug_struct.field("ignore_non_summary_seeking_query", &self.ignore_non_summary_seeking_query);
+        debug_struct.field("ignore_low_relevant_content", &self.ignore_low_relevant_content);
+        debug_struct.field("ignore_jail_breaking_query", &self.ignore_jail_breaking_query);
         debug_struct.field("model_prompt_spec", &self.model_prompt_spec);
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("model_spec", &self.model_spec);
@@ -4689,12 +4380,7 @@ impl std::fmt::Debug for super::search_request::content_search_spec::SummarySpec
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::summary_spec::ModelPromptSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelPromptSpec");
@@ -4706,12 +4392,7 @@ impl std::fmt::Debug for super::search_request::content_search_spec::summary_spe
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::summary_spec::ModelSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ModelSpec");
@@ -4723,27 +4404,13 @@ impl std::fmt::Debug for super::search_request::content_search_spec::summary_spe
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::ExtractiveContentSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExtractiveContentSpec");
-        debug_struct.field(
-            "max_extractive_answer_count",
-            &self.max_extractive_answer_count,
-        );
-        debug_struct.field(
-            "max_extractive_segment_count",
-            &self.max_extractive_segment_count,
-        );
-        debug_struct.field(
-            "return_extractive_segment_score",
-            &self.return_extractive_segment_score,
-        );
+        debug_struct.field("max_extractive_answer_count", &self.max_extractive_answer_count);
+        debug_struct.field("max_extractive_segment_count", &self.max_extractive_segment_count);
+        debug_struct.field("return_extractive_segment_score", &self.return_extractive_segment_score);
         debug_struct.field("num_previous_segments", &self.num_previous_segments);
         debug_struct.field("num_next_segments", &self.num_next_segments);
         if !self._unknown_fields.is_empty() {
@@ -4753,12 +4420,7 @@ impl std::fmt::Debug for super::search_request::content_search_spec::ExtractiveC
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::content_search_spec::ChunkSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkSpec");
@@ -4771,12 +4433,7 @@ impl std::fmt::Debug for super::search_request::content_search_spec::ChunkSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::SearchAsYouTypeSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAsYouTypeSpec");
@@ -4788,19 +4445,11 @@ impl std::fmt::Debug for super::search_request::SearchAsYouTypeSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::DisplaySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisplaySpec");
-        debug_struct.field(
-            "match_highlighting_condition",
-            &self.match_highlighting_condition,
-        );
+        debug_struct.field("match_highlighting_condition", &self.match_highlighting_condition);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4808,20 +4457,12 @@ impl std::fmt::Debug for super::search_request::DisplaySpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::SessionSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionSpec");
         debug_struct.field("query_id", &self.query_id);
-        debug_struct.field(
-            "search_result_persistence_count",
-            &self.search_result_persistence_count,
-        );
+        debug_struct.field("search_result_persistence_count", &self.search_result_persistence_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4829,12 +4470,7 @@ impl std::fmt::Debug for super::search_request::SessionSpec {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "search-service",feature = "serving-config-service", ) )]
 impl std::fmt::Debug for super::search_request::RelevanceScoreSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RelevanceScoreSpec");
@@ -4846,7 +4482,9 @@ impl std::fmt::Debug for super::search_request::RelevanceScoreSpec {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+
+
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::SearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResponse");
@@ -4868,7 +4506,7 @@ impl std::fmt::Debug for super::SearchResponse {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::SearchResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchResult");
@@ -4884,7 +4522,8 @@ impl std::fmt::Debug for super::search_response::SearchResult {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::search_result::RankSignals {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RankSignals");
@@ -4904,7 +4543,7 @@ impl std::fmt::Debug for super::search_response::search_result::RankSignals {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::search_result::rank_signals::CustomSignal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CustomSignal");
@@ -4917,7 +4556,7 @@ impl std::fmt::Debug for super::search_response::search_result::rank_signals::Cu
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::Facet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Facet");
@@ -4931,7 +4570,7 @@ impl std::fmt::Debug for super::search_response::Facet {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::facet::FacetValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FacetValue");
@@ -4944,7 +4583,7 @@ impl std::fmt::Debug for super::search_response::facet::FacetValue {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::Summary {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Summary");
@@ -4959,7 +4598,7 @@ impl std::fmt::Debug for super::search_response::Summary {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::SafetyAttributes {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SafetyAttributes");
@@ -4972,7 +4611,7 @@ impl std::fmt::Debug for super::search_response::summary::SafetyAttributes {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::CitationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CitationMetadata");
@@ -4984,7 +4623,7 @@ impl std::fmt::Debug for super::search_response::summary::CitationMetadata {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::Citation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Citation");
@@ -4998,7 +4637,7 @@ impl std::fmt::Debug for super::search_response::summary::Citation {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::CitationSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CitationSource");
@@ -5010,7 +4649,7 @@ impl std::fmt::Debug for super::search_response::summary::CitationSource {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
@@ -5025,7 +4664,7 @@ impl std::fmt::Debug for super::search_response::summary::Reference {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::reference::ChunkContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkContent");
@@ -5038,7 +4677,7 @@ impl std::fmt::Debug for super::search_response::summary::reference::ChunkConten
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::summary::SummaryWithMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SummaryWithMetadata");
@@ -5052,7 +4691,7 @@ impl std::fmt::Debug for super::search_response::summary::SummaryWithMetadata {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::QueryExpansionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryExpansionInfo");
@@ -5065,7 +4704,7 @@ impl std::fmt::Debug for super::search_response::QueryExpansionInfo {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "search-service", ) )]
 impl std::fmt::Debug for super::search_response::SessionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionInfo");
@@ -5078,7 +4717,7 @@ impl std::fmt::Debug for super::search_response::SessionInfo {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::ListCustomModelsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomModelsRequest");
@@ -5090,7 +4729,7 @@ impl std::fmt::Debug for super::ListCustomModelsRequest {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::ListCustomModelsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListCustomModelsResponse");
@@ -5102,7 +4741,7 @@ impl std::fmt::Debug for super::ListCustomModelsResponse {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::TrainCustomModelRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainCustomModelRequest");
@@ -5118,7 +4757,7 @@ impl std::fmt::Debug for super::TrainCustomModelRequest {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::train_custom_model_request::GcsTrainingInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GcsTrainingInput");
@@ -5133,7 +4772,7 @@ impl std::fmt::Debug for super::train_custom_model_request::GcsTrainingInput {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::TrainCustomModelResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainCustomModelResponse");
@@ -5149,7 +4788,7 @@ impl std::fmt::Debug for super::TrainCustomModelResponse {
     }
 }
 
-#[cfg(feature = "search-tuning-service")]
+#[cfg(feature = "search-tuning-service" )]
 impl std::fmt::Debug for super::TrainCustomModelMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrainCustomModelMetadata");
@@ -5162,7 +4801,7 @@ impl std::fmt::Debug for super::TrainCustomModelMetadata {
     }
 }
 
-#[cfg(feature = "serving-config-service")]
+#[cfg(feature = "serving-config-service" )]
 impl std::fmt::Debug for super::ServingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServingConfig");
@@ -5178,10 +4817,7 @@ impl std::fmt::Debug for super::ServingConfig {
         debug_struct.field("boost_control_ids", &self.boost_control_ids);
         debug_struct.field("redirect_control_ids", &self.redirect_control_ids);
         debug_struct.field("synonyms_control_ids", &self.synonyms_control_ids);
-        debug_struct.field(
-            "oneway_synonyms_control_ids",
-            &self.oneway_synonyms_control_ids,
-        );
+        debug_struct.field("oneway_synonyms_control_ids", &self.oneway_synonyms_control_ids);
         debug_struct.field("dissociate_control_ids", &self.dissociate_control_ids);
         debug_struct.field("replacement_control_ids", &self.replacement_control_ids);
         debug_struct.field("ignore_control_ids", &self.ignore_control_ids);
@@ -5194,19 +4830,13 @@ impl std::fmt::Debug for super::ServingConfig {
     }
 }
 
-#[cfg(feature = "serving-config-service")]
+#[cfg(feature = "serving-config-service" )]
 impl std::fmt::Debug for super::serving_config::MediaConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MediaConfig");
         debug_struct.field("demotion_event_type", &self.demotion_event_type);
-        debug_struct.field(
-            "demote_content_watched_past_days",
-            &self.demote_content_watched_past_days,
-        );
-        debug_struct.field(
-            "content_freshness_cutoff_days",
-            &self.content_freshness_cutoff_days,
-        );
+        debug_struct.field("demote_content_watched_past_days", &self.demote_content_watched_past_days);
+        debug_struct.field("content_freshness_cutoff_days", &self.content_freshness_cutoff_days);
         debug_struct.field("demote_content_watched", &self.demote_content_watched);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5215,7 +4845,7 @@ impl std::fmt::Debug for super::serving_config::MediaConfig {
     }
 }
 
-#[cfg(feature = "serving-config-service")]
+#[cfg(feature = "serving-config-service" )]
 impl std::fmt::Debug for super::serving_config::GenericConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenericConfig");
@@ -5227,7 +4857,7 @@ impl std::fmt::Debug for super::serving_config::GenericConfig {
     }
 }
 
-#[cfg(feature = "serving-config-service")]
+#[cfg(feature = "serving-config-service" )]
 impl std::fmt::Debug for super::UpdateServingConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateServingConfigRequest");
@@ -5240,7 +4870,7 @@ impl std::fmt::Debug for super::UpdateServingConfigRequest {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::Session {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Session");
@@ -5260,7 +4890,7 @@ impl std::fmt::Debug for super::Session {
     }
 }
 
-#[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
+#[cfg(any ( feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::session::Turn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Turn");
@@ -5276,11 +4906,7 @@ impl std::fmt::Debug for super::session::Turn {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
+#[cfg(any ( feature = "assistant-service",feature = "conversational-search-service",feature = "session-service", ) )]
 impl std::fmt::Debug for super::Query {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Query");
@@ -5293,7 +4919,7 @@ impl std::fmt::Debug for super::Query {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::SiteSearchEngine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SiteSearchEngine");
@@ -5305,7 +4931,7 @@ impl std::fmt::Debug for super::SiteSearchEngine {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::TargetSite {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetSite");
@@ -5326,7 +4952,7 @@ impl std::fmt::Debug for super::TargetSite {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::target_site::FailureReason {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailureReason");
@@ -5338,7 +4964,7 @@ impl std::fmt::Debug for super::target_site::FailureReason {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::target_site::failure_reason::QuotaFailure {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QuotaFailure");
@@ -5350,7 +4976,7 @@ impl std::fmt::Debug for super::target_site::failure_reason::QuotaFailure {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::SiteVerificationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SiteVerificationInfo");
@@ -5363,7 +4989,7 @@ impl std::fmt::Debug for super::SiteVerificationInfo {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::Sitemap {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Sitemap");
@@ -5377,7 +5003,7 @@ impl std::fmt::Debug for super::Sitemap {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::GetSiteSearchEngineRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetSiteSearchEngineRequest");
@@ -5389,7 +5015,7 @@ impl std::fmt::Debug for super::GetSiteSearchEngineRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::CreateTargetSiteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTargetSiteRequest");
@@ -5402,7 +5028,7 @@ impl std::fmt::Debug for super::CreateTargetSiteRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::CreateTargetSiteMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTargetSiteMetadata");
@@ -5415,7 +5041,7 @@ impl std::fmt::Debug for super::CreateTargetSiteMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchCreateTargetSitesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateTargetSitesRequest");
@@ -5428,7 +5054,7 @@ impl std::fmt::Debug for super::BatchCreateTargetSitesRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::GetTargetSiteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTargetSiteRequest");
@@ -5440,7 +5066,7 @@ impl std::fmt::Debug for super::GetTargetSiteRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::UpdateTargetSiteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateTargetSiteRequest");
@@ -5452,7 +5078,7 @@ impl std::fmt::Debug for super::UpdateTargetSiteRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::UpdateTargetSiteMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateTargetSiteMetadata");
@@ -5465,7 +5091,7 @@ impl std::fmt::Debug for super::UpdateTargetSiteMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DeleteTargetSiteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTargetSiteRequest");
@@ -5477,7 +5103,7 @@ impl std::fmt::Debug for super::DeleteTargetSiteRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DeleteTargetSiteMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteTargetSiteMetadata");
@@ -5490,7 +5116,7 @@ impl std::fmt::Debug for super::DeleteTargetSiteMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::ListTargetSitesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTargetSitesRequest");
@@ -5504,7 +5130,7 @@ impl std::fmt::Debug for super::ListTargetSitesRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::ListTargetSitesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListTargetSitesResponse");
@@ -5518,7 +5144,7 @@ impl std::fmt::Debug for super::ListTargetSitesResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchCreateTargetSiteMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateTargetSiteMetadata");
@@ -5531,7 +5157,7 @@ impl std::fmt::Debug for super::BatchCreateTargetSiteMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchCreateTargetSitesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchCreateTargetSitesResponse");
@@ -5543,7 +5169,7 @@ impl std::fmt::Debug for super::BatchCreateTargetSitesResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::CreateSitemapRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSitemapRequest");
@@ -5556,7 +5182,7 @@ impl std::fmt::Debug for super::CreateSitemapRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DeleteSitemapRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSitemapRequest");
@@ -5568,7 +5194,7 @@ impl std::fmt::Debug for super::DeleteSitemapRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::FetchSitemapsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchSitemapsRequest");
@@ -5581,7 +5207,7 @@ impl std::fmt::Debug for super::FetchSitemapsRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::fetch_sitemaps_request::UrisMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UrisMatcher");
@@ -5593,7 +5219,7 @@ impl std::fmt::Debug for super::fetch_sitemaps_request::UrisMatcher {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::fetch_sitemaps_request::Matcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Matcher");
@@ -5605,7 +5231,7 @@ impl std::fmt::Debug for super::fetch_sitemaps_request::Matcher {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::CreateSitemapMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateSitemapMetadata");
@@ -5618,7 +5244,7 @@ impl std::fmt::Debug for super::CreateSitemapMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DeleteSitemapMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteSitemapMetadata");
@@ -5631,7 +5257,7 @@ impl std::fmt::Debug for super::DeleteSitemapMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::FetchSitemapsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchSitemapsResponse");
@@ -5643,7 +5269,7 @@ impl std::fmt::Debug for super::FetchSitemapsResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::fetch_sitemaps_response::SitemapMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SitemapMetadata");
@@ -5655,7 +5281,7 @@ impl std::fmt::Debug for super::fetch_sitemaps_response::SitemapMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::EnableAdvancedSiteSearchRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableAdvancedSiteSearchRequest");
@@ -5667,7 +5293,7 @@ impl std::fmt::Debug for super::EnableAdvancedSiteSearchRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::EnableAdvancedSiteSearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableAdvancedSiteSearchResponse");
@@ -5678,7 +5304,7 @@ impl std::fmt::Debug for super::EnableAdvancedSiteSearchResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::EnableAdvancedSiteSearchMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableAdvancedSiteSearchMetadata");
@@ -5691,7 +5317,7 @@ impl std::fmt::Debug for super::EnableAdvancedSiteSearchMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DisableAdvancedSiteSearchRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableAdvancedSiteSearchRequest");
@@ -5703,7 +5329,7 @@ impl std::fmt::Debug for super::DisableAdvancedSiteSearchRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DisableAdvancedSiteSearchResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableAdvancedSiteSearchResponse");
@@ -5714,7 +5340,7 @@ impl std::fmt::Debug for super::DisableAdvancedSiteSearchResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::DisableAdvancedSiteSearchMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableAdvancedSiteSearchMetadata");
@@ -5727,7 +5353,7 @@ impl std::fmt::Debug for super::DisableAdvancedSiteSearchMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::RecrawlUrisRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecrawlUrisRequest");
@@ -5741,7 +5367,7 @@ impl std::fmt::Debug for super::RecrawlUrisRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::RecrawlUrisResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecrawlUrisResponse");
@@ -5754,7 +5380,7 @@ impl std::fmt::Debug for super::RecrawlUrisResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::recrawl_uris_response::FailureInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailureInfo");
@@ -5767,7 +5393,7 @@ impl std::fmt::Debug for super::recrawl_uris_response::FailureInfo {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::recrawl_uris_response::failure_info::FailureReason {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FailureReason");
@@ -5780,7 +5406,7 @@ impl std::fmt::Debug for super::recrawl_uris_response::failure_info::FailureReas
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::RecrawlUrisMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecrawlUrisMetadata");
@@ -5790,14 +5416,8 @@ impl std::fmt::Debug for super::RecrawlUrisMetadata {
         debug_struct.field("invalid_uris_count", &self.invalid_uris_count);
         debug_struct.field("noindex_uris", &self.noindex_uris);
         debug_struct.field("noindex_uris_count", &self.noindex_uris_count);
-        debug_struct.field(
-            "uris_not_matching_target_sites",
-            &self.uris_not_matching_target_sites,
-        );
-        debug_struct.field(
-            "uris_not_matching_target_sites_count",
-            &self.uris_not_matching_target_sites_count,
-        );
+        debug_struct.field("uris_not_matching_target_sites", &self.uris_not_matching_target_sites);
+        debug_struct.field("uris_not_matching_target_sites_count", &self.uris_not_matching_target_sites_count);
         debug_struct.field("valid_uris_count", &self.valid_uris_count);
         debug_struct.field("success_count", &self.success_count);
         debug_struct.field("pending_count", &self.pending_count);
@@ -5809,7 +5429,7 @@ impl std::fmt::Debug for super::RecrawlUrisMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchVerifyTargetSitesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchVerifyTargetSitesRequest");
@@ -5821,7 +5441,7 @@ impl std::fmt::Debug for super::BatchVerifyTargetSitesRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchVerifyTargetSitesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchVerifyTargetSitesResponse");
@@ -5832,7 +5452,7 @@ impl std::fmt::Debug for super::BatchVerifyTargetSitesResponse {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::BatchVerifyTargetSitesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchVerifyTargetSitesMetadata");
@@ -5845,7 +5465,7 @@ impl std::fmt::Debug for super::BatchVerifyTargetSitesMetadata {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::FetchDomainVerificationStatusRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchDomainVerificationStatusRequest");
@@ -5859,7 +5479,7 @@ impl std::fmt::Debug for super::FetchDomainVerificationStatusRequest {
     }
 }
 
-#[cfg(feature = "site-search-engine-service")]
+#[cfg(feature = "site-search-engine-service" )]
 impl std::fmt::Debug for super::FetchDomainVerificationStatusResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FetchDomainVerificationStatusResponse");
@@ -5873,7 +5493,7 @@ impl std::fmt::Debug for super::FetchDomainVerificationStatusResponse {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::UserEvent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserEvent");
@@ -5906,7 +5526,7 @@ impl std::fmt::Debug for super::UserEvent {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::PageInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PageInfo");
@@ -5921,7 +5541,7 @@ impl std::fmt::Debug for super::PageInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::SearchInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchInfo");
@@ -5935,7 +5555,7 @@ impl std::fmt::Debug for super::SearchInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::CompletionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CompletionInfo");
@@ -5948,7 +5568,7 @@ impl std::fmt::Debug for super::CompletionInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::TransactionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TransactionInfo");
@@ -5965,7 +5585,7 @@ impl std::fmt::Debug for super::TransactionInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::DocumentInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentInfo");
@@ -5981,7 +5601,7 @@ impl std::fmt::Debug for super::DocumentInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::PanelInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PanelInfo");
@@ -5997,7 +5617,7 @@ impl std::fmt::Debug for super::PanelInfo {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
+#[cfg(any ( feature = "recommendation-service",feature = "user-event-service", ) )]
 impl std::fmt::Debug for super::MediaInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MediaInfo");
@@ -6010,7 +5630,7 @@ impl std::fmt::Debug for super::MediaInfo {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::WriteUserEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WriteUserEventRequest");
@@ -6024,7 +5644,7 @@ impl std::fmt::Debug for super::WriteUserEventRequest {
     }
 }
 
-#[cfg(feature = "user-event-service")]
+#[cfg(feature = "user-event-service" )]
 impl std::fmt::Debug for super::CollectUserEventRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CollectUserEventRequest");
@@ -6039,7 +5659,7 @@ impl std::fmt::Debug for super::CollectUserEventRequest {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::UserLicense {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserLicense");
@@ -6057,7 +5677,7 @@ impl std::fmt::Debug for super::UserLicense {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::ListUserLicensesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListUserLicensesRequest");
@@ -6072,7 +5692,7 @@ impl std::fmt::Debug for super::ListUserLicensesRequest {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::ListUserLicensesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListUserLicensesResponse");
@@ -6085,15 +5705,12 @@ impl std::fmt::Debug for super::ListUserLicensesResponse {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::BatchUpdateUserLicensesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateUserLicensesRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "delete_unassigned_user_licenses",
-            &self.delete_unassigned_user_licenses,
-        );
+        debug_struct.field("delete_unassigned_user_licenses", &self.delete_unassigned_user_licenses);
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -6102,7 +5719,7 @@ impl std::fmt::Debug for super::BatchUpdateUserLicensesRequest {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::batch_update_user_licenses_request::InlineSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InlineSource");
@@ -6115,7 +5732,7 @@ impl std::fmt::Debug for super::batch_update_user_licenses_request::InlineSource
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::BatchUpdateUserLicensesMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateUserLicensesMetadata");
@@ -6130,7 +5747,7 @@ impl std::fmt::Debug for super::BatchUpdateUserLicensesMetadata {
     }
 }
 
-#[cfg(feature = "user-license-service")]
+#[cfg(feature = "user-license-service" )]
 impl std::fmt::Debug for super::BatchUpdateUserLicensesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BatchUpdateUserLicensesResponse");

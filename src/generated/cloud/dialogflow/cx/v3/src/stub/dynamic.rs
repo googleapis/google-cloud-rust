@@ -333,6 +333,7 @@ pub trait Changelogs: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Changelogs] also implement [Changelogs].
@@ -401,6 +402,7 @@ impl<T: super::Changelogs> Changelogs for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Deployments].
@@ -448,6 +450,7 @@ pub trait Deployments: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Deployments] also implement [Deployments].
@@ -516,6 +519,7 @@ impl<T: super::Deployments> Deployments for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::EntityTypes].
@@ -885,8 +889,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::LookupEnvironmentHistoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::LookupEnvironmentHistoryResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupEnvironmentHistoryResponse>> {
         T::lookup_environment_history(self, req, options).await
     }
 
@@ -904,8 +907,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::ListContinuousTestResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListContinuousTestResultsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListContinuousTestResultsResponse>> {
         T::list_continuous_test_results(self, req, options).await
     }
 
@@ -1053,6 +1055,7 @@ pub trait Experiments: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Experiments] also implement [Experiments].
@@ -1166,6 +1169,7 @@ impl<T: super::Experiments> Experiments for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Flows].
@@ -1490,6 +1494,7 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Generators] also implement [Generators].
@@ -1585,6 +1590,7 @@ impl<T: super::Generators> Generators for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Intents].
@@ -1864,6 +1870,7 @@ pub trait Pages: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Pages] also implement [Pages].
@@ -1959,6 +1966,7 @@ impl<T: super::Pages> Pages for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SecuritySettingsService].
@@ -2024,6 +2032,7 @@ pub trait SecuritySettingsService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SecuritySettingsService] also implement [SecuritySettingsService].
@@ -2119,6 +2128,7 @@ impl<T: super::SecuritySettingsService> SecuritySettingsService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Sessions].
@@ -2178,6 +2188,7 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Sessions] also implement [Sessions].
@@ -2264,6 +2275,7 @@ impl<T: super::Sessions> Sessions for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::SessionEntityTypes].
@@ -2329,6 +2341,7 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::SessionEntityTypes] also implement [SessionEntityTypes].
@@ -2424,6 +2437,7 @@ impl<T: super::SessionEntityTypes> SessionEntityTypes for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::TestCases].
@@ -2778,6 +2792,7 @@ pub trait TransitionRouteGroups: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::TransitionRouteGroups] also implement [TransitionRouteGroups].
@@ -2789,8 +2804,7 @@ impl<T: super::TransitionRouteGroups> TransitionRouteGroups for T {
         &self,
         req: crate::model::ListTransitionRouteGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListTransitionRouteGroupsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransitionRouteGroupsResponse>> {
         T::list_transition_route_groups(self, req, options).await
     }
 
@@ -2874,6 +2888,7 @@ impl<T: super::TransitionRouteGroups> TransitionRouteGroups for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::Versions].
@@ -3153,6 +3168,7 @@ pub trait Webhooks: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::Webhooks] also implement [Webhooks].
@@ -3248,4 +3264,5 @@ impl<T: super::Webhooks> Webhooks for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }

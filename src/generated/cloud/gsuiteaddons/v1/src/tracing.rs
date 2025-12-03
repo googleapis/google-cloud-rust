@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [GSuiteAddOns](super::stub::GSuiteAddOns) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GSuiteAddOns<T>
-where
-    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> GSuiteAddOns<T>
-where
-    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GSuiteAddOns for GSuiteAddOns<T>
-where
-    T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GSuiteAddOns + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_authorization(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_authorization",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_authorization(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_authorization(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "replace_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .replace_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.replace_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_deployments",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_deployments(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_deployments(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "install_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .install_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.install_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -319,14 +292,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "uninstall_deployment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .uninstall_deployment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.uninstall_deployment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -357,14 +327,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_install_status",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_install_status(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_install_status(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -380,3 +347,4 @@ where
         self.inner.get_install_status(req, options).await
     }
 }
+

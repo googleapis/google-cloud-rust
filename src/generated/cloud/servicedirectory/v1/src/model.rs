@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,6 +44,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Endpoint {
+
     /// Immutable. The resource name for the endpoint in the format
     /// `projects/*/locations/*/namespaces/*/services/*/endpoints/*`.
     pub name: std::string::String,
@@ -83,7 +84,7 @@ pub struct Endpoint {
     /// Note: This field is equivalent to the `metadata` field in the v1beta1 API.
     /// They have the same syntax and read/write to the same location in Service
     /// Directory.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Immutable. The Google Compute Engine network (VPC) of the endpoint in the
     /// format `projects/<project number>/locations/global/networks/*`.
@@ -163,6 +164,7 @@ impl wkt::message::Message for Endpoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveServiceRequest {
+
     /// Required. The name of the service to resolve.
     pub name: std::string::String,
 
@@ -250,6 +252,7 @@ impl wkt::message::Message for ResolveServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveServiceResponse {
+
     pub service: std::option::Option<crate::model::Service>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -262,8 +265,7 @@ impl ResolveServiceResponse {
 
     /// Sets the value of [service][crate::model::ResolveServiceResponse::service].
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -271,8 +273,7 @@ impl ResolveServiceResponse {
 
     /// Sets or clears the value of [service][crate::model::ResolveServiceResponse::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -293,6 +294,7 @@ impl wkt::message::Message for ResolveServiceResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Namespace {
+
     /// Immutable. The resource name for the namespace in the format
     /// `projects/*/locations/*/namespaces/*`.
     pub name: std::string::String,
@@ -300,7 +302,7 @@ pub struct Namespace {
     /// Optional. Resource labels associated with this namespace.
     /// No more than 64 user labels can be associated with a given resource. Label
     /// keys and values can be no longer than 63 characters.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The globally unique identifier of the namespace in the UUID4
     /// format.
@@ -352,6 +354,7 @@ impl wkt::message::Message for Namespace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNamespaceRequest {
+
     /// Required. The resource name of the project and location the namespace
     /// will be created in.
     pub parent: std::string::String,
@@ -390,8 +393,7 @@ impl CreateNamespaceRequest {
 
     /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
     pub fn set_namespace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Namespace>,
+    where T: std::convert::Into<crate::model::Namespace>
     {
         self.namespace = std::option::Option::Some(v.into());
         self
@@ -399,8 +401,7 @@ impl CreateNamespaceRequest {
 
     /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Namespace>,
+    where T: std::convert::Into<crate::model::Namespace>
     {
         self.namespace = v.map(|x| x.into());
         self
@@ -420,6 +421,7 @@ impl wkt::message::Message for CreateNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNamespacesRequest {
+
     /// Required. The resource name of the project and location whose namespaces
     /// you'd like to list.
     pub parent: std::string::String,
@@ -525,6 +527,7 @@ impl wkt::message::Message for ListNamespacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNamespacesResponse {
+
     /// The list of namespaces.
     pub namespaces: std::vec::Vec<crate::model::Namespace>,
 
@@ -544,7 +547,7 @@ impl ListNamespacesResponse {
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Namespace>,
+        V: std::convert::Into<crate::model::Namespace>
     {
         use std::iter::Iterator;
         self.namespaces = v.into_iter().map(|i| i.into()).collect();
@@ -585,6 +588,7 @@ impl gax::paginator::internal::PageableResponse for ListNamespacesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNamespaceRequest {
+
     /// Required. The name of the namespace to retrieve.
     pub name: std::string::String,
 
@@ -616,6 +620,7 @@ impl wkt::message::Message for GetNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNamespaceRequest {
+
     /// Required. The updated namespace.
     pub namespace: std::option::Option<crate::model::Namespace>,
 
@@ -632,8 +637,7 @@ impl UpdateNamespaceRequest {
 
     /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
     pub fn set_namespace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Namespace>,
+    where T: std::convert::Into<crate::model::Namespace>
     {
         self.namespace = std::option::Option::Some(v.into());
         self
@@ -641,8 +645,7 @@ impl UpdateNamespaceRequest {
 
     /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Namespace>,
+    where T: std::convert::Into<crate::model::Namespace>
     {
         self.namespace = v.map(|x| x.into());
         self
@@ -650,8 +653,7 @@ impl UpdateNamespaceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -659,8 +661,7 @@ impl UpdateNamespaceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -680,6 +681,7 @@ impl wkt::message::Message for UpdateNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNamespaceRequest {
+
     /// Required. The name of the namespace to delete.
     pub name: std::string::String,
 
@@ -711,6 +713,7 @@ impl wkt::message::Message for DeleteNamespaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
+
     /// Required. The resource name of the namespace this service will belong to.
     pub parent: std::string::String,
 
@@ -748,8 +751,7 @@ impl CreateServiceRequest {
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -757,8 +759,7 @@ impl CreateServiceRequest {
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -778,6 +779,7 @@ impl wkt::message::Message for CreateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
+
     /// Required. The resource name of the namespace whose services you'd
     /// like to list.
     pub parent: std::string::String,
@@ -886,6 +888,7 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
+
     /// The list of services.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -905,7 +908,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>,
+        V: std::convert::Into<crate::model::Service>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -948,6 +951,7 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
+
     /// Required. The name of the service to get.
     pub name: std::string::String,
 
@@ -979,6 +983,7 @@ impl wkt::message::Message for GetServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
+
     /// Required. The updated service.
     pub service: std::option::Option<crate::model::Service>,
 
@@ -995,8 +1000,7 @@ impl UpdateServiceRequest {
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -1004,8 +1008,7 @@ impl UpdateServiceRequest {
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -1013,8 +1016,7 @@ impl UpdateServiceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1022,8 +1024,7 @@ impl UpdateServiceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1043,6 +1044,7 @@ impl wkt::message::Message for UpdateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
+
     /// Required. The name of the service to delete.
     pub name: std::string::String,
 
@@ -1074,6 +1076,7 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEndpointRequest {
+
     /// Required. The resource name of the service that this endpoint provides.
     pub parent: std::string::String,
 
@@ -1111,8 +1114,7 @@ impl CreateEndpointRequest {
 
     /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
     pub fn set_endpoint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Endpoint>,
+    where T: std::convert::Into<crate::model::Endpoint>
     {
         self.endpoint = std::option::Option::Some(v.into());
         self
@@ -1120,8 +1122,7 @@ impl CreateEndpointRequest {
 
     /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Endpoint>,
+    where T: std::convert::Into<crate::model::Endpoint>
     {
         self.endpoint = v.map(|x| x.into());
         self
@@ -1141,6 +1142,7 @@ impl wkt::message::Message for CreateEndpointRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsRequest {
+
     /// Required. The resource name of the service whose endpoints you'd like to
     /// list.
     pub parent: std::string::String,
@@ -1252,6 +1254,7 @@ impl wkt::message::Message for ListEndpointsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsResponse {
+
     /// The list of endpoints.
     pub endpoints: std::vec::Vec<crate::model::Endpoint>,
 
@@ -1271,7 +1274,7 @@ impl ListEndpointsResponse {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Endpoint>,
+        V: std::convert::Into<crate::model::Endpoint>
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -1314,6 +1317,7 @@ impl gax::paginator::internal::PageableResponse for ListEndpointsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEndpointRequest {
+
     /// Required. The name of the endpoint to get.
     pub name: std::string::String,
 
@@ -1345,6 +1349,7 @@ impl wkt::message::Message for GetEndpointRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEndpointRequest {
+
     /// Required. The updated endpoint.
     pub endpoint: std::option::Option<crate::model::Endpoint>,
 
@@ -1361,8 +1366,7 @@ impl UpdateEndpointRequest {
 
     /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
     pub fn set_endpoint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Endpoint>,
+    where T: std::convert::Into<crate::model::Endpoint>
     {
         self.endpoint = std::option::Option::Some(v.into());
         self
@@ -1370,8 +1374,7 @@ impl UpdateEndpointRequest {
 
     /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Endpoint>,
+    where T: std::convert::Into<crate::model::Endpoint>
     {
         self.endpoint = v.map(|x| x.into());
         self
@@ -1379,8 +1382,7 @@ impl UpdateEndpointRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1388,8 +1390,7 @@ impl UpdateEndpointRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1409,6 +1410,7 @@ impl wkt::message::Message for UpdateEndpointRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEndpointRequest {
+
     /// Required. The name of the endpoint to delete.
     pub name: std::string::String,
 
@@ -1442,6 +1444,7 @@ impl wkt::message::Message for DeleteEndpointRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
+
     /// Immutable. The resource name for the service in the format
     /// `projects/*/locations/*/namespaces/*/services/*`.
     pub name: std::string::String,
@@ -1466,7 +1469,7 @@ pub struct Service {
     /// Note: This field is equivalent to the `metadata` field in the v1beta1 API.
     /// They have the same syntax and read/write to the same location in Service
     /// Directory.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Endpoints associated with this service. Returned on
     /// [LookupService.ResolveService][google.cloud.servicedirectory.v1.LookupService.ResolveService].
@@ -1511,7 +1514,7 @@ impl Service {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Endpoint>,
+        V: std::convert::Into<crate::model::Endpoint>
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();

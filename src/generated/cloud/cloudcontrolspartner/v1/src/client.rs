@@ -72,9 +72,7 @@ impl CloudControlsPartnerCore {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_core::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_controls_partner_core::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cloud_controls_partner_core::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,108 +80,95 @@ impl CloudControlsPartnerCore {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudControlsPartnerCore + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudControlsPartnerCore + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerCore>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerCore>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
         super::transport::CloudControlsPartnerCore::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudControlsPartnerCore::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerCore> {
+        Self::build_transport(conf).await.map(super::tracing::CloudControlsPartnerCore::new)
     }
 
     /// Gets details of a single workload
-    pub fn get_workload(&self) -> super::builder::cloud_controls_partner_core::GetWorkload {
+    pub fn get_workload(&self) -> super::builder::cloud_controls_partner_core::GetWorkload
+    {
         super::builder::cloud_controls_partner_core::GetWorkload::new(self.inner.clone())
     }
 
     /// Lists customer workloads for a given customer org id
-    pub fn list_workloads(&self) -> super::builder::cloud_controls_partner_core::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::cloud_controls_partner_core::ListWorkloads
+    {
         super::builder::cloud_controls_partner_core::ListWorkloads::new(self.inner.clone())
     }
 
     /// Gets details of a single customer
-    pub fn get_customer(&self) -> super::builder::cloud_controls_partner_core::GetCustomer {
+    pub fn get_customer(&self) -> super::builder::cloud_controls_partner_core::GetCustomer
+    {
         super::builder::cloud_controls_partner_core::GetCustomer::new(self.inner.clone())
     }
 
     /// Lists customers of a partner identified by its Google Cloud organization ID
-    pub fn list_customers(&self) -> super::builder::cloud_controls_partner_core::ListCustomers {
+    pub fn list_customers(&self) -> super::builder::cloud_controls_partner_core::ListCustomers
+    {
         super::builder::cloud_controls_partner_core::ListCustomers::new(self.inner.clone())
     }
 
     /// Gets the EKM connections associated with a workload
-    pub fn get_ekm_connections(
-        &self,
-    ) -> super::builder::cloud_controls_partner_core::GetEkmConnections {
+    pub fn get_ekm_connections(&self) -> super::builder::cloud_controls_partner_core::GetEkmConnections
+    {
         super::builder::cloud_controls_partner_core::GetEkmConnections::new(self.inner.clone())
     }
 
     /// Gets the partner permissions granted for a workload
-    pub fn get_partner_permissions(
-        &self,
-    ) -> super::builder::cloud_controls_partner_core::GetPartnerPermissions {
+    pub fn get_partner_permissions(&self) -> super::builder::cloud_controls_partner_core::GetPartnerPermissions
+    {
         super::builder::cloud_controls_partner_core::GetPartnerPermissions::new(self.inner.clone())
     }
 
     /// Deprecated: Only returns access approval requests directly associated with
     /// an assured workload folder.
     #[deprecated]
-    pub fn list_access_approval_requests(
-        &self,
-    ) -> super::builder::cloud_controls_partner_core::ListAccessApprovalRequests {
-        super::builder::cloud_controls_partner_core::ListAccessApprovalRequests::new(
-            self.inner.clone(),
-        )
+    pub fn list_access_approval_requests(&self) -> super::builder::cloud_controls_partner_core::ListAccessApprovalRequests
+    {
+        super::builder::cloud_controls_partner_core::ListAccessApprovalRequests::new(self.inner.clone())
     }
 
     /// Get details of a Partner.
-    pub fn get_partner(&self) -> super::builder::cloud_controls_partner_core::GetPartner {
+    pub fn get_partner(&self) -> super::builder::cloud_controls_partner_core::GetPartner
+    {
         super::builder::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
     }
 
     /// Creates a new customer.
-    pub fn create_customer(&self) -> super::builder::cloud_controls_partner_core::CreateCustomer {
+    pub fn create_customer(&self) -> super::builder::cloud_controls_partner_core::CreateCustomer
+    {
         super::builder::cloud_controls_partner_core::CreateCustomer::new(self.inner.clone())
     }
 
     /// Update details of a single customer
-    pub fn update_customer(&self) -> super::builder::cloud_controls_partner_core::UpdateCustomer {
+    pub fn update_customer(&self) -> super::builder::cloud_controls_partner_core::UpdateCustomer
+    {
         super::builder::cloud_controls_partner_core::UpdateCustomer::new(self.inner.clone())
     }
 
     /// Delete details of a single customer
-    pub fn delete_customer(&self) -> super::builder::cloud_controls_partner_core::DeleteCustomer {
+    pub fn delete_customer(&self) -> super::builder::cloud_controls_partner_core::DeleteCustomer
+    {
         super::builder::cloud_controls_partner_core::DeleteCustomer::new(self.inner.clone())
     }
 }
@@ -244,9 +229,7 @@ impl CloudControlsPartnerMonitoring {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_monitoring::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::cloud_controls_partner_monitoring::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::cloud_controls_partner_monitoring::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -254,44 +237,28 @@ impl CloudControlsPartnerMonitoring {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::CloudControlsPartnerMonitoring + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::CloudControlsPartnerMonitoring + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerMonitoring>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudControlsPartnerMonitoring>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
         super::transport::CloudControlsPartnerMonitoring::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::CloudControlsPartnerMonitoring::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::CloudControlsPartnerMonitoring> {
+        Self::build_transport(conf).await.map(super::tracing::CloudControlsPartnerMonitoring::new)
     }
 
     /// Lists Violations for a workload
@@ -301,14 +268,14 @@ impl CloudControlsPartnerMonitoring {
     /// character) as a wildcard character instead of {customer} & {workload}.
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
-    pub fn list_violations(
-        &self,
-    ) -> super::builder::cloud_controls_partner_monitoring::ListViolations {
+    pub fn list_violations(&self) -> super::builder::cloud_controls_partner_monitoring::ListViolations
+    {
         super::builder::cloud_controls_partner_monitoring::ListViolations::new(self.inner.clone())
     }
 
     /// Gets details of a single Violation.
-    pub fn get_violation(&self) -> super::builder::cloud_controls_partner_monitoring::GetViolation {
+    pub fn get_violation(&self) -> super::builder::cloud_controls_partner_monitoring::GetViolation
+    {
         super::builder::cloud_controls_partner_monitoring::GetViolation::new(self.inner.clone())
     }
 }

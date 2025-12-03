@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ProfilerService](super::stub::ProfilerService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProfilerService<T>
-where
-    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ProfilerService<T>
-where
-    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProfilerService for ProfilerService<T>
-where
-    T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_profile(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_profile",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_profile(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_profile(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_offline_profile",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_offline_profile(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_offline_profile(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_profile",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_profile(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_profile(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -156,25 +141,19 @@ where
 /// Implements a [ExportService](super::stub::ExportService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ExportService<T>
-where
-    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ExportService<T>
-where
-    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ExportService for ExportService<T>
-where
-    T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ExportService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_profiles(
         &self,
@@ -191,14 +170,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_profiles",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_profiles(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_profiles(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -214,3 +190,4 @@ where
         self.inner.list_profiles(req, options).await
     }
 }
+

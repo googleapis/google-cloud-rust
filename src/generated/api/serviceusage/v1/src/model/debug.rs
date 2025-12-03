@@ -88,14 +88,8 @@ impl std::fmt::Debug for super::DisableServiceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DisableServiceRequest");
         debug_struct.field("name", &self.name);
-        debug_struct.field(
-            "disable_dependent_services",
-            &self.disable_dependent_services,
-        );
-        debug_struct.field(
-            "check_if_service_has_usage",
-            &self.check_if_service_has_usage,
-        );
+        debug_struct.field("disable_dependent_services", &self.disable_dependent_services);
+        debug_struct.field("check_if_service_has_usage", &self.check_if_service_has_usage);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -80,49 +80,34 @@ impl SecurityCenter {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SecurityCenter + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SecurityCenter + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityCenter>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecurityCenter>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
         super::transport::SecurityCenter::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SecurityCenter::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecurityCenter> {
+        Self::build_transport(conf).await.map(super::tracing::SecurityCenter::new)
     }
 
     /// Creates a ResourceValueConfig for an organization. Maps user's tags to
     /// difference resource values for use by the attack path simulation.
-    pub fn batch_create_resource_value_configs(
-        &self,
-    ) -> super::builder::security_center::BatchCreateResourceValueConfigs {
+    pub fn batch_create_resource_value_configs(&self) -> super::builder::security_center::BatchCreateResourceValueConfigs
+    {
         super::builder::security_center::BatchCreateResourceValueConfigs::new(self.inner.clone())
     }
 
@@ -140,106 +125,114 @@ impl SecurityCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_mute_findings(&self) -> super::builder::security_center::BulkMuteFindings {
+    pub fn bulk_mute_findings(&self) -> super::builder::security_center::BulkMuteFindings
+    {
         super::builder::security_center::BulkMuteFindings::new(self.inner.clone())
     }
 
     /// Creates a BigQuery export.
-    pub fn create_big_query_export(&self) -> super::builder::security_center::CreateBigQueryExport {
+    pub fn create_big_query_export(&self) -> super::builder::security_center::CreateBigQueryExport
+    {
         super::builder::security_center::CreateBigQueryExport::new(self.inner.clone())
     }
 
     /// Creates a finding in a location. The corresponding source must exist for
     /// finding creation to succeed.
-    pub fn create_finding(&self) -> super::builder::security_center::CreateFinding {
+    pub fn create_finding(&self) -> super::builder::security_center::CreateFinding
+    {
         super::builder::security_center::CreateFinding::new(self.inner.clone())
     }
 
     /// Creates a mute config.
-    pub fn create_mute_config(&self) -> super::builder::security_center::CreateMuteConfig {
+    pub fn create_mute_config(&self) -> super::builder::security_center::CreateMuteConfig
+    {
         super::builder::security_center::CreateMuteConfig::new(self.inner.clone())
     }
 
     /// Creates a notification config.
-    pub fn create_notification_config(
-        &self,
-    ) -> super::builder::security_center::CreateNotificationConfig {
+    pub fn create_notification_config(&self) -> super::builder::security_center::CreateNotificationConfig
+    {
         super::builder::security_center::CreateNotificationConfig::new(self.inner.clone())
     }
 
     /// Creates a source.
-    pub fn create_source(&self) -> super::builder::security_center::CreateSource {
+    pub fn create_source(&self) -> super::builder::security_center::CreateSource
+    {
         super::builder::security_center::CreateSource::new(self.inner.clone())
     }
 
     /// Deletes an existing BigQuery export.
-    pub fn delete_big_query_export(&self) -> super::builder::security_center::DeleteBigQueryExport {
+    pub fn delete_big_query_export(&self) -> super::builder::security_center::DeleteBigQueryExport
+    {
         super::builder::security_center::DeleteBigQueryExport::new(self.inner.clone())
     }
 
     /// Deletes an existing mute config. If no location is specified, default is
     /// global.
-    pub fn delete_mute_config(&self) -> super::builder::security_center::DeleteMuteConfig {
+    pub fn delete_mute_config(&self) -> super::builder::security_center::DeleteMuteConfig
+    {
         super::builder::security_center::DeleteMuteConfig::new(self.inner.clone())
     }
 
     /// Deletes a notification config.
-    pub fn delete_notification_config(
-        &self,
-    ) -> super::builder::security_center::DeleteNotificationConfig {
+    pub fn delete_notification_config(&self) -> super::builder::security_center::DeleteNotificationConfig
+    {
         super::builder::security_center::DeleteNotificationConfig::new(self.inner.clone())
     }
 
     /// Deletes a ResourceValueConfig.
-    pub fn delete_resource_value_config(
-        &self,
-    ) -> super::builder::security_center::DeleteResourceValueConfig {
+    pub fn delete_resource_value_config(&self) -> super::builder::security_center::DeleteResourceValueConfig
+    {
         super::builder::security_center::DeleteResourceValueConfig::new(self.inner.clone())
     }
 
     /// Gets a BigQuery export.
-    pub fn get_big_query_export(&self) -> super::builder::security_center::GetBigQueryExport {
+    pub fn get_big_query_export(&self) -> super::builder::security_center::GetBigQueryExport
+    {
         super::builder::security_center::GetBigQueryExport::new(self.inner.clone())
     }
 
     /// Get the simulation by name or the latest simulation for the given
     /// organization.
-    pub fn get_simulation(&self) -> super::builder::security_center::GetSimulation {
+    pub fn get_simulation(&self) -> super::builder::security_center::GetSimulation
+    {
         super::builder::security_center::GetSimulation::new(self.inner.clone())
     }
 
     /// Get the valued resource by name
-    pub fn get_valued_resource(&self) -> super::builder::security_center::GetValuedResource {
+    pub fn get_valued_resource(&self) -> super::builder::security_center::GetValuedResource
+    {
         super::builder::security_center::GetValuedResource::new(self.inner.clone())
     }
 
     /// Gets the access control policy on the specified Source.
-    pub fn get_iam_policy(&self) -> super::builder::security_center::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::security_center::GetIamPolicy
+    {
         super::builder::security_center::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets a mute config. If no location is specified, default is
     /// global.
-    pub fn get_mute_config(&self) -> super::builder::security_center::GetMuteConfig {
+    pub fn get_mute_config(&self) -> super::builder::security_center::GetMuteConfig
+    {
         super::builder::security_center::GetMuteConfig::new(self.inner.clone())
     }
 
     /// Gets a notification config.
-    pub fn get_notification_config(
-        &self,
-    ) -> super::builder::security_center::GetNotificationConfig {
+    pub fn get_notification_config(&self) -> super::builder::security_center::GetNotificationConfig
+    {
         super::builder::security_center::GetNotificationConfig::new(self.inner.clone())
     }
 
     /// Gets a ResourceValueConfig.
-    pub fn get_resource_value_config(
-        &self,
-    ) -> super::builder::security_center::GetResourceValueConfig {
+    pub fn get_resource_value_config(&self) -> super::builder::security_center::GetResourceValueConfig
+    {
         super::builder::security_center::GetResourceValueConfig::new(self.inner.clone())
     }
 
     /// Gets a source.
-    pub fn get_source(&self) -> super::builder::security_center::GetSource {
+    pub fn get_source(&self) -> super::builder::security_center::GetSource
+    {
         super::builder::security_center::GetSource::new(self.inner.clone())
     }
 
@@ -258,13 +251,15 @@ impl SecurityCenter {
     /// + `/v2/folders/{folder_id}/sources/-/locations/{location_id}/findings`
     /// + `/v2/projects/{project_id}/sources/-/findings`
     /// + `/v2/projects/{project_id}/sources/-/locations/{location_id}/findings`
-    pub fn group_findings(&self) -> super::builder::security_center::GroupFindings {
+    pub fn group_findings(&self) -> super::builder::security_center::GroupFindings
+    {
         super::builder::security_center::GroupFindings::new(self.inner.clone())
     }
 
     /// Lists the attack paths for a set of simulation results or valued resources
     /// and filter.
-    pub fn list_attack_paths(&self) -> super::builder::security_center::ListAttackPaths {
+    pub fn list_attack_paths(&self) -> super::builder::security_center::ListAttackPaths
+    {
         super::builder::security_center::ListAttackPaths::new(self.inner.clone())
     }
 
@@ -273,7 +268,8 @@ impl SecurityCenter {
     /// requesting BigQuery exports under a folder, then all BigQuery exports
     /// immediately under the folder plus the ones created under the projects
     /// within the folder are returned.
-    pub fn list_big_query_exports(&self) -> super::builder::security_center::ListBigQueryExports {
+    pub fn list_big_query_exports(&self) -> super::builder::security_center::ListBigQueryExports
+    {
         super::builder::security_center::ListBigQueryExports::new(self.inner.clone())
     }
 
@@ -286,138 +282,152 @@ impl SecurityCenter {
     /// + `/v2/organizations/{organization_id}/sources/-/findings`
     ///
     /// `/v2/organizations/{organization_id}/sources/-/locations/{location_id}/findings`
-    pub fn list_findings(&self) -> super::builder::security_center::ListFindings {
+    pub fn list_findings(&self) -> super::builder::security_center::ListFindings
+    {
         super::builder::security_center::ListFindings::new(self.inner.clone())
     }
 
     /// Lists mute configs. If no location is specified, default is
     /// global.
-    pub fn list_mute_configs(&self) -> super::builder::security_center::ListMuteConfigs {
+    pub fn list_mute_configs(&self) -> super::builder::security_center::ListMuteConfigs
+    {
         super::builder::security_center::ListMuteConfigs::new(self.inner.clone())
     }
 
     /// Lists notification configs.
-    pub fn list_notification_configs(
-        &self,
-    ) -> super::builder::security_center::ListNotificationConfigs {
+    pub fn list_notification_configs(&self) -> super::builder::security_center::ListNotificationConfigs
+    {
         super::builder::security_center::ListNotificationConfigs::new(self.inner.clone())
     }
 
     /// Lists all ResourceValueConfigs.
-    pub fn list_resource_value_configs(
-        &self,
-    ) -> super::builder::security_center::ListResourceValueConfigs {
+    pub fn list_resource_value_configs(&self) -> super::builder::security_center::ListResourceValueConfigs
+    {
         super::builder::security_center::ListResourceValueConfigs::new(self.inner.clone())
     }
 
     /// Lists all sources belonging to an organization.
-    pub fn list_sources(&self) -> super::builder::security_center::ListSources {
+    pub fn list_sources(&self) -> super::builder::security_center::ListSources
+    {
         super::builder::security_center::ListSources::new(self.inner.clone())
     }
 
     /// Lists the valued resources for a set of simulation results and filter.
-    pub fn list_valued_resources(&self) -> super::builder::security_center::ListValuedResources {
+    pub fn list_valued_resources(&self) -> super::builder::security_center::ListValuedResources
+    {
         super::builder::security_center::ListValuedResources::new(self.inner.clone())
     }
 
     /// Updates the state of a finding. If no location is specified, finding is
     /// assumed to be in global
-    pub fn set_finding_state(&self) -> super::builder::security_center::SetFindingState {
+    pub fn set_finding_state(&self) -> super::builder::security_center::SetFindingState
+    {
         super::builder::security_center::SetFindingState::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified Source.
-    pub fn set_iam_policy(&self) -> super::builder::security_center::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::security_center::SetIamPolicy
+    {
         super::builder::security_center::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates the mute state of a finding. If no location is specified, finding
     /// is assumed to be in global
-    pub fn set_mute(&self) -> super::builder::security_center::SetMute {
+    pub fn set_mute(&self) -> super::builder::security_center::SetMute
+    {
         super::builder::security_center::SetMute::new(self.inner.clone())
     }
 
     /// Returns the permissions that a caller has on the specified source.
-    pub fn test_iam_permissions(&self) -> super::builder::security_center::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::security_center::TestIamPermissions
+    {
         super::builder::security_center::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a BigQuery export.
-    pub fn update_big_query_export(&self) -> super::builder::security_center::UpdateBigQueryExport {
+    pub fn update_big_query_export(&self) -> super::builder::security_center::UpdateBigQueryExport
+    {
         super::builder::security_center::UpdateBigQueryExport::new(self.inner.clone())
     }
 
     /// Updates external system. This is for a given finding. If no location is
     /// specified, finding is assumed to be in global
-    pub fn update_external_system(&self) -> super::builder::security_center::UpdateExternalSystem {
+    pub fn update_external_system(&self) -> super::builder::security_center::UpdateExternalSystem
+    {
         super::builder::security_center::UpdateExternalSystem::new(self.inner.clone())
     }
 
     /// Creates or updates a finding. If no location is specified, finding is
     /// assumed to be in global. The corresponding source must exist for a finding
     /// creation to succeed.
-    pub fn update_finding(&self) -> super::builder::security_center::UpdateFinding {
+    pub fn update_finding(&self) -> super::builder::security_center::UpdateFinding
+    {
         super::builder::security_center::UpdateFinding::new(self.inner.clone())
     }
 
     /// Updates a mute config. If no location is specified, default is
     /// global.
-    pub fn update_mute_config(&self) -> super::builder::security_center::UpdateMuteConfig {
+    pub fn update_mute_config(&self) -> super::builder::security_center::UpdateMuteConfig
+    {
         super::builder::security_center::UpdateMuteConfig::new(self.inner.clone())
     }
 
     /// Updates a notification config. The following update
     /// fields are allowed: description, pubsub_topic, streaming_config.filter
-    pub fn update_notification_config(
-        &self,
-    ) -> super::builder::security_center::UpdateNotificationConfig {
+    pub fn update_notification_config(&self) -> super::builder::security_center::UpdateNotificationConfig
+    {
         super::builder::security_center::UpdateNotificationConfig::new(self.inner.clone())
     }
 
     /// Updates an existing ResourceValueConfigs with new rules.
-    pub fn update_resource_value_config(
-        &self,
-    ) -> super::builder::security_center::UpdateResourceValueConfig {
+    pub fn update_resource_value_config(&self) -> super::builder::security_center::UpdateResourceValueConfig
+    {
         super::builder::security_center::UpdateResourceValueConfig::new(self.inner.clone())
     }
 
     /// Updates security marks. For Finding Security marks, if no location is
     /// specified, finding is assumed to be in global. Assets Security Marks can
     /// only be accessed through global endpoint.
-    pub fn update_security_marks(&self) -> super::builder::security_center::UpdateSecurityMarks {
+    pub fn update_security_marks(&self) -> super::builder::security_center::UpdateSecurityMarks
+    {
         super::builder::security_center::UpdateSecurityMarks::new(self.inner.clone())
     }
 
     /// Updates a source.
-    pub fn update_source(&self) -> super::builder::security_center::UpdateSource {
+    pub fn update_source(&self) -> super::builder::security_center::UpdateSource
+    {
         super::builder::security_center::UpdateSource::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::security_center::ListOperations {
+    pub fn list_operations(&self) -> super::builder::security_center::ListOperations
+    {
         super::builder::security_center::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::security_center::GetOperation {
+    pub fn get_operation(&self) -> super::builder::security_center::GetOperation
+    {
         super::builder::security_center::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::security_center::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::security_center::DeleteOperation
+    {
         super::builder::security_center::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::security_center::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::security_center::CancelOperation
+    {
         super::builder::security_center::CancelOperation::new(self.inner.clone())
     }
 }

@@ -29,6 +29,9 @@ license.workspace      = true
 repository.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [package.metadata.docs.rs]
 # Generate documentation for some of the optional conversions. It is too early
 # for `prost`.

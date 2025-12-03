@@ -39,10 +39,7 @@ pub mod cloud_quotas {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudQuotas;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod cloud_quotas {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,10 +89,10 @@ pub mod cloud_quotas {
     pub struct ListQuotaInfos(RequestBuilder<crate::model::ListQuotaInfosRequest>);
 
     impl ListQuotaInfos {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -116,17 +109,11 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQuotaInfosResponse> {
-            (*self.0.stub)
-                .list_quota_infos(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_quota_infos(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQuotaInfosResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQuotaInfosResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -138,10 +125,7 @@ pub mod cloud_quotas {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaInfosResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaInfosResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -195,10 +179,10 @@ pub mod cloud_quotas {
     pub struct GetQuotaInfo(RequestBuilder<crate::model::GetQuotaInfoRequest>);
 
     impl GetQuotaInfo {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -215,10 +199,7 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QuotaInfo> {
-            (*self.0.stub)
-                .get_quota_info(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_quota_info(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaInfoRequest::name].
@@ -262,17 +243,14 @@ pub mod cloud_quotas {
     pub struct ListQuotaPreferences(RequestBuilder<crate::model::ListQuotaPreferencesRequest>);
 
     impl ListQuotaPreferences {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListQuotaPreferencesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListQuotaPreferencesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -285,17 +263,11 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListQuotaPreferencesResponse> {
-            (*self.0.stub)
-                .list_quota_preferences(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_quota_preferences(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListQuotaPreferencesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListQuotaPreferencesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -307,12 +279,7 @@ pub mod cloud_quotas {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListQuotaPreferencesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaPreferencesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -378,17 +345,14 @@ pub mod cloud_quotas {
     pub struct GetQuotaPreference(RequestBuilder<crate::model::GetQuotaPreferenceRequest>);
 
     impl GetQuotaPreference {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetQuotaPreferenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetQuotaPreferenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -401,10 +365,7 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QuotaPreference> {
-            (*self.0.stub)
-                .get_quota_preference(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_quota_preference(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaPreferenceRequest::name].
@@ -444,17 +405,14 @@ pub mod cloud_quotas {
     pub struct CreateQuotaPreference(RequestBuilder<crate::model::CreateQuotaPreferenceRequest>);
 
     impl CreateQuotaPreference {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateQuotaPreferenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateQuotaPreferenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -467,10 +425,7 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QuotaPreference> {
-            (*self.0.stub)
-                .create_quota_preference(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_quota_preference(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQuotaPreferenceRequest::parent].
@@ -491,8 +446,7 @@ pub mod cloud_quotas {
         ///
         /// This is a **required** field for requests.
         pub fn set_quota_preference<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QuotaPreference>,
+        where T: std::convert::Into<crate::model::QuotaPreference>
         {
             self.0.request.quota_preference = std::option::Option::Some(v.into());
             self
@@ -502,8 +456,7 @@ pub mod cloud_quotas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QuotaPreference>,
+        where T: std::convert::Into<crate::model::QuotaPreference>
         {
             self.0.request.quota_preference = v.map(|x| x.into());
             self
@@ -513,7 +466,7 @@ pub mod cloud_quotas {
         pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::QuotaSafetyCheck>,
+            V: std::convert::Into<crate::model::QuotaSafetyCheck>
         {
             use std::iter::Iterator;
             self.0.request.ignore_safety_checks = v.into_iter().map(|i| i.into()).collect();
@@ -549,17 +502,14 @@ pub mod cloud_quotas {
     pub struct UpdateQuotaPreference(RequestBuilder<crate::model::UpdateQuotaPreferenceRequest>);
 
     impl UpdateQuotaPreference {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudQuotas>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateQuotaPreferenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateQuotaPreferenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -572,16 +522,12 @@ pub mod cloud_quotas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QuotaPreference> {
-            (*self.0.stub)
-                .update_quota_preference(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_quota_preference(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -589,8 +535,7 @@ pub mod cloud_quotas {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -600,8 +545,7 @@ pub mod cloud_quotas {
         ///
         /// This is a **required** field for requests.
         pub fn set_quota_preference<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QuotaPreference>,
+        where T: std::convert::Into<crate::model::QuotaPreference>
         {
             self.0.request.quota_preference = std::option::Option::Some(v.into());
             self
@@ -611,8 +555,7 @@ pub mod cloud_quotas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QuotaPreference>,
+        where T: std::convert::Into<crate::model::QuotaPreference>
         {
             self.0.request.quota_preference = v.map(|x| x.into());
             self
@@ -634,7 +577,7 @@ pub mod cloud_quotas {
         pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::QuotaSafetyCheck>,
+            V: std::convert::Into<crate::model::QuotaSafetyCheck>
         {
             use std::iter::Iterator;
             self.0.request.ignore_safety_checks = v.into_iter().map(|i| i.into()).collect();
@@ -648,4 +591,5 @@ pub mod cloud_quotas {
             &mut self.0.options
         }
     }
+
 }

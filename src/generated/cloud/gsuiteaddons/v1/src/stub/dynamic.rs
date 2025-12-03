@@ -70,6 +70,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         req: crate::model::GetInstallStatusRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InstallStatus>>;
+
 }
 
 /// All implementations of [super::GSuiteAddOns] also implement [GSuiteAddOns].
@@ -155,4 +156,5 @@ impl<T: super::GSuiteAddOns> GSuiteAddOns for T {
     ) -> crate::Result<gax::response::Response<crate::model::InstallStatus>> {
         T::get_install_status(self, req, options).await
     }
+
 }

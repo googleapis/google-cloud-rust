@@ -114,53 +114,41 @@ impl AccessApproval {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::AccessApproval + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::AccessApproval + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AccessApproval>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AccessApproval>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
         super::transport::AccessApproval::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::AccessApproval::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
+        Self::build_transport(conf).await.map(super::tracing::AccessApproval::new)
     }
 
     /// Lists approval requests associated with a project, folder, or organization.
     /// Approval requests can be filtered by state (pending, active, dismissed).
     /// The order is reverse chronological.
-    pub fn list_approval_requests(&self) -> super::builder::access_approval::ListApprovalRequests {
+    pub fn list_approval_requests(&self) -> super::builder::access_approval::ListApprovalRequests
+    {
         super::builder::access_approval::ListApprovalRequests::new(self.inner.clone())
     }
 
     /// Gets an approval request. Returns NOT_FOUND if the request does not exist.
-    pub fn get_approval_request(&self) -> super::builder::access_approval::GetApprovalRequest {
+    pub fn get_approval_request(&self) -> super::builder::access_approval::GetApprovalRequest
+    {
         super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
     }
 
@@ -168,9 +156,8 @@ impl AccessApproval {
     ///
     /// Returns NOT_FOUND if the request does not exist. Returns
     /// FAILED_PRECONDITION if the request exists but is not in a pending state.
-    pub fn approve_approval_request(
-        &self,
-    ) -> super::builder::access_approval::ApproveApprovalRequest {
+    pub fn approve_approval_request(&self) -> super::builder::access_approval::ApproveApprovalRequest
+    {
         super::builder::access_approval::ApproveApprovalRequest::new(self.inner.clone())
     }
 
@@ -184,9 +171,8 @@ impl AccessApproval {
     ///
     /// Returns FAILED_PRECONDITION if the request exists but is not in a pending
     /// state.
-    pub fn dismiss_approval_request(
-        &self,
-    ) -> super::builder::access_approval::DismissApprovalRequest {
+    pub fn dismiss_approval_request(&self) -> super::builder::access_approval::DismissApprovalRequest
+    {
         super::builder::access_approval::DismissApprovalRequest::new(self.inner.clone())
     }
 
@@ -198,24 +184,21 @@ impl AccessApproval {
     ///
     /// Returns FAILED_PRECONDITION if the request exists but is not in an approved
     /// state.
-    pub fn invalidate_approval_request(
-        &self,
-    ) -> super::builder::access_approval::InvalidateApprovalRequest {
+    pub fn invalidate_approval_request(&self) -> super::builder::access_approval::InvalidateApprovalRequest
+    {
         super::builder::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
     }
 
     /// Gets the settings associated with a project, folder, or organization.
-    pub fn get_access_approval_settings(
-        &self,
-    ) -> super::builder::access_approval::GetAccessApprovalSettings {
+    pub fn get_access_approval_settings(&self) -> super::builder::access_approval::GetAccessApprovalSettings
+    {
         super::builder::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
     }
 
     /// Updates the settings associated with a project, folder, or organization.
     /// Settings to update are determined by the value of field_mask.
-    pub fn update_access_approval_settings(
-        &self,
-    ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
+    pub fn update_access_approval_settings(&self) -> super::builder::access_approval::UpdateAccessApprovalSettings
+    {
         super::builder::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
     }
 
@@ -225,17 +208,15 @@ impl AccessApproval {
     /// Approval disabled. If Access Approval is enabled at a higher level of the
     /// hierarchy, then Access Approval will still be enabled at this level as
     /// the settings are inherited.
-    pub fn delete_access_approval_settings(
-        &self,
-    ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
+    pub fn delete_access_approval_settings(&self) -> super::builder::access_approval::DeleteAccessApprovalSettings
+    {
         super::builder::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
     }
 
     /// Retrieves the service account that is used by Access Approval to access KMS
     /// keys for signing approved approval requests.
-    pub fn get_access_approval_service_account(
-        &self,
-    ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {
+    pub fn get_access_approval_service_account(&self) -> super::builder::access_approval::GetAccessApprovalServiceAccount
+    {
         super::builder::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
     }
 }

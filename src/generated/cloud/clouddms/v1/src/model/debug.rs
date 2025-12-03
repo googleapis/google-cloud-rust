@@ -646,10 +646,7 @@ impl std::fmt::Debug for super::SearchBackgroundJobsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchBackgroundJobsRequest");
         debug_struct.field("conversion_workspace", &self.conversion_workspace);
-        debug_struct.field(
-            "return_most_recent_per_job_type",
-            &self.return_most_recent_per_job_type,
-        );
+        debug_struct.field("return_most_recent_per_job_type", &self.return_most_recent_per_job_type);
         debug_struct.field("max_size", &self.max_size);
         debug_struct.field("completed_until_time", &self.completed_until_time);
         if !self._unknown_fields.is_empty() {
@@ -896,6 +893,8 @@ impl std::fmt::Debug for super::CloudSqlSettings {
     }
 }
 
+
+
 impl std::fmt::Debug for super::AlloyDbSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AlloyDbSettings");
@@ -950,6 +949,8 @@ impl std::fmt::Debug for super::alloy_db_settings::primary_instance_settings::Ma
     }
 }
 
+
+
 impl std::fmt::Debug for super::alloy_db_settings::EncryptionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EncryptionConfig");
@@ -960,6 +961,7 @@ impl std::fmt::Debug for super::alloy_db_settings::EncryptionConfig {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::StaticIpConnectivity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1120,6 +1122,7 @@ impl std::fmt::Debug for super::migration_job::PerformanceConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::ConversionWorkspaceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConversionWorkspaceInfo");
@@ -1151,6 +1154,7 @@ impl std::fmt::Debug for super::ConnectionProfile {
     }
 }
 
+
 impl std::fmt::Debug for super::MigrationJobVerificationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MigrationJobVerificationError");
@@ -1181,6 +1185,7 @@ impl std::fmt::Debug for super::PrivateConnection {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::VpcPeeringConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1339,10 +1344,7 @@ impl std::fmt::Debug for super::MultiEntityRename {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiEntityRename");
         debug_struct.field("new_name_pattern", &self.new_name_pattern);
-        debug_struct.field(
-            "source_name_transformation",
-            &self.source_name_transformation,
-        );
+        debug_struct.field("source_name_transformation", &self.source_name_transformation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1370,10 +1372,7 @@ impl std::fmt::Debug for super::SingleColumnChange {
         debug_struct.field("length", &self.length);
         debug_struct.field("precision", &self.precision);
         debug_struct.field("scale", &self.scale);
-        debug_struct.field(
-            "fractional_seconds_precision",
-            &self.fractional_seconds_precision,
-        );
+        debug_struct.field("fractional_seconds_precision", &self.fractional_seconds_precision);
         debug_struct.field("array", &self.array);
         debug_struct.field("array_length", &self.array_length);
         debug_struct.field("nullable", &self.nullable);
@@ -1397,10 +1396,7 @@ impl std::fmt::Debug for super::MultiColumnDatatypeChange {
         debug_struct.field("override_length", &self.override_length);
         debug_struct.field("override_scale", &self.override_scale);
         debug_struct.field("override_precision", &self.override_precision);
-        debug_struct.field(
-            "override_fractional_seconds_precision",
-            &self.override_fractional_seconds_precision,
-        );
+        debug_struct.field("override_fractional_seconds_precision", &self.override_fractional_seconds_precision);
         debug_struct.field("custom_features", &self.custom_features);
         debug_struct.field("source_filter", &self.source_filter);
         if !self._unknown_fields.is_empty() {
@@ -1427,14 +1423,8 @@ impl std::fmt::Debug for super::SourceNumericFilter {
         let mut debug_struct = f.debug_struct("SourceNumericFilter");
         debug_struct.field("source_min_scale_filter", &self.source_min_scale_filter);
         debug_struct.field("source_max_scale_filter", &self.source_max_scale_filter);
-        debug_struct.field(
-            "source_min_precision_filter",
-            &self.source_min_precision_filter,
-        );
-        debug_struct.field(
-            "source_max_precision_filter",
-            &self.source_max_precision_filter,
-        );
+        debug_struct.field("source_min_precision_filter", &self.source_min_precision_filter);
+        debug_struct.field("source_max_precision_filter", &self.source_max_precision_filter);
         debug_struct.field("numeric_filter_option", &self.numeric_filter_option);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1662,10 +1652,7 @@ impl std::fmt::Debug for super::ColumnEntity {
         debug_struct.field("length", &self.length);
         debug_struct.field("precision", &self.precision);
         debug_struct.field("scale", &self.scale);
-        debug_struct.field(
-            "fractional_seconds_precision",
-            &self.fractional_seconds_precision,
-        );
+        debug_struct.field("fractional_seconds_precision", &self.fractional_seconds_precision);
         debug_struct.field("array", &self.array);
         debug_struct.field("array_length", &self.array_length);
         debug_struct.field("nullable", &self.nullable);

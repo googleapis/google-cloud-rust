@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddOnWidgetSet {
+
     /// The list of widgets used in an add-on.
     pub used_widgets: std::vec::Vec<crate::model::add_on_widget_set::WidgetType>,
 
@@ -47,7 +48,7 @@ impl AddOnWidgetSet {
     pub fn set_used_widgets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::add_on_widget_set::WidgetType>,
+        V: std::convert::Into<crate::model::add_on_widget_set::WidgetType>
     {
         use std::iter::Iterator;
         self.used_widgets = v.into_iter().map(|i| i.into()).collect();
@@ -65,6 +66,7 @@ impl wkt::message::Message for AddOnWidgetSet {
 pub mod add_on_widget_set {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The Widget type. DEFAULT is the basic widget set.
     ///
@@ -145,9 +147,7 @@ pub mod add_on_widget_set {
                 Self::StyledButtons => std::option::Option::Some("STYLED_BUTTONS"),
                 Self::PersistentForms => std::option::Option::Some("PERSISTENT_FORMS"),
                 Self::FixedFooter => std::option::Option::Some("FIXED_FOOTER"),
-                Self::UpdateSubjectAndRecipients => {
-                    std::option::Option::Some("UPDATE_SUBJECT_AND_RECIPIENTS")
-                }
+                Self::UpdateSubjectAndRecipients => std::option::Option::Some("UPDATE_SUBJECT_AND_RECIPIENTS"),
                 Self::GridWidget => std::option::Option::Some("GRID_WIDGET"),
                 Self::AddonComposeUiAction => std::option::Option::Some("ADDON_COMPOSE_UI_ACTION"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -179,9 +179,7 @@ pub mod add_on_widget_set {
                 5 => Self::UpdateSubjectAndRecipients,
                 6 => Self::GridWidget,
                 7 => Self::AddonComposeUiAction,
-                _ => Self::UnknownValue(widget_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(widget_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -198,9 +196,7 @@ pub mod add_on_widget_set {
                 "UPDATE_SUBJECT_AND_RECIPIENTS" => Self::UpdateSubjectAndRecipients,
                 "GRID_WIDGET" => Self::GridWidget,
                 "ADDON_COMPOSE_UI_ACTION" => Self::AddonComposeUiAction,
-                _ => Self::UnknownValue(widget_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(widget_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -230,8 +226,7 @@ pub mod add_on_widget_set {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<WidgetType>::new(
-                ".google.apps.script.type.AddOnWidgetSet.WidgetType",
-            ))
+                ".google.apps.script.type.AddOnWidgetSet.WidgetType"))
         }
     }
 }
@@ -241,6 +236,7 @@ pub mod add_on_widget_set {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MenuItemExtensionPoint {
+
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     pub run_function: std::string::String,
@@ -291,6 +287,7 @@ impl wkt::message::Message for MenuItemExtensionPoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HomepageExtensionPoint {
+
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     pub run_function: std::string::String,
@@ -319,8 +316,7 @@ impl HomepageExtensionPoint {
 
     /// Sets the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -328,8 +324,7 @@ impl HomepageExtensionPoint {
 
     /// Sets or clears the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -346,14 +341,14 @@ impl wkt::message::Message for HomepageExtensionPoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UniversalActionExtensionPoint {
+
     /// Required. User-visible text describing the action taken by activating this
     /// extension point, for example, "Add a new contact".
     pub label: std::string::String,
 
     /// Required. The action type supported on a universal action menu item. It
     /// could be either a link to open or an endpoint to execute.
-    pub action_type:
-        std::option::Option<crate::model::universal_action_extension_point::ActionType>,
+    pub action_type: std::option::Option<crate::model::universal_action_extension_point::ActionType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -373,14 +368,8 @@ impl UniversalActionExtensionPoint {
     ///
     /// Note that all the setters affecting `action_type` are mutually
     /// exclusive.
-    pub fn set_action_type<
-        T: std::convert::Into<
-                std::option::Option<crate::model::universal_action_extension_point::ActionType>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action_type<T: std::convert::Into<std::option::Option<crate::model::universal_action_extension_point::ActionType>>>(mut self, v: T) -> Self
+    {
         self.action_type = v.into();
         self
     }
@@ -391,9 +380,7 @@ impl UniversalActionExtensionPoint {
     pub fn open_link(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.action_type.as_ref().and_then(|v| match v {
-            crate::model::universal_action_extension_point::ActionType::OpenLink(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::universal_action_extension_point::ActionType::OpenLink(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -405,7 +392,9 @@ impl UniversalActionExtensionPoint {
     /// mutually exclusive.
     pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
+            crate::model::universal_action_extension_point::ActionType::OpenLink(
+                v.into()
+            )
         );
         self
     }
@@ -416,9 +405,7 @@ impl UniversalActionExtensionPoint {
     pub fn run_function(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.action_type.as_ref().and_then(|v| match v {
-            crate::model::universal_action_extension_point::ActionType::RunFunction(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::universal_action_extension_point::ActionType::RunFunction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -430,7 +417,9 @@ impl UniversalActionExtensionPoint {
     /// mutually exclusive.
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::RunFunction(v.into()),
+            crate::model::universal_action_extension_point::ActionType::RunFunction(
+                v.into()
+            )
         );
         self
     }
@@ -446,6 +435,7 @@ impl wkt::message::Message for UniversalActionExtensionPoint {
 pub mod universal_action_extension_point {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The action type supported on a universal action menu item. It
     /// could be either a link to open or an endpoint to execute.
@@ -463,6 +453,7 @@ pub mod universal_action_extension_point {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonAddOnManifest {
+
     /// Required. The display name of the add-on.
     pub name: std::string::String,
 
@@ -522,8 +513,7 @@ impl CommonAddOnManifest {
 
     /// Sets the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
     pub fn set_layout_properties<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LayoutProperties>,
+    where T: std::convert::Into<crate::model::LayoutProperties>
     {
         self.layout_properties = std::option::Option::Some(v.into());
         self
@@ -531,8 +521,7 @@ impl CommonAddOnManifest {
 
     /// Sets or clears the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
     pub fn set_or_clear_layout_properties<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LayoutProperties>,
+    where T: std::convert::Into<crate::model::LayoutProperties>
     {
         self.layout_properties = v.map(|x| x.into());
         self
@@ -540,8 +529,7 @@ impl CommonAddOnManifest {
 
     /// Sets the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
     pub fn set_add_on_widget_set<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    where T: std::convert::Into<crate::model::AddOnWidgetSet>
     {
         self.add_on_widget_set = std::option::Option::Some(v.into());
         self
@@ -549,8 +537,7 @@ impl CommonAddOnManifest {
 
     /// Sets or clears the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
     pub fn set_or_clear_add_on_widget_set<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    where T: std::convert::Into<crate::model::AddOnWidgetSet>
     {
         self.add_on_widget_set = v.map(|x| x.into());
         self
@@ -564,8 +551,7 @@ impl CommonAddOnManifest {
 
     /// Sets the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    where T: std::convert::Into<crate::model::HomepageExtensionPoint>
     {
         self.homepage_trigger = std::option::Option::Some(v.into());
         self
@@ -573,8 +559,7 @@ impl CommonAddOnManifest {
 
     /// Sets or clears the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    where T: std::convert::Into<crate::model::HomepageExtensionPoint>
     {
         self.homepage_trigger = v.map(|x| x.into());
         self
@@ -584,7 +569,7 @@ impl CommonAddOnManifest {
     pub fn set_universal_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UniversalActionExtensionPoint>,
+        V: std::convert::Into<crate::model::UniversalActionExtensionPoint>
     {
         use std::iter::Iterator;
         self.universal_actions = v.into_iter().map(|i| i.into()).collect();
@@ -593,8 +578,7 @@ impl CommonAddOnManifest {
 
     /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
     pub fn set_open_link_url_prefixes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::ListValue>,
+    where T: std::convert::Into<wkt::ListValue>
     {
         self.open_link_url_prefixes = std::option::Option::Some(v.into());
         self
@@ -602,8 +586,7 @@ impl CommonAddOnManifest {
 
     /// Sets or clears the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
     pub fn set_or_clear_open_link_url_prefixes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::ListValue>,
+    where T: std::convert::Into<wkt::ListValue>
     {
         self.open_link_url_prefixes = v.map(|x| x.into());
         self
@@ -620,6 +603,7 @@ impl wkt::message::Message for CommonAddOnManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LayoutProperties {
+
     /// The primary color of the add-on. It sets the color of toolbar. If no
     /// primary color is set explicitly, the default value provided by the
     /// framework is used.
@@ -663,6 +647,7 @@ impl wkt::message::Message for LayoutProperties {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpOptions {
+
     /// Configuration for the token sent in the HTTP Authorization header
     pub authorization_header: crate::model::HttpAuthorizationHeader,
 
@@ -675,12 +660,7 @@ impl HttpOptions {
     }
 
     /// Sets the value of [authorization_header][crate::model::HttpOptions::authorization_header].
-    pub fn set_authorization_header<
-        T: std::convert::Into<crate::model::HttpAuthorizationHeader>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_header<T: std::convert::Into<crate::model::HttpAuthorizationHeader>>(mut self, v: T) -> Self {
         self.authorization_header = v.into();
         self
     }
@@ -784,9 +764,7 @@ impl std::convert::From<i32> for HttpAuthorizationHeader {
             1 => Self::SystemIdToken,
             2 => Self::UserIdToken,
             3 => Self::None,
-            _ => Self::UnknownValue(http_authorization_header::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(http_authorization_header::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -799,9 +777,7 @@ impl std::convert::From<&str> for HttpAuthorizationHeader {
             "SYSTEM_ID_TOKEN" => Self::SystemIdToken,
             "USER_ID_TOKEN" => Self::UserIdToken,
             "NONE" => Self::None,
-            _ => Self::UnknownValue(http_authorization_header::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(http_authorization_header::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -827,7 +803,6 @@ impl<'de> serde::de::Deserialize<'de> for HttpAuthorizationHeader {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HttpAuthorizationHeader>::new(
-            ".google.apps.script.type.HttpAuthorizationHeader",
-        ))
+            ".google.apps.script.type.HttpAuthorizationHeader"))
     }
 }

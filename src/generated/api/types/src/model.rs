@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -51,6 +51,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Authentication {
+
     /// A list of authentication rules that apply to individual API methods.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
@@ -71,7 +72,7 @@ impl Authentication {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthenticationRule>,
+        V: std::convert::Into<crate::model::AuthenticationRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -82,7 +83,7 @@ impl Authentication {
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthProvider>,
+        V: std::convert::Into<crate::model::AuthProvider>
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
@@ -108,6 +109,7 @@ impl wkt::message::Message for Authentication {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthenticationRule {
+
     /// Selects the methods to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -142,8 +144,7 @@ impl AuthenticationRule {
 
     /// Sets the value of [oauth][crate::model::AuthenticationRule::oauth].
     pub fn set_oauth<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuthRequirements>,
+    where T: std::convert::Into<crate::model::OAuthRequirements>
     {
         self.oauth = std::option::Option::Some(v.into());
         self
@@ -151,8 +152,7 @@ impl AuthenticationRule {
 
     /// Sets or clears the value of [oauth][crate::model::AuthenticationRule::oauth].
     pub fn set_or_clear_oauth<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OAuthRequirements>,
+    where T: std::convert::Into<crate::model::OAuthRequirements>
     {
         self.oauth = v.map(|x| x.into());
         self
@@ -168,7 +168,7 @@ impl AuthenticationRule {
     pub fn set_requirements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuthRequirement>,
+        V: std::convert::Into<crate::model::AuthRequirement>
     {
         use std::iter::Iterator;
         self.requirements = v.into_iter().map(|i| i.into()).collect();
@@ -186,6 +186,7 @@ impl wkt::message::Message for AuthenticationRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JwtLocation {
+
     /// The value prefix. The value format is "value_prefix{token}"
     /// Only applies to "in" header type. Must be empty for "in" query type.
     /// If not empty, the header value has to match (case sensitive) this prefix.
@@ -216,10 +217,8 @@ impl JwtLocation {
     ///
     /// Note that all the setters affecting `r#in` are mutually
     /// exclusive.
-    pub fn set_in<T: std::convert::Into<std::option::Option<crate::model::jwt_location::In>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_in<T: std::convert::Into<std::option::Option<crate::model::jwt_location::In>>>(mut self, v: T) -> Self
+    {
         self.r#in = v.into();
         self
     }
@@ -241,7 +240,11 @@ impl JwtLocation {
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
     pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Header(v.into()));
+        self.r#in = std::option::Option::Some(
+            crate::model::jwt_location::In::Header(
+                v.into()
+            )
+        );
         self
     }
 
@@ -262,7 +265,11 @@ impl JwtLocation {
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Query(v.into()));
+        self.r#in = std::option::Option::Some(
+            crate::model::jwt_location::In::Query(
+                v.into()
+            )
+        );
         self
     }
 
@@ -283,7 +290,11 @@ impl JwtLocation {
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
     pub fn set_cookie<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Cookie(v.into()));
+        self.r#in = std::option::Option::Some(
+            crate::model::jwt_location::In::Cookie(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -298,6 +309,7 @@ impl wkt::message::Message for JwtLocation {
 pub mod jwt_location {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -317,6 +329,7 @@ pub mod jwt_location {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthProvider {
+
     /// The unique identifier of the auth provider. It will be referred to by
     /// `AuthRequirement.provider_id`.
     ///
@@ -428,10 +441,7 @@ impl AuthProvider {
     }
 
     /// Sets the value of [authorization_url][crate::model::AuthProvider::authorization_url].
-    pub fn set_authorization_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authorization_url = v.into();
         self
     }
@@ -440,7 +450,7 @@ impl AuthProvider {
     pub fn set_jwt_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JwtLocation>,
+        V: std::convert::Into<crate::model::JwtLocation>
     {
         use std::iter::Iterator;
         self.jwt_locations = v.into_iter().map(|i| i.into()).collect();
@@ -475,6 +485,7 @@ impl wkt::message::Message for AuthProvider {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OAuthRequirements {
+
     /// The list of publicly documented OAuth scopes that are allowed access. An
     /// OAuth token containing any of these scopes will be accepted.
     ///
@@ -495,10 +506,7 @@ impl OAuthRequirements {
     }
 
     /// Sets the value of [canonical_scopes][crate::model::OAuthRequirements::canonical_scopes].
-    pub fn set_canonical_scopes<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_canonical_scopes<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.canonical_scopes = v.into();
         self
     }
@@ -516,6 +524,7 @@ impl wkt::message::Message for OAuthRequirements {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthRequirement {
+
     /// [id][google.api.AuthProvider.id] from authentication provider.
     ///
     /// Example:
@@ -581,6 +590,7 @@ impl wkt::message::Message for AuthRequirement {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Backend {
+
     /// A list of API backend rules that apply to individual API methods.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
@@ -598,7 +608,7 @@ impl Backend {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackendRule>,
+        V: std::convert::Into<crate::model::BackendRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -616,6 +626,7 @@ impl wkt::message::Message for Backend {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackendRule {
+
     /// Selects the methods to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -689,8 +700,7 @@ pub struct BackendRule {
     pub protocol: std::string::String,
 
     /// The map between request protocol and the backend address.
-    pub overrides_by_request_protocol:
-        std::collections::HashMap<std::string::String, crate::model::BackendRule>,
+    pub overrides_by_request_protocol: std::collections::HashMap<std::string::String,crate::model::BackendRule>,
 
     /// Authentication settings used by the backend.
     ///
@@ -748,12 +758,7 @@ impl BackendRule {
     }
 
     /// Sets the value of [path_translation][crate::model::BackendRule::path_translation].
-    pub fn set_path_translation<
-        T: std::convert::Into<crate::model::backend_rule::PathTranslation>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_path_translation<T: std::convert::Into<crate::model::backend_rule::PathTranslation>>(mut self, v: T) -> Self {
         self.path_translation = v.into();
         self
     }
@@ -772,8 +777,7 @@ impl BackendRule {
         V: std::convert::Into<crate::model::BackendRule>,
     {
         use std::iter::Iterator;
-        self.overrides_by_request_protocol =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.overrides_by_request_protocol = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -781,12 +785,8 @@ impl BackendRule {
     ///
     /// Note that all the setters affecting `authentication` are mutually
     /// exclusive.
-    pub fn set_authentication<
-        T: std::convert::Into<std::option::Option<crate::model::backend_rule::Authentication>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authentication<T: std::convert::Into<std::option::Option<crate::model::backend_rule::Authentication>>>(mut self, v: T) -> Self
+    {
         self.authentication = v.into();
         self
     }
@@ -797,9 +797,7 @@ impl BackendRule {
     pub fn jwt_audience(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.authentication.as_ref().and_then(|v| match v {
-            crate::model::backend_rule::Authentication::JwtAudience(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backend_rule::Authentication::JwtAudience(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -811,7 +809,9 @@ impl BackendRule {
     /// mutually exclusive.
     pub fn set_jwt_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication = std::option::Option::Some(
-            crate::model::backend_rule::Authentication::JwtAudience(v.into()),
+            crate::model::backend_rule::Authentication::JwtAudience(
+                v.into()
+            )
         );
         self
     }
@@ -822,9 +822,7 @@ impl BackendRule {
     pub fn disable_auth(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.authentication.as_ref().and_then(|v| match v {
-            crate::model::backend_rule::Authentication::DisableAuth(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::backend_rule::Authentication::DisableAuth(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -836,7 +834,9 @@ impl BackendRule {
     /// mutually exclusive.
     pub fn set_disable_auth<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.authentication = std::option::Option::Some(
-            crate::model::backend_rule::Authentication::DisableAuth(v.into()),
+            crate::model::backend_rule::Authentication::DisableAuth(
+                v.into()
+            )
         );
         self
     }
@@ -852,6 +852,7 @@ impl wkt::message::Message for BackendRule {
 pub mod backend_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Path Translation specifies how to combine the backend address with the
     /// request path in order to produce the appropriate forwarding URL for the
@@ -992,9 +993,7 @@ pub mod backend_rule {
                 0 => Self::Unspecified,
                 1 => Self::ConstantAddress,
                 2 => Self::AppendPathToAddress,
-                _ => Self::UnknownValue(path_translation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(path_translation::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1006,9 +1005,7 @@ pub mod backend_rule {
                 "PATH_TRANSLATION_UNSPECIFIED" => Self::Unspecified,
                 "CONSTANT_ADDRESS" => Self::ConstantAddress,
                 "APPEND_PATH_TO_ADDRESS" => Self::AppendPathToAddress,
-                _ => Self::UnknownValue(path_translation::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(path_translation::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1033,8 +1030,7 @@ pub mod backend_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PathTranslation>::new(
-                ".google.api.BackendRule.PathTranslation",
-            ))
+                ".google.api.BackendRule.PathTranslation"))
         }
     }
 
@@ -1103,6 +1099,7 @@ pub mod backend_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Billing {
+
     /// Billing configurations for sending metrics to the consumer project.
     /// There can be multiple consumer destinations per service, each one must have
     /// a different monitored resource type. A metric can be used in at most
@@ -1121,7 +1118,7 @@ impl Billing {
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::billing::BillingDestination>,
+        V: std::convert::Into<crate::model::billing::BillingDestination>
     {
         use std::iter::Iterator;
         self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
@@ -1140,11 +1137,13 @@ pub mod billing {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration of a specific billing destination (Currently only support
     /// bill against consumer project).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BillingDestination {
+
         /// The monitored resource type. The type must be defined in
         /// [Service.monitored_resources][google.api.Service.monitored_resources]
         /// section.
@@ -1168,10 +1167,7 @@ pub mod billing {
         }
 
         /// Sets the value of [monitored_resource][crate::model::billing::BillingDestination::monitored_resource].
-        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.monitored_resource = v.into();
             self
         }
@@ -1180,7 +1176,7 @@ pub mod billing {
         pub fn set_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -1199,6 +1195,7 @@ pub mod billing {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonLanguageSettings {
+
     /// Link to automatically generated reference documentation.  Example:
     /// <https://cloud.google.com/nodejs/docs/reference/asset/latest>
     #[deprecated]
@@ -1220,10 +1217,7 @@ impl CommonLanguageSettings {
 
     /// Sets the value of [reference_docs_uri][crate::model::CommonLanguageSettings::reference_docs_uri].
     #[deprecated]
-    pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reference_docs_uri = v.into();
         self
     }
@@ -1232,7 +1226,7 @@ impl CommonLanguageSettings {
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientLibraryDestination>,
+        V: std::convert::Into<crate::model::ClientLibraryDestination>
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
@@ -1241,8 +1235,7 @@ impl CommonLanguageSettings {
 
     /// Sets the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
     pub fn set_selective_gapic_generation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SelectiveGapicGeneration>,
+    where T: std::convert::Into<crate::model::SelectiveGapicGeneration>
     {
         self.selective_gapic_generation = std::option::Option::Some(v.into());
         self
@@ -1250,8 +1243,7 @@ impl CommonLanguageSettings {
 
     /// Sets or clears the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
     pub fn set_or_clear_selective_gapic_generation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SelectiveGapicGeneration>,
+    where T: std::convert::Into<crate::model::SelectiveGapicGeneration>
     {
         self.selective_gapic_generation = v.map(|x| x.into());
         self
@@ -1268,6 +1260,7 @@ impl wkt::message::Message for CommonLanguageSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClientLibrarySettings {
+
     /// Version of the API to apply these settings to. This is the full protobuf
     /// package for the API, ending in the version element.
     /// Examples: "google.cloud.speech.v1" and "google.spanner.admin.database.v1".
@@ -1319,10 +1312,7 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [launch_stage][crate::model::ClientLibrarySettings::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -1335,8 +1325,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
     pub fn set_java_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JavaSettings>,
+    where T: std::convert::Into<crate::model::JavaSettings>
     {
         self.java_settings = std::option::Option::Some(v.into());
         self
@@ -1344,8 +1333,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
     pub fn set_or_clear_java_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JavaSettings>,
+    where T: std::convert::Into<crate::model::JavaSettings>
     {
         self.java_settings = v.map(|x| x.into());
         self
@@ -1353,8 +1341,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
     pub fn set_cpp_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CppSettings>,
+    where T: std::convert::Into<crate::model::CppSettings>
     {
         self.cpp_settings = std::option::Option::Some(v.into());
         self
@@ -1362,8 +1349,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
     pub fn set_or_clear_cpp_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CppSettings>,
+    where T: std::convert::Into<crate::model::CppSettings>
     {
         self.cpp_settings = v.map(|x| x.into());
         self
@@ -1371,8 +1357,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
     pub fn set_php_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PhpSettings>,
+    where T: std::convert::Into<crate::model::PhpSettings>
     {
         self.php_settings = std::option::Option::Some(v.into());
         self
@@ -1380,8 +1365,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
     pub fn set_or_clear_php_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PhpSettings>,
+    where T: std::convert::Into<crate::model::PhpSettings>
     {
         self.php_settings = v.map(|x| x.into());
         self
@@ -1389,8 +1373,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
     pub fn set_python_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PythonSettings>,
+    where T: std::convert::Into<crate::model::PythonSettings>
     {
         self.python_settings = std::option::Option::Some(v.into());
         self
@@ -1398,8 +1381,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
     pub fn set_or_clear_python_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PythonSettings>,
+    where T: std::convert::Into<crate::model::PythonSettings>
     {
         self.python_settings = v.map(|x| x.into());
         self
@@ -1407,8 +1389,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
     pub fn set_node_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSettings>,
+    where T: std::convert::Into<crate::model::NodeSettings>
     {
         self.node_settings = std::option::Option::Some(v.into());
         self
@@ -1416,8 +1397,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
     pub fn set_or_clear_node_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSettings>,
+    where T: std::convert::Into<crate::model::NodeSettings>
     {
         self.node_settings = v.map(|x| x.into());
         self
@@ -1425,8 +1405,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
     pub fn set_dotnet_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DotnetSettings>,
+    where T: std::convert::Into<crate::model::DotnetSettings>
     {
         self.dotnet_settings = std::option::Option::Some(v.into());
         self
@@ -1434,8 +1413,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
     pub fn set_or_clear_dotnet_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DotnetSettings>,
+    where T: std::convert::Into<crate::model::DotnetSettings>
     {
         self.dotnet_settings = v.map(|x| x.into());
         self
@@ -1443,8 +1421,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
     pub fn set_ruby_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RubySettings>,
+    where T: std::convert::Into<crate::model::RubySettings>
     {
         self.ruby_settings = std::option::Option::Some(v.into());
         self
@@ -1452,8 +1429,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
     pub fn set_or_clear_ruby_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RubySettings>,
+    where T: std::convert::Into<crate::model::RubySettings>
     {
         self.ruby_settings = v.map(|x| x.into());
         self
@@ -1461,8 +1437,7 @@ impl ClientLibrarySettings {
 
     /// Sets the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
     pub fn set_go_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GoSettings>,
+    where T: std::convert::Into<crate::model::GoSettings>
     {
         self.go_settings = std::option::Option::Some(v.into());
         self
@@ -1470,8 +1445,7 @@ impl ClientLibrarySettings {
 
     /// Sets or clears the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
     pub fn set_or_clear_go_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GoSettings>,
+    where T: std::convert::Into<crate::model::GoSettings>
     {
         self.go_settings = v.map(|x| x.into());
         self
@@ -1490,6 +1464,7 @@ impl wkt::message::Message for ClientLibrarySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Publishing {
+
     /// A list of API method settings, e.g. the behavior for methods that use the
     /// long-running operation pattern.
     pub method_settings: std::vec::Vec<crate::model::MethodSettings>,
@@ -1546,7 +1521,7 @@ impl Publishing {
     pub fn set_method_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MethodSettings>,
+        V: std::convert::Into<crate::model::MethodSettings>
     {
         use std::iter::Iterator;
         self.method_settings = v.into_iter().map(|i| i.into()).collect();
@@ -1560,10 +1535,7 @@ impl Publishing {
     }
 
     /// Sets the value of [documentation_uri][crate::model::Publishing::documentation_uri].
-    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation_uri = v.into();
         self
     }
@@ -1584,7 +1556,7 @@ impl Publishing {
     pub fn set_codeowner_github_teams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.codeowner_github_teams = v.into_iter().map(|i| i.into()).collect();
@@ -1598,10 +1570,7 @@ impl Publishing {
     }
 
     /// Sets the value of [organization][crate::model::Publishing::organization].
-    pub fn set_organization<T: std::convert::Into<crate::model::ClientLibraryOrganization>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_organization<T: std::convert::Into<crate::model::ClientLibraryOrganization>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
@@ -1610,7 +1579,7 @@ impl Publishing {
     pub fn set_library_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClientLibrarySettings>,
+        V: std::convert::Into<crate::model::ClientLibrarySettings>
     {
         use std::iter::Iterator;
         self.library_settings = v.into_iter().map(|i| i.into()).collect();
@@ -1618,19 +1587,13 @@ impl Publishing {
     }
 
     /// Sets the value of [proto_reference_documentation_uri][crate::model::Publishing::proto_reference_documentation_uri].
-    pub fn set_proto_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_proto_reference_documentation_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.proto_reference_documentation_uri = v.into();
         self
     }
 
     /// Sets the value of [rest_reference_documentation_uri][crate::model::Publishing::rest_reference_documentation_uri].
-    pub fn set_rest_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rest_reference_documentation_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rest_reference_documentation_uri = v.into();
         self
     }
@@ -1646,6 +1609,7 @@ impl wkt::message::Message for Publishing {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JavaSettings {
+
     /// The package name to use in Java. Clobbers the java_package option
     /// set in the protobuf. This should be used **only** by APIs
     /// who have already set the language_settings.java.package_name" field
@@ -1673,7 +1637,7 @@ pub struct JavaSettings {
     /// service_class_names:
     /// - google.pubsub.v1.Publisher: TopicAdmin
     /// - google.pubsub.v1.Subscriber: SubscriptionAdmin
-    pub service_class_names: std::collections::HashMap<std::string::String, std::string::String>,
+    pub service_class_names: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
@@ -1706,8 +1670,7 @@ impl JavaSettings {
 
     /// Sets the value of [common][crate::model::JavaSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -1715,8 +1678,7 @@ impl JavaSettings {
 
     /// Sets or clears the value of [common][crate::model::JavaSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -1733,6 +1695,7 @@ impl wkt::message::Message for JavaSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CppSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -1746,8 +1709,7 @@ impl CppSettings {
 
     /// Sets the value of [common][crate::model::CppSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -1755,8 +1717,7 @@ impl CppSettings {
 
     /// Sets or clears the value of [common][crate::model::CppSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -1773,6 +1734,7 @@ impl wkt::message::Message for CppSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PhpSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -1786,8 +1748,7 @@ impl PhpSettings {
 
     /// Sets the value of [common][crate::model::PhpSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -1795,8 +1756,7 @@ impl PhpSettings {
 
     /// Sets or clears the value of [common][crate::model::PhpSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -1813,12 +1773,12 @@ impl wkt::message::Message for PhpSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PythonSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
     /// Experimental features to be included during client library generation.
-    pub experimental_features:
-        std::option::Option<crate::model::python_settings::ExperimentalFeatures>,
+    pub experimental_features: std::option::Option<crate::model::python_settings::ExperimentalFeatures>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1830,8 +1790,7 @@ impl PythonSettings {
 
     /// Sets the value of [common][crate::model::PythonSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -1839,8 +1798,7 @@ impl PythonSettings {
 
     /// Sets or clears the value of [common][crate::model::PythonSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -1848,8 +1806,7 @@ impl PythonSettings {
 
     /// Sets the value of [experimental_features][crate::model::PythonSettings::experimental_features].
     pub fn set_experimental_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>,
+    where T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>
     {
         self.experimental_features = std::option::Option::Some(v.into());
         self
@@ -1857,8 +1814,7 @@ impl PythonSettings {
 
     /// Sets or clears the value of [experimental_features][crate::model::PythonSettings::experimental_features].
     pub fn set_or_clear_experimental_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>,
+    where T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>
     {
         self.experimental_features = v.map(|x| x.into());
         self
@@ -1876,12 +1832,14 @@ pub mod python_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Experimental features to be included during client library generation.
     /// These fields will be deprecated once the feature graduates and is enabled
     /// by default.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExperimentalFeatures {
+
         /// Enables generation of asynchronous REST clients if `rest` transport is
         /// enabled. By default, asynchronous REST clients will not be generated.
         /// This feature will be enabled by default 1 month after launching the
@@ -1915,19 +1873,13 @@ pub mod python_settings {
         }
 
         /// Sets the value of [protobuf_pythonic_types_enabled][crate::model::python_settings::ExperimentalFeatures::protobuf_pythonic_types_enabled].
-        pub fn set_protobuf_pythonic_types_enabled<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_protobuf_pythonic_types_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.protobuf_pythonic_types_enabled = v.into();
             self
         }
 
         /// Sets the value of [unversioned_package_disabled][crate::model::python_settings::ExperimentalFeatures::unversioned_package_disabled].
-        pub fn set_unversioned_package_disabled<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_unversioned_package_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.unversioned_package_disabled = v.into();
             self
         }
@@ -1944,6 +1896,7 @@ pub mod python_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -1957,8 +1910,7 @@ impl NodeSettings {
 
     /// Sets the value of [common][crate::model::NodeSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -1966,8 +1918,7 @@ impl NodeSettings {
 
     /// Sets or clears the value of [common][crate::model::NodeSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -1984,6 +1935,7 @@ impl wkt::message::Message for NodeSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DotnetSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -1992,14 +1944,14 @@ pub struct DotnetSettings {
     /// would cause a naming conflict. (Neither name is
     /// fully-qualified.)
     /// Example: Subscriber to SubscriberServiceApi.
-    pub renamed_services: std::collections::HashMap<std::string::String, std::string::String>,
+    pub renamed_services: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Map from full resource types to the effective short name
     /// for the resource. This is used when otherwise resource
     /// named from different services would cause naming collisions.
     /// Example entry:
     /// "datalabeling.googleapis.com/Dataset": "DataLabelingDataset"
-    pub renamed_resources: std::collections::HashMap<std::string::String, std::string::String>,
+    pub renamed_resources: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// List of full resource types to ignore during generation.
     /// This is typically used for API-specific Location resources,
@@ -2027,8 +1979,7 @@ impl DotnetSettings {
 
     /// Sets the value of [common][crate::model::DotnetSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -2036,8 +1987,7 @@ impl DotnetSettings {
 
     /// Sets or clears the value of [common][crate::model::DotnetSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -2071,7 +2021,7 @@ impl DotnetSettings {
     pub fn set_ignored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.ignored_resources = v.into_iter().map(|i| i.into()).collect();
@@ -2082,7 +2032,7 @@ impl DotnetSettings {
     pub fn set_forced_namespace_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.forced_namespace_aliases = v.into_iter().map(|i| i.into()).collect();
@@ -2093,7 +2043,7 @@ impl DotnetSettings {
     pub fn set_handwritten_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.handwritten_signatures = v.into_iter().map(|i| i.into()).collect();
@@ -2111,6 +2061,7 @@ impl wkt::message::Message for DotnetSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RubySettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -2124,8 +2075,7 @@ impl RubySettings {
 
     /// Sets the value of [common][crate::model::RubySettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -2133,8 +2083,7 @@ impl RubySettings {
 
     /// Sets or clears the value of [common][crate::model::RubySettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -2151,6 +2100,7 @@ impl wkt::message::Message for RubySettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoSettings {
+
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
@@ -2162,7 +2112,7 @@ pub struct GoSettings {
     /// go_settings:
     /// renamed_services:
     /// Publisher: TopicAdmin
-    pub renamed_services: std::collections::HashMap<std::string::String, std::string::String>,
+    pub renamed_services: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2174,8 +2124,7 @@ impl GoSettings {
 
     /// Sets the value of [common][crate::model::GoSettings::common].
     pub fn set_common<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = std::option::Option::Some(v.into());
         self
@@ -2183,8 +2132,7 @@ impl GoSettings {
 
     /// Sets or clears the value of [common][crate::model::GoSettings::common].
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonLanguageSettings>,
+    where T: std::convert::Into<crate::model::CommonLanguageSettings>
     {
         self.common = v.map(|x| x.into());
         self
@@ -2213,6 +2161,7 @@ impl wkt::message::Message for GoSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodSettings {
+
     /// The fully qualified name of the method, for which the options below apply.
     /// This is used to find the method to apply the options.
     ///
@@ -2275,8 +2224,7 @@ impl MethodSettings {
 
     /// Sets the value of [long_running][crate::model::MethodSettings::long_running].
     pub fn set_long_running<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::method_settings::LongRunning>,
+    where T: std::convert::Into<crate::model::method_settings::LongRunning>
     {
         self.long_running = std::option::Option::Some(v.into());
         self
@@ -2284,8 +2232,7 @@ impl MethodSettings {
 
     /// Sets or clears the value of [long_running][crate::model::MethodSettings::long_running].
     pub fn set_or_clear_long_running<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::method_settings::LongRunning>,
+    where T: std::convert::Into<crate::model::method_settings::LongRunning>
     {
         self.long_running = v.map(|x| x.into());
         self
@@ -2295,7 +2242,7 @@ impl MethodSettings {
     pub fn set_auto_populated_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.auto_populated_fields = v.into_iter().map(|i| i.into()).collect();
@@ -2314,6 +2261,7 @@ pub mod method_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Describes settings to use when generating API methods that use the
     /// long-running operation pattern.
     /// All default values below are from those used in the client library
@@ -2322,6 +2270,7 @@ pub mod method_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LongRunning {
+
         /// Initial delay after which the first poll request will be made.
         /// Default value: 5 seconds.
         pub initial_poll_delay: std::option::Option<wkt::Duration>,
@@ -2349,8 +2298,7 @@ pub mod method_settings {
 
         /// Sets the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
         pub fn set_initial_poll_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.initial_poll_delay = std::option::Option::Some(v.into());
             self
@@ -2358,8 +2306,7 @@ pub mod method_settings {
 
         /// Sets or clears the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
         pub fn set_or_clear_initial_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.initial_poll_delay = v.map(|x| x.into());
             self
@@ -2373,8 +2320,7 @@ pub mod method_settings {
 
         /// Sets the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
         pub fn set_max_poll_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.max_poll_delay = std::option::Option::Some(v.into());
             self
@@ -2382,8 +2328,7 @@ pub mod method_settings {
 
         /// Sets or clears the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
         pub fn set_or_clear_max_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.max_poll_delay = v.map(|x| x.into());
             self
@@ -2391,8 +2336,7 @@ pub mod method_settings {
 
         /// Sets the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
         pub fn set_total_poll_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.total_poll_timeout = std::option::Option::Some(v.into());
             self
@@ -2400,8 +2344,7 @@ pub mod method_settings {
 
         /// Sets or clears the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
         pub fn set_or_clear_total_poll_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.total_poll_timeout = v.map(|x| x.into());
             self
@@ -2420,6 +2363,7 @@ pub mod method_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SelectiveGapicGeneration {
+
     /// An allowlist of the fully qualified names of RPCs that should be included
     /// on public client surfaces.
     pub methods: std::vec::Vec<std::string::String>,
@@ -2444,7 +2388,7 @@ impl SelectiveGapicGeneration {
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.methods = v.into_iter().map(|i| i.into()).collect();
@@ -2473,6 +2417,7 @@ impl wkt::message::Message for SelectiveGapicGeneration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigChange {
+
     /// Object hierarchy path to the change, with levels separated by a '.'
     /// character. For repeated fields, an applicable unique identifier field is
     /// used for the index (usually selector, name, or id). For maps, the term
@@ -2527,10 +2472,7 @@ impl ConfigChange {
     }
 
     /// Sets the value of [change_type][crate::model::ConfigChange::change_type].
-    pub fn set_change_type<T: std::convert::Into<crate::model::ChangeType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_change_type<T: std::convert::Into<crate::model::ChangeType>>(mut self, v: T) -> Self {
         self.change_type = v.into();
         self
     }
@@ -2539,7 +2481,7 @@ impl ConfigChange {
     pub fn set_advices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Advice>,
+        V: std::convert::Into<crate::model::Advice>
     {
         use std::iter::Iterator;
         self.advices = v.into_iter().map(|i| i.into()).collect();
@@ -2558,6 +2500,7 @@ impl wkt::message::Message for ConfigChange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Advice {
+
     /// Useful description for why this advice was applied and what actions should
     /// be taken to mitigate any implied risks.
     pub description: std::string::String,
@@ -2604,6 +2547,7 @@ impl wkt::message::Message for Advice {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectProperties {
+
     /// List of per consumer project-specific properties.
     pub properties: std::vec::Vec<crate::model::Property>,
 
@@ -2619,7 +2563,7 @@ impl ProjectProperties {
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Property>,
+        V: std::convert::Into<crate::model::Property>
     {
         use std::iter::Iterator;
         self.properties = v.into_iter().map(|i| i.into()).collect();
@@ -2646,6 +2590,7 @@ impl wkt::message::Message for ProjectProperties {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Property {
+
     /// The name of the property (a.k.a key).
     pub name: std::string::String,
 
@@ -2670,10 +2615,7 @@ impl Property {
     }
 
     /// Sets the value of [r#type][crate::model::Property::type].
-    pub fn set_type<T: std::convert::Into<crate::model::property::PropertyType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::property::PropertyType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2695,6 +2637,7 @@ impl wkt::message::Message for Property {
 pub mod property {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Supported data type of the property values
     ///
@@ -2792,9 +2735,7 @@ pub mod property {
                 2 => Self::Bool,
                 3 => Self::String,
                 4 => Self::Double,
-                _ => Self::UnknownValue(property_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(property_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2808,9 +2749,7 @@ pub mod property {
                 "BOOL" => Self::Bool,
                 "STRING" => Self::String,
                 "DOUBLE" => Self::Double,
-                _ => Self::UnknownValue(property_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(property_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2837,8 +2776,7 @@ pub mod property {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PropertyType>::new(
-                ".google.api.Property.PropertyType",
-            ))
+                ".google.api.Property.PropertyType"))
         }
     }
 }
@@ -2886,6 +2824,7 @@ pub mod property {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Context {
+
     /// A list of RPC context rules that apply to individual API methods.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
@@ -2903,7 +2842,7 @@ impl Context {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContextRule>,
+        V: std::convert::Into<crate::model::ContextRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -2922,6 +2861,7 @@ impl wkt::message::Message for Context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContextRule {
+
     /// Selects the methods to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -2964,7 +2904,7 @@ impl ContextRule {
     pub fn set_requested<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.requested = v.into_iter().map(|i| i.into()).collect();
@@ -2975,7 +2915,7 @@ impl ContextRule {
     pub fn set_provided<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.provided = v.into_iter().map(|i| i.into()).collect();
@@ -2986,7 +2926,7 @@ impl ContextRule {
     pub fn set_allowed_request_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_request_extensions = v.into_iter().map(|i| i.into()).collect();
@@ -2997,7 +2937,7 @@ impl ContextRule {
     pub fn set_allowed_response_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_response_extensions = v.into_iter().map(|i| i.into()).collect();
@@ -3022,6 +2962,7 @@ impl wkt::message::Message for ContextRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Control {
+
     /// The service controller environment to use. If empty, no control plane
     /// feature (like quota and billing) will be enabled. The recommended value for
     /// most services is servicecontrol.googleapis.com
@@ -3048,7 +2989,7 @@ impl Control {
     pub fn set_method_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MethodPolicy>,
+        V: std::convert::Into<crate::model::MethodPolicy>
     {
         use std::iter::Iterator;
         self.method_policies = v.into_iter().map(|i| i.into()).collect();
@@ -3079,6 +3020,7 @@ impl wkt::message::Message for Control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Distribution {
+
     /// The number of values in the population. Must be non-negative. This value
     /// must equal the sum of the values in `bucket_counts` if a histogram is
     /// provided.
@@ -3157,8 +3099,7 @@ impl Distribution {
 
     /// Sets the value of [range][crate::model::Distribution::range].
     pub fn set_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::distribution::Range>,
+    where T: std::convert::Into<crate::model::distribution::Range>
     {
         self.range = std::option::Option::Some(v.into());
         self
@@ -3166,8 +3107,7 @@ impl Distribution {
 
     /// Sets or clears the value of [range][crate::model::Distribution::range].
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::distribution::Range>,
+    where T: std::convert::Into<crate::model::distribution::Range>
     {
         self.range = v.map(|x| x.into());
         self
@@ -3175,8 +3115,7 @@ impl Distribution {
 
     /// Sets the value of [bucket_options][crate::model::Distribution::bucket_options].
     pub fn set_bucket_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::distribution::BucketOptions>,
+    where T: std::convert::Into<crate::model::distribution::BucketOptions>
     {
         self.bucket_options = std::option::Option::Some(v.into());
         self
@@ -3184,8 +3123,7 @@ impl Distribution {
 
     /// Sets or clears the value of [bucket_options][crate::model::Distribution::bucket_options].
     pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::distribution::BucketOptions>,
+    where T: std::convert::Into<crate::model::distribution::BucketOptions>
     {
         self.bucket_options = v.map(|x| x.into());
         self
@@ -3195,7 +3133,7 @@ impl Distribution {
     pub fn set_bucket_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.bucket_counts = v.into_iter().map(|i| i.into()).collect();
@@ -3206,7 +3144,7 @@ impl Distribution {
     pub fn set_exemplars<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::distribution::Exemplar>,
+        V: std::convert::Into<crate::model::distribution::Exemplar>
     {
         use std::iter::Iterator;
         self.exemplars = v.into_iter().map(|i| i.into()).collect();
@@ -3225,10 +3163,12 @@ pub mod distribution {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The range of the population values.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Range {
+
         /// The minimum of the population values.
         pub min: f64,
 
@@ -3280,6 +3220,7 @@ pub mod distribution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BucketOptions {
+
         /// Exactly one of these three fields must be set.
         pub options: std::option::Option<crate::model::distribution::bucket_options::Options>,
 
@@ -3295,14 +3236,8 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are mutually
         /// exclusive.
-        pub fn set_options<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::distribution::bucket_options::Options>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_options<T: std::convert::Into<std::option::Option<crate::model::distribution::bucket_options::Options>>>(mut self, v: T) -> Self
+        {
             self.options = v.into();
             self
         }
@@ -3310,15 +3245,10 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `LinearBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn linear_buckets(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::distribution::bucket_options::Linear>>
-        {
+        pub fn linear_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::bucket_options::Linear>> {
             #[allow(unreachable_patterns)]
             self.options.as_ref().and_then(|v| match v {
-                crate::model::distribution::bucket_options::Options::LinearBuckets(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::distribution::bucket_options::Options::LinearBuckets(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3328,14 +3258,11 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
-        pub fn set_linear_buckets<
-            T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Linear>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_linear_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Linear>>>(mut self, v: T) -> Self {
             self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::LinearBuckets(v.into()),
+                crate::model::distribution::bucket_options::Options::LinearBuckets(
+                    v.into()
+                )
             );
             self
         }
@@ -3343,16 +3270,10 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExponentialBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn exponential_buckets(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-        > {
+        pub fn exponential_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::bucket_options::Exponential>> {
             #[allow(unreachable_patterns)]
             self.options.as_ref().and_then(|v| match v {
-                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3362,16 +3283,11 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
-        pub fn set_exponential_buckets<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_exponential_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Exponential>>>(mut self, v: T) -> Self {
             self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::ExponentialBuckets(v.into()),
+                crate::model::distribution::bucket_options::Options::ExponentialBuckets(
+                    v.into()
+                )
             );
             self
         }
@@ -3379,16 +3295,10 @@ pub mod distribution {
         /// The value of [options][crate::model::distribution::BucketOptions::options]
         /// if it holds a `ExplicitBuckets`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn explicit_buckets(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
-        > {
+        pub fn explicit_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::distribution::bucket_options::Explicit>> {
             #[allow(unreachable_patterns)]
             self.options.as_ref().and_then(|v| match v {
-                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3398,16 +3308,11 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
-        pub fn set_explicit_buckets<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_explicit_buckets<T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Explicit>>>(mut self, v: T) -> Self {
             self.options = std::option::Option::Some(
-                crate::model::distribution::bucket_options::Options::ExplicitBuckets(v.into()),
+                crate::model::distribution::bucket_options::Options::ExplicitBuckets(
+                    v.into()
+                )
             );
             self
         }
@@ -3424,6 +3329,7 @@ pub mod distribution {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Specifies a linear sequence of buckets that all have the same width
         /// (except overflow and underflow). Each bucket represents a constant
         /// absolute uncertainty on the specific value in the bucket.
@@ -3437,6 +3343,7 @@ pub mod distribution {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Linear {
+
             /// Must be greater than 0.
             pub num_finite_buckets: i32,
 
@@ -3492,6 +3399,7 @@ pub mod distribution {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Exponential {
+
             /// Must be greater than 0.
             pub num_finite_buckets: i32,
 
@@ -3548,6 +3456,7 @@ pub mod distribution {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Explicit {
+
             /// The values must be monotonically increasing.
             pub bounds: std::vec::Vec<f64>,
 
@@ -3563,7 +3472,7 @@ pub mod distribution {
             pub fn set_bounds<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<f64>,
+                V: std::convert::Into<f64>
             {
                 use std::iter::Iterator;
                 self.bounds = v.into_iter().map(|i| i.into()).collect();
@@ -3584,9 +3493,7 @@ pub mod distribution {
             /// The linear bucket.
             LinearBuckets(std::boxed::Box<crate::model::distribution::bucket_options::Linear>),
             /// The exponential buckets.
-            ExponentialBuckets(
-                std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
-            ),
+            ExponentialBuckets(std::boxed::Box<crate::model::distribution::bucket_options::Exponential>),
             /// The explicit buckets.
             ExplicitBuckets(std::boxed::Box<crate::model::distribution::bucket_options::Explicit>),
         }
@@ -3600,6 +3507,7 @@ pub mod distribution {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Exemplar {
+
         /// Value of the exemplar point. This value determines to which bucket the
         /// exemplar belongs.
         pub value: f64,
@@ -3636,8 +3544,7 @@ pub mod distribution {
 
         /// Sets the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
         pub fn set_timestamp<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.timestamp = std::option::Option::Some(v.into());
             self
@@ -3645,8 +3552,7 @@ pub mod distribution {
 
         /// Sets or clears the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
         pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.timestamp = v.map(|x| x.into());
             self
@@ -3656,7 +3562,7 @@ pub mod distribution {
         pub fn set_attachments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<wkt::Any>,
+            V: std::convert::Into<wkt::Any>
         {
             use std::iter::Iterator;
             self.attachments = v.into_iter().map(|i| i.into()).collect();
@@ -3709,6 +3615,7 @@ pub mod distribution {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Documentation {
+
     /// A short description of what the service does. The summary must be plain
     /// text. It becomes the overview of the service displayed in Google Cloud
     /// Console.
@@ -3757,7 +3664,7 @@ impl Documentation {
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Page>,
+        V: std::convert::Into<crate::model::Page>
     {
         use std::iter::Iterator;
         self.pages = v.into_iter().map(|i| i.into()).collect();
@@ -3768,7 +3675,7 @@ impl Documentation {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DocumentationRule>,
+        V: std::convert::Into<crate::model::DocumentationRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -3776,19 +3683,13 @@ impl Documentation {
     }
 
     /// Sets the value of [documentation_root_url][crate::model::Documentation::documentation_root_url].
-    pub fn set_documentation_root_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_documentation_root_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation_root_url = v.into();
         self
     }
 
     /// Sets the value of [service_root_url][crate::model::Documentation::service_root_url].
-    pub fn set_service_root_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_root_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_root_url = v.into();
         self
     }
@@ -3810,6 +3711,7 @@ impl wkt::message::Message for Documentation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DocumentationRule {
+
     /// The selector is a comma-separated list of patterns for any element such as
     /// a method, a field, an enum value. Each pattern is a qualified name of the
     /// element which may end in "*", indicating a wildcard. Wildcards are only
@@ -3849,10 +3751,7 @@ impl DocumentationRule {
     }
 
     /// Sets the value of [deprecation_description][crate::model::DocumentationRule::deprecation_description].
-    pub fn set_deprecation_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deprecation_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deprecation_description = v.into();
         self
     }
@@ -3869,6 +3768,7 @@ impl wkt::message::Message for DocumentationRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Page {
+
     /// The name of the page. It will be used as an identity of the page to
     /// generate URI of the page, text of the link to this page in navigation,
     /// etc. The full page name (start from the root page name to this page
@@ -3912,7 +3812,7 @@ impl Page {
     pub fn set_subpages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Page>,
+        V: std::convert::Into<crate::model::Page>
     {
         use std::iter::Iterator;
         self.subpages = v.into_iter().map(|i| i.into()).collect();
@@ -3952,6 +3852,7 @@ impl wkt::message::Message for Page {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Endpoint {
+
     /// The canonical name of this endpoint.
     pub name: std::string::String,
 
@@ -3993,7 +3894,7 @@ impl Endpoint {
     pub fn set_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.aliases = v.into_iter().map(|i| i.into()).collect();
@@ -4023,6 +3924,7 @@ impl wkt::message::Message for Endpoint {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldInfo {
+
     /// The standard format of a field value. This does not explicitly configure
     /// any API consumer, just documents the API's format for the field it is
     /// applied to.
@@ -4043,10 +3945,7 @@ impl FieldInfo {
     }
 
     /// Sets the value of [format][crate::model::FieldInfo::format].
-    pub fn set_format<T: std::convert::Into<crate::model::field_info::Format>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_format<T: std::convert::Into<crate::model::field_info::Format>>(mut self, v: T) -> Self {
         self.format = v.into();
         self
     }
@@ -4055,7 +3954,7 @@ impl FieldInfo {
     pub fn set_referenced_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TypeReference>,
+        V: std::convert::Into<crate::model::TypeReference>
     {
         use std::iter::Iterator;
         self.referenced_types = v.into_iter().map(|i| i.into()).collect();
@@ -4073,6 +3972,7 @@ impl wkt::message::Message for FieldInfo {
 pub mod field_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The standard format of a field value. The supported formats are all backed
     /// by either an RFC defined by the IETF or a Google-defined AIP.
@@ -4184,9 +4084,7 @@ pub mod field_info {
                 2 => Self::Ipv4,
                 3 => Self::Ipv6,
                 4 => Self::Ipv4OrIpv6,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4200,9 +4098,7 @@ pub mod field_info {
                 "IPV4" => Self::Ipv4,
                 "IPV6" => Self::Ipv6,
                 "IPV4_OR_IPV6" => Self::Ipv4OrIpv6,
-                _ => Self::UnknownValue(format::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(format::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4229,8 +4125,7 @@ pub mod field_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
-                ".google.api.FieldInfo.Format",
-            ))
+                ".google.api.FieldInfo.Format"))
         }
     }
 }
@@ -4241,6 +4136,7 @@ pub mod field_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TypeReference {
+
     /// The name of the type that the annotated, generic field may represent.
     /// If the type is in the same protobuf package, the value can be the simple
     /// message name e.g., `"MyMessage"`. Otherwise, the value must be the
@@ -4281,6 +4177,7 @@ impl wkt::message::Message for TypeReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Http {
+
     /// A list of HTTP configuration rules that apply to individual API methods.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
@@ -4306,7 +4203,7 @@ impl Http {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HttpRule>,
+        V: std::convert::Into<crate::model::HttpRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -4314,10 +4211,7 @@ impl Http {
     }
 
     /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
-    pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fully_decode_reserved_expansion = v.into();
         self
     }
@@ -4614,6 +4508,7 @@ impl wkt::message::Message for Http {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRule {
+
     /// Selects a method to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -4678,7 +4573,7 @@ impl HttpRule {
     pub fn set_additional_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HttpRule>,
+        V: std::convert::Into<crate::model::HttpRule>
     {
         use std::iter::Iterator;
         self.additional_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -4689,12 +4584,8 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
-    pub fn set_pattern<
-        T: std::convert::Into<std::option::Option<crate::model::http_rule::Pattern>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pattern<T: std::convert::Into<std::option::Option<crate::model::http_rule::Pattern>>>(mut self, v: T) -> Self
+    {
         self.pattern = v.into();
         self
     }
@@ -4716,7 +4607,11 @@ impl HttpRule {
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
     pub fn set_get<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Get(v.into()));
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Get(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4737,7 +4632,11 @@ impl HttpRule {
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
     pub fn set_put<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Put(v.into()));
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Put(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4758,7 +4657,11 @@ impl HttpRule {
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
     pub fn set_post<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Post(v.into()));
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Post(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4779,8 +4682,11 @@ impl HttpRule {
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
     pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern =
-            std::option::Option::Some(crate::model::http_rule::Pattern::Delete(v.into()));
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Delete(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4801,7 +4707,11 @@ impl HttpRule {
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
     pub fn set_patch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Patch(v.into()));
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Patch(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4821,12 +4731,12 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
-    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomHttpPattern>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pattern =
-            std::option::Option::Some(crate::model::http_rule::Pattern::Custom(v.into()));
+    pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomHttpPattern>>>(mut self, v: T) -> Self {
+        self.pattern = std::option::Option::Some(
+            crate::model::http_rule::Pattern::Custom(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4841,6 +4751,7 @@ impl wkt::message::Message for HttpRule {
 pub mod http_rule {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Determines the URL pattern is matched by this rules. This pattern can be
     /// used with any of the {get|put|post|delete|patch} methods. A custom method
@@ -4871,6 +4782,7 @@ pub mod http_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomHttpPattern {
+
     /// The name of this custom HTTP verb.
     pub kind: std::string::String,
 
@@ -4953,6 +4865,7 @@ impl wkt::message::Message for CustomHttpPattern {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpBody {
+
     /// The HTTP Content-Type header value specifying the content type of the body.
     pub content_type: std::string::String,
 
@@ -4987,7 +4900,7 @@ impl HttpBody {
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>,
+        V: std::convert::Into<wkt::Any>
     {
         use std::iter::Iterator;
         self.extensions = v.into_iter().map(|i| i.into()).collect();
@@ -5005,6 +4918,7 @@ impl wkt::message::Message for HttpBody {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelDescriptor {
+
     /// The label key.
     pub key: std::string::String,
 
@@ -5029,10 +4943,7 @@ impl LabelDescriptor {
     }
 
     /// Sets the value of [value_type][crate::model::LabelDescriptor::value_type].
-    pub fn set_value_type<T: std::convert::Into<crate::model::label_descriptor::ValueType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_type<T: std::convert::Into<crate::model::label_descriptor::ValueType>>(mut self, v: T) -> Self {
         self.value_type = v.into();
         self
     }
@@ -5054,6 +4965,7 @@ impl wkt::message::Message for LabelDescriptor {
 pub mod label_descriptor {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Value types that can be used as label values.
     ///
@@ -5141,9 +5053,7 @@ pub mod label_descriptor {
                 0 => Self::String,
                 1 => Self::Bool,
                 2 => Self::Int64,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5155,9 +5065,7 @@ pub mod label_descriptor {
                 "STRING" => Self::String,
                 "BOOL" => Self::Bool,
                 "INT64" => Self::Int64,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5182,8 +5090,7 @@ pub mod label_descriptor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueType>::new(
-                ".google.api.LabelDescriptor.ValueType",
-            ))
+                ".google.api.LabelDescriptor.ValueType"))
         }
     }
 }
@@ -5201,6 +5108,7 @@ pub mod label_descriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogDescriptor {
+
     /// The name of the log. It must be less than 512 characters long and can
     /// include the following characters: upper- and lower-case alphanumeric
     /// characters [A-Za-z0-9], and punctuation characters including
@@ -5238,7 +5146,7 @@ impl LogDescriptor {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelDescriptor>,
+        V: std::convert::Into<crate::model::LabelDescriptor>
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -5298,6 +5206,7 @@ impl wkt::message::Message for LogDescriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Logging {
+
     /// Logging configurations for sending logs to the producer project.
     /// There can be multiple producer destinations, each one must have a
     /// different monitored resource type. A log can be used in at most
@@ -5322,7 +5231,7 @@ impl Logging {
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logging::LoggingDestination>,
+        V: std::convert::Into<crate::model::logging::LoggingDestination>
     {
         use std::iter::Iterator;
         self.producer_destinations = v.into_iter().map(|i| i.into()).collect();
@@ -5333,7 +5242,7 @@ impl Logging {
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::logging::LoggingDestination>,
+        V: std::convert::Into<crate::model::logging::LoggingDestination>
     {
         use std::iter::Iterator;
         self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
@@ -5352,11 +5261,13 @@ pub mod logging {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration of a specific logging destination (the producer project
     /// or the consumer project).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoggingDestination {
+
         /// The monitored resource type. The type must be defined in the
         /// [Service.monitored_resources][google.api.Service.monitored_resources]
         /// section.
@@ -5381,10 +5292,7 @@ pub mod logging {
         }
 
         /// Sets the value of [monitored_resource][crate::model::logging::LoggingDestination::monitored_resource].
-        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.monitored_resource = v.into();
             self
         }
@@ -5393,7 +5301,7 @@ pub mod logging {
         pub fn set_logs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.logs = v.into_iter().map(|i| i.into()).collect();
@@ -5414,6 +5322,7 @@ pub mod logging {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricDescriptor {
+
     /// The resource name of the metric descriptor.
     pub name: std::string::String,
 
@@ -5619,7 +5528,7 @@ impl MetricDescriptor {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelDescriptor>,
+        V: std::convert::Into<crate::model::LabelDescriptor>
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -5627,19 +5536,13 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [metric_kind][crate::model::MetricDescriptor::metric_kind].
-    pub fn set_metric_kind<T: std::convert::Into<crate::model::metric_descriptor::MetricKind>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_metric_kind<T: std::convert::Into<crate::model::metric_descriptor::MetricKind>>(mut self, v: T) -> Self {
         self.metric_kind = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::MetricDescriptor::value_type].
-    pub fn set_value_type<T: std::convert::Into<crate::model::metric_descriptor::ValueType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_value_type<T: std::convert::Into<crate::model::metric_descriptor::ValueType>>(mut self, v: T) -> Self {
         self.value_type = v.into();
         self
     }
@@ -5664,8 +5567,7 @@ impl MetricDescriptor {
 
     /// Sets the value of [metadata][crate::model::MetricDescriptor::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>,
+    where T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -5673,18 +5575,14 @@ impl MetricDescriptor {
 
     /// Sets or clears the value of [metadata][crate::model::MetricDescriptor::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>,
+    where T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::MetricDescriptor::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -5693,7 +5591,7 @@ impl MetricDescriptor {
     pub fn set_monitored_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.monitored_resource_types = v.into_iter().map(|i| i.into()).collect();
@@ -5711,6 +5609,7 @@ impl wkt::message::Message for MetricDescriptor {
 pub mod metric_descriptor {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Additional annotations that can be used to guide the usage of a metric.
     #[derive(Clone, Default, PartialEq)]
@@ -5749,18 +5648,14 @@ pub mod metric_descriptor {
 
         /// Sets the value of [launch_stage][crate::model::metric_descriptor::MetricDescriptorMetadata::launch_stage].
         #[deprecated]
-        pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
             self.launch_stage = v.into();
             self
         }
 
         /// Sets the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
         pub fn set_sample_period<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.sample_period = std::option::Option::Some(v.into());
             self
@@ -5768,8 +5663,7 @@ pub mod metric_descriptor {
 
         /// Sets or clears the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
         pub fn set_or_clear_sample_period<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.sample_period = v.map(|x| x.into());
             self
@@ -5777,8 +5671,7 @@ pub mod metric_descriptor {
 
         /// Sets the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
         pub fn set_ingest_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.ingest_delay = std::option::Option::Some(v.into());
             self
@@ -5786,8 +5679,7 @@ pub mod metric_descriptor {
 
         /// Sets or clears the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
         pub fn set_or_clear_ingest_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.ingest_delay = v.map(|x| x.into());
             self
@@ -5815,6 +5707,7 @@ pub mod metric_descriptor {
     pub mod metric_descriptor_metadata {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The resource hierarchy level of the timeseries data of a metric.
         ///
@@ -5878,9 +5771,7 @@ pub mod metric_descriptor {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => std::option::Option::Some(
-                        "TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED",
-                    ),
+                    Self::Unspecified => std::option::Option::Some("TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED"),
                     Self::Project => std::option::Option::Some("PROJECT"),
                     Self::Organization => std::option::Option::Some("ORGANIZATION"),
                     Self::Folder => std::option::Option::Some("FOLDER"),
@@ -5897,10 +5788,7 @@ pub mod metric_descriptor {
         }
 
         impl std::fmt::Display for TimeSeriesResourceHierarchyLevel {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -5912,9 +5800,7 @@ pub mod metric_descriptor {
                     1 => Self::Project,
                     2 => Self::Organization,
                     3 => Self::Folder,
-                    _ => Self::UnknownValue(time_series_resource_hierarchy_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(time_series_resource_hierarchy_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -5927,9 +5813,7 @@ pub mod metric_descriptor {
                     "PROJECT" => Self::Project,
                     "ORGANIZATION" => Self::Organization,
                     "FOLDER" => Self::Folder,
-                    _ => Self::UnknownValue(time_series_resource_hierarchy_level::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(time_series_resource_hierarchy_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -6057,9 +5941,7 @@ pub mod metric_descriptor {
                 1 => Self::Gauge,
                 2 => Self::Delta,
                 3 => Self::Cumulative,
-                _ => Self::UnknownValue(metric_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(metric_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6072,9 +5954,7 @@ pub mod metric_descriptor {
                 "GAUGE" => Self::Gauge,
                 "DELTA" => Self::Delta,
                 "CUMULATIVE" => Self::Cumulative,
-                _ => Self::UnknownValue(metric_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(metric_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6100,8 +5980,7 @@ pub mod metric_descriptor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricKind>::new(
-                ".google.api.MetricDescriptor.MetricKind",
-            ))
+                ".google.api.MetricDescriptor.MetricKind"))
         }
     }
 
@@ -6215,9 +6094,7 @@ pub mod metric_descriptor {
                 4 => Self::String,
                 5 => Self::Distribution,
                 6 => Self::Money,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6233,9 +6110,7 @@ pub mod metric_descriptor {
                 "STRING" => Self::String,
                 "DISTRIBUTION" => Self::Distribution,
                 "MONEY" => Self::Money,
-                _ => Self::UnknownValue(value_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(value_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6264,8 +6139,7 @@ pub mod metric_descriptor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ValueType>::new(
-                ".google.api.MetricDescriptor.ValueType",
-            ))
+                ".google.api.MetricDescriptor.ValueType"))
         }
     }
 }
@@ -6277,6 +6151,7 @@ pub mod metric_descriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Metric {
+
     /// An existing metric type, see
     /// [google.api.MetricDescriptor][google.api.MetricDescriptor]. For example,
     /// `custom.googleapis.com/invoice/paid/amount`.
@@ -6286,7 +6161,7 @@ pub struct Metric {
 
     /// The set of label values that uniquely identify this metric. All
     /// labels listed in the `MetricDescriptor` must be assigned values.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6336,6 +6211,7 @@ impl wkt::message::Message for Metric {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResourceDescriptor {
+
     /// Optional. The resource name of the monitored resource descriptor:
     /// `"projects/{project_id}/monitoredResourceDescriptors/{type}"` where
     /// {type} is the value of the `type` field in this object and
@@ -6406,7 +6282,7 @@ impl MonitoredResourceDescriptor {
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LabelDescriptor>,
+        V: std::convert::Into<crate::model::LabelDescriptor>
     {
         use std::iter::Iterator;
         self.labels = v.into_iter().map(|i| i.into()).collect();
@@ -6414,10 +6290,7 @@ impl MonitoredResourceDescriptor {
     }
 
     /// Sets the value of [launch_stage][crate::model::MonitoredResourceDescriptor::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -6452,6 +6325,7 @@ impl wkt::message::Message for MonitoredResourceDescriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResource {
+
     /// Required. The monitored resource type. This field must match
     /// the `type` field of a
     /// [MonitoredResourceDescriptor][google.api.MonitoredResourceDescriptor]
@@ -6466,7 +6340,7 @@ pub struct MonitoredResource {
     /// Required. Values for all of the labels listed in the associated monitored
     /// resource descriptor. For example, Compute Engine VM instances use the
     /// labels `"project_id"`, `"instance_id"`, and `"zone"`.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6512,6 +6386,7 @@ impl wkt::message::Message for MonitoredResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MonitoredResourceMetadata {
+
     /// Output only. Values for predefined system metadata labels.
     /// System labels are a kind of metadata extracted by Google, including
     /// "machine_image", "vpc", "subnet_id",
@@ -6527,7 +6402,7 @@ pub struct MonitoredResourceMetadata {
     pub system_labels: std::option::Option<wkt::Struct>,
 
     /// Output only. A map of user-defined metadata labels.
-    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6539,8 +6414,7 @@ impl MonitoredResourceMetadata {
 
     /// Sets the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
     pub fn set_system_labels<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.system_labels = std::option::Option::Some(v.into());
         self
@@ -6548,8 +6422,7 @@ impl MonitoredResourceMetadata {
 
     /// Sets or clears the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
     pub fn set_or_clear_system_labels<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.system_labels = v.map(|x| x.into());
         self
@@ -6631,6 +6504,7 @@ impl wkt::message::Message for MonitoredResourceMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Monitoring {
+
     /// Monitoring configurations for sending metrics to the producer project.
     /// There can be multiple producer destinations. A monitored resource type may
     /// appear in multiple monitoring destinations if different aggregations are
@@ -6659,7 +6533,7 @@ impl Monitoring {
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>,
+        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>
     {
         use std::iter::Iterator;
         self.producer_destinations = v.into_iter().map(|i| i.into()).collect();
@@ -6670,7 +6544,7 @@ impl Monitoring {
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>,
+        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>
     {
         use std::iter::Iterator;
         self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
@@ -6689,11 +6563,13 @@ pub mod monitoring {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration of a specific monitoring destination (the producer project
     /// or the consumer project).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MonitoringDestination {
+
         /// The monitored resource type. The type must be defined in
         /// [Service.monitored_resources][google.api.Service.monitored_resources]
         /// section.
@@ -6717,10 +6593,7 @@ pub mod monitoring {
         }
 
         /// Sets the value of [monitored_resource][crate::model::monitoring::MonitoringDestination::monitored_resource].
-        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.monitored_resource = v.into();
             self
         }
@@ -6729,7 +6602,7 @@ pub mod monitoring {
         pub fn set_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6755,6 +6628,7 @@ pub mod monitoring {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldPolicy {
+
     /// Selects one or more request or response message fields to apply this
     /// `FieldPolicy`.
     ///
@@ -6791,10 +6665,7 @@ impl FieldPolicy {
     }
 
     /// Sets the value of [resource_permission][crate::model::FieldPolicy::resource_permission].
-    pub fn set_resource_permission<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_permission = v.into();
         self
     }
@@ -6816,6 +6687,7 @@ impl wkt::message::Message for FieldPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodPolicy {
+
     /// Selects a method to which these policies should be enforced, for example,
     /// "google.pubsub.v1.Subscriber.CreateSubscription".
     ///
@@ -6849,7 +6721,7 @@ impl MethodPolicy {
     pub fn set_request_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FieldPolicy>,
+        V: std::convert::Into<crate::model::FieldPolicy>
     {
         use std::iter::Iterator;
         self.request_policies = v.into_iter().map(|i| i.into()).collect();
@@ -6920,6 +6792,7 @@ impl wkt::message::Message for MethodPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Quota {
+
     /// List of QuotaLimit definitions for the service.
     pub limits: std::vec::Vec<crate::model::QuotaLimit>,
 
@@ -6939,7 +6812,7 @@ impl Quota {
     pub fn set_limits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaLimit>,
+        V: std::convert::Into<crate::model::QuotaLimit>
     {
         use std::iter::Iterator;
         self.limits = v.into_iter().map(|i| i.into()).collect();
@@ -6950,7 +6823,7 @@ impl Quota {
     pub fn set_metric_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricRule>,
+        V: std::convert::Into<crate::model::MetricRule>
     {
         use std::iter::Iterator;
         self.metric_rules = v.into_iter().map(|i| i.into()).collect();
@@ -6969,6 +6842,7 @@ impl wkt::message::Message for Quota {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetricRule {
+
     /// Selects the methods to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -6983,7 +6857,7 @@ pub struct MetricRule {
     /// The key of the map is the metric name, and the values are the amount
     /// increased for the metric against which the quota limits are defined.
     /// The value must not be negative.
-    pub metric_costs: std::collections::HashMap<std::string::String, i64>,
+    pub metric_costs: std::collections::HashMap<std::string::String,i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7024,6 +6898,7 @@ impl wkt::message::Message for MetricRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaLimit {
+
     /// Name of the quota limit.
     ///
     /// The name must be provided, and it must be unique within the service. The
@@ -7097,7 +6972,7 @@ pub struct QuotaLimit {
     /// Tiered limit values. You must specify this as a key:value pair, with an
     /// integer value that is the maximum number of requests allowed for the
     /// specified unit. Currently only STANDARD is supported.
-    pub values: std::collections::HashMap<std::string::String, i64>,
+    pub values: std::collections::HashMap<std::string::String,i64>,
 
     /// User-visible display name for this limit.
     /// Optional. If not set, the UI will provide a default display name based on
@@ -7244,6 +7119,7 @@ impl wkt::message::Message for QuotaLimit {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceDescriptor {
+
     /// The resource type. It must be in the format of
     /// {service_name}/{resource_type_kind}. The `resource_type_kind` must be
     /// singular and must not include version numbers.
@@ -7347,7 +7223,7 @@ impl ResourceDescriptor {
     pub fn set_pattern<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.pattern = v.into_iter().map(|i| i.into()).collect();
@@ -7361,10 +7237,7 @@ impl ResourceDescriptor {
     }
 
     /// Sets the value of [history][crate::model::ResourceDescriptor::history].
-    pub fn set_history<T: std::convert::Into<crate::model::resource_descriptor::History>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_history<T: std::convert::Into<crate::model::resource_descriptor::History>>(mut self, v: T) -> Self {
         self.history = v.into();
         self
     }
@@ -7385,7 +7258,7 @@ impl ResourceDescriptor {
     pub fn set_style<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::resource_descriptor::Style>,
+        V: std::convert::Into<crate::model::resource_descriptor::Style>
     {
         use std::iter::Iterator;
         self.style = v.into_iter().map(|i| i.into()).collect();
@@ -7403,6 +7276,7 @@ impl wkt::message::Message for ResourceDescriptor {
 pub mod resource_descriptor {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A description of the historical or future-looking state of the
     /// resource pattern.
@@ -7468,9 +7342,7 @@ pub mod resource_descriptor {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("HISTORY_UNSPECIFIED"),
-                Self::OriginallySinglePattern => {
-                    std::option::Option::Some("ORIGINALLY_SINGLE_PATTERN")
-                }
+                Self::OriginallySinglePattern => std::option::Option::Some("ORIGINALLY_SINGLE_PATTERN"),
                 Self::FutureMultiPattern => std::option::Option::Some("FUTURE_MULTI_PATTERN"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -7496,9 +7368,7 @@ pub mod resource_descriptor {
                 0 => Self::Unspecified,
                 1 => Self::OriginallySinglePattern,
                 2 => Self::FutureMultiPattern,
-                _ => Self::UnknownValue(history::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(history::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7510,9 +7380,7 @@ pub mod resource_descriptor {
                 "HISTORY_UNSPECIFIED" => Self::Unspecified,
                 "ORIGINALLY_SINGLE_PATTERN" => Self::OriginallySinglePattern,
                 "FUTURE_MULTI_PATTERN" => Self::FutureMultiPattern,
-                _ => Self::UnknownValue(history::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(history::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7537,8 +7405,7 @@ pub mod resource_descriptor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<History>::new(
-                ".google.api.ResourceDescriptor.History",
-            ))
+                ".google.api.ResourceDescriptor.History"))
         }
     }
 
@@ -7630,9 +7497,7 @@ pub mod resource_descriptor {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::DeclarativeFriendly,
-                _ => Self::UnknownValue(style::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(style::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7643,9 +7508,7 @@ pub mod resource_descriptor {
             match value {
                 "STYLE_UNSPECIFIED" => Self::Unspecified,
                 "DECLARATIVE_FRIENDLY" => Self::DeclarativeFriendly,
-                _ => Self::UnknownValue(style::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(style::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7669,8 +7532,7 @@ pub mod resource_descriptor {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Style>::new(
-                ".google.api.ResourceDescriptor.Style",
-            ))
+                ".google.api.ResourceDescriptor.Style"))
         }
     }
 }
@@ -7680,6 +7542,7 @@ pub mod resource_descriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceReference {
+
     /// The resource type that the annotated field references.
     ///
     /// Example:
@@ -8162,6 +8025,7 @@ impl wkt::message::Message for ResourceReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutingRule {
+
     /// A collection of Routing Parameter specifications.
     /// **NOTE:** If multiple Routing Parameters describe the same key
     /// (via the `path_template` field or via the `field` field when
@@ -8182,7 +8046,7 @@ impl RoutingRule {
     pub fn set_routing_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RoutingParameter>,
+        V: std::convert::Into<crate::model::RoutingParameter>
     {
         use std::iter::Iterator;
         self.routing_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -8200,6 +8064,7 @@ impl wkt::message::Message for RoutingRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RoutingParameter {
+
     /// A request field to extract the header key-value pair from.
     pub field: std::string::String,
 
@@ -8332,6 +8197,7 @@ impl wkt::message::Message for RoutingParameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
+
     /// The service name, which is a DNS-like logical identifier for the
     /// service, such as `calendar.googleapis.com`. The service name
     /// typically goes through DNS verification to make sure the owner
@@ -8473,10 +8339,7 @@ impl Service {
     }
 
     /// Sets the value of [producer_project_id][crate::model::Service::producer_project_id].
-    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer_project_id = v.into();
         self
     }
@@ -8491,7 +8354,7 @@ impl Service {
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Api>,
+        V: std::convert::Into<wkt::Api>
     {
         use std::iter::Iterator;
         self.apis = v.into_iter().map(|i| i.into()).collect();
@@ -8502,7 +8365,7 @@ impl Service {
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Type>,
+        V: std::convert::Into<wkt::Type>
     {
         use std::iter::Iterator;
         self.types = v.into_iter().map(|i| i.into()).collect();
@@ -8513,7 +8376,7 @@ impl Service {
     pub fn set_enums<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Enum>,
+        V: std::convert::Into<wkt::Enum>
     {
         use std::iter::Iterator;
         self.enums = v.into_iter().map(|i| i.into()).collect();
@@ -8522,8 +8385,7 @@ impl Service {
 
     /// Sets the value of [documentation][crate::model::Service::documentation].
     pub fn set_documentation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Documentation>,
+    where T: std::convert::Into<crate::model::Documentation>
     {
         self.documentation = std::option::Option::Some(v.into());
         self
@@ -8531,8 +8393,7 @@ impl Service {
 
     /// Sets or clears the value of [documentation][crate::model::Service::documentation].
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Documentation>,
+    where T: std::convert::Into<crate::model::Documentation>
     {
         self.documentation = v.map(|x| x.into());
         self
@@ -8540,8 +8401,7 @@ impl Service {
 
     /// Sets the value of [backend][crate::model::Service::backend].
     pub fn set_backend<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Backend>,
+    where T: std::convert::Into<crate::model::Backend>
     {
         self.backend = std::option::Option::Some(v.into());
         self
@@ -8549,8 +8409,7 @@ impl Service {
 
     /// Sets or clears the value of [backend][crate::model::Service::backend].
     pub fn set_or_clear_backend<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Backend>,
+    where T: std::convert::Into<crate::model::Backend>
     {
         self.backend = v.map(|x| x.into());
         self
@@ -8558,8 +8417,7 @@ impl Service {
 
     /// Sets the value of [http][crate::model::Service::http].
     pub fn set_http<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Http>,
+    where T: std::convert::Into<crate::model::Http>
     {
         self.http = std::option::Option::Some(v.into());
         self
@@ -8567,8 +8425,7 @@ impl Service {
 
     /// Sets or clears the value of [http][crate::model::Service::http].
     pub fn set_or_clear_http<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Http>,
+    where T: std::convert::Into<crate::model::Http>
     {
         self.http = v.map(|x| x.into());
         self
@@ -8576,8 +8433,7 @@ impl Service {
 
     /// Sets the value of [quota][crate::model::Service::quota].
     pub fn set_quota<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Quota>,
+    where T: std::convert::Into<crate::model::Quota>
     {
         self.quota = std::option::Option::Some(v.into());
         self
@@ -8585,8 +8441,7 @@ impl Service {
 
     /// Sets or clears the value of [quota][crate::model::Service::quota].
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Quota>,
+    where T: std::convert::Into<crate::model::Quota>
     {
         self.quota = v.map(|x| x.into());
         self
@@ -8594,8 +8449,7 @@ impl Service {
 
     /// Sets the value of [authentication][crate::model::Service::authentication].
     pub fn set_authentication<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Authentication>,
+    where T: std::convert::Into<crate::model::Authentication>
     {
         self.authentication = std::option::Option::Some(v.into());
         self
@@ -8603,8 +8457,7 @@ impl Service {
 
     /// Sets or clears the value of [authentication][crate::model::Service::authentication].
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Authentication>,
+    where T: std::convert::Into<crate::model::Authentication>
     {
         self.authentication = v.map(|x| x.into());
         self
@@ -8612,8 +8465,7 @@ impl Service {
 
     /// Sets the value of [context][crate::model::Service::context].
     pub fn set_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Context>,
+    where T: std::convert::Into<crate::model::Context>
     {
         self.context = std::option::Option::Some(v.into());
         self
@@ -8621,8 +8473,7 @@ impl Service {
 
     /// Sets or clears the value of [context][crate::model::Service::context].
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Context>,
+    where T: std::convert::Into<crate::model::Context>
     {
         self.context = v.map(|x| x.into());
         self
@@ -8630,8 +8481,7 @@ impl Service {
 
     /// Sets the value of [usage][crate::model::Service::usage].
     pub fn set_usage<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Usage>,
+    where T: std::convert::Into<crate::model::Usage>
     {
         self.usage = std::option::Option::Some(v.into());
         self
@@ -8639,8 +8489,7 @@ impl Service {
 
     /// Sets or clears the value of [usage][crate::model::Service::usage].
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Usage>,
+    where T: std::convert::Into<crate::model::Usage>
     {
         self.usage = v.map(|x| x.into());
         self
@@ -8650,7 +8499,7 @@ impl Service {
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Endpoint>,
+        V: std::convert::Into<crate::model::Endpoint>
     {
         use std::iter::Iterator;
         self.endpoints = v.into_iter().map(|i| i.into()).collect();
@@ -8659,8 +8508,7 @@ impl Service {
 
     /// Sets the value of [control][crate::model::Service::control].
     pub fn set_control<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = std::option::Option::Some(v.into());
         self
@@ -8668,8 +8516,7 @@ impl Service {
 
     /// Sets or clears the value of [control][crate::model::Service::control].
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Control>,
+    where T: std::convert::Into<crate::model::Control>
     {
         self.control = v.map(|x| x.into());
         self
@@ -8679,7 +8526,7 @@ impl Service {
     pub fn set_logs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LogDescriptor>,
+        V: std::convert::Into<crate::model::LogDescriptor>
     {
         use std::iter::Iterator;
         self.logs = v.into_iter().map(|i| i.into()).collect();
@@ -8690,7 +8537,7 @@ impl Service {
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MetricDescriptor>,
+        V: std::convert::Into<crate::model::MetricDescriptor>
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -8701,7 +8548,7 @@ impl Service {
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MonitoredResourceDescriptor>,
+        V: std::convert::Into<crate::model::MonitoredResourceDescriptor>
     {
         use std::iter::Iterator;
         self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
@@ -8710,8 +8557,7 @@ impl Service {
 
     /// Sets the value of [billing][crate::model::Service::billing].
     pub fn set_billing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Billing>,
+    where T: std::convert::Into<crate::model::Billing>
     {
         self.billing = std::option::Option::Some(v.into());
         self
@@ -8719,8 +8565,7 @@ impl Service {
 
     /// Sets or clears the value of [billing][crate::model::Service::billing].
     pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Billing>,
+    where T: std::convert::Into<crate::model::Billing>
     {
         self.billing = v.map(|x| x.into());
         self
@@ -8728,8 +8573,7 @@ impl Service {
 
     /// Sets the value of [logging][crate::model::Service::logging].
     pub fn set_logging<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Logging>,
+    where T: std::convert::Into<crate::model::Logging>
     {
         self.logging = std::option::Option::Some(v.into());
         self
@@ -8737,8 +8581,7 @@ impl Service {
 
     /// Sets or clears the value of [logging][crate::model::Service::logging].
     pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Logging>,
+    where T: std::convert::Into<crate::model::Logging>
     {
         self.logging = v.map(|x| x.into());
         self
@@ -8746,8 +8589,7 @@ impl Service {
 
     /// Sets the value of [monitoring][crate::model::Service::monitoring].
     pub fn set_monitoring<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Monitoring>,
+    where T: std::convert::Into<crate::model::Monitoring>
     {
         self.monitoring = std::option::Option::Some(v.into());
         self
@@ -8755,8 +8597,7 @@ impl Service {
 
     /// Sets or clears the value of [monitoring][crate::model::Service::monitoring].
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Monitoring>,
+    where T: std::convert::Into<crate::model::Monitoring>
     {
         self.monitoring = v.map(|x| x.into());
         self
@@ -8764,8 +8605,7 @@ impl Service {
 
     /// Sets the value of [system_parameters][crate::model::Service::system_parameters].
     pub fn set_system_parameters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SystemParameters>,
+    where T: std::convert::Into<crate::model::SystemParameters>
     {
         self.system_parameters = std::option::Option::Some(v.into());
         self
@@ -8773,8 +8613,7 @@ impl Service {
 
     /// Sets or clears the value of [system_parameters][crate::model::Service::system_parameters].
     pub fn set_or_clear_system_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SystemParameters>,
+    where T: std::convert::Into<crate::model::SystemParameters>
     {
         self.system_parameters = v.map(|x| x.into());
         self
@@ -8782,8 +8621,7 @@ impl Service {
 
     /// Sets the value of [source_info][crate::model::Service::source_info].
     pub fn set_source_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SourceInfo>,
+    where T: std::convert::Into<crate::model::SourceInfo>
     {
         self.source_info = std::option::Option::Some(v.into());
         self
@@ -8791,8 +8629,7 @@ impl Service {
 
     /// Sets or clears the value of [source_info][crate::model::Service::source_info].
     pub fn set_or_clear_source_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SourceInfo>,
+    where T: std::convert::Into<crate::model::SourceInfo>
     {
         self.source_info = v.map(|x| x.into());
         self
@@ -8800,8 +8637,7 @@ impl Service {
 
     /// Sets the value of [publishing][crate::model::Service::publishing].
     pub fn set_publishing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Publishing>,
+    where T: std::convert::Into<crate::model::Publishing>
     {
         self.publishing = std::option::Option::Some(v.into());
         self
@@ -8809,8 +8645,7 @@ impl Service {
 
     /// Sets or clears the value of [publishing][crate::model::Service::publishing].
     pub fn set_or_clear_publishing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Publishing>,
+    where T: std::convert::Into<crate::model::Publishing>
     {
         self.publishing = v.map(|x| x.into());
         self
@@ -8818,8 +8653,7 @@ impl Service {
 
     /// Sets the value of [config_version][crate::model::Service::config_version].
     pub fn set_config_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::UInt32Value>,
+    where T: std::convert::Into<wkt::UInt32Value>
     {
         self.config_version = std::option::Option::Some(v.into());
         self
@@ -8827,8 +8661,7 @@ impl Service {
 
     /// Sets or clears the value of [config_version][crate::model::Service::config_version].
     pub fn set_or_clear_config_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::UInt32Value>,
+    where T: std::convert::Into<wkt::UInt32Value>
     {
         self.config_version = v.map(|x| x.into());
         self
@@ -8845,6 +8678,7 @@ impl wkt::message::Message for Service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceInfo {
+
     /// All files used during config generation.
     pub source_files: std::vec::Vec<wkt::Any>,
 
@@ -8860,7 +8694,7 @@ impl SourceInfo {
     pub fn set_source_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Any>,
+        V: std::convert::Into<wkt::Any>
     {
         use std::iter::Iterator;
         self.source_files = v.into_iter().map(|i| i.into()).collect();
@@ -8883,6 +8717,7 @@ impl wkt::message::Message for SourceInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameters {
+
     /// Define system parameters.
     ///
     /// The parameters defined here will override the default parameters
@@ -8929,7 +8764,7 @@ impl SystemParameters {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SystemParameterRule>,
+        V: std::convert::Into<crate::model::SystemParameterRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -8948,6 +8783,7 @@ impl wkt::message::Message for SystemParameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameterRule {
+
     /// Selects the methods to which this rule applies. Use '*' to indicate all
     /// methods in all APIs.
     ///
@@ -8982,7 +8818,7 @@ impl SystemParameterRule {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SystemParameter>,
+        V: std::convert::Into<crate::model::SystemParameter>
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -9002,6 +8838,7 @@ impl wkt::message::Message for SystemParameterRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SystemParameter {
+
     /// Define the name of the parameter, such as "api_key" . It is case sensitive.
     pub name: std::string::String,
 
@@ -9034,10 +8871,7 @@ impl SystemParameter {
     }
 
     /// Sets the value of [url_query_parameter][crate::model::SystemParameter::url_query_parameter].
-    pub fn set_url_query_parameter<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_url_query_parameter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url_query_parameter = v.into();
         self
     }
@@ -9053,6 +8887,7 @@ impl wkt::message::Message for SystemParameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Usage {
+
     /// Requirements that must be satisfied before a consumer project can use the
     /// service. Each requirement is of the form <service.name>/\<requirement-id\>;
     /// for example 'serviceusage.googleapis.com/billing-enabled'.
@@ -9091,7 +8926,7 @@ impl Usage {
     pub fn set_requirements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.requirements = v.into_iter().map(|i| i.into()).collect();
@@ -9102,7 +8937,7 @@ impl Usage {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::UsageRule>,
+        V: std::convert::Into<crate::model::UsageRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -9110,10 +8945,7 @@ impl Usage {
     }
 
     /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
-    pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer_notification_channel = v.into();
         self
     }
@@ -9156,6 +8988,7 @@ impl wkt::message::Message for Usage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageRule {
+
     /// Selects the methods to which this rule applies. Use '*' to indicate all
     /// methods in all APIs.
     ///
@@ -9236,6 +9069,7 @@ impl wkt::message::Message for UsageRule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Visibility {
+
     /// A list of visibility rules that apply to individual API elements.
     ///
     /// **NOTE:** All service configuration rules follow "last one wins" order.
@@ -9253,7 +9087,7 @@ impl Visibility {
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VisibilityRule>,
+        V: std::convert::Into<crate::model::VisibilityRule>
     {
         use std::iter::Iterator;
         self.rules = v.into_iter().map(|i| i.into()).collect();
@@ -9272,6 +9106,7 @@ impl wkt::message::Message for Visibility {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VisibilityRule {
+
     /// Selects methods, messages, fields, enums, etc. to which this rule applies.
     ///
     /// Refer to [selector][google.api.DocumentationRule.selector] for syntax
@@ -9401,9 +9236,7 @@ impl ClientLibraryOrganization {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED"),
             Self::Cloud => std::option::Option::Some("CLOUD"),
             Self::Ads => std::option::Option::Some("ADS"),
             Self::Photos => std::option::Option::Some("PHOTOS"),
@@ -9440,9 +9273,7 @@ impl std::convert::From<i32> for ClientLibraryOrganization {
             5 => Self::Shopping,
             6 => Self::Geo,
             7 => Self::GenerativeAi,
-            _ => Self::UnknownValue(client_library_organization::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(client_library_organization::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9459,9 +9290,7 @@ impl std::convert::From<&str> for ClientLibraryOrganization {
             "SHOPPING" => Self::Shopping,
             "GEO" => Self::Geo,
             "GENERATIVE_AI" => Self::GenerativeAi,
-            _ => Self::UnknownValue(client_library_organization::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(client_library_organization::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9490,11 +9319,8 @@ impl<'de> serde::de::Deserialize<'de> for ClientLibraryOrganization {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<ClientLibraryOrganization>::new(
-                ".google.api.ClientLibraryOrganization",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClientLibraryOrganization>::new(
+            ".google.api.ClientLibraryOrganization"))
     }
 }
 
@@ -9559,9 +9385,7 @@ impl ClientLibraryDestination {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("CLIENT_LIBRARY_DESTINATION_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("CLIENT_LIBRARY_DESTINATION_UNSPECIFIED"),
             Self::Github => std::option::Option::Some("GITHUB"),
             Self::PackageManager => std::option::Option::Some("PACKAGE_MANAGER"),
             Self::UnknownValue(u) => u.0.name(),
@@ -9588,9 +9412,7 @@ impl std::convert::From<i32> for ClientLibraryDestination {
             0 => Self::Unspecified,
             10 => Self::Github,
             20 => Self::PackageManager,
-            _ => Self::UnknownValue(client_library_destination::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(client_library_destination::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9602,9 +9424,7 @@ impl std::convert::From<&str> for ClientLibraryDestination {
             "CLIENT_LIBRARY_DESTINATION_UNSPECIFIED" => Self::Unspecified,
             "GITHUB" => Self::Github,
             "PACKAGE_MANAGER" => Self::PackageManager,
-            _ => Self::UnknownValue(client_library_destination::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(client_library_destination::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9629,8 +9449,7 @@ impl<'de> serde::de::Deserialize<'de> for ClientLibraryDestination {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClientLibraryDestination>::new(
-            ".google.api.ClientLibraryDestination",
-        ))
+            ".google.api.ClientLibraryDestination"))
     }
 }
 
@@ -9729,9 +9548,7 @@ impl std::convert::From<i32> for ChangeType {
             1 => Self::Added,
             2 => Self::Removed,
             3 => Self::Modified,
-            _ => Self::UnknownValue(change_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(change_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -9744,9 +9561,7 @@ impl std::convert::From<&str> for ChangeType {
             "ADDED" => Self::Added,
             "REMOVED" => Self::Removed,
             "MODIFIED" => Self::Modified,
-            _ => Self::UnknownValue(change_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(change_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -9772,8 +9587,7 @@ impl<'de> serde::de::Deserialize<'de> for ChangeType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ChangeType>::new(
-            ".google.api.ChangeType",
-        ))
+            ".google.api.ChangeType"))
     }
 }
 
@@ -10488,45 +10302,29 @@ impl ErrorReason {
             Self::BillingDisabled => std::option::Option::Some("BILLING_DISABLED"),
             Self::ApiKeyInvalid => std::option::Option::Some("API_KEY_INVALID"),
             Self::ApiKeyServiceBlocked => std::option::Option::Some("API_KEY_SERVICE_BLOCKED"),
-            Self::ApiKeyHttpReferrerBlocked => {
-                std::option::Option::Some("API_KEY_HTTP_REFERRER_BLOCKED")
-            }
+            Self::ApiKeyHttpReferrerBlocked => std::option::Option::Some("API_KEY_HTTP_REFERRER_BLOCKED"),
             Self::ApiKeyIpAddressBlocked => std::option::Option::Some("API_KEY_IP_ADDRESS_BLOCKED"),
-            Self::ApiKeyAndroidAppBlocked => {
-                std::option::Option::Some("API_KEY_ANDROID_APP_BLOCKED")
-            }
+            Self::ApiKeyAndroidAppBlocked => std::option::Option::Some("API_KEY_ANDROID_APP_BLOCKED"),
             Self::ApiKeyIosAppBlocked => std::option::Option::Some("API_KEY_IOS_APP_BLOCKED"),
             Self::RateLimitExceeded => std::option::Option::Some("RATE_LIMIT_EXCEEDED"),
             Self::ResourceQuotaExceeded => std::option::Option::Some("RESOURCE_QUOTA_EXCEEDED"),
-            Self::LocationTaxPolicyViolated => {
-                std::option::Option::Some("LOCATION_TAX_POLICY_VIOLATED")
-            }
+            Self::LocationTaxPolicyViolated => std::option::Option::Some("LOCATION_TAX_POLICY_VIOLATED"),
             Self::UserProjectDenied => std::option::Option::Some("USER_PROJECT_DENIED"),
             Self::ConsumerSuspended => std::option::Option::Some("CONSUMER_SUSPENDED"),
             Self::ConsumerInvalid => std::option::Option::Some("CONSUMER_INVALID"),
             Self::SecurityPolicyViolated => std::option::Option::Some("SECURITY_POLICY_VIOLATED"),
             Self::AccessTokenExpired => std::option::Option::Some("ACCESS_TOKEN_EXPIRED"),
-            Self::AccessTokenScopeInsufficient => {
-                std::option::Option::Some("ACCESS_TOKEN_SCOPE_INSUFFICIENT")
-            }
+            Self::AccessTokenScopeInsufficient => std::option::Option::Some("ACCESS_TOKEN_SCOPE_INSUFFICIENT"),
             Self::AccountStateInvalid => std::option::Option::Some("ACCOUNT_STATE_INVALID"),
-            Self::AccessTokenTypeUnsupported => {
-                std::option::Option::Some("ACCESS_TOKEN_TYPE_UNSUPPORTED")
-            }
+            Self::AccessTokenTypeUnsupported => std::option::Option::Some("ACCESS_TOKEN_TYPE_UNSUPPORTED"),
             Self::CredentialsMissing => std::option::Option::Some("CREDENTIALS_MISSING"),
             Self::ResourceProjectInvalid => std::option::Option::Some("RESOURCE_PROJECT_INVALID"),
             Self::SessionCookieInvalid => std::option::Option::Some("SESSION_COOKIE_INVALID"),
             Self::UserBlockedByAdmin => std::option::Option::Some("USER_BLOCKED_BY_ADMIN"),
-            Self::ResourceUsageRestrictionViolated => {
-                std::option::Option::Some("RESOURCE_USAGE_RESTRICTION_VIOLATED")
-            }
-            Self::SystemParameterUnsupported => {
-                std::option::Option::Some("SYSTEM_PARAMETER_UNSUPPORTED")
-            }
+            Self::ResourceUsageRestrictionViolated => std::option::Option::Some("RESOURCE_USAGE_RESTRICTION_VIOLATED"),
+            Self::SystemParameterUnsupported => std::option::Option::Some("SYSTEM_PARAMETER_UNSUPPORTED"),
             Self::OrgRestrictionViolation => std::option::Option::Some("ORG_RESTRICTION_VIOLATION"),
-            Self::OrgRestrictionHeaderInvalid => {
-                std::option::Option::Some("ORG_RESTRICTION_HEADER_INVALID")
-            }
+            Self::OrgRestrictionHeaderInvalid => std::option::Option::Some("ORG_RESTRICTION_HEADER_INVALID"),
             Self::ServiceNotVisible => std::option::Option::Some("SERVICE_NOT_VISIBLE"),
             Self::GcpSuspended => std::option::Option::Some("GCP_SUSPENDED"),
             Self::LocationPolicyViolated => std::option::Option::Some("LOCATION_POLICY_VIOLATED"),
@@ -10586,9 +10384,7 @@ impl std::convert::From<i32> for ErrorReason {
             31 => Self::LocationPolicyViolated,
             33 => Self::MissingOrigin,
             34 => Self::OverloadedCredentials,
-            _ => Self::UnknownValue(error_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(error_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10630,9 +10426,7 @@ impl std::convert::From<&str> for ErrorReason {
             "LOCATION_POLICY_VIOLATED" => Self::LocationPolicyViolated,
             "MISSING_ORIGIN" => Self::MissingOrigin,
             "OVERLOADED_CREDENTIALS" => Self::OverloadedCredentials,
-            _ => Self::UnknownValue(error_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(error_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10687,8 +10481,7 @@ impl<'de> serde::de::Deserialize<'de> for ErrorReason {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ErrorReason>::new(
-            ".google.api.ErrorReason",
-        ))
+            ".google.api.ErrorReason"))
     }
 }
 
@@ -10841,9 +10634,7 @@ impl std::convert::From<i32> for FieldBehavior {
             6 => Self::UnorderedList,
             7 => Self::NonEmptyDefault,
             8 => Self::Identifier,
-            _ => Self::UnknownValue(field_behavior::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(field_behavior::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10861,9 +10652,7 @@ impl std::convert::From<&str> for FieldBehavior {
             "UNORDERED_LIST" => Self::UnorderedList,
             "NON_EMPTY_DEFAULT" => Self::NonEmptyDefault,
             "IDENTIFIER" => Self::Identifier,
-            _ => Self::UnknownValue(field_behavior::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(field_behavior::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10894,8 +10683,7 @@ impl<'de> serde::de::Deserialize<'de> for FieldBehavior {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FieldBehavior>::new(
-            ".google.api.FieldBehavior",
-        ))
+            ".google.api.FieldBehavior"))
     }
 }
 
@@ -11032,9 +10820,7 @@ impl std::convert::From<i32> for LaunchStage {
             5 => Self::Deprecated,
             6 => Self::Unimplemented,
             7 => Self::Prelaunch,
-            _ => Self::UnknownValue(launch_stage::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11051,9 +10837,7 @@ impl std::convert::From<&str> for LaunchStage {
             "BETA" => Self::Beta,
             "GA" => Self::Ga,
             "DEPRECATED" => Self::Deprecated,
-            _ => Self::UnknownValue(launch_stage::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(launch_stage::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11083,7 +10867,6 @@ impl<'de> serde::de::Deserialize<'de> for LaunchStage {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LaunchStage>::new(
-            ".google.api.LaunchStage",
-        ))
+            ".google.api.LaunchStage"))
     }
 }

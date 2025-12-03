@@ -82,9 +82,7 @@ impl ClientGatewaysService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::client_gateways_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::client_gateways_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::client_gateways_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -92,54 +90,39 @@ impl ClientGatewaysService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ClientGatewaysService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ClientGatewaysService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClientGatewaysService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ClientGatewaysService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClientGatewaysService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClientGatewaysService> {
         super::transport::ClientGatewaysService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ClientGatewaysService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ClientGatewaysService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ClientGatewaysService> {
+        Self::build_transport(conf).await.map(super::tracing::ClientGatewaysService::new)
     }
 
     /// Lists ClientGateways in a given project and location.
-    pub fn list_client_gateways(
-        &self,
-    ) -> super::builder::client_gateways_service::ListClientGateways {
+    pub fn list_client_gateways(&self) -> super::builder::client_gateways_service::ListClientGateways
+    {
         super::builder::client_gateways_service::ListClientGateways::new(self.inner.clone())
     }
 
     /// Gets details of a single ClientGateway.
-    pub fn get_client_gateway(&self) -> super::builder::client_gateways_service::GetClientGateway {
+    pub fn get_client_gateway(&self) -> super::builder::client_gateways_service::GetClientGateway
+    {
         super::builder::client_gateways_service::GetClientGateway::new(self.inner.clone())
     }
 
@@ -154,9 +137,8 @@ impl ClientGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_client_gateway(
-        &self,
-    ) -> super::builder::client_gateways_service::CreateClientGateway {
+    pub fn create_client_gateway(&self) -> super::builder::client_gateways_service::CreateClientGateway
+    {
         super::builder::client_gateways_service::CreateClientGateway::new(self.inner.clone())
     }
 
@@ -171,19 +153,20 @@ impl ClientGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_client_gateway(
-        &self,
-    ) -> super::builder::client_gateways_service::DeleteClientGateway {
+    pub fn delete_client_gateway(&self) -> super::builder::client_gateways_service::DeleteClientGateway
+    {
         super::builder::client_gateways_service::DeleteClientGateway::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::client_gateways_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::client_gateways_service::ListLocations
+    {
         super::builder::client_gateways_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::client_gateways_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::client_gateways_service::GetLocation
+    {
         super::builder::client_gateways_service::GetLocation::new(self.inner.clone())
     }
 
@@ -192,13 +175,15 @@ impl ClientGatewaysService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::client_gateways_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::client_gateways_service::SetIamPolicy
+    {
         super::builder::client_gateways_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::client_gateways_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::client_gateways_service::GetIamPolicy
+    {
         super::builder::client_gateways_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -209,37 +194,40 @@ impl ClientGatewaysService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::client_gateways_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::client_gateways_service::TestIamPermissions
+    {
         super::builder::client_gateways_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::client_gateways_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::client_gateways_service::ListOperations
+    {
         super::builder::client_gateways_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::client_gateways_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::client_gateways_service::GetOperation
+    {
         super::builder::client_gateways_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::client_gateways_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::client_gateways_service::DeleteOperation
+    {
         super::builder::client_gateways_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::client_gateways_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::client_gateways_service::CancelOperation
+    {
         super::builder::client_gateways_service::CancelOperation::new(self.inner.clone())
     }
 }

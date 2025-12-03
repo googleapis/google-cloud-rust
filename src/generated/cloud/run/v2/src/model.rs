@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate api;
 extern crate async_trait;
 extern crate bytes;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -43,6 +43,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitBuildRequest {
+
     /// Required. The project and location to build in. Location must be a region,
     /// e.g., 'us-central1' or 'global' if the global builder is to be used.
     /// Format:
@@ -109,7 +110,7 @@ impl SubmitBuildRequest {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -120,12 +121,8 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::submit_build_request::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::submit_build_request::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -133,14 +130,10 @@ impl SubmitBuildRequest {
     /// The value of [source][crate::model::SubmitBuildRequest::source]
     /// if it holds a `StorageSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn storage_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
+    pub fn storage_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::StorageSource>> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::submit_build_request::Source::StorageSource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::submit_build_request::Source::StorageSource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -150,14 +143,11 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    pub fn set_storage_source<
-        T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_source<T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::submit_build_request::Source::StorageSource(v.into()),
+            crate::model::submit_build_request::Source::StorageSource(
+                v.into()
+            )
         );
         self
     }
@@ -166,12 +156,8 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are mutually
     /// exclusive.
-    pub fn set_build_type<
-        T: std::convert::Into<std::option::Option<crate::model::submit_build_request::BuildType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_build_type<T: std::convert::Into<std::option::Option<crate::model::submit_build_request::BuildType>>>(mut self, v: T) -> Self
+    {
         self.build_type = v.into();
         self
     }
@@ -179,15 +165,10 @@ impl SubmitBuildRequest {
     /// The value of [build_type][crate::model::SubmitBuildRequest::build_type]
     /// if it holds a `BuildpackBuild`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn buildpack_build(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>
-    {
+    pub fn buildpack_build(&self) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>> {
         #[allow(unreachable_patterns)]
         self.build_type.as_ref().and_then(|v| match v {
-            crate::model::submit_build_request::BuildType::BuildpackBuild(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::submit_build_request::BuildType::BuildpackBuild(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -197,14 +178,11 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are
     /// mutually exclusive.
-    pub fn set_buildpack_build<
-        T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_buildpack_build<T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>>(mut self, v: T) -> Self {
         self.build_type = std::option::Option::Some(
-            crate::model::submit_build_request::BuildType::BuildpackBuild(v.into()),
+            crate::model::submit_build_request::BuildType::BuildpackBuild(
+                v.into()
+            )
         );
         self
     }
@@ -212,15 +190,10 @@ impl SubmitBuildRequest {
     /// The value of [build_type][crate::model::SubmitBuildRequest::build_type]
     /// if it holds a `DockerBuild`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn docker_build(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::DockerBuild>>
-    {
+    pub fn docker_build(&self) -> std::option::Option<&std::boxed::Box<crate::model::submit_build_request::DockerBuild>> {
         #[allow(unreachable_patterns)]
         self.build_type.as_ref().and_then(|v| match v {
-            crate::model::submit_build_request::BuildType::DockerBuild(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::submit_build_request::BuildType::DockerBuild(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -230,14 +203,11 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are
     /// mutually exclusive.
-    pub fn set_docker_build<
-        T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::DockerBuild>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_docker_build<T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::DockerBuild>>>(mut self, v: T) -> Self {
         self.build_type = std::option::Option::Some(
-            crate::model::submit_build_request::BuildType::DockerBuild(v.into()),
+            crate::model::submit_build_request::BuildType::DockerBuild(
+                v.into()
+            )
         );
         self
     }
@@ -254,10 +224,12 @@ pub mod submit_build_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Build the source using Docker. This means the source has a Dockerfile.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DockerBuild {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -277,6 +249,7 @@ pub mod submit_build_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BuildpacksBuild {
+
         /// The runtime name, e.g. 'go113'. Leave blank for generic builds.
         #[deprecated]
         pub runtime: std::string::String,
@@ -296,8 +269,7 @@ pub mod submit_build_request {
         pub base_image: std::string::String,
 
         /// Optional. User-provided build-time environment variables.
-        pub environment_variables:
-            std::collections::HashMap<std::string::String, std::string::String>,
+        pub environment_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
         /// Optional. Whether or not the application container will be enrolled in
         /// automatic base image updates. When true, the application will be built on
@@ -325,19 +297,13 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [function_target][crate::model::submit_build_request::BuildpacksBuild::function_target].
-        pub fn set_function_target<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_function_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.function_target = v.into();
             self
         }
 
         /// Sets the value of [cache_image_uri][crate::model::submit_build_request::BuildpacksBuild::cache_image_uri].
-        pub fn set_cache_image_uri<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cache_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cache_image_uri = v.into();
             self
         }
@@ -367,10 +333,7 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [project_descriptor][crate::model::submit_build_request::BuildpacksBuild::project_descriptor].
-        pub fn set_project_descriptor<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_project_descriptor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_descriptor = v.into();
             self
         }
@@ -405,6 +368,7 @@ pub mod submit_build_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitBuildResponse {
+
     /// Cloud Build operation to be polled via CloudBuild API.
     pub build_operation: std::option::Option<longrunning::model::Operation>,
 
@@ -425,8 +389,7 @@ impl SubmitBuildResponse {
 
     /// Sets the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
     pub fn set_build_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<longrunning::model::Operation>,
+    where T: std::convert::Into<longrunning::model::Operation>
     {
         self.build_operation = std::option::Option::Some(v.into());
         self
@@ -434,8 +397,7 @@ impl SubmitBuildResponse {
 
     /// Sets or clears the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
     pub fn set_or_clear_build_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<longrunning::model::Operation>,
+    where T: std::convert::Into<longrunning::model::Operation>
     {
         self.build_operation = v.map(|x| x.into());
         self
@@ -448,10 +410,7 @@ impl SubmitBuildResponse {
     }
 
     /// Sets the value of [base_image_warning][crate::model::SubmitBuildResponse::base_image_warning].
-    pub fn set_base_image_warning<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_base_image_warning<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_image_warning = v.into();
         self
     }
@@ -467,6 +426,7 @@ impl wkt::message::Message for SubmitBuildResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageSource {
+
     /// Required. Google Cloud Storage bucket containing the source (see
     /// [Bucket Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
@@ -519,6 +479,7 @@ impl wkt::message::Message for StorageSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
+
     /// type is used to communicate the status of the reconciliation process.
     /// See also:
     /// <https://github.com/knative/serving/blob/main/docs/spec/errors.md#error-conditions-and-reporting>
@@ -559,10 +520,7 @@ impl Condition {
     }
 
     /// Sets the value of [state][crate::model::Condition::state].
-    pub fn set_state<T: std::convert::Into<crate::model::condition::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::condition::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -575,8 +533,7 @@ impl Condition {
 
     /// Sets the value of [last_transition_time][crate::model::Condition::last_transition_time].
     pub fn set_last_transition_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_transition_time = std::option::Option::Some(v.into());
         self
@@ -584,18 +541,14 @@ impl Condition {
 
     /// Sets or clears the value of [last_transition_time][crate::model::Condition::last_transition_time].
     pub fn set_or_clear_last_transition_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_transition_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [severity][crate::model::Condition::severity].
-    pub fn set_severity<T: std::convert::Into<crate::model::condition::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::condition::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -604,12 +557,8 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are mutually
     /// exclusive.
-    pub fn set_reasons<
-        T: std::convert::Into<std::option::Option<crate::model::condition::Reasons>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reasons<T: std::convert::Into<std::option::Option<crate::model::condition::Reasons>>>(mut self, v: T) -> Self
+    {
         self.reasons = v.into();
         self
     }
@@ -630,12 +579,12 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
-    pub fn set_reason<T: std::convert::Into<crate::model::condition::CommonReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::Reason(v.into()));
+    pub fn set_reason<T: std::convert::Into<crate::model::condition::CommonReason>>(mut self, v: T) -> Self {
+        self.reasons = std::option::Option::Some(
+            crate::model::condition::Reasons::Reason(
+                v.into()
+            )
+        );
         self
     }
 
@@ -655,21 +604,19 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
-    pub fn set_revision_reason<T: std::convert::Into<crate::model::condition::RevisionReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::RevisionReason(v.into()));
+    pub fn set_revision_reason<T: std::convert::Into<crate::model::condition::RevisionReason>>(mut self, v: T) -> Self {
+        self.reasons = std::option::Option::Some(
+            crate::model::condition::Reasons::RevisionReason(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [reasons][crate::model::Condition::reasons]
     /// if it holds a `ExecutionReason`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn execution_reason(
-        &self,
-    ) -> std::option::Option<&crate::model::condition::ExecutionReason> {
+    pub fn execution_reason(&self) -> std::option::Option<&crate::model::condition::ExecutionReason> {
         #[allow(unreachable_patterns)]
         self.reasons.as_ref().and_then(|v| match v {
             crate::model::condition::Reasons::ExecutionReason(v) => std::option::Option::Some(v),
@@ -682,12 +629,12 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
-    pub fn set_execution_reason<T: std::convert::Into<crate::model::condition::ExecutionReason>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.reasons =
-            std::option::Option::Some(crate::model::condition::Reasons::ExecutionReason(v.into()));
+    pub fn set_execution_reason<T: std::convert::Into<crate::model::condition::ExecutionReason>>(mut self, v: T) -> Self {
+        self.reasons = std::option::Option::Some(
+            crate::model::condition::Reasons::ExecutionReason(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -702,6 +649,7 @@ impl wkt::message::Message for Condition {
 pub mod condition {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the possible Condition states.
     ///
@@ -799,9 +747,7 @@ pub mod condition {
                 2 => Self::ConditionReconciling,
                 3 => Self::ConditionFailed,
                 4 => Self::ConditionSucceeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -815,9 +761,7 @@ pub mod condition {
                 "CONDITION_RECONCILING" => Self::ConditionReconciling,
                 "CONDITION_FAILED" => Self::ConditionFailed,
                 "CONDITION_SUCCEEDED" => Self::ConditionSucceeded,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -844,8 +788,7 @@ pub mod condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.run.v2.Condition.State",
-            ))
+                ".google.cloud.run.v2.Condition.State"))
         }
     }
 
@@ -940,9 +883,7 @@ pub mod condition {
                 1 => Self::Error,
                 2 => Self::Warning,
                 3 => Self::Info,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -955,9 +896,7 @@ pub mod condition {
                 "ERROR" => Self::Error,
                 "WARNING" => Self::Warning,
                 "INFO" => Self::Info,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -983,8 +922,7 @@ pub mod condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.cloud.run.v2.Condition.Severity",
-            ))
+                ".google.cloud.run.v2.Condition.Severity"))
         }
     }
 
@@ -1089,28 +1027,14 @@ pub mod condition {
                 Self::Undefined => std::option::Option::Some("COMMON_REASON_UNDEFINED"),
                 Self::Unknown => std::option::Option::Some("UNKNOWN"),
                 Self::RevisionFailed => std::option::Option::Some("REVISION_FAILED"),
-                Self::ProgressDeadlineExceeded => {
-                    std::option::Option::Some("PROGRESS_DEADLINE_EXCEEDED")
-                }
+                Self::ProgressDeadlineExceeded => std::option::Option::Some("PROGRESS_DEADLINE_EXCEEDED"),
                 Self::ContainerMissing => std::option::Option::Some("CONTAINER_MISSING"),
-                Self::ContainerPermissionDenied => {
-                    std::option::Option::Some("CONTAINER_PERMISSION_DENIED")
-                }
-                Self::ContainerImageUnauthorized => {
-                    std::option::Option::Some("CONTAINER_IMAGE_UNAUTHORIZED")
-                }
-                Self::ContainerImageAuthorizationCheckFailed => {
-                    std::option::Option::Some("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED")
-                }
-                Self::EncryptionKeyPermissionDenied => {
-                    std::option::Option::Some("ENCRYPTION_KEY_PERMISSION_DENIED")
-                }
-                Self::EncryptionKeyCheckFailed => {
-                    std::option::Option::Some("ENCRYPTION_KEY_CHECK_FAILED")
-                }
-                Self::SecretsAccessCheckFailed => {
-                    std::option::Option::Some("SECRETS_ACCESS_CHECK_FAILED")
-                }
+                Self::ContainerPermissionDenied => std::option::Option::Some("CONTAINER_PERMISSION_DENIED"),
+                Self::ContainerImageUnauthorized => std::option::Option::Some("CONTAINER_IMAGE_UNAUTHORIZED"),
+                Self::ContainerImageAuthorizationCheckFailed => std::option::Option::Some("CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED"),
+                Self::EncryptionKeyPermissionDenied => std::option::Option::Some("ENCRYPTION_KEY_PERMISSION_DENIED"),
+                Self::EncryptionKeyCheckFailed => std::option::Option::Some("ENCRYPTION_KEY_CHECK_FAILED"),
+                Self::SecretsAccessCheckFailed => std::option::Option::Some("SECRETS_ACCESS_CHECK_FAILED"),
                 Self::WaitingForOperation => std::option::Option::Some("WAITING_FOR_OPERATION"),
                 Self::ImmediateRetry => std::option::Option::Some("IMMEDIATE_RETRY"),
                 Self::PostponedRetry => std::option::Option::Some("POSTPONED_RETRY"),
@@ -1153,9 +1077,7 @@ pub mod condition {
                 15 => Self::PostponedRetry,
                 16 => Self::Internal,
                 17 => Self::VpcNetworkNotFound,
-                _ => Self::UnknownValue(common_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(common_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1171,9 +1093,7 @@ pub mod condition {
                 "CONTAINER_MISSING" => Self::ContainerMissing,
                 "CONTAINER_PERMISSION_DENIED" => Self::ContainerPermissionDenied,
                 "CONTAINER_IMAGE_UNAUTHORIZED" => Self::ContainerImageUnauthorized,
-                "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED" => {
-                    Self::ContainerImageAuthorizationCheckFailed
-                }
+                "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED" => Self::ContainerImageAuthorizationCheckFailed,
                 "ENCRYPTION_KEY_PERMISSION_DENIED" => Self::EncryptionKeyPermissionDenied,
                 "ENCRYPTION_KEY_CHECK_FAILED" => Self::EncryptionKeyCheckFailed,
                 "SECRETS_ACCESS_CHECK_FAILED" => Self::SecretsAccessCheckFailed,
@@ -1182,9 +1102,7 @@ pub mod condition {
                 "POSTPONED_RETRY" => Self::PostponedRetry,
                 "INTERNAL" => Self::Internal,
                 "VPC_NETWORK_NOT_FOUND" => Self::VpcNetworkNotFound,
-                _ => Self::UnknownValue(common_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(common_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1222,8 +1140,7 @@ pub mod condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CommonReason>::new(
-                ".google.cloud.run.v2.Condition.CommonReason",
-            ))
+                ".google.cloud.run.v2.Condition.CommonReason"))
         }
     }
 
@@ -1329,18 +1246,10 @@ pub mod condition {
                 Self::Retired => std::option::Option::Some("RETIRED"),
                 Self::Retiring => std::option::Option::Some("RETIRING"),
                 Self::Recreating => std::option::Option::Some("RECREATING"),
-                Self::HealthCheckContainerError => {
-                    std::option::Option::Some("HEALTH_CHECK_CONTAINER_ERROR")
-                }
-                Self::CustomizedPathResponsePending => {
-                    std::option::Option::Some("CUSTOMIZED_PATH_RESPONSE_PENDING")
-                }
-                Self::MinInstancesNotProvisioned => {
-                    std::option::Option::Some("MIN_INSTANCES_NOT_PROVISIONED")
-                }
-                Self::ActiveRevisionLimitReached => {
-                    std::option::Option::Some("ACTIVE_REVISION_LIMIT_REACHED")
-                }
+                Self::HealthCheckContainerError => std::option::Option::Some("HEALTH_CHECK_CONTAINER_ERROR"),
+                Self::CustomizedPathResponsePending => std::option::Option::Some("CUSTOMIZED_PATH_RESPONSE_PENDING"),
+                Self::MinInstancesNotProvisioned => std::option::Option::Some("MIN_INSTANCES_NOT_PROVISIONED"),
+                Self::ActiveRevisionLimitReached => std::option::Option::Some("ACTIVE_REVISION_LIMIT_REACHED"),
                 Self::NoDeployment => std::option::Option::Some("NO_DEPLOYMENT"),
                 Self::HealthCheckSkipped => std::option::Option::Some("HEALTH_CHECK_SKIPPED"),
                 Self::MinInstancesWarming => std::option::Option::Some("MIN_INSTANCES_WARMING"),
@@ -1378,9 +1287,7 @@ pub mod condition {
                 10 => Self::NoDeployment,
                 11 => Self::HealthCheckSkipped,
                 12 => Self::MinInstancesWarming,
-                _ => Self::UnknownValue(revision_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(revision_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1402,9 +1309,7 @@ pub mod condition {
                 "NO_DEPLOYMENT" => Self::NoDeployment,
                 "HEALTH_CHECK_SKIPPED" => Self::HealthCheckSkipped,
                 "MIN_INSTANCES_WARMING" => Self::MinInstancesWarming,
-                _ => Self::UnknownValue(revision_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(revision_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1439,8 +1344,7 @@ pub mod condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RevisionReason>::new(
-                ".google.cloud.run.v2.Condition.RevisionReason",
-            ))
+                ".google.cloud.run.v2.Condition.RevisionReason"))
         }
     }
 
@@ -1514,9 +1418,7 @@ pub mod condition {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Undefined => std::option::Option::Some("EXECUTION_REASON_UNDEFINED"),
-                Self::JobStatusServicePollingError => {
-                    std::option::Option::Some("JOB_STATUS_SERVICE_POLLING_ERROR")
-                }
+                Self::JobStatusServicePollingError => std::option::Option::Some("JOB_STATUS_SERVICE_POLLING_ERROR"),
                 Self::NonZeroExitCode => std::option::Option::Some("NON_ZERO_EXIT_CODE"),
                 Self::Cancelled => std::option::Option::Some("CANCELLED"),
                 Self::Cancelling => std::option::Option::Some("CANCELLING"),
@@ -1548,9 +1450,7 @@ pub mod condition {
                 3 => Self::Cancelled,
                 4 => Self::Cancelling,
                 5 => Self::Deleted,
-                _ => Self::UnknownValue(execution_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(execution_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1565,9 +1465,7 @@ pub mod condition {
                 "CANCELLED" => Self::Cancelled,
                 "CANCELLING" => Self::Cancelling,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(execution_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(execution_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1595,8 +1493,7 @@ pub mod condition {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionReason>::new(
-                ".google.cloud.run.v2.Condition.ExecutionReason",
-            ))
+                ".google.cloud.run.v2.Condition.ExecutionReason"))
         }
     }
 
@@ -1619,6 +1516,7 @@ pub mod condition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExecutionRequest {
+
     /// Required. The full name of the Execution.
     /// Format:
     /// `projects/{project}/locations/{location}/jobs/{job}/executions/{execution}`,
@@ -1650,6 +1548,7 @@ impl wkt::message::Message for GetExecutionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsRequest {
+
     /// Required. The Execution from which the Executions should be listed.
     /// To list all Executions across Jobs, use "-" instead of Job name.
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`, where
@@ -1709,6 +1608,7 @@ impl wkt::message::Message for ListExecutionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExecutionsResponse {
+
     /// The resulting list of Executions.
     pub executions: std::vec::Vec<crate::model::Execution>,
 
@@ -1728,7 +1628,7 @@ impl ListExecutionsResponse {
     pub fn set_executions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Execution>,
+        V: std::convert::Into<crate::model::Execution>
     {
         use std::iter::Iterator;
         self.executions = v.into_iter().map(|i| i.into()).collect();
@@ -1766,6 +1666,7 @@ impl gax::paginator::internal::PageableResponse for ListExecutionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExecutionRequest {
+
     /// Required. The name of the Execution to delete.
     /// Format:
     /// `projects/{project}/locations/{location}/jobs/{job}/executions/{execution}`,
@@ -1817,6 +1718,7 @@ impl wkt::message::Message for DeleteExecutionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelExecutionRequest {
+
     /// Required. The name of the Execution to cancel.
     /// Format:
     /// `projects/{project}/locations/{location}/jobs/{job}/executions/{execution}`,
@@ -1870,6 +1772,7 @@ impl wkt::message::Message for CancelExecutionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Execution {
+
     /// Output only. The unique name of this Execution.
     pub name: std::string::String,
 
@@ -1891,13 +1794,13 @@ pub struct Execution {
     /// team, component, environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Unstructured key value map that may
     /// be set by external tools to store and arbitrary metadata.
     /// They are not queryable and should be preserved
     /// when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Represents time when the execution was acknowledged by the
     /// execution controller. It is not guaranteed to be set in happens-before
@@ -2053,8 +1956,7 @@ impl Execution {
 
     /// Sets the value of [create_time][crate::model::Execution::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2062,8 +1964,7 @@ impl Execution {
 
     /// Sets or clears the value of [create_time][crate::model::Execution::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2071,8 +1972,7 @@ impl Execution {
 
     /// Sets the value of [start_time][crate::model::Execution::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2080,8 +1980,7 @@ impl Execution {
 
     /// Sets or clears the value of [start_time][crate::model::Execution::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2089,8 +1988,7 @@ impl Execution {
 
     /// Sets the value of [completion_time][crate::model::Execution::completion_time].
     pub fn set_completion_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = std::option::Option::Some(v.into());
         self
@@ -2098,8 +1996,7 @@ impl Execution {
 
     /// Sets or clears the value of [completion_time][crate::model::Execution::completion_time].
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = v.map(|x| x.into());
         self
@@ -2107,8 +2004,7 @@ impl Execution {
 
     /// Sets the value of [update_time][crate::model::Execution::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2116,8 +2012,7 @@ impl Execution {
 
     /// Sets or clears the value of [update_time][crate::model::Execution::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2125,8 +2020,7 @@ impl Execution {
 
     /// Sets the value of [delete_time][crate::model::Execution::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -2134,8 +2028,7 @@ impl Execution {
 
     /// Sets or clears the value of [delete_time][crate::model::Execution::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -2143,8 +2036,7 @@ impl Execution {
 
     /// Sets the value of [expire_time][crate::model::Execution::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -2152,18 +2044,14 @@ impl Execution {
 
     /// Sets or clears the value of [expire_time][crate::model::Execution::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Execution::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -2188,8 +2076,7 @@ impl Execution {
 
     /// Sets the value of [template][crate::model::Execution::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskTemplate>,
+    where T: std::convert::Into<crate::model::TaskTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -2197,8 +2084,7 @@ impl Execution {
 
     /// Sets or clears the value of [template][crate::model::Execution::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskTemplate>,
+    where T: std::convert::Into<crate::model::TaskTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -2214,7 +2100,7 @@ impl Execution {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -2287,6 +2173,7 @@ impl wkt::message::Message for Execution {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionTemplate {
+
     /// Unstructured key value map that can be used to organize and categorize
     /// objects.
     /// User-provided labels are shared with Google's billing system, so they can
@@ -2294,12 +2181,12 @@ pub struct ExecutionTemplate {
     /// environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Unstructured key value map that may be set by external tools to store and
     /// arbitrary metadata. They are not queryable and should be preserved
     /// when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Specifies the maximum desired number of tasks the execution
     /// should run at given time. When the job is run, if this field is 0 or unset,
@@ -2364,8 +2251,7 @@ impl ExecutionTemplate {
 
     /// Sets the value of [template][crate::model::ExecutionTemplate::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskTemplate>,
+    where T: std::convert::Into<crate::model::TaskTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -2373,8 +2259,7 @@ impl ExecutionTemplate {
 
     /// Sets or clears the value of [template][crate::model::ExecutionTemplate::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskTemplate>,
+    where T: std::convert::Into<crate::model::TaskTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -2392,6 +2277,7 @@ impl wkt::message::Message for ExecutionTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceSplit {
+
     /// The allocation type for this instance split.
     pub r#type: crate::model::InstanceSplitAllocationType,
 
@@ -2412,10 +2298,7 @@ impl InstanceSplit {
     }
 
     /// Sets the value of [r#type][crate::model::InstanceSplit::type].
-    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2443,6 +2326,7 @@ impl wkt::message::Message for InstanceSplit {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceSplitStatus {
+
     /// The allocation type for this instance split.
     pub r#type: crate::model::InstanceSplitAllocationType,
 
@@ -2461,10 +2345,7 @@ impl InstanceSplitStatus {
     }
 
     /// Sets the value of [r#type][crate::model::InstanceSplitStatus::type].
-    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -2492,6 +2373,7 @@ impl wkt::message::Message for InstanceSplitStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateJobRequest {
+
     /// Required. The location and project in which this Job should be created.
     /// Format: projects/{project}/locations/{location}, where {project} can be
     /// project id or number.
@@ -2524,8 +2406,7 @@ impl CreateJobRequest {
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -2533,8 +2414,7 @@ impl CreateJobRequest {
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -2563,6 +2443,7 @@ impl wkt::message::Message for CreateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
+
     /// Required. The full name of the Job.
     /// Format: projects/{project}/locations/{location}/jobs/{job}, where {project}
     /// can be project id or number.
@@ -2593,6 +2474,7 @@ impl wkt::message::Message for GetJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
+
     /// Required. The Job to be updated.
     pub job: std::option::Option<crate::model::Job>,
 
@@ -2615,8 +2497,7 @@ impl UpdateJobRequest {
 
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -2624,8 +2505,7 @@ impl UpdateJobRequest {
 
     /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -2654,6 +2534,7 @@ impl wkt::message::Message for UpdateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
+
     /// Required. The location and project to list resources on.
     /// Format: projects/{project}/locations/{location}, where {project} can be
     /// project id or number.
@@ -2712,6 +2593,7 @@ impl wkt::message::Message for ListJobsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
+
     /// The resulting list of Jobs.
     pub jobs: std::vec::Vec<crate::model::Job>,
 
@@ -2731,7 +2613,7 @@ impl ListJobsResponse {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -2769,6 +2651,7 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
+
     /// Required. The full name of the Job.
     /// Format: projects/{project}/locations/{location}/jobs/{job}, where {project}
     /// can be project id or number.
@@ -2819,6 +2702,7 @@ impl wkt::message::Message for DeleteJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RunJobRequest {
+
     /// Required. The full name of the Job.
     /// Format: projects/{project}/locations/{location}/jobs/{job}, where {project}
     /// can be project id or number.
@@ -2864,8 +2748,7 @@ impl RunJobRequest {
 
     /// Sets the value of [overrides][crate::model::RunJobRequest::overrides].
     pub fn set_overrides<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::run_job_request::Overrides>,
+    where T: std::convert::Into<crate::model::run_job_request::Overrides>
     {
         self.overrides = std::option::Option::Some(v.into());
         self
@@ -2873,8 +2756,7 @@ impl RunJobRequest {
 
     /// Sets or clears the value of [overrides][crate::model::RunJobRequest::overrides].
     pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::run_job_request::Overrides>,
+    where T: std::convert::Into<crate::model::run_job_request::Overrides>
     {
         self.overrides = v.map(|x| x.into());
         self
@@ -2892,13 +2774,14 @@ pub mod run_job_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// RunJob Overrides that contains Execution fields to be overridden.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Overrides {
+
         /// Per container override specification.
-        pub container_overrides:
-            std::vec::Vec<crate::model::run_job_request::overrides::ContainerOverride>,
+        pub container_overrides: std::vec::Vec<crate::model::run_job_request::overrides::ContainerOverride>,
 
         /// Optional. The desired number of tasks the execution should run. Will
         /// replace existing task_count value.
@@ -2921,7 +2804,7 @@ pub mod run_job_request {
         pub fn set_container_overrides<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::run_job_request::overrides::ContainerOverride>,
+            V: std::convert::Into<crate::model::run_job_request::overrides::ContainerOverride>
         {
             use std::iter::Iterator;
             self.container_overrides = v.into_iter().map(|i| i.into()).collect();
@@ -2936,8 +2819,7 @@ pub mod run_job_request {
 
         /// Sets the value of [timeout][crate::model::run_job_request::Overrides::timeout].
         pub fn set_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.timeout = std::option::Option::Some(v.into());
             self
@@ -2945,8 +2827,7 @@ pub mod run_job_request {
 
         /// Sets or clears the value of [timeout][crate::model::run_job_request::Overrides::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.timeout = v.map(|x| x.into());
             self
@@ -2964,10 +2845,12 @@ pub mod run_job_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Per-container override specification.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ContainerOverride {
+
             /// The name of the container specified as a DNS_LABEL.
             pub name: std::string::String,
 
@@ -3000,7 +2883,7 @@ pub mod run_job_request {
             pub fn set_args<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.args = v.into_iter().map(|i| i.into()).collect();
@@ -3011,7 +2894,7 @@ pub mod run_job_request {
             pub fn set_env<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<crate::model::EnvVar>,
+                V: std::convert::Into<crate::model::EnvVar>
             {
                 use std::iter::Iterator;
                 self.env = v.into_iter().map(|i| i.into()).collect();
@@ -3038,6 +2921,7 @@ pub mod run_job_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
+
     /// The fully qualified name of this Job.
     ///
     /// Format:
@@ -3060,13 +2944,13 @@ pub struct Job {
     /// environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Unstructured key value map that may
     /// be set by external tools to store and arbitrary metadata.
     /// They are not queryable and should be preserved
     /// when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The creation time.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -3216,8 +3100,7 @@ impl Job {
 
     /// Sets the value of [create_time][crate::model::Job::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3225,8 +3108,7 @@ impl Job {
 
     /// Sets or clears the value of [create_time][crate::model::Job::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3234,8 +3116,7 @@ impl Job {
 
     /// Sets the value of [update_time][crate::model::Job::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3243,8 +3124,7 @@ impl Job {
 
     /// Sets or clears the value of [update_time][crate::model::Job::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3252,8 +3132,7 @@ impl Job {
 
     /// Sets the value of [delete_time][crate::model::Job::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -3261,8 +3140,7 @@ impl Job {
 
     /// Sets or clears the value of [delete_time][crate::model::Job::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -3270,8 +3148,7 @@ impl Job {
 
     /// Sets the value of [expire_time][crate::model::Job::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -3279,8 +3156,7 @@ impl Job {
 
     /// Sets or clears the value of [expire_time][crate::model::Job::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -3311,18 +3187,14 @@ impl Job {
     }
 
     /// Sets the value of [launch_stage][crate::model::Job::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
 
     /// Sets the value of [binary_authorization][crate::model::Job::binary_authorization].
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = std::option::Option::Some(v.into());
         self
@@ -3330,8 +3202,7 @@ impl Job {
 
     /// Sets or clears the value of [binary_authorization][crate::model::Job::binary_authorization].
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = v.map(|x| x.into());
         self
@@ -3339,8 +3210,7 @@ impl Job {
 
     /// Sets the value of [template][crate::model::Job::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionTemplate>,
+    where T: std::convert::Into<crate::model::ExecutionTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -3348,8 +3218,7 @@ impl Job {
 
     /// Sets or clears the value of [template][crate::model::Job::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionTemplate>,
+    where T: std::convert::Into<crate::model::ExecutionTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -3363,8 +3232,7 @@ impl Job {
 
     /// Sets the value of [terminal_condition][crate::model::Job::terminal_condition].
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = std::option::Option::Some(v.into());
         self
@@ -3372,8 +3240,7 @@ impl Job {
 
     /// Sets or clears the value of [terminal_condition][crate::model::Job::terminal_condition].
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = v.map(|x| x.into());
         self
@@ -3383,7 +3250,7 @@ impl Job {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -3398,8 +3265,7 @@ impl Job {
 
     /// Sets the value of [latest_created_execution][crate::model::Job::latest_created_execution].
     pub fn set_latest_created_execution<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionReference>,
+    where T: std::convert::Into<crate::model::ExecutionReference>
     {
         self.latest_created_execution = std::option::Option::Some(v.into());
         self
@@ -3407,8 +3273,7 @@ impl Job {
 
     /// Sets or clears the value of [latest_created_execution][crate::model::Job::latest_created_execution].
     pub fn set_or_clear_latest_created_execution<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionReference>,
+    where T: std::convert::Into<crate::model::ExecutionReference>
     {
         self.latest_created_execution = v.map(|x| x.into());
         self
@@ -3436,12 +3301,8 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are mutually
     /// exclusive.
-    pub fn set_create_execution<
-        T: std::convert::Into<std::option::Option<crate::model::job::CreateExecution>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_create_execution<T: std::convert::Into<std::option::Option<crate::model::job::CreateExecution>>>(mut self, v: T) -> Self
+    {
         self.create_execution = v.into();
         self
     }
@@ -3452,9 +3313,7 @@ impl Job {
     pub fn start_execution_token(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.create_execution.as_ref().and_then(|v| match v {
-            crate::model::job::CreateExecution::StartExecutionToken(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::job::CreateExecution::StartExecutionToken(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3464,12 +3323,11 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are
     /// mutually exclusive.
-    pub fn set_start_execution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_start_execution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.create_execution = std::option::Option::Some(
-            crate::model::job::CreateExecution::StartExecutionToken(v.into()),
+            crate::model::job::CreateExecution::StartExecutionToken(
+                v.into()
+            )
         );
         self
     }
@@ -3480,9 +3338,7 @@ impl Job {
     pub fn run_execution_token(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.create_execution.as_ref().and_then(|v| match v {
-            crate::model::job::CreateExecution::RunExecutionToken(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::job::CreateExecution::RunExecutionToken(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3492,12 +3348,11 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are
     /// mutually exclusive.
-    pub fn set_run_execution_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_run_execution_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.create_execution = std::option::Option::Some(
-            crate::model::job::CreateExecution::RunExecutionToken(v.into()),
+            crate::model::job::CreateExecution::RunExecutionToken(
+                v.into()
+            )
         );
         self
     }
@@ -3513,6 +3368,7 @@ impl wkt::message::Message for Job {
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3533,6 +3389,7 @@ pub mod job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionReference {
+
     /// Name of the execution.
     pub name: std::string::String,
 
@@ -3565,8 +3422,7 @@ impl ExecutionReference {
 
     /// Sets the value of [create_time][crate::model::ExecutionReference::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3574,8 +3430,7 @@ impl ExecutionReference {
 
     /// Sets or clears the value of [create_time][crate::model::ExecutionReference::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3583,8 +3438,7 @@ impl ExecutionReference {
 
     /// Sets the value of [completion_time][crate::model::ExecutionReference::completion_time].
     pub fn set_completion_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = std::option::Option::Some(v.into());
         self
@@ -3592,8 +3446,7 @@ impl ExecutionReference {
 
     /// Sets or clears the value of [completion_time][crate::model::ExecutionReference::completion_time].
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = v.map(|x| x.into());
         self
@@ -3601,8 +3454,7 @@ impl ExecutionReference {
 
     /// Sets the value of [delete_time][crate::model::ExecutionReference::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -3610,20 +3462,14 @@ impl ExecutionReference {
 
     /// Sets or clears the value of [delete_time][crate::model::ExecutionReference::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [completion_status][crate::model::ExecutionReference::completion_status].
-    pub fn set_completion_status<
-        T: std::convert::Into<crate::model::execution_reference::CompletionStatus>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_completion_status<T: std::convert::Into<crate::model::execution_reference::CompletionStatus>>(mut self, v: T) -> Self {
         self.completion_status = v.into();
         self
     }
@@ -3639,6 +3485,7 @@ impl wkt::message::Message for ExecutionReference {
 pub mod execution_reference {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible execution completion status.
     ///
@@ -3741,9 +3588,7 @@ pub mod execution_reference {
                 3 => Self::ExecutionRunning,
                 4 => Self::ExecutionPending,
                 5 => Self::ExecutionCancelled,
-                _ => Self::UnknownValue(completion_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(completion_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3758,9 +3603,7 @@ pub mod execution_reference {
                 "EXECUTION_RUNNING" => Self::ExecutionRunning,
                 "EXECUTION_PENDING" => Self::ExecutionPending,
                 "EXECUTION_CANCELLED" => Self::ExecutionCancelled,
-                _ => Self::UnknownValue(completion_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(completion_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3788,8 +3631,7 @@ pub mod execution_reference {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CompletionStatus>::new(
-                ".google.cloud.run.v2.ExecutionReference.CompletionStatus",
-            ))
+                ".google.cloud.run.v2.ExecutionReference.CompletionStatus"))
         }
     }
 }
@@ -3802,6 +3644,7 @@ pub mod execution_reference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Container {
+
     /// Name of the container specified as a DNS_LABEL (RFC 1123).
     pub name: std::string::String,
 
@@ -3884,7 +3727,7 @@ impl Container {
     pub fn set_command<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.command = v.into_iter().map(|i| i.into()).collect();
@@ -3895,7 +3738,7 @@ impl Container {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -3906,7 +3749,7 @@ impl Container {
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EnvVar>,
+        V: std::convert::Into<crate::model::EnvVar>
     {
         use std::iter::Iterator;
         self.env = v.into_iter().map(|i| i.into()).collect();
@@ -3915,8 +3758,7 @@ impl Container {
 
     /// Sets the value of [resources][crate::model::Container::resources].
     pub fn set_resources<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceRequirements>,
+    where T: std::convert::Into<crate::model::ResourceRequirements>
     {
         self.resources = std::option::Option::Some(v.into());
         self
@@ -3924,8 +3766,7 @@ impl Container {
 
     /// Sets or clears the value of [resources][crate::model::Container::resources].
     pub fn set_or_clear_resources<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceRequirements>,
+    where T: std::convert::Into<crate::model::ResourceRequirements>
     {
         self.resources = v.map(|x| x.into());
         self
@@ -3935,7 +3776,7 @@ impl Container {
     pub fn set_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContainerPort>,
+        V: std::convert::Into<crate::model::ContainerPort>
     {
         use std::iter::Iterator;
         self.ports = v.into_iter().map(|i| i.into()).collect();
@@ -3946,7 +3787,7 @@ impl Container {
     pub fn set_volume_mounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VolumeMount>,
+        V: std::convert::Into<crate::model::VolumeMount>
     {
         use std::iter::Iterator;
         self.volume_mounts = v.into_iter().map(|i| i.into()).collect();
@@ -3961,8 +3802,7 @@ impl Container {
 
     /// Sets the value of [liveness_probe][crate::model::Container::liveness_probe].
     pub fn set_liveness_probe<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Probe>,
+    where T: std::convert::Into<crate::model::Probe>
     {
         self.liveness_probe = std::option::Option::Some(v.into());
         self
@@ -3970,8 +3810,7 @@ impl Container {
 
     /// Sets or clears the value of [liveness_probe][crate::model::Container::liveness_probe].
     pub fn set_or_clear_liveness_probe<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Probe>,
+    where T: std::convert::Into<crate::model::Probe>
     {
         self.liveness_probe = v.map(|x| x.into());
         self
@@ -3979,8 +3818,7 @@ impl Container {
 
     /// Sets the value of [startup_probe][crate::model::Container::startup_probe].
     pub fn set_startup_probe<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Probe>,
+    where T: std::convert::Into<crate::model::Probe>
     {
         self.startup_probe = std::option::Option::Some(v.into());
         self
@@ -3988,8 +3826,7 @@ impl Container {
 
     /// Sets or clears the value of [startup_probe][crate::model::Container::startup_probe].
     pub fn set_or_clear_startup_probe<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Probe>,
+    where T: std::convert::Into<crate::model::Probe>
     {
         self.startup_probe = v.map(|x| x.into());
         self
@@ -3999,7 +3836,7 @@ impl Container {
     pub fn set_depends_on<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.depends_on = v.into_iter().map(|i| i.into()).collect();
@@ -4014,8 +3851,7 @@ impl Container {
 
     /// Sets the value of [build_info][crate::model::Container::build_info].
     pub fn set_build_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildInfo>,
+    where T: std::convert::Into<crate::model::BuildInfo>
     {
         self.build_info = std::option::Option::Some(v.into());
         self
@@ -4023,8 +3859,7 @@ impl Container {
 
     /// Sets or clears the value of [build_info][crate::model::Container::build_info].
     pub fn set_or_clear_build_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildInfo>,
+    where T: std::convert::Into<crate::model::BuildInfo>
     {
         self.build_info = v.map(|x| x.into());
         self
@@ -4041,8 +3876,9 @@ impl wkt::message::Message for Container {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceRequirements {
+
     /// Only `memory` and `cpu` keys in the map are supported.
-    pub limits: std::collections::HashMap<std::string::String, std::string::String>,
+    pub limits: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Determines whether CPU is only allocated during requests (true by default).
     /// However, if ResourceRequirements is set, the caller must explicitly
@@ -4097,6 +3933,7 @@ impl wkt::message::Message for ResourceRequirements {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvVar {
+
     /// Required. Name of the environment variable. Must not exceed 32768
     /// characters.
     pub name: std::string::String,
@@ -4121,10 +3958,8 @@ impl EnvVar {
     ///
     /// Note that all the setters affecting `values` are mutually
     /// exclusive.
-    pub fn set_values<T: std::convert::Into<std::option::Option<crate::model::env_var::Values>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_values<T: std::convert::Into<std::option::Option<crate::model::env_var::Values>>>(mut self, v: T) -> Self
+    {
         self.values = v.into();
         self
     }
@@ -4146,16 +3981,18 @@ impl EnvVar {
     /// Note that all the setters affecting `values` are
     /// mutually exclusive.
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.values = std::option::Option::Some(crate::model::env_var::Values::Value(v.into()));
+        self.values = std::option::Option::Some(
+            crate::model::env_var::Values::Value(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [values][crate::model::EnvVar::values]
     /// if it holds a `ValueSource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn value_source(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EnvVarSource>> {
+    pub fn value_source(&self) -> std::option::Option<&std::boxed::Box<crate::model::EnvVarSource>> {
         #[allow(unreachable_patterns)]
         self.values.as_ref().and_then(|v| match v {
             crate::model::env_var::Values::ValueSource(v) => std::option::Option::Some(v),
@@ -4168,12 +4005,12 @@ impl EnvVar {
     ///
     /// Note that all the setters affecting `values` are
     /// mutually exclusive.
-    pub fn set_value_source<T: std::convert::Into<std::boxed::Box<crate::model::EnvVarSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.values =
-            std::option::Option::Some(crate::model::env_var::Values::ValueSource(v.into()));
+    pub fn set_value_source<T: std::convert::Into<std::boxed::Box<crate::model::EnvVarSource>>>(mut self, v: T) -> Self {
+        self.values = std::option::Option::Some(
+            crate::model::env_var::Values::ValueSource(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4188,6 +4025,7 @@ impl wkt::message::Message for EnvVar {
 pub mod env_var {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4205,6 +4043,7 @@ pub mod env_var {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvVarSource {
+
     /// Selects a secret and a specific version from Cloud Secret Manager.
     pub secret_key_ref: std::option::Option<crate::model::SecretKeySelector>,
 
@@ -4218,8 +4057,7 @@ impl EnvVarSource {
 
     /// Sets the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
     pub fn set_secret_key_ref<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SecretKeySelector>,
+    where T: std::convert::Into<crate::model::SecretKeySelector>
     {
         self.secret_key_ref = std::option::Option::Some(v.into());
         self
@@ -4227,8 +4065,7 @@ impl EnvVarSource {
 
     /// Sets or clears the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
     pub fn set_or_clear_secret_key_ref<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SecretKeySelector>,
+    where T: std::convert::Into<crate::model::SecretKeySelector>
     {
         self.secret_key_ref = v.map(|x| x.into());
         self
@@ -4245,6 +4082,7 @@ impl wkt::message::Message for EnvVarSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretKeySelector {
+
     /// Required. The name of the secret in Cloud Secret Manager.
     /// Format: {secret_name} if the secret is in the same project.
     /// projects/{project}/secrets/{secret_name} if the secret is
@@ -4287,6 +4125,7 @@ impl wkt::message::Message for SecretKeySelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContainerPort {
+
     /// If specified, used to specify which protocol to use.
     /// Allowed values are "http1" and "h2c".
     pub name: std::string::String,
@@ -4326,6 +4165,7 @@ impl wkt::message::Message for ContainerPort {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VolumeMount {
+
     /// Required. This must match the Name of a Volume.
     pub name: std::string::String,
 
@@ -4367,6 +4207,7 @@ impl wkt::message::Message for VolumeMount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Volume {
+
     /// Required. Volume's name.
     pub name: std::string::String,
 
@@ -4390,12 +4231,8 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are mutually
     /// exclusive.
-    pub fn set_volume_type<
-        T: std::convert::Into<std::option::Option<crate::model::volume::VolumeType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_volume_type<T: std::convert::Into<std::option::Option<crate::model::volume::VolumeType>>>(mut self, v: T) -> Self
+    {
         self.volume_type = v.into();
         self
     }
@@ -4403,9 +4240,7 @@ impl Volume {
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `Secret`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn secret(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecretVolumeSource>> {
+    pub fn secret(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecretVolumeSource>> {
         #[allow(unreachable_patterns)]
         self.volume_type.as_ref().and_then(|v| match v {
             crate::model::volume::VolumeType::Secret(v) => std::option::Option::Some(v),
@@ -4418,21 +4253,19 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
-    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Secret(v.into()));
+    pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretVolumeSource>>>(mut self, v: T) -> Self {
+        self.volume_type = std::option::Option::Some(
+            crate::model::volume::VolumeType::Secret(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `CloudSqlInstance`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cloud_sql_instance(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstance>> {
+    pub fn cloud_sql_instance(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlInstance>> {
         #[allow(unreachable_patterns)]
         self.volume_type.as_ref().and_then(|v| match v {
             crate::model::volume::VolumeType::CloudSqlInstance(v) => std::option::Option::Some(v),
@@ -4445,23 +4278,19 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
-    pub fn set_cloud_sql_instance<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstance>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::CloudSqlInstance(v.into()));
+    pub fn set_cloud_sql_instance<T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstance>>>(mut self, v: T) -> Self {
+        self.volume_type = std::option::Option::Some(
+            crate::model::volume::VolumeType::CloudSqlInstance(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [volume_type][crate::model::Volume::volume_type]
     /// if it holds a `EmptyDir`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn empty_dir(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EmptyDirVolumeSource>> {
+    pub fn empty_dir(&self) -> std::option::Option<&std::boxed::Box<crate::model::EmptyDirVolumeSource>> {
         #[allow(unreachable_patterns)]
         self.volume_type.as_ref().and_then(|v| match v {
             crate::model::volume::VolumeType::EmptyDir(v) => std::option::Option::Some(v),
@@ -4474,14 +4303,12 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
-    pub fn set_empty_dir<
-        T: std::convert::Into<std::boxed::Box<crate::model::EmptyDirVolumeSource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::EmptyDir(v.into()));
+    pub fn set_empty_dir<T: std::convert::Into<std::boxed::Box<crate::model::EmptyDirVolumeSource>>>(mut self, v: T) -> Self {
+        self.volume_type = std::option::Option::Some(
+            crate::model::volume::VolumeType::EmptyDir(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4501,12 +4328,12 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
-    pub fn set_nfs<T: std::convert::Into<std::boxed::Box<crate::model::NFSVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Nfs(v.into()));
+    pub fn set_nfs<T: std::convert::Into<std::boxed::Box<crate::model::NFSVolumeSource>>>(mut self, v: T) -> Self {
+        self.volume_type = std::option::Option::Some(
+            crate::model::volume::VolumeType::Nfs(
+                v.into()
+            )
+        );
         self
     }
 
@@ -4526,12 +4353,12 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
-    pub fn set_gcs<T: std::convert::Into<std::boxed::Box<crate::model::GCSVolumeSource>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.volume_type =
-            std::option::Option::Some(crate::model::volume::VolumeType::Gcs(v.into()));
+    pub fn set_gcs<T: std::convert::Into<std::boxed::Box<crate::model::GCSVolumeSource>>>(mut self, v: T) -> Self {
+        self.volume_type = std::option::Option::Some(
+            crate::model::volume::VolumeType::Gcs(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -4546,6 +4373,7 @@ impl wkt::message::Message for Volume {
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -4571,6 +4399,7 @@ pub mod volume {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecretVolumeSource {
+
     /// Required. The name of the secret in Cloud Secret Manager.
     /// Format: {secret} if the secret is in the same project.
     /// projects/{project}/secrets/{secret} if the secret is
@@ -4621,7 +4450,7 @@ impl SecretVolumeSource {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VersionToPath>,
+        V: std::convert::Into<crate::model::VersionToPath>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -4646,6 +4475,7 @@ impl wkt::message::Message for SecretVolumeSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VersionToPath {
+
     /// Required. The relative path of the secret in the container.
     pub path: std::string::String,
 
@@ -4710,6 +4540,7 @@ impl wkt::message::Message for VersionToPath {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlInstance {
+
     /// The Cloud SQL instance connection names, as can be found in
     /// <https://console.cloud.google.com/sql/instances>. Visit
     /// <https://cloud.google.com/sql/docs/mysql/connect-run> for more information on
@@ -4729,7 +4560,7 @@ impl CloudSqlInstance {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -4749,6 +4580,7 @@ impl wkt::message::Message for CloudSqlInstance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EmptyDirVolumeSource {
+
     /// The medium on which the data is stored. Acceptable values today is only
     /// MEMORY or none. When none, the default will currently be backed by memory
     /// but could change over time. +optional
@@ -4774,10 +4606,7 @@ impl EmptyDirVolumeSource {
     }
 
     /// Sets the value of [medium][crate::model::EmptyDirVolumeSource::medium].
-    pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(mut self, v: T) -> Self {
         self.medium = v.into();
         self
     }
@@ -4799,6 +4628,7 @@ impl wkt::message::Message for EmptyDirVolumeSource {
 pub mod empty_dir_volume_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The different types of medium supported for EmptyDir.
     ///
@@ -4882,9 +4712,7 @@ pub mod empty_dir_volume_source {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Memory,
-                _ => Self::UnknownValue(medium::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(medium::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4895,9 +4723,7 @@ pub mod empty_dir_volume_source {
             match value {
                 "MEDIUM_UNSPECIFIED" => Self::Unspecified,
                 "MEMORY" => Self::Memory,
-                _ => Self::UnknownValue(medium::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(medium::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4921,8 +4747,7 @@ pub mod empty_dir_volume_source {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Medium>::new(
-                ".google.cloud.run.v2.EmptyDirVolumeSource.Medium",
-            ))
+                ".google.cloud.run.v2.EmptyDirVolumeSource.Medium"))
         }
     }
 }
@@ -4931,6 +4756,7 @@ pub mod empty_dir_volume_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NFSVolumeSource {
+
     /// Hostname or IP address of the NFS server
     pub server: std::string::String,
 
@@ -4978,6 +4804,7 @@ impl wkt::message::Message for NFSVolumeSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GCSVolumeSource {
+
     /// Cloud Storage Bucket name.
     pub bucket: std::string::String,
 
@@ -5012,7 +4839,7 @@ impl GCSVolumeSource {
     pub fn set_mount_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.mount_options = v.into_iter().map(|i| i.into()).collect();
@@ -5031,6 +4858,7 @@ impl wkt::message::Message for GCSVolumeSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Probe {
+
     /// Optional. Number of seconds after the container has started before the
     /// probe is initiated. Defaults to 0 seconds. Minimum value is 0. Maximum
     /// value for liveness probe is 3600. Maximum value for startup probe is 240.
@@ -5089,12 +4917,8 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are mutually
     /// exclusive.
-    pub fn set_probe_type<
-        T: std::convert::Into<std::option::Option<crate::model::probe::ProbeType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_probe_type<T: std::convert::Into<std::option::Option<crate::model::probe::ProbeType>>>(mut self, v: T) -> Self
+    {
         self.probe_type = v.into();
         self
     }
@@ -5115,21 +4939,19 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
-    pub fn set_http_get<T: std::convert::Into<std::boxed::Box<crate::model::HTTPGetAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type =
-            std::option::Option::Some(crate::model::probe::ProbeType::HttpGet(v.into()));
+    pub fn set_http_get<T: std::convert::Into<std::boxed::Box<crate::model::HTTPGetAction>>>(mut self, v: T) -> Self {
+        self.probe_type = std::option::Option::Some(
+            crate::model::probe::ProbeType::HttpGet(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [probe_type][crate::model::Probe::probe_type]
     /// if it holds a `TcpSocket`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn tcp_socket(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TCPSocketAction>> {
+    pub fn tcp_socket(&self) -> std::option::Option<&std::boxed::Box<crate::model::TCPSocketAction>> {
         #[allow(unreachable_patterns)]
         self.probe_type.as_ref().and_then(|v| match v {
             crate::model::probe::ProbeType::TcpSocket(v) => std::option::Option::Some(v),
@@ -5142,12 +4964,12 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
-    pub fn set_tcp_socket<T: std::convert::Into<std::boxed::Box<crate::model::TCPSocketAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type =
-            std::option::Option::Some(crate::model::probe::ProbeType::TcpSocket(v.into()));
+    pub fn set_tcp_socket<T: std::convert::Into<std::boxed::Box<crate::model::TCPSocketAction>>>(mut self, v: T) -> Self {
+        self.probe_type = std::option::Option::Some(
+            crate::model::probe::ProbeType::TcpSocket(
+                v.into()
+            )
+        );
         self
     }
 
@@ -5167,11 +4989,12 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
-    pub fn set_grpc<T: std::convert::Into<std::boxed::Box<crate::model::GRPCAction>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.probe_type = std::option::Option::Some(crate::model::probe::ProbeType::Grpc(v.into()));
+    pub fn set_grpc<T: std::convert::Into<std::boxed::Box<crate::model::GRPCAction>>>(mut self, v: T) -> Self {
+        self.probe_type = std::option::Option::Some(
+            crate::model::probe::ProbeType::Grpc(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -5186,6 +5009,7 @@ impl wkt::message::Message for Probe {
 pub mod probe {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5206,6 +5030,7 @@ pub mod probe {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HTTPGetAction {
+
     /// Optional. Path to access on the HTTP server. Defaults to '/'.
     pub path: std::string::String,
 
@@ -5236,7 +5061,7 @@ impl HTTPGetAction {
     pub fn set_http_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HTTPHeader>,
+        V: std::convert::Into<crate::model::HTTPHeader>
     {
         use std::iter::Iterator;
         self.http_headers = v.into_iter().map(|i| i.into()).collect();
@@ -5260,6 +5085,7 @@ impl wkt::message::Message for HTTPGetAction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HTTPHeader {
+
     /// Required. The header field name
     pub name: std::string::String,
 
@@ -5297,6 +5123,7 @@ impl wkt::message::Message for HTTPHeader {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TCPSocketAction {
+
     /// Optional. Port number to access on the container. Must be in the range 1 to
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
@@ -5327,6 +5154,7 @@ impl wkt::message::Message for TCPSocketAction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GRPCAction {
+
     /// Optional. Port number of the gRPC service. Number must be in the range 1 to
     /// 65535. If not specified, defaults to the exposed port of the container,
     /// which is the value of container.ports[0].containerPort.
@@ -5369,6 +5197,7 @@ impl wkt::message::Message for GRPCAction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildInfo {
+
     /// Output only. Entry point of the function when the image is a Cloud Run
     /// function.
     pub function_target: std::string::String,
@@ -5407,6 +5236,7 @@ impl wkt::message::Message for BuildInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRevisionRequest {
+
     /// Required. The full name of the Revision.
     /// Format:
     /// projects/{project}/locations/{location}/services/{service}/revisions/{revision}
@@ -5437,6 +5267,7 @@ impl wkt::message::Message for GetRevisionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRevisionsRequest {
+
     /// Required. The Service from which the Revisions should be listed.
     /// To list all Revisions across Services, use "-" instead of Service name.
     /// Format:
@@ -5496,6 +5327,7 @@ impl wkt::message::Message for ListRevisionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRevisionsResponse {
+
     /// The resulting list of Revisions.
     pub revisions: std::vec::Vec<crate::model::Revision>,
 
@@ -5515,7 +5347,7 @@ impl ListRevisionsResponse {
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Revision>,
+        V: std::convert::Into<crate::model::Revision>
     {
         use std::iter::Iterator;
         self.revisions = v.into_iter().map(|i| i.into()).collect();
@@ -5555,6 +5387,7 @@ impl gax::paginator::internal::PageableResponse for ListRevisionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRevisionRequest {
+
     /// Required. The name of the Revision to delete.
     /// Format:
     /// projects/{project}/locations/{location}/services/{service}/revisions/{revision}
@@ -5607,6 +5440,7 @@ impl wkt::message::Message for DeleteRevisionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Revision {
+
     /// Output only. The unique name of this Revision.
     pub name: std::string::String,
 
@@ -5625,13 +5459,13 @@ pub struct Revision {
     /// team, component, environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Unstructured key value map that may
     /// be set by external tools to store and arbitrary metadata.
     /// They are not queryable and should be preserved
     /// when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The creation time.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -5798,8 +5632,7 @@ impl Revision {
 
     /// Sets the value of [create_time][crate::model::Revision::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5807,8 +5640,7 @@ impl Revision {
 
     /// Sets or clears the value of [create_time][crate::model::Revision::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5816,8 +5648,7 @@ impl Revision {
 
     /// Sets the value of [update_time][crate::model::Revision::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5825,8 +5656,7 @@ impl Revision {
 
     /// Sets or clears the value of [update_time][crate::model::Revision::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5834,8 +5664,7 @@ impl Revision {
 
     /// Sets the value of [delete_time][crate::model::Revision::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -5843,8 +5672,7 @@ impl Revision {
 
     /// Sets or clears the value of [delete_time][crate::model::Revision::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -5852,8 +5680,7 @@ impl Revision {
 
     /// Sets the value of [expire_time][crate::model::Revision::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -5861,18 +5688,14 @@ impl Revision {
 
     /// Sets or clears the value of [expire_time][crate::model::Revision::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Revision::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
@@ -5885,8 +5708,7 @@ impl Revision {
 
     /// Sets the value of [scaling][crate::model::Revision::scaling].
     pub fn set_scaling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScaling>,
+    where T: std::convert::Into<crate::model::RevisionScaling>
     {
         self.scaling = std::option::Option::Some(v.into());
         self
@@ -5894,8 +5716,7 @@ impl Revision {
 
     /// Sets or clears the value of [scaling][crate::model::Revision::scaling].
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScaling>,
+    where T: std::convert::Into<crate::model::RevisionScaling>
     {
         self.scaling = v.map(|x| x.into());
         self
@@ -5903,8 +5724,7 @@ impl Revision {
 
     /// Sets the value of [vpc_access][crate::model::Revision::vpc_access].
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = std::option::Option::Some(v.into());
         self
@@ -5912,26 +5732,21 @@ impl Revision {
 
     /// Sets or clears the value of [vpc_access][crate::model::Revision::vpc_access].
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [max_instance_request_concurrency][crate::model::Revision::max_instance_request_concurrency].
-    pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_request_concurrency = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::Revision::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -5939,8 +5754,7 @@ impl Revision {
 
     /// Sets or clears the value of [timeout][crate::model::Revision::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -5956,7 +5770,7 @@ impl Revision {
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Container>,
+        V: std::convert::Into<crate::model::Container>
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
@@ -5967,7 +5781,7 @@ impl Revision {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -5975,10 +5789,7 @@ impl Revision {
     }
 
     /// Sets the value of [execution_environment][crate::model::Revision::execution_environment].
-    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(mut self, v: T) -> Self {
         self.execution_environment = v.into();
         self
     }
@@ -5991,8 +5802,7 @@ impl Revision {
 
     /// Sets the value of [service_mesh][crate::model::Revision::service_mesh].
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = std::option::Option::Some(v.into());
         self
@@ -6000,40 +5810,29 @@ impl Revision {
 
     /// Sets or clears the value of [service_mesh][crate::model::Revision::service_mesh].
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::Revision::encryption_key_revocation_action].
-    pub fn set_encryption_key_revocation_action<
-        T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_key_revocation_action<T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>>(mut self, v: T) -> Self {
         self.encryption_key_revocation_action = v.into();
         self
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::Revision::encryption_key_shutdown_duration].
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::Revision::encryption_key_shutdown_duration].
-    pub fn set_or_clear_encryption_key_shutdown_duration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_encryption_key_shutdown_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = v.map(|x| x.into());
         self
@@ -6049,7 +5848,7 @@ impl Revision {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -6082,8 +5881,7 @@ impl Revision {
 
     /// Sets the value of [scaling_status][crate::model::Revision::scaling_status].
     pub fn set_scaling_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScalingStatus>,
+    where T: std::convert::Into<crate::model::RevisionScalingStatus>
     {
         self.scaling_status = std::option::Option::Some(v.into());
         self
@@ -6091,8 +5889,7 @@ impl Revision {
 
     /// Sets or clears the value of [scaling_status][crate::model::Revision::scaling_status].
     pub fn set_or_clear_scaling_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScalingStatus>,
+    where T: std::convert::Into<crate::model::RevisionScalingStatus>
     {
         self.scaling_status = v.map(|x| x.into());
         self
@@ -6100,8 +5897,7 @@ impl Revision {
 
     /// Sets the value of [node_selector][crate::model::Revision::node_selector].
     pub fn set_node_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = std::option::Option::Some(v.into());
         self
@@ -6109,8 +5905,7 @@ impl Revision {
 
     /// Sets or clears the value of [node_selector][crate::model::Revision::node_selector].
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = v.map(|x| x.into());
         self
@@ -6118,20 +5913,15 @@ impl Revision {
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
-    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
@@ -6161,6 +5951,7 @@ impl wkt::message::Message for Revision {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevisionTemplate {
+
     /// Optional. The unique name for the revision. If this field is omitted, it
     /// will be automatically generated based on the Service name.
     pub revision: std::string::String,
@@ -6171,12 +5962,12 @@ pub struct RevisionTemplate {
     /// team, component, environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Unstructured key value map that may be set by external tools to
     /// store and arbitrary metadata. They are not queryable and should be
     /// preserved when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Scaling settings for this Revision.
     pub scaling: std::option::Option<crate::model::RevisionScaling>,
@@ -6277,8 +6068,7 @@ impl RevisionTemplate {
 
     /// Sets the value of [scaling][crate::model::RevisionTemplate::scaling].
     pub fn set_scaling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScaling>,
+    where T: std::convert::Into<crate::model::RevisionScaling>
     {
         self.scaling = std::option::Option::Some(v.into());
         self
@@ -6286,8 +6076,7 @@ impl RevisionTemplate {
 
     /// Sets or clears the value of [scaling][crate::model::RevisionTemplate::scaling].
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionScaling>,
+    where T: std::convert::Into<crate::model::RevisionScaling>
     {
         self.scaling = v.map(|x| x.into());
         self
@@ -6295,8 +6084,7 @@ impl RevisionTemplate {
 
     /// Sets the value of [vpc_access][crate::model::RevisionTemplate::vpc_access].
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = std::option::Option::Some(v.into());
         self
@@ -6304,8 +6092,7 @@ impl RevisionTemplate {
 
     /// Sets or clears the value of [vpc_access][crate::model::RevisionTemplate::vpc_access].
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = v.map(|x| x.into());
         self
@@ -6313,8 +6100,7 @@ impl RevisionTemplate {
 
     /// Sets the value of [timeout][crate::model::RevisionTemplate::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -6322,8 +6108,7 @@ impl RevisionTemplate {
 
     /// Sets or clears the value of [timeout][crate::model::RevisionTemplate::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -6339,7 +6124,7 @@ impl RevisionTemplate {
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Container>,
+        V: std::convert::Into<crate::model::Container>
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
@@ -6350,7 +6135,7 @@ impl RevisionTemplate {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -6358,10 +6143,7 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [execution_environment][crate::model::RevisionTemplate::execution_environment].
-    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(mut self, v: T) -> Self {
         self.execution_environment = v.into();
         self
     }
@@ -6373,18 +6155,14 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [max_instance_request_concurrency][crate::model::RevisionTemplate::max_instance_request_concurrency].
-    pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_request_concurrency = v.into();
         self
     }
 
     /// Sets the value of [service_mesh][crate::model::RevisionTemplate::service_mesh].
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = std::option::Option::Some(v.into());
         self
@@ -6392,40 +6170,29 @@ impl RevisionTemplate {
 
     /// Sets or clears the value of [service_mesh][crate::model::RevisionTemplate::service_mesh].
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::RevisionTemplate::encryption_key_revocation_action].
-    pub fn set_encryption_key_revocation_action<
-        T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_key_revocation_action<T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>>(mut self, v: T) -> Self {
         self.encryption_key_revocation_action = v.into();
         self
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::RevisionTemplate::encryption_key_shutdown_duration].
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::RevisionTemplate::encryption_key_shutdown_duration].
-    pub fn set_or_clear_encryption_key_shutdown_duration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_encryption_key_shutdown_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = v.map(|x| x.into());
         self
@@ -6445,8 +6212,7 @@ impl RevisionTemplate {
 
     /// Sets the value of [node_selector][crate::model::RevisionTemplate::node_selector].
     pub fn set_node_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = std::option::Option::Some(v.into());
         self
@@ -6454,8 +6220,7 @@ impl RevisionTemplate {
 
     /// Sets or clears the value of [node_selector][crate::model::RevisionTemplate::node_selector].
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = v.map(|x| x.into());
         self
@@ -6463,20 +6228,15 @@ impl RevisionTemplate {
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
-    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
@@ -6493,6 +6253,7 @@ impl wkt::message::Message for RevisionTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServiceRequest {
+
     /// Required. The location and project in which this service should be created.
     /// Format: projects/{project}/locations/{location}, where {project} can be
     /// project id or number. Only lowercase characters, digits, and hyphens.
@@ -6526,8 +6287,7 @@ impl CreateServiceRequest {
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -6535,8 +6295,7 @@ impl CreateServiceRequest {
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -6565,6 +6324,7 @@ impl wkt::message::Message for CreateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServiceRequest {
+
     /// Optional. The list of fields to be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -6590,8 +6350,7 @@ impl UpdateServiceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6599,8 +6358,7 @@ impl UpdateServiceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6608,8 +6366,7 @@ impl UpdateServiceRequest {
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_service<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = std::option::Option::Some(v.into());
         self
@@ -6617,8 +6374,7 @@ impl UpdateServiceRequest {
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Service>,
+    where T: std::convert::Into<crate::model::Service>
     {
         self.service = v.map(|x| x.into());
         self
@@ -6647,6 +6403,7 @@ impl wkt::message::Message for UpdateServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesRequest {
+
     /// Required. The location and project to list resources on.
     /// Location must be a valid Google Cloud region, and cannot be the "-"
     /// wildcard. Format: projects/{project}/locations/{location}, where {project}
@@ -6706,6 +6463,7 @@ impl wkt::message::Message for ListServicesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicesResponse {
+
     /// The resulting list of Services.
     pub services: std::vec::Vec<crate::model::Service>,
 
@@ -6725,7 +6483,7 @@ impl ListServicesResponse {
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Service>,
+        V: std::convert::Into<crate::model::Service>
     {
         use std::iter::Iterator;
         self.services = v.into_iter().map(|i| i.into()).collect();
@@ -6763,6 +6521,7 @@ impl gax::paginator::internal::PageableResponse for ListServicesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServiceRequest {
+
     /// Required. The full name of the Service.
     /// Format: projects/{project}/locations/{location}/services/{service}, where
     /// {project} can be project id or number.
@@ -6793,6 +6552,7 @@ impl wkt::message::Message for GetServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServiceRequest {
+
     /// Required. The full name of the Service.
     /// Format: projects/{project}/locations/{location}/services/{service}, where
     /// {project} can be project id or number.
@@ -6847,6 +6607,7 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
+
     /// The fully qualified name of this Service. In CreateServiceRequest, this
     /// field is ignored, and instead composed from CreateServiceRequest.parent and
     /// CreateServiceRequest.service_id.
@@ -6876,12 +6637,12 @@ pub struct Service {
     /// team, component, environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Unstructured key value map that may be set by external tools to
     /// store and arbitrary metadata. They are not queryable and should be
     /// preserved when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The creation time.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -7088,8 +6849,7 @@ impl Service {
 
     /// Sets the value of [create_time][crate::model::Service::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7097,8 +6857,7 @@ impl Service {
 
     /// Sets or clears the value of [create_time][crate::model::Service::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7106,8 +6865,7 @@ impl Service {
 
     /// Sets the value of [update_time][crate::model::Service::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7115,8 +6873,7 @@ impl Service {
 
     /// Sets or clears the value of [update_time][crate::model::Service::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7124,8 +6881,7 @@ impl Service {
 
     /// Sets the value of [delete_time][crate::model::Service::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -7133,8 +6889,7 @@ impl Service {
 
     /// Sets or clears the value of [delete_time][crate::model::Service::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -7142,8 +6897,7 @@ impl Service {
 
     /// Sets the value of [expire_time][crate::model::Service::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -7151,8 +6905,7 @@ impl Service {
 
     /// Sets or clears the value of [expire_time][crate::model::Service::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -7183,27 +6936,20 @@ impl Service {
     }
 
     /// Sets the value of [ingress][crate::model::Service::ingress].
-    pub fn set_ingress<T: std::convert::Into<crate::model::IngressTraffic>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ingress<T: std::convert::Into<crate::model::IngressTraffic>>(mut self, v: T) -> Self {
         self.ingress = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Service::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
 
     /// Sets the value of [binary_authorization][crate::model::Service::binary_authorization].
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = std::option::Option::Some(v.into());
         self
@@ -7211,8 +6957,7 @@ impl Service {
 
     /// Sets or clears the value of [binary_authorization][crate::model::Service::binary_authorization].
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = v.map(|x| x.into());
         self
@@ -7220,8 +6965,7 @@ impl Service {
 
     /// Sets the value of [template][crate::model::Service::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionTemplate>,
+    where T: std::convert::Into<crate::model::RevisionTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -7229,8 +6973,7 @@ impl Service {
 
     /// Sets or clears the value of [template][crate::model::Service::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RevisionTemplate>,
+    where T: std::convert::Into<crate::model::RevisionTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -7240,7 +6983,7 @@ impl Service {
     pub fn set_traffic<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TrafficTarget>,
+        V: std::convert::Into<crate::model::TrafficTarget>
     {
         use std::iter::Iterator;
         self.traffic = v.into_iter().map(|i| i.into()).collect();
@@ -7249,8 +6992,7 @@ impl Service {
 
     /// Sets the value of [scaling][crate::model::Service::scaling].
     pub fn set_scaling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceScaling>,
+    where T: std::convert::Into<crate::model::ServiceScaling>
     {
         self.scaling = std::option::Option::Some(v.into());
         self
@@ -7258,8 +7000,7 @@ impl Service {
 
     /// Sets or clears the value of [scaling][crate::model::Service::scaling].
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceScaling>,
+    where T: std::convert::Into<crate::model::ServiceScaling>
     {
         self.scaling = v.map(|x| x.into());
         self
@@ -7281,7 +7022,7 @@ impl Service {
     pub fn set_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.urls = v.into_iter().map(|i| i.into()).collect();
@@ -7292,7 +7033,7 @@ impl Service {
     pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.custom_audiences = v.into_iter().map(|i| i.into()).collect();
@@ -7307,8 +7048,7 @@ impl Service {
 
     /// Sets the value of [terminal_condition][crate::model::Service::terminal_condition].
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = std::option::Option::Some(v.into());
         self
@@ -7316,8 +7056,7 @@ impl Service {
 
     /// Sets or clears the value of [terminal_condition][crate::model::Service::terminal_condition].
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = v.map(|x| x.into());
         self
@@ -7327,7 +7066,7 @@ impl Service {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -7335,19 +7074,13 @@ impl Service {
     }
 
     /// Sets the value of [latest_ready_revision][crate::model::Service::latest_ready_revision].
-    pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_ready_revision = v.into();
         self
     }
 
     /// Sets the value of [latest_created_revision][crate::model::Service::latest_created_revision].
-    pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_created_revision = v.into();
         self
     }
@@ -7356,7 +7089,7 @@ impl Service {
     pub fn set_traffic_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TrafficTargetStatus>,
+        V: std::convert::Into<crate::model::TrafficTargetStatus>
     {
         use std::iter::Iterator;
         self.traffic_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -7377,8 +7110,7 @@ impl Service {
 
     /// Sets the value of [build_config][crate::model::Service::build_config].
     pub fn set_build_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildConfig>,
+    where T: std::convert::Into<crate::model::BuildConfig>
     {
         self.build_config = std::option::Option::Some(v.into());
         self
@@ -7386,8 +7118,7 @@ impl Service {
 
     /// Sets or clears the value of [build_config][crate::model::Service::build_config].
     pub fn set_or_clear_build_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BuildConfig>,
+    where T: std::convert::Into<crate::model::BuildConfig>
     {
         self.build_config = v.map(|x| x.into());
         self
@@ -7416,6 +7147,7 @@ impl wkt::message::Message for Service {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevisionScalingStatus {
+
     /// The current number of min instances provisioned for this revision.
     pub desired_min_instance_count: i32,
 
@@ -7444,6 +7176,7 @@ impl wkt::message::Message for RevisionScalingStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTaskRequest {
+
     /// Required. The full name of the Task.
     /// Format:
     /// projects/{project}/locations/{location}/jobs/{job}/executions/{execution}/tasks/{task}
@@ -7474,6 +7207,7 @@ impl wkt::message::Message for GetTaskRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksRequest {
+
     /// Required. The Execution from which the Tasks should be listed.
     /// To list all Tasks across Executions of a Job, use "-" instead of Execution
     /// name. To list all Tasks across Jobs, use "-" instead of Job name. Format:
@@ -7533,6 +7267,7 @@ impl wkt::message::Message for ListTasksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTasksResponse {
+
     /// The resulting list of Tasks.
     pub tasks: std::vec::Vec<crate::model::Task>,
 
@@ -7552,7 +7287,7 @@ impl ListTasksResponse {
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Task>,
+        V: std::convert::Into<crate::model::Task>
     {
         use std::iter::Iterator;
         self.tasks = v.into_iter().map(|i| i.into()).collect();
@@ -7590,6 +7325,7 @@ impl gax::paginator::internal::PageableResponse for ListTasksResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Task {
+
     /// Output only. The unique name of this Task.
     pub name: std::string::String,
 
@@ -7608,13 +7344,13 @@ pub struct Task {
     /// team, component, environment, state, etc. For more information, visit
     /// <https://cloud.google.com/resource-manager/docs/creating-managing-labels> or
     /// <https://cloud.google.com/run/docs/configuring/labels>
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Unstructured key value map that may
     /// be set by external tools to store and arbitrary metadata.
     /// They are not queryable and should be preserved
     /// when modifying objects.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Represents time when the task was created by the system.
     /// It is not guaranteed to be set in happens-before order across separate
@@ -7780,8 +7516,7 @@ impl Task {
 
     /// Sets the value of [create_time][crate::model::Task::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7789,8 +7524,7 @@ impl Task {
 
     /// Sets or clears the value of [create_time][crate::model::Task::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7798,8 +7532,7 @@ impl Task {
 
     /// Sets the value of [scheduled_time][crate::model::Task::scheduled_time].
     pub fn set_scheduled_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.scheduled_time = std::option::Option::Some(v.into());
         self
@@ -7807,8 +7540,7 @@ impl Task {
 
     /// Sets or clears the value of [scheduled_time][crate::model::Task::scheduled_time].
     pub fn set_or_clear_scheduled_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.scheduled_time = v.map(|x| x.into());
         self
@@ -7816,8 +7548,7 @@ impl Task {
 
     /// Sets the value of [start_time][crate::model::Task::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -7825,8 +7556,7 @@ impl Task {
 
     /// Sets or clears the value of [start_time][crate::model::Task::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -7834,8 +7564,7 @@ impl Task {
 
     /// Sets the value of [completion_time][crate::model::Task::completion_time].
     pub fn set_completion_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = std::option::Option::Some(v.into());
         self
@@ -7843,8 +7572,7 @@ impl Task {
 
     /// Sets or clears the value of [completion_time][crate::model::Task::completion_time].
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.completion_time = v.map(|x| x.into());
         self
@@ -7852,8 +7580,7 @@ impl Task {
 
     /// Sets the value of [update_time][crate::model::Task::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7861,8 +7588,7 @@ impl Task {
 
     /// Sets or clears the value of [update_time][crate::model::Task::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7870,8 +7596,7 @@ impl Task {
 
     /// Sets the value of [delete_time][crate::model::Task::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -7879,8 +7604,7 @@ impl Task {
 
     /// Sets or clears the value of [delete_time][crate::model::Task::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -7888,8 +7612,7 @@ impl Task {
 
     /// Sets the value of [expire_time][crate::model::Task::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -7897,8 +7620,7 @@ impl Task {
 
     /// Sets or clears the value of [expire_time][crate::model::Task::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -7920,7 +7642,7 @@ impl Task {
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Container>,
+        V: std::convert::Into<crate::model::Container>
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
@@ -7931,7 +7653,7 @@ impl Task {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -7946,8 +7668,7 @@ impl Task {
 
     /// Sets the value of [timeout][crate::model::Task::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -7955,8 +7676,7 @@ impl Task {
 
     /// Sets or clears the value of [timeout][crate::model::Task::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -7969,10 +7689,7 @@ impl Task {
     }
 
     /// Sets the value of [execution_environment][crate::model::Task::execution_environment].
-    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(mut self, v: T) -> Self {
         self.execution_environment = v.into();
         self
     }
@@ -7987,7 +7704,7 @@ impl Task {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -8014,8 +7731,7 @@ impl Task {
 
     /// Sets the value of [last_attempt_result][crate::model::Task::last_attempt_result].
     pub fn set_last_attempt_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskAttemptResult>,
+    where T: std::convert::Into<crate::model::TaskAttemptResult>
     {
         self.last_attempt_result = std::option::Option::Some(v.into());
         self
@@ -8023,8 +7739,7 @@ impl Task {
 
     /// Sets or clears the value of [last_attempt_result][crate::model::Task::last_attempt_result].
     pub fn set_or_clear_last_attempt_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TaskAttemptResult>,
+    where T: std::convert::Into<crate::model::TaskAttemptResult>
     {
         self.last_attempt_result = v.map(|x| x.into());
         self
@@ -8038,8 +7753,7 @@ impl Task {
 
     /// Sets the value of [vpc_access][crate::model::Task::vpc_access].
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = std::option::Option::Some(v.into());
         self
@@ -8047,8 +7761,7 @@ impl Task {
 
     /// Sets or clears the value of [vpc_access][crate::model::Task::vpc_access].
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = v.map(|x| x.into());
         self
@@ -8068,8 +7781,7 @@ impl Task {
 
     /// Sets the value of [node_selector][crate::model::Task::node_selector].
     pub fn set_node_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = std::option::Option::Some(v.into());
         self
@@ -8077,8 +7789,7 @@ impl Task {
 
     /// Sets or clears the value of [node_selector][crate::model::Task::node_selector].
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = v.map(|x| x.into());
         self
@@ -8086,20 +7797,15 @@ impl Task {
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
-    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
@@ -8122,6 +7828,7 @@ impl wkt::message::Message for Task {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskAttemptResult {
+
     /// Output only. The status of this attempt.
     /// If the status code is OK, then the attempt succeeded.
     pub status: std::option::Option<rpc::model::Status>,
@@ -8150,8 +7857,7 @@ impl TaskAttemptResult {
 
     /// Sets the value of [status][crate::model::TaskAttemptResult::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -8159,8 +7865,7 @@ impl TaskAttemptResult {
 
     /// Sets or clears the value of [status][crate::model::TaskAttemptResult::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -8190,6 +7895,7 @@ impl wkt::message::Message for TaskAttemptResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TaskTemplate {
+
     /// Holds the single container that defines the unit of execution for this
     /// task.
     pub containers: std::vec::Vec<crate::model::Container>,
@@ -8242,7 +7948,7 @@ impl TaskTemplate {
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Container>,
+        V: std::convert::Into<crate::model::Container>
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
@@ -8253,7 +7959,7 @@ impl TaskTemplate {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -8262,8 +7968,7 @@ impl TaskTemplate {
 
     /// Sets the value of [timeout][crate::model::TaskTemplate::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -8271,8 +7976,7 @@ impl TaskTemplate {
 
     /// Sets or clears the value of [timeout][crate::model::TaskTemplate::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -8285,10 +7989,7 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [execution_environment][crate::model::TaskTemplate::execution_environment].
-    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(mut self, v: T) -> Self {
         self.execution_environment = v.into();
         self
     }
@@ -8301,8 +8002,7 @@ impl TaskTemplate {
 
     /// Sets the value of [vpc_access][crate::model::TaskTemplate::vpc_access].
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = std::option::Option::Some(v.into());
         self
@@ -8310,8 +8010,7 @@ impl TaskTemplate {
 
     /// Sets or clears the value of [vpc_access][crate::model::TaskTemplate::vpc_access].
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = v.map(|x| x.into());
         self
@@ -8319,8 +8018,7 @@ impl TaskTemplate {
 
     /// Sets the value of [node_selector][crate::model::TaskTemplate::node_selector].
     pub fn set_node_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = std::option::Option::Some(v.into());
         self
@@ -8328,8 +8026,7 @@ impl TaskTemplate {
 
     /// Sets or clears the value of [node_selector][crate::model::TaskTemplate::node_selector].
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = v.map(|x| x.into());
         self
@@ -8337,20 +8034,15 @@ impl TaskTemplate {
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
-    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
@@ -8360,12 +8052,8 @@ impl TaskTemplate {
     ///
     /// Note that all the setters affecting `retries` are mutually
     /// exclusive.
-    pub fn set_retries<
-        T: std::convert::Into<std::option::Option<crate::model::task_template::Retries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retries<T: std::convert::Into<std::option::Option<crate::model::task_template::Retries>>>(mut self, v: T) -> Self
+    {
         self.retries = v.into();
         self
     }
@@ -8387,8 +8075,11 @@ impl TaskTemplate {
     /// Note that all the setters affecting `retries` are
     /// mutually exclusive.
     pub fn set_max_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-        self.retries =
-            std::option::Option::Some(crate::model::task_template::Retries::MaxRetries(v.into()));
+        self.retries = std::option::Option::Some(
+            crate::model::task_template::Retries::MaxRetries(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -8404,6 +8095,7 @@ pub mod task_template {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Retries {
@@ -8418,6 +8110,7 @@ pub mod task_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrafficTarget {
+
     /// The allocation type for this traffic target.
     pub r#type: crate::model::TrafficTargetAllocationType,
 
@@ -8442,10 +8135,7 @@ impl TrafficTarget {
     }
 
     /// Sets the value of [r#type][crate::model::TrafficTarget::type].
-    pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -8479,6 +8169,7 @@ impl wkt::message::Message for TrafficTarget {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrafficTargetStatus {
+
     /// The allocation type for this traffic target.
     pub r#type: crate::model::TrafficTargetAllocationType,
 
@@ -8503,10 +8194,7 @@ impl TrafficTargetStatus {
     }
 
     /// Sets the value of [r#type][crate::model::TrafficTargetStatus::type].
-    pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -8547,6 +8235,7 @@ impl wkt::message::Message for TrafficTargetStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VpcAccess {
+
     /// VPC Access connector name.
     /// Format: `projects/{project}/locations/{location}/connectors/{connector}`,
     /// where `{project}` can be project id or number.
@@ -8577,10 +8266,7 @@ impl VpcAccess {
     }
 
     /// Sets the value of [egress][crate::model::VpcAccess::egress].
-    pub fn set_egress<T: std::convert::Into<crate::model::vpc_access::VpcEgress>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_egress<T: std::convert::Into<crate::model::vpc_access::VpcEgress>>(mut self, v: T) -> Self {
         self.egress = v.into();
         self
     }
@@ -8589,7 +8275,7 @@ impl VpcAccess {
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vpc_access::NetworkInterface>,
+        V: std::convert::Into<crate::model::vpc_access::NetworkInterface>
     {
         use std::iter::Iterator;
         self.network_interfaces = v.into_iter().map(|i| i.into()).collect();
@@ -8608,10 +8294,12 @@ pub mod vpc_access {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Direct VPC egress settings.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkInterface {
+
         /// Optional. The VPC network that the Cloud Run resource will be able to
         /// send traffic to. At least one of network or subnetwork must be specified.
         /// If both network and subnetwork are specified, the given VPC subnetwork
@@ -8653,7 +8341,7 @@ pub mod vpc_access {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -8753,9 +8441,7 @@ pub mod vpc_access {
                 0 => Self::Unspecified,
                 1 => Self::AllTraffic,
                 2 => Self::PrivateRangesOnly,
-                _ => Self::UnknownValue(vpc_egress::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(vpc_egress::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8767,9 +8453,7 @@ pub mod vpc_access {
                 "VPC_EGRESS_UNSPECIFIED" => Self::Unspecified,
                 "ALL_TRAFFIC" => Self::AllTraffic,
                 "PRIVATE_RANGES_ONLY" => Self::PrivateRangesOnly,
-                _ => Self::UnknownValue(vpc_egress::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(vpc_egress::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8794,8 +8478,7 @@ pub mod vpc_access {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<VpcEgress>::new(
-                ".google.cloud.run.v2.VpcAccess.VpcEgress",
-            ))
+                ".google.cloud.run.v2.VpcAccess.VpcEgress"))
         }
     }
 }
@@ -8804,6 +8487,7 @@ pub mod vpc_access {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BinaryAuthorization {
+
     /// Optional. If present, indicates to use Breakglass using this justification.
     /// If use_default is False, then it must be empty.
     /// For more information on breakglass, see
@@ -8821,10 +8505,7 @@ impl BinaryAuthorization {
     }
 
     /// Sets the value of [breakglass_justification][crate::model::BinaryAuthorization::breakglass_justification].
-    pub fn set_breakglass_justification<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_breakglass_justification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.breakglass_justification = v.into();
         self
     }
@@ -8833,12 +8514,8 @@ impl BinaryAuthorization {
     ///
     /// Note that all the setters affecting `binauthz_method` are mutually
     /// exclusive.
-    pub fn set_binauthz_method<
-        T: std::convert::Into<std::option::Option<crate::model::binary_authorization::BinauthzMethod>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_binauthz_method<T: std::convert::Into<std::option::Option<crate::model::binary_authorization::BinauthzMethod>>>(mut self, v: T) -> Self
+    {
         self.binauthz_method = v.into();
         self
     }
@@ -8849,9 +8526,7 @@ impl BinaryAuthorization {
     pub fn use_default(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.binauthz_method.as_ref().and_then(|v| match v {
-            crate::model::binary_authorization::BinauthzMethod::UseDefault(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::binary_authorization::BinauthzMethod::UseDefault(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8863,7 +8538,9 @@ impl BinaryAuthorization {
     /// mutually exclusive.
     pub fn set_use_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.binauthz_method = std::option::Option::Some(
-            crate::model::binary_authorization::BinauthzMethod::UseDefault(v.into()),
+            crate::model::binary_authorization::BinauthzMethod::UseDefault(
+                v.into()
+            )
         );
         self
     }
@@ -8874,9 +8551,7 @@ impl BinaryAuthorization {
     pub fn policy(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.binauthz_method.as_ref().and_then(|v| match v {
-            crate::model::binary_authorization::BinauthzMethod::Policy(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::binary_authorization::BinauthzMethod::Policy(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8888,7 +8563,9 @@ impl BinaryAuthorization {
     /// mutually exclusive.
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.binauthz_method = std::option::Option::Some(
-            crate::model::binary_authorization::BinauthzMethod::Policy(v.into()),
+            crate::model::binary_authorization::BinauthzMethod::Policy(
+                v.into()
+            )
         );
         self
     }
@@ -8904,6 +8581,7 @@ impl wkt::message::Message for BinaryAuthorization {
 pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -8921,6 +8599,7 @@ pub mod binary_authorization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevisionScaling {
+
     /// Optional. Minimum number of serving instances that this resource should
     /// have.
     pub min_instance_count: i32,
@@ -8963,6 +8642,7 @@ impl wkt::message::Message for RevisionScaling {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceMesh {
+
     /// The Mesh resource name. Format:
     /// `projects/{project}/locations/global/meshes/{mesh}`, where `{project}` can
     /// be project id or number.
@@ -8994,6 +8674,7 @@ impl wkt::message::Message for ServiceMesh {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceScaling {
+
     /// Optional. total min instances for the service. This number of instances is
     /// divided among all revisions with specified traffic based on the percent
     /// of traffic they are receiving.
@@ -9022,18 +8703,14 @@ impl ServiceScaling {
     }
 
     /// Sets the value of [scaling_mode][crate::model::ServiceScaling::scaling_mode].
-    pub fn set_scaling_mode<T: std::convert::Into<crate::model::service_scaling::ScalingMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scaling_mode<T: std::convert::Into<crate::model::service_scaling::ScalingMode>>(mut self, v: T) -> Self {
         self.scaling_mode = v.into();
         self
     }
 
     /// Sets the value of [manual_instance_count][crate::model::ServiceScaling::manual_instance_count].
     pub fn set_manual_instance_count<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.manual_instance_count = std::option::Option::Some(v.into());
         self
@@ -9041,8 +8718,7 @@ impl ServiceScaling {
 
     /// Sets or clears the value of [manual_instance_count][crate::model::ServiceScaling::manual_instance_count].
     pub fn set_or_clear_manual_instance_count<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.manual_instance_count = v.map(|x| x.into());
         self
@@ -9059,6 +8735,7 @@ impl wkt::message::Message for ServiceScaling {
 pub mod service_scaling {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The scaling mode for the service. If not provided, it defaults to
     /// AUTOMATIC.
@@ -9147,9 +8824,7 @@ pub mod service_scaling {
                 0 => Self::Unspecified,
                 1 => Self::Automatic,
                 2 => Self::Manual,
-                _ => Self::UnknownValue(scaling_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9161,9 +8836,7 @@ pub mod service_scaling {
                 "SCALING_MODE_UNSPECIFIED" => Self::Unspecified,
                 "AUTOMATIC" => Self::Automatic,
                 "MANUAL" => Self::Manual,
-                _ => Self::UnknownValue(scaling_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9188,8 +8861,7 @@ pub mod service_scaling {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScalingMode>::new(
-                ".google.cloud.run.v2.ServiceScaling.ScalingMode",
-            ))
+                ".google.cloud.run.v2.ServiceScaling.ScalingMode"))
         }
     }
 }
@@ -9198,6 +8870,7 @@ pub mod service_scaling {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkerPoolScaling {
+
     /// Optional. The total number of instances in manual scaling mode.
     pub manual_instance_count: std::option::Option<i32>,
 
@@ -9211,8 +8884,7 @@ impl WorkerPoolScaling {
 
     /// Sets the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
     pub fn set_manual_instance_count<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.manual_instance_count = std::option::Option::Some(v.into());
         self
@@ -9220,8 +8892,7 @@ impl WorkerPoolScaling {
 
     /// Sets or clears the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
     pub fn set_or_clear_manual_instance_count<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.manual_instance_count = v.map(|x| x.into());
         self
@@ -9238,6 +8909,7 @@ impl wkt::message::Message for WorkerPoolScaling {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeSelector {
+
     /// Required. GPU accelerator type to attach to an instance.
     pub accelerator: std::string::String,
 
@@ -9267,6 +8939,7 @@ impl wkt::message::Message for NodeSelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuildConfig {
+
     /// Output only. The Cloud Build name of the latest successful deployment of
     /// the function.
     pub name: std::string::String,
@@ -9299,7 +8972,7 @@ pub struct BuildConfig {
     pub worker_pool: std::string::String,
 
     /// Optional. User-provided build-time environment variables for the function
-    pub environment_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub environment_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Service account to be used for building the container. The format
     /// of this field is
@@ -9385,6 +9058,7 @@ impl wkt::message::Message for BuildConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkerPoolRequest {
+
     /// Required. The location and project in which this worker pool should be
     /// created. Format: `projects/{project}/locations/{location}`, where
     /// `{project}` can be project id or number. Only lowercase characters, digits,
@@ -9420,8 +9094,7 @@ impl CreateWorkerPoolRequest {
 
     /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = std::option::Option::Some(v.into());
         self
@@ -9429,8 +9102,7 @@ impl CreateWorkerPoolRequest {
 
     /// Sets or clears the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = v.map(|x| x.into());
         self
@@ -9459,6 +9131,7 @@ impl wkt::message::Message for CreateWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkerPoolRequest {
+
     /// Optional. The list of fields to be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
@@ -9494,8 +9167,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -9503,8 +9175,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -9512,8 +9183,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = std::option::Option::Some(v.into());
         self
@@ -9521,8 +9191,7 @@ impl UpdateWorkerPoolRequest {
 
     /// Sets or clears the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPool>,
+    where T: std::convert::Into<crate::model::WorkerPool>
     {
         self.worker_pool = v.map(|x| x.into());
         self
@@ -9557,6 +9226,7 @@ impl wkt::message::Message for UpdateWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkerPoolsRequest {
+
     /// Required. The location and project to list resources on.
     /// Location must be a valid Google Cloud region, and cannot be the "-"
     /// wildcard. Format: `projects/{project}/locations/{location}`, where
@@ -9616,6 +9286,7 @@ impl wkt::message::Message for ListWorkerPoolsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkerPoolsResponse {
+
     /// The resulting list of WorkerPools.
     pub worker_pools: std::vec::Vec<crate::model::WorkerPool>,
 
@@ -9635,7 +9306,7 @@ impl ListWorkerPoolsResponse {
     pub fn set_worker_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkerPool>,
+        V: std::convert::Into<crate::model::WorkerPool>
     {
         use std::iter::Iterator;
         self.worker_pools = v.into_iter().map(|i| i.into()).collect();
@@ -9673,6 +9344,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkerPoolsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkerPoolRequest {
+
     /// Required. The full name of the WorkerPool.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`, where
@@ -9704,6 +9376,7 @@ impl wkt::message::Message for GetWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkerPoolRequest {
+
     /// Required. The full name of the WorkerPool.
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`, where
@@ -9759,6 +9432,7 @@ impl wkt::message::Message for DeleteWorkerPoolRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkerPool {
+
     /// The fully qualified name of this WorkerPool. In CreateWorkerPoolRequest,
     /// this field is ignored, and instead composed from
     /// CreateWorkerPoolRequest.parent and CreateWorkerPoolRequest.worker_id.
@@ -9793,7 +9467,7 @@ pub struct WorkerPool {
     /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
     /// namespaces, and they will be rejected. All system labels in v1 now have a
     /// corresponding field in v2 WorkerPool.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Unstructured key value map that may be set by external tools to
     /// store and arbitrary metadata. They are not queryable and should be
@@ -9803,7 +9477,7 @@ pub struct WorkerPool {
     /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
     /// namespaces, and they will be rejected in new resources. All system
     /// annotations in v1 now have a corresponding field in v2 WorkerPool.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The creation time.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -9988,8 +9662,7 @@ impl WorkerPool {
 
     /// Sets the value of [create_time][crate::model::WorkerPool::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9997,8 +9670,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [create_time][crate::model::WorkerPool::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -10006,8 +9678,7 @@ impl WorkerPool {
 
     /// Sets the value of [update_time][crate::model::WorkerPool::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -10015,8 +9686,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [update_time][crate::model::WorkerPool::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -10024,8 +9694,7 @@ impl WorkerPool {
 
     /// Sets the value of [delete_time][crate::model::WorkerPool::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -10033,8 +9702,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [delete_time][crate::model::WorkerPool::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -10042,8 +9710,7 @@ impl WorkerPool {
 
     /// Sets the value of [expire_time][crate::model::WorkerPool::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -10051,8 +9718,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [expire_time][crate::model::WorkerPool::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
@@ -10083,18 +9749,14 @@ impl WorkerPool {
     }
 
     /// Sets the value of [launch_stage][crate::model::WorkerPool::launch_stage].
-    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
         self.launch_stage = v.into();
         self
     }
 
     /// Sets the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = std::option::Option::Some(v.into());
         self
@@ -10102,8 +9764,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    where T: std::convert::Into<crate::model::BinaryAuthorization>
     {
         self.binary_authorization = v.map(|x| x.into());
         self
@@ -10111,8 +9772,7 @@ impl WorkerPool {
 
     /// Sets the value of [template][crate::model::WorkerPool::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
+    where T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -10120,8 +9780,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [template][crate::model::WorkerPool::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
+    where T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -10131,7 +9790,7 @@ impl WorkerPool {
     pub fn set_instance_splits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstanceSplit>,
+        V: std::convert::Into<crate::model::InstanceSplit>
     {
         use std::iter::Iterator;
         self.instance_splits = v.into_iter().map(|i| i.into()).collect();
@@ -10140,8 +9799,7 @@ impl WorkerPool {
 
     /// Sets the value of [scaling][crate::model::WorkerPool::scaling].
     pub fn set_scaling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPoolScaling>,
+    where T: std::convert::Into<crate::model::WorkerPoolScaling>
     {
         self.scaling = std::option::Option::Some(v.into());
         self
@@ -10149,8 +9807,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [scaling][crate::model::WorkerPool::scaling].
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkerPoolScaling>,
+    where T: std::convert::Into<crate::model::WorkerPoolScaling>
     {
         self.scaling = v.map(|x| x.into());
         self
@@ -10164,8 +9821,7 @@ impl WorkerPool {
 
     /// Sets the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = std::option::Option::Some(v.into());
         self
@@ -10173,8 +9829,7 @@ impl WorkerPool {
 
     /// Sets or clears the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Condition>,
+    where T: std::convert::Into<crate::model::Condition>
     {
         self.terminal_condition = v.map(|x| x.into());
         self
@@ -10184,7 +9839,7 @@ impl WorkerPool {
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Condition>,
+        V: std::convert::Into<crate::model::Condition>
     {
         use std::iter::Iterator;
         self.conditions = v.into_iter().map(|i| i.into()).collect();
@@ -10192,19 +9847,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [latest_ready_revision][crate::model::WorkerPool::latest_ready_revision].
-    pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_ready_revision = v.into();
         self
     }
 
     /// Sets the value of [latest_created_revision][crate::model::WorkerPool::latest_created_revision].
-    pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.latest_created_revision = v.into();
         self
     }
@@ -10213,7 +9862,7 @@ impl WorkerPool {
     pub fn set_instance_split_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstanceSplitStatus>,
+        V: std::convert::Into<crate::model::InstanceSplitStatus>
     {
         use std::iter::Iterator;
         self.instance_split_statuses = v.into_iter().map(|i| i.into()).collect();
@@ -10224,7 +9873,7 @@ impl WorkerPool {
     pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.custom_audiences = v.into_iter().map(|i| i.into()).collect();
@@ -10261,6 +9910,7 @@ impl wkt::message::Message for WorkerPool {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkerPoolRevisionTemplate {
+
     /// Optional. The unique name for the revision. If this field is omitted, it
     /// will be automatically generated based on the WorkerPool name.
     pub revision: std::string::String,
@@ -10276,7 +9926,7 @@ pub struct WorkerPoolRevisionTemplate {
     /// `cloud.googleapis.com`, `serving.knative.dev`, or `autoscaling.knative.dev`
     /// namespaces, and they will be rejected. All system labels in v1 now have a
     /// corresponding field in v2 WorkerPoolRevisionTemplate.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Unstructured key value map that may be set by external tools to
     /// store and arbitrary metadata. They are not queryable and should be
@@ -10289,7 +9939,7 @@ pub struct WorkerPoolRevisionTemplate {
     ///
     /// This field follows Kubernetes annotations' namespacing, limits, and
     /// rules.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. VPC Access configuration to use for this Revision. For more
     /// information, visit
@@ -10367,8 +10017,7 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = std::option::Option::Some(v.into());
         self
@@ -10376,8 +10025,7 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets or clears the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VpcAccess>,
+    where T: std::convert::Into<crate::model::VpcAccess>
     {
         self.vpc_access = v.map(|x| x.into());
         self
@@ -10393,7 +10041,7 @@ impl WorkerPoolRevisionTemplate {
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Container>,
+        V: std::convert::Into<crate::model::Container>
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
@@ -10404,7 +10052,7 @@ impl WorkerPoolRevisionTemplate {
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Volume>,
+        V: std::convert::Into<crate::model::Volume>
     {
         use std::iter::Iterator;
         self.volumes = v.into_iter().map(|i| i.into()).collect();
@@ -10419,8 +10067,7 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = std::option::Option::Some(v.into());
         self
@@ -10428,40 +10075,29 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets or clears the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ServiceMesh>,
+    where T: std::convert::Into<crate::model::ServiceMesh>
     {
         self.service_mesh = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::WorkerPoolRevisionTemplate::encryption_key_revocation_action].
-    pub fn set_encryption_key_revocation_action<
-        T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_key_revocation_action<T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>>(mut self, v: T) -> Self {
         self.encryption_key_revocation_action = v.into();
         self
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
-    pub fn set_or_clear_encryption_key_shutdown_duration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_encryption_key_shutdown_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.encryption_key_shutdown_duration = v.map(|x| x.into());
         self
@@ -10469,8 +10105,7 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
     pub fn set_node_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = std::option::Option::Some(v.into());
         self
@@ -10478,8 +10113,7 @@ impl WorkerPoolRevisionTemplate {
 
     /// Sets or clears the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeSelector>,
+    where T: std::convert::Into<crate::model::NodeSelector>
     {
         self.node_selector = v.map(|x| x.into());
         self
@@ -10551,9 +10185,7 @@ impl InstanceSplitAllocationType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_UNSPECIFIED"),
             Self::Latest => std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_LATEST"),
             Self::Revision => std::option::Option::Some("INSTANCE_SPLIT_ALLOCATION_TYPE_REVISION"),
             Self::UnknownValue(u) => u.0.name(),
@@ -10580,9 +10212,7 @@ impl std::convert::From<i32> for InstanceSplitAllocationType {
             0 => Self::Unspecified,
             1 => Self::Latest,
             2 => Self::Revision,
-            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10594,9 +10224,7 @@ impl std::convert::From<&str> for InstanceSplitAllocationType {
             "INSTANCE_SPLIT_ALLOCATION_TYPE_UNSPECIFIED" => Self::Unspecified,
             "INSTANCE_SPLIT_ALLOCATION_TYPE_LATEST" => Self::Latest,
             "INSTANCE_SPLIT_ALLOCATION_TYPE_REVISION" => Self::Revision,
-            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(instance_split_allocation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10620,11 +10248,8 @@ impl<'de> serde::de::Deserialize<'de> for InstanceSplitAllocationType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<InstanceSplitAllocationType>::new(
-                ".google.cloud.run.v2.InstanceSplitAllocationType",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<InstanceSplitAllocationType>::new(
+            ".google.cloud.run.v2.InstanceSplitAllocationType"))
     }
 }
 
@@ -10687,9 +10312,7 @@ impl TrafficTargetAllocationType {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED"),
             Self::Latest => std::option::Option::Some("TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"),
             Self::Revision => std::option::Option::Some("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION"),
             Self::UnknownValue(u) => u.0.name(),
@@ -10716,9 +10339,7 @@ impl std::convert::From<i32> for TrafficTargetAllocationType {
             0 => Self::Unspecified,
             1 => Self::Latest,
             2 => Self::Revision,
-            _ => Self::UnknownValue(traffic_target_allocation_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(traffic_target_allocation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10730,9 +10351,7 @@ impl std::convert::From<&str> for TrafficTargetAllocationType {
             "TRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED" => Self::Unspecified,
             "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST" => Self::Latest,
             "TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION" => Self::Revision,
-            _ => Self::UnknownValue(traffic_target_allocation_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(traffic_target_allocation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10756,11 +10375,8 @@ impl<'de> serde::de::Deserialize<'de> for TrafficTargetAllocationType {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<TrafficTargetAllocationType>::new(
-                ".google.cloud.run.v2.TrafficTargetAllocationType",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrafficTargetAllocationType>::new(
+            ".google.cloud.run.v2.TrafficTargetAllocationType"))
     }
 }
 
@@ -10832,9 +10448,7 @@ impl IngressTraffic {
             Self::Unspecified => std::option::Option::Some("INGRESS_TRAFFIC_UNSPECIFIED"),
             Self::All => std::option::Option::Some("INGRESS_TRAFFIC_ALL"),
             Self::InternalOnly => std::option::Option::Some("INGRESS_TRAFFIC_INTERNAL_ONLY"),
-            Self::InternalLoadBalancer => {
-                std::option::Option::Some("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER")
-            }
+            Self::InternalLoadBalancer => std::option::Option::Some("INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"),
             Self::None => std::option::Option::Some("INGRESS_TRAFFIC_NONE"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -10862,9 +10476,7 @@ impl std::convert::From<i32> for IngressTraffic {
             2 => Self::InternalOnly,
             3 => Self::InternalLoadBalancer,
             4 => Self::None,
-            _ => Self::UnknownValue(ingress_traffic::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(ingress_traffic::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -10878,9 +10490,7 @@ impl std::convert::From<&str> for IngressTraffic {
             "INGRESS_TRAFFIC_INTERNAL_ONLY" => Self::InternalOnly,
             "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER" => Self::InternalLoadBalancer,
             "INGRESS_TRAFFIC_NONE" => Self::None,
-            _ => Self::UnknownValue(ingress_traffic::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(ingress_traffic::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -10907,8 +10517,7 @@ impl<'de> serde::de::Deserialize<'de> for IngressTraffic {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<IngressTraffic>::new(
-            ".google.cloud.run.v2.IngressTraffic",
-        ))
+            ".google.cloud.run.v2.IngressTraffic"))
     }
 }
 
@@ -10998,9 +10607,7 @@ impl std::convert::From<i32> for ExecutionEnvironment {
             0 => Self::Unspecified,
             1 => Self::Gen1,
             2 => Self::Gen2,
-            _ => Self::UnknownValue(execution_environment::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(execution_environment::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11012,9 +10619,7 @@ impl std::convert::From<&str> for ExecutionEnvironment {
             "EXECUTION_ENVIRONMENT_UNSPECIFIED" => Self::Unspecified,
             "EXECUTION_ENVIRONMENT_GEN1" => Self::Gen1,
             "EXECUTION_ENVIRONMENT_GEN2" => Self::Gen2,
-            _ => Self::UnknownValue(execution_environment::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(execution_environment::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11039,8 +10644,7 @@ impl<'de> serde::de::Deserialize<'de> for ExecutionEnvironment {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionEnvironment>::new(
-            ".google.cloud.run.v2.ExecutionEnvironment",
-        ))
+            ".google.cloud.run.v2.ExecutionEnvironment"))
     }
 }
 
@@ -11103,9 +10707,7 @@ impl EncryptionKeyRevocationAction {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED"),
             Self::PreventNew => std::option::Option::Some("PREVENT_NEW"),
             Self::Shutdown => std::option::Option::Some("SHUTDOWN"),
             Self::UnknownValue(u) => u.0.name(),
@@ -11132,9 +10734,7 @@ impl std::convert::From<i32> for EncryptionKeyRevocationAction {
             0 => Self::Unspecified,
             1 => Self::PreventNew,
             2 => Self::Shutdown,
-            _ => Self::UnknownValue(encryption_key_revocation_action::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(encryption_key_revocation_action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -11146,9 +10746,7 @@ impl std::convert::From<&str> for EncryptionKeyRevocationAction {
             "ENCRYPTION_KEY_REVOCATION_ACTION_UNSPECIFIED" => Self::Unspecified,
             "PREVENT_NEW" => Self::PreventNew,
             "SHUTDOWN" => Self::Shutdown,
-            _ => Self::UnknownValue(encryption_key_revocation_action::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(encryption_key_revocation_action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -11172,10 +10770,7 @@ impl<'de> serde::de::Deserialize<'de> for EncryptionKeyRevocationAction {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<EncryptionKeyRevocationAction>::new(
-                ".google.cloud.run.v2.EncryptionKeyRevocationAction",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncryptionKeyRevocationAction>::new(
+            ".google.cloud.run.v2.EncryptionKeyRevocationAction"))
     }
 }

@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaInfosRequest {
+
     /// Required. Parent value of QuotaInfo resources.
     /// Listing across different resource containers (such as 'projects/-') is not
     /// allowed.
@@ -92,6 +93,7 @@ impl wkt::message::Message for ListQuotaInfosRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaInfosResponse {
+
     /// The list of QuotaInfo
     pub quota_infos: std::vec::Vec<crate::model::QuotaInfo>,
 
@@ -111,7 +113,7 @@ impl ListQuotaInfosResponse {
     pub fn set_quota_infos<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaInfo>,
+        V: std::convert::Into<crate::model::QuotaInfo>
     {
         use std::iter::Iterator;
         self.quota_infos = v.into_iter().map(|i| i.into()).collect();
@@ -149,6 +151,7 @@ impl gax::paginator::internal::PageableResponse for ListQuotaInfosResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaInfoRequest {
+
     /// Required. The resource name of the quota info.
     ///
     /// An example name:
@@ -180,6 +183,7 @@ impl wkt::message::Message for GetQuotaInfoRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaPreferencesRequest {
+
     /// Required. Parent value of QuotaPreference resources.
     /// Listing across different resource containers (such as 'projects/-') is not
     /// allowed.
@@ -264,6 +268,7 @@ impl wkt::message::Message for ListQuotaPreferencesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListQuotaPreferencesResponse {
+
     /// The list of QuotaPreference
     pub quota_preferences: std::vec::Vec<crate::model::QuotaPreference>,
 
@@ -286,7 +291,7 @@ impl ListQuotaPreferencesResponse {
     pub fn set_quota_preferences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaPreference>,
+        V: std::convert::Into<crate::model::QuotaPreference>
     {
         use std::iter::Iterator;
         self.quota_preferences = v.into_iter().map(|i| i.into()).collect();
@@ -303,7 +308,7 @@ impl ListQuotaPreferencesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -335,6 +340,7 @@ impl gax::paginator::internal::PageableResponse for ListQuotaPreferencesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetQuotaPreferenceRequest {
+
     /// Required. Name of the resource
     ///
     /// Example name:
@@ -366,6 +372,7 @@ impl wkt::message::Message for GetQuotaPreferenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateQuotaPreferenceRequest {
+
     /// Required. Value for parent.
     ///
     /// Example:
@@ -397,18 +404,14 @@ impl CreateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [quota_preference_id][crate::model::CreateQuotaPreferenceRequest::quota_preference_id].
-    pub fn set_quota_preference_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_quota_preference_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quota_preference_id = v.into();
         self
     }
 
     /// Sets the value of [quota_preference][crate::model::CreateQuotaPreferenceRequest::quota_preference].
     pub fn set_quota_preference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaPreference>,
+    where T: std::convert::Into<crate::model::QuotaPreference>
     {
         self.quota_preference = std::option::Option::Some(v.into());
         self
@@ -416,8 +419,7 @@ impl CreateQuotaPreferenceRequest {
 
     /// Sets or clears the value of [quota_preference][crate::model::CreateQuotaPreferenceRequest::quota_preference].
     pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaPreference>,
+    where T: std::convert::Into<crate::model::QuotaPreference>
     {
         self.quota_preference = v.map(|x| x.into());
         self
@@ -427,7 +429,7 @@ impl CreateQuotaPreferenceRequest {
     pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaSafetyCheck>,
+        V: std::convert::Into<crate::model::QuotaSafetyCheck>
     {
         use std::iter::Iterator;
         self.ignore_safety_checks = v.into_iter().map(|i| i.into()).collect();
@@ -445,6 +447,7 @@ impl wkt::message::Message for CreateQuotaPreferenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateQuotaPreferenceRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// QuotaPreference resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -477,8 +480,7 @@ impl UpdateQuotaPreferenceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -486,8 +488,7 @@ impl UpdateQuotaPreferenceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -495,8 +496,7 @@ impl UpdateQuotaPreferenceRequest {
 
     /// Sets the value of [quota_preference][crate::model::UpdateQuotaPreferenceRequest::quota_preference].
     pub fn set_quota_preference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaPreference>,
+    where T: std::convert::Into<crate::model::QuotaPreference>
     {
         self.quota_preference = std::option::Option::Some(v.into());
         self
@@ -504,8 +504,7 @@ impl UpdateQuotaPreferenceRequest {
 
     /// Sets or clears the value of [quota_preference][crate::model::UpdateQuotaPreferenceRequest::quota_preference].
     pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaPreference>,
+    where T: std::convert::Into<crate::model::QuotaPreference>
     {
         self.quota_preference = v.map(|x| x.into());
         self
@@ -527,7 +526,7 @@ impl UpdateQuotaPreferenceRequest {
     pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::QuotaSafetyCheck>,
+        V: std::convert::Into<crate::model::QuotaSafetyCheck>
     {
         use std::iter::Iterator;
         self.ignore_safety_checks = v.into_iter().map(|i| i.into()).collect();
@@ -546,6 +545,7 @@ impl wkt::message::Message for UpdateQuotaPreferenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaInfo {
+
     /// Resource name of this QuotaInfo.
     /// The ID component following "locations/" must be "global".
     /// Example:
@@ -648,19 +648,13 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [refresh_interval][crate::model::QuotaInfo::refresh_interval].
-    pub fn set_refresh_interval<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_refresh_interval<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.refresh_interval = v.into();
         self
     }
 
     /// Sets the value of [container_type][crate::model::QuotaInfo::container_type].
-    pub fn set_container_type<T: std::convert::Into<crate::model::quota_info::ContainerType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_container_type<T: std::convert::Into<crate::model::quota_info::ContainerType>>(mut self, v: T) -> Self {
         self.container_type = v.into();
         self
     }
@@ -669,7 +663,7 @@ impl QuotaInfo {
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.dimensions = v.into_iter().map(|i| i.into()).collect();
@@ -677,19 +671,13 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [metric_display_name][crate::model::QuotaInfo::metric_display_name].
-    pub fn set_metric_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_metric_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_display_name = v.into();
         self
     }
 
     /// Sets the value of [quota_display_name][crate::model::QuotaInfo::quota_display_name].
-    pub fn set_quota_display_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_quota_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quota_display_name = v.into();
         self
     }
@@ -702,8 +690,7 @@ impl QuotaInfo {
 
     /// Sets the value of [quota_increase_eligibility][crate::model::QuotaInfo::quota_increase_eligibility].
     pub fn set_quota_increase_eligibility<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaIncreaseEligibility>,
+    where T: std::convert::Into<crate::model::QuotaIncreaseEligibility>
     {
         self.quota_increase_eligibility = std::option::Option::Some(v.into());
         self
@@ -711,8 +698,7 @@ impl QuotaInfo {
 
     /// Sets or clears the value of [quota_increase_eligibility][crate::model::QuotaInfo::quota_increase_eligibility].
     pub fn set_or_clear_quota_increase_eligibility<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaIncreaseEligibility>,
+    where T: std::convert::Into<crate::model::QuotaIncreaseEligibility>
     {
         self.quota_increase_eligibility = v.map(|x| x.into());
         self
@@ -728,7 +714,7 @@ impl QuotaInfo {
     pub fn set_dimensions_infos<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DimensionsInfo>,
+        V: std::convert::Into<crate::model::DimensionsInfo>
     {
         use std::iter::Iterator;
         self.dimensions_infos = v.into_iter().map(|i| i.into()).collect();
@@ -742,10 +728,7 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [service_request_quota_uri][crate::model::QuotaInfo::service_request_quota_uri].
-    pub fn set_service_request_quota_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_request_quota_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_request_quota_uri = v.into();
         self
     }
@@ -761,6 +744,7 @@ impl wkt::message::Message for QuotaInfo {
 pub mod quota_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The enumeration of the types of a cloud resource container.
     ///
@@ -853,9 +837,7 @@ pub mod quota_info {
                 1 => Self::Project,
                 2 => Self::Folder,
                 3 => Self::Organization,
-                _ => Self::UnknownValue(container_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(container_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -868,9 +850,7 @@ pub mod quota_info {
                 "PROJECT" => Self::Project,
                 "FOLDER" => Self::Folder,
                 "ORGANIZATION" => Self::Organization,
-                _ => Self::UnknownValue(container_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(container_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -896,8 +876,7 @@ pub mod quota_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContainerType>::new(
-                ".google.api.cloudquotas.v1.QuotaInfo.ContainerType",
-            ))
+                ".google.api.cloudquotas.v1.QuotaInfo.ContainerType"))
         }
     }
 }
@@ -906,6 +885,7 @@ pub mod quota_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaIncreaseEligibility {
+
     /// Whether a higher quota value can be requested for the quota.
     pub is_eligible: bool,
 
@@ -929,12 +909,7 @@ impl QuotaIncreaseEligibility {
     }
 
     /// Sets the value of [ineligibility_reason][crate::model::QuotaIncreaseEligibility::ineligibility_reason].
-    pub fn set_ineligibility_reason<
-        T: std::convert::Into<crate::model::quota_increase_eligibility::IneligibilityReason>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ineligibility_reason<T: std::convert::Into<crate::model::quota_increase_eligibility::IneligibilityReason>>(mut self, v: T) -> Self {
         self.ineligibility_reason = v.into();
         self
     }
@@ -950,6 +925,7 @@ impl wkt::message::Message for QuotaIncreaseEligibility {
 pub mod quota_increase_eligibility {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The enumeration of reasons when it is ineligible to request increase
     /// adjustment.
@@ -1018,13 +994,9 @@ pub mod quota_increase_eligibility {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("INELIGIBILITY_REASON_UNSPECIFIED"),
-                Self::NoValidBillingAccount => {
-                    std::option::Option::Some("NO_VALID_BILLING_ACCOUNT")
-                }
+                Self::NoValidBillingAccount => std::option::Option::Some("NO_VALID_BILLING_ACCOUNT"),
                 Self::NotSupported => std::option::Option::Some("NOT_SUPPORTED"),
-                Self::NotEnoughUsageHistory => {
-                    std::option::Option::Some("NOT_ENOUGH_USAGE_HISTORY")
-                }
+                Self::NotEnoughUsageHistory => std::option::Option::Some("NOT_ENOUGH_USAGE_HISTORY"),
                 Self::Other => std::option::Option::Some("OTHER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -1052,9 +1024,7 @@ pub mod quota_increase_eligibility {
                 2 => Self::Other,
                 3 => Self::NotSupported,
                 4 => Self::NotEnoughUsageHistory,
-                _ => Self::UnknownValue(ineligibility_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ineligibility_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1068,9 +1038,7 @@ pub mod quota_increase_eligibility {
                 "NOT_SUPPORTED" => Self::NotSupported,
                 "NOT_ENOUGH_USAGE_HISTORY" => Self::NotEnoughUsageHistory,
                 "OTHER" => Self::Other,
-                _ => Self::UnknownValue(ineligibility_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ineligibility_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1097,8 +1065,7 @@ pub mod quota_increase_eligibility {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IneligibilityReason>::new(
-                ".google.api.cloudquotas.v1.QuotaIncreaseEligibility.IneligibilityReason",
-            ))
+                ".google.api.cloudquotas.v1.QuotaIncreaseEligibility.IneligibilityReason"))
         }
     }
 }
@@ -1109,6 +1076,7 @@ pub mod quota_increase_eligibility {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaPreference {
+
     /// Required except in the CREATE requests.
     /// The resource name of the quota preference.
     /// The ID component following "locations/" must be "global".
@@ -1130,7 +1098,7 @@ pub struct QuotaPreference {
     ///
     /// Example: {"provider", "Foo Inc"} where "provider" is a service specific
     /// dimension.
-    pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub dimensions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Preferred quota configuration.
     pub quota_config: std::option::Option<crate::model::QuotaConfig>,
@@ -1200,8 +1168,7 @@ impl QuotaPreference {
 
     /// Sets the value of [quota_config][crate::model::QuotaPreference::quota_config].
     pub fn set_quota_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaConfig>,
+    where T: std::convert::Into<crate::model::QuotaConfig>
     {
         self.quota_config = std::option::Option::Some(v.into());
         self
@@ -1209,8 +1176,7 @@ impl QuotaPreference {
 
     /// Sets or clears the value of [quota_config][crate::model::QuotaPreference::quota_config].
     pub fn set_or_clear_quota_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaConfig>,
+    where T: std::convert::Into<crate::model::QuotaConfig>
     {
         self.quota_config = v.map(|x| x.into());
         self
@@ -1224,8 +1190,7 @@ impl QuotaPreference {
 
     /// Sets the value of [create_time][crate::model::QuotaPreference::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1233,8 +1198,7 @@ impl QuotaPreference {
 
     /// Sets or clears the value of [create_time][crate::model::QuotaPreference::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1242,8 +1206,7 @@ impl QuotaPreference {
 
     /// Sets the value of [update_time][crate::model::QuotaPreference::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1251,8 +1214,7 @@ impl QuotaPreference {
 
     /// Sets or clears the value of [update_time][crate::model::QuotaPreference::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1299,6 +1261,7 @@ impl wkt::message::Message for QuotaPreference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaConfig {
+
     /// Required. The preferred value. Must be greater than or equal to -1. If set
     /// to -1, it means the value is "unlimited".
     pub preferred_value: i64,
@@ -1319,7 +1282,7 @@ pub struct QuotaConfig {
     /// Optional. The annotations map for clients to store small amounts of
     /// arbitrary data. Do not put PII or other sensitive information here. See
     /// <https://google.aip.dev/128#annotations>
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The origin of the quota preference request.
     pub request_origin: crate::model::quota_config::Origin,
@@ -1346,8 +1309,7 @@ impl QuotaConfig {
 
     /// Sets the value of [granted_value][crate::model::QuotaConfig::granted_value].
     pub fn set_granted_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.granted_value = std::option::Option::Some(v.into());
         self
@@ -1355,8 +1317,7 @@ impl QuotaConfig {
 
     /// Sets or clears the value of [granted_value][crate::model::QuotaConfig::granted_value].
     pub fn set_or_clear_granted_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.granted_value = v.map(|x| x.into());
         self
@@ -1381,10 +1342,7 @@ impl QuotaConfig {
     }
 
     /// Sets the value of [request_origin][crate::model::QuotaConfig::request_origin].
-    pub fn set_request_origin<T: std::convert::Into<crate::model::quota_config::Origin>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_request_origin<T: std::convert::Into<crate::model::quota_config::Origin>>(mut self, v: T) -> Self {
         self.request_origin = v.into();
         self
     }
@@ -1400,6 +1358,7 @@ impl wkt::message::Message for QuotaConfig {
 pub mod quota_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The enumeration of the origins of quota preference requests.
     ///
@@ -1487,9 +1446,7 @@ pub mod quota_config {
                 0 => Self::Unspecified,
                 1 => Self::CloudConsole,
                 2 => Self::AutoAdjuster,
-                _ => Self::UnknownValue(origin::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(origin::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1501,9 +1458,7 @@ pub mod quota_config {
                 "ORIGIN_UNSPECIFIED" => Self::Unspecified,
                 "CLOUD_CONSOLE" => Self::CloudConsole,
                 "AUTO_ADJUSTER" => Self::AutoAdjuster,
-                _ => Self::UnknownValue(origin::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(origin::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1528,8 +1483,7 @@ pub mod quota_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Origin>::new(
-                ".google.api.cloudquotas.v1.QuotaConfig.Origin",
-            ))
+                ".google.api.cloudquotas.v1.QuotaConfig.Origin"))
         }
     }
 }
@@ -1539,6 +1493,7 @@ pub mod quota_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DimensionsInfo {
+
     /// The map of dimensions for this dimensions info. The key of a map entry
     /// is "region", "zone" or the name of a service specific dimension, and the
     /// value of a map entry is the value of the dimension.  If a dimension does
@@ -1547,7 +1502,7 @@ pub struct DimensionsInfo {
     /// instance configured for the specific value.
     /// Example: {"provider" : "Foo Inc"} where "provider" is a service specific
     /// dimension of a quota.
-    pub dimensions: std::collections::HashMap<std::string::String, std::string::String>,
+    pub dimensions: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Quota details for the specified dimensions.
     pub details: std::option::Option<crate::model::QuotaDetails>,
@@ -1580,8 +1535,7 @@ impl DimensionsInfo {
 
     /// Sets the value of [details][crate::model::DimensionsInfo::details].
     pub fn set_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaDetails>,
+    where T: std::convert::Into<crate::model::QuotaDetails>
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -1589,8 +1543,7 @@ impl DimensionsInfo {
 
     /// Sets or clears the value of [details][crate::model::DimensionsInfo::details].
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::QuotaDetails>,
+    where T: std::convert::Into<crate::model::QuotaDetails>
     {
         self.details = v.map(|x| x.into());
         self
@@ -1600,7 +1553,7 @@ impl DimensionsInfo {
     pub fn set_applicable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.applicable_locations = v.into_iter().map(|i| i.into()).collect();
@@ -1618,6 +1571,7 @@ impl wkt::message::Message for DimensionsInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QuotaDetails {
+
     /// The value currently in effect and being enforced.
     pub value: i64,
 
@@ -1642,8 +1596,7 @@ impl QuotaDetails {
 
     /// Sets the value of [rollout_info][crate::model::QuotaDetails::rollout_info].
     pub fn set_rollout_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutInfo>,
+    where T: std::convert::Into<crate::model::RolloutInfo>
     {
         self.rollout_info = std::option::Option::Some(v.into());
         self
@@ -1651,8 +1604,7 @@ impl QuotaDetails {
 
     /// Sets or clears the value of [rollout_info][crate::model::QuotaDetails::rollout_info].
     pub fn set_or_clear_rollout_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutInfo>,
+    where T: std::convert::Into<crate::model::RolloutInfo>
     {
         self.rollout_info = v.map(|x| x.into());
         self
@@ -1669,6 +1621,7 @@ impl wkt::message::Message for QuotaDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutInfo {
+
     /// Whether there is an ongoing rollout for a quota or not.
     pub ongoing_rollout: bool,
 
@@ -1755,12 +1708,8 @@ impl QuotaSafetyCheck {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("QUOTA_SAFETY_CHECK_UNSPECIFIED"),
-            Self::QuotaDecreaseBelowUsage => {
-                std::option::Option::Some("QUOTA_DECREASE_BELOW_USAGE")
-            }
-            Self::QuotaDecreasePercentageTooHigh => {
-                std::option::Option::Some("QUOTA_DECREASE_PERCENTAGE_TOO_HIGH")
-            }
+            Self::QuotaDecreaseBelowUsage => std::option::Option::Some("QUOTA_DECREASE_BELOW_USAGE"),
+            Self::QuotaDecreasePercentageTooHigh => std::option::Option::Some("QUOTA_DECREASE_PERCENTAGE_TOO_HIGH"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -1785,9 +1734,7 @@ impl std::convert::From<i32> for QuotaSafetyCheck {
             0 => Self::Unspecified,
             1 => Self::QuotaDecreaseBelowUsage,
             2 => Self::QuotaDecreasePercentageTooHigh,
-            _ => Self::UnknownValue(quota_safety_check::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(quota_safety_check::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1799,9 +1746,7 @@ impl std::convert::From<&str> for QuotaSafetyCheck {
             "QUOTA_SAFETY_CHECK_UNSPECIFIED" => Self::Unspecified,
             "QUOTA_DECREASE_BELOW_USAGE" => Self::QuotaDecreaseBelowUsage,
             "QUOTA_DECREASE_PERCENTAGE_TOO_HIGH" => Self::QuotaDecreasePercentageTooHigh,
-            _ => Self::UnknownValue(quota_safety_check::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(quota_safety_check::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1826,7 +1771,6 @@ impl<'de> serde::de::Deserialize<'de> for QuotaSafetyCheck {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<QuotaSafetyCheck>::new(
-            ".google.api.cloudquotas.v1.QuotaSafetyCheck",
-        ))
+            ".google.api.cloudquotas.v1.QuotaSafetyCheck"))
     }
 }

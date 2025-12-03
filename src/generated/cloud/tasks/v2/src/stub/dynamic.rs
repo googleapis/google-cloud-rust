@@ -124,6 +124,7 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
 }
 
 /// All implementations of [super::CloudTasks] also implement [CloudTasks].
@@ -290,4 +291,5 @@ impl<T: super::CloudTasks> CloudTasks for T {
     ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
+
 }

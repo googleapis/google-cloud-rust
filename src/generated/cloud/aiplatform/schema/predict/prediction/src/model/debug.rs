@@ -86,10 +86,7 @@ impl std::fmt::Debug for super::TextExtractionPredictionResult {
         let mut debug_struct = f.debug_struct("TextExtractionPredictionResult");
         debug_struct.field("ids", &self.ids);
         debug_struct.field("display_names", &self.display_names);
-        debug_struct.field(
-            "text_segment_start_offsets",
-            &self.text_segment_start_offsets,
-        );
+        debug_struct.field("text_segment_start_offsets", &self.text_segment_start_offsets);
         debug_struct.field("text_segment_end_offsets", &self.text_segment_end_offsets);
         debug_struct.field("confidences", &self.confidences);
         if !self._unknown_fields.is_empty() {

@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClassificationPredictionResult {
+
     /// The resource IDs of the AnnotationSpecs that had been identified.
     pub ids: std::vec::Vec<i64>,
 
@@ -55,7 +56,7 @@ impl ClassificationPredictionResult {
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.ids = v.into_iter().map(|i| i.into()).collect();
@@ -66,7 +67,7 @@ impl ClassificationPredictionResult {
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.display_names = v.into_iter().map(|i| i.into()).collect();
@@ -77,7 +78,7 @@ impl ClassificationPredictionResult {
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>,
+        V: std::convert::Into<f32>
     {
         use std::iter::Iterator;
         self.confidences = v.into_iter().map(|i| i.into()).collect();
@@ -95,6 +96,7 @@ impl wkt::message::Message for ClassificationPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageObjectDetectionPredictionResult {
+
     /// The resource IDs of the AnnotationSpecs that had been identified, ordered
     /// by the confidence score descendingly.
     pub ids: std::vec::Vec<i64>,
@@ -127,7 +129,7 @@ impl ImageObjectDetectionPredictionResult {
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.ids = v.into_iter().map(|i| i.into()).collect();
@@ -138,7 +140,7 @@ impl ImageObjectDetectionPredictionResult {
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.display_names = v.into_iter().map(|i| i.into()).collect();
@@ -149,7 +151,7 @@ impl ImageObjectDetectionPredictionResult {
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>,
+        V: std::convert::Into<f32>
     {
         use std::iter::Iterator;
         self.confidences = v.into_iter().map(|i| i.into()).collect();
@@ -160,7 +162,7 @@ impl ImageObjectDetectionPredictionResult {
     pub fn set_bboxes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::ListValue>,
+        V: std::convert::Into<wkt::ListValue>
     {
         use std::iter::Iterator;
         self.bboxes = v.into_iter().map(|i| i.into()).collect();
@@ -178,6 +180,7 @@ impl wkt::message::Message for ImageObjectDetectionPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageSegmentationPredictionResult {
+
     /// A PNG image where each pixel in the mask represents the category in which
     /// the pixel in the original image was predicted to belong to. The size of
     /// this image will be the same as the original image. The mapping between the
@@ -224,6 +227,7 @@ impl wkt::message::Message for ImageSegmentationPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TabularClassificationPredictionResult {
+
     /// The name of the classes being classified, contains all possible values of
     /// the target column.
     pub classes: std::vec::Vec<std::string::String>,
@@ -245,7 +249,7 @@ impl TabularClassificationPredictionResult {
     pub fn set_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.classes = v.into_iter().map(|i| i.into()).collect();
@@ -256,7 +260,7 @@ impl TabularClassificationPredictionResult {
     pub fn set_scores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>,
+        V: std::convert::Into<f32>
     {
         use std::iter::Iterator;
         self.scores = v.into_iter().map(|i| i.into()).collect();
@@ -274,6 +278,7 @@ impl wkt::message::Message for TabularClassificationPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TabularRegressionPredictionResult {
+
     /// The regression value.
     pub value: f32,
 
@@ -320,6 +325,7 @@ impl wkt::message::Message for TabularRegressionPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextExtractionPredictionResult {
+
     /// The resource IDs of the AnnotationSpecs that had been identified,
     /// ordered by the confidence score descendingly.
     pub ids: std::vec::Vec<i64>,
@@ -354,7 +360,7 @@ impl TextExtractionPredictionResult {
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.ids = v.into_iter().map(|i| i.into()).collect();
@@ -365,7 +371,7 @@ impl TextExtractionPredictionResult {
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.display_names = v.into_iter().map(|i| i.into()).collect();
@@ -376,7 +382,7 @@ impl TextExtractionPredictionResult {
     pub fn set_text_segment_start_offsets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.text_segment_start_offsets = v.into_iter().map(|i| i.into()).collect();
@@ -387,7 +393,7 @@ impl TextExtractionPredictionResult {
     pub fn set_text_segment_end_offsets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.text_segment_end_offsets = v.into_iter().map(|i| i.into()).collect();
@@ -398,7 +404,7 @@ impl TextExtractionPredictionResult {
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<f32>,
+        V: std::convert::Into<f32>
     {
         use std::iter::Iterator;
         self.confidences = v.into_iter().map(|i| i.into()).collect();
@@ -416,6 +422,7 @@ impl wkt::message::Message for TextExtractionPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSentimentPredictionResult {
+
     /// The integer sentiment labels between 0 (inclusive) and sentimentMax label
     /// (inclusive), while 0 maps to the least positive sentiment and
     /// sentimentMax maps to the most positive one. The higher the score is, the
@@ -448,6 +455,7 @@ impl wkt::message::Message for TextSentimentPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoActionRecognitionPredictionResult {
+
     /// The resource ID of the AnnotationSpec that had been identified.
     pub id: std::string::String,
 
@@ -492,8 +500,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets the value of [time_segment_start][crate::model::VideoActionRecognitionPredictionResult::time_segment_start].
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = std::option::Option::Some(v.into());
         self
@@ -501,8 +508,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoActionRecognitionPredictionResult::time_segment_start].
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = v.map(|x| x.into());
         self
@@ -510,8 +516,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets the value of [time_segment_end][crate::model::VideoActionRecognitionPredictionResult::time_segment_end].
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = std::option::Option::Some(v.into());
         self
@@ -519,8 +524,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoActionRecognitionPredictionResult::time_segment_end].
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = v.map(|x| x.into());
         self
@@ -528,8 +532,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets the value of [confidence][crate::model::VideoActionRecognitionPredictionResult::confidence].
     pub fn set_confidence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = std::option::Option::Some(v.into());
         self
@@ -537,8 +540,7 @@ impl VideoActionRecognitionPredictionResult {
 
     /// Sets or clears the value of [confidence][crate::model::VideoActionRecognitionPredictionResult::confidence].
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = v.map(|x| x.into());
         self
@@ -555,6 +557,7 @@ impl wkt::message::Message for VideoActionRecognitionPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoClassificationPredictionResult {
+
     /// The resource ID of the AnnotationSpec that had been identified.
     pub id: std::string::String,
 
@@ -619,8 +622,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets the value of [time_segment_start][crate::model::VideoClassificationPredictionResult::time_segment_start].
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = std::option::Option::Some(v.into());
         self
@@ -628,8 +630,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoClassificationPredictionResult::time_segment_start].
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = v.map(|x| x.into());
         self
@@ -637,8 +638,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets the value of [time_segment_end][crate::model::VideoClassificationPredictionResult::time_segment_end].
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = std::option::Option::Some(v.into());
         self
@@ -646,8 +646,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoClassificationPredictionResult::time_segment_end].
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = v.map(|x| x.into());
         self
@@ -655,8 +654,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets the value of [confidence][crate::model::VideoClassificationPredictionResult::confidence].
     pub fn set_confidence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = std::option::Option::Some(v.into());
         self
@@ -664,8 +662,7 @@ impl VideoClassificationPredictionResult {
 
     /// Sets or clears the value of [confidence][crate::model::VideoClassificationPredictionResult::confidence].
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = v.map(|x| x.into());
         self
@@ -682,6 +679,7 @@ impl wkt::message::Message for VideoClassificationPredictionResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoObjectTrackingPredictionResult {
+
     /// The resource ID of the AnnotationSpec that had been identified.
     pub id: std::string::String,
 
@@ -730,8 +728,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets the value of [time_segment_start][crate::model::VideoObjectTrackingPredictionResult::time_segment_start].
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = std::option::Option::Some(v.into());
         self
@@ -739,8 +736,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoObjectTrackingPredictionResult::time_segment_start].
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_start = v.map(|x| x.into());
         self
@@ -748,8 +744,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets the value of [time_segment_end][crate::model::VideoObjectTrackingPredictionResult::time_segment_end].
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = std::option::Option::Some(v.into());
         self
@@ -757,8 +752,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoObjectTrackingPredictionResult::time_segment_end].
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_segment_end = v.map(|x| x.into());
         self
@@ -766,8 +760,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets the value of [confidence][crate::model::VideoObjectTrackingPredictionResult::confidence].
     pub fn set_confidence<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = std::option::Option::Some(v.into());
         self
@@ -775,8 +768,7 @@ impl VideoObjectTrackingPredictionResult {
 
     /// Sets or clears the value of [confidence][crate::model::VideoObjectTrackingPredictionResult::confidence].
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FloatValue>,
+    where T: std::convert::Into<wkt::FloatValue>
     {
         self.confidence = v.map(|x| x.into());
         self
@@ -786,7 +778,7 @@ impl VideoObjectTrackingPredictionResult {
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::video_object_tracking_prediction_result::Frame>,
+        V: std::convert::Into<crate::model::video_object_tracking_prediction_result::Frame>
     {
         use std::iter::Iterator;
         self.frames = v.into_iter().map(|i| i.into()).collect();
@@ -805,6 +797,7 @@ pub mod video_object_tracking_prediction_result {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The fields `xMin`, `xMax`, `yMin`, and `yMax` refer to a bounding box,
     /// i.e. the rectangle over the video frame pinpointing the found
     /// AnnotationSpec. The coordinates are relative to the frame size, and the
@@ -812,6 +805,7 @@ pub mod video_object_tracking_prediction_result {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Frame {
+
         /// A time (frame) of a video in which the object has been detected.
         /// Expressed as a number of seconds as measured from the
         /// start of the video, with fractions up to a microsecond precision, and
@@ -840,8 +834,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets the value of [time_offset][crate::model::video_object_tracking_prediction_result::Frame::time_offset].
         pub fn set_time_offset<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.time_offset = std::option::Option::Some(v.into());
             self
@@ -849,8 +842,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets or clears the value of [time_offset][crate::model::video_object_tracking_prediction_result::Frame::time_offset].
         pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.time_offset = v.map(|x| x.into());
             self
@@ -858,8 +850,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets the value of [x_min][crate::model::video_object_tracking_prediction_result::Frame::x_min].
         pub fn set_x_min<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.x_min = std::option::Option::Some(v.into());
             self
@@ -867,8 +858,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets or clears the value of [x_min][crate::model::video_object_tracking_prediction_result::Frame::x_min].
         pub fn set_or_clear_x_min<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.x_min = v.map(|x| x.into());
             self
@@ -876,8 +866,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets the value of [x_max][crate::model::video_object_tracking_prediction_result::Frame::x_max].
         pub fn set_x_max<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.x_max = std::option::Option::Some(v.into());
             self
@@ -885,8 +874,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets or clears the value of [x_max][crate::model::video_object_tracking_prediction_result::Frame::x_max].
         pub fn set_or_clear_x_max<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.x_max = v.map(|x| x.into());
             self
@@ -894,8 +882,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets the value of [y_min][crate::model::video_object_tracking_prediction_result::Frame::y_min].
         pub fn set_y_min<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.y_min = std::option::Option::Some(v.into());
             self
@@ -903,8 +890,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets or clears the value of [y_min][crate::model::video_object_tracking_prediction_result::Frame::y_min].
         pub fn set_or_clear_y_min<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.y_min = v.map(|x| x.into());
             self
@@ -912,8 +898,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets the value of [y_max][crate::model::video_object_tracking_prediction_result::Frame::y_max].
         pub fn set_y_max<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.y_max = std::option::Option::Some(v.into());
             self
@@ -921,8 +906,7 @@ pub mod video_object_tracking_prediction_result {
 
         /// Sets or clears the value of [y_max][crate::model::video_object_tracking_prediction_result::Frame::y_max].
         pub fn set_or_clear_y_max<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FloatValue>,
+        where T: std::convert::Into<wkt::FloatValue>
         {
             self.y_max = v.map(|x| x.into());
             self

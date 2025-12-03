@@ -46,6 +46,7 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         req: crate::model::ExportSBOMRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>;
+
 }
 
 /// All implementations of [super::ContainerAnalysis] also implement [ContainerAnalysis].
@@ -95,4 +96,5 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
     ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
         T::export_sbom(self, req, options).await
     }
+
 }

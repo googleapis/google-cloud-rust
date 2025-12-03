@@ -99,51 +99,39 @@ impl OrgPolicy {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OrgPolicy + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OrgPolicy + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrgPolicy>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrgPolicy>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicy> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrgPolicy> {
         super::transport::OrgPolicy::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicy> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OrgPolicy::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrgPolicy> {
+        Self::build_transport(conf).await.map(super::tracing::OrgPolicy::new)
     }
 
     /// Lists constraints that could be applied on the specified resource.
-    pub fn list_constraints(&self) -> super::builder::org_policy::ListConstraints {
+    pub fn list_constraints(&self) -> super::builder::org_policy::ListConstraints
+    {
         super::builder::org_policy::ListConstraints::new(self.inner.clone())
     }
 
     /// Retrieves all of the policies that exist on a particular resource.
-    pub fn list_policies(&self) -> super::builder::org_policy::ListPolicies {
+    pub fn list_policies(&self) -> super::builder::org_policy::ListPolicies
+    {
         super::builder::org_policy::ListPolicies::new(self.inner.clone())
     }
 
@@ -152,7 +140,8 @@ impl OrgPolicy {
     /// If no policy is set on the resource, `NOT_FOUND` is returned. The
     /// `etag` value can be used with `UpdatePolicy()` to update a
     /// policy during read-modify-write.
-    pub fn get_policy(&self) -> super::builder::org_policy::GetPolicy {
+    pub fn get_policy(&self) -> super::builder::org_policy::GetPolicy
+    {
         super::builder::org_policy::GetPolicy::new(self.inner.clone())
     }
 
@@ -162,7 +151,8 @@ impl OrgPolicy {
     /// an evaluated policy across multiple resources.
     /// Subtrees of Resource Manager resource hierarchy with 'under:' prefix will
     /// not be expanded.
-    pub fn get_effective_policy(&self) -> super::builder::org_policy::GetEffectivePolicy {
+    pub fn get_effective_policy(&self) -> super::builder::org_policy::GetEffectivePolicy
+    {
         super::builder::org_policy::GetEffectivePolicy::new(self.inner.clone())
     }
 
@@ -172,7 +162,8 @@ impl OrgPolicy {
     /// constraint does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// policy already exists on the given Google Cloud resource.
-    pub fn create_policy(&self) -> super::builder::org_policy::CreatePolicy {
+    pub fn create_policy(&self) -> super::builder::org_policy::CreatePolicy
+    {
         super::builder::org_policy::CreatePolicy::new(self.inner.clone())
     }
 
@@ -185,7 +176,8 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
-    pub fn update_policy(&self) -> super::builder::org_policy::UpdatePolicy {
+    pub fn update_policy(&self) -> super::builder::org_policy::UpdatePolicy
+    {
         super::builder::org_policy::UpdatePolicy::new(self.inner.clone())
     }
 
@@ -193,7 +185,8 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint or organization policy does not exist.
-    pub fn delete_policy(&self) -> super::builder::org_policy::DeletePolicy {
+    pub fn delete_policy(&self) -> super::builder::org_policy::DeletePolicy
+    {
         super::builder::org_policy::DeletePolicy::new(self.inner.clone())
     }
 
@@ -203,7 +196,8 @@ impl OrgPolicy {
     /// organization does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// constraint already exists on the given organization.
-    pub fn create_custom_constraint(&self) -> super::builder::org_policy::CreateCustomConstraint {
+    pub fn create_custom_constraint(&self) -> super::builder::org_policy::CreateCustomConstraint
+    {
         super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
     }
 
@@ -214,7 +208,8 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
-    pub fn update_custom_constraint(&self) -> super::builder::org_policy::UpdateCustomConstraint {
+    pub fn update_custom_constraint(&self) -> super::builder::org_policy::UpdateCustomConstraint
+    {
         super::builder::org_policy::UpdateCustomConstraint::new(self.inner.clone())
     }
 
@@ -222,13 +217,15 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// custom or managed constraint does not exist.
-    pub fn get_custom_constraint(&self) -> super::builder::org_policy::GetCustomConstraint {
+    pub fn get_custom_constraint(&self) -> super::builder::org_policy::GetCustomConstraint
+    {
         super::builder::org_policy::GetCustomConstraint::new(self.inner.clone())
     }
 
     /// Retrieves all of the custom constraints that exist on a particular
     /// organization resource.
-    pub fn list_custom_constraints(&self) -> super::builder::org_policy::ListCustomConstraints {
+    pub fn list_custom_constraints(&self) -> super::builder::org_policy::ListCustomConstraints
+    {
         super::builder::org_policy::ListCustomConstraints::new(self.inner.clone())
     }
 
@@ -236,7 +233,8 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint does not exist.
-    pub fn delete_custom_constraint(&self) -> super::builder::org_policy::DeleteCustomConstraint {
+    pub fn delete_custom_constraint(&self) -> super::builder::org_policy::DeleteCustomConstraint
+    {
         super::builder::org_policy::DeleteCustomConstraint::new(self.inner.clone())
     }
 }

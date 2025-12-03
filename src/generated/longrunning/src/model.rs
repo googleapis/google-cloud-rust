@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
+
     /// The server-assigned name, which is only unique within the same service that
     /// originally returns it. If you use the default HTTP mapping, the
     /// `name` should be a resource name ending with `operations/{unique_id}`.
@@ -78,8 +79,7 @@ impl Operation {
 
     /// Sets the value of [metadata][crate::model::Operation::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -87,8 +87,7 @@ impl Operation {
 
     /// Sets or clears the value of [metadata][crate::model::Operation::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Any>,
+    where T: std::convert::Into<wkt::Any>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -104,12 +103,8 @@ impl Operation {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
-    pub fn set_result<
-        T: std::convert::Into<std::option::Option<crate::model::operation::Result>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::operation::Result>>>(mut self, v: T) -> Self
+    {
         self.result = v.into();
         self
     }
@@ -130,11 +125,12 @@ impl Operation {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.result = std::option::Option::Some(crate::model::operation::Result::Error(v.into()));
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::operation::Result::Error(
+                v.into()
+            )
+        );
         self
     }
 
@@ -155,8 +151,11 @@ impl Operation {
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
     pub fn set_response<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(mut self, v: T) -> Self {
-        self.result =
-            std::option::Option::Some(crate::model::operation::Result::Response(v.into()));
+        self.result = std::option::Option::Some(
+            crate::model::operation::Result::Response(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -171,6 +170,7 @@ impl wkt::message::Message for Operation {
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The operation result, which can be either an `error` or a valid `response`.
     /// If `done` == `false`, neither `error` nor `response` is set.
@@ -200,6 +200,7 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetOperationRequest {
+
     /// The name of the operation resource.
     pub name: std::string::String,
 
@@ -231,6 +232,7 @@ impl wkt::message::Message for GetOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsRequest {
+
     /// The name of the operation's parent resource.
     pub name: std::string::String,
 
@@ -307,6 +309,7 @@ impl wkt::message::Message for ListOperationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListOperationsResponse {
+
     /// A list of operations that matches the specified filter in the request.
     pub operations: std::vec::Vec<crate::model::Operation>,
 
@@ -331,7 +334,7 @@ impl ListOperationsResponse {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Operation>,
+        V: std::convert::Into<crate::model::Operation>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -348,7 +351,7 @@ impl ListOperationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -383,6 +386,7 @@ impl gax::paginator::internal::PageableResponse for ListOperationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelOperationRequest {
+
     /// The name of the operation resource to be cancelled.
     pub name: std::string::String,
 
@@ -414,6 +418,7 @@ impl wkt::message::Message for CancelOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteOperationRequest {
+
     /// The name of the operation resource to be deleted.
     pub name: std::string::String,
 
@@ -443,6 +448,7 @@ impl wkt::message::Message for DeleteOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitOperationRequest {
+
     /// The name of the operation resource to wait on.
     pub name: std::string::String,
 
@@ -467,8 +473,7 @@ impl WaitOperationRequest {
 
     /// Sets the value of [timeout][crate::model::WaitOperationRequest::timeout].
     pub fn set_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = std::option::Option::Some(v.into());
         self
@@ -476,8 +481,7 @@ impl WaitOperationRequest {
 
     /// Sets or clears the value of [timeout][crate::model::WaitOperationRequest::timeout].
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.timeout = v.map(|x| x.into());
         self
@@ -505,6 +509,7 @@ impl wkt::message::Message for WaitOperationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationInfo {
+
     /// Required. The message name of the primary return type for this
     /// long-running operation.
     /// This type will be used to deserialize the LRO's response.

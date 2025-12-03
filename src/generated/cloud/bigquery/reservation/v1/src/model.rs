@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Reservation {
+
     /// Identifier. The resource name of the reservation, e.g.,
     /// `projects/*/locations/*/reservations/team1-prod`.
     /// The reservation_id must only contain lower case alphanumeric characters or
@@ -173,7 +174,7 @@ pub struct Reservation {
     /// Optional. The labels associated with this reservation. You can use these
     /// to organize and group your reservations.
     /// You can set this property when you create or update a reservation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The reservation group that this reservation belongs to.
     /// You can set this property when you create or update a reservation.
@@ -228,8 +229,7 @@ impl Reservation {
 
     /// Sets the value of [autoscale][crate::model::Reservation::autoscale].
     pub fn set_autoscale<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::reservation::Autoscale>,
+    where T: std::convert::Into<crate::model::reservation::Autoscale>
     {
         self.autoscale = std::option::Option::Some(v.into());
         self
@@ -237,8 +237,7 @@ impl Reservation {
 
     /// Sets or clears the value of [autoscale][crate::model::Reservation::autoscale].
     pub fn set_or_clear_autoscale<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::reservation::Autoscale>,
+    where T: std::convert::Into<crate::model::reservation::Autoscale>
     {
         self.autoscale = v.map(|x| x.into());
         self
@@ -252,8 +251,7 @@ impl Reservation {
 
     /// Sets the value of [creation_time][crate::model::Reservation::creation_time].
     pub fn set_creation_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = std::option::Option::Some(v.into());
         self
@@ -261,8 +259,7 @@ impl Reservation {
 
     /// Sets or clears the value of [creation_time][crate::model::Reservation::creation_time].
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.creation_time = v.map(|x| x.into());
         self
@@ -270,8 +267,7 @@ impl Reservation {
 
     /// Sets the value of [update_time][crate::model::Reservation::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -279,8 +275,7 @@ impl Reservation {
 
     /// Sets or clears the value of [update_time][crate::model::Reservation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -300,36 +295,26 @@ impl Reservation {
     }
 
     /// Sets the value of [primary_location][crate::model::Reservation::primary_location].
-    pub fn set_primary_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_primary_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_location = v.into();
         self
     }
 
     /// Sets the value of [secondary_location][crate::model::Reservation::secondary_location].
-    pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_location = v.into();
         self
     }
 
     /// Sets the value of [original_primary_location][crate::model::Reservation::original_primary_location].
-    pub fn set_original_primary_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_original_primary_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.original_primary_location = v.into();
         self
     }
 
     /// Sets the value of [max_slots][crate::model::Reservation::max_slots].
     pub fn set_max_slots<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_slots = std::option::Option::Some(v.into());
         self
@@ -337,18 +322,14 @@ impl Reservation {
 
     /// Sets or clears the value of [max_slots][crate::model::Reservation::max_slots].
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_slots = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [scaling_mode][crate::model::Reservation::scaling_mode].
-    pub fn set_scaling_mode<T: std::convert::Into<crate::model::reservation::ScalingMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scaling_mode<T: std::convert::Into<crate::model::reservation::ScalingMode>>(mut self, v: T) -> Self {
         self.scaling_mode = v.into();
         self
     }
@@ -366,18 +347,14 @@ impl Reservation {
     }
 
     /// Sets the value of [reservation_group][crate::model::Reservation::reservation_group].
-    pub fn set_reservation_group<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reservation_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reservation_group = v.into();
         self
     }
 
     /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
     pub fn set_replication_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
+    where T: std::convert::Into<crate::model::reservation::ReplicationStatus>
     {
         self.replication_status = std::option::Option::Some(v.into());
         self
@@ -385,8 +362,7 @@ impl Reservation {
 
     /// Sets or clears the value of [replication_status][crate::model::Reservation::replication_status].
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
+    where T: std::convert::Into<crate::model::reservation::ReplicationStatus>
     {
         self.replication_status = v.map(|x| x.into());
         self
@@ -394,8 +370,7 @@ impl Reservation {
 
     /// Sets the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
     pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    where T: std::convert::Into<crate::model::SchedulingPolicy>
     {
         self.scheduling_policy = std::option::Option::Some(v.into());
         self
@@ -403,8 +378,7 @@ impl Reservation {
 
     /// Sets or clears the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
     pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    where T: std::convert::Into<crate::model::SchedulingPolicy>
     {
         self.scheduling_policy = v.map(|x| x.into());
         self
@@ -422,10 +396,12 @@ pub mod reservation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Auto scaling settings.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Autoscale {
+
         /// Output only. The slot capacity added to this reservation when autoscale
         /// happens. Will be between [0, max_slots]. Note: after users reduce
         /// max_slots, it may take a while before it can be propagated, so
@@ -467,6 +443,7 @@ pub mod reservation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReplicationStatus {
+
         /// Output only. The last error encountered while trying to replicate changes
         /// from the primary to the secondary. This field is only available if the
         /// replication has not succeeded since.
@@ -498,8 +475,7 @@ pub mod reservation {
 
         /// Sets the value of [error][crate::model::reservation::ReplicationStatus::error].
         pub fn set_error<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = std::option::Option::Some(v.into());
             self
@@ -507,8 +483,7 @@ pub mod reservation {
 
         /// Sets or clears the value of [error][crate::model::reservation::ReplicationStatus::error].
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc::model::Status>,
+        where T: std::convert::Into<rpc::model::Status>
         {
             self.error = v.map(|x| x.into());
             self
@@ -516,8 +491,7 @@ pub mod reservation {
 
         /// Sets the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
         pub fn set_last_error_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_error_time = std::option::Option::Some(v.into());
             self
@@ -525,8 +499,7 @@ pub mod reservation {
 
         /// Sets or clears the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
         pub fn set_or_clear_last_error_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_error_time = v.map(|x| x.into());
             self
@@ -534,8 +507,7 @@ pub mod reservation {
 
         /// Sets the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
         pub fn set_last_replication_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_replication_time = std::option::Option::Some(v.into());
             self
@@ -543,8 +515,7 @@ pub mod reservation {
 
         /// Sets or clears the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
         pub fn set_or_clear_last_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.last_replication_time = v.map(|x| x.into());
             self
@@ -552,8 +523,7 @@ pub mod reservation {
 
         /// Sets the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
         pub fn set_soft_failover_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.soft_failover_start_time = std::option::Option::Some(v.into());
             self
@@ -561,8 +531,7 @@ pub mod reservation {
 
         /// Sets or clears the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
         pub fn set_or_clear_soft_failover_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.soft_failover_start_time = v.map(|x| x.into());
             self
@@ -712,9 +681,7 @@ pub mod reservation {
                 1 => Self::AutoscaleOnly,
                 2 => Self::IdleSlotsOnly,
                 3 => Self::AllSlots,
-                _ => Self::UnknownValue(scaling_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -727,9 +694,7 @@ pub mod reservation {
                 "AUTOSCALE_ONLY" => Self::AutoscaleOnly,
                 "IDLE_SLOTS_ONLY" => Self::IdleSlotsOnly,
                 "ALL_SLOTS" => Self::AllSlots,
-                _ => Self::UnknownValue(scaling_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(scaling_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -755,8 +720,7 @@ pub mod reservation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScalingMode>::new(
-                ".google.cloud.bigquery.reservation.v1.Reservation.ScalingMode",
-            ))
+                ".google.cloud.bigquery.reservation.v1.Reservation.ScalingMode"))
         }
     }
 }
@@ -765,6 +729,7 @@ pub mod reservation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SchedulingPolicy {
+
     /// Optional. If present and > 0, the reservation will attempt to limit the
     /// concurrency of jobs running for any particular project within it to the
     /// given value.
@@ -789,8 +754,7 @@ impl SchedulingPolicy {
 
     /// Sets the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
     pub fn set_concurrency<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.concurrency = std::option::Option::Some(v.into());
         self
@@ -798,8 +762,7 @@ impl SchedulingPolicy {
 
     /// Sets or clears the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
     pub fn set_or_clear_concurrency<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.concurrency = v.map(|x| x.into());
         self
@@ -807,8 +770,7 @@ impl SchedulingPolicy {
 
     /// Sets the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
     pub fn set_max_slots<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_slots = std::option::Option::Some(v.into());
         self
@@ -816,8 +778,7 @@ impl SchedulingPolicy {
 
     /// Sets or clears the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_slots = v.map(|x| x.into());
         self
@@ -834,6 +795,7 @@ impl wkt::message::Message for SchedulingPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReservationGroup {
+
     /// Identifier. The resource name of the reservation group, e.g.,
     /// `projects/*/locations/*/reservationGroups/team1-prod`.
     /// The reservation_group_id must only contain lower case alphanumeric
@@ -875,6 +837,7 @@ impl wkt::message::Message for ReservationGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CapacityCommitment {
+
     /// Output only. The resource name of the capacity commitment, e.g.,
     /// `projects/myproject/locations/US/capacityCommitments/123`
     /// The commitment_id must only contain lower case alphanumeric characters or
@@ -953,27 +916,20 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [plan][crate::model::CapacityCommitment::plan].
-    pub fn set_plan<T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_plan<T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>>(mut self, v: T) -> Self {
         self.plan = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CapacityCommitment::state].
-    pub fn set_state<T: std::convert::Into<crate::model::capacity_commitment::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::capacity_commitment::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [commitment_start_time][crate::model::CapacityCommitment::commitment_start_time].
     pub fn set_commitment_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commitment_start_time = std::option::Option::Some(v.into());
         self
@@ -981,8 +937,7 @@ impl CapacityCommitment {
 
     /// Sets or clears the value of [commitment_start_time][crate::model::CapacityCommitment::commitment_start_time].
     pub fn set_or_clear_commitment_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commitment_start_time = v.map(|x| x.into());
         self
@@ -990,8 +945,7 @@ impl CapacityCommitment {
 
     /// Sets the value of [commitment_end_time][crate::model::CapacityCommitment::commitment_end_time].
     pub fn set_commitment_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commitment_end_time = std::option::Option::Some(v.into());
         self
@@ -999,8 +953,7 @@ impl CapacityCommitment {
 
     /// Sets or clears the value of [commitment_end_time][crate::model::CapacityCommitment::commitment_end_time].
     pub fn set_or_clear_commitment_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commitment_end_time = v.map(|x| x.into());
         self
@@ -1008,8 +961,7 @@ impl CapacityCommitment {
 
     /// Sets the value of [failure_status][crate::model::CapacityCommitment::failure_status].
     pub fn set_failure_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.failure_status = std::option::Option::Some(v.into());
         self
@@ -1017,20 +969,14 @@ impl CapacityCommitment {
 
     /// Sets or clears the value of [failure_status][crate::model::CapacityCommitment::failure_status].
     pub fn set_or_clear_failure_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.failure_status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [renewal_plan][crate::model::CapacityCommitment::renewal_plan].
-    pub fn set_renewal_plan<
-        T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_renewal_plan<T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>>(mut self, v: T) -> Self {
         self.renewal_plan = v.into();
         self
     }
@@ -1065,6 +1011,7 @@ impl wkt::message::Message for CapacityCommitment {
 pub mod capacity_commitment {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Commitment plan defines the current committed period. Capacity commitment
     /// cannot be deleted during it's committed period.
@@ -1212,9 +1159,7 @@ pub mod capacity_commitment {
                 8 => Self::MonthlyFlatRate,
                 9 => Self::AnnualFlatRate,
                 10 => Self::ThreeYear,
-                _ => Self::UnknownValue(commitment_plan::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(commitment_plan::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1233,9 +1178,7 @@ pub mod capacity_commitment {
                 "ANNUAL_FLAT_RATE" => Self::AnnualFlatRate,
                 "THREE_YEAR" => Self::ThreeYear,
                 "NONE" => Self::None,
-                _ => Self::UnknownValue(commitment_plan::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(commitment_plan::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1267,8 +1210,7 @@ pub mod capacity_commitment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CommitmentPlan>::new(
-                ".google.cloud.bigquery.reservation.v1.CapacityCommitment.CommitmentPlan",
-            ))
+                ".google.cloud.bigquery.reservation.v1.CapacityCommitment.CommitmentPlan"))
         }
     }
 
@@ -1366,9 +1308,7 @@ pub mod capacity_commitment {
                 1 => Self::Pending,
                 2 => Self::Active,
                 3 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1381,9 +1321,7 @@ pub mod capacity_commitment {
                 "PENDING" => Self::Pending,
                 "ACTIVE" => Self::Active,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1409,8 +1347,7 @@ pub mod capacity_commitment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.bigquery.reservation.v1.CapacityCommitment.State",
-            ))
+                ".google.cloud.bigquery.reservation.v1.CapacityCommitment.State"))
         }
     }
 }
@@ -1422,6 +1359,7 @@ pub mod capacity_commitment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReservationRequest {
+
     /// Required. Project, location. E.g.,
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -1456,8 +1394,7 @@ impl CreateReservationRequest {
 
     /// Sets the value of [reservation][crate::model::CreateReservationRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Reservation>,
+    where T: std::convert::Into<crate::model::Reservation>
     {
         self.reservation = std::option::Option::Some(v.into());
         self
@@ -1465,8 +1402,7 @@ impl CreateReservationRequest {
 
     /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Reservation>,
+    where T: std::convert::Into<crate::model::Reservation>
     {
         self.reservation = v.map(|x| x.into());
         self
@@ -1486,6 +1422,7 @@ impl wkt::message::Message for CreateReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationsRequest {
+
     /// Required. The parent resource name containing project and location, e.g.:
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -1536,6 +1473,7 @@ impl wkt::message::Message for ListReservationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationsResponse {
+
     /// List of reservations visible to the user.
     pub reservations: std::vec::Vec<crate::model::Reservation>,
 
@@ -1555,7 +1493,7 @@ impl ListReservationsResponse {
     pub fn set_reservations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Reservation>,
+        V: std::convert::Into<crate::model::Reservation>
     {
         use std::iter::Iterator;
         self.reservations = v.into_iter().map(|i| i.into()).collect();
@@ -1596,6 +1534,7 @@ impl gax::paginator::internal::PageableResponse for ListReservationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReservationRequest {
+
     /// Required. Resource name of the reservation to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     pub name: std::string::String,
@@ -1628,6 +1567,7 @@ impl wkt::message::Message for GetReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReservationRequest {
+
     /// Required. Resource name of the reservation to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     pub name: std::string::String,
@@ -1660,6 +1600,7 @@ impl wkt::message::Message for DeleteReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReservationRequest {
+
     /// Content of the reservation to update.
     pub reservation: std::option::Option<crate::model::Reservation>,
 
@@ -1676,8 +1617,7 @@ impl UpdateReservationRequest {
 
     /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
     pub fn set_reservation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Reservation>,
+    where T: std::convert::Into<crate::model::Reservation>
     {
         self.reservation = std::option::Option::Some(v.into());
         self
@@ -1685,8 +1625,7 @@ impl UpdateReservationRequest {
 
     /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Reservation>,
+    where T: std::convert::Into<crate::model::Reservation>
     {
         self.reservation = v.map(|x| x.into());
         self
@@ -1694,8 +1633,7 @@ impl UpdateReservationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1703,8 +1641,7 @@ impl UpdateReservationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1721,6 +1658,7 @@ impl wkt::message::Message for UpdateReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverReservationRequest {
+
     /// Required. Resource name of the reservation to failover. E.g.,
     /// `projects/myproject/locations/US/reservations/team1-prod`
     pub name: std::string::String,
@@ -1745,10 +1683,7 @@ impl FailoverReservationRequest {
     }
 
     /// Sets the value of [failover_mode][crate::model::FailoverReservationRequest::failover_mode].
-    pub fn set_failover_mode<T: std::convert::Into<crate::model::FailoverMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failover_mode<T: std::convert::Into<crate::model::FailoverMode>>(mut self, v: T) -> Self {
         self.failover_mode = v.into();
         self
     }
@@ -1767,6 +1702,7 @@ impl wkt::message::Message for FailoverReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReservationGroupRequest {
+
     /// Required. Project, location. E.g.,
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -1794,18 +1730,14 @@ impl CreateReservationGroupRequest {
     }
 
     /// Sets the value of [reservation_group_id][crate::model::CreateReservationGroupRequest::reservation_group_id].
-    pub fn set_reservation_group_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reservation_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reservation_group_id = v.into();
         self
     }
 
     /// Sets the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
     pub fn set_reservation_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReservationGroup>,
+    where T: std::convert::Into<crate::model::ReservationGroup>
     {
         self.reservation_group = std::option::Option::Some(v.into());
         self
@@ -1813,8 +1745,7 @@ impl CreateReservationGroupRequest {
 
     /// Sets or clears the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
     pub fn set_or_clear_reservation_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReservationGroup>,
+    where T: std::convert::Into<crate::model::ReservationGroup>
     {
         self.reservation_group = v.map(|x| x.into());
         self
@@ -1834,6 +1765,7 @@ impl wkt::message::Message for CreateReservationGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReservationGroupRequest {
+
     /// Required. Resource name of the reservation group to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservationGroups/team1-prod`
     pub name: std::string::String,
@@ -1866,6 +1798,7 @@ impl wkt::message::Message for GetReservationGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationGroupsRequest {
+
     /// Required. The parent resource name containing project and location, e.g.:
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -1916,6 +1849,7 @@ impl wkt::message::Message for ListReservationGroupsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReservationGroupsResponse {
+
     /// List of reservations visible to the user.
     pub reservation_groups: std::vec::Vec<crate::model::ReservationGroup>,
 
@@ -1935,7 +1869,7 @@ impl ListReservationGroupsResponse {
     pub fn set_reservation_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReservationGroup>,
+        V: std::convert::Into<crate::model::ReservationGroup>
     {
         use std::iter::Iterator;
         self.reservation_groups = v.into_iter().map(|i| i.into()).collect();
@@ -1976,6 +1910,7 @@ impl gax::paginator::internal::PageableResponse for ListReservationGroupsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReservationGroupRequest {
+
     /// Required. Resource name of the reservation group to retrieve. E.g.,
     /// `projects/myproject/locations/US/reservationGroups/team1-prod`
     pub name: std::string::String,
@@ -2008,6 +1943,7 @@ impl wkt::message::Message for DeleteReservationGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCapacityCommitmentRequest {
+
     /// Required. Resource name of the parent reservation. E.g.,
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -2042,8 +1978,7 @@ impl CreateCapacityCommitmentRequest {
 
     /// Sets the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
     pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.capacity_commitment = std::option::Option::Some(v.into());
         self
@@ -2051,27 +1986,20 @@ impl CreateCapacityCommitmentRequest {
 
     /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
     pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.capacity_commitment = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [enforce_single_admin_project_per_org][crate::model::CreateCapacityCommitmentRequest::enforce_single_admin_project_per_org].
-    pub fn set_enforce_single_admin_project_per_org<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_enforce_single_admin_project_per_org<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforce_single_admin_project_per_org = v.into();
         self
     }
 
     /// Sets the value of [capacity_commitment_id][crate::model::CreateCapacityCommitmentRequest::capacity_commitment_id].
-    pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.capacity_commitment_id = v.into();
         self
     }
@@ -2090,6 +2018,7 @@ impl wkt::message::Message for CreateCapacityCommitmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCapacityCommitmentsRequest {
+
     /// Required. Resource name of the parent reservation. E.g.,
     /// `projects/myproject/locations/US`
     pub parent: std::string::String,
@@ -2140,6 +2069,7 @@ impl wkt::message::Message for ListCapacityCommitmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCapacityCommitmentsResponse {
+
     /// List of capacity commitments visible to the user.
     pub capacity_commitments: std::vec::Vec<crate::model::CapacityCommitment>,
 
@@ -2159,7 +2089,7 @@ impl ListCapacityCommitmentsResponse {
     pub fn set_capacity_commitments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CapacityCommitment>,
+        V: std::convert::Into<crate::model::CapacityCommitment>
     {
         use std::iter::Iterator;
         self.capacity_commitments = v.into_iter().map(|i| i.into()).collect();
@@ -2200,6 +2130,7 @@ impl gax::paginator::internal::PageableResponse for ListCapacityCommitmentsRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCapacityCommitmentRequest {
+
     /// Required. Resource name of the capacity commitment to retrieve. E.g.,
     /// `projects/myproject/locations/US/capacityCommitments/123`
     pub name: std::string::String,
@@ -2232,6 +2163,7 @@ impl wkt::message::Message for GetCapacityCommitmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCapacityCommitmentRequest {
+
     /// Required. Resource name of the capacity commitment to delete. E.g.,
     /// `projects/myproject/locations/US/capacityCommitments/123`
     pub name: std::string::String,
@@ -2275,6 +2207,7 @@ impl wkt::message::Message for DeleteCapacityCommitmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCapacityCommitmentRequest {
+
     /// Content of the capacity commitment to update.
     pub capacity_commitment: std::option::Option<crate::model::CapacityCommitment>,
 
@@ -2291,8 +2224,7 @@ impl UpdateCapacityCommitmentRequest {
 
     /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
     pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.capacity_commitment = std::option::Option::Some(v.into());
         self
@@ -2300,8 +2232,7 @@ impl UpdateCapacityCommitmentRequest {
 
     /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
     pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.capacity_commitment = v.map(|x| x.into());
         self
@@ -2309,8 +2240,7 @@ impl UpdateCapacityCommitmentRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2318,8 +2248,7 @@ impl UpdateCapacityCommitmentRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2339,6 +2268,7 @@ impl wkt::message::Message for UpdateCapacityCommitmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitCapacityCommitmentRequest {
+
     /// Required. The resource name e.g.,:
     /// `projects/myproject/locations/US/capacityCommitments/123`
     pub name: std::string::String,
@@ -2380,6 +2310,7 @@ impl wkt::message::Message for SplitCapacityCommitmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SplitCapacityCommitmentResponse {
+
     /// First capacity commitment, result of a split.
     pub first: std::option::Option<crate::model::CapacityCommitment>,
 
@@ -2396,8 +2327,7 @@ impl SplitCapacityCommitmentResponse {
 
     /// Sets the value of [first][crate::model::SplitCapacityCommitmentResponse::first].
     pub fn set_first<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.first = std::option::Option::Some(v.into());
         self
@@ -2405,8 +2335,7 @@ impl SplitCapacityCommitmentResponse {
 
     /// Sets or clears the value of [first][crate::model::SplitCapacityCommitmentResponse::first].
     pub fn set_or_clear_first<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.first = v.map(|x| x.into());
         self
@@ -2414,8 +2343,7 @@ impl SplitCapacityCommitmentResponse {
 
     /// Sets the value of [second][crate::model::SplitCapacityCommitmentResponse::second].
     pub fn set_second<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.second = std::option::Option::Some(v.into());
         self
@@ -2423,8 +2351,7 @@ impl SplitCapacityCommitmentResponse {
 
     /// Sets or clears the value of [second][crate::model::SplitCapacityCommitmentResponse::second].
     pub fn set_or_clear_second<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CapacityCommitment>,
+    where T: std::convert::Into<crate::model::CapacityCommitment>
     {
         self.second = v.map(|x| x.into());
         self
@@ -2444,6 +2371,7 @@ impl wkt::message::Message for SplitCapacityCommitmentResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MergeCapacityCommitmentsRequest {
+
     /// Parent resource that identifies admin project and location e.g.,
     /// `projects/myproject/locations/us`
     pub parent: std::string::String,
@@ -2479,7 +2407,7 @@ impl MergeCapacityCommitmentsRequest {
     pub fn set_capacity_commitment_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.capacity_commitment_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2487,10 +2415,7 @@ impl MergeCapacityCommitmentsRequest {
     }
 
     /// Sets the value of [capacity_commitment_id][crate::model::MergeCapacityCommitmentsRequest::capacity_commitment_id].
-    pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.capacity_commitment_id = v.into();
         self
     }
@@ -2507,6 +2432,7 @@ impl wkt::message::Message for MergeCapacityCommitmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Assignment {
+
     /// Output only. Name of the resource. E.g.:
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`.
     /// The assignment_id must only contain lower case alphanumeric characters or
@@ -2562,19 +2488,13 @@ impl Assignment {
     }
 
     /// Sets the value of [job_type][crate::model::Assignment::job_type].
-    pub fn set_job_type<T: std::convert::Into<crate::model::assignment::JobType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_type<T: std::convert::Into<crate::model::assignment::JobType>>(mut self, v: T) -> Self {
         self.job_type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Assignment::state].
-    pub fn set_state<T: std::convert::Into<crate::model::assignment::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::assignment::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2587,8 +2507,7 @@ impl Assignment {
 
     /// Sets the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
     pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    where T: std::convert::Into<crate::model::SchedulingPolicy>
     {
         self.scheduling_policy = std::option::Option::Some(v.into());
         self
@@ -2596,8 +2515,7 @@ impl Assignment {
 
     /// Sets or clears the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
     pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SchedulingPolicy>,
+    where T: std::convert::Into<crate::model::SchedulingPolicy>
     {
         self.scheduling_policy = v.map(|x| x.into());
         self
@@ -2614,6 +2532,7 @@ impl wkt::message::Message for Assignment {
 pub mod assignment {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Types of job, which could be specified when using the reservation.
     ///
@@ -2709,15 +2628,9 @@ pub mod assignment {
                 Self::MlExternal => std::option::Option::Some("ML_EXTERNAL"),
                 Self::Background => std::option::Option::Some("BACKGROUND"),
                 Self::Continuous => std::option::Option::Some("CONTINUOUS"),
-                Self::BackgroundChangeDataCapture => {
-                    std::option::Option::Some("BACKGROUND_CHANGE_DATA_CAPTURE")
-                }
-                Self::BackgroundColumnMetadataIndex => {
-                    std::option::Option::Some("BACKGROUND_COLUMN_METADATA_INDEX")
-                }
-                Self::BackgroundSearchIndexRefresh => {
-                    std::option::Option::Some("BACKGROUND_SEARCH_INDEX_REFRESH")
-                }
+                Self::BackgroundChangeDataCapture => std::option::Option::Some("BACKGROUND_CHANGE_DATA_CAPTURE"),
+                Self::BackgroundColumnMetadataIndex => std::option::Option::Some("BACKGROUND_COLUMN_METADATA_INDEX"),
+                Self::BackgroundSearchIndexRefresh => std::option::Option::Some("BACKGROUND_SEARCH_INDEX_REFRESH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2748,9 +2661,7 @@ pub mod assignment {
                 7 => Self::BackgroundChangeDataCapture,
                 8 => Self::BackgroundColumnMetadataIndex,
                 9 => Self::BackgroundSearchIndexRefresh,
-                _ => Self::UnknownValue(job_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(job_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2768,9 +2679,7 @@ pub mod assignment {
                 "BACKGROUND_CHANGE_DATA_CAPTURE" => Self::BackgroundChangeDataCapture,
                 "BACKGROUND_COLUMN_METADATA_INDEX" => Self::BackgroundColumnMetadataIndex,
                 "BACKGROUND_SEARCH_INDEX_REFRESH" => Self::BackgroundSearchIndexRefresh,
-                _ => Self::UnknownValue(job_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(job_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2801,8 +2710,7 @@ pub mod assignment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobType>::new(
-                ".google.cloud.bigquery.reservation.v1.Assignment.JobType",
-            ))
+                ".google.cloud.bigquery.reservation.v1.Assignment.JobType"))
         }
     }
 
@@ -2895,9 +2803,7 @@ pub mod assignment {
                 0 => Self::Unspecified,
                 1 => Self::Pending,
                 2 => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2909,9 +2815,7 @@ pub mod assignment {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "PENDING" => Self::Pending,
                 "ACTIVE" => Self::Active,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2936,8 +2840,7 @@ pub mod assignment {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.bigquery.reservation.v1.Assignment.State",
-            ))
+                ".google.cloud.bigquery.reservation.v1.Assignment.State"))
         }
     }
 }
@@ -2951,6 +2854,7 @@ pub mod assignment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAssignmentRequest {
+
     /// Required. The parent resource name of the assignment
     /// E.g. `projects/myproject/locations/US/reservations/team1-prod`
     pub parent: std::string::String,
@@ -2980,8 +2884,7 @@ impl CreateAssignmentRequest {
 
     /// Sets the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
     pub fn set_assignment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Assignment>,
+    where T: std::convert::Into<crate::model::Assignment>
     {
         self.assignment = std::option::Option::Some(v.into());
         self
@@ -2989,8 +2892,7 @@ impl CreateAssignmentRequest {
 
     /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
     pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Assignment>,
+    where T: std::convert::Into<crate::model::Assignment>
     {
         self.assignment = v.map(|x| x.into());
         self
@@ -3016,6 +2918,7 @@ impl wkt::message::Message for CreateAssignmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssignmentsRequest {
+
     /// Required. The parent resource name e.g.:
     ///
     /// `projects/myproject/locations/US/reservations/team1-prod`
@@ -3071,6 +2974,7 @@ impl wkt::message::Message for ListAssignmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAssignmentsResponse {
+
     /// List of assignments visible to the user.
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
@@ -3090,7 +2994,7 @@ impl ListAssignmentsResponse {
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Assignment>,
+        V: std::convert::Into<crate::model::Assignment>
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
@@ -3133,6 +3037,7 @@ impl gax::paginator::internal::PageableResponse for ListAssignmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAssignmentRequest {
+
     /// Required. Name of the resource, e.g.
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`
     pub name: std::string::String,
@@ -3167,6 +3072,7 @@ impl wkt::message::Message for DeleteAssignmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAssignmentsRequest {
+
     /// Required. The resource name of the admin project(containing project and
     /// location), e.g.:
     /// `projects/myproject/locations/US`.
@@ -3235,6 +3141,7 @@ impl wkt::message::Message for SearchAssignmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllAssignmentsRequest {
+
     /// Required. The resource name with location (project name could be the
     /// wildcard '-'), e.g.:
     /// `projects/-/locations/US`.
@@ -3301,6 +3208,7 @@ impl wkt::message::Message for SearchAllAssignmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAssignmentsResponse {
+
     /// List of assignments visible to the user.
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
@@ -3320,7 +3228,7 @@ impl SearchAssignmentsResponse {
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Assignment>,
+        V: std::convert::Into<crate::model::Assignment>
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
@@ -3361,6 +3269,7 @@ impl gax::paginator::internal::PageableResponse for SearchAssignmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchAllAssignmentsResponse {
+
     /// List of assignments visible to the user.
     pub assignments: std::vec::Vec<crate::model::Assignment>,
 
@@ -3380,7 +3289,7 @@ impl SearchAllAssignmentsResponse {
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Assignment>,
+        V: std::convert::Into<crate::model::Assignment>
     {
         use std::iter::Iterator;
         self.assignments = v.into_iter().map(|i| i.into()).collect();
@@ -3428,6 +3337,7 @@ impl gax::paginator::internal::PageableResponse for SearchAllAssignmentsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveAssignmentRequest {
+
     /// Required. The resource name of the assignment,
     /// e.g.
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`
@@ -3484,6 +3394,7 @@ impl wkt::message::Message for MoveAssignmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAssignmentRequest {
+
     /// Content of the assignment to update.
     pub assignment: std::option::Option<crate::model::Assignment>,
 
@@ -3500,8 +3411,7 @@ impl UpdateAssignmentRequest {
 
     /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
     pub fn set_assignment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Assignment>,
+    where T: std::convert::Into<crate::model::Assignment>
     {
         self.assignment = std::option::Option::Some(v.into());
         self
@@ -3509,8 +3419,7 @@ impl UpdateAssignmentRequest {
 
     /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
     pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Assignment>,
+    where T: std::convert::Into<crate::model::Assignment>
     {
         self.assignment = v.map(|x| x.into());
         self
@@ -3518,8 +3427,7 @@ impl UpdateAssignmentRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3527,8 +3435,7 @@ impl UpdateAssignmentRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3546,6 +3453,7 @@ impl wkt::message::Message for UpdateAssignmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TableReference {
+
     /// Optional. The assigned project ID of the project.
     pub project_id: std::string::String,
 
@@ -3592,6 +3500,7 @@ impl wkt::message::Message for TableReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BiReservation {
+
     /// Identifier. The resource name of the singleton BI reservation.
     /// Reservation names have the form
     /// `projects/{project_id}/locations/{location_id}/biReservation`.
@@ -3622,8 +3531,7 @@ impl BiReservation {
 
     /// Sets the value of [update_time][crate::model::BiReservation::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3631,8 +3539,7 @@ impl BiReservation {
 
     /// Sets or clears the value of [update_time][crate::model::BiReservation::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3648,7 +3555,7 @@ impl BiReservation {
     pub fn set_preferred_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TableReference>,
+        V: std::convert::Into<crate::model::TableReference>
     {
         use std::iter::Iterator;
         self.preferred_tables = v.into_iter().map(|i| i.into()).collect();
@@ -3666,6 +3573,7 @@ impl wkt::message::Message for BiReservation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBiReservationRequest {
+
     /// Required. Name of the requested reservation, for example:
     /// `projects/{project_id}/locations/{location_id}/biReservation`
     pub name: std::string::String,
@@ -3695,6 +3603,7 @@ impl wkt::message::Message for GetBiReservationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBiReservationRequest {
+
     /// A reservation to update.
     pub bi_reservation: std::option::Option<crate::model::BiReservation>,
 
@@ -3711,8 +3620,7 @@ impl UpdateBiReservationRequest {
 
     /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
     pub fn set_bi_reservation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BiReservation>,
+    where T: std::convert::Into<crate::model::BiReservation>
     {
         self.bi_reservation = std::option::Option::Some(v.into());
         self
@@ -3720,8 +3628,7 @@ impl UpdateBiReservationRequest {
 
     /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
     pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BiReservation>,
+    where T: std::convert::Into<crate::model::BiReservation>
     {
         self.bi_reservation = v.map(|x| x.into());
         self
@@ -3729,8 +3636,7 @@ impl UpdateBiReservationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3738,8 +3644,7 @@ impl UpdateBiReservationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3845,9 +3750,7 @@ impl std::convert::From<i32> for Edition {
             1 => Self::Standard,
             2 => Self::Enterprise,
             3 => Self::EnterprisePlus,
-            _ => Self::UnknownValue(edition::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3860,9 +3763,7 @@ impl std::convert::From<&str> for Edition {
             "STANDARD" => Self::Standard,
             "ENTERPRISE" => Self::Enterprise,
             "ENTERPRISE_PLUS" => Self::EnterprisePlus,
-            _ => Self::UnknownValue(edition::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3888,8 +3789,7 @@ impl<'de> serde::de::Deserialize<'de> for Edition {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
-            ".google.cloud.bigquery.reservation.v1.Edition",
-        ))
+            ".google.cloud.bigquery.reservation.v1.Edition"))
     }
 }
 
@@ -3985,9 +3885,7 @@ impl std::convert::From<i32> for FailoverMode {
             0 => Self::Unspecified,
             1 => Self::Soft,
             2 => Self::Hard,
-            _ => Self::UnknownValue(failover_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(failover_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3999,9 +3897,7 @@ impl std::convert::From<&str> for FailoverMode {
             "FAILOVER_MODE_UNSPECIFIED" => Self::Unspecified,
             "SOFT" => Self::Soft,
             "HARD" => Self::Hard,
-            _ => Self::UnknownValue(failover_mode::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(failover_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4026,7 +3922,6 @@ impl<'de> serde::de::Deserialize<'de> for FailoverMode {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailoverMode>::new(
-            ".google.cloud.bigquery.reservation.v1.FailoverMode",
-        ))
+            ".google.cloud.bigquery.reservation.v1.FailoverMode"))
     }
 }

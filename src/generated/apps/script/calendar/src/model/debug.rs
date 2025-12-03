@@ -22,10 +22,7 @@ impl std::fmt::Debug for super::CalendarAddOnManifest {
         let mut debug_struct = f.debug_struct("CalendarAddOnManifest");
         debug_struct.field("homepage_trigger", &self.homepage_trigger);
         debug_struct.field("conference_solution", &self.conference_solution);
-        debug_struct.field(
-            "create_settings_url_function",
-            &self.create_settings_url_function,
-        );
+        debug_struct.field("create_settings_url_function", &self.create_settings_url_function);
         debug_struct.field("event_open_trigger", &self.event_open_trigger);
         debug_struct.field("event_update_trigger", &self.event_update_trigger);
         debug_struct.field("current_event_access", &self.current_event_access);

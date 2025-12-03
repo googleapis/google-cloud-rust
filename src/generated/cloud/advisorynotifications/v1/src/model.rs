@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Notification {
+
     /// The resource name of the notification.
     /// Format:
     /// organizations/{organization}/locations/{location}/notifications/{notification}
@@ -73,8 +74,7 @@ impl Notification {
 
     /// Sets the value of [subject][crate::model::Notification::subject].
     pub fn set_subject<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subject>,
+    where T: std::convert::Into<crate::model::Subject>
     {
         self.subject = std::option::Option::Some(v.into());
         self
@@ -82,8 +82,7 @@ impl Notification {
 
     /// Sets or clears the value of [subject][crate::model::Notification::subject].
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subject>,
+    where T: std::convert::Into<crate::model::Subject>
     {
         self.subject = v.map(|x| x.into());
         self
@@ -93,7 +92,7 @@ impl Notification {
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Message>,
+        V: std::convert::Into<crate::model::Message>
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
@@ -102,8 +101,7 @@ impl Notification {
 
     /// Sets the value of [create_time][crate::model::Notification::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -111,18 +109,14 @@ impl Notification {
 
     /// Sets or clears the value of [create_time][crate::model::Notification::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [notification_type][crate::model::Notification::notification_type].
-    pub fn set_notification_type<T: std::convert::Into<crate::model::NotificationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_type<T: std::convert::Into<crate::model::NotificationType>>(mut self, v: T) -> Self {
         self.notification_type = v.into();
         self
     }
@@ -138,6 +132,7 @@ impl wkt::message::Message for Notification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Text {
+
     /// The English copy.
     pub en_text: std::string::String,
 
@@ -168,10 +163,7 @@ impl Text {
     }
 
     /// Sets the value of [localization_state][crate::model::Text::localization_state].
-    pub fn set_localization_state<T: std::convert::Into<crate::model::LocalizationState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_localization_state<T: std::convert::Into<crate::model::LocalizationState>>(mut self, v: T) -> Self {
         self.localization_state = v.into();
         self
     }
@@ -187,6 +179,7 @@ impl wkt::message::Message for Text {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subject {
+
     /// The text content.
     pub text: std::option::Option<crate::model::Text>,
 
@@ -200,8 +193,7 @@ impl Subject {
 
     /// Sets the value of [text][crate::model::Subject::text].
     pub fn set_text<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Text>,
+    where T: std::convert::Into<crate::model::Text>
     {
         self.text = std::option::Option::Some(v.into());
         self
@@ -209,8 +201,7 @@ impl Subject {
 
     /// Sets or clears the value of [text][crate::model::Subject::text].
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Text>,
+    where T: std::convert::Into<crate::model::Text>
     {
         self.text = v.map(|x| x.into());
         self
@@ -227,6 +218,7 @@ impl wkt::message::Message for Subject {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Message {
+
     /// The message content.
     pub body: std::option::Option<crate::model::message::Body>,
 
@@ -249,8 +241,7 @@ impl Message {
 
     /// Sets the value of [body][crate::model::Message::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::message::Body>,
+    where T: std::convert::Into<crate::model::message::Body>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -258,8 +249,7 @@ impl Message {
 
     /// Sets or clears the value of [body][crate::model::Message::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::message::Body>,
+    where T: std::convert::Into<crate::model::message::Body>
     {
         self.body = v.map(|x| x.into());
         self
@@ -269,7 +259,7 @@ impl Message {
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Attachment>,
+        V: std::convert::Into<crate::model::Attachment>
     {
         use std::iter::Iterator;
         self.attachments = v.into_iter().map(|i| i.into()).collect();
@@ -278,8 +268,7 @@ impl Message {
 
     /// Sets the value of [create_time][crate::model::Message::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -287,8 +276,7 @@ impl Message {
 
     /// Sets or clears the value of [create_time][crate::model::Message::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -296,8 +284,7 @@ impl Message {
 
     /// Sets the value of [localization_time][crate::model::Message::localization_time].
     pub fn set_localization_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.localization_time = std::option::Option::Some(v.into());
         self
@@ -305,8 +292,7 @@ impl Message {
 
     /// Sets or clears the value of [localization_time][crate::model::Message::localization_time].
     pub fn set_or_clear_localization_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.localization_time = v.map(|x| x.into());
         self
@@ -324,10 +310,12 @@ pub mod message {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A message body containing text.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Body {
+
         /// The text content of the message body.
         pub text: std::option::Option<crate::model::Text>,
 
@@ -341,8 +329,7 @@ pub mod message {
 
         /// Sets the value of [text][crate::model::message::Body::text].
         pub fn set_text<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Text>,
+        where T: std::convert::Into<crate::model::Text>
         {
             self.text = std::option::Option::Some(v.into());
             self
@@ -350,8 +337,7 @@ pub mod message {
 
         /// Sets or clears the value of [text][crate::model::message::Body::text].
         pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Text>,
+        where T: std::convert::Into<crate::model::Text>
         {
             self.text = v.map(|x| x.into());
             self
@@ -369,6 +355,7 @@ pub mod message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Attachment {
+
     /// The title of the attachment.
     pub display_name: std::string::String,
 
@@ -393,10 +380,8 @@ impl Attachment {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
-    pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::attachment::Data>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::attachment::Data>>>(mut self, v: T) -> Self
+    {
         self.data = v.into();
         self
     }
@@ -417,11 +402,12 @@ impl Attachment {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
-    pub fn set_csv<T: std::convert::Into<std::boxed::Box<crate::model::Csv>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.data = std::option::Option::Some(crate::model::attachment::Data::Csv(v.into()));
+    pub fn set_csv<T: std::convert::Into<std::boxed::Box<crate::model::Csv>>>(mut self, v: T) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::attachment::Data::Csv(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -437,6 +423,7 @@ pub mod attachment {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Data type of the attachment.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -451,6 +438,7 @@ pub mod attachment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Csv {
+
     /// The list of headers for data columns in a CSV file.
     pub headers: std::vec::Vec<std::string::String>,
 
@@ -470,7 +458,7 @@ impl Csv {
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.headers = v.into_iter().map(|i| i.into()).collect();
@@ -481,7 +469,7 @@ impl Csv {
     pub fn set_data_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::csv::CsvRow>,
+        V: std::convert::Into<crate::model::csv::CsvRow>
     {
         use std::iter::Iterator;
         self.data_rows = v.into_iter().map(|i| i.into()).collect();
@@ -500,10 +488,12 @@ pub mod csv {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A representation of a single data row in a CSV file.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CsvRow {
+
         /// The data entries in a CSV file row, as a string array rather than a
         /// single comma-separated string.
         pub entries: std::vec::Vec<std::string::String>,
@@ -520,7 +510,7 @@ pub mod csv {
         pub fn set_entries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.entries = v.into_iter().map(|i| i.into()).collect();
@@ -539,6 +529,7 @@ pub mod csv {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationsRequest {
+
     /// Required. The parent, which owns this collection of notifications.
     /// Must be of the form "organizations/{organization}/locations/{location}"
     /// or "projects/{project}/locations/{location}".
@@ -615,6 +606,7 @@ impl wkt::message::Message for ListNotificationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNotificationsResponse {
+
     /// List of notifications under a given parent.
     pub notifications: std::vec::Vec<crate::model::Notification>,
 
@@ -637,7 +629,7 @@ impl ListNotificationsResponse {
     pub fn set_notifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Notification>,
+        V: std::convert::Into<crate::model::Notification>
     {
         use std::iter::Iterator;
         self.notifications = v.into_iter().map(|i| i.into()).collect();
@@ -681,6 +673,7 @@ impl gax::paginator::internal::PageableResponse for ListNotificationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNotificationRequest {
+
     /// Required. A name of the notification to retrieve.
     /// Format:
     /// organizations/{organization}/locations/{location}/notifications/{notification}
@@ -725,6 +718,7 @@ impl wkt::message::Message for GetNotificationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
+
     /// Identifier. The resource name of the settings to retrieve.
     /// Format:
     /// organizations/{organization}/locations/{location}/settings or
@@ -734,8 +728,7 @@ pub struct Settings {
     /// Required. Map of each notification type and its settings to get/set all
     /// settings at once. The server will validate the value for each notification
     /// type.
-    pub notification_settings:
-        std::collections::HashMap<std::string::String, crate::model::NotificationSettings>,
+    pub notification_settings: std::collections::HashMap<std::string::String,crate::model::NotificationSettings>,
 
     /// Required. Fingerprint for optimistic concurrency returned in Get requests.
     /// Must be provided for Update requests. If the value provided does not match
@@ -786,6 +779,7 @@ impl wkt::message::Message for Settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationSettings {
+
     /// Whether the associated NotificationType is enabled.
     pub enabled: bool,
 
@@ -814,6 +808,7 @@ impl wkt::message::Message for NotificationSettings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSettingsRequest {
+
     /// Required. The resource name of the settings to retrieve.
     /// Format:
     /// organizations/{organization}/locations/{location}/settings or
@@ -845,6 +840,7 @@ impl wkt::message::Message for GetSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSettingsRequest {
+
     /// Required. New settings.
     pub settings: std::option::Option<crate::model::Settings>,
 
@@ -858,8 +854,7 @@ impl UpdateSettingsRequest {
 
     /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -867,8 +862,7 @@ impl UpdateSettingsRequest {
 
     /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -969,9 +963,7 @@ impl std::convert::From<i32> for NotificationView {
             0 => Self::Unspecified,
             1 => Self::Basic,
             2 => Self::Full,
-            _ => Self::UnknownValue(notification_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(notification_view::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -983,9 +975,7 @@ impl std::convert::From<&str> for NotificationView {
             "NOTIFICATION_VIEW_UNSPECIFIED" => Self::Unspecified,
             "BASIC" => Self::Basic,
             "FULL" => Self::Full,
-            _ => Self::UnknownValue(notification_view::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(notification_view::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1010,8 +1000,7 @@ impl<'de> serde::de::Deserialize<'de> for NotificationView {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationView>::new(
-            ".google.cloud.advisorynotifications.v1.NotificationView",
-        ))
+            ".google.cloud.advisorynotifications.v1.NotificationView"))
     }
 }
 
@@ -1112,9 +1101,7 @@ impl std::convert::From<i32> for LocalizationState {
             1 => Self::NotApplicable,
             2 => Self::Pending,
             3 => Self::Completed,
-            _ => Self::UnknownValue(localization_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(localization_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1127,9 +1114,7 @@ impl std::convert::From<&str> for LocalizationState {
             "LOCALIZATION_STATE_NOT_APPLICABLE" => Self::NotApplicable,
             "LOCALIZATION_STATE_PENDING" => Self::Pending,
             "LOCALIZATION_STATE_COMPLETED" => Self::Completed,
-            _ => Self::UnknownValue(localization_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(localization_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1155,8 +1140,7 @@ impl<'de> serde::de::Deserialize<'de> for LocalizationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LocalizationState>::new(
-            ".google.cloud.advisorynotifications.v1.LocalizationState",
-        ))
+            ".google.cloud.advisorynotifications.v1.LocalizationState"))
     }
 }
 
@@ -1226,12 +1210,8 @@ impl NotificationType {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("NOTIFICATION_TYPE_UNSPECIFIED"),
-            Self::SecurityPrivacyAdvisory => {
-                std::option::Option::Some("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY")
-            }
-            Self::SensitiveActions => {
-                std::option::Option::Some("NOTIFICATION_TYPE_SENSITIVE_ACTIONS")
-            }
+            Self::SecurityPrivacyAdvisory => std::option::Option::Some("NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY"),
+            Self::SensitiveActions => std::option::Option::Some("NOTIFICATION_TYPE_SENSITIVE_ACTIONS"),
             Self::SecurityMsa => std::option::Option::Some("NOTIFICATION_TYPE_SECURITY_MSA"),
             Self::ThreatHorizons => std::option::Option::Some("NOTIFICATION_TYPE_THREAT_HORIZONS"),
             Self::UnknownValue(u) => u.0.name(),
@@ -1260,9 +1240,7 @@ impl std::convert::From<i32> for NotificationType {
             2 => Self::SensitiveActions,
             3 => Self::SecurityMsa,
             4 => Self::ThreatHorizons,
-            _ => Self::UnknownValue(notification_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(notification_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1276,9 +1254,7 @@ impl std::convert::From<&str> for NotificationType {
             "NOTIFICATION_TYPE_SENSITIVE_ACTIONS" => Self::SensitiveActions,
             "NOTIFICATION_TYPE_SECURITY_MSA" => Self::SecurityMsa,
             "NOTIFICATION_TYPE_THREAT_HORIZONS" => Self::ThreatHorizons,
-            _ => Self::UnknownValue(notification_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(notification_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1305,7 +1281,6 @@ impl<'de> serde::de::Deserialize<'de> for NotificationType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotificationType>::new(
-            ".google.cloud.advisorynotifications.v1.NotificationType",
-        ))
+            ".google.cloud.advisorynotifications.v1.NotificationType"))
     }
 }

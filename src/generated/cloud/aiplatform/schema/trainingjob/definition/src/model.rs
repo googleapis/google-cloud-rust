@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageClassification {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlImageClassificationInputs>,
 
@@ -48,8 +49,7 @@ impl AutoMlImageClassification {
 
     /// Sets the value of [inputs][crate::model::AutoMlImageClassification::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -57,8 +57,7 @@ impl AutoMlImageClassification {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageClassification::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -66,8 +65,7 @@ impl AutoMlImageClassification {
 
     /// Sets the value of [metadata][crate::model::AutoMlImageClassification::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -75,8 +73,7 @@ impl AutoMlImageClassification {
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageClassification::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -92,6 +89,7 @@ impl wkt::message::Message for AutoMlImageClassification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageClassificationInputs {
+
     pub model_type: crate::model::auto_ml_image_classification_inputs::ModelType,
 
     /// The ID of the `base` model. If it is specified, the new model will be
@@ -139,12 +137,7 @@ impl AutoMlImageClassificationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageClassificationInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_image_classification_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_image_classification_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -184,6 +177,7 @@ impl wkt::message::Message for AutoMlImageClassificationInputs {
 pub mod auto_ml_image_classification_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -265,9 +259,7 @@ pub mod auto_ml_image_classification_inputs {
                 Self::Cloud => std::option::Option::Some("CLOUD"),
                 Self::MobileTfLowLatency1 => std::option::Option::Some("MOBILE_TF_LOW_LATENCY_1"),
                 Self::MobileTfVersatile1 => std::option::Option::Some("MOBILE_TF_VERSATILE_1"),
-                Self::MobileTfHighAccuracy1 => {
-                    std::option::Option::Some("MOBILE_TF_HIGH_ACCURACY_1")
-                }
+                Self::MobileTfHighAccuracy1 => std::option::Option::Some("MOBILE_TF_HIGH_ACCURACY_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -294,9 +286,7 @@ pub mod auto_ml_image_classification_inputs {
                 2 => Self::MobileTfLowLatency1,
                 3 => Self::MobileTfVersatile1,
                 4 => Self::MobileTfHighAccuracy1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -310,9 +300,7 @@ pub mod auto_ml_image_classification_inputs {
                 "MOBILE_TF_LOW_LATENCY_1" => Self::MobileTfLowLatency1,
                 "MOBILE_TF_VERSATILE_1" => Self::MobileTfVersatile1,
                 "MOBILE_TF_HIGH_ACCURACY_1" => Self::MobileTfHighAccuracy1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -347,6 +335,7 @@ pub mod auto_ml_image_classification_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageClassificationMetadata {
+
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
@@ -354,8 +343,7 @@ pub struct AutoMlImageClassificationMetadata {
 
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    pub successful_stop_reason:
-        crate::model::auto_ml_image_classification_metadata::SuccessfulStopReason,
+    pub successful_stop_reason: crate::model::auto_ml_image_classification_metadata::SuccessfulStopReason,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -372,14 +360,7 @@ impl AutoMlImageClassificationMetadata {
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageClassificationMetadata::successful_stop_reason].
-    pub fn set_successful_stop_reason<
-        T: std::convert::Into<
-                crate::model::auto_ml_image_classification_metadata::SuccessfulStopReason,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_successful_stop_reason<T: std::convert::Into<crate::model::auto_ml_image_classification_metadata::SuccessfulStopReason>>(mut self, v: T) -> Self {
         self.successful_stop_reason = v.into();
         self
     }
@@ -395,6 +376,7 @@ impl wkt::message::Message for AutoMlImageClassificationMetadata {
 pub mod auto_ml_image_classification_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -455,9 +437,7 @@ pub mod auto_ml_image_classification_metadata {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED"),
                 Self::BudgetReached => std::option::Option::Some("BUDGET_REACHED"),
                 Self::ModelConverged => std::option::Option::Some("MODEL_CONVERGED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -484,9 +464,7 @@ pub mod auto_ml_image_classification_metadata {
                 0 => Self::Unspecified,
                 1 => Self::BudgetReached,
                 2 => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -498,9 +476,7 @@ pub mod auto_ml_image_classification_metadata {
                 "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Self::Unspecified,
                 "BUDGET_REACHED" => Self::BudgetReached,
                 "MODEL_CONVERGED" => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -534,6 +510,7 @@ pub mod auto_ml_image_classification_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageObjectDetection {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlImageObjectDetectionInputs>,
 
@@ -550,8 +527,7 @@ impl AutoMlImageObjectDetection {
 
     /// Sets the value of [inputs][crate::model::AutoMlImageObjectDetection::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -559,8 +535,7 @@ impl AutoMlImageObjectDetection {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageObjectDetection::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -568,8 +543,7 @@ impl AutoMlImageObjectDetection {
 
     /// Sets the value of [metadata][crate::model::AutoMlImageObjectDetection::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -577,8 +551,7 @@ impl AutoMlImageObjectDetection {
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageObjectDetection::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -594,6 +567,7 @@ impl wkt::message::Message for AutoMlImageObjectDetection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageObjectDetectionInputs {
+
     pub model_type: crate::model::auto_ml_image_object_detection_inputs::ModelType,
 
     /// The training budget of creating this model, expressed in milli node
@@ -628,12 +602,7 @@ impl AutoMlImageObjectDetectionInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageObjectDetectionInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_image_object_detection_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_image_object_detection_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -661,6 +630,7 @@ impl wkt::message::Message for AutoMlImageObjectDetectionInputs {
 pub mod auto_ml_image_object_detection_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -748,9 +718,7 @@ pub mod auto_ml_image_object_detection_inputs {
                 Self::CloudLowLatency1 => std::option::Option::Some("CLOUD_LOW_LATENCY_1"),
                 Self::MobileTfLowLatency1 => std::option::Option::Some("MOBILE_TF_LOW_LATENCY_1"),
                 Self::MobileTfVersatile1 => std::option::Option::Some("MOBILE_TF_VERSATILE_1"),
-                Self::MobileTfHighAccuracy1 => {
-                    std::option::Option::Some("MOBILE_TF_HIGH_ACCURACY_1")
-                }
+                Self::MobileTfHighAccuracy1 => std::option::Option::Some("MOBILE_TF_HIGH_ACCURACY_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -778,9 +746,7 @@ pub mod auto_ml_image_object_detection_inputs {
                 3 => Self::MobileTfLowLatency1,
                 4 => Self::MobileTfVersatile1,
                 5 => Self::MobileTfHighAccuracy1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -795,9 +761,7 @@ pub mod auto_ml_image_object_detection_inputs {
                 "MOBILE_TF_LOW_LATENCY_1" => Self::MobileTfLowLatency1,
                 "MOBILE_TF_VERSATILE_1" => Self::MobileTfVersatile1,
                 "MOBILE_TF_HIGH_ACCURACY_1" => Self::MobileTfHighAccuracy1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -833,6 +797,7 @@ pub mod auto_ml_image_object_detection_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageObjectDetectionMetadata {
+
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
@@ -840,8 +805,7 @@ pub struct AutoMlImageObjectDetectionMetadata {
 
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    pub successful_stop_reason:
-        crate::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason,
+    pub successful_stop_reason: crate::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -858,14 +822,7 @@ impl AutoMlImageObjectDetectionMetadata {
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageObjectDetectionMetadata::successful_stop_reason].
-    pub fn set_successful_stop_reason<
-        T: std::convert::Into<
-                crate::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_successful_stop_reason<T: std::convert::Into<crate::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason>>(mut self, v: T) -> Self {
         self.successful_stop_reason = v.into();
         self
     }
@@ -881,6 +838,7 @@ impl wkt::message::Message for AutoMlImageObjectDetectionMetadata {
 pub mod auto_ml_image_object_detection_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -941,9 +899,7 @@ pub mod auto_ml_image_object_detection_metadata {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED"),
                 Self::BudgetReached => std::option::Option::Some("BUDGET_REACHED"),
                 Self::ModelConverged => std::option::Option::Some("MODEL_CONVERGED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -970,9 +926,7 @@ pub mod auto_ml_image_object_detection_metadata {
                 0 => Self::Unspecified,
                 1 => Self::BudgetReached,
                 2 => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -984,9 +938,7 @@ pub mod auto_ml_image_object_detection_metadata {
                 "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Self::Unspecified,
                 "BUDGET_REACHED" => Self::BudgetReached,
                 "MODEL_CONVERGED" => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1020,6 +972,7 @@ pub mod auto_ml_image_object_detection_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageSegmentation {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlImageSegmentationInputs>,
 
@@ -1036,8 +989,7 @@ impl AutoMlImageSegmentation {
 
     /// Sets the value of [inputs][crate::model::AutoMlImageSegmentation::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -1045,8 +997,7 @@ impl AutoMlImageSegmentation {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageSegmentation::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -1054,8 +1005,7 @@ impl AutoMlImageSegmentation {
 
     /// Sets the value of [metadata][crate::model::AutoMlImageSegmentation::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -1063,8 +1013,7 @@ impl AutoMlImageSegmentation {
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageSegmentation::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -1080,6 +1029,7 @@ impl wkt::message::Message for AutoMlImageSegmentation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageSegmentationInputs {
+
     pub model_type: crate::model::auto_ml_image_segmentation_inputs::ModelType,
 
     /// The training budget of creating this model, expressed in milli node
@@ -1113,12 +1063,7 @@ impl AutoMlImageSegmentationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageSegmentationInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_image_segmentation_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_image_segmentation_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -1146,6 +1091,7 @@ impl wkt::message::Message for AutoMlImageSegmentationInputs {
 pub mod auto_ml_image_segmentation_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -1244,9 +1190,7 @@ pub mod auto_ml_image_segmentation_inputs {
                 1 => Self::CloudHighAccuracy1,
                 2 => Self::CloudLowAccuracy1,
                 3 => Self::MobileTfLowLatency1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1259,9 +1203,7 @@ pub mod auto_ml_image_segmentation_inputs {
                 "CLOUD_HIGH_ACCURACY_1" => Self::CloudHighAccuracy1,
                 "CLOUD_LOW_ACCURACY_1" => Self::CloudLowAccuracy1,
                 "MOBILE_TF_LOW_LATENCY_1" => Self::MobileTfLowLatency1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1295,6 +1237,7 @@ pub mod auto_ml_image_segmentation_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlImageSegmentationMetadata {
+
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
@@ -1302,8 +1245,7 @@ pub struct AutoMlImageSegmentationMetadata {
 
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    pub successful_stop_reason:
-        crate::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason,
+    pub successful_stop_reason: crate::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1320,12 +1262,7 @@ impl AutoMlImageSegmentationMetadata {
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageSegmentationMetadata::successful_stop_reason].
-    pub fn set_successful_stop_reason<
-        T: std::convert::Into<crate::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_successful_stop_reason<T: std::convert::Into<crate::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason>>(mut self, v: T) -> Self {
         self.successful_stop_reason = v.into();
         self
     }
@@ -1341,6 +1278,7 @@ impl wkt::message::Message for AutoMlImageSegmentationMetadata {
 pub mod auto_ml_image_segmentation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -1401,9 +1339,7 @@ pub mod auto_ml_image_segmentation_metadata {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("SUCCESSFUL_STOP_REASON_UNSPECIFIED"),
                 Self::BudgetReached => std::option::Option::Some("BUDGET_REACHED"),
                 Self::ModelConverged => std::option::Option::Some("MODEL_CONVERGED"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -1430,9 +1366,7 @@ pub mod auto_ml_image_segmentation_metadata {
                 0 => Self::Unspecified,
                 1 => Self::BudgetReached,
                 2 => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1444,9 +1378,7 @@ pub mod auto_ml_image_segmentation_metadata {
                 "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Self::Unspecified,
                 "BUDGET_REACHED" => Self::BudgetReached,
                 "MODEL_CONVERGED" => Self::ModelConverged,
-                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(successful_stop_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1480,6 +1412,7 @@ pub mod auto_ml_image_segmentation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTables {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlTablesInputs>,
 
@@ -1496,8 +1429,7 @@ impl AutoMlTables {
 
     /// Sets the value of [inputs][crate::model::AutoMlTables::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTablesInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTablesInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -1505,8 +1437,7 @@ impl AutoMlTables {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTables::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTablesInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTablesInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -1514,8 +1445,7 @@ impl AutoMlTables {
 
     /// Sets the value of [metadata][crate::model::AutoMlTables::metadata].
     pub fn set_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTablesMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlTablesMetadata>
     {
         self.metadata = std::option::Option::Some(v.into());
         self
@@ -1523,8 +1453,7 @@ impl AutoMlTables {
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlTables::metadata].
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTablesMetadata>,
+    where T: std::convert::Into<crate::model::AutoMlTablesMetadata>
     {
         self.metadata = v.map(|x| x.into());
         self
@@ -1540,6 +1469,7 @@ impl wkt::message::Message for AutoMlTables {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTablesInputs {
+
     /// The type of prediction the Model is to produce.
     /// "classification" - Predict one out of multiple target values is
     /// picked for each row.
@@ -1615,8 +1545,7 @@ pub struct AutoMlTablesInputs {
 
     /// Configuration for exporting test set predictions to a BigQuery table. If
     /// this configuration is absent, then the export is not performed.
-    pub export_evaluated_data_items_config:
-        std::option::Option<crate::model::ExportEvaluatedDataItemsConfig>,
+    pub export_evaluated_data_items_config: std::option::Option<crate::model::ExportEvaluatedDataItemsConfig>,
 
     /// Additional experiment flags for the Tables training pipeline.
     pub additional_experiments: std::vec::Vec<std::string::String>,
@@ -1624,9 +1553,7 @@ pub struct AutoMlTablesInputs {
     /// Additional optimization objective configuration. Required for
     /// `maximize-precision-at-recall` and `maximize-recall-at-precision`,
     /// otherwise unused.
-    pub additional_optimization_objective_config: std::option::Option<
-        crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig,
-    >,
+    pub additional_optimization_objective_config: std::option::Option<crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1652,7 +1579,7 @@ impl AutoMlTablesInputs {
     pub fn set_transformations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::auto_ml_tables_inputs::Transformation>,
+        V: std::convert::Into<crate::model::auto_ml_tables_inputs::Transformation>
     {
         use std::iter::Iterator;
         self.transformations = v.into_iter().map(|i| i.into()).collect();
@@ -1660,10 +1587,7 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [optimization_objective][crate::model::AutoMlTablesInputs::optimization_objective].
-    pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.optimization_objective = v.into();
         self
     }
@@ -1681,30 +1605,22 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [weight_column_name][crate::model::AutoMlTablesInputs::weight_column_name].
-    pub fn set_weight_column_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_weight_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.weight_column_name = v.into();
         self
     }
 
     /// Sets the value of [export_evaluated_data_items_config][crate::model::AutoMlTablesInputs::export_evaluated_data_items_config].
     pub fn set_export_evaluated_data_items_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportEvaluatedDataItemsConfig>,
+    where T: std::convert::Into<crate::model::ExportEvaluatedDataItemsConfig>
     {
         self.export_evaluated_data_items_config = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [export_evaluated_data_items_config][crate::model::AutoMlTablesInputs::export_evaluated_data_items_config].
-    pub fn set_or_clear_export_evaluated_data_items_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportEvaluatedDataItemsConfig>,
+    pub fn set_or_clear_export_evaluated_data_items_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::ExportEvaluatedDataItemsConfig>
     {
         self.export_evaluated_data_items_config = v.map(|x| x.into());
         self
@@ -1714,7 +1630,7 @@ impl AutoMlTablesInputs {
     pub fn set_additional_experiments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.additional_experiments = v.into_iter().map(|i| i.into()).collect();
@@ -1725,16 +1641,8 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are mutually
     /// exclusive.
-    pub fn set_additional_optimization_objective_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_additional_optimization_objective_config<T: std::convert::Into<std::option::Option<crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig>>>(mut self, v: T) -> Self
+    {
         self.additional_optimization_objective_config = v.into();
         self
     }
@@ -1755,10 +1663,7 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are
     /// mutually exclusive.
-    pub fn set_optimization_objective_recall_value<T: std::convert::Into<f32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimization_objective_recall_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.additional_optimization_objective_config = std::option::Option::Some(
             crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig::OptimizationObjectiveRecallValue(
                 v.into()
@@ -1783,10 +1688,7 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are
     /// mutually exclusive.
-    pub fn set_optimization_objective_precision_value<T: std::convert::Into<f32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_optimization_objective_precision_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.additional_optimization_objective_config = std::option::Option::Some(
             crate::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig::OptimizationObjectivePrecisionValue(
                 v.into()
@@ -1807,14 +1709,14 @@ pub mod auto_ml_tables_inputs {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Transformation {
+
         /// The transformation that the training pipeline will apply to the input
         /// columns.
-        pub transformation_detail: std::option::Option<
-            crate::model::auto_ml_tables_inputs::transformation::TransformationDetail,
-        >,
+        pub transformation_detail: std::option::Option<crate::model::auto_ml_tables_inputs::transformation::TransformationDetail>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1828,16 +1730,8 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are mutually
         /// exclusive.
-        pub fn set_transformation_detail<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::auto_ml_tables_inputs::transformation::TransformationDetail,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_transformation_detail<T: std::convert::Into<std::option::Option<crate::model::auto_ml_tables_inputs::transformation::TransformationDetail>>>(mut self, v: T) -> Self
+        {
             self.transformation_detail = v.into();
             self
         }
@@ -1845,18 +1739,10 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `Auto`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn auto(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::AutoTransformation,
-            >,
-        > {
+        pub fn auto(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::AutoTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
-                crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Auto(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Auto(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1866,20 +1752,11 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_auto<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::auto_ml_tables_inputs::transformation::AutoTransformation,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_auto<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::AutoTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Auto(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1887,13 +1764,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `Numeric`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn numeric(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::NumericTransformation,
-            >,
-        > {
+        pub fn numeric(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Numeric(v) => std::option::Option::Some(v),
@@ -1906,20 +1777,11 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_numeric<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::auto_ml_tables_inputs::transformation::NumericTransformation,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_numeric<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Numeric(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1927,13 +1789,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `Categorical`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn categorical(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation,
-            >,
-        > {
+        pub fn categorical(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Categorical(v) => std::option::Option::Some(v),
@@ -1946,7 +1802,7 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation>>>(mut self, v: T) -> Self{
+        pub fn set_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Categorical(
                     v.into()
@@ -1958,13 +1814,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `Timestamp`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn timestamp(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation,
-            >,
-        > {
+        pub fn timestamp(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Timestamp(v) => std::option::Option::Some(v),
@@ -1977,7 +1827,7 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_timestamp<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation>>>(mut self, v: T) -> Self{
+        pub fn set_timestamp<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Timestamp(
                     v.into()
@@ -1989,18 +1839,10 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `Text`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn text(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::TextTransformation,
-            >,
-        > {
+        pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
-                crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Text(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Text(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -2010,20 +1852,11 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_text<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::auto_ml_tables_inputs::transformation::TextTransformation,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Text(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -2031,13 +1864,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `RepeatedNumeric`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn repeated_numeric(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation,
-            >,
-        > {
+        pub fn repeated_numeric(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedNumeric(v) => std::option::Option::Some(v),
@@ -2050,7 +1877,7 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_repeated_numeric<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation>>>(mut self, v: T) -> Self{
+        pub fn set_repeated_numeric<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedNumeric(
                     v.into()
@@ -2062,13 +1889,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `RepeatedCategorical`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn repeated_categorical(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation,
-            >,
-        > {
+        pub fn repeated_categorical(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedCategorical(v) => std::option::Option::Some(v),
@@ -2081,7 +1902,7 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_repeated_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation>>>(mut self, v: T) -> Self{
+        pub fn set_repeated_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedCategorical(
                     v.into()
@@ -2093,13 +1914,7 @@ pub mod auto_ml_tables_inputs {
         /// The value of [transformation_detail][crate::model::auto_ml_tables_inputs::Transformation::transformation_detail]
         /// if it holds a `RepeatedText`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn repeated_text(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation,
-            >,
-        > {
+        pub fn repeated_text(&self) -> std::option::Option<&std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation>> {
             #[allow(unreachable_patterns)]
             self.transformation_detail.as_ref().and_then(|v| match v {
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedText(v) => std::option::Option::Some(v),
@@ -2112,7 +1927,7 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
-        pub fn set_repeated_text<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation>>>(mut self, v: T) -> Self{
+        pub fn set_repeated_text<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation>>>(mut self, v: T) -> Self {
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedText(
                     v.into()
@@ -2133,11 +1948,13 @@ pub mod auto_ml_tables_inputs {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Training pipeline will infer the proper transformation based on the
         /// statistic of dataset.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AutoTransformation {
+
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2149,10 +1966,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::AutoTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2178,6 +1992,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NumericTransformation {
+
             pub column_name: std::string::String,
 
             /// If invalid values is allowed, the training pipeline will create a
@@ -2195,10 +2010,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::NumericTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2229,6 +2041,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CategoricalTransformation {
+
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2240,10 +2053,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2266,6 +2076,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TimestampTransformation {
+
             pub column_name: std::string::String,
 
             /// The format in which that time field is expressed. The time_format must
@@ -2297,19 +2108,13 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
 
             /// Sets the value of [time_format][crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation::time_format].
-            pub fn set_time_format<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_time_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.time_format = v.into();
                 self
             }
@@ -2342,6 +2147,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextTransformation {
+
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2353,10 +2159,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TextTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2377,6 +2180,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NumericArrayTransformation {
+
             pub column_name: std::string::String,
 
             /// If invalid values is allowed, the training pipeline will create a
@@ -2394,10 +2198,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2427,6 +2228,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CategoricalArrayTransformation {
+
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2438,10 +2240,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2464,6 +2263,7 @@ pub mod auto_ml_tables_inputs {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct TextArrayTransformation {
+
             pub column_name: std::string::String,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2475,10 +2275,7 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation::column_name].
-            pub fn set_column_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_column_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.column_name = v.into();
                 self
             }
@@ -2525,6 +2322,7 @@ pub mod auto_ml_tables_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTablesMetadata {
+
     /// Output only. The actual training cost of the model, expressed in milli
     /// node hours, i.e. 1,000 value in this field means 1 node hour. Guaranteed
     /// to not exceed the train budget.
@@ -2555,6 +2353,7 @@ impl wkt::message::Message for AutoMlTablesMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextClassification {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlTextClassificationInputs>,
 
@@ -2568,8 +2367,7 @@ impl AutoMlTextClassification {
 
     /// Sets the value of [inputs][crate::model::AutoMlTextClassification::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -2577,8 +2375,7 @@ impl AutoMlTextClassification {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextClassification::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -2594,6 +2391,7 @@ impl wkt::message::Message for AutoMlTextClassification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextClassificationInputs {
+
     pub multi_label: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2621,6 +2419,7 @@ impl wkt::message::Message for AutoMlTextClassificationInputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextExtraction {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlTextExtractionInputs>,
 
@@ -2634,8 +2433,7 @@ impl AutoMlTextExtraction {
 
     /// Sets the value of [inputs][crate::model::AutoMlTextExtraction::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -2643,8 +2441,7 @@ impl AutoMlTextExtraction {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextExtraction::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -2660,6 +2457,7 @@ impl wkt::message::Message for AutoMlTextExtraction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextExtractionInputs {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2679,6 +2477,7 @@ impl wkt::message::Message for AutoMlTextExtractionInputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextSentiment {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlTextSentimentInputs>,
 
@@ -2692,8 +2491,7 @@ impl AutoMlTextSentiment {
 
     /// Sets the value of [inputs][crate::model::AutoMlTextSentiment::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -2701,8 +2499,7 @@ impl AutoMlTextSentiment {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextSentiment::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>,
+    where T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -2718,6 +2515,7 @@ impl wkt::message::Message for AutoMlTextSentiment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlTextSentimentInputs {
+
     /// A sentiment is expressed as an integer ordinal, where higher value
     /// means a more positive sentiment. The range of sentiments that will be used
     /// is between 0 and sentimentMax (inclusive on both ends), and all the values
@@ -2753,6 +2551,7 @@ impl wkt::message::Message for AutoMlTextSentimentInputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoActionRecognition {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlVideoActionRecognitionInputs>,
 
@@ -2766,8 +2565,7 @@ impl AutoMlVideoActionRecognition {
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoActionRecognition::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -2775,8 +2573,7 @@ impl AutoMlVideoActionRecognition {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoActionRecognition::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -2792,6 +2589,7 @@ impl wkt::message::Message for AutoMlVideoActionRecognition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoActionRecognitionInputs {
+
     pub model_type: crate::model::auto_ml_video_action_recognition_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2803,12 +2601,7 @@ impl AutoMlVideoActionRecognitionInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoActionRecognitionInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_video_action_recognition_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_video_action_recognition_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -2824,6 +2617,7 @@ impl wkt::message::Message for AutoMlVideoActionRecognitionInputs {
 pub mod auto_ml_video_action_recognition_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -2899,12 +2693,8 @@ pub mod auto_ml_video_action_recognition_inputs {
                 Self::Unspecified => std::option::Option::Some("MODEL_TYPE_UNSPECIFIED"),
                 Self::Cloud => std::option::Option::Some("CLOUD"),
                 Self::MobileVersatile1 => std::option::Option::Some("MOBILE_VERSATILE_1"),
-                Self::MobileJetsonVersatile1 => {
-                    std::option::Option::Some("MOBILE_JETSON_VERSATILE_1")
-                }
-                Self::MobileCoralVersatile1 => {
-                    std::option::Option::Some("MOBILE_CORAL_VERSATILE_1")
-                }
+                Self::MobileJetsonVersatile1 => std::option::Option::Some("MOBILE_JETSON_VERSATILE_1"),
+                Self::MobileCoralVersatile1 => std::option::Option::Some("MOBILE_CORAL_VERSATILE_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2931,9 +2721,7 @@ pub mod auto_ml_video_action_recognition_inputs {
                 2 => Self::MobileVersatile1,
                 3 => Self::MobileJetsonVersatile1,
                 4 => Self::MobileCoralVersatile1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2947,9 +2735,7 @@ pub mod auto_ml_video_action_recognition_inputs {
                 "MOBILE_VERSATILE_1" => Self::MobileVersatile1,
                 "MOBILE_JETSON_VERSATILE_1" => Self::MobileJetsonVersatile1,
                 "MOBILE_CORAL_VERSATILE_1" => Self::MobileCoralVersatile1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2985,6 +2771,7 @@ pub mod auto_ml_video_action_recognition_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoClassification {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlVideoClassificationInputs>,
 
@@ -2998,8 +2785,7 @@ impl AutoMlVideoClassification {
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoClassification::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -3007,8 +2793,7 @@ impl AutoMlVideoClassification {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoClassification::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -3024,6 +2809,7 @@ impl wkt::message::Message for AutoMlVideoClassification {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoClassificationInputs {
+
     pub model_type: crate::model::auto_ml_video_classification_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3035,12 +2821,7 @@ impl AutoMlVideoClassificationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoClassificationInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_video_classification_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_video_classification_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -3056,6 +2837,7 @@ impl wkt::message::Message for AutoMlVideoClassificationInputs {
 pub mod auto_ml_video_classification_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -3126,9 +2908,7 @@ pub mod auto_ml_video_classification_inputs {
                 Self::Unspecified => std::option::Option::Some("MODEL_TYPE_UNSPECIFIED"),
                 Self::Cloud => std::option::Option::Some("CLOUD"),
                 Self::MobileVersatile1 => std::option::Option::Some("MOBILE_VERSATILE_1"),
-                Self::MobileJetsonVersatile1 => {
-                    std::option::Option::Some("MOBILE_JETSON_VERSATILE_1")
-                }
+                Self::MobileJetsonVersatile1 => std::option::Option::Some("MOBILE_JETSON_VERSATILE_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3154,9 +2934,7 @@ pub mod auto_ml_video_classification_inputs {
                 1 => Self::Cloud,
                 2 => Self::MobileVersatile1,
                 3 => Self::MobileJetsonVersatile1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3169,9 +2947,7 @@ pub mod auto_ml_video_classification_inputs {
                 "CLOUD" => Self::Cloud,
                 "MOBILE_VERSATILE_1" => Self::MobileVersatile1,
                 "MOBILE_JETSON_VERSATILE_1" => Self::MobileJetsonVersatile1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3206,6 +2982,7 @@ pub mod auto_ml_video_classification_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoObjectTracking {
+
     /// The input parameters of this TrainingJob.
     pub inputs: std::option::Option<crate::model::AutoMlVideoObjectTrackingInputs>,
 
@@ -3219,8 +2996,7 @@ impl AutoMlVideoObjectTracking {
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoObjectTracking::inputs].
     pub fn set_inputs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>
     {
         self.inputs = std::option::Option::Some(v.into());
         self
@@ -3228,8 +3004,7 @@ impl AutoMlVideoObjectTracking {
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoObjectTracking::inputs].
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>,
+    where T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>
     {
         self.inputs = v.map(|x| x.into());
         self
@@ -3245,6 +3020,7 @@ impl wkt::message::Message for AutoMlVideoObjectTracking {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoMlVideoObjectTrackingInputs {
+
     pub model_type: crate::model::auto_ml_video_object_tracking_inputs::ModelType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3256,12 +3032,7 @@ impl AutoMlVideoObjectTrackingInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoObjectTrackingInputs::model_type].
-    pub fn set_model_type<
-        T: std::convert::Into<crate::model::auto_ml_video_object_tracking_inputs::ModelType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_type<T: std::convert::Into<crate::model::auto_ml_video_object_tracking_inputs::ModelType>>(mut self, v: T) -> Self {
         self.model_type = v.into();
         self
     }
@@ -3277,6 +3048,7 @@ impl wkt::message::Message for AutoMlVideoObjectTrackingInputs {
 pub mod auto_ml_video_object_tracking_inputs {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -3358,18 +3130,10 @@ pub mod auto_ml_video_object_tracking_inputs {
                 Self::Unspecified => std::option::Option::Some("MODEL_TYPE_UNSPECIFIED"),
                 Self::Cloud => std::option::Option::Some("CLOUD"),
                 Self::MobileVersatile1 => std::option::Option::Some("MOBILE_VERSATILE_1"),
-                Self::MobileCoralVersatile1 => {
-                    std::option::Option::Some("MOBILE_CORAL_VERSATILE_1")
-                }
-                Self::MobileCoralLowLatency1 => {
-                    std::option::Option::Some("MOBILE_CORAL_LOW_LATENCY_1")
-                }
-                Self::MobileJetsonVersatile1 => {
-                    std::option::Option::Some("MOBILE_JETSON_VERSATILE_1")
-                }
-                Self::MobileJetsonLowLatency1 => {
-                    std::option::Option::Some("MOBILE_JETSON_LOW_LATENCY_1")
-                }
+                Self::MobileCoralVersatile1 => std::option::Option::Some("MOBILE_CORAL_VERSATILE_1"),
+                Self::MobileCoralLowLatency1 => std::option::Option::Some("MOBILE_CORAL_LOW_LATENCY_1"),
+                Self::MobileJetsonVersatile1 => std::option::Option::Some("MOBILE_JETSON_VERSATILE_1"),
+                Self::MobileJetsonLowLatency1 => std::option::Option::Some("MOBILE_JETSON_LOW_LATENCY_1"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3398,9 +3162,7 @@ pub mod auto_ml_video_object_tracking_inputs {
                 4 => Self::MobileCoralLowLatency1,
                 5 => Self::MobileJetsonVersatile1,
                 6 => Self::MobileJetsonLowLatency1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3416,9 +3178,7 @@ pub mod auto_ml_video_object_tracking_inputs {
                 "MOBILE_CORAL_LOW_LATENCY_1" => Self::MobileCoralLowLatency1,
                 "MOBILE_JETSON_VERSATILE_1" => Self::MobileJetsonVersatile1,
                 "MOBILE_JETSON_LOW_LATENCY_1" => Self::MobileJetsonLowLatency1,
-                _ => Self::UnknownValue(model_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(model_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3456,6 +3216,7 @@ pub mod auto_ml_video_object_tracking_inputs {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportEvaluatedDataItemsConfig {
+
     /// URI of desired destination BigQuery table. Expected format:
     /// bq://<project_id>:<dataset_id>:\<table\>
     ///
@@ -3478,10 +3239,7 @@ impl ExportEvaluatedDataItemsConfig {
     }
 
     /// Sets the value of [destination_bigquery_uri][crate::model::ExportEvaluatedDataItemsConfig::destination_bigquery_uri].
-    pub fn set_destination_bigquery_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_bigquery_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_bigquery_uri = v.into();
         self
     }

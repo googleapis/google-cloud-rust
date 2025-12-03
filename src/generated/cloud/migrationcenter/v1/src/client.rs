@@ -72,9 +72,7 @@ impl MigrationCenter {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::migration_center::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::migration_center::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::migration_center::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,84 +80,75 @@ impl MigrationCenter {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::MigrationCenter + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::MigrationCenter + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MigrationCenter>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MigrationCenter>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MigrationCenter> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MigrationCenter> {
         super::transport::MigrationCenter::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::MigrationCenter> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::MigrationCenter::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::MigrationCenter> {
+        Self::build_transport(conf).await.map(super::tracing::MigrationCenter::new)
     }
 
     /// Lists all the assets in a given project and location.
-    pub fn list_assets(&self) -> super::builder::migration_center::ListAssets {
+    pub fn list_assets(&self) -> super::builder::migration_center::ListAssets
+    {
         super::builder::migration_center::ListAssets::new(self.inner.clone())
     }
 
     /// Gets the details of an asset.
-    pub fn get_asset(&self) -> super::builder::migration_center::GetAsset {
+    pub fn get_asset(&self) -> super::builder::migration_center::GetAsset
+    {
         super::builder::migration_center::GetAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of an asset.
-    pub fn update_asset(&self) -> super::builder::migration_center::UpdateAsset {
+    pub fn update_asset(&self) -> super::builder::migration_center::UpdateAsset
+    {
         super::builder::migration_center::UpdateAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of a list of assets.
-    pub fn batch_update_assets(&self) -> super::builder::migration_center::BatchUpdateAssets {
+    pub fn batch_update_assets(&self) -> super::builder::migration_center::BatchUpdateAssets
+    {
         super::builder::migration_center::BatchUpdateAssets::new(self.inner.clone())
     }
 
     /// Deletes an asset.
-    pub fn delete_asset(&self) -> super::builder::migration_center::DeleteAsset {
+    pub fn delete_asset(&self) -> super::builder::migration_center::DeleteAsset
+    {
         super::builder::migration_center::DeleteAsset::new(self.inner.clone())
     }
 
     /// Deletes list of Assets.
-    pub fn batch_delete_assets(&self) -> super::builder::migration_center::BatchDeleteAssets {
+    pub fn batch_delete_assets(&self) -> super::builder::migration_center::BatchDeleteAssets
+    {
         super::builder::migration_center::BatchDeleteAssets::new(self.inner.clone())
     }
 
     /// Reports a set of frames.
-    pub fn report_asset_frames(&self) -> super::builder::migration_center::ReportAssetFrames {
+    pub fn report_asset_frames(&self) -> super::builder::migration_center::ReportAssetFrames
+    {
         super::builder::migration_center::ReportAssetFrames::new(self.inner.clone())
     }
 
     /// Aggregates the requested fields based on provided function.
-    pub fn aggregate_assets_values(
-        &self,
-    ) -> super::builder::migration_center::AggregateAssetsValues {
+    pub fn aggregate_assets_values(&self) -> super::builder::migration_center::AggregateAssetsValues
+    {
         super::builder::migration_center::AggregateAssetsValues::new(self.inner.clone())
     }
 
@@ -174,17 +163,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_import_job(&self) -> super::builder::migration_center::CreateImportJob {
+    pub fn create_import_job(&self) -> super::builder::migration_center::CreateImportJob
+    {
         super::builder::migration_center::CreateImportJob::new(self.inner.clone())
     }
 
     /// Lists all import jobs.
-    pub fn list_import_jobs(&self) -> super::builder::migration_center::ListImportJobs {
+    pub fn list_import_jobs(&self) -> super::builder::migration_center::ListImportJobs
+    {
         super::builder::migration_center::ListImportJobs::new(self.inner.clone())
     }
 
     /// Gets the details of an import job.
-    pub fn get_import_job(&self) -> super::builder::migration_center::GetImportJob {
+    pub fn get_import_job(&self) -> super::builder::migration_center::GetImportJob
+    {
         super::builder::migration_center::GetImportJob::new(self.inner.clone())
     }
 
@@ -199,7 +191,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_import_job(&self) -> super::builder::migration_center::DeleteImportJob {
+    pub fn delete_import_job(&self) -> super::builder::migration_center::DeleteImportJob
+    {
         super::builder::migration_center::DeleteImportJob::new(self.inner.clone())
     }
 
@@ -214,7 +207,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_import_job(&self) -> super::builder::migration_center::UpdateImportJob {
+    pub fn update_import_job(&self) -> super::builder::migration_center::UpdateImportJob
+    {
         super::builder::migration_center::UpdateImportJob::new(self.inner.clone())
     }
 
@@ -229,7 +223,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn validate_import_job(&self) -> super::builder::migration_center::ValidateImportJob {
+    pub fn validate_import_job(&self) -> super::builder::migration_center::ValidateImportJob
+    {
         super::builder::migration_center::ValidateImportJob::new(self.inner.clone())
     }
 
@@ -244,17 +239,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_import_job(&self) -> super::builder::migration_center::RunImportJob {
+    pub fn run_import_job(&self) -> super::builder::migration_center::RunImportJob
+    {
         super::builder::migration_center::RunImportJob::new(self.inner.clone())
     }
 
     /// Gets an import data file.
-    pub fn get_import_data_file(&self) -> super::builder::migration_center::GetImportDataFile {
+    pub fn get_import_data_file(&self) -> super::builder::migration_center::GetImportDataFile
+    {
         super::builder::migration_center::GetImportDataFile::new(self.inner.clone())
     }
 
     /// List import data files.
-    pub fn list_import_data_files(&self) -> super::builder::migration_center::ListImportDataFiles {
+    pub fn list_import_data_files(&self) -> super::builder::migration_center::ListImportDataFiles
+    {
         super::builder::migration_center::ListImportDataFiles::new(self.inner.clone())
     }
 
@@ -269,9 +267,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_import_data_file(
-        &self,
-    ) -> super::builder::migration_center::CreateImportDataFile {
+    pub fn create_import_data_file(&self) -> super::builder::migration_center::CreateImportDataFile
+    {
         super::builder::migration_center::CreateImportDataFile::new(self.inner.clone())
     }
 
@@ -286,19 +283,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_import_data_file(
-        &self,
-    ) -> super::builder::migration_center::DeleteImportDataFile {
+    pub fn delete_import_data_file(&self) -> super::builder::migration_center::DeleteImportDataFile
+    {
         super::builder::migration_center::DeleteImportDataFile::new(self.inner.clone())
     }
 
     /// Lists all groups in a given project and location.
-    pub fn list_groups(&self) -> super::builder::migration_center::ListGroups {
+    pub fn list_groups(&self) -> super::builder::migration_center::ListGroups
+    {
         super::builder::migration_center::ListGroups::new(self.inner.clone())
     }
 
     /// Gets the details of a group.
-    pub fn get_group(&self) -> super::builder::migration_center::GetGroup {
+    pub fn get_group(&self) -> super::builder::migration_center::GetGroup
+    {
         super::builder::migration_center::GetGroup::new(self.inner.clone())
     }
 
@@ -313,7 +311,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_group(&self) -> super::builder::migration_center::CreateGroup {
+    pub fn create_group(&self) -> super::builder::migration_center::CreateGroup
+    {
         super::builder::migration_center::CreateGroup::new(self.inner.clone())
     }
 
@@ -328,7 +327,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_group(&self) -> super::builder::migration_center::UpdateGroup {
+    pub fn update_group(&self) -> super::builder::migration_center::UpdateGroup
+    {
         super::builder::migration_center::UpdateGroup::new(self.inner.clone())
     }
 
@@ -343,7 +343,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_group(&self) -> super::builder::migration_center::DeleteGroup {
+    pub fn delete_group(&self) -> super::builder::migration_center::DeleteGroup
+    {
         super::builder::migration_center::DeleteGroup::new(self.inner.clone())
     }
 
@@ -358,7 +359,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_assets_to_group(&self) -> super::builder::migration_center::AddAssetsToGroup {
+    pub fn add_assets_to_group(&self) -> super::builder::migration_center::AddAssetsToGroup
+    {
         super::builder::migration_center::AddAssetsToGroup::new(self.inner.clone())
     }
 
@@ -373,29 +375,32 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_assets_from_group(
-        &self,
-    ) -> super::builder::migration_center::RemoveAssetsFromGroup {
+    pub fn remove_assets_from_group(&self) -> super::builder::migration_center::RemoveAssetsFromGroup
+    {
         super::builder::migration_center::RemoveAssetsFromGroup::new(self.inner.clone())
     }
 
     /// Lists all error frames in a given source and location.
-    pub fn list_error_frames(&self) -> super::builder::migration_center::ListErrorFrames {
+    pub fn list_error_frames(&self) -> super::builder::migration_center::ListErrorFrames
+    {
         super::builder::migration_center::ListErrorFrames::new(self.inner.clone())
     }
 
     /// Gets the details of an error frame.
-    pub fn get_error_frame(&self) -> super::builder::migration_center::GetErrorFrame {
+    pub fn get_error_frame(&self) -> super::builder::migration_center::GetErrorFrame
+    {
         super::builder::migration_center::GetErrorFrame::new(self.inner.clone())
     }
 
     /// Lists all the sources in a given project and location.
-    pub fn list_sources(&self) -> super::builder::migration_center::ListSources {
+    pub fn list_sources(&self) -> super::builder::migration_center::ListSources
+    {
         super::builder::migration_center::ListSources::new(self.inner.clone())
     }
 
     /// Gets the details of a source.
-    pub fn get_source(&self) -> super::builder::migration_center::GetSource {
+    pub fn get_source(&self) -> super::builder::migration_center::GetSource
+    {
         super::builder::migration_center::GetSource::new(self.inner.clone())
     }
 
@@ -410,7 +415,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_source(&self) -> super::builder::migration_center::CreateSource {
+    pub fn create_source(&self) -> super::builder::migration_center::CreateSource
+    {
         super::builder::migration_center::CreateSource::new(self.inner.clone())
     }
 
@@ -425,7 +431,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_source(&self) -> super::builder::migration_center::UpdateSource {
+    pub fn update_source(&self) -> super::builder::migration_center::UpdateSource
+    {
         super::builder::migration_center::UpdateSource::new(self.inner.clone())
     }
 
@@ -440,17 +447,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_source(&self) -> super::builder::migration_center::DeleteSource {
+    pub fn delete_source(&self) -> super::builder::migration_center::DeleteSource
+    {
         super::builder::migration_center::DeleteSource::new(self.inner.clone())
     }
 
     /// Lists all the preference sets in a given project and location.
-    pub fn list_preference_sets(&self) -> super::builder::migration_center::ListPreferenceSets {
+    pub fn list_preference_sets(&self) -> super::builder::migration_center::ListPreferenceSets
+    {
         super::builder::migration_center::ListPreferenceSets::new(self.inner.clone())
     }
 
     /// Gets the details of a preference set.
-    pub fn get_preference_set(&self) -> super::builder::migration_center::GetPreferenceSet {
+    pub fn get_preference_set(&self) -> super::builder::migration_center::GetPreferenceSet
+    {
         super::builder::migration_center::GetPreferenceSet::new(self.inner.clone())
     }
 
@@ -465,7 +475,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_preference_set(&self) -> super::builder::migration_center::CreatePreferenceSet {
+    pub fn create_preference_set(&self) -> super::builder::migration_center::CreatePreferenceSet
+    {
         super::builder::migration_center::CreatePreferenceSet::new(self.inner.clone())
     }
 
@@ -480,7 +491,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_preference_set(&self) -> super::builder::migration_center::UpdatePreferenceSet {
+    pub fn update_preference_set(&self) -> super::builder::migration_center::UpdatePreferenceSet
+    {
         super::builder::migration_center::UpdatePreferenceSet::new(self.inner.clone())
     }
 
@@ -495,12 +507,14 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_preference_set(&self) -> super::builder::migration_center::DeletePreferenceSet {
+    pub fn delete_preference_set(&self) -> super::builder::migration_center::DeletePreferenceSet
+    {
         super::builder::migration_center::DeletePreferenceSet::new(self.inner.clone())
     }
 
     /// Gets the details of regional settings.
-    pub fn get_settings(&self) -> super::builder::migration_center::GetSettings {
+    pub fn get_settings(&self) -> super::builder::migration_center::GetSettings
+    {
         super::builder::migration_center::GetSettings::new(self.inner.clone())
     }
 
@@ -515,7 +529,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_settings(&self) -> super::builder::migration_center::UpdateSettings {
+    pub fn update_settings(&self) -> super::builder::migration_center::UpdateSettings
+    {
         super::builder::migration_center::UpdateSettings::new(self.inner.clone())
     }
 
@@ -530,17 +545,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_report_config(&self) -> super::builder::migration_center::CreateReportConfig {
+    pub fn create_report_config(&self) -> super::builder::migration_center::CreateReportConfig
+    {
         super::builder::migration_center::CreateReportConfig::new(self.inner.clone())
     }
 
     /// Gets details of a single ReportConfig.
-    pub fn get_report_config(&self) -> super::builder::migration_center::GetReportConfig {
+    pub fn get_report_config(&self) -> super::builder::migration_center::GetReportConfig
+    {
         super::builder::migration_center::GetReportConfig::new(self.inner.clone())
     }
 
     /// Lists ReportConfigs in a given project and location.
-    pub fn list_report_configs(&self) -> super::builder::migration_center::ListReportConfigs {
+    pub fn list_report_configs(&self) -> super::builder::migration_center::ListReportConfigs
+    {
         super::builder::migration_center::ListReportConfigs::new(self.inner.clone())
     }
 
@@ -555,7 +573,8 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_report_config(&self) -> super::builder::migration_center::DeleteReportConfig {
+    pub fn delete_report_config(&self) -> super::builder::migration_center::DeleteReportConfig
+    {
         super::builder::migration_center::DeleteReportConfig::new(self.inner.clone())
     }
 
@@ -570,17 +589,20 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_report(&self) -> super::builder::migration_center::CreateReport {
+    pub fn create_report(&self) -> super::builder::migration_center::CreateReport
+    {
         super::builder::migration_center::CreateReport::new(self.inner.clone())
     }
 
     /// Gets details of a single Report.
-    pub fn get_report(&self) -> super::builder::migration_center::GetReport {
+    pub fn get_report(&self) -> super::builder::migration_center::GetReport
+    {
         super::builder::migration_center::GetReport::new(self.inner.clone())
     }
 
     /// Lists Reports in a given ReportConfig.
-    pub fn list_reports(&self) -> super::builder::migration_center::ListReports {
+    pub fn list_reports(&self) -> super::builder::migration_center::ListReports
+    {
         super::builder::migration_center::ListReports::new(self.inner.clone())
     }
 
@@ -595,45 +617,52 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_report(&self) -> super::builder::migration_center::DeleteReport {
+    pub fn delete_report(&self) -> super::builder::migration_center::DeleteReport
+    {
         super::builder::migration_center::DeleteReport::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::migration_center::ListLocations {
+    pub fn list_locations(&self) -> super::builder::migration_center::ListLocations
+    {
         super::builder::migration_center::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::migration_center::GetLocation {
+    pub fn get_location(&self) -> super::builder::migration_center::GetLocation
+    {
         super::builder::migration_center::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::migration_center::ListOperations {
+    pub fn list_operations(&self) -> super::builder::migration_center::ListOperations
+    {
         super::builder::migration_center::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::migration_center::GetOperation {
+    pub fn get_operation(&self) -> super::builder::migration_center::GetOperation
+    {
         super::builder::migration_center::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::migration_center::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::migration_center::DeleteOperation
+    {
         super::builder::migration_center::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::migration_center::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::migration_center::CancelOperation
+    {
         super::builder::migration_center::CancelOperation::new(self.inner.clone())
     }
 }

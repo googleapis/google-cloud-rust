@@ -82,6 +82,7 @@ pub trait Firestore: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Document>>;
+
 }
 
 /// All implementations of [super::Firestore] also implement [Firestore].
@@ -185,4 +186,5 @@ impl<T: super::Firestore> Firestore for T {
     ) -> crate::Result<gax::response::Response<crate::model::Document>> {
         T::create_document(self, req, options).await
     }
+
 }

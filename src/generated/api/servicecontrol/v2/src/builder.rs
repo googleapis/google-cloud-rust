@@ -39,10 +39,7 @@ pub mod service_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod service_controller {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,10 +85,10 @@ pub mod service_controller {
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -112,10 +105,7 @@ pub mod service_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckResponse> {
-            (*self.0.stub)
-                .check(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).check(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
@@ -132,8 +122,7 @@ pub mod service_controller {
 
         /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
         pub fn set_attributes<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        where T: std::convert::Into<rpc_context::model::AttributeContext>
         {
             self.0.request.attributes = std::option::Option::Some(v.into());
             self
@@ -141,8 +130,7 @@ pub mod service_controller {
 
         /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        where T: std::convert::Into<rpc_context::model::AttributeContext>
         {
             self.0.request.attributes = v.map(|x| x.into());
             self
@@ -152,7 +140,7 @@ pub mod service_controller {
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ResourceInfo>,
+            V: std::convert::Into<crate::model::ResourceInfo>
         {
             use std::iter::Iterator;
             self.0.request.resources = v.into_iter().map(|i| i.into()).collect();
@@ -194,10 +182,10 @@ pub mod service_controller {
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -214,10 +202,7 @@ pub mod service_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReportResponse> {
-            (*self.0.stub)
-                .report(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).report(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
@@ -236,7 +221,7 @@ pub mod service_controller {
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<rpc_context::model::AttributeContext>,
+            V: std::convert::Into<rpc_context::model::AttributeContext>
         {
             use std::iter::Iterator;
             self.0.request.operations = v.into_iter().map(|i| i.into()).collect();
@@ -250,4 +235,5 @@ pub mod service_controller {
             &mut self.0.options
         }
     }
+
 }

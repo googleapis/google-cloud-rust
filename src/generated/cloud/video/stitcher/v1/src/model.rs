@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveAdTagDetail {
+
     /// The resource name in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{id}`.
     pub name: std::string::String,
@@ -67,7 +68,7 @@ impl LiveAdTagDetail {
     pub fn set_ad_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdRequest>,
+        V: std::convert::Into<crate::model::AdRequest>
     {
         use std::iter::Iterator;
         self.ad_requests = v.into_iter().map(|i| i.into()).collect();
@@ -87,6 +88,7 @@ impl wkt::message::Message for LiveAdTagDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodAdTagDetail {
+
     /// The name of the ad tag detail for the specified VOD session, in the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{id}`.
     pub name: std::string::String,
@@ -112,7 +114,7 @@ impl VodAdTagDetail {
     pub fn set_ad_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdRequest>,
+        V: std::convert::Into<crate::model::AdRequest>
     {
         use std::iter::Iterator;
         self.ad_requests = v.into_iter().map(|i| i.into()).collect();
@@ -130,6 +132,7 @@ impl wkt::message::Message for VodAdTagDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdRequest {
+
     /// The ad tag URI processed with integrated macros.
     pub uri: std::string::String,
 
@@ -155,8 +158,7 @@ impl AdRequest {
 
     /// Sets the value of [request_metadata][crate::model::AdRequest::request_metadata].
     pub fn set_request_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RequestMetadata>,
+    where T: std::convert::Into<crate::model::RequestMetadata>
     {
         self.request_metadata = std::option::Option::Some(v.into());
         self
@@ -164,8 +166,7 @@ impl AdRequest {
 
     /// Sets or clears the value of [request_metadata][crate::model::AdRequest::request_metadata].
     pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RequestMetadata>,
+    where T: std::convert::Into<crate::model::RequestMetadata>
     {
         self.request_metadata = v.map(|x| x.into());
         self
@@ -173,8 +174,7 @@ impl AdRequest {
 
     /// Sets the value of [response_metadata][crate::model::AdRequest::response_metadata].
     pub fn set_response_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.response_metadata = std::option::Option::Some(v.into());
         self
@@ -182,8 +182,7 @@ impl AdRequest {
 
     /// Sets or clears the value of [response_metadata][crate::model::AdRequest::response_metadata].
     pub fn set_or_clear_response_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResponseMetadata>,
+    where T: std::convert::Into<crate::model::ResponseMetadata>
     {
         self.response_metadata = v.map(|x| x.into());
         self
@@ -200,6 +199,7 @@ impl wkt::message::Message for AdRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RequestMetadata {
+
     /// The HTTP headers of the ad request.
     pub headers: std::option::Option<wkt::Struct>,
 
@@ -213,8 +213,7 @@ impl RequestMetadata {
 
     /// Sets the value of [headers][crate::model::RequestMetadata::headers].
     pub fn set_headers<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.headers = std::option::Option::Some(v.into());
         self
@@ -222,8 +221,7 @@ impl RequestMetadata {
 
     /// Sets or clears the value of [headers][crate::model::RequestMetadata::headers].
     pub fn set_or_clear_headers<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.headers = v.map(|x| x.into());
         self
@@ -240,6 +238,7 @@ impl wkt::message::Message for RequestMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResponseMetadata {
+
     /// Error message received when making the ad request.
     pub error: std::string::String,
 
@@ -274,8 +273,7 @@ impl ResponseMetadata {
 
     /// Sets the value of [headers][crate::model::ResponseMetadata::headers].
     pub fn set_headers<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.headers = std::option::Option::Some(v.into());
         self
@@ -283,8 +281,7 @@ impl ResponseMetadata {
 
     /// Sets or clears the value of [headers][crate::model::ResponseMetadata::headers].
     pub fn set_or_clear_headers<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.headers = v.map(|x| x.into());
         self
@@ -304,8 +301,7 @@ impl ResponseMetadata {
 
     /// Sets the value of [duration][crate::model::ResponseMetadata::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -313,8 +309,7 @@ impl ResponseMetadata {
 
     /// Sets or clears the value of [duration][crate::model::ResponseMetadata::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -339,6 +334,7 @@ impl wkt::message::Message for ResponseMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CdnKey {
+
     /// The resource name of the CDN key, in the form of
     /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
     /// The name is ignored when creating a CDN key.
@@ -374,12 +370,8 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are mutually
     /// exclusive.
-    pub fn set_cdn_key_config<
-        T: std::convert::Into<std::option::Option<crate::model::cdn_key::CdnKeyConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cdn_key_config<T: std::convert::Into<std::option::Option<crate::model::cdn_key::CdnKeyConfig>>>(mut self, v: T) -> Self
+    {
         self.cdn_key_config = v.into();
         self
     }
@@ -387,9 +379,7 @@ impl CdnKey {
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `GoogleCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn google_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleCdnKey>> {
+    pub fn google_cdn_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::GoogleCdnKey>> {
         #[allow(unreachable_patterns)]
         self.cdn_key_config.as_ref().and_then(|v| match v {
             crate::model::cdn_key::CdnKeyConfig::GoogleCdnKey(v) => std::option::Option::Some(v),
@@ -402,23 +392,19 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
-    pub fn set_google_cdn_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::GoogleCdnKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::GoogleCdnKey(v.into()));
+    pub fn set_google_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::GoogleCdnKey>>>(mut self, v: T) -> Self {
+        self.cdn_key_config = std::option::Option::Some(
+            crate::model::cdn_key::CdnKeyConfig::GoogleCdnKey(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `AkamaiCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn akamai_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
+    pub fn akamai_cdn_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::AkamaiCdnKey>> {
         #[allow(unreachable_patterns)]
         self.cdn_key_config.as_ref().and_then(|v| match v {
             crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v) => std::option::Option::Some(v),
@@ -431,23 +417,19 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
-    pub fn set_akamai_cdn_key<
-        T: std::convert::Into<std::boxed::Box<crate::model::AkamaiCdnKey>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(v.into()));
+    pub fn set_akamai_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::AkamaiCdnKey>>>(mut self, v: T) -> Self {
+        self.cdn_key_config = std::option::Option::Some(
+            crate::model::cdn_key::CdnKeyConfig::AkamaiCdnKey(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [cdn_key_config][crate::model::CdnKey::cdn_key_config]
     /// if it holds a `MediaCdnKey`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn media_cdn_key(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
+    pub fn media_cdn_key(&self) -> std::option::Option<&std::boxed::Box<crate::model::MediaCdnKey>> {
         #[allow(unreachable_patterns)]
         self.cdn_key_config.as_ref().and_then(|v| match v {
             crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v) => std::option::Option::Some(v),
@@ -460,12 +442,12 @@ impl CdnKey {
     ///
     /// Note that all the setters affecting `cdn_key_config` are
     /// mutually exclusive.
-    pub fn set_media_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::MediaCdnKey>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cdn_key_config =
-            std::option::Option::Some(crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(v.into()));
+    pub fn set_media_cdn_key<T: std::convert::Into<std::boxed::Box<crate::model::MediaCdnKey>>>(mut self, v: T) -> Self {
+        self.cdn_key_config = std::option::Option::Some(
+            crate::model::cdn_key::CdnKeyConfig::MediaCdnKey(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -480,6 +462,7 @@ impl wkt::message::Message for CdnKey {
 pub mod cdn_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Configuration associated with the CDN key.
     #[derive(Clone, Debug, PartialEq)]
@@ -498,6 +481,7 @@ pub mod cdn_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleCdnKey {
+
     /// Input only. Secret for this Google Cloud CDN key.
     pub private_key: ::bytes::Bytes,
 
@@ -535,6 +519,7 @@ impl wkt::message::Message for GoogleCdnKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AkamaiCdnKey {
+
     /// Input only. Token key for the Akamai CDN edge configuration.
     pub token_key: ::bytes::Bytes,
 
@@ -563,6 +548,7 @@ impl wkt::message::Message for AkamaiCdnKey {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MediaCdnKey {
+
     /// Input only. 64-byte ed25519 private key for this Media CDN key.
     pub private_key: ::bytes::Bytes,
 
@@ -595,8 +581,7 @@ impl MediaCdnKey {
 
     /// Sets the value of [token_config][crate::model::MediaCdnKey::token_config].
     pub fn set_token_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>,
+    where T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>
     {
         self.token_config = std::option::Option::Some(v.into());
         self
@@ -604,8 +589,7 @@ impl MediaCdnKey {
 
     /// Sets or clears the value of [token_config][crate::model::MediaCdnKey::token_config].
     pub fn set_or_clear_token_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>,
+    where T: std::convert::Into<crate::model::media_cdn_key::TokenConfig>
     {
         self.token_config = v.map(|x| x.into());
         self
@@ -623,10 +607,12 @@ pub mod media_cdn_key {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for a Media CDN token.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TokenConfig {
+
         /// Optional. The query parameter in which to find the token.
         ///
         /// The name must be 1-64 characters long and match
@@ -646,10 +632,7 @@ pub mod media_cdn_key {
         }
 
         /// Sets the value of [query_parameter][crate::model::media_cdn_key::TokenConfig::query_parameter].
-        pub fn set_query_parameter<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_query_parameter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query_parameter = v.into();
             self
         }
@@ -666,6 +649,7 @@ pub mod media_cdn_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompanionAds {
+
     /// Indicates how many of the companions should be displayed with the ad.
     pub display_requirement: crate::model::companion_ads::DisplayRequirement,
 
@@ -681,12 +665,7 @@ impl CompanionAds {
     }
 
     /// Sets the value of [display_requirement][crate::model::CompanionAds::display_requirement].
-    pub fn set_display_requirement<
-        T: std::convert::Into<crate::model::companion_ads::DisplayRequirement>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_display_requirement<T: std::convert::Into<crate::model::companion_ads::DisplayRequirement>>(mut self, v: T) -> Self {
         self.display_requirement = v.into();
         self
     }
@@ -695,7 +674,7 @@ impl CompanionAds {
     pub fn set_companions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Companion>,
+        V: std::convert::Into<crate::model::Companion>
     {
         use std::iter::Iterator;
         self.companions = v.into_iter().map(|i| i.into()).collect();
@@ -713,6 +692,7 @@ impl wkt::message::Message for CompanionAds {
 pub mod companion_ads {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates how many of the companions should be displayed with the ad.
     ///
@@ -805,9 +785,7 @@ pub mod companion_ads {
                 1 => Self::All,
                 2 => Self::Any,
                 3 => Self::None,
-                _ => Self::UnknownValue(display_requirement::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(display_requirement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -820,9 +798,7 @@ pub mod companion_ads {
                 "ALL" => Self::All,
                 "ANY" => Self::Any,
                 "NONE" => Self::None,
-                _ => Self::UnknownValue(display_requirement::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(display_requirement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -848,8 +824,7 @@ pub mod companion_ads {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisplayRequirement>::new(
-                ".google.cloud.video.stitcher.v1.CompanionAds.DisplayRequirement",
-            ))
+                ".google.cloud.video.stitcher.v1.CompanionAds.DisplayRequirement"))
         }
     }
 }
@@ -858,6 +833,7 @@ pub mod companion_ads {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Companion {
+
     /// The API necessary to communicate with the creative if available.
     pub api_framework: std::string::String,
 
@@ -950,7 +926,7 @@ impl Companion {
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Event>,
+        V: std::convert::Into<crate::model::Event>
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
@@ -961,12 +937,8 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are mutually
     /// exclusive.
-    pub fn set_ad_resource<
-        T: std::convert::Into<std::option::Option<crate::model::companion::AdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ad_resource<T: std::convert::Into<std::option::Option<crate::model::companion::AdResource>>>(mut self, v: T) -> Self
+    {
         self.ad_resource = v.into();
         self
     }
@@ -974,14 +946,10 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `IframeAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn iframe_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::IframeAdResource>> {
+    pub fn iframe_ad_resource(&self) -> std::option::Option<&std::boxed::Box<crate::model::IframeAdResource>> {
         #[allow(unreachable_patterns)]
         self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::IframeAdResource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::companion::AdResource::IframeAdResource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -991,14 +959,11 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
-    pub fn set_iframe_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::IframeAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_iframe_ad_resource<T: std::convert::Into<std::boxed::Box<crate::model::IframeAdResource>>>(mut self, v: T) -> Self {
         self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::IframeAdResource(v.into()),
+            crate::model::companion::AdResource::IframeAdResource(
+                v.into()
+            )
         );
         self
     }
@@ -1006,14 +971,10 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `StaticAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn static_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
+    pub fn static_ad_resource(&self) -> std::option::Option<&std::boxed::Box<crate::model::StaticAdResource>> {
         #[allow(unreachable_patterns)]
         self.ad_resource.as_ref().and_then(|v| match v {
-            crate::model::companion::AdResource::StaticAdResource(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::companion::AdResource::StaticAdResource(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1023,14 +984,11 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
-    pub fn set_static_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::StaticAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_static_ad_resource<T: std::convert::Into<std::boxed::Box<crate::model::StaticAdResource>>>(mut self, v: T) -> Self {
         self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::StaticAdResource(v.into()),
+            crate::model::companion::AdResource::StaticAdResource(
+                v.into()
+            )
         );
         self
     }
@@ -1038,9 +996,7 @@ impl Companion {
     /// The value of [ad_resource][crate::model::Companion::ad_resource]
     /// if it holds a `HtmlAdResource`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn html_ad_resource(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
+    pub fn html_ad_resource(&self) -> std::option::Option<&std::boxed::Box<crate::model::HtmlAdResource>> {
         #[allow(unreachable_patterns)]
         self.ad_resource.as_ref().and_then(|v| match v {
             crate::model::companion::AdResource::HtmlAdResource(v) => std::option::Option::Some(v),
@@ -1053,14 +1009,11 @@ impl Companion {
     ///
     /// Note that all the setters affecting `ad_resource` are
     /// mutually exclusive.
-    pub fn set_html_ad_resource<
-        T: std::convert::Into<std::boxed::Box<crate::model::HtmlAdResource>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_html_ad_resource<T: std::convert::Into<std::boxed::Box<crate::model::HtmlAdResource>>>(mut self, v: T) -> Self {
         self.ad_resource = std::option::Option::Some(
-            crate::model::companion::AdResource::HtmlAdResource(v.into()),
+            crate::model::companion::AdResource::HtmlAdResource(
+                v.into()
+            )
         );
         self
     }
@@ -1076,6 +1029,7 @@ impl wkt::message::Message for Companion {
 pub mod companion {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Ad resource associated with the companion ad.
     #[derive(Clone, Debug, PartialEq)]
@@ -1094,6 +1048,7 @@ pub mod companion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HtmlAdResource {
+
     /// The HTML to display for the ad resource.
     pub html_source: std::string::String,
 
@@ -1122,6 +1077,7 @@ impl wkt::message::Message for HtmlAdResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IframeAdResource {
+
     /// URI source for an IFrame to display for the ad resource.
     pub uri: std::string::String,
 
@@ -1150,6 +1106,7 @@ impl wkt::message::Message for IframeAdResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StaticAdResource {
+
     /// URI to the static file for the ad resource.
     pub uri: std::string::String,
 
@@ -1187,6 +1144,7 @@ impl wkt::message::Message for StaticAdResource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Event {
+
     /// Describes the event that occurred.
     pub r#type: crate::model::event::EventType,
 
@@ -1227,8 +1185,7 @@ impl Event {
 
     /// Sets the value of [offset][crate::model::Event::offset].
     pub fn set_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.offset = std::option::Option::Some(v.into());
         self
@@ -1236,8 +1193,7 @@ impl Event {
 
     /// Sets or clears the value of [offset][crate::model::Event::offset].
     pub fn set_or_clear_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.offset = v.map(|x| x.into());
         self
@@ -1254,6 +1210,7 @@ impl wkt::message::Message for Event {
 pub mod event {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Describes the event that occurred.
     ///
@@ -1451,9 +1408,7 @@ pub mod event {
                 25 => Self::CloseLinear,
                 26 => Self::Skip,
                 27 => Self::AcceptInvitation,
-                _ => Self::UnknownValue(event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1487,9 +1442,7 @@ pub mod event {
                 "CLOSE_LINEAR" => Self::CloseLinear,
                 "SKIP" => Self::Skip,
                 "ACCEPT_INVITATION" => Self::AcceptInvitation,
-                _ => Self::UnknownValue(event_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(event_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1536,8 +1489,7 @@ pub mod event {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
-                ".google.cloud.video.stitcher.v1.Event.EventType",
-            ))
+                ".google.cloud.video.stitcher.v1.Event.EventType"))
         }
     }
 }
@@ -1547,6 +1499,7 @@ pub mod event {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProgressEvent {
+
     /// The time when the following tracking events occurs. The time is in
     /// seconds relative to the start of the VOD asset.
     pub time_offset: std::option::Option<wkt::Duration>,
@@ -1567,8 +1520,7 @@ impl ProgressEvent {
 
     /// Sets the value of [time_offset][crate::model::ProgressEvent::time_offset].
     pub fn set_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = std::option::Option::Some(v.into());
         self
@@ -1576,8 +1528,7 @@ impl ProgressEvent {
 
     /// Sets or clears the value of [time_offset][crate::model::ProgressEvent::time_offset].
     pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.time_offset = v.map(|x| x.into());
         self
@@ -1587,7 +1538,7 @@ impl ProgressEvent {
     pub fn set_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Event>,
+        V: std::convert::Into<crate::model::Event>
     {
         use std::iter::Iterator;
         self.events = v.into_iter().map(|i| i.into()).collect();
@@ -1605,11 +1556,12 @@ impl wkt::message::Message for ProgressEvent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchOptions {
+
     /// Custom headers to pass into fetch request.
     /// Headers must have a maximum of 3 key value pairs.
     /// Each key value pair must have a maximum of 256 characters per key and 256
     /// characters per value.
-    pub headers: std::collections::HashMap<std::string::String, std::string::String>,
+    pub headers: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1642,6 +1594,7 @@ impl wkt::message::Message for FetchOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveConfig {
+
     /// Output only. The resource name of the live config, in the form of
     /// `projects/{project}/locations/{location}/liveConfigs/{id}`.
     pub name: std::string::String,
@@ -1706,8 +1659,7 @@ impl LiveConfig {
 
     /// Sets the value of [gam_live_config][crate::model::LiveConfig::gam_live_config].
     pub fn set_gam_live_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GamLiveConfig>,
+    where T: std::convert::Into<crate::model::GamLiveConfig>
     {
         self.gam_live_config = std::option::Option::Some(v.into());
         self
@@ -1715,27 +1667,20 @@ impl LiveConfig {
 
     /// Sets or clears the value of [gam_live_config][crate::model::LiveConfig::gam_live_config].
     pub fn set_or_clear_gam_live_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GamLiveConfig>,
+    where T: std::convert::Into<crate::model::GamLiveConfig>
     {
         self.gam_live_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::LiveConfig::state].
-    pub fn set_state<T: std::convert::Into<crate::model::live_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::live_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [ad_tracking][crate::model::LiveConfig::ad_tracking].
-    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(mut self, v: T) -> Self {
         self.ad_tracking = v.into();
         self
     }
@@ -1747,20 +1692,14 @@ impl LiveConfig {
     }
 
     /// Sets the value of [stitching_policy][crate::model::LiveConfig::stitching_policy].
-    pub fn set_stitching_policy<
-        T: std::convert::Into<crate::model::live_config::StitchingPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_stitching_policy<T: std::convert::Into<crate::model::live_config::StitchingPolicy>>(mut self, v: T) -> Self {
         self.stitching_policy = v.into();
         self
     }
 
     /// Sets the value of [prefetch_config][crate::model::LiveConfig::prefetch_config].
     pub fn set_prefetch_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrefetchConfig>,
+    where T: std::convert::Into<crate::model::PrefetchConfig>
     {
         self.prefetch_config = std::option::Option::Some(v.into());
         self
@@ -1768,8 +1707,7 @@ impl LiveConfig {
 
     /// Sets or clears the value of [prefetch_config][crate::model::LiveConfig::prefetch_config].
     pub fn set_or_clear_prefetch_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrefetchConfig>,
+    where T: std::convert::Into<crate::model::PrefetchConfig>
     {
         self.prefetch_config = v.map(|x| x.into());
         self
@@ -1777,8 +1715,7 @@ impl LiveConfig {
 
     /// Sets the value of [source_fetch_options][crate::model::LiveConfig::source_fetch_options].
     pub fn set_source_fetch_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FetchOptions>,
+    where T: std::convert::Into<crate::model::FetchOptions>
     {
         self.source_fetch_options = std::option::Option::Some(v.into());
         self
@@ -1786,8 +1723,7 @@ impl LiveConfig {
 
     /// Sets or clears the value of [source_fetch_options][crate::model::LiveConfig::source_fetch_options].
     pub fn set_or_clear_source_fetch_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FetchOptions>,
+    where T: std::convert::Into<crate::model::FetchOptions>
     {
         self.source_fetch_options = v.map(|x| x.into());
         self
@@ -1804,6 +1740,7 @@ impl wkt::message::Message for LiveConfig {
 pub mod live_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the live config.
     ///
@@ -1896,9 +1833,7 @@ pub mod live_config {
                 1 => Self::Creating,
                 2 => Self::Ready,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1911,9 +1846,7 @@ pub mod live_config {
                 "CREATING" => Self::Creating,
                 "READY" => Self::Ready,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1939,8 +1872,7 @@ pub mod live_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.video.stitcher.v1.LiveConfig.State",
-            ))
+                ".google.cloud.video.stitcher.v1.LiveConfig.State"))
         }
     }
 
@@ -2032,9 +1964,7 @@ pub mod live_config {
                 0 => Self::Unspecified,
                 1 => Self::CutCurrent,
                 2 => Self::CompleteAd,
-                _ => Self::UnknownValue(stitching_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(stitching_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2046,9 +1976,7 @@ pub mod live_config {
                 "STITCHING_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "CUT_CURRENT" => Self::CutCurrent,
                 "COMPLETE_AD" => Self::CompleteAd,
-                _ => Self::UnknownValue(stitching_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(stitching_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2073,8 +2001,7 @@ pub mod live_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<StitchingPolicy>::new(
-                ".google.cloud.video.stitcher.v1.LiveConfig.StitchingPolicy",
-            ))
+                ".google.cloud.video.stitcher.v1.LiveConfig.StitchingPolicy"))
         }
     }
 }
@@ -2083,6 +2010,7 @@ pub mod live_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrefetchConfig {
+
     /// Required. Indicates whether the option to prefetch ad requests is enabled.
     pub enabled: bool,
 
@@ -2110,8 +2038,7 @@ impl PrefetchConfig {
 
     /// Sets the value of [initial_ad_request_duration][crate::model::PrefetchConfig::initial_ad_request_duration].
     pub fn set_initial_ad_request_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.initial_ad_request_duration = std::option::Option::Some(v.into());
         self
@@ -2119,8 +2046,7 @@ impl PrefetchConfig {
 
     /// Sets or clears the value of [initial_ad_request_duration][crate::model::PrefetchConfig::initial_ad_request_duration].
     pub fn set_or_clear_initial_ad_request_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.initial_ad_request_duration = v.map(|x| x.into());
         self
@@ -2137,6 +2063,7 @@ impl wkt::message::Message for PrefetchConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GamLiveConfig {
+
     /// Required. Ad Manager network code to associate with the live config.
     pub network_code: std::string::String,
 
@@ -2167,10 +2094,7 @@ impl GamLiveConfig {
     }
 
     /// Sets the value of [custom_asset_key][crate::model::GamLiveConfig::custom_asset_key].
-    pub fn set_custom_asset_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_custom_asset_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_asset_key = v.into();
         self
     }
@@ -2186,6 +2110,7 @@ impl wkt::message::Message for GamLiveConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSession {
+
     /// Output only. The name of the VOD session, in the form of
     /// `projects/{project_number}/locations/{location}/vodSessions/{id}`.
     pub name: std::string::String,
@@ -2223,7 +2148,7 @@ pub struct VodSession {
     ///
     /// Fully qualified ad tag:
     /// ``https://doubleclick.google.com/ad/1?geo_id=123``
-    pub ad_tag_macro_map: std::collections::HashMap<std::string::String, std::string::String>,
+    pub ad_tag_macro_map: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Additional options that affect the output of the manifest.
     pub manifest_options: std::option::Option<crate::model::ManifestOptions>,
@@ -2258,8 +2183,7 @@ impl VodSession {
 
     /// Sets the value of [interstitials][crate::model::VodSession::interstitials].
     pub fn set_interstitials<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Interstitials>,
+    where T: std::convert::Into<crate::model::Interstitials>
     {
         self.interstitials = std::option::Option::Some(v.into());
         self
@@ -2267,8 +2191,7 @@ impl VodSession {
 
     /// Sets or clears the value of [interstitials][crate::model::VodSession::interstitials].
     pub fn set_or_clear_interstitials<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Interstitials>,
+    where T: std::convert::Into<crate::model::Interstitials>
     {
         self.interstitials = v.map(|x| x.into());
         self
@@ -2306,8 +2229,7 @@ impl VodSession {
 
     /// Sets the value of [manifest_options][crate::model::VodSession::manifest_options].
     pub fn set_manifest_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManifestOptions>,
+    where T: std::convert::Into<crate::model::ManifestOptions>
     {
         self.manifest_options = std::option::Option::Some(v.into());
         self
@@ -2315,8 +2237,7 @@ impl VodSession {
 
     /// Sets or clears the value of [manifest_options][crate::model::VodSession::manifest_options].
     pub fn set_or_clear_manifest_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManifestOptions>,
+    where T: std::convert::Into<crate::model::ManifestOptions>
     {
         self.manifest_options = v.map(|x| x.into());
         self
@@ -2329,18 +2250,14 @@ impl VodSession {
     }
 
     /// Sets the value of [ad_tracking][crate::model::VodSession::ad_tracking].
-    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(mut self, v: T) -> Self {
         self.ad_tracking = v.into();
         self
     }
 
     /// Sets the value of [gam_settings][crate::model::VodSession::gam_settings].
     pub fn set_gam_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::vod_session::GamSettings>,
+    where T: std::convert::Into<crate::model::vod_session::GamSettings>
     {
         self.gam_settings = std::option::Option::Some(v.into());
         self
@@ -2348,8 +2265,7 @@ impl VodSession {
 
     /// Sets or clears the value of [gam_settings][crate::model::VodSession::gam_settings].
     pub fn set_or_clear_gam_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::vod_session::GamSettings>,
+    where T: std::convert::Into<crate::model::vod_session::GamSettings>
     {
         self.gam_settings = v.map(|x| x.into());
         self
@@ -2373,11 +2289,13 @@ pub mod vod_session {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines fields related to Google Ad Manager (GAM). This should be set if
     /// GAM is being used for ads.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSettings {
+
         /// Required. Ad Manager network code.
         pub network_code: std::string::String,
 
@@ -2393,10 +2311,7 @@ pub mod vod_session {
         }
 
         /// Sets the value of [network_code][crate::model::vod_session::GamSettings::network_code].
-        pub fn set_network_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_network_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network_code = v.into();
             self
         }
@@ -2419,6 +2334,7 @@ pub mod vod_session {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Interstitials {
+
     /// List of ad breaks ordered by time.
     pub ad_breaks: std::vec::Vec<crate::model::VodSessionAdBreak>,
 
@@ -2437,7 +2353,7 @@ impl Interstitials {
     pub fn set_ad_breaks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VodSessionAdBreak>,
+        V: std::convert::Into<crate::model::VodSessionAdBreak>
     {
         use std::iter::Iterator;
         self.ad_breaks = v.into_iter().map(|i| i.into()).collect();
@@ -2446,8 +2362,7 @@ impl Interstitials {
 
     /// Sets the value of [session_content][crate::model::Interstitials::session_content].
     pub fn set_session_content<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VodSessionContent>,
+    where T: std::convert::Into<crate::model::VodSessionContent>
     {
         self.session_content = std::option::Option::Some(v.into());
         self
@@ -2455,8 +2370,7 @@ impl Interstitials {
 
     /// Sets or clears the value of [session_content][crate::model::Interstitials::session_content].
     pub fn set_or_clear_session_content<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VodSessionContent>,
+    where T: std::convert::Into<crate::model::VodSessionContent>
     {
         self.session_content = v.map(|x| x.into());
         self
@@ -2473,6 +2387,7 @@ impl wkt::message::Message for Interstitials {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionAd {
+
     /// Duration in seconds of the ad.
     pub duration: std::option::Option<wkt::Duration>,
 
@@ -2496,8 +2411,7 @@ impl VodSessionAd {
 
     /// Sets the value of [duration][crate::model::VodSessionAd::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -2505,8 +2419,7 @@ impl VodSessionAd {
 
     /// Sets or clears the value of [duration][crate::model::VodSessionAd::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -2514,8 +2427,7 @@ impl VodSessionAd {
 
     /// Sets the value of [companion_ads][crate::model::VodSessionAd::companion_ads].
     pub fn set_companion_ads<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompanionAds>,
+    where T: std::convert::Into<crate::model::CompanionAds>
     {
         self.companion_ads = std::option::Option::Some(v.into());
         self
@@ -2523,8 +2435,7 @@ impl VodSessionAd {
 
     /// Sets or clears the value of [companion_ads][crate::model::VodSessionAd::companion_ads].
     pub fn set_or_clear_companion_ads<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompanionAds>,
+    where T: std::convert::Into<crate::model::CompanionAds>
     {
         self.companion_ads = v.map(|x| x.into());
         self
@@ -2534,7 +2445,7 @@ impl VodSessionAd {
     pub fn set_activity_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Event>,
+        V: std::convert::Into<crate::model::Event>
     {
         use std::iter::Iterator;
         self.activity_events = v.into_iter().map(|i| i.into()).collect();
@@ -2552,6 +2463,7 @@ impl wkt::message::Message for VodSessionAd {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionContent {
+
     /// The total duration in seconds of the content including the ads stitched
     /// in.
     pub duration: std::option::Option<wkt::Duration>,
@@ -2566,8 +2478,7 @@ impl VodSessionContent {
 
     /// Sets the value of [duration][crate::model::VodSessionContent::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -2575,8 +2486,7 @@ impl VodSessionContent {
 
     /// Sets or clears the value of [duration][crate::model::VodSessionContent::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -2593,6 +2503,7 @@ impl wkt::message::Message for VodSessionContent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodSessionAdBreak {
+
     /// List of events that are expected to be triggered, ordered by time.
     pub progress_events: std::vec::Vec<crate::model::ProgressEvent>,
 
@@ -2617,7 +2528,7 @@ impl VodSessionAdBreak {
     pub fn set_progress_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ProgressEvent>,
+        V: std::convert::Into<crate::model::ProgressEvent>
     {
         use std::iter::Iterator;
         self.progress_events = v.into_iter().map(|i| i.into()).collect();
@@ -2628,7 +2539,7 @@ impl VodSessionAdBreak {
     pub fn set_ads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VodSessionAd>,
+        V: std::convert::Into<crate::model::VodSessionAd>
     {
         use std::iter::Iterator;
         self.ads = v.into_iter().map(|i| i.into()).collect();
@@ -2637,8 +2548,7 @@ impl VodSessionAdBreak {
 
     /// Sets the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
     pub fn set_end_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time_offset = std::option::Option::Some(v.into());
         self
@@ -2646,8 +2556,7 @@ impl VodSessionAdBreak {
 
     /// Sets or clears the value of [end_time_offset][crate::model::VodSessionAdBreak::end_time_offset].
     pub fn set_or_clear_end_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.end_time_offset = v.map(|x| x.into());
         self
@@ -2655,8 +2564,7 @@ impl VodSessionAdBreak {
 
     /// Sets the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
     pub fn set_start_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time_offset = std::option::Option::Some(v.into());
         self
@@ -2664,8 +2572,7 @@ impl VodSessionAdBreak {
 
     /// Sets or clears the value of [start_time_offset][crate::model::VodSessionAdBreak::start_time_offset].
     pub fn set_or_clear_start_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.start_time_offset = v.map(|x| x.into());
         self
@@ -2683,6 +2590,7 @@ impl wkt::message::Message for VodSessionAdBreak {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LiveSession {
+
     /// Output only. The name of the live session, in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{id}`.
     pub name: std::string::String,
@@ -2703,7 +2611,7 @@ pub struct LiveSession {
     ///
     /// Fully qualified ad tag:
     /// ``https://doubleclick.google.com/ad/1?geo_id=123``
-    pub ad_tag_macros: std::collections::HashMap<std::string::String, std::string::String>,
+    pub ad_tag_macros: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Additional options that affect the output of the manifest.
     pub manifest_options: std::option::Option<crate::model::ManifestOptions>,
@@ -2754,8 +2662,7 @@ impl LiveSession {
 
     /// Sets the value of [manifest_options][crate::model::LiveSession::manifest_options].
     pub fn set_manifest_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManifestOptions>,
+    where T: std::convert::Into<crate::model::ManifestOptions>
     {
         self.manifest_options = std::option::Option::Some(v.into());
         self
@@ -2763,8 +2670,7 @@ impl LiveSession {
 
     /// Sets or clears the value of [manifest_options][crate::model::LiveSession::manifest_options].
     pub fn set_or_clear_manifest_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManifestOptions>,
+    where T: std::convert::Into<crate::model::ManifestOptions>
     {
         self.manifest_options = v.map(|x| x.into());
         self
@@ -2772,8 +2678,7 @@ impl LiveSession {
 
     /// Sets the value of [gam_settings][crate::model::LiveSession::gam_settings].
     pub fn set_gam_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::live_session::GamSettings>,
+    where T: std::convert::Into<crate::model::live_session::GamSettings>
     {
         self.gam_settings = std::option::Option::Some(v.into());
         self
@@ -2781,8 +2686,7 @@ impl LiveSession {
 
     /// Sets or clears the value of [gam_settings][crate::model::LiveSession::gam_settings].
     pub fn set_or_clear_gam_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::live_session::GamSettings>,
+    where T: std::convert::Into<crate::model::live_session::GamSettings>
     {
         self.gam_settings = v.map(|x| x.into());
         self
@@ -2795,10 +2699,7 @@ impl LiveSession {
     }
 
     /// Sets the value of [ad_tracking][crate::model::LiveSession::ad_tracking].
-    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ad_tracking<T: std::convert::Into<crate::model::AdTracking>>(mut self, v: T) -> Self {
         self.ad_tracking = v.into();
         self
     }
@@ -2815,10 +2716,12 @@ pub mod live_session {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines fields related to Google Ad Manager (GAM).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSettings {
+
         /// Required. The stream ID generated by Ad Manager. This must be set if GAM
         /// is being used for ads and the session uses client-side ad tracking.
         pub stream_id: std::string::String,
@@ -2827,8 +2730,7 @@ pub mod live_session {
         /// parameters](https://support.google.com/admanager/answer/7320899) to send
         /// to Ad Manager to generate a stream ID. This should only be set if the
         /// session uses server-side ad tracking.
-        pub targeting_parameters:
-            std::collections::HashMap<std::string::String, std::string::String>,
+        pub targeting_parameters: std::collections::HashMap<std::string::String,std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2868,6 +2770,7 @@ pub mod live_session {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManifestOptions {
+
     /// If specified, the output manifest will only return renditions matching the
     /// specified filters.
     pub include_renditions: std::vec::Vec<crate::model::RenditionFilter>,
@@ -2888,7 +2791,7 @@ impl ManifestOptions {
     pub fn set_include_renditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RenditionFilter>,
+        V: std::convert::Into<crate::model::RenditionFilter>
     {
         use std::iter::Iterator;
         self.include_renditions = v.into_iter().map(|i| i.into()).collect();
@@ -2896,10 +2799,7 @@ impl ManifestOptions {
     }
 
     /// Sets the value of [bitrate_order][crate::model::ManifestOptions::bitrate_order].
-    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bitrate_order<T: std::convert::Into<crate::model::manifest_options::OrderPolicy>>(mut self, v: T) -> Self {
         self.bitrate_order = v.into();
         self
     }
@@ -2915,6 +2815,7 @@ impl wkt::message::Message for ManifestOptions {
 pub mod manifest_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines the ordering policy during manifest generation.
     ///
@@ -3002,9 +2903,7 @@ pub mod manifest_options {
                 0 => Self::Unspecified,
                 1 => Self::Ascending,
                 2 => Self::Descending,
-                _ => Self::UnknownValue(order_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(order_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3016,9 +2915,7 @@ pub mod manifest_options {
                 "ORDER_POLICY_UNSPECIFIED" => Self::Unspecified,
                 "ASCENDING" => Self::Ascending,
                 "DESCENDING" => Self::Descending,
-                _ => Self::UnknownValue(order_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(order_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3043,8 +2940,7 @@ pub mod manifest_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<OrderPolicy>::new(
-                ".google.cloud.video.stitcher.v1.ManifestOptions.OrderPolicy",
-            ))
+                ".google.cloud.video.stitcher.v1.ManifestOptions.OrderPolicy"))
         }
     }
 }
@@ -3053,6 +2949,7 @@ pub mod manifest_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RenditionFilter {
+
     /// Bitrate in bits per second for the rendition. If set, only renditions with
     /// the exact bitrate will match.
     pub bitrate_bps: i32,
@@ -3092,6 +2989,7 @@ impl wkt::message::Message for RenditionFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Slate {
+
     /// Output only. The name of the slate, in the form of
     /// `projects/{project_number}/locations/{location}/slates/{id}`.
     pub name: std::string::String,
@@ -3125,8 +3023,7 @@ impl Slate {
 
     /// Sets the value of [gam_slate][crate::model::Slate::gam_slate].
     pub fn set_gam_slate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::slate::GamSlate>,
+    where T: std::convert::Into<crate::model::slate::GamSlate>
     {
         self.gam_slate = std::option::Option::Some(v.into());
         self
@@ -3134,8 +3031,7 @@ impl Slate {
 
     /// Sets or clears the value of [gam_slate][crate::model::Slate::gam_slate].
     pub fn set_or_clear_gam_slate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::slate::GamSlate>,
+    where T: std::convert::Into<crate::model::slate::GamSlate>
     {
         self.gam_slate = v.map(|x| x.into());
         self
@@ -3153,11 +3049,13 @@ pub mod slate {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// GamSlate object has Google Ad Manager (GAM) related properties for the
     /// slate.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GamSlate {
+
         /// Required. Ad Manager network code to associate with the live config.
         pub network_code: std::string::String,
 
@@ -3173,10 +3071,7 @@ pub mod slate {
         }
 
         /// Sets the value of [network_code][crate::model::slate::GamSlate::network_code].
-        pub fn set_network_code<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_network_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network_code = v.into();
             self
         }
@@ -3201,6 +3096,7 @@ pub mod slate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodStitchDetail {
+
     /// The name of the stitch detail in the specified VOD session, in the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodStitchDetails/{id}`.
     pub name: std::string::String,
@@ -3226,7 +3122,7 @@ impl VodStitchDetail {
     pub fn set_ad_stitch_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AdStitchDetail>,
+        V: std::convert::Into<crate::model::AdStitchDetail>
     {
         use std::iter::Iterator;
         self.ad_stitch_details = v.into_iter().map(|i| i.into()).collect();
@@ -3244,6 +3140,7 @@ impl wkt::message::Message for VodStitchDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdStitchDetail {
+
     /// Required. The ad break ID of the processed ad.
     pub ad_break_id: std::string::String,
 
@@ -3257,7 +3154,7 @@ pub struct AdStitchDetail {
     pub skip_reason: std::string::String,
 
     /// Optional. The metadata of the chosen media file for the ad.
-    pub media: std::collections::HashMap<std::string::String, wkt::Value>,
+    pub media: std::collections::HashMap<std::string::String,wkt::Value>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3281,8 +3178,7 @@ impl AdStitchDetail {
 
     /// Sets the value of [ad_time_offset][crate::model::AdStitchDetail::ad_time_offset].
     pub fn set_ad_time_offset<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ad_time_offset = std::option::Option::Some(v.into());
         self
@@ -3290,8 +3186,7 @@ impl AdStitchDetail {
 
     /// Sets or clears the value of [ad_time_offset][crate::model::AdStitchDetail::ad_time_offset].
     pub fn set_or_clear_ad_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ad_time_offset = v.map(|x| x.into());
         self
@@ -3326,6 +3221,7 @@ impl wkt::message::Message for AdStitchDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCdnKeyRequest {
+
     /// Required. The project in which the CDN key should be created, in the form
     /// of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -3357,8 +3253,7 @@ impl CreateCdnKeyRequest {
 
     /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
     pub fn set_cdn_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CdnKey>,
+    where T: std::convert::Into<crate::model::CdnKey>
     {
         self.cdn_key = std::option::Option::Some(v.into());
         self
@@ -3366,8 +3261,7 @@ impl CreateCdnKeyRequest {
 
     /// Sets or clears the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
     pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CdnKey>,
+    where T: std::convert::Into<crate::model::CdnKey>
     {
         self.cdn_key = v.map(|x| x.into());
         self
@@ -3390,6 +3284,7 @@ impl wkt::message::Message for CreateCdnKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCdnKeysRequest {
+
     /// Required. The project that contains the list of CDN keys, in the form of
     /// `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -3456,6 +3351,7 @@ impl wkt::message::Message for ListCdnKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCdnKeysResponse {
+
     /// List of CDN keys.
     pub cdn_keys: std::vec::Vec<crate::model::CdnKey>,
 
@@ -3477,7 +3373,7 @@ impl ListCdnKeysResponse {
     pub fn set_cdn_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CdnKey>,
+        V: std::convert::Into<crate::model::CdnKey>
     {
         use std::iter::Iterator;
         self.cdn_keys = v.into_iter().map(|i| i.into()).collect();
@@ -3494,7 +3390,7 @@ impl ListCdnKeysResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3526,6 +3422,7 @@ impl gax::paginator::internal::PageableResponse for ListCdnKeysResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCdnKeyRequest {
+
     /// Required. The name of the CDN key to be retrieved, in the form of
     /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
     pub name: std::string::String,
@@ -3555,6 +3452,7 @@ impl wkt::message::Message for GetCdnKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCdnKeyRequest {
+
     /// Required. The name of the CDN key to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/cdnKeys/{id}`.
     pub name: std::string::String,
@@ -3584,6 +3482,7 @@ impl wkt::message::Message for DeleteCdnKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCdnKeyRequest {
+
     /// Required. The CDN key resource which replaces the resource on the server.
     pub cdn_key: std::option::Option<crate::model::CdnKey>,
 
@@ -3602,8 +3501,7 @@ impl UpdateCdnKeyRequest {
 
     /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
     pub fn set_cdn_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CdnKey>,
+    where T: std::convert::Into<crate::model::CdnKey>
     {
         self.cdn_key = std::option::Option::Some(v.into());
         self
@@ -3611,8 +3509,7 @@ impl UpdateCdnKeyRequest {
 
     /// Sets or clears the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
     pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CdnKey>,
+    where T: std::convert::Into<crate::model::CdnKey>
     {
         self.cdn_key = v.map(|x| x.into());
         self
@@ -3620,8 +3517,7 @@ impl UpdateCdnKeyRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3629,8 +3525,7 @@ impl UpdateCdnKeyRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3647,6 +3542,7 @@ impl wkt::message::Message for UpdateCdnKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVodSessionRequest {
+
     /// Required. The project and location in which the VOD session should be
     /// created, in the form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -3670,8 +3566,7 @@ impl CreateVodSessionRequest {
 
     /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
     pub fn set_vod_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VodSession>,
+    where T: std::convert::Into<crate::model::VodSession>
     {
         self.vod_session = std::option::Option::Some(v.into());
         self
@@ -3679,8 +3574,7 @@ impl CreateVodSessionRequest {
 
     /// Sets or clears the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
     pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VodSession>,
+    where T: std::convert::Into<crate::model::VodSession>
     {
         self.vod_session = v.map(|x| x.into());
         self
@@ -3697,6 +3591,7 @@ impl wkt::message::Message for CreateVodSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodSessionRequest {
+
     /// Required. The name of the VOD session to be retrieved, in the form of
     /// `projects/{project_number}/locations/{location}/vodSessions/{id}`.
     pub name: std::string::String,
@@ -3726,6 +3621,7 @@ impl wkt::message::Message for GetVodSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodStitchDetailsRequest {
+
     /// Required. The VOD session where the stitch details belong to, in the form
     /// of `projects/{project}/locations/{location}/vodSessions/{id}`.
     pub parent: std::string::String,
@@ -3773,6 +3669,7 @@ impl wkt::message::Message for ListVodStitchDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodStitchDetailsResponse {
+
     /// A List of stitch Details.
     pub vod_stitch_details: std::vec::Vec<crate::model::VodStitchDetail>,
 
@@ -3791,7 +3688,7 @@ impl ListVodStitchDetailsResponse {
     pub fn set_vod_stitch_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VodStitchDetail>,
+        V: std::convert::Into<crate::model::VodStitchDetail>
     {
         use std::iter::Iterator;
         self.vod_stitch_details = v.into_iter().map(|i| i.into()).collect();
@@ -3829,6 +3726,7 @@ impl gax::paginator::internal::PageableResponse for ListVodStitchDetailsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodStitchDetailRequest {
+
     /// Required. The name of the stitch detail in the specified VOD session, in
     /// the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodStitchDetails/{id}`.
@@ -3859,6 +3757,7 @@ impl wkt::message::Message for GetVodStitchDetailRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodAdTagDetailsRequest {
+
     /// Required. The VOD session which the ad tag details belong to, in the form
     /// of `projects/{project}/locations/{location}/vodSessions/{vod_session_id}`.
     pub parent: std::string::String,
@@ -3906,6 +3805,7 @@ impl wkt::message::Message for ListVodAdTagDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodAdTagDetailsResponse {
+
     /// A List of ad tag details.
     pub vod_ad_tag_details: std::vec::Vec<crate::model::VodAdTagDetail>,
 
@@ -3924,7 +3824,7 @@ impl ListVodAdTagDetailsResponse {
     pub fn set_vod_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VodAdTagDetail>,
+        V: std::convert::Into<crate::model::VodAdTagDetail>
     {
         use std::iter::Iterator;
         self.vod_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
@@ -3962,6 +3862,7 @@ impl gax::paginator::internal::PageableResponse for ListVodAdTagDetailsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodAdTagDetailRequest {
+
     /// Required. The name of the ad tag detail for the specified VOD session, in
     /// the form of
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail}`.
@@ -3992,6 +3893,7 @@ impl wkt::message::Message for GetVodAdTagDetailRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveAdTagDetailsRequest {
+
     /// Required. The resource parent in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}`.
     pub parent: std::string::String,
@@ -4039,6 +3941,7 @@ impl wkt::message::Message for ListLiveAdTagDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveAdTagDetailsResponse {
+
     /// A list of live session ad tag details.
     pub live_ad_tag_details: std::vec::Vec<crate::model::LiveAdTagDetail>,
 
@@ -4057,7 +3960,7 @@ impl ListLiveAdTagDetailsResponse {
     pub fn set_live_ad_tag_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LiveAdTagDetail>,
+        V: std::convert::Into<crate::model::LiveAdTagDetail>
     {
         use std::iter::Iterator;
         self.live_ad_tag_details = v.into_iter().map(|i| i.into()).collect();
@@ -4095,6 +3998,7 @@ impl gax::paginator::internal::PageableResponse for ListLiveAdTagDetailsResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveAdTagDetailRequest {
+
     /// Required. The resource name in the form of
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{live_ad_tag_detail}`.
     pub name: std::string::String,
@@ -4124,6 +4028,7 @@ impl wkt::message::Message for GetLiveAdTagDetailRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSlateRequest {
+
     /// Required. The project in which the slate should be created, in the form of
     /// `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4174,8 +4079,7 @@ impl CreateSlateRequest {
 
     /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
     pub fn set_slate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Slate>,
+    where T: std::convert::Into<crate::model::Slate>
     {
         self.slate = std::option::Option::Some(v.into());
         self
@@ -4183,8 +4087,7 @@ impl CreateSlateRequest {
 
     /// Sets or clears the value of [slate][crate::model::CreateSlateRequest::slate].
     pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Slate>,
+    where T: std::convert::Into<crate::model::Slate>
     {
         self.slate = v.map(|x| x.into());
         self
@@ -4207,6 +4110,7 @@ impl wkt::message::Message for CreateSlateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSlateRequest {
+
     /// Required. The name of the slate to be retrieved, of the slate, in the form
     /// of `projects/{project_number}/locations/{location}/slates/{id}`.
     pub name: std::string::String,
@@ -4236,6 +4140,7 @@ impl wkt::message::Message for GetSlateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSlatesRequest {
+
     /// Required. The project to list slates, in the form of
     /// `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4302,6 +4207,7 @@ impl wkt::message::Message for ListSlatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSlatesResponse {
+
     /// The list of slates
     pub slates: std::vec::Vec<crate::model::Slate>,
 
@@ -4323,7 +4229,7 @@ impl ListSlatesResponse {
     pub fn set_slates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Slate>,
+        V: std::convert::Into<crate::model::Slate>
     {
         use std::iter::Iterator;
         self.slates = v.into_iter().map(|i| i.into()).collect();
@@ -4340,7 +4246,7 @@ impl ListSlatesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4372,6 +4278,7 @@ impl gax::paginator::internal::PageableResponse for ListSlatesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSlateRequest {
+
     /// Required. The resource with updated fields.
     pub slate: std::option::Option<crate::model::Slate>,
 
@@ -4388,8 +4295,7 @@ impl UpdateSlateRequest {
 
     /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
     pub fn set_slate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Slate>,
+    where T: std::convert::Into<crate::model::Slate>
     {
         self.slate = std::option::Option::Some(v.into());
         self
@@ -4397,8 +4303,7 @@ impl UpdateSlateRequest {
 
     /// Sets or clears the value of [slate][crate::model::UpdateSlateRequest::slate].
     pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Slate>,
+    where T: std::convert::Into<crate::model::Slate>
     {
         self.slate = v.map(|x| x.into());
         self
@@ -4406,8 +4311,7 @@ impl UpdateSlateRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4415,8 +4319,7 @@ impl UpdateSlateRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4433,6 +4336,7 @@ impl wkt::message::Message for UpdateSlateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSlateRequest {
+
     /// Required. The name of the slate to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/slates/{id}`.
     pub name: std::string::String,
@@ -4462,6 +4366,7 @@ impl wkt::message::Message for DeleteSlateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLiveSessionRequest {
+
     /// Required. The project and location in which the live session should be
     /// created, in the form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4485,8 +4390,7 @@ impl CreateLiveSessionRequest {
 
     /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
     pub fn set_live_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveSession>,
+    where T: std::convert::Into<crate::model::LiveSession>
     {
         self.live_session = std::option::Option::Some(v.into());
         self
@@ -4494,8 +4398,7 @@ impl CreateLiveSessionRequest {
 
     /// Sets or clears the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
     pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveSession>,
+    where T: std::convert::Into<crate::model::LiveSession>
     {
         self.live_session = v.map(|x| x.into());
         self
@@ -4512,6 +4415,7 @@ impl wkt::message::Message for CreateLiveSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveSessionRequest {
+
     /// Required. The name of the live session, in the form of
     /// `projects/{project_number}/locations/{location}/liveSessions/{id}`.
     pub name: std::string::String,
@@ -4541,6 +4445,7 @@ impl wkt::message::Message for GetLiveSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLiveConfigRequest {
+
     /// Required. The project in which the live config should be created, in
     /// the form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4588,8 +4493,7 @@ impl CreateLiveConfigRequest {
 
     /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
     pub fn set_live_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveConfig>,
+    where T: std::convert::Into<crate::model::LiveConfig>
     {
         self.live_config = std::option::Option::Some(v.into());
         self
@@ -4597,8 +4501,7 @@ impl CreateLiveConfigRequest {
 
     /// Sets or clears the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
     pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveConfig>,
+    where T: std::convert::Into<crate::model::LiveConfig>
     {
         self.live_config = v.map(|x| x.into());
         self
@@ -4621,6 +4524,7 @@ impl wkt::message::Message for CreateLiveConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveConfigsRequest {
+
     /// Required. The project that contains the list of live configs, in the
     /// form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4689,6 +4593,7 @@ impl wkt::message::Message for ListLiveConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLiveConfigsResponse {
+
     /// List of live configs.
     pub live_configs: std::vec::Vec<crate::model::LiveConfig>,
 
@@ -4710,7 +4615,7 @@ impl ListLiveConfigsResponse {
     pub fn set_live_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LiveConfig>,
+        V: std::convert::Into<crate::model::LiveConfig>
     {
         use std::iter::Iterator;
         self.live_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4727,7 +4632,7 @@ impl ListLiveConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4759,6 +4664,7 @@ impl gax::paginator::internal::PageableResponse for ListLiveConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLiveConfigRequest {
+
     /// Required. The name of the live config to be retrieved, in the form
     /// of
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
@@ -4789,6 +4695,7 @@ impl wkt::message::Message for GetLiveConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLiveConfigRequest {
+
     /// Required. The name of the live config to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
     pub name: std::string::String,
@@ -4818,6 +4725,7 @@ impl wkt::message::Message for DeleteLiveConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLiveConfigRequest {
+
     /// Required. The LiveConfig resource which replaces the resource on the
     /// server.
     pub live_config: std::option::Option<crate::model::LiveConfig>,
@@ -4837,8 +4745,7 @@ impl UpdateLiveConfigRequest {
 
     /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
     pub fn set_live_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveConfig>,
+    where T: std::convert::Into<crate::model::LiveConfig>
     {
         self.live_config = std::option::Option::Some(v.into());
         self
@@ -4846,8 +4753,7 @@ impl UpdateLiveConfigRequest {
 
     /// Sets or clears the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
     pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LiveConfig>,
+    where T: std::convert::Into<crate::model::LiveConfig>
     {
         self.live_config = v.map(|x| x.into());
         self
@@ -4855,8 +4761,7 @@ impl UpdateLiveConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4864,8 +4769,7 @@ impl UpdateLiveConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4882,6 +4786,7 @@ impl wkt::message::Message for UpdateLiveConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVodConfigRequest {
+
     /// Required. The project in which the VOD config should be created, in
     /// the form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -4929,8 +4834,7 @@ impl CreateVodConfigRequest {
 
     /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
     pub fn set_vod_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VodConfig>,
+    where T: std::convert::Into<crate::model::VodConfig>
     {
         self.vod_config = std::option::Option::Some(v.into());
         self
@@ -4938,8 +4842,7 @@ impl CreateVodConfigRequest {
 
     /// Sets or clears the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
     pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VodConfig>,
+    where T: std::convert::Into<crate::model::VodConfig>
     {
         self.vod_config = v.map(|x| x.into());
         self
@@ -4962,6 +4865,7 @@ impl wkt::message::Message for CreateVodConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodConfigsRequest {
+
     /// Required. The project that contains the list of VOD configs, in the
     /// form of `projects/{project_number}/locations/{location}`.
     pub parent: std::string::String,
@@ -5031,6 +4935,7 @@ impl wkt::message::Message for ListVodConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVodConfigsResponse {
+
     /// List of VOD configs.
     pub vod_configs: std::vec::Vec<crate::model::VodConfig>,
 
@@ -5052,7 +4957,7 @@ impl ListVodConfigsResponse {
     pub fn set_vod_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VodConfig>,
+        V: std::convert::Into<crate::model::VodConfig>
     {
         use std::iter::Iterator;
         self.vod_configs = v.into_iter().map(|i| i.into()).collect();
@@ -5069,7 +4974,7 @@ impl ListVodConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5101,6 +5006,7 @@ impl gax::paginator::internal::PageableResponse for ListVodConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVodConfigRequest {
+
     /// Required. The name of the VOD config to be retrieved, in the form
     /// of `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     pub name: std::string::String,
@@ -5130,6 +5036,7 @@ impl wkt::message::Message for GetVodConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVodConfigRequest {
+
     /// Required. The name of the VOD config to be deleted, in the form of
     /// `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     pub name: std::string::String,
@@ -5159,6 +5066,7 @@ impl wkt::message::Message for DeleteVodConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVodConfigRequest {
+
     /// Required. The VOD config resource which replaces the resource on the
     /// server.
     pub vod_config: std::option::Option<crate::model::VodConfig>,
@@ -5178,8 +5086,7 @@ impl UpdateVodConfigRequest {
 
     /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
     pub fn set_vod_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VodConfig>,
+    where T: std::convert::Into<crate::model::VodConfig>
     {
         self.vod_config = std::option::Option::Some(v.into());
         self
@@ -5187,8 +5094,7 @@ impl UpdateVodConfigRequest {
 
     /// Sets or clears the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
     pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VodConfig>,
+    where T: std::convert::Into<crate::model::VodConfig>
     {
         self.vod_config = v.map(|x| x.into());
         self
@@ -5196,8 +5102,7 @@ impl UpdateVodConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5205,8 +5110,7 @@ impl UpdateVodConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5223,6 +5127,7 @@ impl wkt::message::Message for UpdateVodConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -5245,8 +5150,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5254,8 +5158,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5263,8 +5166,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -5272,8 +5174,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -5302,6 +5203,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VodConfig {
+
     /// Output only. The resource name of the VOD config, in the form of
     /// `projects/{project}/locations/{location}/vodConfigs/{id}`.
     pub name: std::string::String,
@@ -5349,8 +5251,7 @@ impl VodConfig {
 
     /// Sets the value of [gam_vod_config][crate::model::VodConfig::gam_vod_config].
     pub fn set_gam_vod_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GamVodConfig>,
+    where T: std::convert::Into<crate::model::GamVodConfig>
     {
         self.gam_vod_config = std::option::Option::Some(v.into());
         self
@@ -5358,26 +5259,21 @@ impl VodConfig {
 
     /// Sets or clears the value of [gam_vod_config][crate::model::VodConfig::gam_vod_config].
     pub fn set_or_clear_gam_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GamVodConfig>,
+    where T: std::convert::Into<crate::model::GamVodConfig>
     {
         self.gam_vod_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::VodConfig::state].
-    pub fn set_state<T: std::convert::Into<crate::model::vod_config::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::vod_config::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [source_fetch_options][crate::model::VodConfig::source_fetch_options].
     pub fn set_source_fetch_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FetchOptions>,
+    where T: std::convert::Into<crate::model::FetchOptions>
     {
         self.source_fetch_options = std::option::Option::Some(v.into());
         self
@@ -5385,8 +5281,7 @@ impl VodConfig {
 
     /// Sets or clears the value of [source_fetch_options][crate::model::VodConfig::source_fetch_options].
     pub fn set_or_clear_source_fetch_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FetchOptions>,
+    where T: std::convert::Into<crate::model::FetchOptions>
     {
         self.source_fetch_options = v.map(|x| x.into());
         self
@@ -5403,6 +5298,7 @@ impl wkt::message::Message for VodConfig {
 pub mod vod_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the VOD config.
     ///
@@ -5495,9 +5391,7 @@ pub mod vod_config {
                 1 => Self::Creating,
                 2 => Self::Ready,
                 3 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5510,9 +5404,7 @@ pub mod vod_config {
                 "CREATING" => Self::Creating,
                 "READY" => Self::Ready,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5538,8 +5430,7 @@ pub mod vod_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.video.stitcher.v1.VodConfig.State",
-            ))
+                ".google.cloud.video.stitcher.v1.VodConfig.State"))
         }
     }
 }
@@ -5548,6 +5439,7 @@ pub mod vod_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GamVodConfig {
+
     /// Required. Ad Manager network code to associate with the VOD config.
     pub network_code: std::string::String,
 
@@ -5660,9 +5552,7 @@ impl std::convert::From<i32> for AdTracking {
             0 => Self::Unspecified,
             1 => Self::Client,
             2 => Self::Server,
-            _ => Self::UnknownValue(ad_tracking::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(ad_tracking::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -5674,9 +5564,7 @@ impl std::convert::From<&str> for AdTracking {
             "AD_TRACKING_UNSPECIFIED" => Self::Unspecified,
             "CLIENT" => Self::Client,
             "SERVER" => Self::Server,
-            _ => Self::UnknownValue(ad_tracking::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(ad_tracking::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5701,7 +5589,6 @@ impl<'de> serde::de::Deserialize<'de> for AdTracking {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AdTracking>::new(
-            ".google.cloud.video.stitcher.v1.AdTracking",
-        ))
+            ".google.cloud.video.stitcher.v1.AdTracking"))
     }
 }

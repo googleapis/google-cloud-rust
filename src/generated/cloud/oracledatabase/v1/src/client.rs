@@ -80,55 +80,39 @@ impl OracleDatabase {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OracleDatabase + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OracleDatabase + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OracleDatabase>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OracleDatabase>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OracleDatabase> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OracleDatabase> {
         super::transport::OracleDatabase::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OracleDatabase> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OracleDatabase::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OracleDatabase> {
+        Self::build_transport(conf).await.map(super::tracing::OracleDatabase::new)
     }
 
     /// Lists Exadata Infrastructures in a given project and location.
-    pub fn list_cloud_exadata_infrastructures(
-        &self,
-    ) -> super::builder::oracle_database::ListCloudExadataInfrastructures {
+    pub fn list_cloud_exadata_infrastructures(&self) -> super::builder::oracle_database::ListCloudExadataInfrastructures
+    {
         super::builder::oracle_database::ListCloudExadataInfrastructures::new(self.inner.clone())
     }
 
     /// Gets details of a single Exadata Infrastructure.
-    pub fn get_cloud_exadata_infrastructure(
-        &self,
-    ) -> super::builder::oracle_database::GetCloudExadataInfrastructure {
+    pub fn get_cloud_exadata_infrastructure(&self) -> super::builder::oracle_database::GetCloudExadataInfrastructure
+    {
         super::builder::oracle_database::GetCloudExadataInfrastructure::new(self.inner.clone())
     }
 
@@ -143,9 +127,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cloud_exadata_infrastructure(
-        &self,
-    ) -> super::builder::oracle_database::CreateCloudExadataInfrastructure {
+    pub fn create_cloud_exadata_infrastructure(&self) -> super::builder::oracle_database::CreateCloudExadataInfrastructure
+    {
         super::builder::oracle_database::CreateCloudExadataInfrastructure::new(self.inner.clone())
     }
 
@@ -160,19 +143,20 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cloud_exadata_infrastructure(
-        &self,
-    ) -> super::builder::oracle_database::DeleteCloudExadataInfrastructure {
+    pub fn delete_cloud_exadata_infrastructure(&self) -> super::builder::oracle_database::DeleteCloudExadataInfrastructure
+    {
         super::builder::oracle_database::DeleteCloudExadataInfrastructure::new(self.inner.clone())
     }
 
     /// Lists the VM Clusters in a given project and location.
-    pub fn list_cloud_vm_clusters(&self) -> super::builder::oracle_database::ListCloudVmClusters {
+    pub fn list_cloud_vm_clusters(&self) -> super::builder::oracle_database::ListCloudVmClusters
+    {
         super::builder::oracle_database::ListCloudVmClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single VM Cluster.
-    pub fn get_cloud_vm_cluster(&self) -> super::builder::oracle_database::GetCloudVmCluster {
+    pub fn get_cloud_vm_cluster(&self) -> super::builder::oracle_database::GetCloudVmCluster
+    {
         super::builder::oracle_database::GetCloudVmCluster::new(self.inner.clone())
     }
 
@@ -187,7 +171,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cloud_vm_cluster(&self) -> super::builder::oracle_database::CreateCloudVmCluster {
+    pub fn create_cloud_vm_cluster(&self) -> super::builder::oracle_database::CreateCloudVmCluster
+    {
         super::builder::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
     }
 
@@ -202,53 +187,58 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cloud_vm_cluster(&self) -> super::builder::oracle_database::DeleteCloudVmCluster {
+    pub fn delete_cloud_vm_cluster(&self) -> super::builder::oracle_database::DeleteCloudVmCluster
+    {
         super::builder::oracle_database::DeleteCloudVmCluster::new(self.inner.clone())
     }
 
     /// Lists the entitlements in a given project.
-    pub fn list_entitlements(&self) -> super::builder::oracle_database::ListEntitlements {
+    pub fn list_entitlements(&self) -> super::builder::oracle_database::ListEntitlements
+    {
         super::builder::oracle_database::ListEntitlements::new(self.inner.clone())
     }
 
     /// Lists the database servers of an Exadata Infrastructure instance.
-    pub fn list_db_servers(&self) -> super::builder::oracle_database::ListDbServers {
+    pub fn list_db_servers(&self) -> super::builder::oracle_database::ListDbServers
+    {
         super::builder::oracle_database::ListDbServers::new(self.inner.clone())
     }
 
     /// Lists the database nodes of a VM Cluster.
-    pub fn list_db_nodes(&self) -> super::builder::oracle_database::ListDbNodes {
+    pub fn list_db_nodes(&self) -> super::builder::oracle_database::ListDbNodes
+    {
         super::builder::oracle_database::ListDbNodes::new(self.inner.clone())
     }
 
     /// Lists all the valid Oracle Grid Infrastructure (GI) versions for the given
     /// project and location.
-    pub fn list_gi_versions(&self) -> super::builder::oracle_database::ListGiVersions {
+    pub fn list_gi_versions(&self) -> super::builder::oracle_database::ListGiVersions
+    {
         super::builder::oracle_database::ListGiVersions::new(self.inner.clone())
     }
 
     /// Lists all the valid minor versions for the given
     /// project, location, gi version and shape family.
-    pub fn list_minor_versions(&self) -> super::builder::oracle_database::ListMinorVersions {
+    pub fn list_minor_versions(&self) -> super::builder::oracle_database::ListMinorVersions
+    {
         super::builder::oracle_database::ListMinorVersions::new(self.inner.clone())
     }
 
     /// Lists the database system shapes available for the project and location.
-    pub fn list_db_system_shapes(&self) -> super::builder::oracle_database::ListDbSystemShapes {
+    pub fn list_db_system_shapes(&self) -> super::builder::oracle_database::ListDbSystemShapes
+    {
         super::builder::oracle_database::ListDbSystemShapes::new(self.inner.clone())
     }
 
     /// Lists the Autonomous Databases in a given project and location.
-    pub fn list_autonomous_databases(
-        &self,
-    ) -> super::builder::oracle_database::ListAutonomousDatabases {
+    pub fn list_autonomous_databases(&self) -> super::builder::oracle_database::ListAutonomousDatabases
+    {
         super::builder::oracle_database::ListAutonomousDatabases::new(self.inner.clone())
     }
 
     /// Gets the details of a single Autonomous Database.
-    pub fn get_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::GetAutonomousDatabase {
+    pub fn get_autonomous_database(&self) -> super::builder::oracle_database::GetAutonomousDatabase
+    {
         super::builder::oracle_database::GetAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -263,9 +253,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::CreateAutonomousDatabase {
+    pub fn create_autonomous_database(&self) -> super::builder::oracle_database::CreateAutonomousDatabase
+    {
         super::builder::oracle_database::CreateAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -280,9 +269,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::UpdateAutonomousDatabase {
+    pub fn update_autonomous_database(&self) -> super::builder::oracle_database::UpdateAutonomousDatabase
+    {
         super::builder::oracle_database::UpdateAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -297,9 +285,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::DeleteAutonomousDatabase {
+    pub fn delete_autonomous_database(&self) -> super::builder::oracle_database::DeleteAutonomousDatabase
+    {
         super::builder::oracle_database::DeleteAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -314,40 +301,33 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::RestoreAutonomousDatabase {
+    pub fn restore_autonomous_database(&self) -> super::builder::oracle_database::RestoreAutonomousDatabase
+    {
         super::builder::oracle_database::RestoreAutonomousDatabase::new(self.inner.clone())
     }
 
     /// Generates a wallet for an Autonomous Database.
-    pub fn generate_autonomous_database_wallet(
-        &self,
-    ) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet {
+    pub fn generate_autonomous_database_wallet(&self) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet
+    {
         super::builder::oracle_database::GenerateAutonomousDatabaseWallet::new(self.inner.clone())
     }
 
     /// Lists all the available Autonomous Database versions for a project and
     /// location.
-    pub fn list_autonomous_db_versions(
-        &self,
-    ) -> super::builder::oracle_database::ListAutonomousDbVersions {
+    pub fn list_autonomous_db_versions(&self) -> super::builder::oracle_database::ListAutonomousDbVersions
+    {
         super::builder::oracle_database::ListAutonomousDbVersions::new(self.inner.clone())
     }
 
     /// Lists Autonomous Database Character Sets in a given project and location.
-    pub fn list_autonomous_database_character_sets(
-        &self,
-    ) -> super::builder::oracle_database::ListAutonomousDatabaseCharacterSets {
-        super::builder::oracle_database::ListAutonomousDatabaseCharacterSets::new(
-            self.inner.clone(),
-        )
+    pub fn list_autonomous_database_character_sets(&self) -> super::builder::oracle_database::ListAutonomousDatabaseCharacterSets
+    {
+        super::builder::oracle_database::ListAutonomousDatabaseCharacterSets::new(self.inner.clone())
     }
 
     /// Lists the long-term and automatic backups of an Autonomous Database.
-    pub fn list_autonomous_database_backups(
-        &self,
-    ) -> super::builder::oracle_database::ListAutonomousDatabaseBackups {
+    pub fn list_autonomous_database_backups(&self) -> super::builder::oracle_database::ListAutonomousDatabaseBackups
+    {
         super::builder::oracle_database::ListAutonomousDatabaseBackups::new(self.inner.clone())
     }
 
@@ -362,9 +342,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::StopAutonomousDatabase {
+    pub fn stop_autonomous_database(&self) -> super::builder::oracle_database::StopAutonomousDatabase
+    {
         super::builder::oracle_database::StopAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -379,9 +358,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::StartAutonomousDatabase {
+    pub fn start_autonomous_database(&self) -> super::builder::oracle_database::StartAutonomousDatabase
+    {
         super::builder::oracle_database::StartAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -396,9 +374,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restart_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::RestartAutonomousDatabase {
+    pub fn restart_autonomous_database(&self) -> super::builder::oracle_database::RestartAutonomousDatabase
+    {
         super::builder::oracle_database::RestartAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -414,9 +391,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn switchover_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::SwitchoverAutonomousDatabase {
+    pub fn switchover_autonomous_database(&self) -> super::builder::oracle_database::SwitchoverAutonomousDatabase
+    {
         super::builder::oracle_database::SwitchoverAutonomousDatabase::new(self.inner.clone())
     }
 
@@ -432,19 +408,20 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn failover_autonomous_database(
-        &self,
-    ) -> super::builder::oracle_database::FailoverAutonomousDatabase {
+    pub fn failover_autonomous_database(&self) -> super::builder::oracle_database::FailoverAutonomousDatabase
+    {
         super::builder::oracle_database::FailoverAutonomousDatabase::new(self.inner.clone())
     }
 
     /// Lists the ODB Networks in a given project and location.
-    pub fn list_odb_networks(&self) -> super::builder::oracle_database::ListOdbNetworks {
+    pub fn list_odb_networks(&self) -> super::builder::oracle_database::ListOdbNetworks
+    {
         super::builder::oracle_database::ListOdbNetworks::new(self.inner.clone())
     }
 
     /// Gets details of a single ODB Network.
-    pub fn get_odb_network(&self) -> super::builder::oracle_database::GetOdbNetwork {
+    pub fn get_odb_network(&self) -> super::builder::oracle_database::GetOdbNetwork
+    {
         super::builder::oracle_database::GetOdbNetwork::new(self.inner.clone())
     }
 
@@ -459,7 +436,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_odb_network(&self) -> super::builder::oracle_database::CreateOdbNetwork {
+    pub fn create_odb_network(&self) -> super::builder::oracle_database::CreateOdbNetwork
+    {
         super::builder::oracle_database::CreateOdbNetwork::new(self.inner.clone())
     }
 
@@ -474,17 +452,20 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_odb_network(&self) -> super::builder::oracle_database::DeleteOdbNetwork {
+    pub fn delete_odb_network(&self) -> super::builder::oracle_database::DeleteOdbNetwork
+    {
         super::builder::oracle_database::DeleteOdbNetwork::new(self.inner.clone())
     }
 
     /// Lists all the ODB Subnets in a given ODB Network.
-    pub fn list_odb_subnets(&self) -> super::builder::oracle_database::ListOdbSubnets {
+    pub fn list_odb_subnets(&self) -> super::builder::oracle_database::ListOdbSubnets
+    {
         super::builder::oracle_database::ListOdbSubnets::new(self.inner.clone())
     }
 
     /// Gets details of a single ODB Subnet.
-    pub fn get_odb_subnet(&self) -> super::builder::oracle_database::GetOdbSubnet {
+    pub fn get_odb_subnet(&self) -> super::builder::oracle_database::GetOdbSubnet
+    {
         super::builder::oracle_database::GetOdbSubnet::new(self.inner.clone())
     }
 
@@ -499,7 +480,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_odb_subnet(&self) -> super::builder::oracle_database::CreateOdbSubnet {
+    pub fn create_odb_subnet(&self) -> super::builder::oracle_database::CreateOdbSubnet
+    {
         super::builder::oracle_database::CreateOdbSubnet::new(self.inner.clone())
     }
 
@@ -514,18 +496,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_odb_subnet(&self) -> super::builder::oracle_database::DeleteOdbSubnet {
+    pub fn delete_odb_subnet(&self) -> super::builder::oracle_database::DeleteOdbSubnet
+    {
         super::builder::oracle_database::DeleteOdbSubnet::new(self.inner.clone())
     }
 
     /// Lists all the Exadb (Exascale) VM Clusters for the given project and
     /// location.
-    pub fn list_exadb_vm_clusters(&self) -> super::builder::oracle_database::ListExadbVmClusters {
+    pub fn list_exadb_vm_clusters(&self) -> super::builder::oracle_database::ListExadbVmClusters
+    {
         super::builder::oracle_database::ListExadbVmClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single Exadb (Exascale) VM Cluster.
-    pub fn get_exadb_vm_cluster(&self) -> super::builder::oracle_database::GetExadbVmCluster {
+    pub fn get_exadb_vm_cluster(&self) -> super::builder::oracle_database::GetExadbVmCluster
+    {
         super::builder::oracle_database::GetExadbVmCluster::new(self.inner.clone())
     }
 
@@ -540,7 +525,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_exadb_vm_cluster(&self) -> super::builder::oracle_database::CreateExadbVmCluster {
+    pub fn create_exadb_vm_cluster(&self) -> super::builder::oracle_database::CreateExadbVmCluster
+    {
         super::builder::oracle_database::CreateExadbVmCluster::new(self.inner.clone())
     }
 
@@ -555,7 +541,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_exadb_vm_cluster(&self) -> super::builder::oracle_database::DeleteExadbVmCluster {
+    pub fn delete_exadb_vm_cluster(&self) -> super::builder::oracle_database::DeleteExadbVmCluster
+    {
         super::builder::oracle_database::DeleteExadbVmCluster::new(self.inner.clone())
     }
 
@@ -571,7 +558,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_exadb_vm_cluster(&self) -> super::builder::oracle_database::UpdateExadbVmCluster {
+    pub fn update_exadb_vm_cluster(&self) -> super::builder::oracle_database::UpdateExadbVmCluster
+    {
         super::builder::oracle_database::UpdateExadbVmCluster::new(self.inner.clone())
     }
 
@@ -586,24 +574,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_virtual_machine_exadb_vm_cluster(
-        &self,
-    ) -> super::builder::oracle_database::RemoveVirtualMachineExadbVmCluster {
+    pub fn remove_virtual_machine_exadb_vm_cluster(&self) -> super::builder::oracle_database::RemoveVirtualMachineExadbVmCluster
+    {
         super::builder::oracle_database::RemoveVirtualMachineExadbVmCluster::new(self.inner.clone())
     }
 
     /// Lists all the ExascaleDB Storage Vaults for the given project and
     /// location.
-    pub fn list_exascale_db_storage_vaults(
-        &self,
-    ) -> super::builder::oracle_database::ListExascaleDbStorageVaults {
+    pub fn list_exascale_db_storage_vaults(&self) -> super::builder::oracle_database::ListExascaleDbStorageVaults
+    {
         super::builder::oracle_database::ListExascaleDbStorageVaults::new(self.inner.clone())
     }
 
     /// Gets details of a single ExascaleDB Storage Vault.
-    pub fn get_exascale_db_storage_vault(
-        &self,
-    ) -> super::builder::oracle_database::GetExascaleDbStorageVault {
+    pub fn get_exascale_db_storage_vault(&self) -> super::builder::oracle_database::GetExascaleDbStorageVault
+    {
         super::builder::oracle_database::GetExascaleDbStorageVault::new(self.inner.clone())
     }
 
@@ -618,9 +603,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_exascale_db_storage_vault(
-        &self,
-    ) -> super::builder::oracle_database::CreateExascaleDbStorageVault {
+    pub fn create_exascale_db_storage_vault(&self) -> super::builder::oracle_database::CreateExascaleDbStorageVault
+    {
         super::builder::oracle_database::CreateExascaleDbStorageVault::new(self.inner.clone())
     }
 
@@ -635,50 +619,52 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_exascale_db_storage_vault(
-        &self,
-    ) -> super::builder::oracle_database::DeleteExascaleDbStorageVault {
+    pub fn delete_exascale_db_storage_vault(&self) -> super::builder::oracle_database::DeleteExascaleDbStorageVault
+    {
         super::builder::oracle_database::DeleteExascaleDbStorageVault::new(self.inner.clone())
     }
 
     /// Lists all the DbSystemInitialStorageSizes for the given project and
     /// location.
-    pub fn list_db_system_initial_storage_sizes(
-        &self,
-    ) -> super::builder::oracle_database::ListDbSystemInitialStorageSizes {
+    pub fn list_db_system_initial_storage_sizes(&self) -> super::builder::oracle_database::ListDbSystemInitialStorageSizes
+    {
         super::builder::oracle_database::ListDbSystemInitialStorageSizes::new(self.inner.clone())
     }
 
     /// Lists all the Databases for the given project, location and DbSystem.
-    pub fn list_databases(&self) -> super::builder::oracle_database::ListDatabases {
+    pub fn list_databases(&self) -> super::builder::oracle_database::ListDatabases
+    {
         super::builder::oracle_database::ListDatabases::new(self.inner.clone())
     }
 
     /// Gets details of a single Database.
-    pub fn get_database(&self) -> super::builder::oracle_database::GetDatabase {
+    pub fn get_database(&self) -> super::builder::oracle_database::GetDatabase
+    {
         super::builder::oracle_database::GetDatabase::new(self.inner.clone())
     }
 
     /// Lists all the PluggableDatabases for the given project, location and
     /// Container Database.
-    pub fn list_pluggable_databases(
-        &self,
-    ) -> super::builder::oracle_database::ListPluggableDatabases {
+    pub fn list_pluggable_databases(&self) -> super::builder::oracle_database::ListPluggableDatabases
+    {
         super::builder::oracle_database::ListPluggableDatabases::new(self.inner.clone())
     }
 
     /// Gets details of a single PluggableDatabase.
-    pub fn get_pluggable_database(&self) -> super::builder::oracle_database::GetPluggableDatabase {
+    pub fn get_pluggable_database(&self) -> super::builder::oracle_database::GetPluggableDatabase
+    {
         super::builder::oracle_database::GetPluggableDatabase::new(self.inner.clone())
     }
 
     /// Lists all the DbSystems for the given project and location.
-    pub fn list_db_systems(&self) -> super::builder::oracle_database::ListDbSystems {
+    pub fn list_db_systems(&self) -> super::builder::oracle_database::ListDbSystems
+    {
         super::builder::oracle_database::ListDbSystems::new(self.inner.clone())
     }
 
     /// Gets details of a single DbSystem.
-    pub fn get_db_system(&self) -> super::builder::oracle_database::GetDbSystem {
+    pub fn get_db_system(&self) -> super::builder::oracle_database::GetDbSystem
+    {
         super::builder::oracle_database::GetDbSystem::new(self.inner.clone())
     }
 
@@ -693,7 +679,8 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_db_system(&self) -> super::builder::oracle_database::CreateDbSystem {
+    pub fn create_db_system(&self) -> super::builder::oracle_database::CreateDbSystem
+    {
         super::builder::oracle_database::CreateDbSystem::new(self.inner.clone())
     }
 
@@ -708,57 +695,64 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_db_system(&self) -> super::builder::oracle_database::DeleteDbSystem {
+    pub fn delete_db_system(&self) -> super::builder::oracle_database::DeleteDbSystem
+    {
         super::builder::oracle_database::DeleteDbSystem::new(self.inner.clone())
     }
 
     /// List DbVersions for the given project and location.
-    pub fn list_db_versions(&self) -> super::builder::oracle_database::ListDbVersions {
+    pub fn list_db_versions(&self) -> super::builder::oracle_database::ListDbVersions
+    {
         super::builder::oracle_database::ListDbVersions::new(self.inner.clone())
     }
 
     /// List DatabaseCharacterSets for the given project and location.
-    pub fn list_database_character_sets(
-        &self,
-    ) -> super::builder::oracle_database::ListDatabaseCharacterSets {
+    pub fn list_database_character_sets(&self) -> super::builder::oracle_database::ListDatabaseCharacterSets
+    {
         super::builder::oracle_database::ListDatabaseCharacterSets::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::oracle_database::ListLocations {
+    pub fn list_locations(&self) -> super::builder::oracle_database::ListLocations
+    {
         super::builder::oracle_database::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::oracle_database::GetLocation {
+    pub fn get_location(&self) -> super::builder::oracle_database::GetLocation
+    {
         super::builder::oracle_database::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::oracle_database::ListOperations {
+    pub fn list_operations(&self) -> super::builder::oracle_database::ListOperations
+    {
         super::builder::oracle_database::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::oracle_database::GetOperation {
+    pub fn get_operation(&self) -> super::builder::oracle_database::GetOperation
+    {
         super::builder::oracle_database::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::oracle_database::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::oracle_database::DeleteOperation
+    {
         super::builder::oracle_database::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::oracle_database::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::oracle_database::CancelOperation
+    {
         super::builder::oracle_database::CancelOperation::new(self.inner.clone())
     }
 }

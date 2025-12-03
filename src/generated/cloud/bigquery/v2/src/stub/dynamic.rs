@@ -58,6 +58,7 @@ pub trait DatasetService: std::fmt::Debug + Send + Sync {
         req: crate::model::UndeleteDatasetRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
+
 }
 
 /// All implementations of [super::DatasetService] also implement [DatasetService].
@@ -125,6 +126,7 @@ impl<T: super::DatasetService> DatasetService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
         T::undelete_dataset(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::JobService].
@@ -171,6 +173,7 @@ pub trait JobService: std::fmt::Debug + Send + Sync {
         req: crate::model::PostQueryRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>>;
+
 }
 
 /// All implementations of [super::JobService] also implement [JobService].
@@ -238,6 +241,7 @@ impl<T: super::JobService> JobService for T {
     ) -> crate::Result<gax::response::Response<crate::model::QueryResponse>> {
         T::query(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ModelService].
@@ -266,6 +270,7 @@ pub trait ModelService: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ModelService] also implement [ModelService].
@@ -306,6 +311,7 @@ impl<T: super::ModelService> ModelService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_model(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::ProjectService].
@@ -316,6 +322,7 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GetServiceAccountResponse>>;
+
 }
 
 /// All implementations of [super::ProjectService] also implement [ProjectService].
@@ -329,6 +336,7 @@ impl<T: super::ProjectService> ProjectService for T {
     ) -> crate::Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
         T::get_service_account(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RoutineService].
@@ -363,6 +371,7 @@ pub trait RoutineService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListRoutinesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListRoutinesResponse>>;
+
 }
 
 /// All implementations of [super::RoutineService] also implement [RoutineService].
@@ -412,6 +421,7 @@ impl<T: super::RoutineService> RoutineService for T {
     ) -> crate::Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
         T::list_routines(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::RowAccessPolicyService].
@@ -452,6 +462,7 @@ pub trait RowAccessPolicyService: std::fmt::Debug + Send + Sync {
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::RowAccessPolicyService] also implement [RowAccessPolicyService].
@@ -510,6 +521,7 @@ impl<T: super::RowAccessPolicyService> RowAccessPolicyService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::batch_delete_row_access_policies(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::TableService].
@@ -550,6 +562,7 @@ pub trait TableService: std::fmt::Debug + Send + Sync {
         req: crate::model::ListTablesRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TableList>>;
+
 }
 
 /// All implementations of [super::TableService] also implement [TableService].
@@ -608,4 +621,5 @@ impl<T: super::TableService> TableService for T {
     ) -> crate::Result<gax::response::Response<crate::model::TableList>> {
         T::list_tables(self, req, options).await
     }
+
 }

@@ -113,6 +113,7 @@ impl std::fmt::Debug for super::environment::Endpoints {
     }
 }
 
+
 impl std::fmt::Debug for super::Content {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Content");
@@ -153,6 +154,7 @@ impl std::fmt::Debug for super::content::Notebook {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Session {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -546,6 +548,7 @@ impl std::fmt::Debug for super::aspect_type::metadata_template::Annotations {
     }
 }
 
+
 impl std::fmt::Debug for super::EntryGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntryGroup");
@@ -609,6 +612,7 @@ impl std::fmt::Debug for super::entry_type::Authorization {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Aspect {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -688,6 +692,7 @@ impl std::fmt::Debug for super::entry_source::Ancestor {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateEntryGroupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1273,6 +1278,7 @@ impl std::fmt::Debug for super::metadata_job::Status {
     }
 }
 
+
 impl std::fmt::Debug for super::EntryLink {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EntryLink");
@@ -1346,10 +1352,7 @@ impl std::fmt::Debug for super::EncryptionConfig {
         debug_struct.field("encryption_state", &self.encryption_state);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("failure_details", &self.failure_details);
-        debug_struct.field(
-            "enable_metastore_encryption",
-            &self.enable_metastore_encryption,
-        );
+        debug_struct.field("enable_metastore_encryption", &self.enable_metastore_encryption);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1523,10 +1526,7 @@ impl std::fmt::Debug for super::GetContentRequest {
 impl std::fmt::Debug for super::DataDiscoverySpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataDiscoverySpec");
-        debug_struct.field(
-            "bigquery_publishing_config",
-            &self.bigquery_publishing_config,
-        );
+        debug_struct.field("bigquery_publishing_config", &self.bigquery_publishing_config);
         debug_struct.field("resource_config", &self.resource_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1712,10 +1712,7 @@ impl std::fmt::Debug for super::DataProfileSpec {
         debug_struct.field("post_scan_actions", &self.post_scan_actions);
         debug_struct.field("include_fields", &self.include_fields);
         debug_struct.field("exclude_fields", &self.exclude_fields);
-        debug_struct.field(
-            "catalog_publishing_enabled",
-            &self.catalog_publishing_enabled,
-        );
+        debug_struct.field("catalog_publishing_enabled", &self.catalog_publishing_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1823,9 +1820,7 @@ impl std::fmt::Debug for super::data_profile_result::profile::field::profile_inf
     }
 }
 
-impl std::fmt::Debug
-    for super::data_profile_result::profile::field::profile_info::IntegerFieldInfo
-{
+impl std::fmt::Debug for super::data_profile_result::profile::field::profile_info::IntegerFieldInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IntegerFieldInfo");
         debug_struct.field("average", &self.average);
@@ -1879,9 +1874,7 @@ impl std::fmt::Debug for super::data_profile_result::PostScanActionsResult {
     }
 }
 
-impl std::fmt::Debug
-    for super::data_profile_result::post_scan_actions_result::BigQueryExportResult
-{
+impl std::fmt::Debug for super::data_profile_result::post_scan_actions_result::BigQueryExportResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQueryExportResult");
         debug_struct.field("state", &self.state);
@@ -1900,10 +1893,7 @@ impl std::fmt::Debug for super::DataQualitySpec {
         debug_struct.field("sampling_percent", &self.sampling_percent);
         debug_struct.field("row_filter", &self.row_filter);
         debug_struct.field("post_scan_actions", &self.post_scan_actions);
-        debug_struct.field(
-            "catalog_publishing_enabled",
-            &self.catalog_publishing_enabled,
-        );
+        debug_struct.field("catalog_publishing_enabled", &self.catalog_publishing_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2002,10 +1992,7 @@ impl std::fmt::Debug for super::DataQualityResult {
         debug_struct.field("scanned_data", &self.scanned_data);
         debug_struct.field("post_scan_actions_result", &self.post_scan_actions_result);
         debug_struct.field("catalog_publishing_status", &self.catalog_publishing_status);
-        debug_struct.field(
-            "anomaly_detection_generated_assets",
-            &self.anomaly_detection_generated_assets,
-        );
+        debug_struct.field("anomaly_detection_generated_assets", &self.anomaly_detection_generated_assets);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2024,9 +2011,7 @@ impl std::fmt::Debug for super::data_quality_result::PostScanActionsResult {
     }
 }
 
-impl std::fmt::Debug
-    for super::data_quality_result::post_scan_actions_result::BigQueryExportResult
-{
+impl std::fmt::Debug for super::data_quality_result::post_scan_actions_result::BigQueryExportResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BigQueryExportResult");
         debug_struct.field("state", &self.state);
@@ -2043,10 +2028,7 @@ impl std::fmt::Debug for super::data_quality_result::AnomalyDetectionGeneratedAs
         let mut debug_struct = f.debug_struct("AnomalyDetectionGeneratedAssets");
         debug_struct.field("result_table", &self.result_table);
         debug_struct.field("data_intermediate_table", &self.data_intermediate_table);
-        debug_struct.field(
-            "freshness_intermediate_table",
-            &self.freshness_intermediate_table,
-        );
+        debug_struct.field("freshness_intermediate_table", &self.freshness_intermediate_table);
         debug_struct.field("volume_intermediate_table", &self.volume_intermediate_table);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2307,6 +2289,7 @@ impl std::fmt::Debug for super::data_attribute_binding::Path {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateDataTaxonomyRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2751,6 +2734,7 @@ impl std::fmt::Debug for super::data_scan::ExecutionStatus {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::DataScanJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -3510,15 +3494,13 @@ impl std::fmt::Debug for super::lake::MetastoreStatus {
     }
 }
 
+
 impl std::fmt::Debug for super::AssetStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssetStatus");
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("active_assets", &self.active_assets);
-        debug_struct.field(
-            "security_policy_applying_assets",
-            &self.security_policy_applying_assets,
-        );
+        debug_struct.field("security_policy_applying_assets", &self.security_policy_applying_assets);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3600,6 +3582,7 @@ impl std::fmt::Debug for super::zone::discovery_spec::JsonOptions {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::Action {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -3844,6 +3827,7 @@ impl std::fmt::Debug for super::asset::discovery_status::Stats {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ResourceAccessSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4510,10 +4494,7 @@ impl std::fmt::Debug for super::task::ExecutionSpec {
         debug_struct.field("args", &self.args);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("project", &self.project);
-        debug_struct.field(
-            "max_job_execution_lifetime",
-            &self.max_job_execution_lifetime,
-        );
+        debug_struct.field("max_job_execution_lifetime", &self.max_job_execution_lifetime);
         debug_struct.field("kms_key", &self.kms_key);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -4562,6 +4543,7 @@ impl std::fmt::Debug for super::task::ExecutionStatus {
     }
 }
 
+
 impl std::fmt::Debug for super::Job {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Job");
@@ -4583,3 +4565,4 @@ impl std::fmt::Debug for super::Job {
         debug_struct.finish()
     }
 }
+

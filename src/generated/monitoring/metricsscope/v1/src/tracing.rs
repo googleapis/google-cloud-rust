@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [MetricsScopes](super::stub::MetricsScopes) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::MetricsScopes for MetricsScopes<T>
-where
-    T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_metrics_scope(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_metrics_scope",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_metrics_scope(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_metrics_scope(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -80,8 +71,7 @@ where
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
-    {
+    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
         use tracing::Instrument;
         let span_name = concat!(
             env!("CARGO_PKG_NAME"),
@@ -92,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_metrics_scopes_by_monitored_project",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_metrics_scopes_by_monitored_project(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_metrics_scopes_by_monitored_project(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -111,11 +98,8 @@ where
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
-    {
-        self.inner
-            .list_metrics_scopes_by_monitored_project(req, options)
-            .await
+    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
+        self.inner.list_metrics_scopes_by_monitored_project(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_monitored_project(
@@ -133,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_monitored_project",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_monitored_project(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_monitored_project(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -171,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_monitored_project",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_monitored_project(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_monitored_project(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -209,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -246,3 +221,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

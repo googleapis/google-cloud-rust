@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -45,6 +45,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateCloudsRequest {
+
     /// Required. The resource name of the private cloud to be queried for
     /// clusters. Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -154,6 +155,7 @@ impl wkt::message::Message for ListPrivateCloudsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateCloudsResponse {
+
     /// A list of private clouds.
     pub private_clouds: std::vec::Vec<crate::model::PrivateCloud>,
 
@@ -177,7 +179,7 @@ impl ListPrivateCloudsResponse {
     pub fn set_private_clouds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrivateCloud>,
+        V: std::convert::Into<crate::model::PrivateCloud>
     {
         use std::iter::Iterator;
         self.private_clouds = v.into_iter().map(|i| i.into()).collect();
@@ -194,7 +196,7 @@ impl ListPrivateCloudsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -229,6 +231,7 @@ impl gax::paginator::internal::PageableResponse for ListPrivateCloudsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateCloudRequest {
+
     /// Required. The resource name of the private cloud to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -264,6 +267,7 @@ impl wkt::message::Message for GetPrivateCloudRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateCloudRequest {
+
     /// Required. The resource name of the location to create the new
     /// private cloud in. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>.
@@ -310,18 +314,14 @@ impl CreatePrivateCloudRequest {
     }
 
     /// Sets the value of [private_cloud_id][crate::model::CreatePrivateCloudRequest::private_cloud_id].
-    pub fn set_private_cloud_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_cloud_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud_id = v.into();
         self
     }
 
     /// Sets the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
     pub fn set_private_cloud<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateCloud>,
+    where T: std::convert::Into<crate::model::PrivateCloud>
     {
         self.private_cloud = std::option::Option::Some(v.into());
         self
@@ -329,8 +329,7 @@ impl CreatePrivateCloudRequest {
 
     /// Sets or clears the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
     pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateCloud>,
+    where T: std::convert::Into<crate::model::PrivateCloud>
     {
         self.private_cloud = v.map(|x| x.into());
         self
@@ -362,6 +361,7 @@ impl wkt::message::Message for CreatePrivateCloudRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePrivateCloudRequest {
+
     /// Required. Private cloud description.
     pub private_cloud: std::option::Option<crate::model::PrivateCloud>,
 
@@ -386,8 +386,7 @@ impl UpdatePrivateCloudRequest {
 
     /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
     pub fn set_private_cloud<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateCloud>,
+    where T: std::convert::Into<crate::model::PrivateCloud>
     {
         self.private_cloud = std::option::Option::Some(v.into());
         self
@@ -395,8 +394,7 @@ impl UpdatePrivateCloudRequest {
 
     /// Sets or clears the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
     pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateCloud>,
+    where T: std::convert::Into<crate::model::PrivateCloud>
     {
         self.private_cloud = v.map(|x| x.into());
         self
@@ -404,8 +402,7 @@ impl UpdatePrivateCloudRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -413,8 +410,7 @@ impl UpdatePrivateCloudRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -440,6 +436,7 @@ impl wkt::message::Message for UpdatePrivateCloudRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateCloudRequest {
+
     /// Required. The resource name of the private cloud to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -498,8 +495,7 @@ impl DeletePrivateCloudRequest {
 
     /// Sets the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
     pub fn set_delay_hours<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.delay_hours = std::option::Option::Some(v.into());
         self
@@ -507,8 +503,7 @@ impl DeletePrivateCloudRequest {
 
     /// Sets or clears the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
     pub fn set_or_clear_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.delay_hours = v.map(|x| x.into());
         self
@@ -528,6 +523,7 @@ impl wkt::message::Message for DeletePrivateCloudRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeletePrivateCloudRequest {
+
     /// Required. The resource name of the private cloud scheduled for deletion.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -573,6 +569,7 @@ impl wkt::message::Message for UndeletePrivateCloudRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
+
     /// Required. The resource name of the private cloud to query for clusters.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -669,6 +666,7 @@ impl wkt::message::Message for ListClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
+
     /// A list of private cloud clusters.
     pub clusters: std::vec::Vec<crate::model::Cluster>,
 
@@ -692,7 +690,7 @@ impl ListClustersResponse {
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Cluster>,
+        V: std::convert::Into<crate::model::Cluster>
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
@@ -709,7 +707,7 @@ impl ListClustersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -744,6 +742,7 @@ impl gax::paginator::internal::PageableResponse for ListClustersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
+
     /// Required. The cluster resource name to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -779,6 +778,7 @@ impl wkt::message::Message for GetClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
+
     /// Required. The resource name of the private cloud to create a new cluster
     /// in. Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -832,8 +832,7 @@ impl CreateClusterRequest {
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -841,8 +840,7 @@ impl CreateClusterRequest {
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -874,6 +872,7 @@ impl wkt::message::Message for CreateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `Cluster` resource by the update. The fields specified in the `updateMask`
     /// are relative to the resource, not the full request. A field will be
@@ -902,8 +901,7 @@ impl UpdateClusterRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -911,8 +909,7 @@ impl UpdateClusterRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -920,8 +917,7 @@ impl UpdateClusterRequest {
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -929,8 +925,7 @@ impl UpdateClusterRequest {
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -962,6 +957,7 @@ impl wkt::message::Message for UpdateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
+
     /// Required. The resource name of the cluster to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -1007,6 +1003,7 @@ impl wkt::message::Message for DeleteClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesRequest {
+
     /// Required. The resource name of the cluster to be queried for nodes.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -1068,6 +1065,7 @@ impl wkt::message::Message for ListNodesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodesResponse {
+
     /// The nodes.
     pub nodes: std::vec::Vec<crate::model::Node>,
 
@@ -1087,7 +1085,7 @@ impl ListNodesResponse {
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Node>,
+        V: std::convert::Into<crate::model::Node>
     {
         use std::iter::Iterator;
         self.nodes = v.into_iter().map(|i| i.into()).collect();
@@ -1128,6 +1126,7 @@ impl gax::paginator::internal::PageableResponse for ListNodesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeRequest {
+
     /// Required. The resource name of the node to retrieve.
     /// For example:
     /// `projects/{project}/locations/{location}/privateClouds/{private_cloud}/clusters/{cluster}/nodes/{node}`
@@ -1161,6 +1160,7 @@ impl wkt::message::Message for GetNodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAddressesRequest {
+
     /// Required. The resource name of the private cloud to be queried for
     /// external IP addresses.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -1270,6 +1270,7 @@ impl wkt::message::Message for ListExternalAddressesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAddressesResponse {
+
     /// A list of external IP addresses.
     pub external_addresses: std::vec::Vec<crate::model::ExternalAddress>,
 
@@ -1293,7 +1294,7 @@ impl ListExternalAddressesResponse {
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExternalAddress>,
+        V: std::convert::Into<crate::model::ExternalAddress>
     {
         use std::iter::Iterator;
         self.external_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -1310,7 +1311,7 @@ impl ListExternalAddressesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1345,6 +1346,7 @@ impl gax::paginator::internal::PageableResponse for ListExternalAddressesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchNetworkPolicyExternalAddressesRequest {
+
     /// Required. The resource name of the network policy to query for assigned
     /// external IP addresses. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -1407,6 +1409,7 @@ impl wkt::message::Message for FetchNetworkPolicyExternalAddressesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchNetworkPolicyExternalAddressesResponse {
+
     /// A list of external IP addresses assigned to VMware workload VMs within the
     /// scope of the given network policy.
     pub external_addresses: std::vec::Vec<crate::model::ExternalAddress>,
@@ -1427,7 +1430,7 @@ impl FetchNetworkPolicyExternalAddressesResponse {
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExternalAddress>,
+        V: std::convert::Into<crate::model::ExternalAddress>
     {
         use std::iter::Iterator;
         self.external_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -1468,6 +1471,7 @@ impl gax::paginator::internal::PageableResponse for FetchNetworkPolicyExternalAd
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExternalAddressRequest {
+
     /// Required. The resource name of the external IP address to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -1503,6 +1507,7 @@ impl wkt::message::Message for GetExternalAddressRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAddressRequest {
+
     /// Required. The resource name of the private cloud
     /// to create a new external IP address in.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -1559,8 +1564,7 @@ impl CreateExternalAddressRequest {
 
     /// Sets the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
     pub fn set_external_address<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAddress>,
+    where T: std::convert::Into<crate::model::ExternalAddress>
     {
         self.external_address = std::option::Option::Some(v.into());
         self
@@ -1568,18 +1572,14 @@ impl CreateExternalAddressRequest {
 
     /// Sets or clears the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
     pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAddress>,
+    where T: std::convert::Into<crate::model::ExternalAddress>
     {
         self.external_address = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [external_address_id][crate::model::CreateExternalAddressRequest::external_address_id].
-    pub fn set_external_address_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_external_address_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_address_id = v.into();
         self
     }
@@ -1604,6 +1604,7 @@ impl wkt::message::Message for CreateExternalAddressRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalAddressRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `ExternalAddress` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -1640,8 +1641,7 @@ impl UpdateExternalAddressRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1649,8 +1649,7 @@ impl UpdateExternalAddressRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1658,8 +1657,7 @@ impl UpdateExternalAddressRequest {
 
     /// Sets the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
     pub fn set_external_address<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAddress>,
+    where T: std::convert::Into<crate::model::ExternalAddress>
     {
         self.external_address = std::option::Option::Some(v.into());
         self
@@ -1667,8 +1665,7 @@ impl UpdateExternalAddressRequest {
 
     /// Sets or clears the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
     pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAddress>,
+    where T: std::convert::Into<crate::model::ExternalAddress>
     {
         self.external_address = v.map(|x| x.into());
         self
@@ -1694,6 +1691,7 @@ impl wkt::message::Message for UpdateExternalAddressRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExternalAddressRequest {
+
     /// Required. The resource name of the external IP address to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -1751,6 +1749,7 @@ impl wkt::message::Message for DeleteExternalAddressRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsRequest {
+
     /// Required. The resource name of the private cloud to be queried for
     /// subnets.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -1812,6 +1811,7 @@ impl wkt::message::Message for ListSubnetsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubnetsResponse {
+
     /// A list of subnets.
     pub subnets: std::vec::Vec<crate::model::Subnet>,
 
@@ -1835,7 +1835,7 @@ impl ListSubnetsResponse {
     pub fn set_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Subnet>,
+        V: std::convert::Into<crate::model::Subnet>
     {
         use std::iter::Iterator;
         self.subnets = v.into_iter().map(|i| i.into()).collect();
@@ -1852,7 +1852,7 @@ impl ListSubnetsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1887,6 +1887,7 @@ impl gax::paginator::internal::PageableResponse for ListSubnetsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubnetRequest {
+
     /// Required. The resource name of the subnet to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -1922,6 +1923,7 @@ impl wkt::message::Message for GetSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSubnetRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `Subnet` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -1942,8 +1944,7 @@ impl UpdateSubnetRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1951,8 +1952,7 @@ impl UpdateSubnetRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1960,8 +1960,7 @@ impl UpdateSubnetRequest {
 
     /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
     pub fn set_subnet<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = std::option::Option::Some(v.into());
         self
@@ -1969,8 +1968,7 @@ impl UpdateSubnetRequest {
 
     /// Sets or clears the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Subnet>,
+    where T: std::convert::Into<crate::model::Subnet>
     {
         self.subnet = v.map(|x| x.into());
         self
@@ -1990,6 +1988,7 @@ impl wkt::message::Message for UpdateSubnetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAccessRulesRequest {
+
     /// Required. The resource name of the network policy to query for external
     /// access firewall rules. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -2099,6 +2098,7 @@ impl wkt::message::Message for ListExternalAccessRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListExternalAccessRulesResponse {
+
     /// A list of external access firewall rules.
     pub external_access_rules: std::vec::Vec<crate::model::ExternalAccessRule>,
 
@@ -2122,7 +2122,7 @@ impl ListExternalAccessRulesResponse {
     pub fn set_external_access_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExternalAccessRule>,
+        V: std::convert::Into<crate::model::ExternalAccessRule>
     {
         use std::iter::Iterator;
         self.external_access_rules = v.into_iter().map(|i| i.into()).collect();
@@ -2139,7 +2139,7 @@ impl ListExternalAccessRulesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2174,6 +2174,7 @@ impl gax::paginator::internal::PageableResponse for ListExternalAccessRulesRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetExternalAccessRuleRequest {
+
     /// Required. The resource name of the external access firewall rule to
     /// retrieve. Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -2209,6 +2210,7 @@ impl wkt::message::Message for GetExternalAccessRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateExternalAccessRuleRequest {
+
     /// Required. The resource name of the network policy
     /// to create a new external access firewall rule in.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -2265,8 +2267,7 @@ impl CreateExternalAccessRuleRequest {
 
     /// Sets the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
     pub fn set_external_access_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAccessRule>,
+    where T: std::convert::Into<crate::model::ExternalAccessRule>
     {
         self.external_access_rule = std::option::Option::Some(v.into());
         self
@@ -2274,18 +2275,14 @@ impl CreateExternalAccessRuleRequest {
 
     /// Sets or clears the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
     pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAccessRule>,
+    where T: std::convert::Into<crate::model::ExternalAccessRule>
     {
         self.external_access_rule = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [external_access_rule_id][crate::model::CreateExternalAccessRuleRequest::external_access_rule_id].
-    pub fn set_external_access_rule_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_external_access_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_access_rule_id = v.into();
         self
     }
@@ -2310,6 +2307,7 @@ impl wkt::message::Message for CreateExternalAccessRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExternalAccessRuleRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `ExternalAccessRule` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -2346,8 +2344,7 @@ impl UpdateExternalAccessRuleRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2355,8 +2352,7 @@ impl UpdateExternalAccessRuleRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2364,8 +2360,7 @@ impl UpdateExternalAccessRuleRequest {
 
     /// Sets the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
     pub fn set_external_access_rule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAccessRule>,
+    where T: std::convert::Into<crate::model::ExternalAccessRule>
     {
         self.external_access_rule = std::option::Option::Some(v.into());
         self
@@ -2373,8 +2368,7 @@ impl UpdateExternalAccessRuleRequest {
 
     /// Sets or clears the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
     pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExternalAccessRule>,
+    where T: std::convert::Into<crate::model::ExternalAccessRule>
     {
         self.external_access_rule = v.map(|x| x.into());
         self
@@ -2400,6 +2394,7 @@ impl wkt::message::Message for UpdateExternalAccessRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteExternalAccessRuleRequest {
+
     /// Required. The resource name of the external access firewall rule to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -2457,6 +2452,7 @@ impl wkt::message::Message for DeleteExternalAccessRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLoggingServersRequest {
+
     /// Required. The resource name of the private cloud to be queried for
     /// logging servers.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -2567,6 +2563,7 @@ impl wkt::message::Message for ListLoggingServersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListLoggingServersResponse {
+
     /// A list of Logging Servers.
     pub logging_servers: std::vec::Vec<crate::model::LoggingServer>,
 
@@ -2590,7 +2587,7 @@ impl ListLoggingServersResponse {
     pub fn set_logging_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::LoggingServer>,
+        V: std::convert::Into<crate::model::LoggingServer>
     {
         use std::iter::Iterator;
         self.logging_servers = v.into_iter().map(|i| i.into()).collect();
@@ -2607,7 +2604,7 @@ impl ListLoggingServersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2642,6 +2639,7 @@ impl gax::paginator::internal::PageableResponse for ListLoggingServersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetLoggingServerRequest {
+
     /// Required. The resource name of the Logging Server to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -2677,6 +2675,7 @@ impl wkt::message::Message for GetLoggingServerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateLoggingServerRequest {
+
     /// Required. The resource name of the private cloud
     /// to create a new Logging Server in.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -2733,8 +2732,7 @@ impl CreateLoggingServerRequest {
 
     /// Sets the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
     pub fn set_logging_server<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingServer>,
+    where T: std::convert::Into<crate::model::LoggingServer>
     {
         self.logging_server = std::option::Option::Some(v.into());
         self
@@ -2742,18 +2740,14 @@ impl CreateLoggingServerRequest {
 
     /// Sets or clears the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
     pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingServer>,
+    where T: std::convert::Into<crate::model::LoggingServer>
     {
         self.logging_server = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [logging_server_id][crate::model::CreateLoggingServerRequest::logging_server_id].
-    pub fn set_logging_server_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_logging_server_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logging_server_id = v.into();
         self
     }
@@ -2778,6 +2772,7 @@ impl wkt::message::Message for CreateLoggingServerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateLoggingServerRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `LoggingServer` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -2814,8 +2809,7 @@ impl UpdateLoggingServerRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2823,8 +2817,7 @@ impl UpdateLoggingServerRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2832,8 +2825,7 @@ impl UpdateLoggingServerRequest {
 
     /// Sets the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
     pub fn set_logging_server<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingServer>,
+    where T: std::convert::Into<crate::model::LoggingServer>
     {
         self.logging_server = std::option::Option::Some(v.into());
         self
@@ -2841,8 +2833,7 @@ impl UpdateLoggingServerRequest {
 
     /// Sets or clears the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
     pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingServer>,
+    where T: std::convert::Into<crate::model::LoggingServer>
     {
         self.logging_server = v.map(|x| x.into());
         self
@@ -2868,6 +2859,7 @@ impl wkt::message::Message for UpdateLoggingServerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteLoggingServerRequest {
+
     /// Required. The resource name of the logging server to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -2922,6 +2914,7 @@ impl wkt::message::Message for DeleteLoggingServerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2960,8 +2953,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2969,8 +2961,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2978,8 +2969,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2987,8 +2977,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3038,6 +3027,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodeTypesRequest {
+
     /// Required. The resource name of the location to be queried for node types.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -3133,6 +3123,7 @@ impl wkt::message::Message for ListNodeTypesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNodeTypesResponse {
+
     /// A list of Node Types.
     pub node_types: std::vec::Vec<crate::model::NodeType>,
 
@@ -3156,7 +3147,7 @@ impl ListNodeTypesResponse {
     pub fn set_node_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeType>,
+        V: std::convert::Into<crate::model::NodeType>
     {
         use std::iter::Iterator;
         self.node_types = v.into_iter().map(|i| i.into()).collect();
@@ -3173,7 +3164,7 @@ impl ListNodeTypesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3208,6 +3199,7 @@ impl gax::paginator::internal::PageableResponse for ListNodeTypesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeTypeRequest {
+
     /// Required. The resource name of the node type to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -3243,6 +3235,7 @@ impl wkt::message::Message for GetNodeTypeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowNsxCredentialsRequest {
+
     /// Required. The resource name of the private cloud
     /// to be queried for credentials.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -3279,6 +3272,7 @@ impl wkt::message::Message for ShowNsxCredentialsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShowVcenterCredentialsRequest {
+
     /// Required. The resource name of the private cloud
     /// to be queried for credentials.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -3333,6 +3327,7 @@ impl wkt::message::Message for ShowVcenterCredentialsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetNsxCredentialsRequest {
+
     /// Required. The resource name of the private cloud
     /// to reset credentials for.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -3391,6 +3386,7 @@ impl wkt::message::Message for ResetNsxCredentialsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetVcenterCredentialsRequest {
+
     /// Required. The resource name of the private cloud
     /// to reset credentials for.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -3466,6 +3462,7 @@ impl wkt::message::Message for ResetVcenterCredentialsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHcxActivationKeysResponse {
+
     /// List of HCX activation keys.
     pub hcx_activation_keys: std::vec::Vec<crate::model::HcxActivationKey>,
 
@@ -3489,7 +3486,7 @@ impl ListHcxActivationKeysResponse {
     pub fn set_hcx_activation_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::HcxActivationKey>,
+        V: std::convert::Into<crate::model::HcxActivationKey>
     {
         use std::iter::Iterator;
         self.hcx_activation_keys = v.into_iter().map(|i| i.into()).collect();
@@ -3506,7 +3503,7 @@ impl ListHcxActivationKeysResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3541,6 +3538,7 @@ impl gax::paginator::internal::PageableResponse for ListHcxActivationKeysRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListHcxActivationKeysRequest {
+
     /// Required. The resource name of the private cloud
     /// to be queried for HCX activation keys.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -3600,6 +3598,7 @@ impl wkt::message::Message for ListHcxActivationKeysRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetHcxActivationKeyRequest {
+
     /// Required. The resource name of the HCX activation key to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -3635,6 +3634,7 @@ impl wkt::message::Message for GetHcxActivationKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateHcxActivationKeyRequest {
+
     /// Required. The resource name of the private cloud to create the key for.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -3691,8 +3691,7 @@ impl CreateHcxActivationKeyRequest {
 
     /// Sets the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
     pub fn set_hcx_activation_key<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::HcxActivationKey>,
+    where T: std::convert::Into<crate::model::HcxActivationKey>
     {
         self.hcx_activation_key = std::option::Option::Some(v.into());
         self
@@ -3700,18 +3699,14 @@ impl CreateHcxActivationKeyRequest {
 
     /// Sets or clears the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
     pub fn set_or_clear_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::HcxActivationKey>,
+    where T: std::convert::Into<crate::model::HcxActivationKey>
     {
         self.hcx_activation_key = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [hcx_activation_key_id][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key_id].
-    pub fn set_hcx_activation_key_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_hcx_activation_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hcx_activation_key_id = v.into();
         self
     }
@@ -3736,6 +3731,7 @@ impl wkt::message::Message for CreateHcxActivationKeyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsForwardingRequest {
+
     /// Required. The resource name of a `DnsForwarding` to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -3771,6 +3767,7 @@ impl wkt::message::Message for GetDnsForwardingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDnsForwardingRequest {
+
     /// Required. DnsForwarding config details.
     pub dns_forwarding: std::option::Option<crate::model::DnsForwarding>,
 
@@ -3807,8 +3804,7 @@ impl UpdateDnsForwardingRequest {
 
     /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
     pub fn set_dns_forwarding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsForwarding>,
+    where T: std::convert::Into<crate::model::DnsForwarding>
     {
         self.dns_forwarding = std::option::Option::Some(v.into());
         self
@@ -3816,8 +3812,7 @@ impl UpdateDnsForwardingRequest {
 
     /// Sets or clears the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
     pub fn set_or_clear_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsForwarding>,
+    where T: std::convert::Into<crate::model::DnsForwarding>
     {
         self.dns_forwarding = v.map(|x| x.into());
         self
@@ -3825,8 +3820,7 @@ impl UpdateDnsForwardingRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3834,8 +3828,7 @@ impl UpdateDnsForwardingRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3861,6 +3854,7 @@ impl wkt::message::Message for UpdateDnsForwardingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNetworkPeeringRequest {
+
     /// Required. The resource name of the location to create the new network
     /// peering in. This value is always `global`, because `NetworkPeering` is a
     /// global resource. Resource names are schemeless URIs that follow the
@@ -3915,18 +3909,14 @@ impl CreateNetworkPeeringRequest {
     }
 
     /// Sets the value of [network_peering_id][crate::model::CreateNetworkPeeringRequest::network_peering_id].
-    pub fn set_network_peering_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_network_peering_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_peering_id = v.into();
         self
     }
 
     /// Sets the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
     pub fn set_network_peering<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPeering>,
+    where T: std::convert::Into<crate::model::NetworkPeering>
     {
         self.network_peering = std::option::Option::Some(v.into());
         self
@@ -3934,8 +3924,7 @@ impl CreateNetworkPeeringRequest {
 
     /// Sets or clears the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
     pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPeering>,
+    where T: std::convert::Into<crate::model::NetworkPeering>
     {
         self.network_peering = v.map(|x| x.into());
         self
@@ -3961,6 +3950,7 @@ impl wkt::message::Message for CreateNetworkPeeringRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNetworkPeeringRequest {
+
     /// Required. The resource name of the network peering to be deleted.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -4018,6 +4008,7 @@ impl wkt::message::Message for DeleteNetworkPeeringRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkPeeringRequest {
+
     /// Required. The resource name of the network peering to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -4053,6 +4044,7 @@ impl wkt::message::Message for GetNetworkPeeringRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPeeringsRequest {
+
     /// Required. The resource name of the location (global) to query for
     /// network peerings. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -4160,6 +4152,7 @@ impl wkt::message::Message for ListNetworkPeeringsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkPeeringRequest {
+
     /// Required. Network peering description.
     pub network_peering: std::option::Option<crate::model::NetworkPeering>,
 
@@ -4196,8 +4189,7 @@ impl UpdateNetworkPeeringRequest {
 
     /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
     pub fn set_network_peering<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPeering>,
+    where T: std::convert::Into<crate::model::NetworkPeering>
     {
         self.network_peering = std::option::Option::Some(v.into());
         self
@@ -4205,8 +4197,7 @@ impl UpdateNetworkPeeringRequest {
 
     /// Sets or clears the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
     pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPeering>,
+    where T: std::convert::Into<crate::model::NetworkPeering>
     {
         self.network_peering = v.map(|x| x.into());
         self
@@ -4214,8 +4205,7 @@ impl UpdateNetworkPeeringRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4223,8 +4213,7 @@ impl UpdateNetworkPeeringRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4250,6 +4239,7 @@ impl wkt::message::Message for UpdateNetworkPeeringRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPeeringsResponse {
+
     /// A list of network peerings.
     pub network_peerings: std::vec::Vec<crate::model::NetworkPeering>,
 
@@ -4272,7 +4262,7 @@ impl ListNetworkPeeringsResponse {
     pub fn set_network_peerings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkPeering>,
+        V: std::convert::Into<crate::model::NetworkPeering>
     {
         use std::iter::Iterator;
         self.network_peerings = v.into_iter().map(|i| i.into()).collect();
@@ -4289,7 +4279,7 @@ impl ListNetworkPeeringsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4324,6 +4314,7 @@ impl gax::paginator::internal::PageableResponse for ListNetworkPeeringsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPeeringRoutesRequest {
+
     /// Required. The resource name of the network peering to retrieve peering
     /// routes from. Resource names are schemeless URIs that follow the conventions
     /// in <https://cloud.google.com/apis/design/resource_names>. For example:
@@ -4395,6 +4386,7 @@ impl wkt::message::Message for ListPeeringRoutesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPeeringRoutesResponse {
+
     /// A list of peering routes.
     pub peering_routes: std::vec::Vec<crate::model::PeeringRoute>,
 
@@ -4414,7 +4406,7 @@ impl ListPeeringRoutesResponse {
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PeeringRoute>,
+        V: std::convert::Into<crate::model::PeeringRoute>
     {
         use std::iter::Iterator;
         self.peering_routes = v.into_iter().map(|i| i.into()).collect();
@@ -4455,6 +4447,7 @@ impl gax::paginator::internal::PageableResponse for ListPeeringRoutesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPoliciesRequest {
+
     /// Required. The resource name of the location (region) to query for
     /// network policies. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -4563,6 +4556,7 @@ impl wkt::message::Message for ListNetworkPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListNetworkPoliciesResponse {
+
     /// A list of network policies.
     pub network_policies: std::vec::Vec<crate::model::NetworkPolicy>,
 
@@ -4586,7 +4580,7 @@ impl ListNetworkPoliciesResponse {
     pub fn set_network_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NetworkPolicy>,
+        V: std::convert::Into<crate::model::NetworkPolicy>
     {
         use std::iter::Iterator;
         self.network_policies = v.into_iter().map(|i| i.into()).collect();
@@ -4603,7 +4597,7 @@ impl ListNetworkPoliciesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4638,6 +4632,7 @@ impl gax::paginator::internal::PageableResponse for ListNetworkPoliciesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNetworkPolicyRequest {
+
     /// Required. The resource name of the network policy to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -4673,6 +4668,7 @@ impl wkt::message::Message for GetNetworkPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateNetworkPolicyRequest {
+
     /// Required. Network policy description.
     pub network_policy: std::option::Option<crate::model::NetworkPolicy>,
 
@@ -4709,8 +4705,7 @@ impl UpdateNetworkPolicyRequest {
 
     /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
     pub fn set_network_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPolicy>,
+    where T: std::convert::Into<crate::model::NetworkPolicy>
     {
         self.network_policy = std::option::Option::Some(v.into());
         self
@@ -4718,8 +4713,7 @@ impl UpdateNetworkPolicyRequest {
 
     /// Sets or clears the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPolicy>,
+    where T: std::convert::Into<crate::model::NetworkPolicy>
     {
         self.network_policy = v.map(|x| x.into());
         self
@@ -4727,8 +4721,7 @@ impl UpdateNetworkPolicyRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4736,8 +4729,7 @@ impl UpdateNetworkPolicyRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4763,6 +4755,7 @@ impl wkt::message::Message for UpdateNetworkPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNetworkPolicyRequest {
+
     /// Required. The resource name of the location (region)
     /// to create the new network policy in.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -4819,18 +4812,14 @@ impl CreateNetworkPolicyRequest {
     }
 
     /// Sets the value of [network_policy_id][crate::model::CreateNetworkPolicyRequest::network_policy_id].
-    pub fn set_network_policy_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_network_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_policy_id = v.into();
         self
     }
 
     /// Sets the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
     pub fn set_network_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPolicy>,
+    where T: std::convert::Into<crate::model::NetworkPolicy>
     {
         self.network_policy = std::option::Option::Some(v.into());
         self
@@ -4838,8 +4827,7 @@ impl CreateNetworkPolicyRequest {
 
     /// Sets or clears the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkPolicy>,
+    where T: std::convert::Into<crate::model::NetworkPolicy>
     {
         self.network_policy = v.map(|x| x.into());
         self
@@ -4865,6 +4853,7 @@ impl wkt::message::Message for CreateNetworkPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteNetworkPolicyRequest {
+
     /// Required. The resource name of the network policy to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -4922,6 +4911,7 @@ impl wkt::message::Message for DeleteNetworkPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagementDnsZoneBindingsRequest {
+
     /// Required. The resource name of the private cloud to be queried for
     /// management DNS zone bindings.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -5032,6 +5022,7 @@ impl wkt::message::Message for ListManagementDnsZoneBindingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListManagementDnsZoneBindingsResponse {
+
     /// A list of management DNS zone bindings.
     pub management_dns_zone_bindings: std::vec::Vec<crate::model::ManagementDnsZoneBinding>,
 
@@ -5055,7 +5046,7 @@ impl ListManagementDnsZoneBindingsResponse {
     pub fn set_management_dns_zone_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        V: std::convert::Into<crate::model::ManagementDnsZoneBinding>
     {
         use std::iter::Iterator;
         self.management_dns_zone_bindings = v.into_iter().map(|i| i.into()).collect();
@@ -5072,7 +5063,7 @@ impl ListManagementDnsZoneBindingsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5107,6 +5098,7 @@ impl gax::paginator::internal::PageableResponse for ListManagementDnsZoneBinding
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetManagementDnsZoneBindingRequest {
+
     /// Required. The resource name of the management DNS zone binding to
     /// retrieve. Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -5139,6 +5131,7 @@ impl wkt::message::Message for GetManagementDnsZoneBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateManagementDnsZoneBindingRequest {
+
     /// Required. The resource name of the private cloud
     /// to create a new management DNS zone binding for.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -5196,8 +5189,7 @@ impl CreateManagementDnsZoneBindingRequest {
 
     /// Sets the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
     pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+    where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
     {
         self.management_dns_zone_binding = std::option::Option::Some(v.into());
         self
@@ -5205,18 +5197,14 @@ impl CreateManagementDnsZoneBindingRequest {
 
     /// Sets or clears the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
     pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+    where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
     {
         self.management_dns_zone_binding = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [management_dns_zone_binding_id][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding_id].
-    pub fn set_management_dns_zone_binding_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_management_dns_zone_binding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.management_dns_zone_binding_id = v.into();
         self
     }
@@ -5241,6 +5229,7 @@ impl wkt::message::Message for CreateManagementDnsZoneBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateManagementDnsZoneBindingRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `ManagementDnsZoneBinding` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -5277,8 +5266,7 @@ impl UpdateManagementDnsZoneBindingRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5286,8 +5274,7 @@ impl UpdateManagementDnsZoneBindingRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5295,8 +5282,7 @@ impl UpdateManagementDnsZoneBindingRequest {
 
     /// Sets the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
     pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+    where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
     {
         self.management_dns_zone_binding = std::option::Option::Some(v.into());
         self
@@ -5304,8 +5290,7 @@ impl UpdateManagementDnsZoneBindingRequest {
 
     /// Sets or clears the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
     pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+    where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
     {
         self.management_dns_zone_binding = v.map(|x| x.into());
         self
@@ -5331,6 +5316,7 @@ impl wkt::message::Message for UpdateManagementDnsZoneBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteManagementDnsZoneBindingRequest {
+
     /// Required. The resource name of the management DNS zone binding to delete.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -5385,6 +5371,7 @@ impl wkt::message::Message for DeleteManagementDnsZoneBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepairManagementDnsZoneBindingRequest {
+
     /// Required. The resource name of the management DNS zone binding to repair.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -5442,6 +5429,7 @@ impl wkt::message::Message for RepairManagementDnsZoneBindingRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVmwareEngineNetworkRequest {
+
     /// Required. The resource name of the location to create the new VMware Engine
     /// network in. A VMware Engine network of type
     /// `LEGACY` is a regional resource, and a VMware
@@ -5501,18 +5489,14 @@ impl CreateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [vmware_engine_network_id][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network_id].
-    pub fn set_vmware_engine_network_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network_id = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
     pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+    where T: std::convert::Into<crate::model::VmwareEngineNetwork>
     {
         self.vmware_engine_network = std::option::Option::Some(v.into());
         self
@@ -5520,8 +5504,7 @@ impl CreateVmwareEngineNetworkRequest {
 
     /// Sets or clears the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
     pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+    where T: std::convert::Into<crate::model::VmwareEngineNetwork>
     {
         self.vmware_engine_network = v.map(|x| x.into());
         self
@@ -5547,6 +5530,7 @@ impl wkt::message::Message for CreateVmwareEngineNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVmwareEngineNetworkRequest {
+
     /// Required. VMware Engine network description.
     pub vmware_engine_network: std::option::Option<crate::model::VmwareEngineNetwork>,
 
@@ -5584,8 +5568,7 @@ impl UpdateVmwareEngineNetworkRequest {
 
     /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
     pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+    where T: std::convert::Into<crate::model::VmwareEngineNetwork>
     {
         self.vmware_engine_network = std::option::Option::Some(v.into());
         self
@@ -5593,8 +5576,7 @@ impl UpdateVmwareEngineNetworkRequest {
 
     /// Sets or clears the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
     pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+    where T: std::convert::Into<crate::model::VmwareEngineNetwork>
     {
         self.vmware_engine_network = v.map(|x| x.into());
         self
@@ -5602,8 +5584,7 @@ impl UpdateVmwareEngineNetworkRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -5611,8 +5592,7 @@ impl UpdateVmwareEngineNetworkRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -5638,6 +5618,7 @@ impl wkt::message::Message for UpdateVmwareEngineNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVmwareEngineNetworkRequest {
+
     /// Required. The resource name of the VMware Engine network to be deleted.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -5707,6 +5688,7 @@ impl wkt::message::Message for DeleteVmwareEngineNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVmwareEngineNetworkRequest {
+
     /// Required. The resource name of the VMware Engine network to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -5742,6 +5724,7 @@ impl wkt::message::Message for GetVmwareEngineNetworkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVmwareEngineNetworksRequest {
+
     /// Required. The resource name of the location to query for
     /// VMware Engine networks. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -5849,6 +5832,7 @@ impl wkt::message::Message for ListVmwareEngineNetworksRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVmwareEngineNetworksResponse {
+
     /// A list of VMware Engine networks.
     pub vmware_engine_networks: std::vec::Vec<crate::model::VmwareEngineNetwork>,
 
@@ -5871,7 +5855,7 @@ impl ListVmwareEngineNetworksResponse {
     pub fn set_vmware_engine_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        V: std::convert::Into<crate::model::VmwareEngineNetwork>
     {
         use std::iter::Iterator;
         self.vmware_engine_networks = v.into_iter().map(|i| i.into()).collect();
@@ -5888,7 +5872,7 @@ impl ListVmwareEngineNetworksResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5923,6 +5907,7 @@ impl gax::paginator::internal::PageableResponse for ListVmwareEngineNetworksResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePrivateConnectionRequest {
+
     /// Required. The resource name of the location to create the new private
     /// connection in. Private connection is a regional resource.
     /// Resource names are schemeless URIs that follow the conventions in
@@ -5977,18 +5962,14 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
-    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_connection_id = v.into();
         self
     }
 
     /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
     pub fn set_private_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = std::option::Option::Some(v.into());
         self
@@ -5996,8 +5977,7 @@ impl CreatePrivateConnectionRequest {
 
     /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = v.map(|x| x.into());
         self
@@ -6023,6 +6003,7 @@ impl wkt::message::Message for CreatePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPrivateConnectionRequest {
+
     /// Required. The resource name of the private connection to retrieve.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -6058,6 +6039,7 @@ impl wkt::message::Message for GetPrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsRequest {
+
     /// Required. The resource name of the location to query for
     /// private connections. Resource names are schemeless URIs that follow the
     /// conventions in <https://cloud.google.com/apis/design/resource_names>. For
@@ -6165,6 +6147,7 @@ impl wkt::message::Message for ListPrivateConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionsResponse {
+
     /// A list of private connections.
     pub private_connections: std::vec::Vec<crate::model::PrivateConnection>,
 
@@ -6187,7 +6170,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PrivateConnection>,
+        V: std::convert::Into<crate::model::PrivateConnection>
     {
         use std::iter::Iterator;
         self.private_connections = v.into_iter().map(|i| i.into()).collect();
@@ -6204,7 +6187,7 @@ impl ListPrivateConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -6239,6 +6222,7 @@ impl gax::paginator::internal::PageableResponse for ListPrivateConnectionsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePrivateConnectionRequest {
+
     /// Required. Private connection description.
     pub private_connection: std::option::Option<crate::model::PrivateConnection>,
 
@@ -6275,8 +6259,7 @@ impl UpdatePrivateConnectionRequest {
 
     /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
     pub fn set_private_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = std::option::Option::Some(v.into());
         self
@@ -6284,8 +6267,7 @@ impl UpdatePrivateConnectionRequest {
 
     /// Sets or clears the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PrivateConnection>,
+    where T: std::convert::Into<crate::model::PrivateConnection>
     {
         self.private_connection = v.map(|x| x.into());
         self
@@ -6293,8 +6275,7 @@ impl UpdatePrivateConnectionRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6302,8 +6283,7 @@ impl UpdatePrivateConnectionRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6329,6 +6309,7 @@ impl wkt::message::Message for UpdatePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePrivateConnectionRequest {
+
     /// Required. The resource name of the private connection to be deleted.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -6386,6 +6367,7 @@ impl wkt::message::Message for DeletePrivateConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionPeeringRoutesRequest {
+
     /// Required. The resource name of the private connection to retrieve peering
     /// routes from. Resource names are schemeless URIs that follow the conventions
     /// in <https://cloud.google.com/apis/design/resource_names>. For example:
@@ -6444,6 +6426,7 @@ impl wkt::message::Message for ListPrivateConnectionPeeringRoutesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPrivateConnectionPeeringRoutesResponse {
+
     /// A list of peering routes.
     pub peering_routes: std::vec::Vec<crate::model::PeeringRoute>,
 
@@ -6463,7 +6446,7 @@ impl ListPrivateConnectionPeeringRoutesResponse {
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PeeringRoute>,
+        V: std::convert::Into<crate::model::PeeringRoute>
     {
         use std::iter::Iterator;
         self.peering_routes = v.into_iter().map(|i| i.into()).collect();
@@ -6504,6 +6487,7 @@ impl gax::paginator::internal::PageableResponse for ListPrivateConnectionPeering
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrantDnsBindPermissionRequest {
+
     /// Required. The name of the resource which stores the users/service accounts
     /// having the permission to bind to the corresponding intranet VPC of the
     /// consumer project. DnsBindPermission is a global resource. Resource names
@@ -6549,8 +6533,7 @@ impl GrantDnsBindPermissionRequest {
 
     /// Sets the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
     pub fn set_principal<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Principal>,
+    where T: std::convert::Into<crate::model::Principal>
     {
         self.principal = std::option::Option::Some(v.into());
         self
@@ -6558,8 +6541,7 @@ impl GrantDnsBindPermissionRequest {
 
     /// Sets or clears the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
     pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Principal>,
+    where T: std::convert::Into<crate::model::Principal>
     {
         self.principal = v.map(|x| x.into());
         self
@@ -6585,6 +6567,7 @@ impl wkt::message::Message for GrantDnsBindPermissionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RevokeDnsBindPermissionRequest {
+
     /// Required. The name of the resource which stores the users/service accounts
     /// having the permission to bind to the corresponding intranet VPC of the
     /// consumer project. DnsBindPermission is a global resource. Resource names
@@ -6630,8 +6613,7 @@ impl RevokeDnsBindPermissionRequest {
 
     /// Sets the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
     pub fn set_principal<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Principal>,
+    where T: std::convert::Into<crate::model::Principal>
     {
         self.principal = std::option::Option::Some(v.into());
         self
@@ -6639,8 +6621,7 @@ impl RevokeDnsBindPermissionRequest {
 
     /// Sets or clears the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
     pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Principal>,
+    where T: std::convert::Into<crate::model::Principal>
     {
         self.principal = v.map(|x| x.into());
         self
@@ -6666,6 +6647,7 @@ impl wkt::message::Message for RevokeDnsBindPermissionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsBindPermissionRequest {
+
     /// Required. The name of the resource which stores the users/service accounts
     /// having the permission to bind to the corresponding intranet VPC of the
     /// consumer project. DnsBindPermission is a global resource. Resource names
@@ -6700,6 +6682,7 @@ impl wkt::message::Message for GetDnsBindPermissionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// Required. Management CIDR used by VMware management appliances.
     pub management_cidr: std::string::String,
 
@@ -6745,28 +6728,19 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkConfig::vmware_engine_network].
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::NetworkConfig::vmware_engine_network_canonical].
-    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network_canonical = v.into();
         self
     }
 
     /// Sets the value of [management_ip_address_layout_version][crate::model::NetworkConfig::management_ip_address_layout_version].
-    pub fn set_management_ip_address_layout_version<T: std::convert::Into<i32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_management_ip_address_layout_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.management_ip_address_layout_version = v.into();
         self
     }
@@ -6788,6 +6762,7 @@ impl wkt::message::Message for NetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeTypeConfig {
+
     /// Required. The number of nodes of this type in the cluster
     pub node_count: i32,
 
@@ -6828,6 +6803,7 @@ impl wkt::message::Message for NodeTypeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StretchedClusterConfig {
+
     /// Required. Zone that will remain operational when connection between the two
     /// zones is lost. Specify the resource name of a zone that belongs to the
     /// region of the private cloud. For example:
@@ -6851,19 +6827,13 @@ impl StretchedClusterConfig {
     }
 
     /// Sets the value of [preferred_location][crate::model::StretchedClusterConfig::preferred_location].
-    pub fn set_preferred_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_preferred_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.preferred_location = v.into();
         self
     }
 
     /// Sets the value of [secondary_location][crate::model::StretchedClusterConfig::secondary_location].
-    pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_location = v.into();
         self
     }
@@ -6881,6 +6851,7 @@ impl wkt::message::Message for StretchedClusterConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateCloud {
+
     /// Output only. The resource name of this private cloud.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -6949,8 +6920,7 @@ impl PrivateCloud {
 
     /// Sets the value of [create_time][crate::model::PrivateCloud::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6958,8 +6928,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [create_time][crate::model::PrivateCloud::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6967,8 +6936,7 @@ impl PrivateCloud {
 
     /// Sets the value of [update_time][crate::model::PrivateCloud::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6976,8 +6944,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [update_time][crate::model::PrivateCloud::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6985,8 +6952,7 @@ impl PrivateCloud {
 
     /// Sets the value of [delete_time][crate::model::PrivateCloud::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -6994,8 +6960,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [delete_time][crate::model::PrivateCloud::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -7003,8 +6968,7 @@ impl PrivateCloud {
 
     /// Sets the value of [expire_time][crate::model::PrivateCloud::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -7012,26 +6976,21 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [expire_time][crate::model::PrivateCloud::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::PrivateCloud::state].
-    pub fn set_state<T: std::convert::Into<crate::model::private_cloud::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::private_cloud::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [network_config][crate::model::PrivateCloud::network_config].
     pub fn set_network_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = std::option::Option::Some(v.into());
         self
@@ -7039,8 +6998,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [network_config][crate::model::PrivateCloud::network_config].
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = v.map(|x| x.into());
         self
@@ -7048,8 +7006,7 @@ impl PrivateCloud {
 
     /// Sets the value of [management_cluster][crate::model::PrivateCloud::management_cluster].
     pub fn set_management_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::private_cloud::ManagementCluster>,
+    where T: std::convert::Into<crate::model::private_cloud::ManagementCluster>
     {
         self.management_cluster = std::option::Option::Some(v.into());
         self
@@ -7057,8 +7014,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [management_cluster][crate::model::PrivateCloud::management_cluster].
     pub fn set_or_clear_management_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::private_cloud::ManagementCluster>,
+    where T: std::convert::Into<crate::model::private_cloud::ManagementCluster>
     {
         self.management_cluster = v.map(|x| x.into());
         self
@@ -7072,8 +7028,7 @@ impl PrivateCloud {
 
     /// Sets the value of [hcx][crate::model::PrivateCloud::hcx].
     pub fn set_hcx<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Hcx>,
+    where T: std::convert::Into<crate::model::Hcx>
     {
         self.hcx = std::option::Option::Some(v.into());
         self
@@ -7081,8 +7036,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [hcx][crate::model::PrivateCloud::hcx].
     pub fn set_or_clear_hcx<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Hcx>,
+    where T: std::convert::Into<crate::model::Hcx>
     {
         self.hcx = v.map(|x| x.into());
         self
@@ -7090,8 +7044,7 @@ impl PrivateCloud {
 
     /// Sets the value of [nsx][crate::model::PrivateCloud::nsx].
     pub fn set_nsx<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Nsx>,
+    where T: std::convert::Into<crate::model::Nsx>
     {
         self.nsx = std::option::Option::Some(v.into());
         self
@@ -7099,8 +7052,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [nsx][crate::model::PrivateCloud::nsx].
     pub fn set_or_clear_nsx<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Nsx>,
+    where T: std::convert::Into<crate::model::Nsx>
     {
         self.nsx = v.map(|x| x.into());
         self
@@ -7108,8 +7060,7 @@ impl PrivateCloud {
 
     /// Sets the value of [vcenter][crate::model::PrivateCloud::vcenter].
     pub fn set_vcenter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Vcenter>,
+    where T: std::convert::Into<crate::model::Vcenter>
     {
         self.vcenter = std::option::Option::Some(v.into());
         self
@@ -7117,8 +7068,7 @@ impl PrivateCloud {
 
     /// Sets or clears the value of [vcenter][crate::model::PrivateCloud::vcenter].
     pub fn set_or_clear_vcenter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Vcenter>,
+    where T: std::convert::Into<crate::model::Vcenter>
     {
         self.vcenter = v.map(|x| x.into());
         self
@@ -7131,10 +7081,7 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [r#type][crate::model::PrivateCloud::type].
-    pub fn set_type<T: std::convert::Into<crate::model::private_cloud::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::private_cloud::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -7151,10 +7098,12 @@ pub mod private_cloud {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Management cluster configuration.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagementCluster {
+
         /// Required. The user-provided identifier of the new `Cluster`.
         /// The identifier must meet the following requirements:
         ///
@@ -7168,8 +7117,7 @@ pub mod private_cloud {
 
         /// Required. The map of cluster node types in this cluster, where the key is
         /// canonical identifier of the node type (corresponds to the `NodeType`).
-        pub node_type_configs:
-            std::collections::HashMap<std::string::String, crate::model::NodeTypeConfig>,
+        pub node_type_configs: std::collections::HashMap<std::string::String,crate::model::NodeTypeConfig>,
 
         /// Optional. Configuration of a stretched cluster. Required for STRETCHED
         /// private clouds.
@@ -7203,8 +7151,7 @@ pub mod private_cloud {
 
         /// Sets the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
         pub fn set_stretched_cluster_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::StretchedClusterConfig>,
+        where T: std::convert::Into<crate::model::StretchedClusterConfig>
         {
             self.stretched_cluster_config = std::option::Option::Some(v.into());
             self
@@ -7212,8 +7159,7 @@ pub mod private_cloud {
 
         /// Sets or clears the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
         pub fn set_or_clear_stretched_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::StretchedClusterConfig>,
+        where T: std::convert::Into<crate::model::StretchedClusterConfig>
         {
             self.stretched_cluster_config = v.map(|x| x.into());
             self
@@ -7334,9 +7280,7 @@ pub mod private_cloud {
                 5 => Self::Failed,
                 6 => Self::Deleted,
                 7 => Self::Purging,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7352,9 +7296,7 @@ pub mod private_cloud {
                 "FAILED" => Self::Failed,
                 "DELETED" => Self::Deleted,
                 "PURGING" => Self::Purging,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7383,8 +7325,7 @@ pub mod private_cloud {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.PrivateCloud.State",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateCloud.State"))
         }
     }
 
@@ -7478,9 +7419,7 @@ pub mod private_cloud {
                 0 => Self::Standard,
                 1 => Self::TimeLimited,
                 2 => Self::Stretched,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7492,9 +7431,7 @@ pub mod private_cloud {
                 "STANDARD" => Self::Standard,
                 "TIME_LIMITED" => Self::TimeLimited,
                 "STRETCHED" => Self::Stretched,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7519,8 +7456,7 @@ pub mod private_cloud {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.vmwareengine.v1.PrivateCloud.Type",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateCloud.Type"))
         }
     }
 }
@@ -7529,6 +7465,7 @@ pub mod private_cloud {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
+
     /// Output only. The resource name of this cluster.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -7558,8 +7495,7 @@ pub struct Cluster {
 
     /// Required. The map of cluster node types in this cluster, where the key is
     /// canonical identifier of the node type (corresponds to the `NodeType`).
-    pub node_type_configs:
-        std::collections::HashMap<std::string::String, crate::model::NodeTypeConfig>,
+    pub node_type_configs: std::collections::HashMap<std::string::String,crate::model::NodeTypeConfig>,
 
     /// Optional. Configuration of a stretched cluster. Required for clusters that
     /// belong to a STRETCHED private cloud.
@@ -7581,8 +7517,7 @@ impl Cluster {
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7590,8 +7525,7 @@ impl Cluster {
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7599,8 +7533,7 @@ impl Cluster {
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7608,8 +7541,7 @@ impl Cluster {
 
     /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7629,8 +7561,7 @@ impl Cluster {
 
     /// Sets the value of [autoscaling_settings][crate::model::Cluster::autoscaling_settings].
     pub fn set_autoscaling_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingSettings>,
+    where T: std::convert::Into<crate::model::AutoscalingSettings>
     {
         self.autoscaling_settings = std::option::Option::Some(v.into());
         self
@@ -7638,8 +7569,7 @@ impl Cluster {
 
     /// Sets or clears the value of [autoscaling_settings][crate::model::Cluster::autoscaling_settings].
     pub fn set_or_clear_autoscaling_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingSettings>,
+    where T: std::convert::Into<crate::model::AutoscalingSettings>
     {
         self.autoscaling_settings = v.map(|x| x.into());
         self
@@ -7665,8 +7595,7 @@ impl Cluster {
 
     /// Sets the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
     pub fn set_stretched_cluster_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StretchedClusterConfig>,
+    where T: std::convert::Into<crate::model::StretchedClusterConfig>
     {
         self.stretched_cluster_config = std::option::Option::Some(v.into());
         self
@@ -7674,8 +7603,7 @@ impl Cluster {
 
     /// Sets or clears the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
     pub fn set_or_clear_stretched_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StretchedClusterConfig>,
+    where T: std::convert::Into<crate::model::StretchedClusterConfig>
     {
         self.stretched_cluster_config = v.map(|x| x.into());
         self
@@ -7692,6 +7620,7 @@ impl wkt::message::Message for Cluster {
 pub mod cluster {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum State defines possible states of private cloud clusters.
     ///
@@ -7796,9 +7725,7 @@ pub mod cluster {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7813,9 +7740,7 @@ pub mod cluster {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "REPAIRING" => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7843,8 +7768,7 @@ pub mod cluster {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Cluster.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Cluster.State"))
         }
     }
 }
@@ -7853,6 +7777,7 @@ pub mod cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Node {
+
     /// Output only. The resource name of this node.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -7942,6 +7867,7 @@ impl wkt::message::Message for Node {
 pub mod node {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum State defines possible states of a node in a cluster.
     ///
@@ -8039,9 +7965,7 @@ pub mod node {
                 2 => Self::Creating,
                 3 => Self::Failed,
                 4 => Self::Upgrading,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8055,9 +7979,7 @@ pub mod node {
                 "CREATING" => Self::Creating,
                 "FAILED" => Self::Failed,
                 "UPGRADING" => Self::Upgrading,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8084,8 +8006,7 @@ pub mod node {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Node.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Node.State"))
         }
     }
 }
@@ -8095,6 +8016,7 @@ pub mod node {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAddress {
+
     /// Output only. The resource name of this external IP address.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -8139,8 +8061,7 @@ impl ExternalAddress {
 
     /// Sets the value of [create_time][crate::model::ExternalAddress::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8148,8 +8069,7 @@ impl ExternalAddress {
 
     /// Sets or clears the value of [create_time][crate::model::ExternalAddress::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8157,8 +8077,7 @@ impl ExternalAddress {
 
     /// Sets the value of [update_time][crate::model::ExternalAddress::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8166,8 +8085,7 @@ impl ExternalAddress {
 
     /// Sets or clears the value of [update_time][crate::model::ExternalAddress::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8186,10 +8104,7 @@ impl ExternalAddress {
     }
 
     /// Sets the value of [state][crate::model::ExternalAddress::state].
-    pub fn set_state<T: std::convert::Into<crate::model::external_address::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::external_address::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -8217,6 +8132,7 @@ impl wkt::message::Message for ExternalAddress {
 pub mod external_address {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum State defines possible states of external addresses.
     ///
@@ -8314,9 +8230,7 @@ pub mod external_address {
                 2 => Self::Creating,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8330,9 +8244,7 @@ pub mod external_address {
                 "CREATING" => Self::Creating,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8359,8 +8271,7 @@ pub mod external_address {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.ExternalAddress.State",
-            ))
+                ".google.cloud.vmwareengine.v1.ExternalAddress.State"))
         }
     }
 }
@@ -8370,6 +8281,7 @@ pub mod external_address {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subnet {
+
     /// Output only. The resource name of this subnet.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -8449,6 +8361,7 @@ impl wkt::message::Message for Subnet {
 pub mod subnet {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines possible states of subnets.
     ///
@@ -8557,9 +8470,7 @@ pub mod subnet {
                 4 => Self::Deleting,
                 5 => Self::Reconciling,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8575,9 +8486,7 @@ pub mod subnet {
                 "DELETING" => Self::Deleting,
                 "RECONCILING" => Self::Reconciling,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8606,8 +8515,7 @@ pub mod subnet {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Subnet.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Subnet.State"))
         }
     }
 }
@@ -8617,6 +8525,7 @@ pub mod subnet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExternalAccessRule {
+
     /// Output only. The resource name of this external access rule.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -8703,8 +8612,7 @@ impl ExternalAccessRule {
 
     /// Sets the value of [create_time][crate::model::ExternalAccessRule::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -8712,8 +8620,7 @@ impl ExternalAccessRule {
 
     /// Sets or clears the value of [create_time][crate::model::ExternalAccessRule::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -8721,8 +8628,7 @@ impl ExternalAccessRule {
 
     /// Sets the value of [update_time][crate::model::ExternalAccessRule::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -8730,8 +8636,7 @@ impl ExternalAccessRule {
 
     /// Sets or clears the value of [update_time][crate::model::ExternalAccessRule::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -8750,10 +8655,7 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [action][crate::model::ExternalAccessRule::action].
-    pub fn set_action<T: std::convert::Into<crate::model::external_access_rule::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::external_access_rule::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -8768,7 +8670,7 @@ impl ExternalAccessRule {
     pub fn set_source_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::external_access_rule::IpRange>,
+        V: std::convert::Into<crate::model::external_access_rule::IpRange>
     {
         use std::iter::Iterator;
         self.source_ip_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -8779,7 +8681,7 @@ impl ExternalAccessRule {
     pub fn set_source_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.source_ports = v.into_iter().map(|i| i.into()).collect();
@@ -8790,7 +8692,7 @@ impl ExternalAccessRule {
     pub fn set_destination_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::external_access_rule::IpRange>,
+        V: std::convert::Into<crate::model::external_access_rule::IpRange>
     {
         use std::iter::Iterator;
         self.destination_ip_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -8801,7 +8703,7 @@ impl ExternalAccessRule {
     pub fn set_destination_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.destination_ports = v.into_iter().map(|i| i.into()).collect();
@@ -8809,10 +8711,7 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [state][crate::model::ExternalAccessRule::state].
-    pub fn set_state<T: std::convert::Into<crate::model::external_access_rule::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::external_access_rule::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -8835,10 +8734,12 @@ pub mod external_access_rule {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// An IP range provided in any one of the supported formats.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IpRange {
+
         pub ip_range: std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8853,14 +8754,8 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are mutually
         /// exclusive.
-        pub fn set_ip_range<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_ip_range<T: std::convert::Into<std::option::Option<crate::model::external_access_rule::ip_range::IpRange>>>(mut self, v: T) -> Self
+        {
             self.ip_range = v.into();
             self
         }
@@ -8871,9 +8766,7 @@ pub mod external_access_rule {
         pub fn ip_address(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
-                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -8885,7 +8778,9 @@ pub mod external_access_rule {
         /// mutually exclusive.
         pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::IpAddress(v.into()),
+                crate::model::external_access_rule::ip_range::IpRange::IpAddress(
+                    v.into()
+                )
             );
             self
         }
@@ -8896,9 +8791,7 @@ pub mod external_access_rule {
         pub fn ip_address_range(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
-                crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -8908,12 +8801,11 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are
         /// mutually exclusive.
-        pub fn set_ip_address_range<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_ip_address_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(v.into()),
+                crate::model::external_access_rule::ip_range::IpRange::IpAddressRange(
+                    v.into()
+                )
             );
             self
         }
@@ -8924,9 +8816,7 @@ pub mod external_access_rule {
         pub fn external_address(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.ip_range.as_ref().and_then(|v| match v {
-                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -8936,12 +8826,11 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are
         /// mutually exclusive.
-        pub fn set_external_address<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_external_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_range = std::option::Option::Some(
-                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(v.into()),
+                crate::model::external_access_rule::ip_range::IpRange::ExternalAddress(
+                    v.into()
+                )
             );
             self
         }
@@ -8957,6 +8846,7 @@ pub mod external_access_rule {
     pub mod ip_range {
         #[allow(unused_imports)]
         use super::*;
+
 
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -9062,9 +8952,7 @@ pub mod external_access_rule {
                 0 => Self::Unspecified,
                 1 => Self::Allow,
                 2 => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9076,9 +8964,7 @@ pub mod external_access_rule {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "ALLOW" => Self::Allow,
                 "DENY" => Self::Deny,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9103,8 +8989,7 @@ pub mod external_access_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.cloud.vmwareengine.v1.ExternalAccessRule.Action",
-            ))
+                ".google.cloud.vmwareengine.v1.ExternalAccessRule.Action"))
         }
     }
 
@@ -9204,9 +9089,7 @@ pub mod external_access_rule {
                 2 => Self::Creating,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9220,9 +9103,7 @@ pub mod external_access_rule {
                 "CREATING" => Self::Creating,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9249,8 +9130,7 @@ pub mod external_access_rule {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.ExternalAccessRule.State",
-            ))
+                ".google.cloud.vmwareengine.v1.ExternalAccessRule.State"))
         }
     }
 }
@@ -9259,6 +9139,7 @@ pub mod external_access_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingServer {
+
     /// Output only. The resource name of this logging server.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -9305,8 +9186,7 @@ impl LoggingServer {
 
     /// Sets the value of [create_time][crate::model::LoggingServer::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -9314,8 +9194,7 @@ impl LoggingServer {
 
     /// Sets or clears the value of [create_time][crate::model::LoggingServer::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -9323,8 +9202,7 @@ impl LoggingServer {
 
     /// Sets the value of [update_time][crate::model::LoggingServer::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -9332,8 +9210,7 @@ impl LoggingServer {
 
     /// Sets or clears the value of [update_time][crate::model::LoggingServer::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -9352,19 +9229,13 @@ impl LoggingServer {
     }
 
     /// Sets the value of [protocol][crate::model::LoggingServer::protocol].
-    pub fn set_protocol<T: std::convert::Into<crate::model::logging_server::Protocol>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_protocol<T: std::convert::Into<crate::model::logging_server::Protocol>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
 
     /// Sets the value of [source_type][crate::model::LoggingServer::source_type].
-    pub fn set_source_type<T: std::convert::Into<crate::model::logging_server::SourceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_type<T: std::convert::Into<crate::model::logging_server::SourceType>>(mut self, v: T) -> Self {
         self.source_type = v.into();
         self
     }
@@ -9386,6 +9257,7 @@ impl wkt::message::Message for LoggingServer {
 pub mod logging_server {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines possible protocols used to send logs to
     /// a logging server.
@@ -9489,9 +9361,7 @@ pub mod logging_server {
                 3 => Self::Tls,
                 4 => Self::Ssl,
                 5 => Self::Relp,
-                _ => Self::UnknownValue(protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9506,9 +9376,7 @@ pub mod logging_server {
                 "TLS" => Self::Tls,
                 "SSL" => Self::Ssl,
                 "RELP" => Self::Relp,
-                _ => Self::UnknownValue(protocol::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(protocol::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9536,8 +9404,7 @@ pub mod logging_server {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Protocol>::new(
-                ".google.cloud.vmwareengine.v1.LoggingServer.Protocol",
-            ))
+                ".google.cloud.vmwareengine.v1.LoggingServer.Protocol"))
         }
     }
 
@@ -9627,9 +9494,7 @@ pub mod logging_server {
                 0 => Self::Unspecified,
                 1 => Self::Esxi,
                 2 => Self::Vcsa,
-                _ => Self::UnknownValue(source_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9641,9 +9506,7 @@ pub mod logging_server {
                 "SOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "ESXI" => Self::Esxi,
                 "VCSA" => Self::Vcsa,
-                _ => Self::UnknownValue(source_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(source_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9668,8 +9531,7 @@ pub mod logging_server {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SourceType>::new(
-                ".google.cloud.vmwareengine.v1.LoggingServer.SourceType",
-            ))
+                ".google.cloud.vmwareengine.v1.LoggingServer.SourceType"))
         }
     }
 }
@@ -9678,6 +9540,7 @@ pub mod logging_server {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeType {
+
     /// Output only. The resource name of this node type.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -9773,7 +9636,7 @@ impl NodeType {
     pub fn set_available_custom_core_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i32>,
+        V: std::convert::Into<i32>
     {
         use std::iter::Iterator;
         self.available_custom_core_counts = v.into_iter().map(|i| i.into()).collect();
@@ -9790,7 +9653,7 @@ impl NodeType {
     pub fn set_families<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.families = v.into_iter().map(|i| i.into()).collect();
@@ -9801,7 +9664,7 @@ impl NodeType {
     pub fn set_capabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::node_type::Capability>,
+        V: std::convert::Into<crate::model::node_type::Capability>
     {
         use std::iter::Iterator;
         self.capabilities = v.into_iter().map(|i| i.into()).collect();
@@ -9819,6 +9682,7 @@ impl wkt::message::Message for NodeType {
 pub mod node_type {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum Kind defines possible types of a NodeType.
     ///
@@ -9906,9 +9770,7 @@ pub mod node_type {
                 0 => Self::Unspecified,
                 1 => Self::Standard,
                 2 => Self::StorageOnly,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9920,9 +9782,7 @@ pub mod node_type {
                 "KIND_UNSPECIFIED" => Self::Unspecified,
                 "STANDARD" => Self::Standard,
                 "STORAGE_ONLY" => Self::StorageOnly,
-                _ => Self::UnknownValue(kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9947,8 +9807,7 @@ pub mod node_type {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Kind>::new(
-                ".google.cloud.vmwareengine.v1.NodeType.Kind",
-            ))
+                ".google.cloud.vmwareengine.v1.NodeType.Kind"))
         }
     }
 
@@ -10034,9 +9893,7 @@ pub mod node_type {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::StretchedClusters,
-                _ => Self::UnknownValue(capability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(capability::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10047,9 +9904,7 @@ pub mod node_type {
             match value {
                 "CAPABILITY_UNSPECIFIED" => Self::Unspecified,
                 "STRETCHED_CLUSTERS" => Self::StretchedClusters,
-                _ => Self::UnknownValue(capability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(capability::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10073,8 +9928,7 @@ pub mod node_type {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Capability>::new(
-                ".google.cloud.vmwareengine.v1.NodeType.Capability",
-            ))
+                ".google.cloud.vmwareengine.v1.NodeType.Capability"))
         }
     }
 }
@@ -10083,6 +9937,7 @@ pub mod node_type {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Credentials {
+
     /// Initial username.
     pub username: std::string::String,
 
@@ -10130,6 +9985,7 @@ impl wkt::message::Message for Credentials {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HcxActivationKey {
+
     /// Output only. The resource name of this HcxActivationKey.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -10165,8 +10021,7 @@ impl HcxActivationKey {
 
     /// Sets the value of [create_time][crate::model::HcxActivationKey::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -10174,18 +10029,14 @@ impl HcxActivationKey {
 
     /// Sets or clears the value of [create_time][crate::model::HcxActivationKey::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::HcxActivationKey::state].
-    pub fn set_state<T: std::convert::Into<crate::model::hcx_activation_key::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::hcx_activation_key::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -10213,6 +10064,7 @@ impl wkt::message::Message for HcxActivationKey {
 pub mod hcx_activation_key {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of HCX activation key
     ///
@@ -10305,9 +10157,7 @@ pub mod hcx_activation_key {
                 1 => Self::Available,
                 2 => Self::Consumed,
                 3 => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10320,9 +10170,7 @@ pub mod hcx_activation_key {
                 "AVAILABLE" => Self::Available,
                 "CONSUMED" => Self::Consumed,
                 "CREATING" => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10348,8 +10196,7 @@ pub mod hcx_activation_key {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.HcxActivationKey.State",
-            ))
+                ".google.cloud.vmwareengine.v1.HcxActivationKey.State"))
         }
     }
 }
@@ -10358,6 +10205,7 @@ pub mod hcx_activation_key {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Hcx {
+
     /// Internal IP address of the appliance.
     pub internal_ip: std::string::String,
 
@@ -10413,6 +10261,7 @@ impl wkt::message::Message for Hcx {
 pub mod hcx {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the appliance
     ///
@@ -10505,9 +10354,7 @@ pub mod hcx {
                 1 => Self::Active,
                 2 => Self::Creating,
                 3 => Self::Activating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10520,9 +10367,7 @@ pub mod hcx {
                 "ACTIVE" => Self::Active,
                 "CREATING" => Self::Creating,
                 "ACTIVATING" => Self::Activating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10548,8 +10393,7 @@ pub mod hcx {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Hcx.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Hcx.State"))
         }
     }
 }
@@ -10558,6 +10402,7 @@ pub mod hcx {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Nsx {
+
     /// Internal IP address of the appliance.
     pub internal_ip: std::string::String,
 
@@ -10614,6 +10459,7 @@ pub mod nsx {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// State of the appliance
     ///
     /// # Working with unknown values
@@ -10700,9 +10546,7 @@ pub mod nsx {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10714,9 +10558,7 @@ pub mod nsx {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "CREATING" => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10741,8 +10583,7 @@ pub mod nsx {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Nsx.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Nsx.State"))
         }
     }
 }
@@ -10751,6 +10592,7 @@ pub mod nsx {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vcenter {
+
     /// Internal IP address of the appliance.
     pub internal_ip: std::string::String,
 
@@ -10807,6 +10649,7 @@ pub mod vcenter {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// State of the appliance
     ///
     /// # Working with unknown values
@@ -10893,9 +10736,7 @@ pub mod vcenter {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10907,9 +10748,7 @@ pub mod vcenter {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "CREATING" => Self::Creating,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10934,8 +10773,7 @@ pub mod vcenter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.Vcenter.State",
-            ))
+                ".google.cloud.vmwareengine.v1.Vcenter.State"))
         }
     }
 }
@@ -10945,6 +10783,7 @@ pub mod vcenter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingSettings {
+
     /// Required. The map with autoscaling policies applied to the cluster.
     /// The key is the identifier of the policy.
     /// It must meet the following requirements:
@@ -10958,10 +10797,7 @@ pub struct AutoscalingSettings {
     ///
     /// Currently there map must contain only one element
     /// that describes the autoscaling policy for compute nodes.
-    pub autoscaling_policies: std::collections::HashMap<
-        std::string::String,
-        crate::model::autoscaling_settings::AutoscalingPolicy,
-    >,
+    pub autoscaling_policies: std::collections::HashMap<std::string::String,crate::model::autoscaling_settings::AutoscalingPolicy>,
 
     /// Optional. Minimum number of nodes of any type in a cluster.
     /// If not specified the default limits apply.
@@ -11011,8 +10847,7 @@ impl AutoscalingSettings {
 
     /// Sets the value of [cool_down_period][crate::model::AutoscalingSettings::cool_down_period].
     pub fn set_cool_down_period<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.cool_down_period = std::option::Option::Some(v.into());
         self
@@ -11020,8 +10855,7 @@ impl AutoscalingSettings {
 
     /// Sets or clears the value of [cool_down_period][crate::model::AutoscalingSettings::cool_down_period].
     pub fn set_or_clear_cool_down_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.cool_down_period = v.map(|x| x.into());
         self
@@ -11039,11 +10873,13 @@ pub mod autoscaling_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Thresholds define the utilization of resources triggering
     /// scale-out and scale-in operations.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Thresholds {
+
         /// Required. The utilization triggering the scale-out operation in percent.
         pub scale_out: i32,
 
@@ -11086,6 +10922,7 @@ pub mod autoscaling_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutoscalingPolicy {
+
         /// Required. The canonical identifier of the node type to add or remove.
         /// Corresponds to the `NodeType`.
         pub node_type_id: std::string::String,
@@ -11100,12 +10937,10 @@ pub mod autoscaling_settings {
         pub cpu_thresholds: std::option::Option<crate::model::autoscaling_settings::Thresholds>,
 
         /// Optional. Utilization thresholds pertaining to amount of granted memory.
-        pub granted_memory_thresholds:
-            std::option::Option<crate::model::autoscaling_settings::Thresholds>,
+        pub granted_memory_thresholds: std::option::Option<crate::model::autoscaling_settings::Thresholds>,
 
         /// Optional. Utilization thresholds pertaining to amount of consumed memory.
-        pub consumed_memory_thresholds:
-            std::option::Option<crate::model::autoscaling_settings::Thresholds>,
+        pub consumed_memory_thresholds: std::option::Option<crate::model::autoscaling_settings::Thresholds>,
 
         /// Optional. Utilization thresholds pertaining to amount of consumed
         /// storage.
@@ -11120,10 +10955,7 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [node_type_id][crate::model::autoscaling_settings::AutoscalingPolicy::node_type_id].
-        pub fn set_node_type_id<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_node_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.node_type_id = v.into();
             self
         }
@@ -11136,8 +10968,7 @@ pub mod autoscaling_settings {
 
         /// Sets the value of [cpu_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::cpu_thresholds].
         pub fn set_cpu_thresholds<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.cpu_thresholds = std::option::Option::Some(v.into());
             self
@@ -11145,8 +10976,7 @@ pub mod autoscaling_settings {
 
         /// Sets or clears the value of [cpu_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::cpu_thresholds].
         pub fn set_or_clear_cpu_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.cpu_thresholds = v.map(|x| x.into());
             self
@@ -11154,20 +10984,15 @@ pub mod autoscaling_settings {
 
         /// Sets the value of [granted_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::granted_memory_thresholds].
         pub fn set_granted_memory_thresholds<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.granted_memory_thresholds = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [granted_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::granted_memory_thresholds].
-        pub fn set_or_clear_granted_memory_thresholds<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        pub fn set_or_clear_granted_memory_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.granted_memory_thresholds = v.map(|x| x.into());
             self
@@ -11175,20 +11000,15 @@ pub mod autoscaling_settings {
 
         /// Sets the value of [consumed_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::consumed_memory_thresholds].
         pub fn set_consumed_memory_thresholds<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.consumed_memory_thresholds = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [consumed_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::consumed_memory_thresholds].
-        pub fn set_or_clear_consumed_memory_thresholds<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        pub fn set_or_clear_consumed_memory_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.consumed_memory_thresholds = v.map(|x| x.into());
             self
@@ -11196,8 +11016,7 @@ pub mod autoscaling_settings {
 
         /// Sets the value of [storage_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::storage_thresholds].
         pub fn set_storage_thresholds<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.storage_thresholds = std::option::Option::Some(v.into());
             self
@@ -11205,8 +11024,7 @@ pub mod autoscaling_settings {
 
         /// Sets or clears the value of [storage_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::storage_thresholds].
         pub fn set_or_clear_storage_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
+        where T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>
         {
             self.storage_thresholds = v.map(|x| x.into());
             self
@@ -11226,6 +11044,7 @@ pub mod autoscaling_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsForwarding {
+
     /// Output only. The resource name of this DNS profile.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -11258,8 +11077,7 @@ impl DnsForwarding {
 
     /// Sets the value of [create_time][crate::model::DnsForwarding::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11267,8 +11085,7 @@ impl DnsForwarding {
 
     /// Sets or clears the value of [create_time][crate::model::DnsForwarding::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11276,8 +11093,7 @@ impl DnsForwarding {
 
     /// Sets the value of [update_time][crate::model::DnsForwarding::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -11285,8 +11101,7 @@ impl DnsForwarding {
 
     /// Sets or clears the value of [update_time][crate::model::DnsForwarding::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -11296,7 +11111,7 @@ impl DnsForwarding {
     pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::dns_forwarding::ForwardingRule>,
+        V: std::convert::Into<crate::model::dns_forwarding::ForwardingRule>
     {
         use std::iter::Iterator;
         self.forwarding_rules = v.into_iter().map(|i| i.into()).collect();
@@ -11315,6 +11130,7 @@ pub mod dns_forwarding {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A forwarding rule is a mapping of a `domain` to `name_servers`.
     /// This mapping allows VMware Engine to resolve domains for attached private
     /// clouds by forwarding DNS requests for a given domain to the specified
@@ -11322,6 +11138,7 @@ pub mod dns_forwarding {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ForwardingRule {
+
         /// Required. Domain used to resolve a `name_servers` list.
         pub domain: std::string::String,
 
@@ -11346,7 +11163,7 @@ pub mod dns_forwarding {
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.name_servers = v.into_iter().map(|i| i.into()).collect();
@@ -11365,6 +11182,7 @@ pub mod dns_forwarding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkPeering {
+
     /// Output only. The resource name of the network peering. NetworkPeering is a
     /// global resource and location can only be global. Resource names are
     /// scheme-less URIs that follow the conventions in
@@ -11461,8 +11279,7 @@ impl NetworkPeering {
 
     /// Sets the value of [create_time][crate::model::NetworkPeering::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -11470,8 +11287,7 @@ impl NetworkPeering {
 
     /// Sets or clears the value of [create_time][crate::model::NetworkPeering::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -11479,8 +11295,7 @@ impl NetworkPeering {
 
     /// Sets the value of [update_time][crate::model::NetworkPeering::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -11488,8 +11303,7 @@ impl NetworkPeering {
 
     /// Sets or clears the value of [update_time][crate::model::NetworkPeering::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -11503,8 +11317,7 @@ impl NetworkPeering {
 
     /// Sets the value of [export_custom_routes][crate::model::NetworkPeering::export_custom_routes].
     pub fn set_export_custom_routes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.export_custom_routes = std::option::Option::Some(v.into());
         self
@@ -11512,8 +11325,7 @@ impl NetworkPeering {
 
     /// Sets or clears the value of [export_custom_routes][crate::model::NetworkPeering::export_custom_routes].
     pub fn set_or_clear_export_custom_routes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.export_custom_routes = v.map(|x| x.into());
         self
@@ -11521,8 +11333,7 @@ impl NetworkPeering {
 
     /// Sets the value of [import_custom_routes][crate::model::NetworkPeering::import_custom_routes].
     pub fn set_import_custom_routes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.import_custom_routes = std::option::Option::Some(v.into());
         self
@@ -11530,8 +11341,7 @@ impl NetworkPeering {
 
     /// Sets or clears the value of [import_custom_routes][crate::model::NetworkPeering::import_custom_routes].
     pub fn set_or_clear_import_custom_routes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.import_custom_routes = v.map(|x| x.into());
         self
@@ -11539,8 +11349,7 @@ impl NetworkPeering {
 
     /// Sets the value of [exchange_subnet_routes][crate::model::NetworkPeering::exchange_subnet_routes].
     pub fn set_exchange_subnet_routes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.exchange_subnet_routes = std::option::Option::Some(v.into());
         self
@@ -11548,8 +11357,7 @@ impl NetworkPeering {
 
     /// Sets or clears the value of [exchange_subnet_routes][crate::model::NetworkPeering::exchange_subnet_routes].
     pub fn set_or_clear_exchange_subnet_routes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.exchange_subnet_routes = v.map(|x| x.into());
         self
@@ -11557,20 +11365,15 @@ impl NetworkPeering {
 
     /// Sets the value of [export_custom_routes_with_public_ip][crate::model::NetworkPeering::export_custom_routes_with_public_ip].
     pub fn set_export_custom_routes_with_public_ip<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.export_custom_routes_with_public_ip = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [export_custom_routes_with_public_ip][crate::model::NetworkPeering::export_custom_routes_with_public_ip].
-    pub fn set_or_clear_export_custom_routes_with_public_ip<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_export_custom_routes_with_public_ip<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.export_custom_routes_with_public_ip = v.map(|x| x.into());
         self
@@ -11578,30 +11381,22 @@ impl NetworkPeering {
 
     /// Sets the value of [import_custom_routes_with_public_ip][crate::model::NetworkPeering::import_custom_routes_with_public_ip].
     pub fn set_import_custom_routes_with_public_ip<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.import_custom_routes_with_public_ip = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [import_custom_routes_with_public_ip][crate::model::NetworkPeering::import_custom_routes_with_public_ip].
-    pub fn set_or_clear_import_custom_routes_with_public_ip<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<bool>,
+    pub fn set_or_clear_import_custom_routes_with_public_ip<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<bool>
     {
         self.import_custom_routes_with_public_ip = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::NetworkPeering::state].
-    pub fn set_state<T: std::convert::Into<crate::model::network_peering::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::network_peering::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -11619,12 +11414,7 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [peer_network_type][crate::model::NetworkPeering::peer_network_type].
-    pub fn set_peer_network_type<
-        T: std::convert::Into<crate::model::network_peering::PeerNetworkType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_peer_network_type<T: std::convert::Into<crate::model::network_peering::PeerNetworkType>>(mut self, v: T) -> Self {
         self.peer_network_type = v.into();
         self
     }
@@ -11636,10 +11426,7 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkPeering::vmware_engine_network].
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network = v.into();
         self
     }
@@ -11661,6 +11448,7 @@ impl wkt::message::Message for NetworkPeering {
 pub mod network_peering {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible states of a network peering.
     ///
@@ -11758,9 +11546,7 @@ pub mod network_peering {
                 2 => Self::Active,
                 3 => Self::Creating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11774,9 +11560,7 @@ pub mod network_peering {
                 "ACTIVE" => Self::Active,
                 "CREATING" => Self::Creating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11803,8 +11587,7 @@ pub mod network_peering {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.NetworkPeering.State",
-            ))
+                ".google.cloud.vmwareengine.v1.NetworkPeering.State"))
         }
     }
 
@@ -11894,9 +11677,7 @@ pub mod network_peering {
                 Self::NetappCloudVolumes => std::option::Option::Some("NETAPP_CLOUD_VOLUMES"),
                 Self::ThirdPartyService => std::option::Option::Some("THIRD_PARTY_SERVICE"),
                 Self::DellPowerscale => std::option::Option::Some("DELL_POWERSCALE"),
-                Self::GoogleCloudNetappVolumes => {
-                    std::option::Option::Some("GOOGLE_CLOUD_NETAPP_VOLUMES")
-                }
+                Self::GoogleCloudNetappVolumes => std::option::Option::Some("GOOGLE_CLOUD_NETAPP_VOLUMES"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11926,9 +11707,7 @@ pub mod network_peering {
                 5 => Self::ThirdPartyService,
                 6 => Self::DellPowerscale,
                 7 => Self::GoogleCloudNetappVolumes,
-                _ => Self::UnknownValue(peer_network_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(peer_network_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11945,9 +11724,7 @@ pub mod network_peering {
                 "THIRD_PARTY_SERVICE" => Self::ThirdPartyService,
                 "DELL_POWERSCALE" => Self::DellPowerscale,
                 "GOOGLE_CLOUD_NETAPP_VOLUMES" => Self::GoogleCloudNetappVolumes,
-                _ => Self::UnknownValue(peer_network_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(peer_network_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11977,8 +11754,7 @@ pub mod network_peering {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PeerNetworkType>::new(
-                ".google.cloud.vmwareengine.v1.NetworkPeering.PeerNetworkType",
-            ))
+                ".google.cloud.vmwareengine.v1.NetworkPeering.PeerNetworkType"))
         }
     }
 }
@@ -11987,6 +11763,7 @@ pub mod network_peering {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PeeringRoute {
+
     /// Output only. Destination range of the peering route in CIDR notation.
     pub dest_range: std::string::String,
 
@@ -12030,10 +11807,7 @@ impl PeeringRoute {
     }
 
     /// Sets the value of [r#type][crate::model::PeeringRoute::type].
-    pub fn set_type<T: std::convert::Into<crate::model::peering_route::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::peering_route::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -12057,10 +11831,7 @@ impl PeeringRoute {
     }
 
     /// Sets the value of [direction][crate::model::PeeringRoute::direction].
-    pub fn set_direction<T: std::convert::Into<crate::model::peering_route::Direction>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_direction<T: std::convert::Into<crate::model::peering_route::Direction>>(mut self, v: T) -> Self {
         self.direction = v.into();
         self
     }
@@ -12076,6 +11847,7 @@ impl wkt::message::Message for PeeringRoute {
 pub mod peering_route {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of the peering route.
     ///
@@ -12169,9 +11941,7 @@ pub mod peering_route {
                 1 => Self::DynamicPeeringRoute,
                 2 => Self::StaticPeeringRoute,
                 3 => Self::SubnetPeeringRoute,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12184,9 +11954,7 @@ pub mod peering_route {
                 "DYNAMIC_PEERING_ROUTE" => Self::DynamicPeeringRoute,
                 "STATIC_PEERING_ROUTE" => Self::StaticPeeringRoute,
                 "SUBNET_PEERING_ROUTE" => Self::SubnetPeeringRoute,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12212,8 +11980,7 @@ pub mod peering_route {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.vmwareengine.v1.PeeringRoute.Type",
-            ))
+                ".google.cloud.vmwareengine.v1.PeeringRoute.Type"))
         }
     }
 
@@ -12303,9 +12070,7 @@ pub mod peering_route {
                 0 => Self::Unspecified,
                 1 => Self::Incoming,
                 2 => Self::Outgoing,
-                _ => Self::UnknownValue(direction::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(direction::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12317,9 +12082,7 @@ pub mod peering_route {
                 "DIRECTION_UNSPECIFIED" => Self::Unspecified,
                 "INCOMING" => Self::Incoming,
                 "OUTGOING" => Self::Outgoing,
-                _ => Self::UnknownValue(direction::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(direction::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12344,8 +12107,7 @@ pub mod peering_route {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Direction>::new(
-                ".google.cloud.vmwareengine.v1.PeeringRoute.Direction",
-            ))
+                ".google.cloud.vmwareengine.v1.PeeringRoute.Direction"))
         }
     }
 }
@@ -12359,6 +12121,7 @@ pub mod peering_route {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkPolicy {
+
     /// Output only. The resource name of this network policy.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -12418,8 +12181,7 @@ impl NetworkPolicy {
 
     /// Sets the value of [create_time][crate::model::NetworkPolicy::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12427,8 +12189,7 @@ impl NetworkPolicy {
 
     /// Sets or clears the value of [create_time][crate::model::NetworkPolicy::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12436,8 +12197,7 @@ impl NetworkPolicy {
 
     /// Sets the value of [update_time][crate::model::NetworkPolicy::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -12445,8 +12205,7 @@ impl NetworkPolicy {
 
     /// Sets or clears the value of [update_time][crate::model::NetworkPolicy::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -12454,8 +12213,7 @@ impl NetworkPolicy {
 
     /// Sets the value of [internet_access][crate::model::NetworkPolicy::internet_access].
     pub fn set_internet_access<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::network_policy::NetworkService>,
+    where T: std::convert::Into<crate::model::network_policy::NetworkService>
     {
         self.internet_access = std::option::Option::Some(v.into());
         self
@@ -12463,8 +12221,7 @@ impl NetworkPolicy {
 
     /// Sets or clears the value of [internet_access][crate::model::NetworkPolicy::internet_access].
     pub fn set_or_clear_internet_access<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::network_policy::NetworkService>,
+    where T: std::convert::Into<crate::model::network_policy::NetworkService>
     {
         self.internet_access = v.map(|x| x.into());
         self
@@ -12472,8 +12229,7 @@ impl NetworkPolicy {
 
     /// Sets the value of [external_ip][crate::model::NetworkPolicy::external_ip].
     pub fn set_external_ip<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::network_policy::NetworkService>,
+    where T: std::convert::Into<crate::model::network_policy::NetworkService>
     {
         self.external_ip = std::option::Option::Some(v.into());
         self
@@ -12481,18 +12237,14 @@ impl NetworkPolicy {
 
     /// Sets or clears the value of [external_ip][crate::model::NetworkPolicy::external_ip].
     pub fn set_or_clear_external_ip<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::network_policy::NetworkService>,
+    where T: std::convert::Into<crate::model::network_policy::NetworkService>
     {
         self.external_ip = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [edge_services_cidr][crate::model::NetworkPolicy::edge_services_cidr].
-    pub fn set_edge_services_cidr<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_edge_services_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edge_services_cidr = v.into();
         self
     }
@@ -12504,10 +12256,7 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkPolicy::vmware_engine_network].
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network = v.into();
         self
     }
@@ -12519,10 +12268,7 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::NetworkPolicy::vmware_engine_network_canonical].
-    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network_canonical = v.into();
         self
     }
@@ -12539,6 +12285,7 @@ pub mod network_policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a network service that is managed by a `NetworkPolicy` resource.
     /// A network service provides a way to control an aspect of external access to
     /// VMware workloads. For example, whether the VMware workloads in the
@@ -12547,6 +12294,7 @@ pub mod network_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NetworkService {
+
         /// True if the service is enabled; false otherwise.
         pub enabled: bool,
 
@@ -12569,12 +12317,7 @@ pub mod network_policy {
         }
 
         /// Sets the value of [state][crate::model::network_policy::NetworkService::state].
-        pub fn set_state<
-            T: std::convert::Into<crate::model::network_policy::network_service::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::network_policy::network_service::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -12590,6 +12333,7 @@ pub mod network_policy {
     pub mod network_service {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum State defines possible states of a network policy controlled
         /// service.
@@ -12671,10 +12415,7 @@ pub mod network_policy {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -12686,9 +12427,7 @@ pub mod network_policy {
                     1 => Self::Unprovisioned,
                     2 => Self::Reconciling,
                     3 => Self::Active,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -12701,9 +12440,7 @@ pub mod network_policy {
                     "UNPROVISIONED" => Self::Unprovisioned,
                     "RECONCILING" => Self::Reconciling,
                     "ACTIVE" => Self::Active,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -12729,8 +12466,7 @@ pub mod network_policy {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.cloud.vmwareengine.v1.NetworkPolicy.NetworkService.State",
-                ))
+                    ".google.cloud.vmwareengine.v1.NetworkPolicy.NetworkService.State"))
             }
         }
     }
@@ -12744,6 +12480,7 @@ pub mod network_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagementDnsZoneBinding {
+
     /// Output only. The resource name of this binding.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -12787,8 +12524,7 @@ impl ManagementDnsZoneBinding {
 
     /// Sets the value of [create_time][crate::model::ManagementDnsZoneBinding::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12796,8 +12532,7 @@ impl ManagementDnsZoneBinding {
 
     /// Sets or clears the value of [create_time][crate::model::ManagementDnsZoneBinding::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12805,8 +12540,7 @@ impl ManagementDnsZoneBinding {
 
     /// Sets the value of [update_time][crate::model::ManagementDnsZoneBinding::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -12814,18 +12548,14 @@ impl ManagementDnsZoneBinding {
 
     /// Sets or clears the value of [update_time][crate::model::ManagementDnsZoneBinding::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::ManagementDnsZoneBinding::state].
-    pub fn set_state<T: std::convert::Into<crate::model::management_dns_zone_binding::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::management_dns_zone_binding::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -12846,14 +12576,8 @@ impl ManagementDnsZoneBinding {
     ///
     /// Note that all the setters affecting `bind_network` are mutually
     /// exclusive.
-    pub fn set_bind_network<
-        T: std::convert::Into<
-                std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bind_network<T: std::convert::Into<std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>>>(mut self, v: T) -> Self
+    {
         self.bind_network = v.into();
         self
     }
@@ -12864,9 +12588,7 @@ impl ManagementDnsZoneBinding {
     pub fn vpc_network(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.bind_network.as_ref().and_then(|v| match v {
-            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12878,7 +12600,9 @@ impl ManagementDnsZoneBinding {
     /// mutually exclusive.
     pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bind_network = std::option::Option::Some(
-            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v.into()),
+            crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(
+                v.into()
+            )
         );
         self
     }
@@ -12889,9 +12613,7 @@ impl ManagementDnsZoneBinding {
     pub fn vmware_engine_network(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.bind_network.as_ref().and_then(|v| match v {
-            crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -12901,12 +12623,11 @@ impl ManagementDnsZoneBinding {
     ///
     /// Note that all the setters affecting `bind_network` are
     /// mutually exclusive.
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bind_network = std::option::Option::Some(
-            crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(v.into()),
+            crate::model::management_dns_zone_binding::BindNetwork::VmwareEngineNetwork(
+                v.into()
+            )
         );
         self
     }
@@ -12922,6 +12643,7 @@ impl wkt::message::Message for ManagementDnsZoneBinding {
 pub mod management_dns_zone_binding {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum State defines possible states of binding between the consumer VPC
     /// network and the management DNS zone.
@@ -13025,9 +12747,7 @@ pub mod management_dns_zone_binding {
                 3 => Self::Updating,
                 4 => Self::Deleting,
                 5 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13042,9 +12762,7 @@ pub mod management_dns_zone_binding {
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13072,8 +12790,7 @@ pub mod management_dns_zone_binding {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.ManagementDnsZoneBinding.State",
-            ))
+                ".google.cloud.vmwareengine.v1.ManagementDnsZoneBinding.State"))
         }
     }
 
@@ -13101,6 +12818,7 @@ pub mod management_dns_zone_binding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VmwareEngineNetwork {
+
     /// Output only. The resource name of the VMware Engine network.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -13153,8 +12871,7 @@ impl VmwareEngineNetwork {
 
     /// Sets the value of [create_time][crate::model::VmwareEngineNetwork::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -13162,8 +12879,7 @@ impl VmwareEngineNetwork {
 
     /// Sets or clears the value of [create_time][crate::model::VmwareEngineNetwork::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -13171,8 +12887,7 @@ impl VmwareEngineNetwork {
 
     /// Sets the value of [update_time][crate::model::VmwareEngineNetwork::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -13180,8 +12895,7 @@ impl VmwareEngineNetwork {
 
     /// Sets or clears the value of [update_time][crate::model::VmwareEngineNetwork::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -13197,7 +12911,7 @@ impl VmwareEngineNetwork {
     pub fn set_vpc_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::vmware_engine_network::VpcNetwork>,
+        V: std::convert::Into<crate::model::vmware_engine_network::VpcNetwork>
     {
         use std::iter::Iterator;
         self.vpc_networks = v.into_iter().map(|i| i.into()).collect();
@@ -13205,19 +12919,13 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [state][crate::model::VmwareEngineNetwork::state].
-    pub fn set_state<T: std::convert::Into<crate::model::vmware_engine_network::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::vmware_engine_network::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::VmwareEngineNetwork::type].
-    pub fn set_type<T: std::convert::Into<crate::model::vmware_engine_network::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::vmware_engine_network::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -13246,11 +12954,13 @@ pub mod vmware_engine_network {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a VMware Engine VPC network that is managed by a
     /// VMware Engine network resource.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcNetwork {
+
         /// Output only. Type of VPC network (INTRANET, INTERNET, or
         /// GOOGLE_CLOUD)
         pub r#type: crate::model::vmware_engine_network::vpc_network::Type,
@@ -13269,12 +12979,7 @@ pub mod vmware_engine_network {
         }
 
         /// Sets the value of [r#type][crate::model::vmware_engine_network::VpcNetwork::type].
-        pub fn set_type<
-            T: std::convert::Into<crate::model::vmware_engine_network::vpc_network::Type>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_type<T: std::convert::Into<crate::model::vmware_engine_network::vpc_network::Type>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
@@ -13296,6 +13001,7 @@ pub mod vmware_engine_network {
     pub mod vpc_network {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Enum Type defines possible types of a VMware Engine network controlled
         /// service.
@@ -13381,10 +13087,7 @@ pub mod vmware_engine_network {
         }
 
         impl std::fmt::Display for Type {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -13396,9 +13099,7 @@ pub mod vmware_engine_network {
                     1 => Self::Intranet,
                     2 => Self::Internet,
                     3 => Self::GoogleCloud,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -13411,9 +13112,7 @@ pub mod vmware_engine_network {
                     "INTRANET" => Self::Intranet,
                     "INTERNET" => Self::Internet,
                     "GOOGLE_CLOUD" => Self::GoogleCloud,
-                    _ => Self::UnknownValue(r#type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -13439,8 +13138,7 @@ pub mod vmware_engine_network {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                    ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.VpcNetwork.Type",
-                ))
+                    ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.VpcNetwork.Type"))
             }
         }
     }
@@ -13541,9 +13239,7 @@ pub mod vmware_engine_network {
                 2 => Self::Active,
                 3 => Self::Updating,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13557,9 +13253,7 @@ pub mod vmware_engine_network {
                 "ACTIVE" => Self::Active,
                 "UPDATING" => Self::Updating,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13586,8 +13280,7 @@ pub mod vmware_engine_network {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.State",
-            ))
+                ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.State"))
         }
     }
 
@@ -13679,9 +13372,7 @@ pub mod vmware_engine_network {
                 0 => Self::Unspecified,
                 1 => Self::Legacy,
                 2 => Self::Standard,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13693,9 +13384,7 @@ pub mod vmware_engine_network {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "LEGACY" => Self::Legacy,
                 "STANDARD" => Self::Standard,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13720,8 +13409,7 @@ pub mod vmware_engine_network {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.Type",
-            ))
+                ".google.cloud.vmwareengine.v1.VmwareEngineNetwork.Type"))
         }
     }
 }
@@ -13731,6 +13419,7 @@ pub mod vmware_engine_network {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivateConnection {
+
     /// Output only. The resource name of the private connection.
     /// Resource names are schemeless URIs that follow the conventions in
     /// <https://cloud.google.com/apis/design/resource_names>.
@@ -13813,8 +13502,7 @@ impl PrivateConnection {
 
     /// Sets the value of [create_time][crate::model::PrivateConnection::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -13822,8 +13510,7 @@ impl PrivateConnection {
 
     /// Sets or clears the value of [create_time][crate::model::PrivateConnection::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -13831,8 +13518,7 @@ impl PrivateConnection {
 
     /// Sets the value of [update_time][crate::model::PrivateConnection::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -13840,8 +13526,7 @@ impl PrivateConnection {
 
     /// Sets or clears the value of [update_time][crate::model::PrivateConnection::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -13854,37 +13539,25 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [state][crate::model::PrivateConnection::state].
-    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::PrivateConnection::vmware_engine_network].
-    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::PrivateConnection::vmware_engine_network_canonical].
-    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vmware_engine_network_canonical = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::PrivateConnection::type].
-    pub fn set_type<T: std::convert::Into<crate::model::private_connection::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::private_connection::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -13896,12 +13569,7 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [routing_mode][crate::model::PrivateConnection::routing_mode].
-    pub fn set_routing_mode<
-        T: std::convert::Into<crate::model::private_connection::RoutingMode>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_routing_mode<T: std::convert::Into<crate::model::private_connection::RoutingMode>>(mut self, v: T) -> Self {
         self.routing_mode = v.into();
         self
     }
@@ -13919,12 +13587,7 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [peering_state][crate::model::PrivateConnection::peering_state].
-    pub fn set_peering_state<
-        T: std::convert::Into<crate::model::private_connection::PeeringState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_peering_state<T: std::convert::Into<crate::model::private_connection::PeeringState>>(mut self, v: T) -> Self {
         self.peering_state = v.into();
         self
     }
@@ -13940,6 +13603,7 @@ impl wkt::message::Message for PrivateConnection {
 pub mod private_connection {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Enum State defines possible states of private connection.
     ///
@@ -14048,9 +13712,7 @@ pub mod private_connection {
                 4 => Self::Deleting,
                 5 => Self::Unprovisioned,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14066,9 +13728,7 @@ pub mod private_connection {
                 "DELETING" => Self::Deleting,
                 "UNPROVISIONED" => Self::Unprovisioned,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14097,8 +13757,7 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.vmwareengine.v1.PrivateConnection.State",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateConnection.State"))
         }
     }
 
@@ -14199,9 +13858,7 @@ pub mod private_connection {
                 2 => Self::NetappCloudVolumes,
                 3 => Self::DellPowerscale,
                 4 => Self::ThirdPartyService,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14215,9 +13872,7 @@ pub mod private_connection {
                 "NETAPP_CLOUD_VOLUMES" => Self::NetappCloudVolumes,
                 "DELL_POWERSCALE" => Self::DellPowerscale,
                 "THIRD_PARTY_SERVICE" => Self::ThirdPartyService,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14244,8 +13899,7 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.vmwareengine.v1.PrivateConnection.Type",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateConnection.Type"))
         }
     }
 
@@ -14335,9 +13989,7 @@ pub mod private_connection {
                 0 => Self::Unspecified,
                 1 => Self::Global,
                 2 => Self::Regional,
-                _ => Self::UnknownValue(routing_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(routing_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14349,9 +14001,7 @@ pub mod private_connection {
                 "ROUTING_MODE_UNSPECIFIED" => Self::Unspecified,
                 "GLOBAL" => Self::Global,
                 "REGIONAL" => Self::Regional,
-                _ => Self::UnknownValue(routing_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(routing_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14376,8 +14026,7 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutingMode>::new(
-                ".google.cloud.vmwareengine.v1.PrivateConnection.RoutingMode",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateConnection.RoutingMode"))
         }
     }
 
@@ -14469,9 +14118,7 @@ pub mod private_connection {
                 0 => Self::Unspecified,
                 1 => Self::PeeringActive,
                 2 => Self::PeeringInactive,
-                _ => Self::UnknownValue(peering_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(peering_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14483,9 +14130,7 @@ pub mod private_connection {
                 "PEERING_STATE_UNSPECIFIED" => Self::Unspecified,
                 "PEERING_ACTIVE" => Self::PeeringActive,
                 "PEERING_INACTIVE" => Self::PeeringInactive,
-                _ => Self::UnknownValue(peering_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(peering_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14510,8 +14155,7 @@ pub mod private_connection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<PeeringState>::new(
-                ".google.cloud.vmwareengine.v1.PrivateConnection.PeeringState",
-            ))
+                ".google.cloud.vmwareengine.v1.PrivateConnection.PeeringState"))
         }
     }
 }
@@ -14524,6 +14168,7 @@ pub mod private_connection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
+
     /// Output only. Capabilities of this location.
     pub capabilities: std::vec::Vec<crate::model::location_metadata::Capability>,
 
@@ -14539,7 +14184,7 @@ impl LocationMetadata {
     pub fn set_capabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::location_metadata::Capability>,
+        V: std::convert::Into<crate::model::location_metadata::Capability>
     {
         use std::iter::Iterator;
         self.capabilities = v.into_iter().map(|i| i.into()).collect();
@@ -14557,6 +14202,7 @@ impl wkt::message::Message for LocationMetadata {
 pub mod location_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Capability of a location.
     ///
@@ -14640,9 +14286,7 @@ pub mod location_metadata {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::StretchedClusters,
-                _ => Self::UnknownValue(capability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(capability::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14653,9 +14297,7 @@ pub mod location_metadata {
             match value {
                 "CAPABILITY_UNSPECIFIED" => Self::Unspecified,
                 "STRETCHED_CLUSTERS" => Self::StretchedClusters,
-                _ => Self::UnknownValue(capability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(capability::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14679,8 +14321,7 @@ pub mod location_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Capability>::new(
-                ".google.cloud.vmwareengine.v1.LocationMetadata.Capability",
-            ))
+                ".google.cloud.vmwareengine.v1.LocationMetadata.Capability"))
         }
     }
 }
@@ -14690,6 +14331,7 @@ pub mod location_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsBindPermission {
+
     /// Required. Output only. The name of the resource which stores the
     /// users/service accounts having the permission to bind to the corresponding
     /// intranet VPC of the consumer project. DnsBindPermission is a global
@@ -14721,7 +14363,7 @@ impl DnsBindPermission {
     pub fn set_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Principal>,
+        V: std::convert::Into<crate::model::Principal>
     {
         use std::iter::Iterator;
         self.principals = v.into_iter().map(|i| i.into()).collect();
@@ -14740,6 +14382,7 @@ impl wkt::message::Message for DnsBindPermission {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Principal {
+
     /// The consumer provided user/service account which needs to be
     /// granted permission to DNS bind with the intranet VPC corresponding to the
     /// consumer project.
@@ -14757,12 +14400,8 @@ impl Principal {
     ///
     /// Note that all the setters affecting `principal` are mutually
     /// exclusive.
-    pub fn set_principal<
-        T: std::convert::Into<std::option::Option<crate::model::principal::Principal>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_principal<T: std::convert::Into<std::option::Option<crate::model::principal::Principal>>>(mut self, v: T) -> Self
+    {
         self.principal = v.into();
         self
     }
@@ -14784,8 +14423,11 @@ impl Principal {
     /// Note that all the setters affecting `principal` are
     /// mutually exclusive.
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.principal =
-            std::option::Option::Some(crate::model::principal::Principal::User(v.into()));
+        self.principal = std::option::Option::Some(
+            crate::model::principal::Principal::User(
+                v.into()
+            )
+        );
         self
     }
 
@@ -14806,8 +14448,11 @@ impl Principal {
     /// Note that all the setters affecting `principal` are
     /// mutually exclusive.
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.principal =
-            std::option::Option::Some(crate::model::principal::Principal::ServiceAccount(v.into()));
+        self.principal = std::option::Option::Some(
+            crate::model::principal::Principal::ServiceAccount(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -14822,6 +14467,7 @@ impl wkt::message::Message for Principal {
 pub mod principal {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The consumer provided user/service account which needs to be
     /// granted permission to DNS bind with the intranet VPC corresponding to the

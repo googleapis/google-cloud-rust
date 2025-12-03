@@ -39,10 +39,7 @@ pub mod asset_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AssetService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod asset_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -93,10 +86,10 @@ pub mod asset_service {
     pub struct ExportAssets(RequestBuilder<crate::model::ExportAssetsRequest>);
 
     impl ExportAssets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -118,21 +111,16 @@ pub mod asset_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [export_assets][crate::client::AssetService::export_assets].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .export_assets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).export_assets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_assets`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExportAssetsResponse, crate::model::ExportAssetsRequest>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExportAssetsResponse, crate::model::ExportAssetsRequest>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExportAssetsResponse,
-                crate::model::ExportAssetsRequest,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExportAssetsResponse, crate::model::ExportAssetsRequest>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -170,8 +158,7 @@ pub mod asset_service {
 
         /// Sets the value of [read_time][crate::model::ExportAssetsRequest::read_time].
         pub fn set_read_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.read_time = std::option::Option::Some(v.into());
             self
@@ -179,8 +166,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [read_time][crate::model::ExportAssetsRequest::read_time].
         pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.read_time = v.map(|x| x.into());
             self
@@ -190,7 +176,7 @@ pub mod asset_service {
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
@@ -207,8 +193,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::OutputConfig>,
+        where T: std::convert::Into<crate::model::OutputConfig>
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -218,8 +203,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::OutputConfig>,
+        where T: std::convert::Into<crate::model::OutputConfig>
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -229,7 +213,7 @@ pub mod asset_service {
         pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.relationship_types = v.into_iter().map(|i| i.into()).collect();
@@ -269,10 +253,10 @@ pub mod asset_service {
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -289,17 +273,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAssetsResponse> {
-            (*self.0.stub)
-                .list_assets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_assets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -311,10 +289,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -329,8 +304,7 @@ pub mod asset_service {
 
         /// Sets the value of [read_time][crate::model::ListAssetsRequest::read_time].
         pub fn set_read_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.read_time = std::option::Option::Some(v.into());
             self
@@ -338,8 +312,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [read_time][crate::model::ListAssetsRequest::read_time].
         pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.0.request.read_time = v.map(|x| x.into());
             self
@@ -349,7 +322,7 @@ pub mod asset_service {
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
@@ -378,7 +351,7 @@ pub mod asset_service {
         pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.relationship_types = v.into_iter().map(|i| i.into()).collect();
@@ -414,17 +387,14 @@ pub mod asset_service {
     pub struct BatchGetAssetsHistory(RequestBuilder<crate::model::BatchGetAssetsHistoryRequest>);
 
     impl BatchGetAssetsHistory {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchGetAssetsHistoryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchGetAssetsHistoryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -437,10 +407,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchGetAssetsHistoryResponse> {
-            (*self.0.stub)
-                .batch_get_assets_history(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_get_assets_history(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
@@ -455,7 +422,7 @@ pub mod asset_service {
         pub fn set_asset_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.asset_names = v.into_iter().map(|i| i.into()).collect();
@@ -470,8 +437,7 @@ pub mod asset_service {
 
         /// Sets the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
         pub fn set_read_time_window<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::TimeWindow>,
+        where T: std::convert::Into<crate::model::TimeWindow>
         {
             self.0.request.read_time_window = std::option::Option::Some(v.into());
             self
@@ -479,8 +445,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
         pub fn set_or_clear_read_time_window<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::TimeWindow>,
+        where T: std::convert::Into<crate::model::TimeWindow>
         {
             self.0.request.read_time_window = v.map(|x| x.into());
             self
@@ -490,7 +455,7 @@ pub mod asset_service {
         pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.relationship_types = v.into_iter().map(|i| i.into()).collect();
@@ -526,10 +491,10 @@ pub mod asset_service {
     pub struct CreateFeed(RequestBuilder<crate::model::CreateFeedRequest>);
 
     impl CreateFeed {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -546,10 +511,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Feed> {
-            (*self.0.stub)
-                .create_feed(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_feed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
@@ -572,8 +534,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_feed<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Feed>,
+        where T: std::convert::Into<crate::model::Feed>
         {
             self.0.request.feed = std::option::Option::Some(v.into());
             self
@@ -583,8 +544,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Feed>,
+        where T: std::convert::Into<crate::model::Feed>
         {
             self.0.request.feed = v.map(|x| x.into());
             self
@@ -619,10 +579,10 @@ pub mod asset_service {
     pub struct GetFeed(RequestBuilder<crate::model::GetFeedRequest>);
 
     impl GetFeed {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -639,10 +599,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Feed> {
-            (*self.0.stub)
-                .get_feed(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_feed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedRequest::name].
@@ -682,10 +639,10 @@ pub mod asset_service {
     pub struct ListFeeds(RequestBuilder<crate::model::ListFeedsRequest>);
 
     impl ListFeeds {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -702,10 +659,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFeedsResponse> {
-            (*self.0.stub)
-                .list_feeds(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_feeds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
@@ -745,10 +699,10 @@ pub mod asset_service {
     pub struct UpdateFeed(RequestBuilder<crate::model::UpdateFeedRequest>);
 
     impl UpdateFeed {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -765,18 +719,14 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Feed> {
-            (*self.0.stub)
-                .update_feed(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_feed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
         ///
         /// This is a **required** field for requests.
         pub fn set_feed<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Feed>,
+        where T: std::convert::Into<crate::model::Feed>
         {
             self.0.request.feed = std::option::Option::Some(v.into());
             self
@@ -786,8 +736,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Feed>,
+        where T: std::convert::Into<crate::model::Feed>
         {
             self.0.request.feed = v.map(|x| x.into());
             self
@@ -797,8 +746,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -808,8 +756,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -844,10 +791,10 @@ pub mod asset_service {
     pub struct DeleteFeed(RequestBuilder<crate::model::DeleteFeedRequest>);
 
     impl DeleteFeed {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -864,10 +811,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_feed(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_feed(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
@@ -911,17 +855,14 @@ pub mod asset_service {
     pub struct SearchAllResources(RequestBuilder<crate::model::SearchAllResourcesRequest>);
 
     impl SearchAllResources {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchAllResourcesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchAllResourcesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -934,17 +875,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchAllResourcesResponse> {
-            (*self.0.stub)
-                .search_all_resources(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).search_all_resources(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -956,12 +891,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::SearchAllResourcesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchAllResourcesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -984,7 +914,7 @@ pub mod asset_service {
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
@@ -1011,8 +941,7 @@ pub mod asset_service {
 
         /// Sets the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
         pub fn set_read_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = std::option::Option::Some(v.into());
             self
@@ -1020,8 +949,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
         pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.read_mask = v.map(|x| x.into());
             self
@@ -1060,17 +988,14 @@ pub mod asset_service {
     pub struct SearchAllIamPolicies(RequestBuilder<crate::model::SearchAllIamPoliciesRequest>);
 
     impl SearchAllIamPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SearchAllIamPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::SearchAllIamPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1083,17 +1008,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchAllIamPoliciesResponse> {
-            (*self.0.stub)
-                .search_all_iam_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).search_all_iam_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1105,12 +1024,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::SearchAllIamPoliciesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1145,7 +1059,7 @@ pub mod asset_service {
         pub fn set_asset_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.asset_types = v.into_iter().map(|i| i.into()).collect();
@@ -1187,17 +1101,14 @@ pub mod asset_service {
     pub struct AnalyzeIamPolicy(RequestBuilder<crate::model::AnalyzeIamPolicyRequest>);
 
     impl AnalyzeIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeIamPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeIamPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1210,18 +1121,14 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeIamPolicyResponse> {
-            (*self.0.stub)
-                .analyze_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
         ///
         /// This is a **required** field for requests.
         pub fn set_analysis_query<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>
         {
             self.0.request.analysis_query = std::option::Option::Some(v.into());
             self
@@ -1231,8 +1138,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>
         {
             self.0.request.analysis_query = v.map(|x| x.into());
             self
@@ -1246,8 +1152,7 @@ pub mod asset_service {
 
         /// Sets the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
         pub fn set_execution_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.execution_timeout = std::option::Option::Some(v.into());
             self
@@ -1255,8 +1160,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
         pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.execution_timeout = v.map(|x| x.into());
             self
@@ -1289,22 +1193,17 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeIamPolicyLongrunning(
-        RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>,
-    );
+    pub struct AnalyzeIamPolicyLongrunning(RequestBuilder<crate::model::AnalyzeIamPolicyLongrunningRequest>);
 
     impl AnalyzeIamPolicyLongrunning {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeIamPolicyLongrunningRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeIamPolicyLongrunningRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1322,23 +1221,16 @@ pub mod asset_service {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [analyze_iam_policy_longrunning][crate::client::AssetService::analyze_iam_policy_longrunning].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .analyze_iam_policy_longrunning(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_iam_policy_longrunning(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `analyze_iam_policy_longrunning`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<
-            crate::model::AnalyzeIamPolicyLongrunningResponse,
-            crate::model::AnalyzeIamPolicyLongrunningMetadata,
-        > {
-            type Operation = lro::internal::Operation<
-                crate::model::AnalyzeIamPolicyLongrunningResponse,
-                crate::model::AnalyzeIamPolicyLongrunningMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::AnalyzeIamPolicyLongrunningResponse, crate::model::AnalyzeIamPolicyLongrunningMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::AnalyzeIamPolicyLongrunningResponse, crate::model::AnalyzeIamPolicyLongrunningMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1370,8 +1262,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_analysis_query<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>
         {
             self.0.request.analysis_query = std::option::Option::Some(v.into());
             self
@@ -1381,8 +1272,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>
         {
             self.0.request.analysis_query = v.map(|x| x.into());
             self
@@ -1398,8 +1288,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -1409,8 +1298,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
+        where T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -1445,10 +1333,10 @@ pub mod asset_service {
     pub struct AnalyzeMove(RequestBuilder<crate::model::AnalyzeMoveRequest>);
 
     impl AnalyzeMove {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1465,10 +1353,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeMoveResponse> {
-            (*self.0.stub)
-                .analyze_move(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_move(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
@@ -1488,10 +1373,7 @@ pub mod asset_service {
         }
 
         /// Sets the value of [view][crate::model::AnalyzeMoveRequest::view].
-        pub fn set_view<T: Into<crate::model::analyze_move_request::AnalysisView>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_view<T: Into<crate::model::analyze_move_request::AnalysisView>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
@@ -1525,10 +1407,10 @@ pub mod asset_service {
     pub struct QueryAssets(RequestBuilder<crate::model::QueryAssetsRequest>);
 
     impl QueryAssets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1545,10 +1427,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::QueryAssetsResponse> {
-            (*self.0.stub)
-                .query_assets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).query_assets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
@@ -1573,8 +1452,7 @@ pub mod asset_service {
 
         /// Sets the value of [timeout][crate::model::QueryAssetsRequest::timeout].
         pub fn set_timeout<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.timeout = std::option::Option::Some(v.into());
             self
@@ -1582,8 +1460,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [timeout][crate::model::QueryAssetsRequest::timeout].
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.0.request.timeout = v.map(|x| x.into());
             self
@@ -1591,8 +1468,7 @@ pub mod asset_service {
 
         /// Sets the value of [output_config][crate::model::QueryAssetsRequest::output_config].
         pub fn set_output_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
+        where T: std::convert::Into<crate::model::QueryAssetsOutputConfig>
         {
             self.0.request.output_config = std::option::Option::Some(v.into());
             self
@@ -1600,8 +1476,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [output_config][crate::model::QueryAssetsRequest::output_config].
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
+        where T: std::convert::Into<crate::model::QueryAssetsOutputConfig>
         {
             self.0.request.output_config = v.map(|x| x.into());
             self
@@ -1611,10 +1486,7 @@ pub mod asset_service {
         ///
         /// Note that all the setters affecting `query` are
         /// mutually exclusive.
-        pub fn set_query<T: Into<Option<crate::model::query_assets_request::Query>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_query<T: Into<Option<crate::model::query_assets_request::Query>>>(mut self, v: T) ->Self {
             self.0.request.query = v.into();
             self
         }
@@ -1634,10 +1506,7 @@ pub mod asset_service {
         ///
         /// Note that all the setters affecting `query` are
         /// mutually exclusive.
-        pub fn set_job_reference<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_job_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_job_reference(v);
             self
         }
@@ -1646,10 +1515,7 @@ pub mod asset_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_time<T: Into<Option<crate::model::query_assets_request::Time>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_time<T: Into<Option<crate::model::query_assets_request::Time>>>(mut self, v: T) ->Self {
             self.0.request.time = v.into();
             self
         }
@@ -1659,12 +1525,7 @@ pub mod asset_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_read_time_window<
-            T: std::convert::Into<std::boxed::Box<crate::model::TimeWindow>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_read_time_window<T: std::convert::Into<std::boxed::Box<crate::model::TimeWindow>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_read_time_window(v);
             self
         }
@@ -1674,10 +1535,7 @@ pub mod asset_service {
         ///
         /// Note that all the setters affecting `time` are
         /// mutually exclusive.
-        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request = self.0.request.set_read_time(v);
             self
         }
@@ -1711,17 +1569,14 @@ pub mod asset_service {
     pub struct CreateSavedQuery(RequestBuilder<crate::model::CreateSavedQueryRequest>);
 
     impl CreateSavedQuery {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSavedQueryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSavedQueryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1734,10 +1589,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SavedQuery> {
-            (*self.0.stub)
-                .create_saved_query(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_saved_query(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
@@ -1752,8 +1604,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_saved_query<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SavedQuery>,
+        where T: std::convert::Into<crate::model::SavedQuery>
         {
             self.0.request.saved_query = std::option::Option::Some(v.into());
             self
@@ -1763,8 +1614,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SavedQuery>,
+        where T: std::convert::Into<crate::model::SavedQuery>
         {
             self.0.request.saved_query = v.map(|x| x.into());
             self
@@ -1807,10 +1657,10 @@ pub mod asset_service {
     pub struct GetSavedQuery(RequestBuilder<crate::model::GetSavedQueryRequest>);
 
     impl GetSavedQuery {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1827,10 +1677,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SavedQuery> {
-            (*self.0.stub)
-                .get_saved_query(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_saved_query(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
@@ -1874,17 +1721,14 @@ pub mod asset_service {
     pub struct ListSavedQueries(RequestBuilder<crate::model::ListSavedQueriesRequest>);
 
     impl ListSavedQueries {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSavedQueriesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListSavedQueriesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1897,17 +1741,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSavedQueriesResponse> {
-            (*self.0.stub)
-                .list_saved_queries(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_saved_queries(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1919,10 +1757,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSavedQueriesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1982,17 +1817,14 @@ pub mod asset_service {
     pub struct UpdateSavedQuery(RequestBuilder<crate::model::UpdateSavedQueryRequest>);
 
     impl UpdateSavedQuery {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSavedQueryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSavedQueryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2005,18 +1837,14 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SavedQuery> {
-            (*self.0.stub)
-                .update_saved_query(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_saved_query(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
         ///
         /// This is a **required** field for requests.
         pub fn set_saved_query<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::SavedQuery>,
+        where T: std::convert::Into<crate::model::SavedQuery>
         {
             self.0.request.saved_query = std::option::Option::Some(v.into());
             self
@@ -2026,8 +1854,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::SavedQuery>,
+        where T: std::convert::Into<crate::model::SavedQuery>
         {
             self.0.request.saved_query = v.map(|x| x.into());
             self
@@ -2037,8 +1864,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2048,8 +1874,7 @@ pub mod asset_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2084,17 +1909,14 @@ pub mod asset_service {
     pub struct DeleteSavedQuery(RequestBuilder<crate::model::DeleteSavedQueryRequest>);
 
     impl DeleteSavedQuery {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSavedQueryRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSavedQueryRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2107,10 +1929,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_saved_query(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_saved_query(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
@@ -2147,22 +1966,17 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct BatchGetEffectiveIamPolicies(
-        RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>,
-    );
+    pub struct BatchGetEffectiveIamPolicies(RequestBuilder<crate::model::BatchGetEffectiveIamPoliciesRequest>);
 
     impl BatchGetEffectiveIamPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchGetEffectiveIamPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchGetEffectiveIamPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2175,10 +1989,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchGetEffectiveIamPoliciesResponse> {
-            (*self.0.stub)
-                .batch_get_effective_iam_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_get_effective_iam_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
@@ -2195,7 +2006,7 @@ pub mod asset_service {
         pub fn set_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
@@ -2235,17 +2046,14 @@ pub mod asset_service {
     pub struct AnalyzeOrgPolicies(RequestBuilder<crate::model::AnalyzeOrgPoliciesRequest>);
 
     impl AnalyzeOrgPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeOrgPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeOrgPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2258,17 +2066,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeOrgPoliciesResponse> {
-            (*self.0.stub)
-                .analyze_org_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_org_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2280,12 +2082,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::AnalyzeOrgPoliciesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2314,8 +2111,7 @@ pub mod asset_service {
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -2323,8 +2119,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -2366,22 +2161,17 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeOrgPolicyGovernedContainers(
-        RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>,
-    );
+    pub struct AnalyzeOrgPolicyGovernedContainers(RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>);
 
     impl AnalyzeOrgPolicyGovernedContainers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeOrgPolicyGovernedContainersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2393,22 +2183,12 @@ pub mod asset_service {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse> {
-            (*self.0.stub)
-                .analyze_org_policy_governed_containers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse> {
+            (*self.0.stub).analyze_org_policy_governed_containers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPolicyGovernedContainersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2420,12 +2200,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::AnalyzeOrgPolicyGovernedContainersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2454,8 +2229,7 @@ pub mod asset_service {
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -2463,8 +2237,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -2506,22 +2279,17 @@ pub mod asset_service {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct AnalyzeOrgPolicyGovernedAssets(
-        RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>,
-    );
+    pub struct AnalyzeOrgPolicyGovernedAssets(RequestBuilder<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>);
 
     impl AnalyzeOrgPolicyGovernedAssets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeOrgPolicyGovernedAssetsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2534,19 +2302,11 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse> {
-            (*self.0.stub)
-                .analyze_org_policy_governed_assets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_org_policy_governed_assets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2558,12 +2318,7 @@ pub mod asset_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2592,8 +2347,7 @@ pub mod asset_service {
 
         /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
         pub fn set_page_size<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = std::option::Option::Some(v.into());
             self
@@ -2601,8 +2355,7 @@ pub mod asset_service {
 
         /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
         pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.page_size = v.map(|x| x.into());
             self
@@ -2643,17 +2396,14 @@ pub mod asset_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AssetService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2666,10 +2416,7 @@ pub mod asset_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2685,4 +2432,5 @@ pub mod asset_service {
             &mut self.0.options
         }
     }
+
 }

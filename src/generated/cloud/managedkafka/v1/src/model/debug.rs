@@ -600,6 +600,7 @@ impl std::fmt::Debug for super::Cluster {
     }
 }
 
+
 impl std::fmt::Debug for super::CapacityConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CapacityConfig");
@@ -661,10 +662,7 @@ impl std::fmt::Debug for super::TlsConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TlsConfig");
         debug_struct.field("trust_config", &self.trust_config);
-        debug_struct.field(
-            "ssl_principal_mapping_rules",
-            &self.ssl_principal_mapping_rules,
-        );
+        debug_struct.field("ssl_principal_mapping_rules", &self.ssl_principal_mapping_rules);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -779,6 +777,8 @@ impl std::fmt::Debug for super::ConnectCluster {
     }
 }
 
+
+
 impl std::fmt::Debug for super::ConnectNetworkConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConnectNetworkConfig");
@@ -828,6 +828,7 @@ impl std::fmt::Debug for super::Connector {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::TaskRetryPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

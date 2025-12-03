@@ -37,6 +37,8 @@ impl std::fmt::Debug for super::Asset {
     }
 }
 
+
+
 impl std::fmt::Debug for super::PreferenceSet {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PreferenceSet");
@@ -45,10 +47,7 @@ impl std::fmt::Debug for super::PreferenceSet {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
-        debug_struct.field(
-            "virtual_machine_preferences",
-            &self.virtual_machine_preferences,
-        );
+        debug_struct.field("virtual_machine_preferences", &self.virtual_machine_preferences);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -74,6 +73,7 @@ impl std::fmt::Debug for super::ImportJob {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ImportDataFile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -150,10 +150,7 @@ impl std::fmt::Debug for super::ReportConfig {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
-        debug_struct.field(
-            "group_preferenceset_assignments",
-            &self.group_preferenceset_assignments,
-        );
+        debug_struct.field("group_preferenceset_assignments", &self.group_preferenceset_assignments);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1011,6 +1008,8 @@ impl std::fmt::Debug for super::AssetFrame {
     }
 }
 
+
+
 impl std::fmt::Debug for super::MachineDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MachineDetails");
@@ -1617,10 +1616,7 @@ impl std::fmt::Debug for super::PerformanceSample {
 impl std::fmt::Debug for super::AssetPerformanceData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssetPerformanceData");
-        debug_struct.field(
-            "daily_resource_usage_aggregations",
-            &self.daily_resource_usage_aggregations,
-        );
+        debug_struct.field("daily_resource_usage_aggregations", &self.daily_resource_usage_aggregations);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2029,14 +2025,8 @@ impl std::fmt::Debug for super::VirtualMachinePreferences {
         debug_struct.field("target_product", &self.target_product);
         debug_struct.field("region_preferences", &self.region_preferences);
         debug_struct.field("commitment_plan", &self.commitment_plan);
-        debug_struct.field(
-            "sizing_optimization_strategy",
-            &self.sizing_optimization_strategy,
-        );
-        debug_struct.field(
-            "compute_engine_preferences",
-            &self.compute_engine_preferences,
-        );
+        debug_struct.field("sizing_optimization_strategy", &self.sizing_optimization_strategy);
+        debug_struct.field("compute_engine_preferences", &self.compute_engine_preferences);
         debug_struct.field("vmware_engine_preferences", &self.vmware_engine_preferences);
         debug_struct.field("sole_tenancy_preferences", &self.sole_tenancy_preferences);
         if !self._unknown_fields.is_empty() {
@@ -2085,10 +2075,7 @@ impl std::fmt::Debug for super::VmwareEnginePreferences {
         let mut debug_struct = f.debug_struct("VmwareEnginePreferences");
         debug_struct.field("cpu_overcommit_ratio", &self.cpu_overcommit_ratio);
         debug_struct.field("memory_overcommit_ratio", &self.memory_overcommit_ratio);
-        debug_struct.field(
-            "storage_deduplication_compression_ratio",
-            &self.storage_deduplication_compression_ratio,
-        );
+        debug_struct.field("storage_deduplication_compression_ratio", &self.storage_deduplication_compression_ratio);
         debug_struct.field("commitment_plan", &self.commitment_plan);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2253,10 +2240,7 @@ impl std::fmt::Debug for super::report_summary::ComputeEngineFinding {
         let mut debug_struct = f.debug_struct("ComputeEngineFinding");
         debug_struct.field("allocated_regions", &self.allocated_regions);
         debug_struct.field("allocated_asset_count", &self.allocated_asset_count);
-        debug_struct.field(
-            "machine_series_allocations",
-            &self.machine_series_allocations,
-        );
+        debug_struct.field("machine_series_allocations", &self.machine_series_allocations);
         debug_struct.field("allocated_disk_types", &self.allocated_disk_types);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2337,10 +2321,7 @@ impl std::fmt::Debug for super::report_summary::GroupPreferenceSetFinding {
         debug_struct.field("monthly_cost_total", &self.monthly_cost_total);
         debug_struct.field("monthly_cost_compute", &self.monthly_cost_compute);
         debug_struct.field("monthly_cost_os_license", &self.monthly_cost_os_license);
-        debug_struct.field(
-            "monthly_cost_network_egress",
-            &self.monthly_cost_network_egress,
-        );
+        debug_struct.field("monthly_cost_network_egress", &self.monthly_cost_network_egress);
         debug_struct.field("monthly_cost_storage", &self.monthly_cost_storage);
         debug_struct.field("monthly_cost_other", &self.monthly_cost_other);
         debug_struct.field("compute_engine_finding", &self.compute_engine_finding);

@@ -39,10 +39,7 @@ pub mod grafeas {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Grafeas;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,9 +54,7 @@ pub mod grafeas {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
+    where R: std::default::Default {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self {
                 stub,
@@ -91,7 +86,9 @@ pub mod grafeas {
 
     impl GetOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -108,10 +105,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Occurrence> {
-            (*self.0.stub)
-                .get_occurrence(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_occurrence(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceRequest::name].
@@ -156,7 +150,9 @@ pub mod grafeas {
 
     impl ListOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -173,17 +169,11 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOccurrencesResponse> {
-            (*self.0.stub)
-                .list_occurrences(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_occurrences(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -195,10 +185,7 @@ pub mod grafeas {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOccurrencesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListOccurrencesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -259,14 +246,13 @@ pub mod grafeas {
 
     impl DeleteOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteOccurrenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteOccurrenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -279,10 +265,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_occurrence(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_occurrence(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteOccurrenceRequest::name].
@@ -323,14 +306,13 @@ pub mod grafeas {
 
     impl CreateOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateOccurrenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateOccurrenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -343,10 +325,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Occurrence> {
-            (*self.0.stub)
-                .create_occurrence(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_occurrence(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateOccurrenceRequest::parent].
@@ -361,8 +340,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_occurrence<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Occurrence>,
+        where T: std::convert::Into<crate::model::Occurrence>
         {
             self.0.request.occurrence = std::option::Option::Some(v.into());
             self
@@ -372,8 +350,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Occurrence>,
+        where T: std::convert::Into<crate::model::Occurrence>
         {
             self.0.request.occurrence = v.map(|x| x.into());
             self
@@ -409,14 +386,13 @@ pub mod grafeas {
 
     impl BatchCreateOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCreateOccurrencesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchCreateOccurrencesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -429,10 +405,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchCreateOccurrencesResponse> {
-            (*self.0.stub)
-                .batch_create_occurrences(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_create_occurrences(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateOccurrencesRequest::parent].
@@ -449,7 +422,7 @@ pub mod grafeas {
         pub fn set_occurrences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Occurrence>,
+            V: std::convert::Into<crate::model::Occurrence>
         {
             use std::iter::Iterator;
             self.0.request.occurrences = v.into_iter().map(|i| i.into()).collect();
@@ -486,14 +459,13 @@ pub mod grafeas {
 
     impl UpdateOccurrence {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateOccurrenceRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateOccurrenceRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -506,10 +478,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Occurrence> {
-            (*self.0.stub)
-                .update_occurrence(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_occurrence(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateOccurrenceRequest::name].
@@ -524,8 +493,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_occurrence<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Occurrence>,
+        where T: std::convert::Into<crate::model::Occurrence>
         {
             self.0.request.occurrence = std::option::Option::Some(v.into());
             self
@@ -535,8 +503,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Occurrence>,
+        where T: std::convert::Into<crate::model::Occurrence>
         {
             self.0.request.occurrence = v.map(|x| x.into());
             self
@@ -544,8 +511,7 @@ pub mod grafeas {
 
         /// Sets the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -553,8 +519,7 @@ pub mod grafeas {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -590,14 +555,13 @@ pub mod grafeas {
 
     impl GetOccurrenceNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOccurrenceNoteRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOccurrenceNoteRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -610,10 +574,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Note> {
-            (*self.0.stub)
-                .get_occurrence_note(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_occurrence_note(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceNoteRequest::name].
@@ -654,7 +615,9 @@ pub mod grafeas {
 
     impl GetNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -671,10 +634,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Note> {
-            (*self.0.stub)
-                .get_note(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_note(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNoteRequest::name].
@@ -719,7 +679,9 @@ pub mod grafeas {
 
     impl ListNotes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -736,17 +698,11 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNotesResponse> {
-            (*self.0.stub)
-                .list_notes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_notes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -758,10 +714,7 @@ pub mod grafeas {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNotesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNotesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -822,7 +775,9 @@ pub mod grafeas {
 
     impl DeleteNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -839,10 +794,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_note(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_note(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNoteRequest::name].
@@ -883,7 +835,9 @@ pub mod grafeas {
 
     impl CreateNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -900,10 +854,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Note> {
-            (*self.0.stub)
-                .create_note(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_note(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNoteRequest::parent].
@@ -926,8 +877,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_note<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Note>,
+        where T: std::convert::Into<crate::model::Note>
         {
             self.0.request.note = std::option::Option::Some(v.into());
             self
@@ -937,8 +887,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Note>,
+        where T: std::convert::Into<crate::model::Note>
         {
             self.0.request.note = v.map(|x| x.into());
             self
@@ -974,14 +923,13 @@ pub mod grafeas {
 
     impl BatchCreateNotes {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::BatchCreateNotesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::BatchCreateNotesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -994,10 +942,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BatchCreateNotesResponse> {
-            (*self.0.stub)
-                .batch_create_notes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).batch_create_notes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateNotesRequest::parent].
@@ -1051,7 +996,9 @@ pub mod grafeas {
 
     impl UpdateNote {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1068,10 +1015,7 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Note> {
-            (*self.0.stub)
-                .update_note(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_note(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateNoteRequest::name].
@@ -1086,8 +1030,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_note<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Note>,
+        where T: std::convert::Into<crate::model::Note>
         {
             self.0.request.note = std::option::Option::Some(v.into());
             self
@@ -1097,8 +1040,7 @@ pub mod grafeas {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Note>,
+        where T: std::convert::Into<crate::model::Note>
         {
             self.0.request.note = v.map(|x| x.into());
             self
@@ -1106,8 +1048,7 @@ pub mod grafeas {
 
         /// Sets the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1115,8 +1056,7 @@ pub mod grafeas {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1156,14 +1096,13 @@ pub mod grafeas {
 
     impl ListNoteOccurrences {
         pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
-            Self(RequestBuilder::new(stub))
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListNoteOccurrencesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListNoteOccurrencesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1176,17 +1115,11 @@ pub mod grafeas {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNoteOccurrencesResponse> {
-            (*self.0.stub)
-                .list_note_occurrences(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_note_occurrences(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1198,12 +1131,7 @@ pub mod grafeas {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListNoteOccurrencesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1241,4 +1169,5 @@ pub mod grafeas {
             &mut self.0.options
         }
     }
+
 }

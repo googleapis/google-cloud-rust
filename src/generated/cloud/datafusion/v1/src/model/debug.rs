@@ -72,14 +72,8 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
         debug_struct.field("r#type", &self.r#type);
-        debug_struct.field(
-            "enable_stackdriver_logging",
-            &self.enable_stackdriver_logging,
-        );
-        debug_struct.field(
-            "enable_stackdriver_monitoring",
-            &self.enable_stackdriver_monitoring,
-        );
+        debug_struct.field("enable_stackdriver_logging", &self.enable_stackdriver_logging);
+        debug_struct.field("enable_stackdriver_monitoring", &self.enable_stackdriver_monitoring);
         debug_struct.field("private_instance", &self.private_instance);
         debug_struct.field("network_config", &self.network_config);
         debug_struct.field("labels", &self.labels);
@@ -109,6 +103,8 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::ListInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

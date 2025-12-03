@@ -30,10 +30,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("description", &self.description);
         debug_struct.field("labels", &self.labels);
-        debug_struct.field(
-            "per_unit_storage_throughput",
-            &self.per_unit_storage_throughput,
-        );
+        debug_struct.field("per_unit_storage_throughput", &self.per_unit_storage_throughput);
         debug_struct.field("gke_support_enabled", &self.gke_support_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -41,6 +38,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

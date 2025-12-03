@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -28,7 +29,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSourceParameter {
+
     /// Parameter identifier.
     pub param_id: std::string::String,
 
@@ -117,10 +118,7 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [r#type][crate::model::DataSourceParameter::type].
-    pub fn set_type<T: std::convert::Into<crate::model::data_source_parameter::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::data_source_parameter::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -138,10 +136,7 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [validation_regex][crate::model::DataSourceParameter::validation_regex].
-    pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.validation_regex = v.into();
         self
     }
@@ -150,7 +145,7 @@ impl DataSourceParameter {
     pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_values = v.into_iter().map(|i| i.into()).collect();
@@ -159,8 +154,7 @@ impl DataSourceParameter {
 
     /// Sets the value of [min_value][crate::model::DataSourceParameter::min_value].
     pub fn set_min_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::DoubleValue>,
+    where T: std::convert::Into<wkt::DoubleValue>
     {
         self.min_value = std::option::Option::Some(v.into());
         self
@@ -168,8 +162,7 @@ impl DataSourceParameter {
 
     /// Sets or clears the value of [min_value][crate::model::DataSourceParameter::min_value].
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::DoubleValue>,
+    where T: std::convert::Into<wkt::DoubleValue>
     {
         self.min_value = v.map(|x| x.into());
         self
@@ -177,8 +170,7 @@ impl DataSourceParameter {
 
     /// Sets the value of [max_value][crate::model::DataSourceParameter::max_value].
     pub fn set_max_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::DoubleValue>,
+    where T: std::convert::Into<wkt::DoubleValue>
     {
         self.max_value = std::option::Option::Some(v.into());
         self
@@ -186,8 +178,7 @@ impl DataSourceParameter {
 
     /// Sets or clears the value of [max_value][crate::model::DataSourceParameter::max_value].
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::DoubleValue>,
+    where T: std::convert::Into<wkt::DoubleValue>
     {
         self.max_value = v.map(|x| x.into());
         self
@@ -197,7 +188,7 @@ impl DataSourceParameter {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSourceParameter>,
+        V: std::convert::Into<crate::model::DataSourceParameter>
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -205,19 +196,13 @@ impl DataSourceParameter {
     }
 
     /// Sets the value of [validation_description][crate::model::DataSourceParameter::validation_description].
-    pub fn set_validation_description<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.validation_description = v.into();
         self
     }
 
     /// Sets the value of [validation_help_url][crate::model::DataSourceParameter::validation_help_url].
-    pub fn set_validation_help_url<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_help_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.validation_help_url = v.into();
         self
     }
@@ -251,6 +236,7 @@ impl wkt::message::Message for DataSourceParameter {
 pub mod data_source_parameter {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Parameter type.
     ///
@@ -364,9 +350,7 @@ pub mod data_source_parameter {
                 5 => Self::Record,
                 6 => Self::PlusPage,
                 7 => Self::List,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -383,9 +367,7 @@ pub mod data_source_parameter {
                 "RECORD" => Self::Record,
                 "PLUS_PAGE" => Self::PlusPage,
                 "LIST" => Self::List,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -415,8 +397,7 @@ pub mod data_source_parameter {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.bigquery.datatransfer.v1.DataSourceParameter.Type",
-            ))
+                ".google.cloud.bigquery.datatransfer.v1.DataSourceParameter.Type"))
         }
     }
 }
@@ -425,6 +406,7 @@ pub mod data_source_parameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataSource {
+
     /// Output only. Data source resource name.
     pub name: std::string::String,
 
@@ -537,7 +519,7 @@ impl DataSource {
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.scopes = v.into_iter().map(|i| i.into()).collect();
@@ -546,10 +528,7 @@ impl DataSource {
 
     /// Sets the value of [transfer_type][crate::model::DataSource::transfer_type].
     #[deprecated]
-    pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(mut self, v: T) -> Self {
         self.transfer_type = v.into();
         self
     }
@@ -568,10 +547,7 @@ impl DataSource {
     }
 
     /// Sets the value of [default_schedule][crate::model::DataSource::default_schedule].
-    pub fn set_default_schedule<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_schedule = v.into();
         self
     }
@@ -586,7 +562,7 @@ impl DataSource {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSourceParameter>,
+        V: std::convert::Into<crate::model::DataSourceParameter>
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -600,32 +576,19 @@ impl DataSource {
     }
 
     /// Sets the value of [authorization_type][crate::model::DataSource::authorization_type].
-    pub fn set_authorization_type<
-        T: std::convert::Into<crate::model::data_source::AuthorizationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_type<T: std::convert::Into<crate::model::data_source::AuthorizationType>>(mut self, v: T) -> Self {
         self.authorization_type = v.into();
         self
     }
 
     /// Sets the value of [data_refresh_type][crate::model::DataSource::data_refresh_type].
-    pub fn set_data_refresh_type<
-        T: std::convert::Into<crate::model::data_source::DataRefreshType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_refresh_type<T: std::convert::Into<crate::model::data_source::DataRefreshType>>(mut self, v: T) -> Self {
         self.data_refresh_type = v.into();
         self
     }
 
     /// Sets the value of [default_data_refresh_window_days][crate::model::DataSource::default_data_refresh_window_days].
-    pub fn set_default_data_refresh_window_days<T: std::convert::Into<i32>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_data_refresh_window_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.default_data_refresh_window_days = v.into();
         self
     }
@@ -638,8 +601,7 @@ impl DataSource {
 
     /// Sets the value of [minimum_schedule_interval][crate::model::DataSource::minimum_schedule_interval].
     pub fn set_minimum_schedule_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_schedule_interval = std::option::Option::Some(v.into());
         self
@@ -647,8 +609,7 @@ impl DataSource {
 
     /// Sets or clears the value of [minimum_schedule_interval][crate::model::DataSource::minimum_schedule_interval].
     pub fn set_or_clear_minimum_schedule_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.minimum_schedule_interval = v.map(|x| x.into());
         self
@@ -665,6 +626,7 @@ impl wkt::message::Message for DataSource {
 pub mod data_source {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of authorization needed for this data source.
     ///
@@ -732,9 +694,7 @@ pub mod data_source {
             match self {
                 Self::Unspecified => std::option::Option::Some("AUTHORIZATION_TYPE_UNSPECIFIED"),
                 Self::AuthorizationCode => std::option::Option::Some("AUTHORIZATION_CODE"),
-                Self::GooglePlusAuthorizationCode => {
-                    std::option::Option::Some("GOOGLE_PLUS_AUTHORIZATION_CODE")
-                }
+                Self::GooglePlusAuthorizationCode => std::option::Option::Some("GOOGLE_PLUS_AUTHORIZATION_CODE"),
                 Self::FirstPartyOauth => std::option::Option::Some("FIRST_PARTY_OAUTH"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -761,9 +721,7 @@ pub mod data_source {
                 1 => Self::AuthorizationCode,
                 2 => Self::GooglePlusAuthorizationCode,
                 3 => Self::FirstPartyOauth,
-                _ => Self::UnknownValue(authorization_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(authorization_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -776,9 +734,7 @@ pub mod data_source {
                 "AUTHORIZATION_CODE" => Self::AuthorizationCode,
                 "GOOGLE_PLUS_AUTHORIZATION_CODE" => Self::GooglePlusAuthorizationCode,
                 "FIRST_PARTY_OAUTH" => Self::FirstPartyOauth,
-                _ => Self::UnknownValue(authorization_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(authorization_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -804,8 +760,7 @@ pub mod data_source {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthorizationType>::new(
-                ".google.cloud.bigquery.datatransfer.v1.DataSource.AuthorizationType",
-            ))
+                ".google.cloud.bigquery.datatransfer.v1.DataSource.AuthorizationType"))
         }
     }
 
@@ -899,9 +854,7 @@ pub mod data_source {
                 0 => Self::Unspecified,
                 1 => Self::SlidingWindow,
                 2 => Self::CustomSlidingWindow,
-                _ => Self::UnknownValue(data_refresh_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(data_refresh_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -913,9 +866,7 @@ pub mod data_source {
                 "DATA_REFRESH_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SLIDING_WINDOW" => Self::SlidingWindow,
                 "CUSTOM_SLIDING_WINDOW" => Self::CustomSlidingWindow,
-                _ => Self::UnknownValue(data_refresh_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(data_refresh_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -940,8 +891,7 @@ pub mod data_source {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataRefreshType>::new(
-                ".google.cloud.bigquery.datatransfer.v1.DataSource.DataRefreshType",
-            ))
+                ".google.cloud.bigquery.datatransfer.v1.DataSource.DataRefreshType"))
         }
     }
 }
@@ -950,6 +900,7 @@ pub mod data_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDataSourceRequest {
+
     /// Required. The field will contain name of the resource requested, for
     /// example: `projects/{project_id}/dataSources/{data_source_id}` or
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`
@@ -980,6 +931,7 @@ impl wkt::message::Message for GetDataSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSourcesRequest {
+
     /// Required. The BigQuery project id for which data sources should be
     /// returned. Must be in the form: `projects/{project_id}` or
     /// `projects/{project_id}/locations/{location_id}`
@@ -1032,6 +984,7 @@ impl wkt::message::Message for ListDataSourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDataSourcesResponse {
+
     /// List of supported data sources and their transfer settings.
     pub data_sources: std::vec::Vec<crate::model::DataSource>,
 
@@ -1053,7 +1006,7 @@ impl ListDataSourcesResponse {
     pub fn set_data_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DataSource>,
+        V: std::convert::Into<crate::model::DataSource>
     {
         use std::iter::Iterator;
         self.data_sources = v.into_iter().map(|i| i.into()).collect();
@@ -1101,6 +1054,7 @@ impl gax::paginator::internal::PageableResponse for ListDataSourcesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTransferConfigRequest {
+
     /// Required. The BigQuery project id where the transfer configuration should
     /// be created. Must be in the format
     /// projects/{project_id}/locations/{location_id} or projects/{project_id}. If
@@ -1172,8 +1126,7 @@ impl CreateTransferConfigRequest {
 
     /// Sets the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
     pub fn set_transfer_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferConfig>,
+    where T: std::convert::Into<crate::model::TransferConfig>
     {
         self.transfer_config = std::option::Option::Some(v.into());
         self
@@ -1181,8 +1134,7 @@ impl CreateTransferConfigRequest {
 
     /// Sets or clears the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
     pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferConfig>,
+    where T: std::convert::Into<crate::model::TransferConfig>
     {
         self.transfer_config = v.map(|x| x.into());
         self
@@ -1190,10 +1142,7 @@ impl CreateTransferConfigRequest {
 
     /// Sets the value of [authorization_code][crate::model::CreateTransferConfigRequest::authorization_code].
     #[deprecated]
-    pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authorization_code = v.into();
         self
     }
@@ -1205,10 +1154,7 @@ impl CreateTransferConfigRequest {
     }
 
     /// Sets the value of [service_account_name][crate::model::CreateTransferConfigRequest::service_account_name].
-    pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_name = v.into();
         self
     }
@@ -1230,6 +1176,7 @@ impl wkt::message::Message for CreateTransferConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTransferConfigRequest {
+
     /// Required. Data transfer configuration to create.
     pub transfer_config: std::option::Option<crate::model::TransferConfig>,
 
@@ -1291,8 +1238,7 @@ impl UpdateTransferConfigRequest {
 
     /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
     pub fn set_transfer_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferConfig>,
+    where T: std::convert::Into<crate::model::TransferConfig>
     {
         self.transfer_config = std::option::Option::Some(v.into());
         self
@@ -1300,8 +1246,7 @@ impl UpdateTransferConfigRequest {
 
     /// Sets or clears the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
     pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferConfig>,
+    where T: std::convert::Into<crate::model::TransferConfig>
     {
         self.transfer_config = v.map(|x| x.into());
         self
@@ -1309,18 +1254,14 @@ impl UpdateTransferConfigRequest {
 
     /// Sets the value of [authorization_code][crate::model::UpdateTransferConfigRequest::authorization_code].
     #[deprecated]
-    pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_authorization_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authorization_code = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1328,8 +1269,7 @@ impl UpdateTransferConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1342,10 +1282,7 @@ impl UpdateTransferConfigRequest {
     }
 
     /// Sets the value of [service_account_name][crate::model::UpdateTransferConfigRequest::service_account_name].
-    pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_name = v.into();
         self
     }
@@ -1361,6 +1298,7 @@ impl wkt::message::Message for UpdateTransferConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferConfigRequest {
+
     /// Required. The field will contain name of the resource requested, for
     /// example: `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
@@ -1392,6 +1330,7 @@ impl wkt::message::Message for GetTransferConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferConfigRequest {
+
     /// Required. The field will contain name of the resource requested, for
     /// example: `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
@@ -1422,6 +1361,7 @@ impl wkt::message::Message for DeleteTransferConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTransferRunRequest {
+
     /// Required. The field will contain name of the resource requested, for
     /// example: `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
     /// or
@@ -1453,6 +1393,7 @@ impl wkt::message::Message for GetTransferRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTransferRunRequest {
+
     /// Required. The field will contain name of the resource requested, for
     /// example: `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}`
     /// or
@@ -1484,6 +1425,7 @@ impl wkt::message::Message for DeleteTransferRunRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferConfigsRequest {
+
     /// Required. The BigQuery project id for which transfer configs
     /// should be returned: `projects/{project_id}` or
     /// `projects/{project_id}/locations/{location_id}`
@@ -1520,7 +1462,7 @@ impl ListTransferConfigsRequest {
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -1550,6 +1492,7 @@ impl wkt::message::Message for ListTransferConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferConfigsResponse {
+
     /// Output only. The stored pipeline transfer configurations.
     pub transfer_configs: std::vec::Vec<crate::model::TransferConfig>,
 
@@ -1571,7 +1514,7 @@ impl ListTransferConfigsResponse {
     pub fn set_transfer_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferConfig>,
+        V: std::convert::Into<crate::model::TransferConfig>
     {
         use std::iter::Iterator;
         self.transfer_configs = v.into_iter().map(|i| i.into()).collect();
@@ -1609,6 +1552,7 @@ impl gax::paginator::internal::PageableResponse for ListTransferConfigsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferRunsRequest {
+
     /// Required. Name of transfer configuration for which transfer runs should be
     /// retrieved. Format of transfer configuration resource name is:
     /// `projects/{project_id}/transferConfigs/{config_id}` or
@@ -1649,7 +1593,7 @@ impl ListTransferRunsRequest {
     pub fn set_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferState>,
+        V: std::convert::Into<crate::model::TransferState>
     {
         use std::iter::Iterator;
         self.states = v.into_iter().map(|i| i.into()).collect();
@@ -1669,12 +1613,7 @@ impl ListTransferRunsRequest {
     }
 
     /// Sets the value of [run_attempt][crate::model::ListTransferRunsRequest::run_attempt].
-    pub fn set_run_attempt<
-        T: std::convert::Into<crate::model::list_transfer_runs_request::RunAttempt>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_run_attempt<T: std::convert::Into<crate::model::list_transfer_runs_request::RunAttempt>>(mut self, v: T) -> Self {
         self.run_attempt = v.into();
         self
     }
@@ -1690,6 +1629,7 @@ impl wkt::message::Message for ListTransferRunsRequest {
 pub mod list_transfer_runs_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents which runs should be pulled.
     ///
@@ -1772,9 +1712,7 @@ pub mod list_transfer_runs_request {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Latest,
-                _ => Self::UnknownValue(run_attempt::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(run_attempt::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1785,9 +1723,7 @@ pub mod list_transfer_runs_request {
             match value {
                 "RUN_ATTEMPT_UNSPECIFIED" => Self::Unspecified,
                 "LATEST" => Self::Latest,
-                _ => Self::UnknownValue(run_attempt::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(run_attempt::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1811,8 +1747,7 @@ pub mod list_transfer_runs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RunAttempt>::new(
-                ".google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest.RunAttempt",
-            ))
+                ".google.cloud.bigquery.datatransfer.v1.ListTransferRunsRequest.RunAttempt"))
         }
     }
 }
@@ -1821,6 +1756,7 @@ pub mod list_transfer_runs_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferRunsResponse {
+
     /// Output only. The stored pipeline transfer runs.
     pub transfer_runs: std::vec::Vec<crate::model::TransferRun>,
 
@@ -1842,7 +1778,7 @@ impl ListTransferRunsResponse {
     pub fn set_transfer_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferRun>,
+        V: std::convert::Into<crate::model::TransferRun>
     {
         use std::iter::Iterator;
         self.transfer_runs = v.into_iter().map(|i| i.into()).collect();
@@ -1880,6 +1816,7 @@ impl gax::paginator::internal::PageableResponse for ListTransferRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferLogsRequest {
+
     /// Required. Transfer run name in the form:
     /// `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
@@ -1929,7 +1866,7 @@ impl ListTransferLogsRequest {
     pub fn set_message_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::transfer_message::MessageSeverity>,
+        V: std::convert::Into<crate::model::transfer_message::MessageSeverity>
     {
         use std::iter::Iterator;
         self.message_types = v.into_iter().map(|i| i.into()).collect();
@@ -1947,6 +1884,7 @@ impl wkt::message::Message for ListTransferLogsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTransferLogsResponse {
+
     /// Output only. The stored pipeline transfer messages.
     pub transfer_messages: std::vec::Vec<crate::model::TransferMessage>,
 
@@ -1968,7 +1906,7 @@ impl ListTransferLogsResponse {
     pub fn set_transfer_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferMessage>,
+        V: std::convert::Into<crate::model::TransferMessage>
     {
         use std::iter::Iterator;
         self.transfer_messages = v.into_iter().map(|i| i.into()).collect();
@@ -2011,6 +1949,7 @@ impl gax::paginator::internal::PageableResponse for ListTransferLogsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckValidCredsRequest {
+
     /// Required. The data source in the form:
     /// `projects/{project_id}/dataSources/{data_source_id}` or
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`.
@@ -2041,6 +1980,7 @@ impl wkt::message::Message for CheckValidCredsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CheckValidCredsResponse {
+
     /// If set to `true`, the credentials exist and are valid.
     pub has_valid_creds: bool,
 
@@ -2069,6 +2009,7 @@ impl wkt::message::Message for CheckValidCredsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleTransferRunsRequest {
+
     /// Required. Transfer configuration name in the form:
     /// `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
@@ -2098,8 +2039,7 @@ impl ScheduleTransferRunsRequest {
 
     /// Sets the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2107,8 +2047,7 @@ impl ScheduleTransferRunsRequest {
 
     /// Sets or clears the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2116,8 +2055,7 @@ impl ScheduleTransferRunsRequest {
 
     /// Sets the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2125,8 +2063,7 @@ impl ScheduleTransferRunsRequest {
 
     /// Sets or clears the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2143,6 +2080,7 @@ impl wkt::message::Message for ScheduleTransferRunsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleTransferRunsResponse {
+
     /// The transfer runs that were scheduled.
     pub runs: std::vec::Vec<crate::model::TransferRun>,
 
@@ -2158,7 +2096,7 @@ impl ScheduleTransferRunsResponse {
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferRun>,
+        V: std::convert::Into<crate::model::TransferRun>
     {
         use std::iter::Iterator;
         self.runs = v.into_iter().map(|i| i.into()).collect();
@@ -2176,6 +2114,7 @@ impl wkt::message::Message for ScheduleTransferRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartManualTransferRunsRequest {
+
     /// Required. Transfer configuration name in the form:
     /// `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
@@ -2203,14 +2142,8 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are mutually
     /// exclusive.
-    pub fn set_time<
-        T: std::convert::Into<
-                std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_time<T: std::convert::Into<std::option::Option<crate::model::start_manual_transfer_runs_request::Time>>>(mut self, v: T) -> Self
+    {
         self.time = v.into();
         self
     }
@@ -2218,16 +2151,10 @@ impl StartManualTransferRunsRequest {
     /// The value of [time][crate::model::StartManualTransferRunsRequest::time]
     /// if it holds a `RequestedTimeRange`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn requested_time_range(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
-    > {
+    pub fn requested_time_range(&self) -> std::option::Option<&std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>> {
         #[allow(unreachable_patterns)]
         self.time.as_ref().and_then(|v| match v {
-            crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2237,16 +2164,11 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
-    pub fn set_requested_time_range<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_requested_time_range<T: std::convert::Into<std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>>>(mut self, v: T) -> Self {
         self.time = std::option::Option::Some(
-            crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(v.into()),
+            crate::model::start_manual_transfer_runs_request::Time::RequestedTimeRange(
+                v.into()
+            )
         );
         self
     }
@@ -2257,9 +2179,7 @@ impl StartManualTransferRunsRequest {
     pub fn requested_run_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
         #[allow(unreachable_patterns)]
         self.time.as_ref().and_then(|v| match v {
-            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2269,12 +2189,11 @@ impl StartManualTransferRunsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
-    pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_requested_run_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.time = std::option::Option::Some(
-            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(v.into()),
+            crate::model::start_manual_transfer_runs_request::Time::RequestedRunTime(
+                v.into()
+            )
         );
         self
     }
@@ -2291,11 +2210,13 @@ pub mod start_manual_transfer_runs_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A specification for a time range, this will request transfer runs with
     /// run_time between start_time (inclusive) and end_time (exclusive).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TimeRange {
+
         /// Start time of the range of transfer runs. For example,
         /// `"2017-05-25T00:00:00+00:00"`. The start_time must be strictly less than
         /// the end_time. Creates transfer runs where run_time is in the range
@@ -2318,8 +2239,7 @@ pub mod start_manual_transfer_runs_request {
 
         /// Sets the value of [start_time][crate::model::start_manual_transfer_runs_request::TimeRange::start_time].
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = std::option::Option::Some(v.into());
             self
@@ -2327,8 +2247,7 @@ pub mod start_manual_transfer_runs_request {
 
         /// Sets or clears the value of [start_time][crate::model::start_manual_transfer_runs_request::TimeRange::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = v.map(|x| x.into());
             self
@@ -2336,8 +2255,7 @@ pub mod start_manual_transfer_runs_request {
 
         /// Sets the value of [end_time][crate::model::start_manual_transfer_runs_request::TimeRange::end_time].
         pub fn set_end_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.end_time = std::option::Option::Some(v.into());
             self
@@ -2345,8 +2263,7 @@ pub mod start_manual_transfer_runs_request {
 
         /// Sets or clears the value of [end_time][crate::model::start_manual_transfer_runs_request::TimeRange::end_time].
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.end_time = v.map(|x| x.into());
             self
@@ -2368,9 +2285,7 @@ pub mod start_manual_transfer_runs_request {
         /// that are scheduled to be transferred by the scheduled transfer run.
         /// requested_time_range must be a past time and cannot include future time
         /// values.
-        RequestedTimeRange(
-            std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>,
-        ),
+        RequestedTimeRange(std::boxed::Box<crate::model::start_manual_transfer_runs_request::TimeRange>),
         /// A run_time timestamp for historical data files or reports
         /// that are scheduled to be transferred by the scheduled transfer run.
         /// requested_run_time must be a past time and cannot include future time
@@ -2383,6 +2298,7 @@ pub mod start_manual_transfer_runs_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartManualTransferRunsResponse {
+
     /// The transfer runs that were created.
     pub runs: std::vec::Vec<crate::model::TransferRun>,
 
@@ -2398,7 +2314,7 @@ impl StartManualTransferRunsResponse {
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TransferRun>,
+        V: std::convert::Into<crate::model::TransferRun>
     {
         use std::iter::Iterator;
         self.runs = v.into_iter().map(|i| i.into()).collect();
@@ -2417,6 +2333,7 @@ impl wkt::message::Message for StartManualTransferRunsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnrollDataSourcesRequest {
+
     /// Required. The name of the project resource in the form:
     /// `projects/{project_id}`
     pub name: std::string::String,
@@ -2443,7 +2360,7 @@ impl EnrollDataSourcesRequest {
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2462,6 +2379,7 @@ impl wkt::message::Message for EnrollDataSourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnenrollDataSourcesRequest {
+
     /// Required. The name of the project resource in the form:
     /// `projects/{project_id}`
     pub name: std::string::String,
@@ -2488,7 +2406,7 @@ impl UnenrollDataSourcesRequest {
     pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.data_source_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2507,6 +2425,7 @@ impl wkt::message::Message for UnenrollDataSourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EmailPreferences {
+
     /// If true, email notifications will be sent on transfer run failures.
     pub enable_failure_email: bool,
 
@@ -2535,6 +2454,7 @@ impl wkt::message::Message for EmailPreferences {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleOptions {
+
     /// If true, automatic scheduling of data transfer runs for this configuration
     /// will be disabled. The runs can be started on ad-hoc basis using
     /// StartManualTransferRuns API. When automatic scheduling is disabled, the
@@ -2570,8 +2490,7 @@ impl ScheduleOptions {
 
     /// Sets the value of [start_time][crate::model::ScheduleOptions::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2579,8 +2498,7 @@ impl ScheduleOptions {
 
     /// Sets or clears the value of [start_time][crate::model::ScheduleOptions::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2588,8 +2506,7 @@ impl ScheduleOptions {
 
     /// Sets the value of [end_time][crate::model::ScheduleOptions::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2597,8 +2514,7 @@ impl ScheduleOptions {
 
     /// Sets or clears the value of [end_time][crate::model::ScheduleOptions::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2618,6 +2534,7 @@ impl wkt::message::Message for ScheduleOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ScheduleOptionsV2 {
+
     /// Data transfer schedules.
     pub schedule: std::option::Option<crate::model::schedule_options_v_2::Schedule>,
 
@@ -2633,12 +2550,8 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
-    pub fn set_schedule<
-        T: std::convert::Into<std::option::Option<crate::model::schedule_options_v_2::Schedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_schedule<T: std::convert::Into<std::option::Option<crate::model::schedule_options_v_2::Schedule>>>(mut self, v: T) -> Self
+    {
         self.schedule = v.into();
         self
     }
@@ -2646,14 +2559,10 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `TimeBasedSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn time_based_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeBasedSchedule>> {
+    pub fn time_based_schedule(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeBasedSchedule>> {
         #[allow(unreachable_patterns)]
         self.schedule.as_ref().and_then(|v| match v {
-            crate::model::schedule_options_v_2::Schedule::TimeBasedSchedule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::schedule_options_v_2::Schedule::TimeBasedSchedule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2663,14 +2572,11 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    pub fn set_time_based_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::TimeBasedSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_time_based_schedule<T: std::convert::Into<std::boxed::Box<crate::model::TimeBasedSchedule>>>(mut self, v: T) -> Self {
         self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::TimeBasedSchedule(v.into()),
+            crate::model::schedule_options_v_2::Schedule::TimeBasedSchedule(
+                v.into()
+            )
         );
         self
     }
@@ -2678,14 +2584,10 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `ManualSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn manual_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ManualSchedule>> {
+    pub fn manual_schedule(&self) -> std::option::Option<&std::boxed::Box<crate::model::ManualSchedule>> {
         #[allow(unreachable_patterns)]
         self.schedule.as_ref().and_then(|v| match v {
-            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2695,14 +2597,11 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    pub fn set_manual_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManualSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_manual_schedule<T: std::convert::Into<std::boxed::Box<crate::model::ManualSchedule>>>(mut self, v: T) -> Self {
         self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::ManualSchedule(v.into()),
+            crate::model::schedule_options_v_2::Schedule::ManualSchedule(
+                v.into()
+            )
         );
         self
     }
@@ -2710,14 +2609,10 @@ impl ScheduleOptionsV2 {
     /// The value of [schedule][crate::model::ScheduleOptionsV2::schedule]
     /// if it holds a `EventDrivenSchedule`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn event_driven_schedule(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::EventDrivenSchedule>> {
+    pub fn event_driven_schedule(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventDrivenSchedule>> {
         #[allow(unreachable_patterns)]
         self.schedule.as_ref().and_then(|v| match v {
-            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2727,14 +2622,11 @@ impl ScheduleOptionsV2 {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    pub fn set_event_driven_schedule<
-        T: std::convert::Into<std::boxed::Box<crate::model::EventDrivenSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event_driven_schedule<T: std::convert::Into<std::boxed::Box<crate::model::EventDrivenSchedule>>>(mut self, v: T) -> Self {
         self.schedule = std::option::Option::Some(
-            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(v.into()),
+            crate::model::schedule_options_v_2::Schedule::EventDrivenSchedule(
+                v.into()
+            )
         );
         self
     }
@@ -2750,6 +2642,7 @@ impl wkt::message::Message for ScheduleOptionsV2 {
 pub mod schedule_options_v_2 {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Data transfer schedules.
     #[derive(Clone, Debug, PartialEq)]
@@ -2774,6 +2667,7 @@ pub mod schedule_options_v_2 {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeBasedSchedule {
+
     /// Data transfer schedule.
     /// If the data source does not support a custom schedule, this should be
     /// empty. If it is empty, the default value for the data source will be used.
@@ -2816,8 +2710,7 @@ impl TimeBasedSchedule {
 
     /// Sets the value of [start_time][crate::model::TimeBasedSchedule::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2825,8 +2718,7 @@ impl TimeBasedSchedule {
 
     /// Sets or clears the value of [start_time][crate::model::TimeBasedSchedule::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2834,8 +2726,7 @@ impl TimeBasedSchedule {
 
     /// Sets the value of [end_time][crate::model::TimeBasedSchedule::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2843,8 +2734,7 @@ impl TimeBasedSchedule {
 
     /// Sets or clears the value of [end_time][crate::model::TimeBasedSchedule::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2861,6 +2751,7 @@ impl wkt::message::Message for TimeBasedSchedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManualSchedule {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2880,6 +2771,7 @@ impl wkt::message::Message for ManualSchedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventDrivenSchedule {
+
     /// Pub/Sub subscription name used to receive events.
     /// Only Google Cloud Storage data source support this option.
     /// Format: projects/{project}/subscriptions/{subscription}
@@ -2894,10 +2786,7 @@ impl EventDrivenSchedule {
     }
 
     /// Sets the value of [pubsub_subscription][crate::model::EventDrivenSchedule::pubsub_subscription].
-    pub fn set_pubsub_subscription<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pubsub_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pubsub_subscription = v.into();
         self
     }
@@ -2913,6 +2802,7 @@ impl wkt::message::Message for EventDrivenSchedule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserInfo {
+
     /// E-mail address of the user.
     pub email: std::option::Option<std::string::String>,
 
@@ -2926,8 +2816,7 @@ impl UserInfo {
 
     /// Sets the value of [email][crate::model::UserInfo::email].
     pub fn set_email<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.email = std::option::Option::Some(v.into());
         self
@@ -2935,8 +2824,7 @@ impl UserInfo {
 
     /// Sets or clears the value of [email][crate::model::UserInfo::email].
     pub fn set_or_clear_email<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.email = v.map(|x| x.into());
         self
@@ -2958,6 +2846,7 @@ impl wkt::message::Message for UserInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferConfig {
+
     /// Identifier. The resource name of the transfer config.
     /// Transfer config names have the form either
     /// `projects/{project_id}/locations/{region}/transferConfigs/{config_id}` or
@@ -3089,8 +2978,7 @@ impl TransferConfig {
 
     /// Sets the value of [params][crate::model::TransferConfig::params].
     pub fn set_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = std::option::Option::Some(v.into());
         self
@@ -3098,8 +2986,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [params][crate::model::TransferConfig::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = v.map(|x| x.into());
         self
@@ -3113,8 +3000,7 @@ impl TransferConfig {
 
     /// Sets the value of [schedule_options][crate::model::TransferConfig::schedule_options].
     pub fn set_schedule_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduleOptions>,
+    where T: std::convert::Into<crate::model::ScheduleOptions>
     {
         self.schedule_options = std::option::Option::Some(v.into());
         self
@@ -3122,8 +3008,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [schedule_options][crate::model::TransferConfig::schedule_options].
     pub fn set_or_clear_schedule_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduleOptions>,
+    where T: std::convert::Into<crate::model::ScheduleOptions>
     {
         self.schedule_options = v.map(|x| x.into());
         self
@@ -3131,8 +3016,7 @@ impl TransferConfig {
 
     /// Sets the value of [schedule_options_v2][crate::model::TransferConfig::schedule_options_v2].
     pub fn set_schedule_options_v2<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduleOptionsV2>,
+    where T: std::convert::Into<crate::model::ScheduleOptionsV2>
     {
         self.schedule_options_v2 = std::option::Option::Some(v.into());
         self
@@ -3140,8 +3024,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [schedule_options_v2][crate::model::TransferConfig::schedule_options_v2].
     pub fn set_or_clear_schedule_options_v2<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ScheduleOptionsV2>,
+    where T: std::convert::Into<crate::model::ScheduleOptionsV2>
     {
         self.schedule_options_v2 = v.map(|x| x.into());
         self
@@ -3161,8 +3044,7 @@ impl TransferConfig {
 
     /// Sets the value of [update_time][crate::model::TransferConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3170,8 +3052,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [update_time][crate::model::TransferConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3179,8 +3060,7 @@ impl TransferConfig {
 
     /// Sets the value of [next_run_time][crate::model::TransferConfig::next_run_time].
     pub fn set_next_run_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_run_time = std::option::Option::Some(v.into());
         self
@@ -3188,8 +3068,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [next_run_time][crate::model::TransferConfig::next_run_time].
     pub fn set_or_clear_next_run_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.next_run_time = v.map(|x| x.into());
         self
@@ -3214,18 +3093,14 @@ impl TransferConfig {
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::TransferConfig::notification_pubsub_topic].
-    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notification_pubsub_topic = v.into();
         self
     }
 
     /// Sets the value of [email_preferences][crate::model::TransferConfig::email_preferences].
     pub fn set_email_preferences<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EmailPreferences>,
+    where T: std::convert::Into<crate::model::EmailPreferences>
     {
         self.email_preferences = std::option::Option::Some(v.into());
         self
@@ -3233,8 +3108,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [email_preferences][crate::model::TransferConfig::email_preferences].
     pub fn set_or_clear_email_preferences<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EmailPreferences>,
+    where T: std::convert::Into<crate::model::EmailPreferences>
     {
         self.email_preferences = v.map(|x| x.into());
         self
@@ -3242,8 +3116,7 @@ impl TransferConfig {
 
     /// Sets the value of [owner_info][crate::model::TransferConfig::owner_info].
     pub fn set_owner_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.owner_info = std::option::Option::Some(v.into());
         self
@@ -3251,8 +3124,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [owner_info][crate::model::TransferConfig::owner_info].
     pub fn set_or_clear_owner_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserInfo>,
+    where T: std::convert::Into<crate::model::UserInfo>
     {
         self.owner_info = v.map(|x| x.into());
         self
@@ -3260,8 +3132,7 @@ impl TransferConfig {
 
     /// Sets the value of [encryption_configuration][crate::model::TransferConfig::encryption_configuration].
     pub fn set_encryption_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfiguration>,
+    where T: std::convert::Into<crate::model::EncryptionConfiguration>
     {
         self.encryption_configuration = std::option::Option::Some(v.into());
         self
@@ -3269,8 +3140,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [encryption_configuration][crate::model::TransferConfig::encryption_configuration].
     pub fn set_or_clear_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfiguration>,
+    where T: std::convert::Into<crate::model::EncryptionConfiguration>
     {
         self.encryption_configuration = v.map(|x| x.into());
         self
@@ -3278,8 +3148,7 @@ impl TransferConfig {
 
     /// Sets the value of [error][crate::model::TransferConfig::error].
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -3287,8 +3156,7 @@ impl TransferConfig {
 
     /// Sets or clears the value of [error][crate::model::TransferConfig::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error = v.map(|x| x.into());
         self
@@ -3298,12 +3166,8 @@ impl TransferConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::transfer_config::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::transfer_config::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -3314,9 +3178,7 @@ impl TransferConfig {
     pub fn destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_config::Destination::DestinationDatasetId(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_config::Destination::DestinationDatasetId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3326,12 +3188,11 @@ impl TransferConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::transfer_config::Destination::DestinationDatasetId(v.into()),
+            crate::model::transfer_config::Destination::DestinationDatasetId(
+                v.into()
+            )
         );
         self
     }
@@ -3348,6 +3209,7 @@ pub mod transfer_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The desination of the transfer config.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3361,6 +3223,7 @@ pub mod transfer_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfiguration {
+
     /// The name of the KMS key used for encrypting BigQuery data.
     pub kms_key_name: std::option::Option<wkt::StringValue>,
 
@@ -3374,8 +3237,7 @@ impl EncryptionConfiguration {
 
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
     pub fn set_kms_key_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.kms_key_name = std::option::Option::Some(v.into());
         self
@@ -3383,8 +3245,7 @@ impl EncryptionConfiguration {
 
     /// Sets or clears the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
     pub fn set_or_clear_kms_key_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::StringValue>,
+    where T: std::convert::Into<wkt::StringValue>
     {
         self.kms_key_name = v.map(|x| x.into());
         self
@@ -3401,6 +3262,7 @@ impl wkt::message::Message for EncryptionConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferRun {
+
     /// Identifier. The resource name of the transfer run.
     /// Transfer run names have the form
     /// `projects/{project_id}/locations/{location}/transferConfigs/{config_id}/runs/{run_id}`.
@@ -3482,8 +3344,7 @@ impl TransferRun {
 
     /// Sets the value of [schedule_time][crate::model::TransferRun::schedule_time].
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_time = std::option::Option::Some(v.into());
         self
@@ -3491,8 +3352,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [schedule_time][crate::model::TransferRun::schedule_time].
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.schedule_time = v.map(|x| x.into());
         self
@@ -3500,8 +3360,7 @@ impl TransferRun {
 
     /// Sets the value of [run_time][crate::model::TransferRun::run_time].
     pub fn set_run_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.run_time = std::option::Option::Some(v.into());
         self
@@ -3509,8 +3368,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [run_time][crate::model::TransferRun::run_time].
     pub fn set_or_clear_run_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.run_time = v.map(|x| x.into());
         self
@@ -3518,8 +3376,7 @@ impl TransferRun {
 
     /// Sets the value of [error_status][crate::model::TransferRun::error_status].
     pub fn set_error_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error_status = std::option::Option::Some(v.into());
         self
@@ -3527,8 +3384,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [error_status][crate::model::TransferRun::error_status].
     pub fn set_or_clear_error_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.error_status = v.map(|x| x.into());
         self
@@ -3536,8 +3392,7 @@ impl TransferRun {
 
     /// Sets the value of [start_time][crate::model::TransferRun::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -3545,8 +3400,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [start_time][crate::model::TransferRun::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -3554,8 +3408,7 @@ impl TransferRun {
 
     /// Sets the value of [end_time][crate::model::TransferRun::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3563,8 +3416,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [end_time][crate::model::TransferRun::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3572,8 +3424,7 @@ impl TransferRun {
 
     /// Sets the value of [update_time][crate::model::TransferRun::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3581,8 +3432,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [update_time][crate::model::TransferRun::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3590,8 +3440,7 @@ impl TransferRun {
 
     /// Sets the value of [params][crate::model::TransferRun::params].
     pub fn set_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = std::option::Option::Some(v.into());
         self
@@ -3599,8 +3448,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [params][crate::model::TransferRun::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = v.map(|x| x.into());
         self
@@ -3631,18 +3479,14 @@ impl TransferRun {
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::TransferRun::notification_pubsub_topic].
-    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notification_pubsub_topic = v.into();
         self
     }
 
     /// Sets the value of [email_preferences][crate::model::TransferRun::email_preferences].
     pub fn set_email_preferences<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EmailPreferences>,
+    where T: std::convert::Into<crate::model::EmailPreferences>
     {
         self.email_preferences = std::option::Option::Some(v.into());
         self
@@ -3650,8 +3494,7 @@ impl TransferRun {
 
     /// Sets or clears the value of [email_preferences][crate::model::TransferRun::email_preferences].
     pub fn set_or_clear_email_preferences<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EmailPreferences>,
+    where T: std::convert::Into<crate::model::EmailPreferences>
     {
         self.email_preferences = v.map(|x| x.into());
         self
@@ -3661,12 +3504,8 @@ impl TransferRun {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    pub fn set_destination<
-        T: std::convert::Into<std::option::Option<crate::model::transfer_run::Destination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination<T: std::convert::Into<std::option::Option<crate::model::transfer_run::Destination>>>(mut self, v: T) -> Self
+    {
         self.destination = v.into();
         self
     }
@@ -3677,9 +3516,7 @@ impl TransferRun {
     pub fn destination_dataset_id(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.destination.as_ref().and_then(|v| match v {
-            crate::model::transfer_run::Destination::DestinationDatasetId(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::transfer_run::Destination::DestinationDatasetId(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -3689,12 +3526,11 @@ impl TransferRun {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
-            crate::model::transfer_run::Destination::DestinationDatasetId(v.into()),
+            crate::model::transfer_run::Destination::DestinationDatasetId(
+                v.into()
+            )
         );
         self
     }
@@ -3711,6 +3547,7 @@ pub mod transfer_run {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Data transfer destination.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3724,6 +3561,7 @@ pub mod transfer_run {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferMessage {
+
     /// Time when message was logged.
     pub message_time: std::option::Option<wkt::Timestamp>,
 
@@ -3743,8 +3581,7 @@ impl TransferMessage {
 
     /// Sets the value of [message_time][crate::model::TransferMessage::message_time].
     pub fn set_message_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.message_time = std::option::Option::Some(v.into());
         self
@@ -3752,18 +3589,14 @@ impl TransferMessage {
 
     /// Sets or clears the value of [message_time][crate::model::TransferMessage::message_time].
     pub fn set_or_clear_message_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.message_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [severity][crate::model::TransferMessage::severity].
-    pub fn set_severity<T: std::convert::Into<crate::model::transfer_message::MessageSeverity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::transfer_message::MessageSeverity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -3785,6 +3618,7 @@ impl wkt::message::Message for TransferMessage {
 pub mod transfer_message {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents data transfer user facing message severity.
     ///
@@ -3877,9 +3711,7 @@ pub mod transfer_message {
                 1 => Self::Info,
                 2 => Self::Warning,
                 3 => Self::Error,
-                _ => Self::UnknownValue(message_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(message_severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3892,9 +3724,7 @@ pub mod transfer_message {
                 "INFO" => Self::Info,
                 "WARNING" => Self::Warning,
                 "ERROR" => Self::Error,
-                _ => Self::UnknownValue(message_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(message_severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3920,8 +3750,7 @@ pub mod transfer_message {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MessageSeverity>::new(
-                ".google.cloud.bigquery.datatransfer.v1.TransferMessage.MessageSeverity",
-            ))
+                ".google.cloud.bigquery.datatransfer.v1.TransferMessage.MessageSeverity"))
         }
     }
 }
@@ -4014,9 +3843,7 @@ impl std::convert::From<i32> for TransferType {
             0 => Self::Unspecified,
             1 => Self::Batch,
             2 => Self::Streaming,
-            _ => Self::UnknownValue(transfer_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(transfer_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4028,9 +3855,7 @@ impl std::convert::From<&str> for TransferType {
             "TRANSFER_TYPE_UNSPECIFIED" => Self::Unspecified,
             "BATCH" => Self::Batch,
             "STREAMING" => Self::Streaming,
-            _ => Self::UnknownValue(transfer_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(transfer_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4055,8 +3880,7 @@ impl<'de> serde::de::Deserialize<'de> for TransferType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransferType>::new(
-            ".google.cloud.bigquery.datatransfer.v1.TransferType",
-        ))
+            ".google.cloud.bigquery.datatransfer.v1.TransferType"))
     }
 }
 
@@ -4162,9 +3986,7 @@ impl std::convert::From<i32> for TransferState {
             4 => Self::Succeeded,
             5 => Self::Failed,
             6 => Self::Cancelled,
-            _ => Self::UnknownValue(transfer_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(transfer_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -4179,9 +4001,7 @@ impl std::convert::From<&str> for TransferState {
             "SUCCEEDED" => Self::Succeeded,
             "FAILED" => Self::Failed,
             "CANCELLED" => Self::Cancelled,
-            _ => Self::UnknownValue(transfer_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(transfer_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -4209,7 +4029,6 @@ impl<'de> serde::de::Deserialize<'de> for TransferState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransferState>::new(
-            ".google.cloud.bigquery.datatransfer.v1.TransferState",
-        ))
+            ".google.cloud.bigquery.datatransfer.v1.TransferState"))
     }
 }

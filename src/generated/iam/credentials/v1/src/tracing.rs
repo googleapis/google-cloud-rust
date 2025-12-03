@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [IAMCredentials](super::stub::IAMCredentials) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials<T>
-where
-    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> IAMCredentials<T>
-where
-    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::IAMCredentials for IAMCredentials<T>
-where
-    T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn generate_access_token(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "generate_access_token",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .generate_access_token(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.generate_access_token(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "generate_id_token",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .generate_id_token(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.generate_id_token(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "sign_blob",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .sign_blob(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.sign_blob(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "sign_jwt",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .sign_jwt(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.sign_jwt(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -190,3 +172,4 @@ where
         self.inner.sign_jwt(req, options).await
     }
 }
+

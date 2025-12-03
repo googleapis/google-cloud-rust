@@ -123,10 +123,7 @@ impl std::fmt::Debug for super::FleetPackage {
         debug_struct.field("rollout_strategy", &self.rollout_strategy);
         debug_struct.field("variant_selector", &self.variant_selector);
         debug_struct.field("info", &self.info);
-        debug_struct.field(
-            "deletion_propagation_policy",
-            &self.deletion_propagation_policy,
-        );
+        debug_struct.field("deletion_propagation_policy", &self.deletion_propagation_policy);
         debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -194,6 +191,7 @@ impl std::fmt::Debug for super::fleet_package::VariantSelector {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::FleetPackageInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -456,6 +454,7 @@ impl std::fmt::Debug for super::Release {
     }
 }
 
+
 impl std::fmt::Debug for super::Variant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Variant");
@@ -701,10 +700,7 @@ impl std::fmt::Debug for super::Rollout {
         debug_struct.field("release", &self.release);
         debug_struct.field("rollout_strategy", &self.rollout_strategy);
         debug_struct.field("info", &self.info);
-        debug_struct.field(
-            "deletion_propagation_policy",
-            &self.deletion_propagation_policy,
-        );
+        debug_struct.field("deletion_propagation_policy", &self.deletion_propagation_policy);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         if !self._unknown_fields.is_empty() {

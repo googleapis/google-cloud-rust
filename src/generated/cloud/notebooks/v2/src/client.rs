@@ -72,9 +72,7 @@ impl NotebookService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::notebook_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::notebook_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::notebook_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,52 +80,39 @@ impl NotebookService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::NotebookService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::NotebookService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NotebookService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NotebookService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NotebookService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NotebookService> {
         super::transport::NotebookService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::NotebookService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::NotebookService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::NotebookService> {
+        Self::build_transport(conf).await.map(super::tracing::NotebookService::new)
     }
 
     /// Lists instances in a given project and location.
-    pub fn list_instances(&self) -> super::builder::notebook_service::ListInstances {
+    pub fn list_instances(&self) -> super::builder::notebook_service::ListInstances
+    {
         super::builder::notebook_service::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(&self) -> super::builder::notebook_service::GetInstance {
+    pub fn get_instance(&self) -> super::builder::notebook_service::GetInstance
+    {
         super::builder::notebook_service::GetInstance::new(self.inner.clone())
     }
 
@@ -142,7 +127,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(&self) -> super::builder::notebook_service::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::notebook_service::CreateInstance
+    {
         super::builder::notebook_service::CreateInstance::new(self.inner.clone())
     }
 
@@ -157,7 +143,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(&self) -> super::builder::notebook_service::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::notebook_service::UpdateInstance
+    {
         super::builder::notebook_service::UpdateInstance::new(self.inner.clone())
     }
 
@@ -172,7 +159,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(&self) -> super::builder::notebook_service::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::notebook_service::DeleteInstance
+    {
         super::builder::notebook_service::DeleteInstance::new(self.inner.clone())
     }
 
@@ -187,7 +175,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_instance(&self) -> super::builder::notebook_service::StartInstance {
+    pub fn start_instance(&self) -> super::builder::notebook_service::StartInstance
+    {
         super::builder::notebook_service::StartInstance::new(self.inner.clone())
     }
 
@@ -202,7 +191,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_instance(&self) -> super::builder::notebook_service::StopInstance {
+    pub fn stop_instance(&self) -> super::builder::notebook_service::StopInstance
+    {
         super::builder::notebook_service::StopInstance::new(self.inner.clone())
     }
 
@@ -217,14 +207,14 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reset_instance(&self) -> super::builder::notebook_service::ResetInstance {
+    pub fn reset_instance(&self) -> super::builder::notebook_service::ResetInstance
+    {
         super::builder::notebook_service::ResetInstance::new(self.inner.clone())
     }
 
     /// Checks whether a notebook instance is upgradable.
-    pub fn check_instance_upgradability(
-        &self,
-    ) -> super::builder::notebook_service::CheckInstanceUpgradability {
+    pub fn check_instance_upgradability(&self) -> super::builder::notebook_service::CheckInstanceUpgradability
+    {
         super::builder::notebook_service::CheckInstanceUpgradability::new(self.inner.clone())
     }
 
@@ -239,7 +229,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_instance(&self) -> super::builder::notebook_service::UpgradeInstance {
+    pub fn upgrade_instance(&self) -> super::builder::notebook_service::UpgradeInstance
+    {
         super::builder::notebook_service::UpgradeInstance::new(self.inner.clone())
     }
 
@@ -254,7 +245,8 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rollback_instance(&self) -> super::builder::notebook_service::RollbackInstance {
+    pub fn rollback_instance(&self) -> super::builder::notebook_service::RollbackInstance
+    {
         super::builder::notebook_service::RollbackInstance::new(self.inner.clone())
     }
 
@@ -269,17 +261,20 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn diagnose_instance(&self) -> super::builder::notebook_service::DiagnoseInstance {
+    pub fn diagnose_instance(&self) -> super::builder::notebook_service::DiagnoseInstance
+    {
         super::builder::notebook_service::DiagnoseInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::notebook_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::notebook_service::ListLocations
+    {
         super::builder::notebook_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::notebook_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::notebook_service::GetLocation
+    {
         super::builder::notebook_service::GetLocation::new(self.inner.clone())
     }
 
@@ -288,13 +283,15 @@ impl NotebookService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::notebook_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::notebook_service::SetIamPolicy
+    {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::notebook_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::notebook_service::GetIamPolicy
+    {
         super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -305,35 +302,40 @@ impl NotebookService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::notebook_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::notebook_service::TestIamPermissions
+    {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::notebook_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::notebook_service::ListOperations
+    {
         super::builder::notebook_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::notebook_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::notebook_service::GetOperation
+    {
         super::builder::notebook_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::notebook_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::notebook_service::DeleteOperation
+    {
         super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::notebook_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::notebook_service::CancelOperation
+    {
         super::builder::notebook_service::CancelOperation::new(self.inner.clone())
     }
 }

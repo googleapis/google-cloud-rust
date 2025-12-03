@@ -71,6 +71,7 @@ impl std::fmt::Debug for super::reservation::ReplicationStatus {
     }
 }
 
+
 impl std::fmt::Debug for super::SchedulingPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchedulingPolicy");
@@ -264,10 +265,7 @@ impl std::fmt::Debug for super::CreateCapacityCommitmentRequest {
         let mut debug_struct = f.debug_struct("CreateCapacityCommitmentRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("capacity_commitment", &self.capacity_commitment);
-        debug_struct.field(
-            "enforce_single_admin_project_per_org",
-            &self.enforce_single_admin_project_per_org,
-        );
+        debug_struct.field("enforce_single_admin_project_per_org", &self.enforce_single_admin_project_per_org);
         debug_struct.field("capacity_commitment_id", &self.capacity_commitment_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

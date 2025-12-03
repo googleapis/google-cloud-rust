@@ -138,10 +138,7 @@ impl std::fmt::Debug for super::AwsPrincipalTagsOptions {
 impl std::fmt::Debug for super::aws_principal_tags_options::AllowedPrincipalTags {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AllowedPrincipalTags");
-        debug_struct.field(
-            "container_image_signatures",
-            &self.container_image_signatures,
-        );
+        debug_struct.field("container_image_signatures", &self.container_image_signatures);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -149,9 +146,7 @@ impl std::fmt::Debug for super::aws_principal_tags_options::AllowedPrincipalTags
     }
 }
 
-impl std::fmt::Debug
-    for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures
-{
+impl std::fmt::Debug for super::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContainerImageSignatures");
         debug_struct.field("key_ids", &self.key_ids);
@@ -205,10 +200,7 @@ impl std::fmt::Debug for super::ConfidentialSpaceInfo {
 impl std::fmt::Debug for super::SignedEntity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SignedEntity");
-        debug_struct.field(
-            "container_image_signatures",
-            &self.container_image_signatures,
-        );
+        debug_struct.field("container_image_signatures", &self.container_image_signatures);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

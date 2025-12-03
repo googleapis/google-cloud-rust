@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Configuration {
+
     /// Identifier. name of resource
     pub name: std::string::String,
 
@@ -66,7 +67,7 @@ pub struct Configuration {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. State of the configuration.
     pub state: crate::model::configuration::State,
@@ -98,18 +99,14 @@ impl Configuration {
     }
 
     /// Sets the value of [license_type][crate::model::Configuration::license_type].
-    pub fn set_license_type<T: std::convert::Into<crate::model::LicenseType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_license_type<T: std::convert::Into<crate::model::LicenseType>>(mut self, v: T) -> Self {
         self.license_type = v.into();
         self
     }
 
     /// Sets the value of [current_billing_info][crate::model::Configuration::current_billing_info].
     pub fn set_current_billing_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BillingInfo>,
+    where T: std::convert::Into<crate::model::BillingInfo>
     {
         self.current_billing_info = std::option::Option::Some(v.into());
         self
@@ -117,8 +114,7 @@ impl Configuration {
 
     /// Sets or clears the value of [current_billing_info][crate::model::Configuration::current_billing_info].
     pub fn set_or_clear_current_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BillingInfo>,
+    where T: std::convert::Into<crate::model::BillingInfo>
     {
         self.current_billing_info = v.map(|x| x.into());
         self
@@ -126,8 +122,7 @@ impl Configuration {
 
     /// Sets the value of [next_billing_info][crate::model::Configuration::next_billing_info].
     pub fn set_next_billing_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BillingInfo>,
+    where T: std::convert::Into<crate::model::BillingInfo>
     {
         self.next_billing_info = std::option::Option::Some(v.into());
         self
@@ -135,8 +130,7 @@ impl Configuration {
 
     /// Sets or clears the value of [next_billing_info][crate::model::Configuration::next_billing_info].
     pub fn set_or_clear_next_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BillingInfo>,
+    where T: std::convert::Into<crate::model::BillingInfo>
     {
         self.next_billing_info = v.map(|x| x.into());
         self
@@ -144,8 +138,7 @@ impl Configuration {
 
     /// Sets the value of [create_time][crate::model::Configuration::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -153,8 +146,7 @@ impl Configuration {
 
     /// Sets or clears the value of [create_time][crate::model::Configuration::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -162,8 +154,7 @@ impl Configuration {
 
     /// Sets the value of [update_time][crate::model::Configuration::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -171,8 +162,7 @@ impl Configuration {
 
     /// Sets or clears the value of [update_time][crate::model::Configuration::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -191,10 +181,7 @@ impl Configuration {
     }
 
     /// Sets the value of [state][crate::model::Configuration::state].
-    pub fn set_state<T: std::convert::Into<crate::model::configuration::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::configuration::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -210,6 +197,7 @@ impl wkt::message::Message for Configuration {
 pub mod configuration {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the configuration.
     ///
@@ -302,9 +290,7 @@ pub mod configuration {
                 1 => Self::Active,
                 2 => Self::Suspended,
                 3 => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -317,9 +303,7 @@ pub mod configuration {
                 "STATE_ACTIVE" => Self::Active,
                 "STATE_SUSPENDED" => Self::Suspended,
                 "STATE_DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -345,8 +329,7 @@ pub mod configuration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.licensemanager.v1.Configuration.State",
-            ))
+                ".google.cloud.licensemanager.v1.Configuration.State"))
         }
     }
 }
@@ -355,6 +338,7 @@ pub mod configuration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BillingInfo {
+
     /// Output only. When the billing starts.
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -373,8 +357,7 @@ impl BillingInfo {
 
     /// Sets the value of [start_time][crate::model::BillingInfo::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -382,8 +365,7 @@ impl BillingInfo {
 
     /// Sets or clears the value of [start_time][crate::model::BillingInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -391,8 +373,7 @@ impl BillingInfo {
 
     /// Sets the value of [end_time][crate::model::BillingInfo::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -400,8 +381,7 @@ impl BillingInfo {
 
     /// Sets or clears the value of [end_time][crate::model::BillingInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -411,12 +391,8 @@ impl BillingInfo {
     ///
     /// Note that all the setters affecting `current_billing_info` are mutually
     /// exclusive.
-    pub fn set_current_billing_info<
-        T: std::convert::Into<std::option::Option<crate::model::billing_info::CurrentBillingInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_current_billing_info<T: std::convert::Into<std::option::Option<crate::model::billing_info::CurrentBillingInfo>>>(mut self, v: T) -> Self
+    {
         self.current_billing_info = v.into();
         self
     }
@@ -424,14 +400,10 @@ impl BillingInfo {
     /// The value of [current_billing_info][crate::model::BillingInfo::current_billing_info]
     /// if it holds a `UserCountBilling`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_count_billing(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UserCountBillingInfo>> {
+    pub fn user_count_billing(&self) -> std::option::Option<&std::boxed::Box<crate::model::UserCountBillingInfo>> {
         #[allow(unreachable_patterns)]
         self.current_billing_info.as_ref().and_then(|v| match v {
-            crate::model::billing_info::CurrentBillingInfo::UserCountBilling(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::billing_info::CurrentBillingInfo::UserCountBilling(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -441,14 +413,11 @@ impl BillingInfo {
     ///
     /// Note that all the setters affecting `current_billing_info` are
     /// mutually exclusive.
-    pub fn set_user_count_billing<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserCountBillingInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_count_billing<T: std::convert::Into<std::boxed::Box<crate::model::UserCountBillingInfo>>>(mut self, v: T) -> Self {
         self.current_billing_info = std::option::Option::Some(
-            crate::model::billing_info::CurrentBillingInfo::UserCountBilling(v.into()),
+            crate::model::billing_info::CurrentBillingInfo::UserCountBilling(
+                v.into()
+            )
         );
         self
     }
@@ -465,6 +434,7 @@ pub mod billing_info {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CurrentBillingInfo {
@@ -478,6 +448,7 @@ pub mod billing_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserCountBillingInfo {
+
     /// Required. Number of users to bill for.
     pub user_count: i32,
 
@@ -507,6 +478,7 @@ impl wkt::message::Message for UserCountBillingInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserCountUsage {
+
     /// Required. Unique number of licensed users.
     pub unique_user_count: i32,
 
@@ -535,6 +507,7 @@ impl wkt::message::Message for UserCountUsage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Product {
+
     /// Identifier. Full name of the product resource.
     /// ex "projects/1/locations/us-central1/products/office-2021"
     pub name: std::string::String,
@@ -618,6 +591,7 @@ impl wkt::message::Message for Product {
 pub mod product {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the product.
     ///
@@ -715,9 +689,7 @@ pub mod product {
                 2 => Self::Running,
                 3 => Self::Terminating,
                 4 => Self::Terminated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -731,9 +703,7 @@ pub mod product {
                 "STATE_RUNNING" => Self::Running,
                 "STATE_TERMINATING" => Self::Terminating,
                 "STATE_TERMINATED" => Self::Terminated,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -760,8 +730,7 @@ pub mod product {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.licensemanager.v1.Product.State",
-            ))
+                ".google.cloud.licensemanager.v1.Product.State"))
         }
     }
 }
@@ -770,6 +739,7 @@ pub mod product {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
+
     /// Identifier. name of resource
     pub name: std::string::String,
 
@@ -780,7 +750,7 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The state of the VM.
     pub state: crate::model::instance::State,
@@ -789,8 +759,7 @@ pub struct Instance {
     pub region: std::string::String,
 
     /// Output only. Map with Product_Name and Activation State of the VM.
-    pub product_activation:
-        std::collections::HashMap<std::string::String, crate::model::ActivationState>,
+    pub product_activation: std::collections::HashMap<std::string::String,crate::model::ActivationState>,
 
     /// Output only. license version id.
     pub license_version_id: std::string::String,
@@ -815,8 +784,7 @@ impl Instance {
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -824,8 +792,7 @@ impl Instance {
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -833,8 +800,7 @@ impl Instance {
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -842,8 +808,7 @@ impl Instance {
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -886,19 +851,13 @@ impl Instance {
     }
 
     /// Sets the value of [license_version_id][crate::model::Instance::license_version_id].
-    pub fn set_license_version_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_license_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.license_version_id = v.into();
         self
     }
 
     /// Sets the value of [compute_instance][crate::model::Instance::compute_instance].
-    pub fn set_compute_instance<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compute_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compute_instance = v.into();
         self
     }
@@ -914,6 +873,7 @@ impl wkt::message::Message for Instance {
 pub mod instance {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// VM status enum.
     ///
@@ -1028,9 +988,7 @@ pub mod instance {
                 5 => Self::Stopped,
                 6 => Self::Terminated,
                 7 => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1047,9 +1005,7 @@ pub mod instance {
                 "STOPPED" => Self::Stopped,
                 "TERMINATED" => Self::Terminated,
                 "REPAIRING" => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1079,8 +1035,7 @@ pub mod instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.licensemanager.v1.Instance.State",
-            ))
+                ".google.cloud.licensemanager.v1.Instance.State"))
         }
     }
 }
@@ -1089,6 +1044,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Usage {
+
     /// LiMa Instance resource name, i.e.
     /// projects/{project}/locations/{location}/instances/{instance}
     pub lima_instance: std::string::String,
@@ -1127,6 +1083,7 @@ impl wkt::message::Message for Usage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConfigurationsRequest {
+
     /// Required. Parent value for ListConfigurationsRequest
     pub parent: std::string::String,
 
@@ -1192,6 +1149,7 @@ impl wkt::message::Message for ListConfigurationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListConfigurationsResponse {
+
     /// The list of Configuration
     pub configurations: std::vec::Vec<crate::model::Configuration>,
 
@@ -1213,7 +1171,7 @@ impl ListConfigurationsResponse {
     pub fn set_configurations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Configuration>,
+        V: std::convert::Into<crate::model::Configuration>
     {
         use std::iter::Iterator;
         self.configurations = v.into_iter().map(|i| i.into()).collect();
@@ -1230,7 +1188,7 @@ impl ListConfigurationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1262,6 +1220,7 @@ impl gax::paginator::internal::PageableResponse for ListConfigurationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigurationRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1290,6 +1249,7 @@ impl wkt::message::Message for GetConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateConfigurationRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -1329,18 +1289,14 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets the value of [configuration_id][crate::model::CreateConfigurationRequest::configuration_id].
-    pub fn set_configuration_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_configuration_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.configuration_id = v.into();
         self
     }
 
     /// Sets the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
     pub fn set_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Configuration>,
+    where T: std::convert::Into<crate::model::Configuration>
     {
         self.configuration = std::option::Option::Some(v.into());
         self
@@ -1348,8 +1304,7 @@ impl CreateConfigurationRequest {
 
     /// Sets or clears the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Configuration>,
+    where T: std::convert::Into<crate::model::Configuration>
     {
         self.configuration = v.map(|x| x.into());
         self
@@ -1372,6 +1327,7 @@ impl wkt::message::Message for CreateConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConfigurationRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Configuration resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -1407,8 +1363,7 @@ impl UpdateConfigurationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1416,8 +1371,7 @@ impl UpdateConfigurationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1425,8 +1379,7 @@ impl UpdateConfigurationRequest {
 
     /// Sets the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
     pub fn set_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Configuration>,
+    where T: std::convert::Into<crate::model::Configuration>
     {
         self.configuration = std::option::Option::Some(v.into());
         self
@@ -1434,8 +1387,7 @@ impl UpdateConfigurationRequest {
 
     /// Sets or clears the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Configuration>,
+    where T: std::convert::Into<crate::model::Configuration>
     {
         self.configuration = v.map(|x| x.into());
         self
@@ -1458,6 +1410,7 @@ impl wkt::message::Message for UpdateConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteConfigurationRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1507,6 +1460,7 @@ impl wkt::message::Message for DeleteConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesRequest {
+
     /// Required. Parent value for ListInstancesRequest
     pub parent: std::string::String,
 
@@ -1572,6 +1526,7 @@ impl wkt::message::Message for ListInstancesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
+
     /// The list of Instance
     pub instances: std::vec::Vec<crate::model::Instance>,
 
@@ -1593,7 +1548,7 @@ impl ListInstancesResponse {
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Instance>,
+        V: std::convert::Into<crate::model::Instance>
     {
         use std::iter::Iterator;
         self.instances = v.into_iter().map(|i| i.into()).collect();
@@ -1610,7 +1565,7 @@ impl ListInstancesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1642,6 +1597,7 @@ impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -1670,6 +1626,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryConfigurationLicenseUsageRequest {
+
     /// Required. The resource path of the Configuration.
     pub name: std::string::String,
 
@@ -1697,8 +1654,7 @@ impl QueryConfigurationLicenseUsageRequest {
 
     /// Sets the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1706,8 +1662,7 @@ impl QueryConfigurationLicenseUsageRequest {
 
     /// Sets or clears the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1715,8 +1670,7 @@ impl QueryConfigurationLicenseUsageRequest {
 
     /// Sets the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1724,8 +1678,7 @@ impl QueryConfigurationLicenseUsageRequest {
 
     /// Sets or clears the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1742,10 +1695,10 @@ impl wkt::message::Message for QueryConfigurationLicenseUsageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryConfigurationLicenseUsageResponse {
+
     /// Depending on the type of the configuration, one of the following
     /// will be populated.
-    pub details:
-        std::option::Option<crate::model::query_configuration_license_usage_response::Details>,
+    pub details: std::option::Option<crate::model::query_configuration_license_usage_response::Details>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1759,16 +1712,8 @@ impl QueryConfigurationLicenseUsageResponse {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
-    pub fn set_details<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::query_configuration_license_usage_response::Details,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_details<T: std::convert::Into<std::option::Option<crate::model::query_configuration_license_usage_response::Details>>>(mut self, v: T) -> Self
+    {
         self.details = v.into();
         self
     }
@@ -1776,14 +1721,10 @@ impl QueryConfigurationLicenseUsageResponse {
     /// The value of [details][crate::model::QueryConfigurationLicenseUsageResponse::details]
     /// if it holds a `UserCountUsage`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn user_count_usage(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::UserCountUsage>> {
+    pub fn user_count_usage(&self) -> std::option::Option<&std::boxed::Box<crate::model::UserCountUsage>> {
         #[allow(unreachable_patterns)]
         self.details.as_ref().and_then(|v| match v {
-            crate::model::query_configuration_license_usage_response::Details::UserCountUsage(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::query_configuration_license_usage_response::Details::UserCountUsage(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1793,16 +1734,11 @@ impl QueryConfigurationLicenseUsageResponse {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
-    pub fn set_user_count_usage<
-        T: std::convert::Into<std::boxed::Box<crate::model::UserCountUsage>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_count_usage<T: std::convert::Into<std::boxed::Box<crate::model::UserCountUsage>>>(mut self, v: T) -> Self {
         self.details = std::option::Option::Some(
             crate::model::query_configuration_license_usage_response::Details::UserCountUsage(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -1819,6 +1755,7 @@ pub mod query_configuration_license_usage_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Depending on the type of the configuration, one of the following
     /// will be populated.
     #[derive(Clone, Debug, PartialEq)]
@@ -1833,6 +1770,7 @@ pub mod query_configuration_license_usage_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeactivateConfigurationRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1882,6 +1820,7 @@ impl wkt::message::Message for DeactivateConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReactivateConfigurationRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -1931,6 +1870,7 @@ impl wkt::message::Message for ReactivateConfigurationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregateUsageRequest {
+
     /// Required. Parent value for AggregateUsageRequest
     pub name: std::string::String,
 
@@ -1995,8 +1935,7 @@ impl AggregateUsageRequest {
 
     /// Sets the value of [start_time][crate::model::AggregateUsageRequest::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -2004,8 +1943,7 @@ impl AggregateUsageRequest {
 
     /// Sets or clears the value of [start_time][crate::model::AggregateUsageRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -2013,8 +1951,7 @@ impl AggregateUsageRequest {
 
     /// Sets the value of [end_time][crate::model::AggregateUsageRequest::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2022,8 +1959,7 @@ impl AggregateUsageRequest {
 
     /// Sets or clears the value of [end_time][crate::model::AggregateUsageRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2040,6 +1976,7 @@ impl wkt::message::Message for AggregateUsageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregateUsageResponse {
+
     /// The aggregated records of usage per configuration
     pub usages: std::vec::Vec<crate::model::Usage>,
 
@@ -2061,7 +1998,7 @@ impl AggregateUsageResponse {
     pub fn set_usages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Usage>,
+        V: std::convert::Into<crate::model::Usage>
     {
         use std::iter::Iterator;
         self.usages = v.into_iter().map(|i| i.into()).collect();
@@ -2078,7 +2015,7 @@ impl AggregateUsageResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2110,6 +2047,7 @@ impl gax::paginator::internal::PageableResponse for AggregateUsageResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsRequest {
+
     /// Required. Parent value for ListProductsRequest
     pub parent: std::string::String,
 
@@ -2175,6 +2113,7 @@ impl wkt::message::Message for ListProductsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProductsResponse {
+
     /// The list of Product
     pub products: std::vec::Vec<crate::model::Product>,
 
@@ -2196,7 +2135,7 @@ impl ListProductsResponse {
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Product>,
+        V: std::convert::Into<crate::model::Product>
     {
         use std::iter::Iterator;
         self.products = v.into_iter().map(|i| i.into()).collect();
@@ -2213,7 +2152,7 @@ impl ListProductsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2245,6 +2184,7 @@ impl gax::paginator::internal::PageableResponse for ListProductsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProductRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -2273,6 +2213,7 @@ impl wkt::message::Message for GetProductRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2312,8 +2253,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2321,8 +2261,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2330,8 +2269,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2339,8 +2277,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2444,9 +2381,7 @@ impl LicenseType {
         match self {
             Self::Unspecified => std::option::Option::Some("LICENSE_TYPE_UNSPECIFIED"),
             Self::PerMonthPerUser => std::option::Option::Some("LICENSE_TYPE_PER_MONTH_PER_USER"),
-            Self::BringYourOwnLicense => {
-                std::option::Option::Some("LICENSE_TYPE_BRING_YOUR_OWN_LICENSE")
-            }
+            Self::BringYourOwnLicense => std::option::Option::Some("LICENSE_TYPE_BRING_YOUR_OWN_LICENSE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -2471,9 +2406,7 @@ impl std::convert::From<i32> for LicenseType {
             0 => Self::Unspecified,
             1 => Self::PerMonthPerUser,
             2 => Self::BringYourOwnLicense,
-            _ => Self::UnknownValue(license_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(license_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2485,9 +2418,7 @@ impl std::convert::From<&str> for LicenseType {
             "LICENSE_TYPE_UNSPECIFIED" => Self::Unspecified,
             "LICENSE_TYPE_PER_MONTH_PER_USER" => Self::PerMonthPerUser,
             "LICENSE_TYPE_BRING_YOUR_OWN_LICENSE" => Self::BringYourOwnLicense,
-            _ => Self::UnknownValue(license_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(license_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2512,8 +2443,7 @@ impl<'de> serde::de::Deserialize<'de> for LicenseType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LicenseType>::new(
-            ".google.cloud.licensemanager.v1.LicenseType",
-        ))
+            ".google.cloud.licensemanager.v1.LicenseType"))
     }
 }
 
@@ -2623,9 +2553,7 @@ impl std::convert::From<i32> for ActivationState {
             4 => Self::Deactivating,
             5 => Self::Deactivated,
             6 => Self::Terminated,
-            _ => Self::UnknownValue(activation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(activation_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -2641,9 +2569,7 @@ impl std::convert::From<&str> for ActivationState {
             "ACTIVATION_STATE_DEACTIVATING" => Self::Deactivating,
             "ACTIVATION_STATE_DEACTIVATED" => Self::Deactivated,
             "ACTIVATION_STATE_TERMINATED" => Self::Terminated,
-            _ => Self::UnknownValue(activation_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(activation_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -2672,7 +2598,6 @@ impl<'de> serde::de::Deserialize<'de> for ActivationState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActivationState>::new(
-            ".google.cloud.licensemanager.v1.ActivationState",
-        ))
+            ".google.cloud.licensemanager.v1.ActivationState"))
     }
 }

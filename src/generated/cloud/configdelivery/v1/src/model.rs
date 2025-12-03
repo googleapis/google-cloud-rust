@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceBundle {
+
     /// Identifier. Name of the `ResourceBundle`. Format is
     /// `projects/{project}/locations/{location}/resourceBundle
     /// /[a-z][a-z0-9\-]{0,62}`.
@@ -53,7 +54,7 @@ pub struct ResourceBundle {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Human readable description of the `ResourceBundle`.
     pub description: std::string::String,
@@ -74,8 +75,7 @@ impl ResourceBundle {
 
     /// Sets the value of [create_time][crate::model::ResourceBundle::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -83,8 +83,7 @@ impl ResourceBundle {
 
     /// Sets or clears the value of [create_time][crate::model::ResourceBundle::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -92,8 +91,7 @@ impl ResourceBundle {
 
     /// Sets the value of [update_time][crate::model::ResourceBundle::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -101,8 +99,7 @@ impl ResourceBundle {
 
     /// Sets or clears the value of [update_time][crate::model::ResourceBundle::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -137,6 +134,7 @@ impl wkt::message::Message for ResourceBundle {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceBundlesRequest {
+
     /// Required. Parent value for ListResourceBundlesRequest.
     pub parent: std::string::String,
 
@@ -202,6 +200,7 @@ impl wkt::message::Message for ListResourceBundlesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListResourceBundlesResponse {
+
     /// The list of ResourceBundle.
     pub resource_bundles: std::vec::Vec<crate::model::ResourceBundle>,
 
@@ -223,7 +222,7 @@ impl ListResourceBundlesResponse {
     pub fn set_resource_bundles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ResourceBundle>,
+        V: std::convert::Into<crate::model::ResourceBundle>
     {
         use std::iter::Iterator;
         self.resource_bundles = v.into_iter().map(|i| i.into()).collect();
@@ -240,7 +239,7 @@ impl ListResourceBundlesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -272,6 +271,7 @@ impl gax::paginator::internal::PageableResponse for ListResourceBundlesResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetResourceBundleRequest {
+
     /// Required. Name of the resource.
     pub name: std::string::String,
 
@@ -300,6 +300,7 @@ impl wkt::message::Message for GetResourceBundleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateResourceBundleRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -341,18 +342,14 @@ impl CreateResourceBundleRequest {
     }
 
     /// Sets the value of [resource_bundle_id][crate::model::CreateResourceBundleRequest::resource_bundle_id].
-    pub fn set_resource_bundle_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resource_bundle_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_bundle_id = v.into();
         self
     }
 
     /// Sets the value of [resource_bundle][crate::model::CreateResourceBundleRequest::resource_bundle].
     pub fn set_resource_bundle<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundle>,
+    where T: std::convert::Into<crate::model::ResourceBundle>
     {
         self.resource_bundle = std::option::Option::Some(v.into());
         self
@@ -360,8 +357,7 @@ impl CreateResourceBundleRequest {
 
     /// Sets or clears the value of [resource_bundle][crate::model::CreateResourceBundleRequest::resource_bundle].
     pub fn set_or_clear_resource_bundle<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundle>,
+    where T: std::convert::Into<crate::model::ResourceBundle>
     {
         self.resource_bundle = v.map(|x| x.into());
         self
@@ -384,6 +380,7 @@ impl wkt::message::Message for CreateResourceBundleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateResourceBundleRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// ResourceBundle resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -419,8 +416,7 @@ impl UpdateResourceBundleRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateResourceBundleRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -428,8 +424,7 @@ impl UpdateResourceBundleRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateResourceBundleRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -437,8 +432,7 @@ impl UpdateResourceBundleRequest {
 
     /// Sets the value of [resource_bundle][crate::model::UpdateResourceBundleRequest::resource_bundle].
     pub fn set_resource_bundle<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundle>,
+    where T: std::convert::Into<crate::model::ResourceBundle>
     {
         self.resource_bundle = std::option::Option::Some(v.into());
         self
@@ -446,8 +440,7 @@ impl UpdateResourceBundleRequest {
 
     /// Sets or clears the value of [resource_bundle][crate::model::UpdateResourceBundleRequest::resource_bundle].
     pub fn set_or_clear_resource_bundle<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundle>,
+    where T: std::convert::Into<crate::model::ResourceBundle>
     {
         self.resource_bundle = v.map(|x| x.into());
         self
@@ -470,6 +463,7 @@ impl wkt::message::Message for UpdateResourceBundleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteResourceBundleRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -533,6 +527,7 @@ impl wkt::message::Message for DeleteResourceBundleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackage {
+
     /// Identifier. Name of the `FleetPackage`. Format is
     /// `projects/{project}/locations/{location}/fleetPackages/{fleetPackage}`.
     /// The `fleetPackage` component must match
@@ -556,12 +551,11 @@ pub struct FleetPackage {
     /// * Each resource is limited to a maximum of 64 labels.
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Information specifying the source of kubernetes configuration to
     /// deploy.
-    pub resource_bundle_selector:
-        std::option::Option<crate::model::fleet_package::ResourceBundleSelector>,
+    pub resource_bundle_selector: std::option::Option<crate::model::fleet_package::ResourceBundleSelector>,
 
     /// Optional. Configuration to select target clusters to deploy kubernetes
     /// configuration to.
@@ -602,8 +596,7 @@ impl FleetPackage {
 
     /// Sets the value of [create_time][crate::model::FleetPackage::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -611,8 +604,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [create_time][crate::model::FleetPackage::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -620,8 +612,7 @@ impl FleetPackage {
 
     /// Sets the value of [update_time][crate::model::FleetPackage::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -629,8 +620,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [update_time][crate::model::FleetPackage::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -650,8 +640,7 @@ impl FleetPackage {
 
     /// Sets the value of [resource_bundle_selector][crate::model::FleetPackage::resource_bundle_selector].
     pub fn set_resource_bundle_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::ResourceBundleSelector>,
+    where T: std::convert::Into<crate::model::fleet_package::ResourceBundleSelector>
     {
         self.resource_bundle_selector = std::option::Option::Some(v.into());
         self
@@ -659,8 +648,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [resource_bundle_selector][crate::model::FleetPackage::resource_bundle_selector].
     pub fn set_or_clear_resource_bundle_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::ResourceBundleSelector>,
+    where T: std::convert::Into<crate::model::fleet_package::ResourceBundleSelector>
     {
         self.resource_bundle_selector = v.map(|x| x.into());
         self
@@ -668,8 +656,7 @@ impl FleetPackage {
 
     /// Sets the value of [target][crate::model::FleetPackage::target].
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::Target>,
+    where T: std::convert::Into<crate::model::fleet_package::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -677,8 +664,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [target][crate::model::FleetPackage::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::Target>,
+    where T: std::convert::Into<crate::model::fleet_package::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -686,8 +672,7 @@ impl FleetPackage {
 
     /// Sets the value of [rollout_strategy][crate::model::FleetPackage::rollout_strategy].
     pub fn set_rollout_strategy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategy>,
+    where T: std::convert::Into<crate::model::RolloutStrategy>
     {
         self.rollout_strategy = std::option::Option::Some(v.into());
         self
@@ -695,8 +680,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [rollout_strategy][crate::model::FleetPackage::rollout_strategy].
     pub fn set_or_clear_rollout_strategy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategy>,
+    where T: std::convert::Into<crate::model::RolloutStrategy>
     {
         self.rollout_strategy = v.map(|x| x.into());
         self
@@ -704,8 +688,7 @@ impl FleetPackage {
 
     /// Sets the value of [variant_selector][crate::model::FleetPackage::variant_selector].
     pub fn set_variant_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::VariantSelector>,
+    where T: std::convert::Into<crate::model::fleet_package::VariantSelector>
     {
         self.variant_selector = std::option::Option::Some(v.into());
         self
@@ -713,8 +696,7 @@ impl FleetPackage {
 
     /// Sets or clears the value of [variant_selector][crate::model::FleetPackage::variant_selector].
     pub fn set_or_clear_variant_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet_package::VariantSelector>,
+    where T: std::convert::Into<crate::model::fleet_package::VariantSelector>
     {
         self.variant_selector = v.map(|x| x.into());
         self
@@ -722,8 +704,7 @@ impl FleetPackage {
 
     /// Sets the value of [info][crate::model::FleetPackage::info].
     pub fn set_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackageInfo>,
+    where T: std::convert::Into<crate::model::FleetPackageInfo>
     {
         self.info = std::option::Option::Some(v.into());
         self
@@ -731,29 +712,20 @@ impl FleetPackage {
 
     /// Sets or clears the value of [info][crate::model::FleetPackage::info].
     pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackageInfo>,
+    where T: std::convert::Into<crate::model::FleetPackageInfo>
     {
         self.info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deletion_propagation_policy][crate::model::FleetPackage::deletion_propagation_policy].
-    pub fn set_deletion_propagation_policy<
-        T: std::convert::Into<crate::model::DeletionPropagationPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deletion_propagation_policy<T: std::convert::Into<crate::model::DeletionPropagationPolicy>>(mut self, v: T) -> Self {
         self.deletion_propagation_policy = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::FleetPackage::state].
-    pub fn set_state<T: std::convert::Into<crate::model::fleet_package::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::fleet_package::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -770,14 +742,15 @@ pub mod fleet_package {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Information specifying the source of kubernetes configuration to deploy.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceBundleSelector {
+
         /// source can be a directly pushed `ResourceBundle` or
         /// `CloudBuildRepository` containing the kubernetes configuration.
-        pub source:
-            std::option::Option<crate::model::fleet_package::resource_bundle_selector::Source>,
+        pub source: std::option::Option<crate::model::fleet_package::resource_bundle_selector::Source>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -791,16 +764,8 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
-        pub fn set_source<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::fleet_package::resource_bundle_selector::Source,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::fleet_package::resource_bundle_selector::Source>>>(mut self, v: T) -> Self
+        {
             self.source = v.into();
             self
         }
@@ -808,15 +773,10 @@ pub mod fleet_package {
         /// The value of [source][crate::model::fleet_package::ResourceBundleSelector::source]
         /// if it holds a `ResourceBundle`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn resource_bundle(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::fleet_package::ResourceBundleTag>>
-        {
+        pub fn resource_bundle(&self) -> std::option::Option<&std::boxed::Box<crate::model::fleet_package::ResourceBundleTag>> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
-                crate::model::fleet_package::resource_bundle_selector::Source::ResourceBundle(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::fleet_package::resource_bundle_selector::Source::ResourceBundle(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -826,16 +786,11 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_resource_bundle<
-            T: std::convert::Into<std::boxed::Box<crate::model::fleet_package::ResourceBundleTag>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_resource_bundle<T: std::convert::Into<std::boxed::Box<crate::model::fleet_package::ResourceBundleTag>>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::fleet_package::resource_bundle_selector::Source::ResourceBundle(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -843,10 +798,7 @@ pub mod fleet_package {
         /// The value of [source][crate::model::fleet_package::ResourceBundleSelector::source]
         /// if it holds a `CloudBuildRepository`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn cloud_build_repository(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>>
-        {
+        pub fn cloud_build_repository(&self) -> std::option::Option<&std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>> {
             #[allow(unreachable_patterns)]
             self.source.as_ref().and_then(|v| match v {
                 crate::model::fleet_package::resource_bundle_selector::Source::CloudBuildRepository(v) => std::option::Option::Some(v),
@@ -859,16 +811,11 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
-        pub fn set_cloud_build_repository<
-            T: std::convert::Into<std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_cloud_build_repository<T: std::convert::Into<std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::fleet_package::resource_bundle_selector::Source::CloudBuildRepository(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -885,6 +832,7 @@ pub mod fleet_package {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// source can be a directly pushed `ResourceBundle` or
         /// `CloudBuildRepository` containing the kubernetes configuration.
         #[derive(Clone, Debug, PartialEq)]
@@ -893,9 +841,7 @@ pub mod fleet_package {
             /// Information specifying `ResourceBundle`.
             ResourceBundle(std::boxed::Box<crate::model::fleet_package::ResourceBundleTag>),
             /// Information specifying `CloudBuildRepository`.
-            CloudBuildRepository(
-                std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>,
-            ),
+            CloudBuildRepository(std::boxed::Box<crate::model::fleet_package::CloudBuildRepository>),
         }
     }
 
@@ -904,6 +850,7 @@ pub mod fleet_package {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceBundleTag {
+
         /// Required. Name of the `ResourceBundle`.
         /// Format is projects/{p}/locations/{l}/resourceBundles/{r}.
         pub name: std::string::String,
@@ -944,6 +891,7 @@ pub mod fleet_package {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudBuildRepository {
+
         /// Required. Name of the cloud build repository.
         /// Format is projects/{p}/locations/{l}/connections/{c}/repositories/{r}.
         pub name: std::string::String,
@@ -963,8 +911,7 @@ pub mod fleet_package {
 
         /// variants_pattern is the configuration for how to read the repository
         /// to find variants.
-        pub variants:
-            std::option::Option<crate::model::fleet_package::cloud_build_repository::Variants>,
+        pub variants: std::option::Option<crate::model::fleet_package::cloud_build_repository::Variants>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -993,10 +940,7 @@ pub mod fleet_package {
         }
 
         /// Sets the value of [service_account][crate::model::fleet_package::CloudBuildRepository::service_account].
-        pub fn set_service_account<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_account = v.into();
             self
         }
@@ -1005,16 +949,8 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `variants` are mutually
         /// exclusive.
-        pub fn set_variants<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::fleet_package::cloud_build_repository::Variants,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_variants<T: std::convert::Into<std::option::Option<crate::model::fleet_package::cloud_build_repository::Variants>>>(mut self, v: T) -> Self
+        {
             self.variants = v.into();
             self
         }
@@ -1025,9 +961,7 @@ pub mod fleet_package {
         pub fn variants_pattern(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.variants.as_ref().and_then(|v| match v {
-                crate::model::fleet_package::cloud_build_repository::Variants::VariantsPattern(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::fleet_package::cloud_build_repository::Variants::VariantsPattern(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1037,14 +971,11 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `variants` are
         /// mutually exclusive.
-        pub fn set_variants_pattern<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_variants_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.variants = std::option::Option::Some(
                 crate::model::fleet_package::cloud_build_repository::Variants::VariantsPattern(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1061,6 +992,7 @@ pub mod fleet_package {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// variants_pattern is the configuration for how to read the repository
         /// to find variants.
         #[derive(Clone, Debug, PartialEq)]
@@ -1076,6 +1008,7 @@ pub mod fleet_package {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Target {
+
         /// target for the fleet package.
         pub target: std::option::Option<crate::model::fleet_package::target::Target>,
 
@@ -1091,12 +1024,8 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `target` are mutually
         /// exclusive.
-        pub fn set_target<
-            T: std::convert::Into<std::option::Option<crate::model::fleet_package::target::Target>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target<T: std::convert::Into<std::option::Option<crate::model::fleet_package::target::Target>>>(mut self, v: T) -> Self
+        {
             self.target = v.into();
             self
         }
@@ -1107,9 +1036,7 @@ pub mod fleet_package {
         pub fn fleet(&self) -> std::option::Option<&std::boxed::Box<crate::model::Fleet>> {
             #[allow(unreachable_patterns)]
             self.target.as_ref().and_then(|v| match v {
-                crate::model::fleet_package::target::Target::Fleet(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::fleet_package::target::Target::Fleet(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1119,12 +1046,11 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        pub fn set_fleet<T: std::convert::Into<std::boxed::Box<crate::model::Fleet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_fleet<T: std::convert::Into<std::boxed::Box<crate::model::Fleet>>>(mut self, v: T) -> Self {
             self.target = std::option::Option::Some(
-                crate::model::fleet_package::target::Target::Fleet(v.into()),
+                crate::model::fleet_package::target::Target::Fleet(
+                    v.into()
+                )
             );
             self
         }
@@ -1141,6 +1067,7 @@ pub mod fleet_package {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// target for the fleet package.
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -1155,6 +1082,7 @@ pub mod fleet_package {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VariantSelector {
+
         /// strategy for selecting a variant.
         pub strategy: std::option::Option<crate::model::fleet_package::variant_selector::Strategy>,
 
@@ -1170,14 +1098,8 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `strategy` are mutually
         /// exclusive.
-        pub fn set_strategy<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::fleet_package::variant_selector::Strategy>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::fleet_package::variant_selector::Strategy>>>(mut self, v: T) -> Self
+        {
             self.strategy = v.into();
             self
         }
@@ -1188,9 +1110,7 @@ pub mod fleet_package {
         pub fn variant_name_template(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.strategy.as_ref().and_then(|v| match v {
-                crate::model::fleet_package::variant_selector::Strategy::VariantNameTemplate(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::fleet_package::variant_selector::Strategy::VariantNameTemplate(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -1200,14 +1120,11 @@ pub mod fleet_package {
         ///
         /// Note that all the setters affecting `strategy` are
         /// mutually exclusive.
-        pub fn set_variant_name_template<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_variant_name_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.strategy = std::option::Option::Some(
                 crate::model::fleet_package::variant_selector::Strategy::VariantNameTemplate(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -1223,6 +1140,7 @@ pub mod fleet_package {
     pub mod variant_selector {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// strategy for selecting a variant.
         #[derive(Clone, Debug, PartialEq)]
@@ -1332,9 +1250,7 @@ pub mod fleet_package {
                 0 => Self::Unspecified,
                 1 => Self::Active,
                 2 => Self::Suspended,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1346,9 +1262,7 @@ pub mod fleet_package {
                 "STATE_UNSPECIFIED" => Self::Unspecified,
                 "ACTIVE" => Self::Active,
                 "SUSPENDED" => Self::Suspended,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1373,8 +1287,7 @@ pub mod fleet_package {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.configdelivery.v1.FleetPackage.State",
-            ))
+                ".google.cloud.configdelivery.v1.FleetPackage.State"))
         }
     }
 }
@@ -1384,6 +1297,7 @@ pub mod fleet_package {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackageInfo {
+
     /// Optional. The active rollout, if any. Format is
     /// `projects/{project}/locations/{location}/fleetPackages/{fleet_package}/rollouts/{rollout}`.
     pub active_rollout: std::string::String,
@@ -1414,19 +1328,13 @@ impl FleetPackageInfo {
     }
 
     /// Sets the value of [last_completed_rollout][crate::model::FleetPackageInfo::last_completed_rollout].
-    pub fn set_last_completed_rollout<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_last_completed_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_completed_rollout = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::FleetPackageInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::fleet_package_info::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::fleet_package_info::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1435,7 +1343,7 @@ impl FleetPackageInfo {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FleetPackageError>,
+        V: std::convert::Into<crate::model::FleetPackageError>
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -1453,6 +1361,7 @@ impl wkt::message::Message for FleetPackageInfo {
 pub mod fleet_package_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible values for the `FleetPackage` state.
     ///
@@ -1550,9 +1459,7 @@ pub mod fleet_package_info {
                 2 => Self::Suspended,
                 3 => Self::Failed,
                 4 => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1566,9 +1473,7 @@ pub mod fleet_package_info {
                 "SUSPENDED" => Self::Suspended,
                 "FAILED" => Self::Failed,
                 "DELETING" => Self::Deleting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1595,8 +1500,7 @@ pub mod fleet_package_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.configdelivery.v1.FleetPackageInfo.State",
-            ))
+                ".google.cloud.configdelivery.v1.FleetPackageInfo.State"))
         }
     }
 }
@@ -1606,6 +1510,7 @@ pub mod fleet_package_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FleetPackageError {
+
     /// Optional. A description of the error.
     pub error_message: std::string::String,
 
@@ -1634,6 +1539,7 @@ impl wkt::message::Message for FleetPackageError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterInfo {
+
     /// Output only. gkehub membership of target cluster
     pub membership: std::string::String,
 
@@ -1675,8 +1581,7 @@ impl ClusterInfo {
 
     /// Sets the value of [desired][crate::model::ClusterInfo::desired].
     pub fn set_desired<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.desired = std::option::Option::Some(v.into());
         self
@@ -1684,8 +1589,7 @@ impl ClusterInfo {
 
     /// Sets or clears the value of [desired][crate::model::ClusterInfo::desired].
     pub fn set_or_clear_desired<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.desired = v.map(|x| x.into());
         self
@@ -1693,8 +1597,7 @@ impl ClusterInfo {
 
     /// Sets the value of [initial][crate::model::ClusterInfo::initial].
     pub fn set_initial<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.initial = std::option::Option::Some(v.into());
         self
@@ -1702,8 +1605,7 @@ impl ClusterInfo {
 
     /// Sets or clears the value of [initial][crate::model::ClusterInfo::initial].
     pub fn set_or_clear_initial<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.initial = v.map(|x| x.into());
         self
@@ -1711,8 +1613,7 @@ impl ClusterInfo {
 
     /// Sets the value of [current][crate::model::ClusterInfo::current].
     pub fn set_current<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.current = std::option::Option::Some(v.into());
         self
@@ -1720,18 +1621,14 @@ impl ClusterInfo {
 
     /// Sets or clears the value of [current][crate::model::ClusterInfo::current].
     pub fn set_or_clear_current<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>,
+    where T: std::convert::Into<crate::model::ResourceBundleDeploymentInfo>
     {
         self.current = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::ClusterInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::cluster_info::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::cluster_info::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -1740,7 +1637,7 @@ impl ClusterInfo {
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
@@ -1749,8 +1646,7 @@ impl ClusterInfo {
 
     /// Sets the value of [start_time][crate::model::ClusterInfo::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -1758,8 +1654,7 @@ impl ClusterInfo {
 
     /// Sets or clears the value of [start_time][crate::model::ClusterInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -1767,8 +1662,7 @@ impl ClusterInfo {
 
     /// Sets the value of [end_time][crate::model::ClusterInfo::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -1776,8 +1670,7 @@ impl ClusterInfo {
 
     /// Sets or clears the value of [end_time][crate::model::ClusterInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -1794,6 +1687,7 @@ impl wkt::message::Message for ClusterInfo {
 pub mod cluster_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the rollout for the cluster.
     ///
@@ -1916,9 +1810,7 @@ pub mod cluster_info {
                 7 => Self::Error,
                 8 => Self::Unchanged,
                 9 => Self::Skipped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1937,9 +1829,7 @@ pub mod cluster_info {
                 "ERROR" => Self::Error,
                 "UNCHANGED" => Self::Unchanged,
                 "SKIPPED" => Self::Skipped,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1971,8 +1861,7 @@ pub mod cluster_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.configdelivery.v1.ClusterInfo.State",
-            ))
+                ".google.cloud.configdelivery.v1.ClusterInfo.State"))
         }
     }
 }
@@ -1982,6 +1871,7 @@ pub mod cluster_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceBundleDeploymentInfo {
+
     /// Output only. Refers to a `ResourceBundle` release.
     pub release: std::string::String,
 
@@ -2027,12 +1917,7 @@ impl ResourceBundleDeploymentInfo {
     }
 
     /// Sets the value of [sync_state][crate::model::ResourceBundleDeploymentInfo::sync_state].
-    pub fn set_sync_state<
-        T: std::convert::Into<crate::model::resource_bundle_deployment_info::SyncState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_state<T: std::convert::Into<crate::model::resource_bundle_deployment_info::SyncState>>(mut self, v: T) -> Self {
         self.sync_state = v.into();
         self
     }
@@ -2041,7 +1926,7 @@ impl ResourceBundleDeploymentInfo {
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.messages = v.into_iter().map(|i| i.into()).collect();
@@ -2059,6 +1944,7 @@ impl wkt::message::Message for ResourceBundleDeploymentInfo {
 pub mod resource_bundle_deployment_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Synchronization state of the resource bundle deployment.
     ///
@@ -2176,9 +2062,7 @@ pub mod resource_bundle_deployment_info {
                 6 => Self::DeletionPending,
                 7 => Self::Deleting,
                 8 => Self::Deleted,
-                _ => Self::UnknownValue(sync_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sync_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2196,9 +2080,7 @@ pub mod resource_bundle_deployment_info {
                 "DELETION_PENDING" => Self::DeletionPending,
                 "DELETING" => Self::Deleting,
                 "DELETED" => Self::Deleted,
-                _ => Self::UnknownValue(sync_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sync_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2229,8 +2111,7 @@ pub mod resource_bundle_deployment_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SyncState>::new(
-                ".google.cloud.configdelivery.v1.ResourceBundleDeploymentInfo.SyncState",
-            ))
+                ".google.cloud.configdelivery.v1.ResourceBundleDeploymentInfo.SyncState"))
         }
     }
 }
@@ -2239,6 +2120,7 @@ pub mod resource_bundle_deployment_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Fleet {
+
     /// Required. The host project for the GKE fleet. Format is
     /// `projects/{project}`.
     pub project: std::string::String,
@@ -2263,8 +2145,7 @@ impl Fleet {
 
     /// Sets the value of [selector][crate::model::Fleet::selector].
     pub fn set_selector<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet::LabelSelector>,
+    where T: std::convert::Into<crate::model::fleet::LabelSelector>
     {
         self.selector = std::option::Option::Some(v.into());
         self
@@ -2272,8 +2153,7 @@ impl Fleet {
 
     /// Sets or clears the value of [selector][crate::model::Fleet::selector].
     pub fn set_or_clear_selector<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::fleet::LabelSelector>,
+    where T: std::convert::Into<crate::model::fleet::LabelSelector>
     {
         self.selector = v.map(|x| x.into());
         self
@@ -2291,15 +2171,17 @@ pub mod fleet {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A label selector is a label query over a set of resources. An empty label
     /// selector matches all objects.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LabelSelector {
+
         /// Optional. match_labels is a map of {key,value} pairs. Each {key,value}
         /// pair must match an existing label key and value exactly in order to
         /// satisfy the match.
-        pub match_labels: std::collections::HashMap<std::string::String, std::string::String>,
+        pub match_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2333,6 +2215,7 @@ pub mod fleet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllAtOnceStrategy {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2353,6 +2236,7 @@ impl wkt::message::Message for AllAtOnceStrategy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollingStrategy {
+
     /// Optional. Maximum number of clusters to update the resource bundle on
     /// concurrently.
     pub max_concurrent: i32,
@@ -2383,6 +2267,7 @@ impl wkt::message::Message for RollingStrategy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutStrategy {
+
     /// strategy defines how updates to a resource bundle should be rolled out
     /// across clusters.
     pub strategy: std::option::Option<crate::model::rollout_strategy::Strategy>,
@@ -2399,12 +2284,8 @@ impl RolloutStrategy {
     ///
     /// Note that all the setters affecting `strategy` are mutually
     /// exclusive.
-    pub fn set_strategy<
-        T: std::convert::Into<std::option::Option<crate::model::rollout_strategy::Strategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::rollout_strategy::Strategy>>>(mut self, v: T) -> Self
+    {
         self.strategy = v.into();
         self
     }
@@ -2412,9 +2293,7 @@ impl RolloutStrategy {
     /// The value of [strategy][crate::model::RolloutStrategy::strategy]
     /// if it holds a `AllAtOnce`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn all_at_once(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AllAtOnceStrategy>> {
+    pub fn all_at_once(&self) -> std::option::Option<&std::boxed::Box<crate::model::AllAtOnceStrategy>> {
         #[allow(unreachable_patterns)]
         self.strategy.as_ref().and_then(|v| match v {
             crate::model::rollout_strategy::Strategy::AllAtOnce(v) => std::option::Option::Some(v),
@@ -2427,14 +2306,11 @@ impl RolloutStrategy {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    pub fn set_all_at_once<
-        T: std::convert::Into<std::boxed::Box<crate::model::AllAtOnceStrategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_all_at_once<T: std::convert::Into<std::boxed::Box<crate::model::AllAtOnceStrategy>>>(mut self, v: T) -> Self {
         self.strategy = std::option::Option::Some(
-            crate::model::rollout_strategy::Strategy::AllAtOnce(v.into()),
+            crate::model::rollout_strategy::Strategy::AllAtOnce(
+                v.into()
+            )
         );
         self
     }
@@ -2455,12 +2331,12 @@ impl RolloutStrategy {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    pub fn set_rolling<T: std::convert::Into<std::boxed::Box<crate::model::RollingStrategy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.strategy =
-            std::option::Option::Some(crate::model::rollout_strategy::Strategy::Rolling(v.into()));
+    pub fn set_rolling<T: std::convert::Into<std::boxed::Box<crate::model::RollingStrategy>>>(mut self, v: T) -> Self {
+        self.strategy = std::option::Option::Some(
+            crate::model::rollout_strategy::Strategy::Rolling(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2475,6 +2351,7 @@ impl wkt::message::Message for RolloutStrategy {
 pub mod rollout_strategy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// strategy defines how updates to a resource bundle should be rolled out
     /// across clusters.
@@ -2495,6 +2372,7 @@ pub mod rollout_strategy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutStrategyInfo {
+
     /// strategy represents result of applying one of the rollout strategies.
     pub strategy: std::option::Option<crate::model::rollout_strategy_info::Strategy>,
 
@@ -2510,12 +2388,8 @@ impl RolloutStrategyInfo {
     ///
     /// Note that all the setters affecting `strategy` are mutually
     /// exclusive.
-    pub fn set_strategy<
-        T: std::convert::Into<std::option::Option<crate::model::rollout_strategy_info::Strategy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_strategy<T: std::convert::Into<std::option::Option<crate::model::rollout_strategy_info::Strategy>>>(mut self, v: T) -> Self
+    {
         self.strategy = v.into();
         self
     }
@@ -2523,14 +2397,10 @@ impl RolloutStrategyInfo {
     /// The value of [strategy][crate::model::RolloutStrategyInfo::strategy]
     /// if it holds a `AllAtOnceStrategyInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn all_at_once_strategy_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::AllAtOnceStrategyInfo>> {
+    pub fn all_at_once_strategy_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::AllAtOnceStrategyInfo>> {
         #[allow(unreachable_patterns)]
         self.strategy.as_ref().and_then(|v| match v {
-            crate::model::rollout_strategy_info::Strategy::AllAtOnceStrategyInfo(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::rollout_strategy_info::Strategy::AllAtOnceStrategyInfo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2540,14 +2410,11 @@ impl RolloutStrategyInfo {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    pub fn set_all_at_once_strategy_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::AllAtOnceStrategyInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_all_at_once_strategy_info<T: std::convert::Into<std::boxed::Box<crate::model::AllAtOnceStrategyInfo>>>(mut self, v: T) -> Self {
         self.strategy = std::option::Option::Some(
-            crate::model::rollout_strategy_info::Strategy::AllAtOnceStrategyInfo(v.into()),
+            crate::model::rollout_strategy_info::Strategy::AllAtOnceStrategyInfo(
+                v.into()
+            )
         );
         self
     }
@@ -2555,14 +2422,10 @@ impl RolloutStrategyInfo {
     /// The value of [strategy][crate::model::RolloutStrategyInfo::strategy]
     /// if it holds a `RollingStrategyInfo`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn rolling_strategy_info(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::RollingStrategyInfo>> {
+    pub fn rolling_strategy_info(&self) -> std::option::Option<&std::boxed::Box<crate::model::RollingStrategyInfo>> {
         #[allow(unreachable_patterns)]
         self.strategy.as_ref().and_then(|v| match v {
-            crate::model::rollout_strategy_info::Strategy::RollingStrategyInfo(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::rollout_strategy_info::Strategy::RollingStrategyInfo(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2572,14 +2435,11 @@ impl RolloutStrategyInfo {
     ///
     /// Note that all the setters affecting `strategy` are
     /// mutually exclusive.
-    pub fn set_rolling_strategy_info<
-        T: std::convert::Into<std::boxed::Box<crate::model::RollingStrategyInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_rolling_strategy_info<T: std::convert::Into<std::boxed::Box<crate::model::RollingStrategyInfo>>>(mut self, v: T) -> Self {
         self.strategy = std::option::Option::Some(
-            crate::model::rollout_strategy_info::Strategy::RollingStrategyInfo(v.into()),
+            crate::model::rollout_strategy_info::Strategy::RollingStrategyInfo(
+                v.into()
+            )
         );
         self
     }
@@ -2595,6 +2455,7 @@ impl wkt::message::Message for RolloutStrategyInfo {
 pub mod rollout_strategy_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// strategy represents result of applying one of the rollout strategies.
     #[derive(Clone, Debug, PartialEq)]
@@ -2614,6 +2475,7 @@ pub mod rollout_strategy_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AllAtOnceStrategyInfo {
+
     /// Unordered list. resource bundle's deployment status for all targeted
     /// clusters.
     pub clusters: std::vec::Vec<crate::model::ClusterInfo>,
@@ -2630,7 +2492,7 @@ impl AllAtOnceStrategyInfo {
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterInfo>,
+        V: std::convert::Into<crate::model::ClusterInfo>
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
@@ -2649,6 +2511,7 @@ impl wkt::message::Message for AllAtOnceStrategyInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RollingStrategyInfo {
+
     /// Unordered list. resource bundle's deployment status for all targeted
     /// clusters.
     pub clusters: std::vec::Vec<crate::model::ClusterInfo>,
@@ -2665,7 +2528,7 @@ impl RollingStrategyInfo {
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterInfo>,
+        V: std::convert::Into<crate::model::ClusterInfo>
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
@@ -2683,6 +2546,7 @@ impl wkt::message::Message for RollingStrategyInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFleetPackagesRequest {
+
     /// Required. Parent value for ListFleetPackagesRequest.
     pub parent: std::string::String,
 
@@ -2748,6 +2612,7 @@ impl wkt::message::Message for ListFleetPackagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListFleetPackagesResponse {
+
     /// The list of FleetPackage
     pub fleet_packages: std::vec::Vec<crate::model::FleetPackage>,
 
@@ -2769,7 +2634,7 @@ impl ListFleetPackagesResponse {
     pub fn set_fleet_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FleetPackage>,
+        V: std::convert::Into<crate::model::FleetPackage>
     {
         use std::iter::Iterator;
         self.fleet_packages = v.into_iter().map(|i| i.into()).collect();
@@ -2786,7 +2651,7 @@ impl ListFleetPackagesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2818,6 +2683,7 @@ impl gax::paginator::internal::PageableResponse for ListFleetPackagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetFleetPackageRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -2846,6 +2712,7 @@ impl wkt::message::Message for GetFleetPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateFleetPackageRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -2887,18 +2754,14 @@ impl CreateFleetPackageRequest {
     }
 
     /// Sets the value of [fleet_package_id][crate::model::CreateFleetPackageRequest::fleet_package_id].
-    pub fn set_fleet_package_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_fleet_package_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fleet_package_id = v.into();
         self
     }
 
     /// Sets the value of [fleet_package][crate::model::CreateFleetPackageRequest::fleet_package].
     pub fn set_fleet_package<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackage>,
+    where T: std::convert::Into<crate::model::FleetPackage>
     {
         self.fleet_package = std::option::Option::Some(v.into());
         self
@@ -2906,8 +2769,7 @@ impl CreateFleetPackageRequest {
 
     /// Sets or clears the value of [fleet_package][crate::model::CreateFleetPackageRequest::fleet_package].
     pub fn set_or_clear_fleet_package<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackage>,
+    where T: std::convert::Into<crate::model::FleetPackage>
     {
         self.fleet_package = v.map(|x| x.into());
         self
@@ -2930,6 +2792,7 @@ impl wkt::message::Message for CreateFleetPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateFleetPackageRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// FleetPackage resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -2965,8 +2828,7 @@ impl UpdateFleetPackageRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateFleetPackageRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2974,8 +2836,7 @@ impl UpdateFleetPackageRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFleetPackageRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2983,8 +2844,7 @@ impl UpdateFleetPackageRequest {
 
     /// Sets the value of [fleet_package][crate::model::UpdateFleetPackageRequest::fleet_package].
     pub fn set_fleet_package<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackage>,
+    where T: std::convert::Into<crate::model::FleetPackage>
     {
         self.fleet_package = std::option::Option::Some(v.into());
         self
@@ -2992,8 +2852,7 @@ impl UpdateFleetPackageRequest {
 
     /// Sets or clears the value of [fleet_package][crate::model::UpdateFleetPackageRequest::fleet_package].
     pub fn set_or_clear_fleet_package<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FleetPackage>,
+    where T: std::convert::Into<crate::model::FleetPackage>
     {
         self.fleet_package = v.map(|x| x.into());
         self
@@ -3016,6 +2875,7 @@ impl wkt::message::Message for UpdateFleetPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteFleetPackageRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3086,6 +2946,7 @@ impl wkt::message::Message for DeleteFleetPackageRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3125,8 +2986,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3134,8 +2994,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3143,8 +3002,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3152,8 +3010,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3200,6 +3057,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Release {
+
     /// Identifier. Name of the Release. Format is
     /// `projects/{project}/locations/location}/resourceBundles/{resource_bundle}/release/[a-z][a-z0-9\-]{0,62}`.
     pub name: std::string::String,
@@ -3211,7 +3069,7 @@ pub struct Release {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. lifecycle of the `Release`.
     pub lifecycle: crate::model::release::Lifecycle,
@@ -3242,8 +3100,7 @@ impl Release {
 
     /// Sets the value of [create_time][crate::model::Release::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3251,8 +3108,7 @@ impl Release {
 
     /// Sets or clears the value of [create_time][crate::model::Release::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3260,8 +3116,7 @@ impl Release {
 
     /// Sets the value of [update_time][crate::model::Release::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3269,8 +3124,7 @@ impl Release {
 
     /// Sets or clears the value of [update_time][crate::model::Release::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3289,10 +3143,7 @@ impl Release {
     }
 
     /// Sets the value of [lifecycle][crate::model::Release::lifecycle].
-    pub fn set_lifecycle<T: std::convert::Into<crate::model::release::Lifecycle>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lifecycle<T: std::convert::Into<crate::model::release::Lifecycle>>(mut self, v: T) -> Self {
         self.lifecycle = v.into();
         self
     }
@@ -3305,8 +3156,7 @@ impl Release {
 
     /// Sets the value of [publish_time][crate::model::Release::publish_time].
     pub fn set_publish_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = std::option::Option::Some(v.into());
         self
@@ -3314,8 +3164,7 @@ impl Release {
 
     /// Sets or clears the value of [publish_time][crate::model::Release::publish_time].
     pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.publish_time = v.map(|x| x.into());
         self
@@ -3323,8 +3172,7 @@ impl Release {
 
     /// Sets the value of [info][crate::model::Release::info].
     pub fn set_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseInfo>,
+    where T: std::convert::Into<crate::model::ReleaseInfo>
     {
         self.info = std::option::Option::Some(v.into());
         self
@@ -3332,8 +3180,7 @@ impl Release {
 
     /// Sets or clears the value of [info][crate::model::Release::info].
     pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseInfo>,
+    where T: std::convert::Into<crate::model::ReleaseInfo>
     {
         self.info = v.map(|x| x.into());
         self
@@ -3350,6 +3197,7 @@ impl wkt::message::Message for Release {
 pub mod release {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Lifecycle indicates the state of the `Release`. A published release is
     /// immutable.
@@ -3439,9 +3287,7 @@ pub mod release {
                 0 => Self::Unspecified,
                 1 => Self::Draft,
                 2 => Self::Published,
-                _ => Self::UnknownValue(lifecycle::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(lifecycle::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3453,9 +3299,7 @@ pub mod release {
                 "LIFECYCLE_UNSPECIFIED" => Self::Unspecified,
                 "DRAFT" => Self::Draft,
                 "PUBLISHED" => Self::Published,
-                _ => Self::UnknownValue(lifecycle::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(lifecycle::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3480,8 +3324,7 @@ pub mod release {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Lifecycle>::new(
-                ".google.cloud.configdelivery.v1.Release.Lifecycle",
-            ))
+                ".google.cloud.configdelivery.v1.Release.Lifecycle"))
         }
     }
 }
@@ -3490,8 +3333,9 @@ pub mod release {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Variant {
+
     /// Optional. labels to represent any metadata associated with the variant.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Input only. Unordered list. resources contain the kubernetes
     /// manifests (YAMLs) for this variant.
@@ -3531,7 +3375,7 @@ impl Variant {
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.resources = v.into_iter().map(|i| i.into()).collect();
@@ -3546,8 +3390,7 @@ impl Variant {
 
     /// Sets the value of [create_time][crate::model::Variant::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3555,8 +3398,7 @@ impl Variant {
 
     /// Sets or clears the value of [create_time][crate::model::Variant::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3564,8 +3406,7 @@ impl Variant {
 
     /// Sets the value of [update_time][crate::model::Variant::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3573,8 +3414,7 @@ impl Variant {
 
     /// Sets or clears the value of [update_time][crate::model::Variant::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3591,6 +3431,7 @@ impl wkt::message::Message for Variant {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVariantsRequest {
+
     /// Required. Parent value for ListVariantsRequest.
     pub parent: std::string::String,
 
@@ -3656,6 +3497,7 @@ impl wkt::message::Message for ListVariantsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVariantsResponse {
+
     /// The list of Variants
     pub variants: std::vec::Vec<crate::model::Variant>,
 
@@ -3677,7 +3519,7 @@ impl ListVariantsResponse {
     pub fn set_variants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Variant>,
+        V: std::convert::Into<crate::model::Variant>
     {
         use std::iter::Iterator;
         self.variants = v.into_iter().map(|i| i.into()).collect();
@@ -3694,7 +3536,7 @@ impl ListVariantsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3726,6 +3568,7 @@ impl gax::paginator::internal::PageableResponse for ListVariantsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetVariantRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3754,6 +3597,7 @@ impl wkt::message::Message for GetVariantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateVariantRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -3800,8 +3644,7 @@ impl CreateVariantRequest {
 
     /// Sets the value of [variant][crate::model::CreateVariantRequest::variant].
     pub fn set_variant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Variant>,
+    where T: std::convert::Into<crate::model::Variant>
     {
         self.variant = std::option::Option::Some(v.into());
         self
@@ -3809,8 +3652,7 @@ impl CreateVariantRequest {
 
     /// Sets or clears the value of [variant][crate::model::CreateVariantRequest::variant].
     pub fn set_or_clear_variant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Variant>,
+    where T: std::convert::Into<crate::model::Variant>
     {
         self.variant = v.map(|x| x.into());
         self
@@ -3833,6 +3675,7 @@ impl wkt::message::Message for CreateVariantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateVariantRequest {
+
     /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// Variant resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -3868,8 +3711,7 @@ impl UpdateVariantRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateVariantRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3877,8 +3719,7 @@ impl UpdateVariantRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVariantRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3886,8 +3727,7 @@ impl UpdateVariantRequest {
 
     /// Sets the value of [variant][crate::model::UpdateVariantRequest::variant].
     pub fn set_variant<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Variant>,
+    where T: std::convert::Into<crate::model::Variant>
     {
         self.variant = std::option::Option::Some(v.into());
         self
@@ -3895,8 +3735,7 @@ impl UpdateVariantRequest {
 
     /// Sets or clears the value of [variant][crate::model::UpdateVariantRequest::variant].
     pub fn set_or_clear_variant<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Variant>,
+    where T: std::convert::Into<crate::model::Variant>
     {
         self.variant = v.map(|x| x.into());
         self
@@ -3919,6 +3758,7 @@ impl wkt::message::Message for UpdateVariantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteVariantRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3969,14 +3809,14 @@ impl wkt::message::Message for DeleteVariantRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseInfo {
+
     /// Output only. path to the oci image the service uploads to on a `Release`
     /// creation.
     pub oci_image_path: std::string::String,
 
     /// Optional. per-variant paths to the oci images the service uploads on
     /// package release creation
-    pub variant_oci_image_paths:
-        std::collections::HashMap<std::string::String, std::string::String>,
+    pub variant_oci_image_paths: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4015,6 +3855,7 @@ impl wkt::message::Message for ReleaseInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesRequest {
+
     /// Required. Parent value for ListReleasesRequest.
     pub parent: std::string::String,
 
@@ -4080,6 +3921,7 @@ impl wkt::message::Message for ListReleasesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleasesResponse {
+
     /// The list of Releases
     pub releases: std::vec::Vec<crate::model::Release>,
 
@@ -4101,7 +3943,7 @@ impl ListReleasesResponse {
     pub fn set_releases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Release>,
+        V: std::convert::Into<crate::model::Release>
     {
         use std::iter::Iterator;
         self.releases = v.into_iter().map(|i| i.into()).collect();
@@ -4118,7 +3960,7 @@ impl ListReleasesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4150,6 +3992,7 @@ impl gax::paginator::internal::PageableResponse for ListReleasesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReleaseRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4178,6 +4021,7 @@ impl wkt::message::Message for GetReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReleaseRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -4226,8 +4070,7 @@ impl CreateReleaseRequest {
 
     /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
     pub fn set_release<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = std::option::Option::Some(v.into());
         self
@@ -4235,8 +4078,7 @@ impl CreateReleaseRequest {
 
     /// Sets or clears the value of [release][crate::model::CreateReleaseRequest::release].
     pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = v.map(|x| x.into());
         self
@@ -4259,6 +4101,7 @@ impl wkt::message::Message for CreateReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReleaseRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// Release resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -4294,8 +4137,7 @@ impl UpdateReleaseRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateReleaseRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4303,8 +4145,7 @@ impl UpdateReleaseRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReleaseRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4312,8 +4153,7 @@ impl UpdateReleaseRequest {
 
     /// Sets the value of [release][crate::model::UpdateReleaseRequest::release].
     pub fn set_release<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = std::option::Option::Some(v.into());
         self
@@ -4321,8 +4161,7 @@ impl UpdateReleaseRequest {
 
     /// Sets or clears the value of [release][crate::model::UpdateReleaseRequest::release].
     pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Release>,
+    where T: std::convert::Into<crate::model::Release>
     {
         self.release = v.map(|x| x.into());
         self
@@ -4345,6 +4184,7 @@ impl wkt::message::Message for UpdateReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReleaseRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4405,6 +4245,7 @@ impl wkt::message::Message for DeleteReleaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsRequest {
+
     /// Required. Parent value for ListRolloutsRequest
     pub parent: std::string::String,
 
@@ -4470,6 +4311,7 @@ impl wkt::message::Message for ListRolloutsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRolloutsResponse {
+
     /// The list of Rollouts
     pub rollouts: std::vec::Vec<crate::model::Rollout>,
 
@@ -4491,7 +4333,7 @@ impl ListRolloutsResponse {
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Rollout>,
+        V: std::convert::Into<crate::model::Rollout>
     {
         use std::iter::Iterator;
         self.rollouts = v.into_iter().map(|i| i.into()).collect();
@@ -4508,7 +4350,7 @@ impl ListRolloutsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4540,6 +4382,7 @@ impl gax::paginator::internal::PageableResponse for ListRolloutsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRolloutRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -4569,6 +4412,7 @@ impl wkt::message::Message for GetRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RolloutInfo {
+
     /// Output only. state contains the overall status of the Rollout.
     pub state: crate::model::rollout_info::State,
 
@@ -4595,18 +4439,14 @@ impl RolloutInfo {
     }
 
     /// Sets the value of [state][crate::model::RolloutInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::rollout_info::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::rollout_info::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::RolloutInfo::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -4614,8 +4454,7 @@ impl RolloutInfo {
 
     /// Sets or clears the value of [start_time][crate::model::RolloutInfo::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -4623,8 +4462,7 @@ impl RolloutInfo {
 
     /// Sets the value of [end_time][crate::model::RolloutInfo::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -4632,8 +4470,7 @@ impl RolloutInfo {
 
     /// Sets or clears the value of [end_time][crate::model::RolloutInfo::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -4647,8 +4484,7 @@ impl RolloutInfo {
 
     /// Sets the value of [rollout_strategy_info][crate::model::RolloutInfo::rollout_strategy_info].
     pub fn set_rollout_strategy_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategyInfo>,
+    where T: std::convert::Into<crate::model::RolloutStrategyInfo>
     {
         self.rollout_strategy_info = std::option::Option::Some(v.into());
         self
@@ -4656,8 +4492,7 @@ impl RolloutInfo {
 
     /// Sets or clears the value of [rollout_strategy_info][crate::model::RolloutInfo::rollout_strategy_info].
     pub fn set_or_clear_rollout_strategy_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategyInfo>,
+    where T: std::convert::Into<crate::model::RolloutStrategyInfo>
     {
         self.rollout_strategy_info = v.map(|x| x.into());
         self
@@ -4674,6 +4509,7 @@ impl wkt::message::Message for RolloutInfo {
 pub mod rollout_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State of the rollout
     ///
@@ -4786,9 +4622,7 @@ pub mod rollout_info {
                 6 => Self::Stalled,
                 7 => Self::Cancelled,
                 8 => Self::Aborting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4805,9 +4639,7 @@ pub mod rollout_info {
                 "STALLED" => Self::Stalled,
                 "CANCELLED" => Self::Cancelled,
                 "ABORTING" => Self::Aborting,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4837,8 +4669,7 @@ pub mod rollout_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.configdelivery.v1.RolloutInfo.State",
-            ))
+                ".google.cloud.configdelivery.v1.RolloutInfo.State"))
         }
     }
 }
@@ -4850,6 +4681,7 @@ pub mod rollout_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Rollout {
+
     /// Identifier. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/fleetPackages/{fleet_package}/rollouts/[a-z][a-z0-9\-]{0,62}`.
     pub name: std::string::String,
@@ -4894,8 +4726,7 @@ impl Rollout {
 
     /// Sets the value of [rollout_strategy][crate::model::Rollout::rollout_strategy].
     pub fn set_rollout_strategy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategy>,
+    where T: std::convert::Into<crate::model::RolloutStrategy>
     {
         self.rollout_strategy = std::option::Option::Some(v.into());
         self
@@ -4903,8 +4734,7 @@ impl Rollout {
 
     /// Sets or clears the value of [rollout_strategy][crate::model::Rollout::rollout_strategy].
     pub fn set_or_clear_rollout_strategy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutStrategy>,
+    where T: std::convert::Into<crate::model::RolloutStrategy>
     {
         self.rollout_strategy = v.map(|x| x.into());
         self
@@ -4912,8 +4742,7 @@ impl Rollout {
 
     /// Sets the value of [info][crate::model::Rollout::info].
     pub fn set_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutInfo>,
+    where T: std::convert::Into<crate::model::RolloutInfo>
     {
         self.info = std::option::Option::Some(v.into());
         self
@@ -4921,28 +4750,21 @@ impl Rollout {
 
     /// Sets or clears the value of [info][crate::model::Rollout::info].
     pub fn set_or_clear_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RolloutInfo>,
+    where T: std::convert::Into<crate::model::RolloutInfo>
     {
         self.info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [deletion_propagation_policy][crate::model::Rollout::deletion_propagation_policy].
-    pub fn set_deletion_propagation_policy<
-        T: std::convert::Into<crate::model::DeletionPropagationPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_deletion_propagation_policy<T: std::convert::Into<crate::model::DeletionPropagationPolicy>>(mut self, v: T) -> Self {
         self.deletion_propagation_policy = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Rollout::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4950,8 +4772,7 @@ impl Rollout {
 
     /// Sets or clears the value of [create_time][crate::model::Rollout::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4959,8 +4780,7 @@ impl Rollout {
 
     /// Sets the value of [update_time][crate::model::Rollout::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4968,8 +4788,7 @@ impl Rollout {
 
     /// Sets or clears the value of [update_time][crate::model::Rollout::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4986,6 +4805,7 @@ impl wkt::message::Message for Rollout {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SuspendRolloutRequest {
+
     /// Required. Name of the Rollout.
     pub name: std::string::String,
 
@@ -5023,6 +4843,7 @@ impl wkt::message::Message for SuspendRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResumeRolloutRequest {
+
     /// Required. Name of the Rollout.
     pub name: std::string::String,
 
@@ -5060,6 +4881,7 @@ impl wkt::message::Message for ResumeRolloutRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AbortRolloutRequest {
+
     /// Required. Name of the Rollout.
     pub name: std::string::String,
 
@@ -5156,9 +4978,7 @@ impl DeletionPropagationPolicy {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("DELETION_PROPAGATION_POLICY_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("DELETION_PROPAGATION_POLICY_UNSPECIFIED"),
             Self::Foreground => std::option::Option::Some("FOREGROUND"),
             Self::Orphan => std::option::Option::Some("ORPHAN"),
             Self::UnknownValue(u) => u.0.name(),
@@ -5185,9 +5005,7 @@ impl std::convert::From<i32> for DeletionPropagationPolicy {
             0 => Self::Unspecified,
             1 => Self::Foreground,
             2 => Self::Orphan,
-            _ => Self::UnknownValue(deletion_propagation_policy::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(deletion_propagation_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -5199,9 +5017,7 @@ impl std::convert::From<&str> for DeletionPropagationPolicy {
             "DELETION_PROPAGATION_POLICY_UNSPECIFIED" => Self::Unspecified,
             "FOREGROUND" => Self::Foreground,
             "ORPHAN" => Self::Orphan,
-            _ => Self::UnknownValue(deletion_propagation_policy::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(deletion_propagation_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5225,10 +5041,7 @@ impl<'de> serde::de::Deserialize<'de> for DeletionPropagationPolicy {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<DeletionPropagationPolicy>::new(
-                ".google.cloud.configdelivery.v1.DeletionPropagationPolicy",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeletionPropagationPolicy>::new(
+            ".google.cloud.configdelivery.v1.DeletionPropagationPolicy"))
     }
 }

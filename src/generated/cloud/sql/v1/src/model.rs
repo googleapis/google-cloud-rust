@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -38,6 +38,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlBackupRunsDeleteRequest {
+
     /// The ID of the backup run to delete. To find a backup run ID, use the
     /// [list](https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1/backupRuns/list)
     /// method.
@@ -86,6 +87,7 @@ impl wkt::message::Message for SqlBackupRunsDeleteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlBackupRunsGetRequest {
+
     /// The ID of this backup run.
     pub id: i64,
 
@@ -132,6 +134,7 @@ impl wkt::message::Message for SqlBackupRunsGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlBackupRunsInsertRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -162,8 +165,7 @@ impl SqlBackupRunsInsertRequest {
 
     /// Sets the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupRun>,
+    where T: std::convert::Into<crate::model::BackupRun>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -171,8 +173,7 @@ impl SqlBackupRunsInsertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupRun>,
+    where T: std::convert::Into<crate::model::BackupRun>
     {
         self.body = v.map(|x| x.into());
         self
@@ -189,6 +190,7 @@ impl wkt::message::Message for SqlBackupRunsInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlBackupRunsListRequest {
+
     /// Cloud SQL instance ID, or "-" for all instances. This does not include
     /// the project ID.
     pub instance: std::string::String,
@@ -246,6 +248,7 @@ impl wkt::message::Message for SqlBackupRunsListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupRun {
+
     /// This is always `sql#backupRun`.
     pub kind: std::string::String,
 
@@ -298,8 +301,7 @@ pub struct BackupRun {
     pub location: std::string::String,
 
     /// Encryption configuration specific to a backup.
-    pub disk_encryption_configuration:
-        std::option::Option<crate::model::DiskEncryptionConfiguration>,
+    pub disk_encryption_configuration: std::option::Option<crate::model::DiskEncryptionConfiguration>,
 
     /// Encryption status specific to a backup.
     pub disk_encryption_status: std::option::Option<crate::model::DiskEncryptionStatus>,
@@ -329,18 +331,14 @@ impl BackupRun {
     }
 
     /// Sets the value of [status][crate::model::BackupRun::status].
-    pub fn set_status<T: std::convert::Into<crate::model::SqlBackupRunStatus>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::SqlBackupRunStatus>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [enqueued_time][crate::model::BackupRun::enqueued_time].
     pub fn set_enqueued_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.enqueued_time = std::option::Option::Some(v.into());
         self
@@ -348,8 +346,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [enqueued_time][crate::model::BackupRun::enqueued_time].
     pub fn set_or_clear_enqueued_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.enqueued_time = v.map(|x| x.into());
         self
@@ -363,8 +360,7 @@ impl BackupRun {
 
     /// Sets the value of [start_time][crate::model::BackupRun::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -372,8 +368,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [start_time][crate::model::BackupRun::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -381,8 +376,7 @@ impl BackupRun {
 
     /// Sets the value of [end_time][crate::model::BackupRun::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -390,8 +384,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [end_time][crate::model::BackupRun::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -399,8 +392,7 @@ impl BackupRun {
 
     /// Sets the value of [error][crate::model::BackupRun::error].
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationError>,
+    where T: std::convert::Into<crate::model::OperationError>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -408,8 +400,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [error][crate::model::BackupRun::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationError>,
+    where T: std::convert::Into<crate::model::OperationError>
     {
         self.error = v.map(|x| x.into());
         self
@@ -429,8 +420,7 @@ impl BackupRun {
 
     /// Sets the value of [window_start_time][crate::model::BackupRun::window_start_time].
     pub fn set_window_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.window_start_time = std::option::Option::Some(v.into());
         self
@@ -438,8 +428,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [window_start_time][crate::model::BackupRun::window_start_time].
     pub fn set_or_clear_window_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.window_start_time = v.map(|x| x.into());
         self
@@ -465,20 +454,15 @@ impl BackupRun {
 
     /// Sets the value of [disk_encryption_configuration][crate::model::BackupRun::disk_encryption_configuration].
     pub fn set_disk_encryption_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
+    where T: std::convert::Into<crate::model::DiskEncryptionConfiguration>
     {
         self.disk_encryption_configuration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [disk_encryption_configuration][crate::model::BackupRun::disk_encryption_configuration].
-    pub fn set_or_clear_disk_encryption_configuration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
+    pub fn set_or_clear_disk_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::DiskEncryptionConfiguration>
     {
         self.disk_encryption_configuration = v.map(|x| x.into());
         self
@@ -486,8 +470,7 @@ impl BackupRun {
 
     /// Sets the value of [disk_encryption_status][crate::model::BackupRun::disk_encryption_status].
     pub fn set_disk_encryption_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionStatus>,
+    where T: std::convert::Into<crate::model::DiskEncryptionStatus>
     {
         self.disk_encryption_status = std::option::Option::Some(v.into());
         self
@@ -495,18 +478,14 @@ impl BackupRun {
 
     /// Sets or clears the value of [disk_encryption_status][crate::model::BackupRun::disk_encryption_status].
     pub fn set_or_clear_disk_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionStatus>,
+    where T: std::convert::Into<crate::model::DiskEncryptionStatus>
     {
         self.disk_encryption_status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [backup_kind][crate::model::BackupRun::backup_kind].
-    pub fn set_backup_kind<T: std::convert::Into<crate::model::SqlBackupKind>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backup_kind<T: std::convert::Into<crate::model::SqlBackupKind>>(mut self, v: T) -> Self {
         self.backup_kind = v.into();
         self
     }
@@ -519,8 +498,7 @@ impl BackupRun {
 
     /// Sets the value of [max_chargeable_bytes][crate::model::BackupRun::max_chargeable_bytes].
     pub fn set_max_chargeable_bytes<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_chargeable_bytes = std::option::Option::Some(v.into());
         self
@@ -528,8 +506,7 @@ impl BackupRun {
 
     /// Sets or clears the value of [max_chargeable_bytes][crate::model::BackupRun::max_chargeable_bytes].
     pub fn set_or_clear_max_chargeable_bytes<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.max_chargeable_bytes = v.map(|x| x.into());
         self
@@ -546,6 +523,7 @@ impl wkt::message::Message for BackupRun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupRunsListResponse {
+
     /// This is always `sql#backupRunsList`.
     pub kind: std::string::String,
 
@@ -574,7 +552,7 @@ impl BackupRunsListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BackupRun>,
+        V: std::convert::Into<crate::model::BackupRun>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -612,6 +590,7 @@ impl gax::paginator::internal::PageableResponse for BackupRunsListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConnectSettingsRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -644,8 +623,7 @@ impl GetConnectSettingsRequest {
 
     /// Sets the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
     pub fn set_read_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.read_time = std::option::Option::Some(v.into());
         self
@@ -653,8 +631,7 @@ impl GetConnectSettingsRequest {
 
     /// Sets or clears the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.read_time = v.map(|x| x.into());
         self
@@ -671,6 +648,7 @@ impl wkt::message::Message for GetConnectSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectSettings {
+
     /// This is always `sql#connectSettings`.
     pub kind: std::string::String,
 
@@ -728,8 +706,7 @@ impl ConnectSettings {
 
     /// Sets the value of [server_ca_cert][crate::model::ConnectSettings::server_ca_cert].
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = std::option::Option::Some(v.into());
         self
@@ -737,8 +714,7 @@ impl ConnectSettings {
 
     /// Sets or clears the value of [server_ca_cert][crate::model::ConnectSettings::server_ca_cert].
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = v.map(|x| x.into());
         self
@@ -748,7 +724,7 @@ impl ConnectSettings {
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IpMapping>,
+        V: std::convert::Into<crate::model::IpMapping>
     {
         use std::iter::Iterator;
         self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -762,19 +738,13 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [database_version][crate::model::ConnectSettings::database_version].
-    pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(mut self, v: T) -> Self {
         self.database_version = v.into();
         self
     }
 
     /// Sets the value of [backend_type][crate::model::ConnectSettings::backend_type].
-    pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(mut self, v: T) -> Self {
         self.backend_type = v.into();
         self
     }
@@ -792,10 +762,7 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [server_ca_mode][crate::model::ConnectSettings::server_ca_mode].
-    pub fn set_server_ca_mode<T: std::convert::Into<crate::model::connect_settings::CaMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_server_ca_mode<T: std::convert::Into<crate::model::connect_settings::CaMode>>(mut self, v: T) -> Self {
         self.server_ca_mode = v.into();
         self
     }
@@ -811,6 +778,7 @@ impl wkt::message::Message for ConnectSettings {
 pub mod connect_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Various Certificate Authority (CA) modes for certificate signing.
     ///
@@ -873,9 +841,7 @@ pub mod connect_settings {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("CA_MODE_UNSPECIFIED"),
-                Self::GoogleManagedInternalCa => {
-                    std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA")
-                }
+                Self::GoogleManagedInternalCa => std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA"),
                 Self::GoogleManagedCasCa => std::option::Option::Some("GOOGLE_MANAGED_CAS_CA"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -901,9 +867,7 @@ pub mod connect_settings {
                 0 => Self::Unspecified,
                 1 => Self::GoogleManagedInternalCa,
                 2 => Self::GoogleManagedCasCa,
-                _ => Self::UnknownValue(ca_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -915,9 +879,7 @@ pub mod connect_settings {
                 "CA_MODE_UNSPECIFIED" => Self::Unspecified,
                 "GOOGLE_MANAGED_INTERNAL_CA" => Self::GoogleManagedInternalCa,
                 "GOOGLE_MANAGED_CAS_CA" => Self::GoogleManagedCasCa,
-                _ => Self::UnknownValue(ca_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -942,8 +904,7 @@ pub mod connect_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CaMode>::new(
-                ".google.cloud.sql.v1.ConnectSettings.CaMode",
-            ))
+                ".google.cloud.sql.v1.ConnectSettings.CaMode"))
         }
     }
 }
@@ -952,6 +913,7 @@ pub mod connect_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateEphemeralCertRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1005,8 +967,7 @@ impl GenerateEphemeralCertRequest {
 
     /// Sets the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
     pub fn set_read_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.read_time = std::option::Option::Some(v.into());
         self
@@ -1014,8 +975,7 @@ impl GenerateEphemeralCertRequest {
 
     /// Sets or clears the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.read_time = v.map(|x| x.into());
         self
@@ -1023,8 +983,7 @@ impl GenerateEphemeralCertRequest {
 
     /// Sets the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
     pub fn set_valid_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.valid_duration = std::option::Option::Some(v.into());
         self
@@ -1032,8 +991,7 @@ impl GenerateEphemeralCertRequest {
 
     /// Sets or clears the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
     pub fn set_or_clear_valid_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.valid_duration = v.map(|x| x.into());
         self
@@ -1050,6 +1008,7 @@ impl wkt::message::Message for GenerateEphemeralCertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateEphemeralCertResponse {
+
     /// Generated cert
     pub ephemeral_cert: std::option::Option<crate::model::SslCert>,
 
@@ -1063,8 +1022,7 @@ impl GenerateEphemeralCertResponse {
 
     /// Sets the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
     pub fn set_ephemeral_cert<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.ephemeral_cert = std::option::Option::Some(v.into());
         self
@@ -1072,8 +1030,7 @@ impl GenerateEphemeralCertResponse {
 
     /// Sets or clears the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
     pub fn set_or_clear_ephemeral_cert<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.ephemeral_cert = v.map(|x| x.into());
         self
@@ -1090,6 +1047,7 @@ impl wkt::message::Message for GenerateEphemeralCertResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabasesDeleteRequest {
+
     /// Name of the database to be deleted in the instance.
     pub database: std::string::String,
 
@@ -1136,6 +1094,7 @@ impl wkt::message::Message for SqlDatabasesDeleteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabasesGetRequest {
+
     /// Name of the database in the instance.
     pub database: std::string::String,
 
@@ -1182,6 +1141,7 @@ impl wkt::message::Message for SqlDatabasesGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabasesInsertRequest {
+
     /// Database instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1212,8 +1172,7 @@ impl SqlDatabasesInsertRequest {
 
     /// Sets the value of [body][crate::model::SqlDatabasesInsertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1221,8 +1180,7 @@ impl SqlDatabasesInsertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlDatabasesInsertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1239,6 +1197,7 @@ impl wkt::message::Message for SqlDatabasesInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabasesListRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1276,6 +1235,7 @@ impl wkt::message::Message for SqlDatabasesListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlDatabasesUpdateRequest {
+
     /// Name of the database to be updated in the instance.
     pub database: std::string::String,
 
@@ -1315,8 +1275,7 @@ impl SqlDatabasesUpdateRequest {
 
     /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1324,8 +1283,7 @@ impl SqlDatabasesUpdateRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Database>,
+    where T: std::convert::Into<crate::model::Database>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1342,6 +1300,7 @@ impl wkt::message::Message for SqlDatabasesUpdateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabasesListResponse {
+
     /// This is always `sql#databasesList`.
     pub kind: std::string::String,
 
@@ -1366,7 +1325,7 @@ impl DatabasesListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Database>,
+        V: std::convert::Into<crate::model::Database>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -1384,6 +1343,7 @@ impl wkt::message::Message for DatabasesListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlFlagsListRequest {
+
     /// Database type and version you want to retrieve flags for. By default, this
     /// method returns flags for all database types and versions.
     pub database_version: std::string::String,
@@ -1397,10 +1357,7 @@ impl SqlFlagsListRequest {
     }
 
     /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
-    pub fn set_database_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_version = v.into();
         self
     }
@@ -1416,6 +1373,7 @@ impl wkt::message::Message for SqlFlagsListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlagsListResponse {
+
     /// This is always `sql#flagsList`.
     pub kind: std::string::String,
 
@@ -1440,7 +1398,7 @@ impl FlagsListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Flag>,
+        V: std::convert::Into<crate::model::Flag>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -1458,6 +1416,7 @@ impl wkt::message::Message for FlagsListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Flag {
+
     /// This is the name of the flag. Flag names always use underscores, not
     /// hyphens, for example: `max_allowed_packet`
     pub name: std::string::String,
@@ -1526,7 +1485,7 @@ impl Flag {
     pub fn set_applies_to<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlDatabaseVersion>,
+        V: std::convert::Into<crate::model::SqlDatabaseVersion>
     {
         use std::iter::Iterator;
         self.applies_to = v.into_iter().map(|i| i.into()).collect();
@@ -1537,7 +1496,7 @@ impl Flag {
     pub fn set_allowed_string_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_string_values = v.into_iter().map(|i| i.into()).collect();
@@ -1546,8 +1505,7 @@ impl Flag {
 
     /// Sets the value of [min_value][crate::model::Flag::min_value].
     pub fn set_min_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.min_value = std::option::Option::Some(v.into());
         self
@@ -1555,8 +1513,7 @@ impl Flag {
 
     /// Sets or clears the value of [min_value][crate::model::Flag::min_value].
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.min_value = v.map(|x| x.into());
         self
@@ -1564,8 +1521,7 @@ impl Flag {
 
     /// Sets the value of [max_value][crate::model::Flag::max_value].
     pub fn set_max_value<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.max_value = std::option::Option::Some(v.into());
         self
@@ -1573,8 +1529,7 @@ impl Flag {
 
     /// Sets or clears the value of [max_value][crate::model::Flag::max_value].
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.max_value = v.map(|x| x.into());
         self
@@ -1582,8 +1537,7 @@ impl Flag {
 
     /// Sets the value of [requires_restart][crate::model::Flag::requires_restart].
     pub fn set_requires_restart<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.requires_restart = std::option::Option::Some(v.into());
         self
@@ -1591,8 +1545,7 @@ impl Flag {
 
     /// Sets or clears the value of [requires_restart][crate::model::Flag::requires_restart].
     pub fn set_or_clear_requires_restart<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.requires_restart = v.map(|x| x.into());
         self
@@ -1606,8 +1559,7 @@ impl Flag {
 
     /// Sets the value of [in_beta][crate::model::Flag::in_beta].
     pub fn set_in_beta<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.in_beta = std::option::Option::Some(v.into());
         self
@@ -1615,8 +1567,7 @@ impl Flag {
 
     /// Sets or clears the value of [in_beta][crate::model::Flag::in_beta].
     pub fn set_or_clear_in_beta<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.in_beta = v.map(|x| x.into());
         self
@@ -1626,7 +1577,7 @@ impl Flag {
     pub fn set_allowed_int_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<i64>,
+        V: std::convert::Into<i64>
     {
         use std::iter::Iterator;
         self.allowed_int_values = v.into_iter().map(|i| i.into()).collect();
@@ -1644,6 +1595,7 @@ impl wkt::message::Message for Flag {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesAddServerCaRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1681,6 +1633,7 @@ impl wkt::message::Message for SqlInstancesAddServerCaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesCloneRequest {
+
     /// The ID of the Cloud SQL instance to be cloned (source). This does not
     /// include the project ID.
     pub instance: std::string::String,
@@ -1712,8 +1665,7 @@ impl SqlInstancesCloneRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesCloneRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesCloneRequest>,
+    where T: std::convert::Into<crate::model::InstancesCloneRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1721,8 +1673,7 @@ impl SqlInstancesCloneRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesCloneRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesCloneRequest>,
+    where T: std::convert::Into<crate::model::InstancesCloneRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1739,6 +1690,7 @@ impl wkt::message::Message for SqlInstancesCloneRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesDeleteRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1776,6 +1728,7 @@ impl wkt::message::Message for SqlInstancesDeleteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesDemoteMasterRequest {
+
     /// Cloud SQL instance name.
     pub instance: std::string::String,
 
@@ -1806,8 +1759,7 @@ impl SqlInstancesDemoteMasterRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
+    where T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1815,8 +1767,7 @@ impl SqlInstancesDemoteMasterRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
+    where T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1833,6 +1784,7 @@ impl wkt::message::Message for SqlInstancesDemoteMasterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesDemoteRequest {
+
     /// Required. Cloud SQL instance name.
     pub instance: std::string::String,
 
@@ -1864,8 +1816,7 @@ impl SqlInstancesDemoteRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesDemoteRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesDemoteRequest>,
+    where T: std::convert::Into<crate::model::InstancesDemoteRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1873,8 +1824,7 @@ impl SqlInstancesDemoteRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesDemoteRequest>,
+    where T: std::convert::Into<crate::model::InstancesDemoteRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1891,6 +1841,7 @@ impl wkt::message::Message for SqlInstancesDemoteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesExportRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1921,8 +1872,7 @@ impl SqlInstancesExportRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesExportRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesExportRequest>,
+    where T: std::convert::Into<crate::model::InstancesExportRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1930,8 +1880,7 @@ impl SqlInstancesExportRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesExportRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesExportRequest>,
+    where T: std::convert::Into<crate::model::InstancesExportRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -1948,6 +1897,7 @@ impl wkt::message::Message for SqlInstancesExportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesFailoverRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -1978,8 +1928,7 @@ impl SqlInstancesFailoverRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesFailoverRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesFailoverRequest>,
+    where T: std::convert::Into<crate::model::InstancesFailoverRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -1987,8 +1936,7 @@ impl SqlInstancesFailoverRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesFailoverRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesFailoverRequest>,
+    where T: std::convert::Into<crate::model::InstancesFailoverRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2005,6 +1953,7 @@ impl wkt::message::Message for SqlInstancesFailoverRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesGetRequest {
+
     /// Database instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2042,6 +1991,7 @@ impl wkt::message::Message for SqlInstancesGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesImportRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2072,8 +2022,7 @@ impl SqlInstancesImportRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesImportRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesImportRequest>,
+    where T: std::convert::Into<crate::model::InstancesImportRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2081,8 +2030,7 @@ impl SqlInstancesImportRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesImportRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesImportRequest>,
+    where T: std::convert::Into<crate::model::InstancesImportRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2099,6 +2047,7 @@ impl wkt::message::Message for SqlInstancesImportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesInsertRequest {
+
     /// Project ID of the project to which the newly created Cloud SQL instances
     /// should belong.
     pub project: std::string::String,
@@ -2121,8 +2070,7 @@ impl SqlInstancesInsertRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesInsertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2130,8 +2078,7 @@ impl SqlInstancesInsertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesInsertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2148,6 +2095,7 @@ impl wkt::message::Message for SqlInstancesInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesListRequest {
+
     /// A filter expression that filters resources listed in the response.
     /// The expression is in the form of field:value. For example,
     /// 'instanceType:CLOUD_SQL_INSTANCE'. Fields can be nested as needed as per
@@ -2215,6 +2163,7 @@ impl wkt::message::Message for SqlInstancesListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesListServerCasRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2252,6 +2201,7 @@ impl wkt::message::Message for SqlInstancesListServerCasRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesPatchRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2282,8 +2232,7 @@ impl SqlInstancesPatchRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesPatchRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2291,8 +2240,7 @@ impl SqlInstancesPatchRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesPatchRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2309,6 +2257,7 @@ impl wkt::message::Message for SqlInstancesPatchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesPromoteReplicaRequest {
+
     /// Cloud SQL read replica instance name.
     pub instance: std::string::String,
 
@@ -2361,6 +2310,7 @@ impl wkt::message::Message for SqlInstancesPromoteReplicaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesSwitchoverRequest {
+
     /// Cloud SQL read replica instance name.
     pub instance: std::string::String,
 
@@ -2394,8 +2344,7 @@ impl SqlInstancesSwitchoverRequest {
 
     /// Sets the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
     pub fn set_db_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.db_timeout = std::option::Option::Some(v.into());
         self
@@ -2403,8 +2352,7 @@ impl SqlInstancesSwitchoverRequest {
 
     /// Sets or clears the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
     pub fn set_or_clear_db_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.db_timeout = v.map(|x| x.into());
         self
@@ -2421,6 +2369,7 @@ impl wkt::message::Message for SqlInstancesSwitchoverRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesResetSslConfigRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2458,6 +2407,7 @@ impl wkt::message::Message for SqlInstancesResetSslConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesRestartRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2495,6 +2445,7 @@ impl wkt::message::Message for SqlInstancesRestartRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesRestoreBackupRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2525,8 +2476,7 @@ impl SqlInstancesRestoreBackupRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
+    where T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2534,8 +2484,7 @@ impl SqlInstancesRestoreBackupRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
+    where T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2552,6 +2501,7 @@ impl wkt::message::Message for SqlInstancesRestoreBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesRotateServerCaRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2582,8 +2532,7 @@ impl SqlInstancesRotateServerCaRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
+    where T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2591,8 +2540,7 @@ impl SqlInstancesRotateServerCaRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
+    where T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2609,6 +2557,7 @@ impl wkt::message::Message for SqlInstancesRotateServerCaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesStartReplicaRequest {
+
     /// Cloud SQL read replica instance name.
     pub instance: std::string::String,
 
@@ -2646,6 +2595,7 @@ impl wkt::message::Message for SqlInstancesStartReplicaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesStopReplicaRequest {
+
     /// Cloud SQL read replica instance name.
     pub instance: std::string::String,
 
@@ -2683,6 +2633,7 @@ impl wkt::message::Message for SqlInstancesStopReplicaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesTruncateLogRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2713,8 +2664,7 @@ impl SqlInstancesTruncateLogRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
+    where T: std::convert::Into<crate::model::InstancesTruncateLogRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2722,8 +2672,7 @@ impl SqlInstancesTruncateLogRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
+    where T: std::convert::Into<crate::model::InstancesTruncateLogRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2740,6 +2689,7 @@ impl wkt::message::Message for SqlInstancesTruncateLogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesPerformDiskShrinkRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2771,8 +2721,7 @@ impl SqlInstancesPerformDiskShrinkRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
+    where T: std::convert::Into<crate::model::PerformDiskShrinkContext>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2780,8 +2729,7 @@ impl SqlInstancesPerformDiskShrinkRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
+    where T: std::convert::Into<crate::model::PerformDiskShrinkContext>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2798,6 +2746,7 @@ impl wkt::message::Message for SqlInstancesPerformDiskShrinkRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesUpdateRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2828,8 +2777,7 @@ impl SqlInstancesUpdateRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesUpdateRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2837,8 +2785,7 @@ impl SqlInstancesUpdateRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesUpdateRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatabaseInstance>,
+    where T: std::convert::Into<crate::model::DatabaseInstance>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2855,6 +2802,7 @@ impl wkt::message::Message for SqlInstancesUpdateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesRescheduleMaintenanceRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2885,8 +2833,7 @@ impl SqlInstancesRescheduleMaintenanceRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
+    where T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2894,8 +2841,7 @@ impl SqlInstancesRescheduleMaintenanceRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
+    where T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2912,6 +2858,7 @@ impl wkt::message::Message for SqlInstancesRescheduleMaintenanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesReencryptRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -2943,8 +2890,7 @@ impl SqlInstancesReencryptRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesReencryptRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesReencryptRequest>,
+    where T: std::convert::Into<crate::model::InstancesReencryptRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -2952,8 +2898,7 @@ impl SqlInstancesReencryptRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesReencryptRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesReencryptRequest>,
+    where T: std::convert::Into<crate::model::InstancesReencryptRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -2970,6 +2915,7 @@ impl wkt::message::Message for SqlInstancesReencryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesReencryptRequest {
+
     /// Configuration specific to backup re-encryption
     pub backup_reencryption_config: std::option::Option<crate::model::BackupReencryptionConfig>,
 
@@ -2983,8 +2929,7 @@ impl InstancesReencryptRequest {
 
     /// Sets the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
     pub fn set_backup_reencryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupReencryptionConfig>,
+    where T: std::convert::Into<crate::model::BackupReencryptionConfig>
     {
         self.backup_reencryption_config = std::option::Option::Some(v.into());
         self
@@ -2992,8 +2937,7 @@ impl InstancesReencryptRequest {
 
     /// Sets or clears the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
     pub fn set_or_clear_backup_reencryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupReencryptionConfig>,
+    where T: std::convert::Into<crate::model::BackupReencryptionConfig>
     {
         self.backup_reencryption_config = v.map(|x| x.into());
         self
@@ -3010,6 +2954,7 @@ impl wkt::message::Message for InstancesReencryptRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupReencryptionConfig {
+
     /// Backup re-encryption limit
     pub backup_limit: std::option::Option<i32>,
 
@@ -3026,8 +2971,7 @@ impl BackupReencryptionConfig {
 
     /// Sets the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
     pub fn set_backup_limit<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.backup_limit = std::option::Option::Some(v.into());
         self
@@ -3035,8 +2979,7 @@ impl BackupReencryptionConfig {
 
     /// Sets or clears the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
     pub fn set_or_clear_backup_limit<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.backup_limit = v.map(|x| x.into());
         self
@@ -3044,8 +2987,7 @@ impl BackupReencryptionConfig {
 
     /// Sets the value of [backup_type][crate::model::BackupReencryptionConfig::backup_type].
     pub fn set_backup_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>,
+    where T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>
     {
         self.backup_type = std::option::Option::Some(v.into());
         self
@@ -3053,8 +2995,7 @@ impl BackupReencryptionConfig {
 
     /// Sets or clears the value of [backup_type][crate::model::BackupReencryptionConfig::backup_type].
     pub fn set_or_clear_backup_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>,
+    where T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>
     {
         self.backup_type = v.map(|x| x.into());
         self
@@ -3071,6 +3012,7 @@ impl wkt::message::Message for BackupReencryptionConfig {
 pub mod backup_reencryption_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Backup type for re-encryption
     ///
@@ -3158,9 +3100,7 @@ pub mod backup_reencryption_config {
                 0 => Self::Unspecified,
                 1 => Self::Automated,
                 2 => Self::OnDemand,
-                _ => Self::UnknownValue(backup_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(backup_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3172,9 +3112,7 @@ pub mod backup_reencryption_config {
                 "BACKUP_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "AUTOMATED" => Self::Automated,
                 "ON_DEMAND" => Self::OnDemand,
-                _ => Self::UnknownValue(backup_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(backup_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3199,8 +3137,7 @@ pub mod backup_reencryption_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackupType>::new(
-                ".google.cloud.sql.v1.BackupReencryptionConfig.BackupType",
-            ))
+                ".google.cloud.sql.v1.BackupReencryptionConfig.BackupType"))
         }
     }
 }
@@ -3209,6 +3146,7 @@ pub mod backup_reencryption_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesGetDiskShrinkConfigRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -3246,6 +3184,7 @@ impl wkt::message::Message for SqlInstancesGetDiskShrinkConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -3256,8 +3195,7 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     pub verify_connection_only: bool,
 
     /// External sync mode
-    pub sync_mode:
-        crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
+    pub sync_mode: crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
     /// Optional. Flag to verify settings required by replication setup only
     pub verify_replication_only: bool,
@@ -3265,16 +3203,13 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
     /// Optional. MigrationType configures the migration to use physical files or
     /// logical dump files. If not set, then the logical dump file configuration is
     /// used. Valid values are `LOGICAL` or `PHYSICAL`. Only applicable to MySQL.
-    pub migration_type:
-        crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
+    pub migration_type: crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
 
     /// Optional. Parallel level for initial data sync. Only applicable for
     /// PostgreSQL.
     pub sync_parallel_level: crate::model::ExternalSyncParallelLevel,
 
-    pub sync_config: std::option::Option<
-        crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig,
-    >,
+    pub sync_config: std::option::Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3303,14 +3238,7 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 
     /// Sets the value of [sync_mode][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_mode].
-    pub fn set_sync_mode<
-        T: std::convert::Into<
-                crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_mode<T: std::convert::Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
         self.sync_mode = v.into();
         self
     }
@@ -3322,25 +3250,13 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 
     /// Sets the value of [migration_type][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::migration_type].
-    pub fn set_migration_type<
-        T: std::convert::Into<
-                crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_migration_type<T: std::convert::Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
         self.migration_type = v.into();
         self
     }
 
     /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_parallel_level].
-    pub fn set_sync_parallel_level<
-        T: std::convert::Into<crate::model::ExternalSyncParallelLevel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_parallel_level<T: std::convert::Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
         self.sync_parallel_level = v.into();
         self
     }
@@ -3349,16 +3265,8 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     ///
     /// Note that all the setters affecting `sync_config` are mutually
     /// exclusive.
-    pub fn set_sync_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>>>(mut self, v: T) -> Self
+    {
         self.sync_config = v.into();
         self
     }
@@ -3366,9 +3274,7 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     /// The value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config]
     /// if it holds a `MysqlSyncConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql_sync_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
+    pub fn mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
         #[allow(unreachable_patterns)]
         self.sync_config.as_ref().and_then(|v| match v {
             crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig::MysqlSyncConfig(v) => std::option::Option::Some(v),
@@ -3381,12 +3287,7 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     ///
     /// Note that all the setters affecting `sync_config` are
     /// mutually exclusive.
-    pub fn set_mysql_sync_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
         self.sync_config = std::option::Option::Some(
             crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig::MysqlSyncConfig(
                 v.into()
@@ -3406,6 +3307,7 @@ impl wkt::message::Message for SqlInstancesVerifyExternalSyncSettingsRequest {
 pub mod sql_instances_verify_external_sync_settings_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -3494,9 +3396,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
                 0 => Self::Unspecified,
                 1 => Self::Online,
                 2 => Self::Offline,
-                _ => Self::UnknownValue(external_sync_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(external_sync_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3508,9 +3408,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
                 "EXTERNAL_SYNC_MODE_UNSPECIFIED" => Self::Unspecified,
                 "ONLINE" => Self::Online,
                 "OFFLINE" => Self::Offline,
-                _ => Self::UnknownValue(external_sync_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(external_sync_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3626,9 +3524,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
                 0 => Self::Unspecified,
                 1 => Self::Logical,
                 2 => Self::Physical,
-                _ => Self::UnknownValue(migration_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(migration_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3640,9 +3536,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
                 "MIGRATION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "LOGICAL" => Self::Logical,
                 "PHYSICAL" => Self::Physical,
-                _ => Self::UnknownValue(migration_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(migration_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3667,8 +3561,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MigrationType>::new(
-                ".google.cloud.sql.v1.SqlInstancesVerifyExternalSyncSettingsRequest.MigrationType",
-            ))
+                ".google.cloud.sql.v1.SqlInstancesVerifyExternalSyncSettingsRequest.MigrationType"))
         }
     }
 
@@ -3684,6 +3577,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesStartExternalSyncRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -3691,8 +3585,7 @@ pub struct SqlInstancesStartExternalSyncRequest {
     pub project: std::string::String,
 
     /// External sync mode.
-    pub sync_mode:
-        crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
+    pub sync_mode: crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
 
     /// Whether to skip the verification step (VESS).
     pub skip_verification: bool,
@@ -3704,11 +3597,9 @@ pub struct SqlInstancesStartExternalSyncRequest {
     /// Optional. MigrationType configures the migration to use physical files or
     /// logical dump files. If not set, then the logical dump file configuration is
     /// used. Valid values are `LOGICAL` or `PHYSICAL`. Only applicable to MySQL.
-    pub migration_type:
-        crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
+    pub migration_type: crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
 
-    pub sync_config:
-        std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>,
+    pub sync_config: std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3731,14 +3622,7 @@ impl SqlInstancesStartExternalSyncRequest {
     }
 
     /// Sets the value of [sync_mode][crate::model::SqlInstancesStartExternalSyncRequest::sync_mode].
-    pub fn set_sync_mode<
-        T: std::convert::Into<
-                crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_mode<T: std::convert::Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
         self.sync_mode = v.into();
         self
     }
@@ -3750,25 +3634,13 @@ impl SqlInstancesStartExternalSyncRequest {
     }
 
     /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesStartExternalSyncRequest::sync_parallel_level].
-    pub fn set_sync_parallel_level<
-        T: std::convert::Into<crate::model::ExternalSyncParallelLevel>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_parallel_level<T: std::convert::Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
         self.sync_parallel_level = v.into();
         self
     }
 
     /// Sets the value of [migration_type][crate::model::SqlInstancesStartExternalSyncRequest::migration_type].
-    pub fn set_migration_type<
-        T: std::convert::Into<
-                crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_migration_type<T: std::convert::Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
         self.migration_type = v.into();
         self
     }
@@ -3777,16 +3649,8 @@ impl SqlInstancesStartExternalSyncRequest {
     ///
     /// Note that all the setters affecting `sync_config` are mutually
     /// exclusive.
-    pub fn set_sync_config<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::sql_instances_start_external_sync_request::SyncConfig,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sync_config<T: std::convert::Into<std::option::Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>>(mut self, v: T) -> Self
+    {
         self.sync_config = v.into();
         self
     }
@@ -3794,9 +3658,7 @@ impl SqlInstancesStartExternalSyncRequest {
     /// The value of [sync_config][crate::model::SqlInstancesStartExternalSyncRequest::sync_config]
     /// if it holds a `MysqlSyncConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn mysql_sync_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
+    pub fn mysql_sync_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::MySqlSyncConfig>> {
         #[allow(unreachable_patterns)]
         self.sync_config.as_ref().and_then(|v| match v {
             crate::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(v) => std::option::Option::Some(v),
@@ -3809,16 +3671,11 @@ impl SqlInstancesStartExternalSyncRequest {
     ///
     /// Note that all the setters affecting `sync_config` are
     /// mutually exclusive.
-    pub fn set_mysql_sync_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
         self.sync_config = std::option::Option::Some(
             crate::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -3835,6 +3692,7 @@ pub mod sql_instances_start_external_sync_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SyncConfig {
@@ -3847,6 +3705,7 @@ pub mod sql_instances_start_external_sync_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesResetReplicaSizeRequest {
+
     /// Cloud SQL read replica instance name.
     pub instance: std::string::String,
 
@@ -3884,6 +3743,7 @@ impl wkt::message::Message for SqlInstancesResetReplicaSizeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesCreateEphemeralCertRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -3914,8 +3774,7 @@ impl SqlInstancesCreateEphemeralCertRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
+    where T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -3923,8 +3782,7 @@ impl SqlInstancesCreateEphemeralCertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
+    where T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -3941,6 +3799,7 @@ impl wkt::message::Message for SqlInstancesCreateEphemeralCertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesCloneRequest {
+
     /// Contains details about the clone operation.
     pub clone_context: std::option::Option<crate::model::CloneContext>,
 
@@ -3954,8 +3813,7 @@ impl InstancesCloneRequest {
 
     /// Sets the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
     pub fn set_clone_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CloneContext>,
+    where T: std::convert::Into<crate::model::CloneContext>
     {
         self.clone_context = std::option::Option::Some(v.into());
         self
@@ -3963,8 +3821,7 @@ impl InstancesCloneRequest {
 
     /// Sets or clears the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
     pub fn set_or_clear_clone_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CloneContext>,
+    where T: std::convert::Into<crate::model::CloneContext>
     {
         self.clone_context = v.map(|x| x.into());
         self
@@ -3981,6 +3838,7 @@ impl wkt::message::Message for InstancesCloneRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesDemoteMasterRequest {
+
     /// Contains details about the demoteMaster operation.
     pub demote_master_context: std::option::Option<crate::model::DemoteMasterContext>,
 
@@ -3994,8 +3852,7 @@ impl InstancesDemoteMasterRequest {
 
     /// Sets the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
     pub fn set_demote_master_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterContext>,
+    where T: std::convert::Into<crate::model::DemoteMasterContext>
     {
         self.demote_master_context = std::option::Option::Some(v.into());
         self
@@ -4003,8 +3860,7 @@ impl InstancesDemoteMasterRequest {
 
     /// Sets or clears the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
     pub fn set_or_clear_demote_master_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterContext>,
+    where T: std::convert::Into<crate::model::DemoteMasterContext>
     {
         self.demote_master_context = v.map(|x| x.into());
         self
@@ -4022,6 +3878,7 @@ impl wkt::message::Message for InstancesDemoteMasterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesDemoteRequest {
+
     /// Required. Contains details about the demote operation.
     pub demote_context: std::option::Option<crate::model::DemoteContext>,
 
@@ -4035,8 +3892,7 @@ impl InstancesDemoteRequest {
 
     /// Sets the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
     pub fn set_demote_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteContext>,
+    where T: std::convert::Into<crate::model::DemoteContext>
     {
         self.demote_context = std::option::Option::Some(v.into());
         self
@@ -4044,8 +3900,7 @@ impl InstancesDemoteRequest {
 
     /// Sets or clears the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
     pub fn set_or_clear_demote_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteContext>,
+    where T: std::convert::Into<crate::model::DemoteContext>
     {
         self.demote_context = v.map(|x| x.into());
         self
@@ -4062,6 +3917,7 @@ impl wkt::message::Message for InstancesDemoteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesExportRequest {
+
     /// Contains details about the export operation.
     pub export_context: std::option::Option<crate::model::ExportContext>,
 
@@ -4075,8 +3931,7 @@ impl InstancesExportRequest {
 
     /// Sets the value of [export_context][crate::model::InstancesExportRequest::export_context].
     pub fn set_export_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportContext>,
+    where T: std::convert::Into<crate::model::ExportContext>
     {
         self.export_context = std::option::Option::Some(v.into());
         self
@@ -4084,8 +3939,7 @@ impl InstancesExportRequest {
 
     /// Sets or clears the value of [export_context][crate::model::InstancesExportRequest::export_context].
     pub fn set_or_clear_export_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportContext>,
+    where T: std::convert::Into<crate::model::ExportContext>
     {
         self.export_context = v.map(|x| x.into());
         self
@@ -4102,6 +3956,7 @@ impl wkt::message::Message for InstancesExportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesFailoverRequest {
+
     /// Failover Context.
     pub failover_context: std::option::Option<crate::model::FailoverContext>,
 
@@ -4115,8 +3970,7 @@ impl InstancesFailoverRequest {
 
     /// Sets the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
     pub fn set_failover_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FailoverContext>,
+    where T: std::convert::Into<crate::model::FailoverContext>
     {
         self.failover_context = std::option::Option::Some(v.into());
         self
@@ -4124,8 +3978,7 @@ impl InstancesFailoverRequest {
 
     /// Sets or clears the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
     pub fn set_or_clear_failover_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FailoverContext>,
+    where T: std::convert::Into<crate::model::FailoverContext>
     {
         self.failover_context = v.map(|x| x.into());
         self
@@ -4142,6 +3995,7 @@ impl wkt::message::Message for InstancesFailoverRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCertsCreateEphemeralRequest {
+
     /// PEM encoded public key to include in the signed certificate.
     pub public_key: std::string::String,
 
@@ -4179,6 +4033,7 @@ impl wkt::message::Message for SslCertsCreateEphemeralRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesImportRequest {
+
     /// Contains details about the import operation.
     pub import_context: std::option::Option<crate::model::ImportContext>,
 
@@ -4192,8 +4047,7 @@ impl InstancesImportRequest {
 
     /// Sets the value of [import_context][crate::model::InstancesImportRequest::import_context].
     pub fn set_import_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportContext>,
+    where T: std::convert::Into<crate::model::ImportContext>
     {
         self.import_context = std::option::Option::Some(v.into());
         self
@@ -4201,8 +4055,7 @@ impl InstancesImportRequest {
 
     /// Sets or clears the value of [import_context][crate::model::InstancesImportRequest::import_context].
     pub fn set_or_clear_import_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportContext>,
+    where T: std::convert::Into<crate::model::ImportContext>
     {
         self.import_context = v.map(|x| x.into());
         self
@@ -4219,6 +4072,7 @@ impl wkt::message::Message for InstancesImportRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesListResponse {
+
     /// This is always `sql#instancesList`.
     pub kind: std::string::String,
 
@@ -4250,7 +4104,7 @@ impl InstancesListResponse {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ApiWarning>,
+        V: std::convert::Into<crate::model::ApiWarning>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -4261,7 +4115,7 @@ impl InstancesListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatabaseInstance>,
+        V: std::convert::Into<crate::model::DatabaseInstance>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -4299,6 +4153,7 @@ impl gax::paginator::internal::PageableResponse for InstancesListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesListServerCasResponse {
+
     /// List of server CA certificates for the instance.
     pub certs: std::vec::Vec<crate::model::SslCert>,
 
@@ -4319,7 +4174,7 @@ impl InstancesListServerCasResponse {
     pub fn set_certs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SslCert>,
+        V: std::convert::Into<crate::model::SslCert>
     {
         use std::iter::Iterator;
         self.certs = v.into_iter().map(|i| i.into()).collect();
@@ -4349,6 +4204,7 @@ impl wkt::message::Message for InstancesListServerCasResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesRestoreBackupRequest {
+
     /// Parameters required to perform the restore backup operation.
     pub restore_backup_context: std::option::Option<crate::model::RestoreBackupContext>,
 
@@ -4362,8 +4218,7 @@ impl InstancesRestoreBackupRequest {
 
     /// Sets the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
     pub fn set_restore_backup_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreBackupContext>,
+    where T: std::convert::Into<crate::model::RestoreBackupContext>
     {
         self.restore_backup_context = std::option::Option::Some(v.into());
         self
@@ -4371,8 +4226,7 @@ impl InstancesRestoreBackupRequest {
 
     /// Sets or clears the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
     pub fn set_or_clear_restore_backup_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RestoreBackupContext>,
+    where T: std::convert::Into<crate::model::RestoreBackupContext>
     {
         self.restore_backup_context = v.map(|x| x.into());
         self
@@ -4389,6 +4243,7 @@ impl wkt::message::Message for InstancesRestoreBackupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesRotateServerCaRequest {
+
     /// Contains details about the rotate server CA operation.
     pub rotate_server_ca_context: std::option::Option<crate::model::RotateServerCaContext>,
 
@@ -4402,8 +4257,7 @@ impl InstancesRotateServerCaRequest {
 
     /// Sets the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
     pub fn set_rotate_server_ca_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RotateServerCaContext>,
+    where T: std::convert::Into<crate::model::RotateServerCaContext>
     {
         self.rotate_server_ca_context = std::option::Option::Some(v.into());
         self
@@ -4411,8 +4265,7 @@ impl InstancesRotateServerCaRequest {
 
     /// Sets or clears the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
     pub fn set_or_clear_rotate_server_ca_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RotateServerCaContext>,
+    where T: std::convert::Into<crate::model::RotateServerCaContext>
     {
         self.rotate_server_ca_context = v.map(|x| x.into());
         self
@@ -4429,6 +4282,7 @@ impl wkt::message::Message for InstancesRotateServerCaRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesTruncateLogRequest {
+
     /// Contains details about the truncate log operation.
     pub truncate_log_context: std::option::Option<crate::model::TruncateLogContext>,
 
@@ -4442,8 +4296,7 @@ impl InstancesTruncateLogRequest {
 
     /// Sets the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
     pub fn set_truncate_log_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncateLogContext>,
+    where T: std::convert::Into<crate::model::TruncateLogContext>
     {
         self.truncate_log_context = std::option::Option::Some(v.into());
         self
@@ -4451,8 +4304,7 @@ impl InstancesTruncateLogRequest {
 
     /// Sets or clears the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
     pub fn set_or_clear_truncate_log_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TruncateLogContext>,
+    where T: std::convert::Into<crate::model::TruncateLogContext>
     {
         self.truncate_log_context = v.map(|x| x.into());
         self
@@ -4469,6 +4321,7 @@ impl wkt::message::Message for InstancesTruncateLogRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstancesAcquireSsrsLeaseRequest {
+
     /// Contains details about the acquire SSRS lease operation.
     pub acquire_ssrs_lease_context: std::option::Option<crate::model::AcquireSsrsLeaseContext>,
 
@@ -4482,8 +4335,7 @@ impl InstancesAcquireSsrsLeaseRequest {
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
     pub fn set_acquire_ssrs_lease_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
+    where T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>
     {
         self.acquire_ssrs_lease_context = std::option::Option::Some(v.into());
         self
@@ -4491,8 +4343,7 @@ impl InstancesAcquireSsrsLeaseRequest {
 
     /// Sets or clears the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
     pub fn set_or_clear_acquire_ssrs_lease_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
+    where T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>
     {
         self.acquire_ssrs_lease_context = v.map(|x| x.into());
         self
@@ -4509,6 +4360,7 @@ impl wkt::message::Message for InstancesAcquireSsrsLeaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesVerifyExternalSyncSettingsResponse {
+
     /// This is always `sql#migrationSettingErrorList`.
     pub kind: std::string::String,
 
@@ -4536,7 +4388,7 @@ impl SqlInstancesVerifyExternalSyncSettingsResponse {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlExternalSyncSettingError>,
+        V: std::convert::Into<crate::model::SqlExternalSyncSettingError>
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -4547,7 +4399,7 @@ impl SqlInstancesVerifyExternalSyncSettingsResponse {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlExternalSyncSettingError>,
+        V: std::convert::Into<crate::model::SqlExternalSyncSettingError>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -4565,6 +4417,7 @@ impl wkt::message::Message for SqlInstancesVerifyExternalSyncSettingsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesGetDiskShrinkConfigResponse {
+
     /// This is always `sql#getDiskShrinkConfig`.
     pub kind: std::string::String,
 
@@ -4611,6 +4464,7 @@ impl wkt::message::Message for SqlInstancesGetDiskShrinkConfigResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesGetLatestRecoveryTimeRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -4648,6 +4502,7 @@ impl wkt::message::Message for SqlInstancesGetLatestRecoveryTimeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesGetLatestRecoveryTimeResponse {
+
     /// This is always `sql#getLatestRecoveryTime`.
     pub kind: std::string::String,
 
@@ -4670,8 +4525,7 @@ impl SqlInstancesGetLatestRecoveryTimeResponse {
 
     /// Sets the value of [latest_recovery_time][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::latest_recovery_time].
     pub fn set_latest_recovery_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.latest_recovery_time = std::option::Option::Some(v.into());
         self
@@ -4679,8 +4533,7 @@ impl SqlInstancesGetLatestRecoveryTimeResponse {
 
     /// Sets or clears the value of [latest_recovery_time][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::latest_recovery_time].
     pub fn set_or_clear_latest_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.latest_recovery_time = v.map(|x| x.into());
         self
@@ -4697,6 +4550,7 @@ impl wkt::message::Message for SqlInstancesGetLatestRecoveryTimeResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloneContext {
+
     /// This is always `sql#cloneContext`.
     pub kind: std::string::String,
 
@@ -4754,18 +4608,14 @@ impl CloneContext {
     }
 
     /// Sets the value of [destination_instance_name][crate::model::CloneContext::destination_instance_name].
-    pub fn set_destination_instance_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_instance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_instance_name = v.into();
         self
     }
 
     /// Sets the value of [bin_log_coordinates][crate::model::CloneContext::bin_log_coordinates].
     pub fn set_bin_log_coordinates<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BinLogCoordinates>,
+    where T: std::convert::Into<crate::model::BinLogCoordinates>
     {
         self.bin_log_coordinates = std::option::Option::Some(v.into());
         self
@@ -4773,8 +4623,7 @@ impl CloneContext {
 
     /// Sets or clears the value of [bin_log_coordinates][crate::model::CloneContext::bin_log_coordinates].
     pub fn set_or_clear_bin_log_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BinLogCoordinates>,
+    where T: std::convert::Into<crate::model::BinLogCoordinates>
     {
         self.bin_log_coordinates = v.map(|x| x.into());
         self
@@ -4782,8 +4631,7 @@ impl CloneContext {
 
     /// Sets the value of [point_in_time][crate::model::CloneContext::point_in_time].
     pub fn set_point_in_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.point_in_time = std::option::Option::Some(v.into());
         self
@@ -4791,18 +4639,14 @@ impl CloneContext {
 
     /// Sets or clears the value of [point_in_time][crate::model::CloneContext::point_in_time].
     pub fn set_or_clear_point_in_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.point_in_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [allocated_ip_range][crate::model::CloneContext::allocated_ip_range].
-    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.allocated_ip_range = v.into();
         self
     }
@@ -4811,7 +4655,7 @@ impl CloneContext {
     pub fn set_database_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.database_names = v.into_iter().map(|i| i.into()).collect();
@@ -4820,8 +4664,7 @@ impl CloneContext {
 
     /// Sets the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
     pub fn set_preferred_zone<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.preferred_zone = std::option::Option::Some(v.into());
         self
@@ -4829,8 +4672,7 @@ impl CloneContext {
 
     /// Sets or clears the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
     pub fn set_or_clear_preferred_zone<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.preferred_zone = v.map(|x| x.into());
         self
@@ -4847,6 +4689,7 @@ impl wkt::message::Message for CloneContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BinLogCoordinates {
+
     /// Name of the binary log file for a Cloud SQL instance.
     pub bin_log_file_name: std::string::String,
 
@@ -4865,10 +4708,7 @@ impl BinLogCoordinates {
     }
 
     /// Sets the value of [bin_log_file_name][crate::model::BinLogCoordinates::bin_log_file_name].
-    pub fn set_bin_log_file_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bin_log_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bin_log_file_name = v.into();
         self
     }
@@ -4896,6 +4736,7 @@ impl wkt::message::Message for BinLogCoordinates {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseInstance {
+
     /// This is always `sql#instance`.
     pub kind: std::string::String,
 
@@ -5008,8 +4849,7 @@ pub struct DatabaseInstance {
     pub secondary_gce_zone: std::string::String,
 
     /// Disk encryption configuration specific to an instance.
-    pub disk_encryption_configuration:
-        std::option::Option<crate::model::DiskEncryptionConfiguration>,
+    pub disk_encryption_configuration: std::option::Option<crate::model::DiskEncryptionConfiguration>,
 
     /// Disk encryption status specific to an instance.
     pub disk_encryption_status: std::option::Option<crate::model::DiskEncryptionStatus>,
@@ -5019,8 +4859,7 @@ pub struct DatabaseInstance {
     pub root_password: std::string::String,
 
     /// The start time of any upcoming scheduled maintenance for this instance.
-    pub scheduled_maintenance:
-        std::option::Option<crate::model::database_instance::SqlScheduledMaintenance>,
+    pub scheduled_maintenance: std::option::Option<crate::model::database_instance::SqlScheduledMaintenance>,
 
     /// This status indicates whether the instance satisfies PZS.
     ///
@@ -5038,8 +4877,7 @@ pub struct DatabaseInstance {
     /// * the proactive database wellness job for OOD.
     /// * Readers:
     /// * the proactive database wellness job
-    pub out_of_disk_report:
-        std::option::Option<crate::model::database_instance::SqlOutOfDiskReport>,
+    pub out_of_disk_report: std::option::Option<crate::model::database_instance::SqlOutOfDiskReport>,
 
     /// Output only. The time when the instance was created in
     /// [RFC 3339](https://tools.ietf.org/html/rfc3339) format, for example
@@ -5055,8 +4893,7 @@ pub struct DatabaseInstance {
     /// Output only. All database versions that are available for upgrade.
     pub upgradable_database_versions: std::vec::Vec<crate::model::AvailableDatabaseVersion>,
 
-    pub sql_network_architecture:
-        std::option::Option<crate::model::database_instance::SqlNetworkArchitecture>,
+    pub sql_network_architecture: std::option::Option<crate::model::database_instance::SqlNetworkArchitecture>,
 
     /// Output only. The link to service attachment of PSC instance.
     pub psc_service_attachment_link: std::option::Option<std::string::String>,
@@ -5104,27 +4941,20 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [state][crate::model::DatabaseInstance::state].
-    pub fn set_state<T: std::convert::Into<crate::model::database_instance::SqlInstanceState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::database_instance::SqlInstanceState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [database_version][crate::model::DatabaseInstance::database_version].
-    pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(mut self, v: T) -> Self {
         self.database_version = v.into();
         self
     }
 
     /// Sets the value of [settings][crate::model::DatabaseInstance::settings].
     pub fn set_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = std::option::Option::Some(v.into());
         self
@@ -5132,8 +4962,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [settings][crate::model::DatabaseInstance::settings].
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Settings>,
+    where T: std::convert::Into<crate::model::Settings>
     {
         self.settings = v.map(|x| x.into());
         self
@@ -5147,8 +4976,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [failover_replica][crate::model::DatabaseInstance::failover_replica].
     pub fn set_failover_replica<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>,
+    where T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>
     {
         self.failover_replica = std::option::Option::Some(v.into());
         self
@@ -5156,18 +4984,14 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [failover_replica][crate::model::DatabaseInstance::failover_replica].
     pub fn set_or_clear_failover_replica<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>,
+    where T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>
     {
         self.failover_replica = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [master_instance_name][crate::model::DatabaseInstance::master_instance_name].
-    pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.master_instance_name = v.into();
         self
     }
@@ -5176,7 +5000,7 @@ impl DatabaseInstance {
     pub fn set_replica_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.replica_names = v.into_iter().map(|i| i.into()).collect();
@@ -5186,8 +5010,7 @@ impl DatabaseInstance {
     /// Sets the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
     #[deprecated]
     pub fn set_max_disk_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.max_disk_size = std::option::Option::Some(v.into());
         self
@@ -5196,8 +5019,7 @@ impl DatabaseInstance {
     /// Sets or clears the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
     #[deprecated]
     pub fn set_or_clear_max_disk_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.max_disk_size = v.map(|x| x.into());
         self
@@ -5206,8 +5028,7 @@ impl DatabaseInstance {
     /// Sets the value of [current_disk_size][crate::model::DatabaseInstance::current_disk_size].
     #[deprecated]
     pub fn set_current_disk_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.current_disk_size = std::option::Option::Some(v.into());
         self
@@ -5216,8 +5037,7 @@ impl DatabaseInstance {
     /// Sets or clears the value of [current_disk_size][crate::model::DatabaseInstance::current_disk_size].
     #[deprecated]
     pub fn set_or_clear_current_disk_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.current_disk_size = v.map(|x| x.into());
         self
@@ -5227,7 +5047,7 @@ impl DatabaseInstance {
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::IpMapping>,
+        V: std::convert::Into<crate::model::IpMapping>
     {
         use std::iter::Iterator;
         self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -5236,8 +5056,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [server_ca_cert][crate::model::DatabaseInstance::server_ca_cert].
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = std::option::Option::Some(v.into());
         self
@@ -5245,18 +5064,14 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [server_ca_cert][crate::model::DatabaseInstance::server_ca_cert].
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [instance_type][crate::model::DatabaseInstance::instance_type].
-    pub fn set_instance_type<T: std::convert::Into<crate::model::SqlInstanceType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_instance_type<T: std::convert::Into<crate::model::SqlInstanceType>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self
     }
@@ -5275,18 +5090,14 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [service_account_email_address][crate::model::DatabaseInstance::service_account_email_address].
-    pub fn set_service_account_email_address<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_service_account_email_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account_email_address = v.into();
         self
     }
 
     /// Sets the value of [on_premises_configuration][crate::model::DatabaseInstance::on_premises_configuration].
     pub fn set_on_premises_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OnPremisesConfiguration>,
+    where T: std::convert::Into<crate::model::OnPremisesConfiguration>
     {
         self.on_premises_configuration = std::option::Option::Some(v.into());
         self
@@ -5294,8 +5105,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [on_premises_configuration][crate::model::DatabaseInstance::on_premises_configuration].
     pub fn set_or_clear_on_premises_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OnPremisesConfiguration>,
+    where T: std::convert::Into<crate::model::OnPremisesConfiguration>
     {
         self.on_premises_configuration = v.map(|x| x.into());
         self
@@ -5303,8 +5113,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [replica_configuration][crate::model::DatabaseInstance::replica_configuration].
     pub fn set_replica_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::ReplicaConfiguration>
     {
         self.replica_configuration = std::option::Option::Some(v.into());
         self
@@ -5312,18 +5121,14 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [replica_configuration][crate::model::DatabaseInstance::replica_configuration].
     pub fn set_or_clear_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::ReplicaConfiguration>
     {
         self.replica_configuration = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [backend_type][crate::model::DatabaseInstance::backend_type].
-    pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(mut self, v: T) -> Self {
         self.backend_type = v.into();
         self
     }
@@ -5338,7 +5143,7 @@ impl DatabaseInstance {
     pub fn set_suspension_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SqlSuspensionReason>,
+        V: std::convert::Into<crate::model::SqlSuspensionReason>
     {
         use std::iter::Iterator;
         self.suspension_reason = v.into_iter().map(|i| i.into()).collect();
@@ -5370,30 +5175,22 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [secondary_gce_zone][crate::model::DatabaseInstance::secondary_gce_zone].
-    pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_gce_zone = v.into();
         self
     }
 
     /// Sets the value of [disk_encryption_configuration][crate::model::DatabaseInstance::disk_encryption_configuration].
     pub fn set_disk_encryption_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
+    where T: std::convert::Into<crate::model::DiskEncryptionConfiguration>
     {
         self.disk_encryption_configuration = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [disk_encryption_configuration][crate::model::DatabaseInstance::disk_encryption_configuration].
-    pub fn set_or_clear_disk_encryption_configuration<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
+    pub fn set_or_clear_disk_encryption_configuration<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::DiskEncryptionConfiguration>
     {
         self.disk_encryption_configuration = v.map(|x| x.into());
         self
@@ -5401,8 +5198,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [disk_encryption_status][crate::model::DatabaseInstance::disk_encryption_status].
     pub fn set_disk_encryption_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionStatus>,
+    where T: std::convert::Into<crate::model::DiskEncryptionStatus>
     {
         self.disk_encryption_status = std::option::Option::Some(v.into());
         self
@@ -5410,8 +5206,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [disk_encryption_status][crate::model::DatabaseInstance::disk_encryption_status].
     pub fn set_or_clear_disk_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskEncryptionStatus>,
+    where T: std::convert::Into<crate::model::DiskEncryptionStatus>
     {
         self.disk_encryption_status = v.map(|x| x.into());
         self
@@ -5425,8 +5220,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [scheduled_maintenance][crate::model::DatabaseInstance::scheduled_maintenance].
     pub fn set_scheduled_maintenance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>,
+    where T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>
     {
         self.scheduled_maintenance = std::option::Option::Some(v.into());
         self
@@ -5434,8 +5228,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [scheduled_maintenance][crate::model::DatabaseInstance::scheduled_maintenance].
     pub fn set_or_clear_scheduled_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>,
+    where T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>
     {
         self.scheduled_maintenance = v.map(|x| x.into());
         self
@@ -5443,8 +5236,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [satisfies_pzs][crate::model::DatabaseInstance::satisfies_pzs].
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = std::option::Option::Some(v.into());
         self
@@ -5452,26 +5244,21 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::DatabaseInstance::satisfies_pzs].
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzs = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [database_installed_version][crate::model::DatabaseInstance::database_installed_version].
-    pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_installed_version = v.into();
         self
     }
 
     /// Sets the value of [out_of_disk_report][crate::model::DatabaseInstance::out_of_disk_report].
     pub fn set_out_of_disk_report<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>,
+    where T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>
     {
         self.out_of_disk_report = std::option::Option::Some(v.into());
         self
@@ -5479,8 +5266,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [out_of_disk_report][crate::model::DatabaseInstance::out_of_disk_report].
     pub fn set_or_clear_out_of_disk_report<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>,
+    where T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>
     {
         self.out_of_disk_report = v.map(|x| x.into());
         self
@@ -5488,8 +5274,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [create_time][crate::model::DatabaseInstance::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5497,8 +5282,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [create_time][crate::model::DatabaseInstance::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5508,7 +5292,7 @@ impl DatabaseInstance {
     pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.available_maintenance_versions = v.into_iter().map(|i| i.into()).collect();
@@ -5516,10 +5300,7 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [maintenance_version][crate::model::DatabaseInstance::maintenance_version].
-    pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.maintenance_version = v.into();
         self
     }
@@ -5528,7 +5309,7 @@ impl DatabaseInstance {
     pub fn set_upgradable_database_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AvailableDatabaseVersion>,
+        V: std::convert::Into<crate::model::AvailableDatabaseVersion>
     {
         use std::iter::Iterator;
         self.upgradable_database_versions = v.into_iter().map(|i| i.into()).collect();
@@ -5537,8 +5318,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [sql_network_architecture][crate::model::DatabaseInstance::sql_network_architecture].
     pub fn set_sql_network_architecture<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>,
+    where T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>
     {
         self.sql_network_architecture = std::option::Option::Some(v.into());
         self
@@ -5546,8 +5326,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [sql_network_architecture][crate::model::DatabaseInstance::sql_network_architecture].
     pub fn set_or_clear_sql_network_architecture<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>,
+    where T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>
     {
         self.sql_network_architecture = v.map(|x| x.into());
         self
@@ -5555,8 +5334,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [psc_service_attachment_link][crate::model::DatabaseInstance::psc_service_attachment_link].
     pub fn set_psc_service_attachment_link<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.psc_service_attachment_link = std::option::Option::Some(v.into());
         self
@@ -5564,8 +5342,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [psc_service_attachment_link][crate::model::DatabaseInstance::psc_service_attachment_link].
     pub fn set_or_clear_psc_service_attachment_link<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.psc_service_attachment_link = v.map(|x| x.into());
         self
@@ -5573,8 +5350,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [dns_name][crate::model::DatabaseInstance::dns_name].
     pub fn set_dns_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.dns_name = std::option::Option::Some(v.into());
         self
@@ -5582,8 +5358,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [dns_name][crate::model::DatabaseInstance::dns_name].
     pub fn set_or_clear_dns_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.dns_name = v.map(|x| x.into());
         self
@@ -5592,8 +5367,7 @@ impl DatabaseInstance {
     /// Sets the value of [primary_dns_name][crate::model::DatabaseInstance::primary_dns_name].
     #[deprecated]
     pub fn set_primary_dns_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.primary_dns_name = std::option::Option::Some(v.into());
         self
@@ -5602,8 +5376,7 @@ impl DatabaseInstance {
     /// Sets or clears the value of [primary_dns_name][crate::model::DatabaseInstance::primary_dns_name].
     #[deprecated]
     pub fn set_or_clear_primary_dns_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.primary_dns_name = v.map(|x| x.into());
         self
@@ -5611,8 +5384,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [write_endpoint][crate::model::DatabaseInstance::write_endpoint].
     pub fn set_write_endpoint<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.write_endpoint = std::option::Option::Some(v.into());
         self
@@ -5620,8 +5392,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [write_endpoint][crate::model::DatabaseInstance::write_endpoint].
     pub fn set_or_clear_write_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.write_endpoint = v.map(|x| x.into());
         self
@@ -5629,8 +5400,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [replication_cluster][crate::model::DatabaseInstance::replication_cluster].
     pub fn set_replication_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicationCluster>,
+    where T: std::convert::Into<crate::model::ReplicationCluster>
     {
         self.replication_cluster = std::option::Option::Some(v.into());
         self
@@ -5638,8 +5408,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [replication_cluster][crate::model::DatabaseInstance::replication_cluster].
     pub fn set_or_clear_replication_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReplicationCluster>,
+    where T: std::convert::Into<crate::model::ReplicationCluster>
     {
         self.replication_cluster = v.map(|x| x.into());
         self
@@ -5647,8 +5416,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [gemini_config][crate::model::DatabaseInstance::gemini_config].
     pub fn set_gemini_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GeminiInstanceConfig>,
+    where T: std::convert::Into<crate::model::GeminiInstanceConfig>
     {
         self.gemini_config = std::option::Option::Some(v.into());
         self
@@ -5656,8 +5424,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [gemini_config][crate::model::DatabaseInstance::gemini_config].
     pub fn set_or_clear_gemini_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GeminiInstanceConfig>,
+    where T: std::convert::Into<crate::model::GeminiInstanceConfig>
     {
         self.gemini_config = v.map(|x| x.into());
         self
@@ -5665,8 +5432,7 @@ impl DatabaseInstance {
 
     /// Sets the value of [satisfies_pzi][crate::model::DatabaseInstance::satisfies_pzi].
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzi = std::option::Option::Some(v.into());
         self
@@ -5674,8 +5440,7 @@ impl DatabaseInstance {
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::DatabaseInstance::satisfies_pzi].
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.satisfies_pzi = v.map(|x| x.into());
         self
@@ -5683,20 +5448,15 @@ impl DatabaseInstance {
 
     /// Sets the value of [switch_transaction_logs_to_cloud_storage_enabled][crate::model::DatabaseInstance::switch_transaction_logs_to_cloud_storage_enabled].
     pub fn set_switch_transaction_logs_to_cloud_storage_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.switch_transaction_logs_to_cloud_storage_enabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [switch_transaction_logs_to_cloud_storage_enabled][crate::model::DatabaseInstance::switch_transaction_logs_to_cloud_storage_enabled].
-    pub fn set_or_clear_switch_transaction_logs_to_cloud_storage_enabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_switch_transaction_logs_to_cloud_storage_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.switch_transaction_logs_to_cloud_storage_enabled = v.map(|x| x.into());
         self
@@ -5714,9 +5474,11 @@ pub mod database_instance {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlFailoverReplica {
+
         /// The name of the failover replica. If specified at instance creation, a
         /// failover replica is created for the instance. The name
         /// doesn't include the project ID.
@@ -5743,8 +5505,7 @@ pub mod database_instance {
 
         /// Sets the value of [available][crate::model::database_instance::SqlFailoverReplica::available].
         pub fn set_available<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.available = std::option::Option::Some(v.into());
             self
@@ -5752,8 +5513,7 @@ pub mod database_instance {
 
         /// Sets or clears the value of [available][crate::model::database_instance::SqlFailoverReplica::available].
         pub fn set_or_clear_available<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.available = v.map(|x| x.into());
             self
@@ -5770,6 +5530,7 @@ pub mod database_instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlScheduledMaintenance {
+
         /// The start time of any upcoming scheduled maintenance for this instance.
         pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -5792,8 +5553,7 @@ pub mod database_instance {
 
         /// Sets the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
         pub fn set_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = std::option::Option::Some(v.into());
             self
@@ -5801,8 +5561,7 @@ pub mod database_instance {
 
         /// Sets or clears the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.start_time = v.map(|x| x.into());
             self
@@ -5823,8 +5582,7 @@ pub mod database_instance {
 
         /// Sets the value of [schedule_deadline_time][crate::model::database_instance::SqlScheduledMaintenance::schedule_deadline_time].
         pub fn set_schedule_deadline_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.schedule_deadline_time = std::option::Option::Some(v.into());
             self
@@ -5832,8 +5590,7 @@ pub mod database_instance {
 
         /// Sets or clears the value of [schedule_deadline_time][crate::model::database_instance::SqlScheduledMaintenance::schedule_deadline_time].
         pub fn set_or_clear_schedule_deadline_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.schedule_deadline_time = v.map(|x| x.into());
             self
@@ -5850,6 +5607,7 @@ pub mod database_instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlOutOfDiskReport {
+
         /// This field represents the state generated by the proactive database
         /// wellness job for OutOfDisk issues.
         ///
@@ -5857,9 +5615,7 @@ pub mod database_instance {
         /// * the proactive database wellness job for OOD.
         /// * Readers:
         /// * the proactive database wellness job
-        pub sql_out_of_disk_state: std::option::Option<
-            crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState,
-        >,
+        pub sql_out_of_disk_state: std::option::Option<crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState>,
 
         /// The minimum recommended increase size in GigaBytes
         /// This field is consumed by the frontend
@@ -5879,10 +5635,7 @@ pub mod database_instance {
 
         /// Sets the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
         pub fn set_sql_out_of_disk_state<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState,
-                >,
+        where T: std::convert::Into<crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState>
         {
             self.sql_out_of_disk_state = std::option::Option::Some(v.into());
             self
@@ -5890,10 +5643,7 @@ pub mod database_instance {
 
         /// Sets or clears the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
         pub fn set_or_clear_sql_out_of_disk_state<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState,
-                >,
+        where T: std::convert::Into<crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState>
         {
             self.sql_out_of_disk_state = v.map(|x| x.into());
             self
@@ -5901,20 +5651,15 @@ pub mod database_instance {
 
         /// Sets the value of [sql_min_recommended_increase_size_gb][crate::model::database_instance::SqlOutOfDiskReport::sql_min_recommended_increase_size_gb].
         pub fn set_sql_min_recommended_increase_size_gb<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.sql_min_recommended_increase_size_gb = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [sql_min_recommended_increase_size_gb][crate::model::database_instance::SqlOutOfDiskReport::sql_min_recommended_increase_size_gb].
-        pub fn set_or_clear_sql_min_recommended_increase_size_gb<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i32>,
+        pub fn set_or_clear_sql_min_recommended_increase_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i32>
         {
             self.sql_min_recommended_increase_size_gb = v.map(|x| x.into());
             self
@@ -5931,6 +5676,7 @@ pub mod database_instance {
     pub mod sql_out_of_disk_report {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// This enum lists all possible states regarding out-of-disk issues.
         ///
@@ -5992,9 +5738,7 @@ pub mod database_instance {
             /// the integer representation of enums.
             pub fn name(&self) -> std::option::Option<&str> {
                 match self {
-                    Self::Unspecified => {
-                        std::option::Option::Some("SQL_OUT_OF_DISK_STATE_UNSPECIFIED")
-                    }
+                    Self::Unspecified => std::option::Option::Some("SQL_OUT_OF_DISK_STATE_UNSPECIFIED"),
                     Self::Normal => std::option::Option::Some("NORMAL"),
                     Self::SoftShutdown => std::option::Option::Some("SOFT_SHUTDOWN"),
                     Self::UnknownValue(u) => u.0.name(),
@@ -6010,10 +5754,7 @@ pub mod database_instance {
         }
 
         impl std::fmt::Display for SqlOutOfDiskState {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6024,9 +5765,7 @@ pub mod database_instance {
                     0 => Self::Unspecified,
                     1 => Self::Normal,
                     2 => Self::SoftShutdown,
-                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -6038,9 +5777,7 @@ pub mod database_instance {
                     "SQL_OUT_OF_DISK_STATE_UNSPECIFIED" => Self::Unspecified,
                     "NORMAL" => Self::Normal,
                     "SOFT_SHUTDOWN" => Self::SoftShutdown,
-                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(sql_out_of_disk_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -6065,8 +5802,7 @@ pub mod database_instance {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOutOfDiskState>::new(
-                    ".google.cloud.sql.v1.DatabaseInstance.SqlOutOfDiskReport.SqlOutOfDiskState",
-                ))
+                    ".google.cloud.sql.v1.DatabaseInstance.SqlOutOfDiskReport.SqlOutOfDiskState"))
             }
         }
     }
@@ -6184,9 +5920,7 @@ pub mod database_instance {
                 5 => Self::Maintenance,
                 6 => Self::Failed,
                 7 => Self::OnlineMaintenance,
-                _ => Self::UnknownValue(sql_instance_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_instance_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6203,9 +5937,7 @@ pub mod database_instance {
                 "MAINTENANCE" => Self::Maintenance,
                 "FAILED" => Self::Failed,
                 "ONLINE_MAINTENANCE" => Self::OnlineMaintenance,
-                _ => Self::UnknownValue(sql_instance_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_instance_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6235,8 +5967,7 @@ pub mod database_instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlInstanceState>::new(
-                ".google.cloud.sql.v1.DatabaseInstance.SqlInstanceState",
-            ))
+                ".google.cloud.sql.v1.DatabaseInstance.SqlInstanceState"))
         }
     }
 
@@ -6298,15 +6029,9 @@ pub mod database_instance {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED")
-                }
-                Self::NewNetworkArchitecture => {
-                    std::option::Option::Some("NEW_NETWORK_ARCHITECTURE")
-                }
-                Self::OldNetworkArchitecture => {
-                    std::option::Option::Some("OLD_NETWORK_ARCHITECTURE")
-                }
+                Self::Unspecified => std::option::Option::Some("SQL_NETWORK_ARCHITECTURE_UNSPECIFIED"),
+                Self::NewNetworkArchitecture => std::option::Option::Some("NEW_NETWORK_ARCHITECTURE"),
+                Self::OldNetworkArchitecture => std::option::Option::Some("OLD_NETWORK_ARCHITECTURE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6331,9 +6056,7 @@ pub mod database_instance {
                 0 => Self::Unspecified,
                 1 => Self::NewNetworkArchitecture,
                 2 => Self::OldNetworkArchitecture,
-                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6345,9 +6068,7 @@ pub mod database_instance {
                 "SQL_NETWORK_ARCHITECTURE_UNSPECIFIED" => Self::Unspecified,
                 "NEW_NETWORK_ARCHITECTURE" => Self::NewNetworkArchitecture,
                 "OLD_NETWORK_ARCHITECTURE" => Self::OldNetworkArchitecture,
-                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_network_architecture::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6372,8 +6093,7 @@ pub mod database_instance {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlNetworkArchitecture>::new(
-                ".google.cloud.sql.v1.DatabaseInstance.SqlNetworkArchitecture",
-            ))
+                ".google.cloud.sql.v1.DatabaseInstance.SqlNetworkArchitecture"))
         }
     }
 }
@@ -6382,6 +6102,7 @@ pub mod database_instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeminiInstanceConfig {
+
     /// Output only. Whether Gemini is enabled.
     pub entitled: std::option::Option<bool>,
 
@@ -6410,8 +6131,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
     pub fn set_entitled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.entitled = std::option::Option::Some(v.into());
         self
@@ -6419,8 +6139,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
     pub fn set_or_clear_entitled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.entitled = v.map(|x| x.into());
         self
@@ -6428,8 +6147,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [google_vacuum_mgmt_enabled][crate::model::GeminiInstanceConfig::google_vacuum_mgmt_enabled].
     pub fn set_google_vacuum_mgmt_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.google_vacuum_mgmt_enabled = std::option::Option::Some(v.into());
         self
@@ -6437,8 +6155,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [google_vacuum_mgmt_enabled][crate::model::GeminiInstanceConfig::google_vacuum_mgmt_enabled].
     pub fn set_or_clear_google_vacuum_mgmt_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.google_vacuum_mgmt_enabled = v.map(|x| x.into());
         self
@@ -6446,8 +6163,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [oom_session_cancel_enabled][crate::model::GeminiInstanceConfig::oom_session_cancel_enabled].
     pub fn set_oom_session_cancel_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.oom_session_cancel_enabled = std::option::Option::Some(v.into());
         self
@@ -6455,8 +6171,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [oom_session_cancel_enabled][crate::model::GeminiInstanceConfig::oom_session_cancel_enabled].
     pub fn set_or_clear_oom_session_cancel_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.oom_session_cancel_enabled = v.map(|x| x.into());
         self
@@ -6464,8 +6179,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [active_query_enabled][crate::model::GeminiInstanceConfig::active_query_enabled].
     pub fn set_active_query_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.active_query_enabled = std::option::Option::Some(v.into());
         self
@@ -6473,8 +6187,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [active_query_enabled][crate::model::GeminiInstanceConfig::active_query_enabled].
     pub fn set_or_clear_active_query_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.active_query_enabled = v.map(|x| x.into());
         self
@@ -6482,8 +6195,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [index_advisor_enabled][crate::model::GeminiInstanceConfig::index_advisor_enabled].
     pub fn set_index_advisor_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.index_advisor_enabled = std::option::Option::Some(v.into());
         self
@@ -6491,8 +6203,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [index_advisor_enabled][crate::model::GeminiInstanceConfig::index_advisor_enabled].
     pub fn set_or_clear_index_advisor_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.index_advisor_enabled = v.map(|x| x.into());
         self
@@ -6500,8 +6211,7 @@ impl GeminiInstanceConfig {
 
     /// Sets the value of [flag_recommender_enabled][crate::model::GeminiInstanceConfig::flag_recommender_enabled].
     pub fn set_flag_recommender_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.flag_recommender_enabled = std::option::Option::Some(v.into());
         self
@@ -6509,8 +6219,7 @@ impl GeminiInstanceConfig {
 
     /// Sets or clears the value of [flag_recommender_enabled][crate::model::GeminiInstanceConfig::flag_recommender_enabled].
     pub fn set_or_clear_flag_recommender_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.flag_recommender_enabled = v.map(|x| x.into());
         self
@@ -6530,6 +6239,7 @@ impl wkt::message::Message for GeminiInstanceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicationCluster {
+
     /// Output only. If set, it indicates this instance has a private service
     /// access (PSA) dns endpoint that is pointing to the primary instance of the
     /// cluster. If this instance is the primary, the dns should be pointing to
@@ -6560,19 +6270,13 @@ impl ReplicationCluster {
     }
 
     /// Sets the value of [psa_write_endpoint][crate::model::ReplicationCluster::psa_write_endpoint].
-    pub fn set_psa_write_endpoint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_psa_write_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.psa_write_endpoint = v.into();
         self
     }
 
     /// Sets the value of [failover_dr_replica_name][crate::model::ReplicationCluster::failover_dr_replica_name].
-    pub fn set_failover_dr_replica_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_failover_dr_replica_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failover_dr_replica_name = v.into();
         self
     }
@@ -6594,6 +6298,7 @@ impl wkt::message::Message for ReplicationCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AvailableDatabaseVersion {
+
     /// The version's major version name.
     pub major_version: std::option::Option<std::string::String>,
 
@@ -6614,8 +6319,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
     pub fn set_major_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.major_version = std::option::Option::Some(v.into());
         self
@@ -6623,8 +6327,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets or clears the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
     pub fn set_or_clear_major_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.major_version = v.map(|x| x.into());
         self
@@ -6632,8 +6335,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets the value of [name][crate::model::AvailableDatabaseVersion::name].
     pub fn set_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.name = std::option::Option::Some(v.into());
         self
@@ -6641,8 +6343,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets or clears the value of [name][crate::model::AvailableDatabaseVersion::name].
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.name = v.map(|x| x.into());
         self
@@ -6650,8 +6351,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets the value of [display_name][crate::model::AvailableDatabaseVersion::display_name].
     pub fn set_display_name<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.display_name = std::option::Option::Some(v.into());
         self
@@ -6659,8 +6359,7 @@ impl AvailableDatabaseVersion {
 
     /// Sets or clears the value of [display_name][crate::model::AvailableDatabaseVersion::display_name].
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.display_name = v.map(|x| x.into());
         self
@@ -6677,10 +6376,9 @@ impl wkt::message::Message for AvailableDatabaseVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesRescheduleMaintenanceRequestBody {
+
     /// Required. The type of the reschedule the user wants.
-    pub reschedule: std::option::Option<
-        crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule,
-    >,
+    pub reschedule: std::option::Option<crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6692,10 +6390,7 @@ impl SqlInstancesRescheduleMaintenanceRequestBody {
 
     /// Sets the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
     pub fn set_reschedule<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule,
-            >,
+    where T: std::convert::Into<crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule>
     {
         self.reschedule = std::option::Option::Some(v.into());
         self
@@ -6703,10 +6398,7 @@ impl SqlInstancesRescheduleMaintenanceRequestBody {
 
     /// Sets or clears the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
     pub fn set_or_clear_reschedule<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule,
-            >,
+    where T: std::convert::Into<crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule>
     {
         self.reschedule = v.map(|x| x.into());
         self
@@ -6724,12 +6416,13 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Reschedule {
+
         /// Required. The type of the reschedule.
-        pub reschedule_type:
-            crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType,
+        pub reschedule_type: crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType,
 
         /// Optional. Timestamp when the maintenance shall be rescheduled to if
         /// reschedule_type=SPECIFIC_TIME, in
@@ -6746,22 +6439,14 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
 
         /// Sets the value of [reschedule_type][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::reschedule_type].
-        pub fn set_reschedule_type<
-            T: std::convert::Into<
-                    crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_reschedule_type<T: std::convert::Into<crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType>>(mut self, v: T) -> Self {
             self.reschedule_type = v.into();
             self
         }
 
         /// Sets the value of [schedule_time][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::schedule_time].
         pub fn set_schedule_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.schedule_time = std::option::Option::Some(v.into());
             self
@@ -6769,8 +6454,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
 
         /// Sets or clears the value of [schedule_time][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::schedule_time].
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.schedule_time = v.map(|x| x.into());
             self
@@ -6873,9 +6557,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
                 1 => Self::Immediate,
                 2 => Self::NextAvailableWindow,
                 3 => Self::SpecificTime,
-                _ => Self::UnknownValue(reschedule_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6888,9 +6570,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
                 "IMMEDIATE" => Self::Immediate,
                 "NEXT_AVAILABLE_WINDOW" => Self::NextAvailableWindow,
                 "SPECIFIC_TIME" => Self::SpecificTime,
-                _ => Self::UnknownValue(reschedule_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(reschedule_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6916,8 +6596,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RescheduleType>::new(
-                ".google.cloud.sql.v1.SqlInstancesRescheduleMaintenanceRequestBody.RescheduleType",
-            ))
+                ".google.cloud.sql.v1.SqlInstancesRescheduleMaintenanceRequestBody.RescheduleType"))
         }
     }
 }
@@ -6926,6 +6605,7 @@ pub mod sql_instances_reschedule_maintenance_request_body {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DemoteMasterContext {
+
     /// This is always `sql#demoteMasterContext`.
     pub kind: std::string::String,
 
@@ -6965,8 +6645,7 @@ impl DemoteMasterContext {
 
     /// Sets the value of [verify_gtid_consistency][crate::model::DemoteMasterContext::verify_gtid_consistency].
     pub fn set_verify_gtid_consistency<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.verify_gtid_consistency = std::option::Option::Some(v.into());
         self
@@ -6974,26 +6653,21 @@ impl DemoteMasterContext {
 
     /// Sets or clears the value of [verify_gtid_consistency][crate::model::DemoteMasterContext::verify_gtid_consistency].
     pub fn set_or_clear_verify_gtid_consistency<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.verify_gtid_consistency = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [master_instance_name][crate::model::DemoteMasterContext::master_instance_name].
-    pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.master_instance_name = v.into();
         self
     }
 
     /// Sets the value of [replica_configuration][crate::model::DemoteMasterContext::replica_configuration].
     pub fn set_replica_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterConfiguration>,
+    where T: std::convert::Into<crate::model::DemoteMasterConfiguration>
     {
         self.replica_configuration = std::option::Option::Some(v.into());
         self
@@ -7001,8 +6675,7 @@ impl DemoteMasterContext {
 
     /// Sets or clears the value of [replica_configuration][crate::model::DemoteMasterContext::replica_configuration].
     pub fn set_or_clear_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterConfiguration>,
+    where T: std::convert::Into<crate::model::DemoteMasterConfiguration>
     {
         self.replica_configuration = v.map(|x| x.into());
         self
@@ -7026,6 +6699,7 @@ impl wkt::message::Message for DemoteMasterContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DemoteContext {
+
     /// This is always `sql#demoteContext`.
     pub kind: std::string::String,
 
@@ -7048,10 +6722,7 @@ impl DemoteContext {
     }
 
     /// Sets the value of [source_representative_instance_name][crate::model::DemoteContext::source_representative_instance_name].
-    pub fn set_source_representative_instance_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_representative_instance_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_representative_instance_name = v.into();
         self
     }
@@ -7067,6 +6738,7 @@ impl wkt::message::Message for DemoteContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailoverContext {
+
     /// The current settings version of this instance. Request will be rejected if
     /// this version doesn't match the current settings version.
     pub settings_version: i64,
@@ -7106,6 +6778,7 @@ impl wkt::message::Message for FailoverContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreBackupContext {
+
     /// This is always `sql#restoreBackupContext`.
     pub kind: std::string::String,
 
@@ -7161,6 +6834,7 @@ impl wkt::message::Message for RestoreBackupContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RotateServerCaContext {
+
     /// This is always `sql#rotateServerCaContext`.
     pub kind: std::string::String,
 
@@ -7199,6 +6873,7 @@ impl wkt::message::Message for RotateServerCaContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TruncateLogContext {
+
     /// This is always `sql#truncateLogContext`.
     pub kind: std::string::String,
 
@@ -7237,6 +6912,7 @@ impl wkt::message::Message for TruncateLogContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlExternalSyncSettingError {
+
     /// Can be `sql#externalSyncSettingError` or
     /// `sql#externalSyncSettingWarning`.
     pub kind: std::string::String,
@@ -7262,14 +6938,7 @@ impl SqlExternalSyncSettingError {
     }
 
     /// Sets the value of [r#type][crate::model::SqlExternalSyncSettingError::type].
-    pub fn set_type<
-        T: std::convert::Into<
-                crate::model::sql_external_sync_setting_error::SqlExternalSyncSettingErrorType,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::sql_external_sync_setting_error::SqlExternalSyncSettingErrorType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -7291,6 +6960,7 @@ impl wkt::message::Message for SqlExternalSyncSettingError {
 pub mod sql_external_sync_setting_error {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -7507,115 +7177,55 @@ pub mod sql_external_sync_setting_error {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("SQL_EXTERNAL_SYNC_SETTING_ERROR_TYPE_UNSPECIFIED"),
                 Self::ConnectionFailure => std::option::Option::Some("CONNECTION_FAILURE"),
                 Self::BinlogNotEnabled => std::option::Option::Some("BINLOG_NOT_ENABLED"),
-                Self::IncompatibleDatabaseVersion => {
-                    std::option::Option::Some("INCOMPATIBLE_DATABASE_VERSION")
-                }
+                Self::IncompatibleDatabaseVersion => std::option::Option::Some("INCOMPATIBLE_DATABASE_VERSION"),
                 Self::ReplicaAlreadySetup => std::option::Option::Some("REPLICA_ALREADY_SETUP"),
                 Self::InsufficientPrivilege => std::option::Option::Some("INSUFFICIENT_PRIVILEGE"),
-                Self::UnsupportedMigrationType => {
-                    std::option::Option::Some("UNSUPPORTED_MIGRATION_TYPE")
-                }
+                Self::UnsupportedMigrationType => std::option::Option::Some("UNSUPPORTED_MIGRATION_TYPE"),
                 Self::NoPglogicalInstalled => std::option::Option::Some("NO_PGLOGICAL_INSTALLED"),
-                Self::PglogicalNodeAlreadyExists => {
-                    std::option::Option::Some("PGLOGICAL_NODE_ALREADY_EXISTS")
-                }
+                Self::PglogicalNodeAlreadyExists => std::option::Option::Some("PGLOGICAL_NODE_ALREADY_EXISTS"),
                 Self::InvalidWalLevel => std::option::Option::Some("INVALID_WAL_LEVEL"),
-                Self::InvalidSharedPreloadLibrary => {
-                    std::option::Option::Some("INVALID_SHARED_PRELOAD_LIBRARY")
-                }
-                Self::InsufficientMaxReplicationSlots => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_REPLICATION_SLOTS")
-                }
-                Self::InsufficientMaxWalSenders => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_WAL_SENDERS")
-                }
-                Self::InsufficientMaxWorkerProcesses => {
-                    std::option::Option::Some("INSUFFICIENT_MAX_WORKER_PROCESSES")
-                }
+                Self::InvalidSharedPreloadLibrary => std::option::Option::Some("INVALID_SHARED_PRELOAD_LIBRARY"),
+                Self::InsufficientMaxReplicationSlots => std::option::Option::Some("INSUFFICIENT_MAX_REPLICATION_SLOTS"),
+                Self::InsufficientMaxWalSenders => std::option::Option::Some("INSUFFICIENT_MAX_WAL_SENDERS"),
+                Self::InsufficientMaxWorkerProcesses => std::option::Option::Some("INSUFFICIENT_MAX_WORKER_PROCESSES"),
                 Self::UnsupportedExtensions => std::option::Option::Some("UNSUPPORTED_EXTENSIONS"),
-                Self::InvalidRdsLogicalReplication => {
-                    std::option::Option::Some("INVALID_RDS_LOGICAL_REPLICATION")
-                }
+                Self::InvalidRdsLogicalReplication => std::option::Option::Some("INVALID_RDS_LOGICAL_REPLICATION"),
                 Self::InvalidLoggingSetup => std::option::Option::Some("INVALID_LOGGING_SETUP"),
                 Self::InvalidDbParam => std::option::Option::Some("INVALID_DB_PARAM"),
                 Self::UnsupportedGtidMode => std::option::Option::Some("UNSUPPORTED_GTID_MODE"),
-                Self::SqlserverAgentNotRunning => {
-                    std::option::Option::Some("SQLSERVER_AGENT_NOT_RUNNING")
-                }
-                Self::UnsupportedTableDefinition => {
-                    std::option::Option::Some("UNSUPPORTED_TABLE_DEFINITION")
-                }
+                Self::SqlserverAgentNotRunning => std::option::Option::Some("SQLSERVER_AGENT_NOT_RUNNING"),
+                Self::UnsupportedTableDefinition => std::option::Option::Some("UNSUPPORTED_TABLE_DEFINITION"),
                 Self::UnsupportedDefiner => std::option::Option::Some("UNSUPPORTED_DEFINER"),
-                Self::SqlserverServernameMismatch => {
-                    std::option::Option::Some("SQLSERVER_SERVERNAME_MISMATCH")
-                }
+                Self::SqlserverServernameMismatch => std::option::Option::Some("SQLSERVER_SERVERNAME_MISMATCH"),
                 Self::PrimaryAlreadySetup => std::option::Option::Some("PRIMARY_ALREADY_SETUP"),
-                Self::UnsupportedBinlogFormat => {
-                    std::option::Option::Some("UNSUPPORTED_BINLOG_FORMAT")
-                }
-                Self::BinlogRetentionSetting => {
-                    std::option::Option::Some("BINLOG_RETENTION_SETTING")
-                }
-                Self::UnsupportedStorageEngine => {
-                    std::option::Option::Some("UNSUPPORTED_STORAGE_ENGINE")
-                }
+                Self::UnsupportedBinlogFormat => std::option::Option::Some("UNSUPPORTED_BINLOG_FORMAT"),
+                Self::BinlogRetentionSetting => std::option::Option::Some("BINLOG_RETENTION_SETTING"),
+                Self::UnsupportedStorageEngine => std::option::Option::Some("UNSUPPORTED_STORAGE_ENGINE"),
                 Self::LimitedSupportTables => std::option::Option::Some("LIMITED_SUPPORT_TABLES"),
-                Self::ExistingDataInReplica => {
-                    std::option::Option::Some("EXISTING_DATA_IN_REPLICA")
-                }
-                Self::MissingOptionalPrivileges => {
-                    std::option::Option::Some("MISSING_OPTIONAL_PRIVILEGES")
-                }
-                Self::RiskyBackupAdminPrivilege => {
-                    std::option::Option::Some("RISKY_BACKUP_ADMIN_PRIVILEGE")
-                }
-                Self::InsufficientGcsPermissions => {
-                    std::option::Option::Some("INSUFFICIENT_GCS_PERMISSIONS")
-                }
+                Self::ExistingDataInReplica => std::option::Option::Some("EXISTING_DATA_IN_REPLICA"),
+                Self::MissingOptionalPrivileges => std::option::Option::Some("MISSING_OPTIONAL_PRIVILEGES"),
+                Self::RiskyBackupAdminPrivilege => std::option::Option::Some("RISKY_BACKUP_ADMIN_PRIVILEGE"),
+                Self::InsufficientGcsPermissions => std::option::Option::Some("INSUFFICIENT_GCS_PERMISSIONS"),
                 Self::InvalidFileInfo => std::option::Option::Some("INVALID_FILE_INFO"),
-                Self::UnsupportedDatabaseSettings => {
-                    std::option::Option::Some("UNSUPPORTED_DATABASE_SETTINGS")
-                }
-                Self::MysqlParallelImportInsufficientPrivilege => {
-                    std::option::Option::Some("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE")
-                }
+                Self::UnsupportedDatabaseSettings => std::option::Option::Some("UNSUPPORTED_DATABASE_SETTINGS"),
+                Self::MysqlParallelImportInsufficientPrivilege => std::option::Option::Some("MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE"),
                 Self::LocalInfileOff => std::option::Option::Some("LOCAL_INFILE_OFF"),
-                Self::TurnOnPitrAfterPromote => {
-                    std::option::Option::Some("TURN_ON_PITR_AFTER_PROMOTE")
-                }
-                Self::IncompatibleDatabaseMinorVersion => {
-                    std::option::Option::Some("INCOMPATIBLE_DATABASE_MINOR_VERSION")
-                }
-                Self::SourceMaxSubscriptions => {
-                    std::option::Option::Some("SOURCE_MAX_SUBSCRIPTIONS")
-                }
-                Self::UnableToVerifyDefiners => {
-                    std::option::Option::Some("UNABLE_TO_VERIFY_DEFINERS")
-                }
-                Self::SubscriptionCalculationStatus => {
-                    std::option::Option::Some("SUBSCRIPTION_CALCULATION_STATUS")
-                }
+                Self::TurnOnPitrAfterPromote => std::option::Option::Some("TURN_ON_PITR_AFTER_PROMOTE"),
+                Self::IncompatibleDatabaseMinorVersion => std::option::Option::Some("INCOMPATIBLE_DATABASE_MINOR_VERSION"),
+                Self::SourceMaxSubscriptions => std::option::Option::Some("SOURCE_MAX_SUBSCRIPTIONS"),
+                Self::UnableToVerifyDefiners => std::option::Option::Some("UNABLE_TO_VERIFY_DEFINERS"),
+                Self::SubscriptionCalculationStatus => std::option::Option::Some("SUBSCRIPTION_CALCULATION_STATUS"),
                 Self::PgSubscriptionCount => std::option::Option::Some("PG_SUBSCRIPTION_COUNT"),
                 Self::PgSyncParallelLevel => std::option::Option::Some("PG_SYNC_PARALLEL_LEVEL"),
                 Self::InsufficientDiskSize => std::option::Option::Some("INSUFFICIENT_DISK_SIZE"),
-                Self::InsufficientMachineTier => {
-                    std::option::Option::Some("INSUFFICIENT_MACHINE_TIER")
-                }
-                Self::UnsupportedExtensionsNotMigrated => {
-                    std::option::Option::Some("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED")
-                }
+                Self::InsufficientMachineTier => std::option::Option::Some("INSUFFICIENT_MACHINE_TIER"),
+                Self::UnsupportedExtensionsNotMigrated => std::option::Option::Some("UNSUPPORTED_EXTENSIONS_NOT_MIGRATED"),
                 Self::ExtensionsNotMigrated => std::option::Option::Some("EXTENSIONS_NOT_MIGRATED"),
-                Self::PgCronFlagEnabledInReplica => {
-                    std::option::Option::Some("PG_CRON_FLAG_ENABLED_IN_REPLICA")
-                }
-                Self::ExtensionsNotEnabledInReplica => {
-                    std::option::Option::Some("EXTENSIONS_NOT_ENABLED_IN_REPLICA")
-                }
+                Self::PgCronFlagEnabledInReplica => std::option::Option::Some("PG_CRON_FLAG_ENABLED_IN_REPLICA"),
+                Self::ExtensionsNotEnabledInReplica => std::option::Option::Some("EXTENSIONS_NOT_ENABLED_IN_REPLICA"),
                 Self::UnsupportedColumns => std::option::Option::Some("UNSUPPORTED_COLUMNS"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -7688,9 +7298,7 @@ pub mod sql_external_sync_setting_error {
                 47 => Self::PgCronFlagEnabledInReplica,
                 48 => Self::ExtensionsNotEnabledInReplica,
                 49 => Self::UnsupportedColumns,
-                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7733,9 +7341,7 @@ pub mod sql_external_sync_setting_error {
                 "INSUFFICIENT_GCS_PERMISSIONS" => Self::InsufficientGcsPermissions,
                 "INVALID_FILE_INFO" => Self::InvalidFileInfo,
                 "UNSUPPORTED_DATABASE_SETTINGS" => Self::UnsupportedDatabaseSettings,
-                "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => {
-                    Self::MysqlParallelImportInsufficientPrivilege
-                }
+                "MYSQL_PARALLEL_IMPORT_INSUFFICIENT_PRIVILEGE" => Self::MysqlParallelImportInsufficientPrivilege,
                 "LOCAL_INFILE_OFF" => Self::LocalInfileOff,
                 "TURN_ON_PITR_AFTER_PROMOTE" => Self::TurnOnPitrAfterPromote,
                 "INCOMPATIBLE_DATABASE_MINOR_VERSION" => Self::IncompatibleDatabaseMinorVersion,
@@ -7751,9 +7357,7 @@ pub mod sql_external_sync_setting_error {
                 "PG_CRON_FLAG_ENABLED_IN_REPLICA" => Self::PgCronFlagEnabledInReplica,
                 "EXTENSIONS_NOT_ENABLED_IN_REPLICA" => Self::ExtensionsNotEnabledInReplica,
                 "UNSUPPORTED_COLUMNS" => Self::UnsupportedColumns,
-                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_external_sync_setting_error_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7824,11 +7428,8 @@ pub mod sql_external_sync_setting_error {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(wkt::internal::EnumVisitor::<
-                SqlExternalSyncSettingErrorType,
-            >::new(
-                ".google.cloud.sql.v1.SqlExternalSyncSettingError.SqlExternalSyncSettingErrorType",
-            ))
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlExternalSyncSettingErrorType>::new(
+                ".google.cloud.sql.v1.SqlExternalSyncSettingError.SqlExternalSyncSettingErrorType"))
         }
     }
 }
@@ -7837,6 +7438,7 @@ pub mod sql_external_sync_setting_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OnPremisesConfiguration {
+
     /// The host and port of the on-premises instance in host:port format
     pub host_port: std::string::String,
 
@@ -7904,10 +7506,7 @@ impl OnPremisesConfiguration {
     }
 
     /// Sets the value of [client_certificate][crate::model::OnPremisesConfiguration::client_certificate].
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -7926,8 +7525,7 @@ impl OnPremisesConfiguration {
 
     /// Sets the value of [source_instance][crate::model::OnPremisesConfiguration::source_instance].
     pub fn set_source_instance<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceReference>,
+    where T: std::convert::Into<crate::model::InstanceReference>
     {
         self.source_instance = std::option::Option::Some(v.into());
         self
@@ -7935,8 +7533,7 @@ impl OnPremisesConfiguration {
 
     /// Sets or clears the value of [source_instance][crate::model::OnPremisesConfiguration::source_instance].
     pub fn set_or_clear_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceReference>,
+    where T: std::convert::Into<crate::model::InstanceReference>
     {
         self.source_instance = v.map(|x| x.into());
         self
@@ -7953,6 +7550,7 @@ impl wkt::message::Message for OnPremisesConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaConfiguration {
+
     /// This is always `sql#replicaConfiguration`.
     pub kind: std::string::String,
 
@@ -7992,8 +7590,7 @@ impl ReplicaConfiguration {
 
     /// Sets the value of [mysql_replica_configuration][crate::model::ReplicaConfiguration::mysql_replica_configuration].
     pub fn set_mysql_replica_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MySqlReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::MySqlReplicaConfiguration>
     {
         self.mysql_replica_configuration = std::option::Option::Some(v.into());
         self
@@ -8001,8 +7598,7 @@ impl ReplicaConfiguration {
 
     /// Sets or clears the value of [mysql_replica_configuration][crate::model::ReplicaConfiguration::mysql_replica_configuration].
     pub fn set_or_clear_mysql_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MySqlReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::MySqlReplicaConfiguration>
     {
         self.mysql_replica_configuration = v.map(|x| x.into());
         self
@@ -8010,8 +7606,7 @@ impl ReplicaConfiguration {
 
     /// Sets the value of [failover_target][crate::model::ReplicaConfiguration::failover_target].
     pub fn set_failover_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.failover_target = std::option::Option::Some(v.into());
         self
@@ -8019,8 +7614,7 @@ impl ReplicaConfiguration {
 
     /// Sets or clears the value of [failover_target][crate::model::ReplicaConfiguration::failover_target].
     pub fn set_or_clear_failover_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.failover_target = v.map(|x| x.into());
         self
@@ -8028,8 +7622,7 @@ impl ReplicaConfiguration {
 
     /// Sets the value of [cascadable_replica][crate::model::ReplicaConfiguration::cascadable_replica].
     pub fn set_cascadable_replica<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.cascadable_replica = std::option::Option::Some(v.into());
         self
@@ -8037,8 +7630,7 @@ impl ReplicaConfiguration {
 
     /// Sets or clears the value of [cascadable_replica][crate::model::ReplicaConfiguration::cascadable_replica].
     pub fn set_or_clear_cascadable_replica<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.cascadable_replica = v.map(|x| x.into());
         self
@@ -8055,6 +7647,7 @@ impl wkt::message::Message for ReplicaConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesAcquireSsrsLeaseRequest {
+
     /// Required. Cloud SQL instance ID. This doesn't include the project ID. It's
     /// composed of lowercase letters, numbers, and hyphens, and it must start with
     /// a letter. The total length must be 98 characters or less (Example:
@@ -8090,8 +7683,7 @@ impl SqlInstancesAcquireSsrsLeaseRequest {
 
     /// Sets the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
+    where T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -8099,8 +7691,7 @@ impl SqlInstancesAcquireSsrsLeaseRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
+    where T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -8117,6 +7708,7 @@ impl wkt::message::Message for SqlInstancesAcquireSsrsLeaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesAcquireSsrsLeaseResponse {
+
     /// The unique identifier for this operation.
     pub operation_id: std::string::String,
 
@@ -8145,6 +7737,7 @@ impl wkt::message::Message for SqlInstancesAcquireSsrsLeaseResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesReleaseSsrsLeaseRequest {
+
     /// Required. The Cloud SQL instance ID. This doesn't include the project ID.
     /// The instance ID contains lowercase letters, numbers, and hyphens, and it
     /// must start with a letter. This ID can have a maximum length of 98
@@ -8185,6 +7778,7 @@ impl wkt::message::Message for SqlInstancesReleaseSsrsLeaseRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlInstancesReleaseSsrsLeaseResponse {
+
     /// The unique identifier for this operation.
     pub operation_id: std::string::String,
 
@@ -8213,6 +7807,7 @@ impl wkt::message::Message for SqlInstancesReleaseSsrsLeaseResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlOperationsGetRequest {
+
     /// Instance operation ID.
     pub operation: std::string::String,
 
@@ -8250,6 +7845,7 @@ impl wkt::message::Message for SqlOperationsGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlOperationsListRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -8306,6 +7902,7 @@ impl wkt::message::Message for SqlOperationsListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationsListResponse {
+
     /// This is always `sql#operationsList`.
     pub kind: std::string::String,
 
@@ -8334,7 +7931,7 @@ impl OperationsListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Operation>,
+        V: std::convert::Into<crate::model::Operation>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -8372,6 +7969,7 @@ impl gax::paginator::internal::PageableResponse for OperationsListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlOperationsCancelRequest {
+
     /// Instance operation ID.
     pub operation: std::string::String,
 
@@ -8409,6 +8007,7 @@ impl wkt::message::Message for SqlOperationsCancelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AclEntry {
+
     /// The allowlisted value for the access control list.
     pub value: std::string::String,
 
@@ -8439,8 +8038,7 @@ impl AclEntry {
 
     /// Sets the value of [expiration_time][crate::model::AclEntry::expiration_time].
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expiration_time = std::option::Option::Some(v.into());
         self
@@ -8448,8 +8046,7 @@ impl AclEntry {
 
     /// Sets or clears the value of [expiration_time][crate::model::AclEntry::expiration_time].
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expiration_time = v.map(|x| x.into());
         self
@@ -8478,6 +8075,7 @@ impl wkt::message::Message for AclEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApiWarning {
+
     /// Code to uniquely identify the warning type.
     pub code: crate::model::api_warning::SqlApiWarningCode,
 
@@ -8496,10 +8094,7 @@ impl ApiWarning {
     }
 
     /// Sets the value of [code][crate::model::ApiWarning::code].
-    pub fn set_code<T: std::convert::Into<crate::model::api_warning::SqlApiWarningCode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_code<T: std::convert::Into<crate::model::api_warning::SqlApiWarningCode>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -8527,6 +8122,7 @@ impl wkt::message::Message for ApiWarning {
 pub mod api_warning {
     #[allow(unused_imports)]
     use super::*;
+
 
     ///
     /// # Working with unknown values
@@ -8598,12 +8194,8 @@ pub mod api_warning {
             match self {
                 Self::Unspecified => std::option::Option::Some("SQL_API_WARNING_CODE_UNSPECIFIED"),
                 Self::RegionUnreachable => std::option::Option::Some("REGION_UNREACHABLE"),
-                Self::MaxResultsExceedsLimit => {
-                    std::option::Option::Some("MAX_RESULTS_EXCEEDS_LIMIT")
-                }
-                Self::CompromisedCredentials => {
-                    std::option::Option::Some("COMPROMISED_CREDENTIALS")
-                }
+                Self::MaxResultsExceedsLimit => std::option::Option::Some("MAX_RESULTS_EXCEEDS_LIMIT"),
+                Self::CompromisedCredentials => std::option::Option::Some("COMPROMISED_CREDENTIALS"),
                 Self::InternalStateFailure => std::option::Option::Some("INTERNAL_STATE_FAILURE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -8631,9 +8223,7 @@ pub mod api_warning {
                 2 => Self::MaxResultsExceedsLimit,
                 3 => Self::CompromisedCredentials,
                 4 => Self::InternalStateFailure,
-                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8647,9 +8237,7 @@ pub mod api_warning {
                 "MAX_RESULTS_EXCEEDS_LIMIT" => Self::MaxResultsExceedsLimit,
                 "COMPROMISED_CREDENTIALS" => Self::CompromisedCredentials,
                 "INTERNAL_STATE_FAILURE" => Self::InternalStateFailure,
-                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_api_warning_code::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8676,8 +8264,7 @@ pub mod api_warning {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlApiWarningCode>::new(
-                ".google.cloud.sql.v1.ApiWarning.SqlApiWarningCode",
-            ))
+                ".google.cloud.sql.v1.ApiWarning.SqlApiWarningCode"))
         }
     }
 }
@@ -8687,6 +8274,7 @@ pub mod api_warning {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupRetentionSettings {
+
     /// The unit that 'retained_backups' represents.
     pub retention_unit: crate::model::backup_retention_settings::RetentionUnit,
 
@@ -8704,20 +8292,14 @@ impl BackupRetentionSettings {
     }
 
     /// Sets the value of [retention_unit][crate::model::BackupRetentionSettings::retention_unit].
-    pub fn set_retention_unit<
-        T: std::convert::Into<crate::model::backup_retention_settings::RetentionUnit>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_retention_unit<T: std::convert::Into<crate::model::backup_retention_settings::RetentionUnit>>(mut self, v: T) -> Self {
         self.retention_unit = v.into();
         self
     }
 
     /// Sets the value of [retained_backups][crate::model::BackupRetentionSettings::retained_backups].
     pub fn set_retained_backups<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.retained_backups = std::option::Option::Some(v.into());
         self
@@ -8725,8 +8307,7 @@ impl BackupRetentionSettings {
 
     /// Sets or clears the value of [retained_backups][crate::model::BackupRetentionSettings::retained_backups].
     pub fn set_or_clear_retained_backups<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.retained_backups = v.map(|x| x.into());
         self
@@ -8743,6 +8324,7 @@ impl wkt::message::Message for BackupRetentionSettings {
 pub mod backup_retention_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The units that retained_backups specifies, we only support COUNT.
     ///
@@ -8825,9 +8407,7 @@ pub mod backup_retention_settings {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Count,
-                _ => Self::UnknownValue(retention_unit::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(retention_unit::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8838,9 +8418,7 @@ pub mod backup_retention_settings {
             match value {
                 "RETENTION_UNIT_UNSPECIFIED" => Self::Unspecified,
                 "COUNT" => Self::Count,
-                _ => Self::UnknownValue(retention_unit::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(retention_unit::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8864,8 +8442,7 @@ pub mod backup_retention_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RetentionUnit>::new(
-                ".google.cloud.sql.v1.BackupRetentionSettings.RetentionUnit",
-            ))
+                ".google.cloud.sql.v1.BackupRetentionSettings.RetentionUnit"))
         }
     }
 }
@@ -8874,6 +8451,7 @@ pub mod backup_retention_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupConfiguration {
+
     /// Start time for the daily backup configuration in UTC timezone in the 24
     /// hour format - `HH:MM`.
     pub start_time: std::string::String,
@@ -8906,8 +8484,7 @@ pub struct BackupConfiguration {
 
     /// Output only. This value contains the storage location of transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
-    pub transactional_log_storage_state:
-        std::option::Option<crate::model::backup_configuration::TransactionalLogStorageState>,
+    pub transactional_log_storage_state: std::option::Option<crate::model::backup_configuration::TransactionalLogStorageState>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8925,8 +8502,7 @@ impl BackupConfiguration {
 
     /// Sets the value of [enabled][crate::model::BackupConfiguration::enabled].
     pub fn set_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enabled = std::option::Option::Some(v.into());
         self
@@ -8934,8 +8510,7 @@ impl BackupConfiguration {
 
     /// Sets or clears the value of [enabled][crate::model::BackupConfiguration::enabled].
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enabled = v.map(|x| x.into());
         self
@@ -8949,8 +8524,7 @@ impl BackupConfiguration {
 
     /// Sets the value of [binary_log_enabled][crate::model::BackupConfiguration::binary_log_enabled].
     pub fn set_binary_log_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.binary_log_enabled = std::option::Option::Some(v.into());
         self
@@ -8958,8 +8532,7 @@ impl BackupConfiguration {
 
     /// Sets or clears the value of [binary_log_enabled][crate::model::BackupConfiguration::binary_log_enabled].
     pub fn set_or_clear_binary_log_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.binary_log_enabled = v.map(|x| x.into());
         self
@@ -8967,20 +8540,15 @@ impl BackupConfiguration {
 
     /// Sets the value of [replication_log_archiving_enabled][crate::model::BackupConfiguration::replication_log_archiving_enabled].
     pub fn set_replication_log_archiving_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.replication_log_archiving_enabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [replication_log_archiving_enabled][crate::model::BackupConfiguration::replication_log_archiving_enabled].
-    pub fn set_or_clear_replication_log_archiving_enabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_replication_log_archiving_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.replication_log_archiving_enabled = v.map(|x| x.into());
         self
@@ -8994,20 +8562,15 @@ impl BackupConfiguration {
 
     /// Sets the value of [point_in_time_recovery_enabled][crate::model::BackupConfiguration::point_in_time_recovery_enabled].
     pub fn set_point_in_time_recovery_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.point_in_time_recovery_enabled = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [point_in_time_recovery_enabled][crate::model::BackupConfiguration::point_in_time_recovery_enabled].
-    pub fn set_or_clear_point_in_time_recovery_enabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_point_in_time_recovery_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.point_in_time_recovery_enabled = v.map(|x| x.into());
         self
@@ -9015,8 +8578,7 @@ impl BackupConfiguration {
 
     /// Sets the value of [backup_retention_settings][crate::model::BackupConfiguration::backup_retention_settings].
     pub fn set_backup_retention_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupRetentionSettings>,
+    where T: std::convert::Into<crate::model::BackupRetentionSettings>
     {
         self.backup_retention_settings = std::option::Option::Some(v.into());
         self
@@ -9024,8 +8586,7 @@ impl BackupConfiguration {
 
     /// Sets or clears the value of [backup_retention_settings][crate::model::BackupConfiguration::backup_retention_settings].
     pub fn set_or_clear_backup_retention_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupRetentionSettings>,
+    where T: std::convert::Into<crate::model::BackupRetentionSettings>
     {
         self.backup_retention_settings = v.map(|x| x.into());
         self
@@ -9033,20 +8594,15 @@ impl BackupConfiguration {
 
     /// Sets the value of [transaction_log_retention_days][crate::model::BackupConfiguration::transaction_log_retention_days].
     pub fn set_transaction_log_retention_days<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.transaction_log_retention_days = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [transaction_log_retention_days][crate::model::BackupConfiguration::transaction_log_retention_days].
-    pub fn set_or_clear_transaction_log_retention_days<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    pub fn set_or_clear_transaction_log_retention_days<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.transaction_log_retention_days = v.map(|x| x.into());
         self
@@ -9054,20 +8610,15 @@ impl BackupConfiguration {
 
     /// Sets the value of [transactional_log_storage_state][crate::model::BackupConfiguration::transactional_log_storage_state].
     pub fn set_transactional_log_storage_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_configuration::TransactionalLogStorageState>,
+    where T: std::convert::Into<crate::model::backup_configuration::TransactionalLogStorageState>
     {
         self.transactional_log_storage_state = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [transactional_log_storage_state][crate::model::BackupConfiguration::transactional_log_storage_state].
-    pub fn set_or_clear_transactional_log_storage_state<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::backup_configuration::TransactionalLogStorageState>,
+    pub fn set_or_clear_transactional_log_storage_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::backup_configuration::TransactionalLogStorageState>
     {
         self.transactional_log_storage_state = v.map(|x| x.into());
         self
@@ -9084,6 +8635,7 @@ impl wkt::message::Message for BackupConfiguration {
 pub mod backup_configuration {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// This value contains the storage location of the transactional logs
     /// used to perform point-in-time recovery (PITR) for the database.
@@ -9157,16 +8709,10 @@ pub mod backup_configuration {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("TRANSACTIONAL_LOG_STORAGE_STATE_UNSPECIFIED"),
                 Self::Disk => std::option::Option::Some("DISK"),
-                Self::SwitchingToCloudStorage => {
-                    std::option::Option::Some("SWITCHING_TO_CLOUD_STORAGE")
-                }
-                Self::SwitchedToCloudStorage => {
-                    std::option::Option::Some("SWITCHED_TO_CLOUD_STORAGE")
-                }
+                Self::SwitchingToCloudStorage => std::option::Option::Some("SWITCHING_TO_CLOUD_STORAGE"),
+                Self::SwitchedToCloudStorage => std::option::Option::Some("SWITCHED_TO_CLOUD_STORAGE"),
                 Self::CloudStorage => std::option::Option::Some("CLOUD_STORAGE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -9194,9 +8740,7 @@ pub mod backup_configuration {
                 2 => Self::SwitchingToCloudStorage,
                 3 => Self::SwitchedToCloudStorage,
                 4 => Self::CloudStorage,
-                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9210,9 +8754,7 @@ pub mod backup_configuration {
                 "SWITCHING_TO_CLOUD_STORAGE" => Self::SwitchingToCloudStorage,
                 "SWITCHED_TO_CLOUD_STORAGE" => Self::SwitchedToCloudStorage,
                 "CLOUD_STORAGE" => Self::CloudStorage,
-                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(transactional_log_storage_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9238,11 +8780,8 @@ pub mod backup_configuration {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<TransactionalLogStorageState>::new(
-                    ".google.cloud.sql.v1.BackupConfiguration.TransactionalLogStorageState",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransactionalLogStorageState>::new(
+                ".google.cloud.sql.v1.BackupConfiguration.TransactionalLogStorageState"))
         }
     }
 }
@@ -9251,6 +8790,7 @@ pub mod backup_configuration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PerformDiskShrinkContext {
+
     /// The target disk shrink size in GigaBytes.
     pub target_size_gb: i64,
 
@@ -9279,6 +8819,7 @@ impl wkt::message::Message for PerformDiskShrinkContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BackupContext {
+
     /// The identifier of the backup.
     pub backup_id: i64,
 
@@ -9316,6 +8857,7 @@ impl wkt::message::Message for BackupContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Database {
+
     /// This is always `sql#database`.
     pub kind: std::string::String,
 
@@ -9405,12 +8947,8 @@ impl Database {
     ///
     /// Note that all the setters affecting `database_details` are mutually
     /// exclusive.
-    pub fn set_database_details<
-        T: std::convert::Into<std::option::Option<crate::model::database::DatabaseDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_database_details<T: std::convert::Into<std::option::Option<crate::model::database::DatabaseDetails>>>(mut self, v: T) -> Self
+    {
         self.database_details = v.into();
         self
     }
@@ -9418,14 +8956,10 @@ impl Database {
     /// The value of [database_details][crate::model::Database::database_details]
     /// if it holds a `SqlserverDatabaseDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sqlserver_database_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerDatabaseDetails>> {
+    pub fn sqlserver_database_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerDatabaseDetails>> {
         #[allow(unreachable_patterns)]
         self.database_details.as_ref().and_then(|v| match v {
-            crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9435,14 +8969,11 @@ impl Database {
     ///
     /// Note that all the setters affecting `database_details` are
     /// mutually exclusive.
-    pub fn set_sqlserver_database_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerDatabaseDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sqlserver_database_details<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerDatabaseDetails>>>(mut self, v: T) -> Self {
         self.database_details = std::option::Option::Some(
-            crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(v.into()),
+            crate::model::database::DatabaseDetails::SqlserverDatabaseDetails(
+                v.into()
+            )
         );
         self
     }
@@ -9459,6 +8990,7 @@ pub mod database {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DatabaseDetails {
@@ -9470,6 +9002,7 @@ pub mod database {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerDatabaseDetails {
+
     /// The version of SQL Server with which the database is to be made compatible
     pub compatibility_level: i32,
 
@@ -9507,6 +9040,7 @@ impl wkt::message::Message for SqlServerDatabaseDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatabaseFlags {
+
     /// The name of the flag. These flags are passed at instance startup, so
     /// include both server options and system variables. Flags are
     /// specified with underscores, not hyphens. For more information, see
@@ -9550,6 +9084,7 @@ impl wkt::message::Message for DatabaseFlags {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MySqlSyncConfig {
+
     /// Flags to use for the initial dump.
     pub initial_sync_flags: std::vec::Vec<crate::model::SyncFlags>,
 
@@ -9565,7 +9100,7 @@ impl MySqlSyncConfig {
     pub fn set_initial_sync_flags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SyncFlags>,
+        V: std::convert::Into<crate::model::SyncFlags>
     {
         use std::iter::Iterator;
         self.initial_sync_flags = v.into_iter().map(|i| i.into()).collect();
@@ -9584,6 +9119,7 @@ impl wkt::message::Message for MySqlSyncConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SyncFlags {
+
     /// The name of the flag.
     pub name: std::string::String,
 
@@ -9622,6 +9158,7 @@ impl wkt::message::Message for SyncFlags {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceReference {
+
     /// The name of the Cloud SQL instance being referenced.
     /// This does not include the project ID.
     pub name: std::string::String,
@@ -9671,6 +9208,7 @@ impl wkt::message::Message for InstanceReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DemoteMasterConfiguration {
+
     /// This is always `sql#demoteMasterConfiguration`.
     pub kind: std::string::String,
 
@@ -9680,8 +9218,7 @@ pub struct DemoteMasterConfiguration {
     /// metadata. The configuration information is used only to set up the
     /// replication connection and is stored by MySQL in a file named
     /// `master.info` in the data directory.
-    pub mysql_replica_configuration:
-        std::option::Option<crate::model::DemoteMasterMySqlReplicaConfiguration>,
+    pub mysql_replica_configuration: std::option::Option<crate::model::DemoteMasterMySqlReplicaConfiguration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9699,8 +9236,7 @@ impl DemoteMasterConfiguration {
 
     /// Sets the value of [mysql_replica_configuration][crate::model::DemoteMasterConfiguration::mysql_replica_configuration].
     pub fn set_mysql_replica_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>
     {
         self.mysql_replica_configuration = std::option::Option::Some(v.into());
         self
@@ -9708,8 +9244,7 @@ impl DemoteMasterConfiguration {
 
     /// Sets or clears the value of [mysql_replica_configuration][crate::model::DemoteMasterConfiguration::mysql_replica_configuration].
     pub fn set_or_clear_mysql_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>,
+    where T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>
     {
         self.mysql_replica_configuration = v.map(|x| x.into());
         self
@@ -9726,6 +9261,7 @@ impl wkt::message::Message for DemoteMasterConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DemoteMasterMySqlReplicaConfiguration {
+
     /// This is always `sql#demoteMasterMysqlReplicaConfiguration`.
     pub kind: std::string::String,
 
@@ -9779,10 +9315,7 @@ impl DemoteMasterMySqlReplicaConfiguration {
     }
 
     /// Sets the value of [client_certificate][crate::model::DemoteMasterMySqlReplicaConfiguration::client_certificate].
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -9804,6 +9337,7 @@ impl wkt::message::Message for DemoteMasterMySqlReplicaConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportContext {
+
     /// The path to the file in Google Cloud Storage where the export will be
     /// stored. The URI is in the form `gs://bucketName/fileName`. If the file
     /// already exists, the request succeeds, but the operation fails. If
@@ -9862,7 +9396,7 @@ impl ExportContext {
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.databases = v.into_iter().map(|i| i.into()).collect();
@@ -9877,8 +9411,7 @@ impl ExportContext {
 
     /// Sets the value of [sql_export_options][crate::model::ExportContext::sql_export_options].
     pub fn set_sql_export_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlExportOptions>
     {
         self.sql_export_options = std::option::Option::Some(v.into());
         self
@@ -9886,8 +9419,7 @@ impl ExportContext {
 
     /// Sets or clears the value of [sql_export_options][crate::model::ExportContext::sql_export_options].
     pub fn set_or_clear_sql_export_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlExportOptions>
     {
         self.sql_export_options = v.map(|x| x.into());
         self
@@ -9895,8 +9427,7 @@ impl ExportContext {
 
     /// Sets the value of [csv_export_options][crate::model::ExportContext::csv_export_options].
     pub fn set_csv_export_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>
     {
         self.csv_export_options = std::option::Option::Some(v.into());
         self
@@ -9904,8 +9435,7 @@ impl ExportContext {
 
     /// Sets or clears the value of [csv_export_options][crate::model::ExportContext::csv_export_options].
     pub fn set_or_clear_csv_export_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>
     {
         self.csv_export_options = v.map(|x| x.into());
         self
@@ -9919,8 +9449,7 @@ impl ExportContext {
 
     /// Sets the value of [offload][crate::model::ExportContext::offload].
     pub fn set_offload<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.offload = std::option::Option::Some(v.into());
         self
@@ -9928,8 +9457,7 @@ impl ExportContext {
 
     /// Sets or clears the value of [offload][crate::model::ExportContext::offload].
     pub fn set_or_clear_offload<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.offload = v.map(|x| x.into());
         self
@@ -9937,8 +9465,7 @@ impl ExportContext {
 
     /// Sets the value of [bak_export_options][crate::model::ExportContext::bak_export_options].
     pub fn set_bak_export_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>
     {
         self.bak_export_options = std::option::Option::Some(v.into());
         self
@@ -9946,8 +9473,7 @@ impl ExportContext {
 
     /// Sets or clears the value of [bak_export_options][crate::model::ExportContext::bak_export_options].
     pub fn set_or_clear_bak_export_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>,
+    where T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>
     {
         self.bak_export_options = v.map(|x| x.into());
         self
@@ -9965,9 +9491,11 @@ pub mod export_context {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlCsvExportOptions {
+
         /// The select query used to extract the data.
         pub select_query: std::string::String,
 
@@ -9995,46 +9523,31 @@ pub mod export_context {
         }
 
         /// Sets the value of [select_query][crate::model::export_context::SqlCsvExportOptions::select_query].
-        pub fn set_select_query<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.select_query = v.into();
             self
         }
 
         /// Sets the value of [escape_character][crate::model::export_context::SqlCsvExportOptions::escape_character].
-        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.escape_character = v.into();
             self
         }
 
         /// Sets the value of [quote_character][crate::model::export_context::SqlCsvExportOptions::quote_character].
-        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.quote_character = v.into();
             self
         }
 
         /// Sets the value of [fields_terminated_by][crate::model::export_context::SqlCsvExportOptions::fields_terminated_by].
-        pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.fields_terminated_by = v.into();
             self
         }
 
         /// Sets the value of [lines_terminated_by][crate::model::export_context::SqlCsvExportOptions::lines_terminated_by].
-        pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.lines_terminated_by = v.into();
             self
         }
@@ -10049,6 +9562,7 @@ pub mod export_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlExportOptions {
+
         /// Tables to export, or that were exported, from the specified database. If
         /// you specify tables, specify one and only one database. For PostgreSQL
         /// instances, you can specify only one table.
@@ -10057,9 +9571,7 @@ pub mod export_context {
         /// Export only schemas.
         pub schema_only: std::option::Option<wkt::BoolValue>,
 
-        pub mysql_export_options: std::option::Option<
-            crate::model::export_context::sql_export_options::MysqlExportOptions,
-        >,
+        pub mysql_export_options: std::option::Option<crate::model::export_context::sql_export_options::MysqlExportOptions>,
 
         /// Optional. The number of threads to use for parallel export.
         pub threads: std::option::Option<wkt::Int32Value>,
@@ -10068,9 +9580,7 @@ pub mod export_context {
         pub parallel: std::option::Option<wkt::BoolValue>,
 
         /// Optional. Options for exporting from a Cloud SQL for PostgreSQL instance.
-        pub postgres_export_options: std::option::Option<
-            crate::model::export_context::sql_export_options::PostgresExportOptions,
-        >,
+        pub postgres_export_options: std::option::Option<crate::model::export_context::sql_export_options::PostgresExportOptions>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10084,7 +9594,7 @@ pub mod export_context {
         pub fn set_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tables = v.into_iter().map(|i| i.into()).collect();
@@ -10093,8 +9603,7 @@ pub mod export_context {
 
         /// Sets the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
         pub fn set_schema_only<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.schema_only = std::option::Option::Some(v.into());
             self
@@ -10102,8 +9611,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
         pub fn set_or_clear_schema_only<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.schema_only = v.map(|x| x.into());
             self
@@ -10111,10 +9619,7 @@ pub mod export_context {
 
         /// Sets the value of [mysql_export_options][crate::model::export_context::SqlExportOptions::mysql_export_options].
         pub fn set_mysql_export_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::export_context::sql_export_options::MysqlExportOptions,
-                >,
+        where T: std::convert::Into<crate::model::export_context::sql_export_options::MysqlExportOptions>
         {
             self.mysql_export_options = std::option::Option::Some(v.into());
             self
@@ -10122,10 +9627,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [mysql_export_options][crate::model::export_context::SqlExportOptions::mysql_export_options].
         pub fn set_or_clear_mysql_export_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::export_context::sql_export_options::MysqlExportOptions,
-                >,
+        where T: std::convert::Into<crate::model::export_context::sql_export_options::MysqlExportOptions>
         {
             self.mysql_export_options = v.map(|x| x.into());
             self
@@ -10133,8 +9635,7 @@ pub mod export_context {
 
         /// Sets the value of [threads][crate::model::export_context::SqlExportOptions::threads].
         pub fn set_threads<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.threads = std::option::Option::Some(v.into());
             self
@@ -10142,8 +9643,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [threads][crate::model::export_context::SqlExportOptions::threads].
         pub fn set_or_clear_threads<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.threads = v.map(|x| x.into());
             self
@@ -10151,8 +9651,7 @@ pub mod export_context {
 
         /// Sets the value of [parallel][crate::model::export_context::SqlExportOptions::parallel].
         pub fn set_parallel<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.parallel = std::option::Option::Some(v.into());
             self
@@ -10160,8 +9659,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [parallel][crate::model::export_context::SqlExportOptions::parallel].
         pub fn set_or_clear_parallel<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.parallel = v.map(|x| x.into());
             self
@@ -10169,10 +9667,7 @@ pub mod export_context {
 
         /// Sets the value of [postgres_export_options][crate::model::export_context::SqlExportOptions::postgres_export_options].
         pub fn set_postgres_export_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::export_context::sql_export_options::PostgresExportOptions,
-                >,
+        where T: std::convert::Into<crate::model::export_context::sql_export_options::PostgresExportOptions>
         {
             self.postgres_export_options = std::option::Option::Some(v.into());
             self
@@ -10180,10 +9675,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [postgres_export_options][crate::model::export_context::SqlExportOptions::postgres_export_options].
         pub fn set_or_clear_postgres_export_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::export_context::sql_export_options::PostgresExportOptions,
-                >,
+        where T: std::convert::Into<crate::model::export_context::sql_export_options::PostgresExportOptions>
         {
             self.postgres_export_options = v.map(|x| x.into());
             self
@@ -10201,10 +9693,12 @@ pub mod export_context {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Options for exporting from MySQL.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct MysqlExportOptions {
+
             /// Option to include SQL statement required to set up replication. If set
             /// to `1`, the dump file includes a CHANGE MASTER TO statement with the
             /// binary log coordinates, and --set-gtid-purged is set to ON. If set to
@@ -10223,8 +9717,7 @@ pub mod export_context {
 
             /// Sets the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
             pub fn set_master_data<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Int32Value>,
+            where T: std::convert::Into<wkt::Int32Value>
             {
                 self.master_data = std::option::Option::Some(v.into());
                 self
@@ -10232,8 +9725,7 @@ pub mod export_context {
 
             /// Sets or clears the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
             pub fn set_or_clear_master_data<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Int32Value>,
+            where T: std::convert::Into<wkt::Int32Value>
             {
                 self.master_data = v.map(|x| x.into());
                 self
@@ -10250,6 +9742,7 @@ pub mod export_context {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PostgresExportOptions {
+
             /// Optional. Use this option to include DROP \<object\> SQL statements.
             /// These statements are used to delete database objects before running the
             /// import operation.
@@ -10269,8 +9762,7 @@ pub mod export_context {
 
             /// Sets the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
             pub fn set_clean<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.clean = std::option::Option::Some(v.into());
                 self
@@ -10278,8 +9770,7 @@ pub mod export_context {
 
             /// Sets or clears the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
             pub fn set_or_clear_clean<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.clean = v.map(|x| x.into());
                 self
@@ -10287,8 +9778,7 @@ pub mod export_context {
 
             /// Sets the value of [if_exists][crate::model::export_context::sql_export_options::PostgresExportOptions::if_exists].
             pub fn set_if_exists<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.if_exists = std::option::Option::Some(v.into());
                 self
@@ -10296,8 +9786,7 @@ pub mod export_context {
 
             /// Sets or clears the value of [if_exists][crate::model::export_context::sql_export_options::PostgresExportOptions::if_exists].
             pub fn set_or_clear_if_exists<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.if_exists = v.map(|x| x.into());
                 self
@@ -10315,6 +9804,7 @@ pub mod export_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlBakExportOptions {
+
         /// Whether or not the export should be striped.
         pub striped: std::option::Option<wkt::BoolValue>,
 
@@ -10344,8 +9834,7 @@ pub mod export_context {
 
         /// Sets the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
         pub fn set_striped<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.striped = std::option::Option::Some(v.into());
             self
@@ -10353,8 +9842,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
         pub fn set_or_clear_striped<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.striped = v.map(|x| x.into());
             self
@@ -10362,8 +9850,7 @@ pub mod export_context {
 
         /// Sets the value of [stripe_count][crate::model::export_context::SqlBakExportOptions::stripe_count].
         pub fn set_stripe_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.stripe_count = std::option::Option::Some(v.into());
             self
@@ -10371,8 +9858,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [stripe_count][crate::model::export_context::SqlBakExportOptions::stripe_count].
         pub fn set_or_clear_stripe_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.stripe_count = v.map(|x| x.into());
             self
@@ -10387,8 +9873,7 @@ pub mod export_context {
         /// Sets the value of [copy_only][crate::model::export_context::SqlBakExportOptions::copy_only].
         #[deprecated]
         pub fn set_copy_only<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.copy_only = std::option::Option::Some(v.into());
             self
@@ -10397,8 +9882,7 @@ pub mod export_context {
         /// Sets or clears the value of [copy_only][crate::model::export_context::SqlBakExportOptions::copy_only].
         #[deprecated]
         pub fn set_or_clear_copy_only<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.copy_only = v.map(|x| x.into());
             self
@@ -10406,8 +9890,7 @@ pub mod export_context {
 
         /// Sets the value of [differential_base][crate::model::export_context::SqlBakExportOptions::differential_base].
         pub fn set_differential_base<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.differential_base = std::option::Option::Some(v.into());
             self
@@ -10415,8 +9898,7 @@ pub mod export_context {
 
         /// Sets or clears the value of [differential_base][crate::model::export_context::SqlBakExportOptions::differential_base].
         pub fn set_or_clear_differential_base<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.differential_base = v.map(|x| x.into());
             self
@@ -10434,6 +9916,7 @@ pub mod export_context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImportContext {
+
     /// Path to the import file in Cloud Storage, in the form
     /// `gs://bucketName/fileName`. Compressed gzip files (.gz) are supported
     /// when `fileType` is `SQL`. The instance must have
@@ -10499,8 +9982,7 @@ impl ImportContext {
 
     /// Sets the value of [csv_import_options][crate::model::ImportContext::csv_import_options].
     pub fn set_csv_import_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>
     {
         self.csv_import_options = std::option::Option::Some(v.into());
         self
@@ -10508,8 +9990,7 @@ impl ImportContext {
 
     /// Sets or clears the value of [csv_import_options][crate::model::ImportContext::csv_import_options].
     pub fn set_or_clear_csv_import_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>
     {
         self.csv_import_options = v.map(|x| x.into());
         self
@@ -10523,8 +10004,7 @@ impl ImportContext {
 
     /// Sets the value of [bak_import_options][crate::model::ImportContext::bak_import_options].
     pub fn set_bak_import_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>
     {
         self.bak_import_options = std::option::Option::Some(v.into());
         self
@@ -10532,8 +10012,7 @@ impl ImportContext {
 
     /// Sets or clears the value of [bak_import_options][crate::model::ImportContext::bak_import_options].
     pub fn set_or_clear_bak_import_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>
     {
         self.bak_import_options = v.map(|x| x.into());
         self
@@ -10541,8 +10020,7 @@ impl ImportContext {
 
     /// Sets the value of [sql_import_options][crate::model::ImportContext::sql_import_options].
     pub fn set_sql_import_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlImportOptions>
     {
         self.sql_import_options = std::option::Option::Some(v.into());
         self
@@ -10550,8 +10028,7 @@ impl ImportContext {
 
     /// Sets or clears the value of [sql_import_options][crate::model::ImportContext::sql_import_options].
     pub fn set_or_clear_sql_import_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::import_context::SqlImportOptions>,
+    where T: std::convert::Into<crate::model::import_context::SqlImportOptions>
     {
         self.sql_import_options = v.map(|x| x.into());
         self
@@ -10569,9 +10046,11 @@ pub mod import_context {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlImportOptions {
+
         /// Optional. The number of threads to use for parallel import.
         pub threads: std::option::Option<wkt::Int32Value>,
 
@@ -10579,9 +10058,7 @@ pub mod import_context {
         pub parallel: std::option::Option<wkt::BoolValue>,
 
         /// Optional. Options for importing from a Cloud SQL for PostgreSQL instance.
-        pub postgres_import_options: std::option::Option<
-            crate::model::import_context::sql_import_options::PostgresImportOptions,
-        >,
+        pub postgres_import_options: std::option::Option<crate::model::import_context::sql_import_options::PostgresImportOptions>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -10593,8 +10070,7 @@ pub mod import_context {
 
         /// Sets the value of [threads][crate::model::import_context::SqlImportOptions::threads].
         pub fn set_threads<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.threads = std::option::Option::Some(v.into());
             self
@@ -10602,8 +10078,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [threads][crate::model::import_context::SqlImportOptions::threads].
         pub fn set_or_clear_threads<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Int32Value>,
+        where T: std::convert::Into<wkt::Int32Value>
         {
             self.threads = v.map(|x| x.into());
             self
@@ -10611,8 +10086,7 @@ pub mod import_context {
 
         /// Sets the value of [parallel][crate::model::import_context::SqlImportOptions::parallel].
         pub fn set_parallel<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.parallel = std::option::Option::Some(v.into());
             self
@@ -10620,8 +10094,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [parallel][crate::model::import_context::SqlImportOptions::parallel].
         pub fn set_or_clear_parallel<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.parallel = v.map(|x| x.into());
             self
@@ -10629,10 +10102,7 @@ pub mod import_context {
 
         /// Sets the value of [postgres_import_options][crate::model::import_context::SqlImportOptions::postgres_import_options].
         pub fn set_postgres_import_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::import_context::sql_import_options::PostgresImportOptions,
-                >,
+        where T: std::convert::Into<crate::model::import_context::sql_import_options::PostgresImportOptions>
         {
             self.postgres_import_options = std::option::Option::Some(v.into());
             self
@@ -10640,10 +10110,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [postgres_import_options][crate::model::import_context::SqlImportOptions::postgres_import_options].
         pub fn set_or_clear_postgres_import_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::import_context::sql_import_options::PostgresImportOptions,
-                >,
+        where T: std::convert::Into<crate::model::import_context::sql_import_options::PostgresImportOptions>
         {
             self.postgres_import_options = v.map(|x| x.into());
             self
@@ -10661,9 +10128,11 @@ pub mod import_context {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PostgresImportOptions {
+
             /// Optional. The --clean flag for the pg_restore utility. This flag
             /// applies only if you enabled Cloud SQL to import files in parallel.
             pub clean: std::option::Option<wkt::BoolValue>,
@@ -10682,8 +10151,7 @@ pub mod import_context {
 
             /// Sets the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
             pub fn set_clean<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.clean = std::option::Option::Some(v.into());
                 self
@@ -10691,8 +10159,7 @@ pub mod import_context {
 
             /// Sets or clears the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
             pub fn set_or_clear_clean<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.clean = v.map(|x| x.into());
                 self
@@ -10700,8 +10167,7 @@ pub mod import_context {
 
             /// Sets the value of [if_exists][crate::model::import_context::sql_import_options::PostgresImportOptions::if_exists].
             pub fn set_if_exists<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.if_exists = std::option::Option::Some(v.into());
                 self
@@ -10709,8 +10175,7 @@ pub mod import_context {
 
             /// Sets or clears the value of [if_exists][crate::model::import_context::sql_import_options::PostgresImportOptions::if_exists].
             pub fn set_or_clear_if_exists<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::BoolValue>,
+            where T: std::convert::Into<wkt::BoolValue>
             {
                 self.if_exists = v.map(|x| x.into());
                 self
@@ -10727,6 +10192,7 @@ pub mod import_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlCsvImportOptions {
+
         /// The table to which CSV data is imported.
         pub table: std::string::String,
 
@@ -10767,7 +10233,7 @@ pub mod import_context {
         pub fn set_columns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.columns = v.into_iter().map(|i| i.into()).collect();
@@ -10775,37 +10241,25 @@ pub mod import_context {
         }
 
         /// Sets the value of [escape_character][crate::model::import_context::SqlCsvImportOptions::escape_character].
-        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_escape_character<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.escape_character = v.into();
             self
         }
 
         /// Sets the value of [quote_character][crate::model::import_context::SqlCsvImportOptions::quote_character].
-        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_quote_character<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.quote_character = v.into();
             self
         }
 
         /// Sets the value of [fields_terminated_by][crate::model::import_context::SqlCsvImportOptions::fields_terminated_by].
-        pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.fields_terminated_by = v.into();
             self
         }
 
         /// Sets the value of [lines_terminated_by][crate::model::import_context::SqlCsvImportOptions::lines_terminated_by].
-        pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.lines_terminated_by = v.into();
             self
         }
@@ -10820,9 +10274,8 @@ pub mod import_context {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SqlBakImportOptions {
-        pub encryption_options: std::option::Option<
-            crate::model::import_context::sql_bak_import_options::EncryptionOptions,
-        >,
+
+        pub encryption_options: std::option::Option<crate::model::import_context::sql_bak_import_options::EncryptionOptions>,
 
         /// Whether or not the backup set being restored is striped.
         /// Applies only to Cloud SQL for SQL Server.
@@ -10863,10 +10316,7 @@ pub mod import_context {
 
         /// Sets the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
         pub fn set_encryption_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::import_context::sql_bak_import_options::EncryptionOptions,
-                >,
+        where T: std::convert::Into<crate::model::import_context::sql_bak_import_options::EncryptionOptions>
         {
             self.encryption_options = std::option::Option::Some(v.into());
             self
@@ -10874,10 +10324,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
         pub fn set_or_clear_encryption_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::import_context::sql_bak_import_options::EncryptionOptions,
-                >,
+        where T: std::convert::Into<crate::model::import_context::sql_bak_import_options::EncryptionOptions>
         {
             self.encryption_options = v.map(|x| x.into());
             self
@@ -10885,8 +10332,7 @@ pub mod import_context {
 
         /// Sets the value of [striped][crate::model::import_context::SqlBakImportOptions::striped].
         pub fn set_striped<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.striped = std::option::Option::Some(v.into());
             self
@@ -10894,8 +10340,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [striped][crate::model::import_context::SqlBakImportOptions::striped].
         pub fn set_or_clear_striped<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.striped = v.map(|x| x.into());
             self
@@ -10903,8 +10348,7 @@ pub mod import_context {
 
         /// Sets the value of [no_recovery][crate::model::import_context::SqlBakImportOptions::no_recovery].
         pub fn set_no_recovery<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.no_recovery = std::option::Option::Some(v.into());
             self
@@ -10912,8 +10356,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [no_recovery][crate::model::import_context::SqlBakImportOptions::no_recovery].
         pub fn set_or_clear_no_recovery<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.no_recovery = v.map(|x| x.into());
             self
@@ -10921,8 +10364,7 @@ pub mod import_context {
 
         /// Sets the value of [recovery_only][crate::model::import_context::SqlBakImportOptions::recovery_only].
         pub fn set_recovery_only<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.recovery_only = std::option::Option::Some(v.into());
             self
@@ -10930,8 +10372,7 @@ pub mod import_context {
 
         /// Sets or clears the value of [recovery_only][crate::model::import_context::SqlBakImportOptions::recovery_only].
         pub fn set_or_clear_recovery_only<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::BoolValue>,
+        where T: std::convert::Into<wkt::BoolValue>
         {
             self.recovery_only = v.map(|x| x.into());
             self
@@ -10945,8 +10386,7 @@ pub mod import_context {
 
         /// Sets the value of [stop_at][crate::model::import_context::SqlBakImportOptions::stop_at].
         pub fn set_stop_at<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.stop_at = std::option::Option::Some(v.into());
             self
@@ -10954,18 +10394,14 @@ pub mod import_context {
 
         /// Sets or clears the value of [stop_at][crate::model::import_context::SqlBakImportOptions::stop_at].
         pub fn set_or_clear_stop_at<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.stop_at = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [stop_at_mark][crate::model::import_context::SqlBakImportOptions::stop_at_mark].
-        pub fn set_stop_at_mark<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_stop_at_mark<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stop_at_mark = v.into();
             self
         }
@@ -10982,9 +10418,11 @@ pub mod import_context {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct EncryptionOptions {
+
             /// Path to the Certificate (.cer) in Cloud Storage, in the form
             /// `gs://bucketName/fileName`. The instance must have
             /// write permissions to the bucket and read access to the file.
@@ -11007,28 +10445,19 @@ pub mod import_context {
             }
 
             /// Sets the value of [cert_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::cert_path].
-            pub fn set_cert_path<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_cert_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.cert_path = v.into();
                 self
             }
 
             /// Sets the value of [pvk_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::pvk_path].
-            pub fn set_pvk_path<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_pvk_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.pvk_path = v.into();
                 self
             }
 
             /// Sets the value of [pvk_password][crate::model::import_context::sql_bak_import_options::EncryptionOptions::pvk_password].
-            pub fn set_pvk_password<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_pvk_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.pvk_password = v.into();
                 self
             }
@@ -11046,6 +10475,7 @@ pub mod import_context {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IpConfiguration {
+
     /// Whether the instance is assigned a public IP address or not.
     pub ipv4_enabled: std::option::Option<wkt::BoolValue>,
 
@@ -11123,8 +10553,7 @@ impl IpConfiguration {
 
     /// Sets the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
     pub fn set_ipv4_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.ipv4_enabled = std::option::Option::Some(v.into());
         self
@@ -11132,8 +10561,7 @@ impl IpConfiguration {
 
     /// Sets or clears the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
     pub fn set_or_clear_ipv4_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.ipv4_enabled = v.map(|x| x.into());
         self
@@ -11147,8 +10575,7 @@ impl IpConfiguration {
 
     /// Sets the value of [require_ssl][crate::model::IpConfiguration::require_ssl].
     pub fn set_require_ssl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.require_ssl = std::option::Option::Some(v.into());
         self
@@ -11156,8 +10583,7 @@ impl IpConfiguration {
 
     /// Sets or clears the value of [require_ssl][crate::model::IpConfiguration::require_ssl].
     pub fn set_or_clear_require_ssl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.require_ssl = v.map(|x| x.into());
         self
@@ -11167,7 +10593,7 @@ impl IpConfiguration {
     pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AclEntry>,
+        V: std::convert::Into<crate::model::AclEntry>
     {
         use std::iter::Iterator;
         self.authorized_networks = v.into_iter().map(|i| i.into()).collect();
@@ -11175,48 +10601,36 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [allocated_ip_range][crate::model::IpConfiguration::allocated_ip_range].
-    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.allocated_ip_range = v.into();
         self
     }
 
     /// Sets the value of [enable_private_path_for_google_cloud_services][crate::model::IpConfiguration::enable_private_path_for_google_cloud_services].
     pub fn set_enable_private_path_for_google_cloud_services<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_private_path_for_google_cloud_services = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [enable_private_path_for_google_cloud_services][crate::model::IpConfiguration::enable_private_path_for_google_cloud_services].
-    pub fn set_or_clear_enable_private_path_for_google_cloud_services<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_enable_private_path_for_google_cloud_services<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_private_path_for_google_cloud_services = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [ssl_mode][crate::model::IpConfiguration::ssl_mode].
-    pub fn set_ssl_mode<T: std::convert::Into<crate::model::ip_configuration::SslMode>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ssl_mode<T: std::convert::Into<crate::model::ip_configuration::SslMode>>(mut self, v: T) -> Self {
         self.ssl_mode = v.into();
         self
     }
 
     /// Sets the value of [psc_config][crate::model::IpConfiguration::psc_config].
     pub fn set_psc_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PscConfig>,
+    where T: std::convert::Into<crate::model::PscConfig>
     {
         self.psc_config = std::option::Option::Some(v.into());
         self
@@ -11224,8 +10638,7 @@ impl IpConfiguration {
 
     /// Sets or clears the value of [psc_config][crate::model::IpConfiguration::psc_config].
     pub fn set_or_clear_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PscConfig>,
+    where T: std::convert::Into<crate::model::PscConfig>
     {
         self.psc_config = v.map(|x| x.into());
         self
@@ -11233,8 +10646,7 @@ impl IpConfiguration {
 
     /// Sets the value of [server_ca_mode][crate::model::IpConfiguration::server_ca_mode].
     pub fn set_server_ca_mode<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ip_configuration::CaMode>,
+    where T: std::convert::Into<crate::model::ip_configuration::CaMode>
     {
         self.server_ca_mode = std::option::Option::Some(v.into());
         self
@@ -11242,8 +10654,7 @@ impl IpConfiguration {
 
     /// Sets or clears the value of [server_ca_mode][crate::model::IpConfiguration::server_ca_mode].
     pub fn set_or_clear_server_ca_mode<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ip_configuration::CaMode>,
+    where T: std::convert::Into<crate::model::ip_configuration::CaMode>
     {
         self.server_ca_mode = v.map(|x| x.into());
         self
@@ -11260,6 +10671,7 @@ impl wkt::message::Message for IpConfiguration {
 pub mod ip_configuration {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The SSL options for database connections.
     ///
@@ -11347,13 +10759,9 @@ pub mod ip_configuration {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("SSL_MODE_UNSPECIFIED"),
-                Self::AllowUnencryptedAndEncrypted => {
-                    std::option::Option::Some("ALLOW_UNENCRYPTED_AND_ENCRYPTED")
-                }
+                Self::AllowUnencryptedAndEncrypted => std::option::Option::Some("ALLOW_UNENCRYPTED_AND_ENCRYPTED"),
                 Self::EncryptedOnly => std::option::Option::Some("ENCRYPTED_ONLY"),
-                Self::TrustedClientCertificateRequired => {
-                    std::option::Option::Some("TRUSTED_CLIENT_CERTIFICATE_REQUIRED")
-                }
+                Self::TrustedClientCertificateRequired => std::option::Option::Some("TRUSTED_CLIENT_CERTIFICATE_REQUIRED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11379,9 +10787,7 @@ pub mod ip_configuration {
                 1 => Self::AllowUnencryptedAndEncrypted,
                 2 => Self::EncryptedOnly,
                 3 => Self::TrustedClientCertificateRequired,
-                _ => Self::UnknownValue(ssl_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ssl_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11394,9 +10800,7 @@ pub mod ip_configuration {
                 "ALLOW_UNENCRYPTED_AND_ENCRYPTED" => Self::AllowUnencryptedAndEncrypted,
                 "ENCRYPTED_ONLY" => Self::EncryptedOnly,
                 "TRUSTED_CLIENT_CERTIFICATE_REQUIRED" => Self::TrustedClientCertificateRequired,
-                _ => Self::UnknownValue(ssl_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ssl_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11422,8 +10826,7 @@ pub mod ip_configuration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SslMode>::new(
-                ".google.cloud.sql.v1.IpConfiguration.SslMode",
-            ))
+                ".google.cloud.sql.v1.IpConfiguration.SslMode"))
         }
     }
 
@@ -11488,9 +10891,7 @@ pub mod ip_configuration {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("CA_MODE_UNSPECIFIED"),
-                Self::GoogleManagedInternalCa => {
-                    std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA")
-                }
+                Self::GoogleManagedInternalCa => std::option::Option::Some("GOOGLE_MANAGED_INTERNAL_CA"),
                 Self::GoogleManagedCasCa => std::option::Option::Some("GOOGLE_MANAGED_CAS_CA"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -11516,9 +10917,7 @@ pub mod ip_configuration {
                 0 => Self::Unspecified,
                 1 => Self::GoogleManagedInternalCa,
                 2 => Self::GoogleManagedCasCa,
-                _ => Self::UnknownValue(ca_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11530,9 +10929,7 @@ pub mod ip_configuration {
                 "CA_MODE_UNSPECIFIED" => Self::Unspecified,
                 "GOOGLE_MANAGED_INTERNAL_CA" => Self::GoogleManagedInternalCa,
                 "GOOGLE_MANAGED_CAS_CA" => Self::GoogleManagedCasCa,
-                _ => Self::UnknownValue(ca_mode::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ca_mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11557,8 +10954,7 @@ pub mod ip_configuration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<CaMode>::new(
-                ".google.cloud.sql.v1.IpConfiguration.CaMode",
-            ))
+                ".google.cloud.sql.v1.IpConfiguration.CaMode"))
         }
     }
 }
@@ -11567,6 +10963,7 @@ pub mod ip_configuration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PscConfig {
+
     /// Whether PSC connectivity is enabled for this instance.
     pub psc_enabled: std::option::Option<bool>,
 
@@ -11588,8 +10985,7 @@ impl PscConfig {
 
     /// Sets the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
     pub fn set_psc_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.psc_enabled = std::option::Option::Some(v.into());
         self
@@ -11597,8 +10993,7 @@ impl PscConfig {
 
     /// Sets or clears the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
     pub fn set_or_clear_psc_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.psc_enabled = v.map(|x| x.into());
         self
@@ -11608,7 +11003,7 @@ impl PscConfig {
     pub fn set_allowed_consumer_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.allowed_consumer_projects = v.into_iter().map(|i| i.into()).collect();
@@ -11629,6 +11024,7 @@ impl wkt::message::Message for PscConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationPreference {
+
     /// The App Engine application to follow, it must be in the same region as the
     /// Cloud SQL instance. WARNING: Changing this might restart the instance.
     #[deprecated]
@@ -11656,10 +11052,7 @@ impl LocationPreference {
 
     /// Sets the value of [follow_gae_application][crate::model::LocationPreference::follow_gae_application].
     #[deprecated]
-    pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.follow_gae_application = v.into();
         self
     }
@@ -11694,6 +11087,7 @@ impl wkt::message::Message for LocationPreference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MaintenanceWindow {
+
     /// Hour of day - 0 to 23. Specify in the UTC time zone.
     pub hour: std::option::Option<wkt::Int32Value>,
 
@@ -11720,8 +11114,7 @@ impl MaintenanceWindow {
 
     /// Sets the value of [hour][crate::model::MaintenanceWindow::hour].
     pub fn set_hour<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.hour = std::option::Option::Some(v.into());
         self
@@ -11729,8 +11122,7 @@ impl MaintenanceWindow {
 
     /// Sets or clears the value of [hour][crate::model::MaintenanceWindow::hour].
     pub fn set_or_clear_hour<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.hour = v.map(|x| x.into());
         self
@@ -11738,8 +11130,7 @@ impl MaintenanceWindow {
 
     /// Sets the value of [day][crate::model::MaintenanceWindow::day].
     pub fn set_day<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.day = std::option::Option::Some(v.into());
         self
@@ -11747,18 +11138,14 @@ impl MaintenanceWindow {
 
     /// Sets or clears the value of [day][crate::model::MaintenanceWindow::day].
     pub fn set_or_clear_day<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.day = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_track][crate::model::MaintenanceWindow::update_track].
-    pub fn set_update_track<T: std::convert::Into<crate::model::SqlUpdateTrack>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_update_track<T: std::convert::Into<crate::model::SqlUpdateTrack>>(mut self, v: T) -> Self {
         self.update_track = v.into();
         self
     }
@@ -11781,6 +11168,7 @@ impl wkt::message::Message for MaintenanceWindow {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DenyMaintenancePeriod {
+
     /// "deny maintenance period" start date. If the year of the start date is
     /// empty, the year of the end date also must be empty. In this case, it means
     /// the deny maintenance period recurs every year. The date is in format
@@ -11835,6 +11223,7 @@ impl wkt::message::Message for DenyMaintenancePeriod {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightsConfig {
+
     /// Whether Query Insights feature is enabled.
     pub query_insights_enabled: bool,
 
@@ -11883,8 +11272,7 @@ impl InsightsConfig {
 
     /// Sets the value of [query_string_length][crate::model::InsightsConfig::query_string_length].
     pub fn set_query_string_length<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.query_string_length = std::option::Option::Some(v.into());
         self
@@ -11892,8 +11280,7 @@ impl InsightsConfig {
 
     /// Sets or clears the value of [query_string_length][crate::model::InsightsConfig::query_string_length].
     pub fn set_or_clear_query_string_length<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.query_string_length = v.map(|x| x.into());
         self
@@ -11901,8 +11288,7 @@ impl InsightsConfig {
 
     /// Sets the value of [query_plans_per_minute][crate::model::InsightsConfig::query_plans_per_minute].
     pub fn set_query_plans_per_minute<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.query_plans_per_minute = std::option::Option::Some(v.into());
         self
@@ -11910,8 +11296,7 @@ impl InsightsConfig {
 
     /// Sets or clears the value of [query_plans_per_minute][crate::model::InsightsConfig::query_plans_per_minute].
     pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.query_plans_per_minute = v.map(|x| x.into());
         self
@@ -11928,6 +11313,7 @@ impl wkt::message::Message for InsightsConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MySqlReplicaConfiguration {
+
     /// Path to a SQL dump file in Google Cloud Storage from which the replica
     /// instance is to be created. The URI is in the form gs://bucketName/fileName.
     /// Compressed gzip files (.gz) are also supported.
@@ -11996,8 +11382,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets the value of [connect_retry_interval][crate::model::MySqlReplicaConfiguration::connect_retry_interval].
     pub fn set_connect_retry_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.connect_retry_interval = std::option::Option::Some(v.into());
         self
@@ -12005,8 +11390,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets or clears the value of [connect_retry_interval][crate::model::MySqlReplicaConfiguration::connect_retry_interval].
     pub fn set_or_clear_connect_retry_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.connect_retry_interval = v.map(|x| x.into());
         self
@@ -12014,8 +11398,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets the value of [master_heartbeat_period][crate::model::MySqlReplicaConfiguration::master_heartbeat_period].
     pub fn set_master_heartbeat_period<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.master_heartbeat_period = std::option::Option::Some(v.into());
         self
@@ -12023,8 +11406,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets or clears the value of [master_heartbeat_period][crate::model::MySqlReplicaConfiguration::master_heartbeat_period].
     pub fn set_or_clear_master_heartbeat_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.master_heartbeat_period = v.map(|x| x.into());
         self
@@ -12037,10 +11419,7 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [client_certificate][crate::model::MySqlReplicaConfiguration::client_certificate].
-    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_certificate = v.into();
         self
     }
@@ -12059,8 +11438,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets the value of [verify_server_certificate][crate::model::MySqlReplicaConfiguration::verify_server_certificate].
     pub fn set_verify_server_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.verify_server_certificate = std::option::Option::Some(v.into());
         self
@@ -12068,8 +11446,7 @@ impl MySqlReplicaConfiguration {
 
     /// Sets or clears the value of [verify_server_certificate][crate::model::MySqlReplicaConfiguration::verify_server_certificate].
     pub fn set_or_clear_verify_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.verify_server_certificate = v.map(|x| x.into());
         self
@@ -12092,6 +11469,7 @@ impl wkt::message::Message for MySqlReplicaConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskEncryptionConfiguration {
+
     /// Resource name of KMS key for disk encryption
     pub kms_key_name: std::string::String,
 
@@ -12129,6 +11507,7 @@ impl wkt::message::Message for DiskEncryptionConfiguration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskEncryptionStatus {
+
     /// KMS key version used to encrypt the Cloud SQL instance resource
     pub kms_key_version_name: std::string::String,
 
@@ -12144,10 +11523,7 @@ impl DiskEncryptionStatus {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::DiskEncryptionStatus::kms_key_version_name].
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -12169,6 +11545,7 @@ impl wkt::message::Message for DiskEncryptionStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IpMapping {
+
     /// The type of this IP address. A `PRIMARY` address is a public address that
     /// can accept incoming connections. A `PRIVATE` address is a private address
     /// that can accept incoming connections. An `OUTGOING` address is the source
@@ -12206,8 +11583,7 @@ impl IpMapping {
 
     /// Sets the value of [time_to_retire][crate::model::IpMapping::time_to_retire].
     pub fn set_time_to_retire<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.time_to_retire = std::option::Option::Some(v.into());
         self
@@ -12215,8 +11591,7 @@ impl IpMapping {
 
     /// Sets or clears the value of [time_to_retire][crate::model::IpMapping::time_to_retire].
     pub fn set_or_clear_time_to_retire<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.time_to_retire = v.map(|x| x.into());
         self
@@ -12235,6 +11610,7 @@ impl wkt::message::Message for IpMapping {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
+
     /// This is always `sql#operation`.
     pub kind: std::string::String,
 
@@ -12331,10 +11707,7 @@ impl Operation {
     }
 
     /// Sets the value of [status][crate::model::Operation::status].
-    pub fn set_status<T: std::convert::Into<crate::model::operation::SqlOperationStatus>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_status<T: std::convert::Into<crate::model::operation::SqlOperationStatus>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
@@ -12347,8 +11720,7 @@ impl Operation {
 
     /// Sets the value of [insert_time][crate::model::Operation::insert_time].
     pub fn set_insert_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.insert_time = std::option::Option::Some(v.into());
         self
@@ -12356,8 +11728,7 @@ impl Operation {
 
     /// Sets or clears the value of [insert_time][crate::model::Operation::insert_time].
     pub fn set_or_clear_insert_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.insert_time = v.map(|x| x.into());
         self
@@ -12365,8 +11736,7 @@ impl Operation {
 
     /// Sets the value of [start_time][crate::model::Operation::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -12374,8 +11744,7 @@ impl Operation {
 
     /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -12383,8 +11752,7 @@ impl Operation {
 
     /// Sets the value of [end_time][crate::model::Operation::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -12392,8 +11760,7 @@ impl Operation {
 
     /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -12401,8 +11768,7 @@ impl Operation {
 
     /// Sets the value of [error][crate::model::Operation::error].
     pub fn set_error<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationErrors>,
+    where T: std::convert::Into<crate::model::OperationErrors>
     {
         self.error = std::option::Option::Some(v.into());
         self
@@ -12410,8 +11776,7 @@ impl Operation {
 
     /// Sets or clears the value of [error][crate::model::Operation::error].
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::OperationErrors>,
+    where T: std::convert::Into<crate::model::OperationErrors>
     {
         self.error = v.map(|x| x.into());
         self
@@ -12419,8 +11784,7 @@ impl Operation {
 
     /// Sets the value of [api_warning][crate::model::Operation::api_warning].
     pub fn set_api_warning<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ApiWarning>,
+    where T: std::convert::Into<crate::model::ApiWarning>
     {
         self.api_warning = std::option::Option::Some(v.into());
         self
@@ -12428,26 +11792,21 @@ impl Operation {
 
     /// Sets or clears the value of [api_warning][crate::model::Operation::api_warning].
     pub fn set_or_clear_api_warning<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ApiWarning>,
+    where T: std::convert::Into<crate::model::ApiWarning>
     {
         self.api_warning = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operation_type][crate::model::Operation::operation_type].
-    pub fn set_operation_type<T: std::convert::Into<crate::model::operation::SqlOperationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::operation::SqlOperationType>>(mut self, v: T) -> Self {
         self.operation_type = v.into();
         self
     }
 
     /// Sets the value of [import_context][crate::model::Operation::import_context].
     pub fn set_import_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportContext>,
+    where T: std::convert::Into<crate::model::ImportContext>
     {
         self.import_context = std::option::Option::Some(v.into());
         self
@@ -12455,8 +11814,7 @@ impl Operation {
 
     /// Sets or clears the value of [import_context][crate::model::Operation::import_context].
     pub fn set_or_clear_import_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ImportContext>,
+    where T: std::convert::Into<crate::model::ImportContext>
     {
         self.import_context = v.map(|x| x.into());
         self
@@ -12464,8 +11822,7 @@ impl Operation {
 
     /// Sets the value of [export_context][crate::model::Operation::export_context].
     pub fn set_export_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportContext>,
+    where T: std::convert::Into<crate::model::ExportContext>
     {
         self.export_context = std::option::Option::Some(v.into());
         self
@@ -12473,8 +11830,7 @@ impl Operation {
 
     /// Sets or clears the value of [export_context][crate::model::Operation::export_context].
     pub fn set_or_clear_export_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExportContext>,
+    where T: std::convert::Into<crate::model::ExportContext>
     {
         self.export_context = v.map(|x| x.into());
         self
@@ -12482,8 +11838,7 @@ impl Operation {
 
     /// Sets the value of [backup_context][crate::model::Operation::backup_context].
     pub fn set_backup_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupContext>,
+    where T: std::convert::Into<crate::model::BackupContext>
     {
         self.backup_context = std::option::Option::Some(v.into());
         self
@@ -12491,8 +11846,7 @@ impl Operation {
 
     /// Sets or clears the value of [backup_context][crate::model::Operation::backup_context].
     pub fn set_or_clear_backup_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupContext>,
+    where T: std::convert::Into<crate::model::BackupContext>
     {
         self.backup_context = v.map(|x| x.into());
         self
@@ -12524,8 +11878,7 @@ impl Operation {
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::Operation::acquire_ssrs_lease_context].
     pub fn set_acquire_ssrs_lease_context<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
+    where T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>
     {
         self.acquire_ssrs_lease_context = std::option::Option::Some(v.into());
         self
@@ -12533,8 +11886,7 @@ impl Operation {
 
     /// Sets or clears the value of [acquire_ssrs_lease_context][crate::model::Operation::acquire_ssrs_lease_context].
     pub fn set_or_clear_acquire_ssrs_lease_context<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
+    where T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>
     {
         self.acquire_ssrs_lease_context = v.map(|x| x.into());
         self
@@ -12551,6 +11903,7 @@ impl wkt::message::Message for Operation {
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of Cloud SQL operation.
     ///
@@ -12802,9 +12155,7 @@ pub mod operation {
                 Self::ReleaseSsrsLease => std::option::Option::Some("RELEASE_SSRS_LEASE"),
                 Self::ReconfigureOldPrimary => std::option::Option::Some("RECONFIGURE_OLD_PRIMARY"),
                 Self::ClusterMaintenance => std::option::Option::Some("CLUSTER_MAINTENANCE"),
-                Self::SelfServiceMaintenance => {
-                    std::option::Option::Some("SELF_SERVICE_MAINTENANCE")
-                }
+                Self::SelfServiceMaintenance => std::option::Option::Some("SELF_SERVICE_MAINTENANCE"),
                 Self::SwitchoverToReplica => std::option::Option::Some("SWITCHOVER_TO_REPLICA"),
                 Self::MajorVersionUpgrade => std::option::Option::Some("MAJOR_VERSION_UPGRADE"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -12874,9 +12225,7 @@ pub mod operation {
                 46 => Self::SelfServiceMaintenance,
                 47 => Self::SwitchoverToReplica,
                 48 => Self::MajorVersionUpgrade,
-                _ => Self::UnknownValue(sql_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12931,9 +12280,7 @@ pub mod operation {
                 "SELF_SERVICE_MAINTENANCE" => Self::SelfServiceMaintenance,
                 "SWITCHOVER_TO_REPLICA" => Self::SwitchoverToReplica,
                 "MAJOR_VERSION_UPGRADE" => Self::MajorVersionUpgrade,
-                _ => Self::UnknownValue(sql_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13001,8 +12348,7 @@ pub mod operation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOperationType>::new(
-                ".google.cloud.sql.v1.Operation.SqlOperationType",
-            ))
+                ".google.cloud.sql.v1.Operation.SqlOperationType"))
         }
     }
 
@@ -13097,9 +12443,7 @@ pub mod operation {
                 1 => Self::Pending,
                 2 => Self::Running,
                 3 => Self::Done,
-                _ => Self::UnknownValue(sql_operation_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_operation_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13112,9 +12456,7 @@ pub mod operation {
                 "PENDING" => Self::Pending,
                 "RUNNING" => Self::Running,
                 "DONE" => Self::Done,
-                _ => Self::UnknownValue(sql_operation_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_operation_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13140,8 +12482,7 @@ pub mod operation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlOperationStatus>::new(
-                ".google.cloud.sql.v1.Operation.SqlOperationStatus",
-            ))
+                ".google.cloud.sql.v1.Operation.SqlOperationStatus"))
         }
     }
 }
@@ -13150,6 +12491,7 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationError {
+
     /// This is always `sql#operationError`.
     pub kind: std::string::String,
 
@@ -13196,6 +12538,7 @@ impl wkt::message::Message for OperationError {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationErrors {
+
     /// This is always `sql#operationErrors`.
     pub kind: std::string::String,
 
@@ -13220,7 +12563,7 @@ impl OperationErrors {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OperationError>,
+        V: std::convert::Into<crate::model::OperationError>
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -13238,6 +12581,7 @@ impl wkt::message::Message for OperationErrors {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PasswordValidationPolicy {
+
     /// Minimum number of characters allowed.
     pub min_length: std::option::Option<wkt::Int32Value>,
 
@@ -13272,8 +12616,7 @@ impl PasswordValidationPolicy {
 
     /// Sets the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
     pub fn set_min_length<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.min_length = std::option::Option::Some(v.into());
         self
@@ -13281,28 +12624,21 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
     pub fn set_or_clear_min_length<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.min_length = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [complexity][crate::model::PasswordValidationPolicy::complexity].
-    pub fn set_complexity<
-        T: std::convert::Into<crate::model::password_validation_policy::Complexity>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_complexity<T: std::convert::Into<crate::model::password_validation_policy::Complexity>>(mut self, v: T) -> Self {
         self.complexity = v.into();
         self
     }
 
     /// Sets the value of [reuse_interval][crate::model::PasswordValidationPolicy::reuse_interval].
     pub fn set_reuse_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.reuse_interval = std::option::Option::Some(v.into());
         self
@@ -13310,8 +12646,7 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [reuse_interval][crate::model::PasswordValidationPolicy::reuse_interval].
     pub fn set_or_clear_reuse_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int32Value>,
+    where T: std::convert::Into<wkt::Int32Value>
     {
         self.reuse_interval = v.map(|x| x.into());
         self
@@ -13319,8 +12654,7 @@ impl PasswordValidationPolicy {
 
     /// Sets the value of [disallow_username_substring][crate::model::PasswordValidationPolicy::disallow_username_substring].
     pub fn set_disallow_username_substring<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.disallow_username_substring = std::option::Option::Some(v.into());
         self
@@ -13328,8 +12662,7 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [disallow_username_substring][crate::model::PasswordValidationPolicy::disallow_username_substring].
     pub fn set_or_clear_disallow_username_substring<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.disallow_username_substring = v.map(|x| x.into());
         self
@@ -13337,8 +12670,7 @@ impl PasswordValidationPolicy {
 
     /// Sets the value of [password_change_interval][crate::model::PasswordValidationPolicy::password_change_interval].
     pub fn set_password_change_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.password_change_interval = std::option::Option::Some(v.into());
         self
@@ -13346,8 +12678,7 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [password_change_interval][crate::model::PasswordValidationPolicy::password_change_interval].
     pub fn set_or_clear_password_change_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.password_change_interval = v.map(|x| x.into());
         self
@@ -13355,8 +12686,7 @@ impl PasswordValidationPolicy {
 
     /// Sets the value of [enable_password_policy][crate::model::PasswordValidationPolicy::enable_password_policy].
     pub fn set_enable_password_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_password_policy = std::option::Option::Some(v.into());
         self
@@ -13364,8 +12694,7 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [enable_password_policy][crate::model::PasswordValidationPolicy::enable_password_policy].
     pub fn set_or_clear_enable_password_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_password_policy = v.map(|x| x.into());
         self
@@ -13374,8 +12703,7 @@ impl PasswordValidationPolicy {
     /// Sets the value of [disallow_compromised_credentials][crate::model::PasswordValidationPolicy::disallow_compromised_credentials].
     #[deprecated]
     pub fn set_disallow_compromised_credentials<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.disallow_compromised_credentials = std::option::Option::Some(v.into());
         self
@@ -13383,12 +12711,8 @@ impl PasswordValidationPolicy {
 
     /// Sets or clears the value of [disallow_compromised_credentials][crate::model::PasswordValidationPolicy::disallow_compromised_credentials].
     #[deprecated]
-    pub fn set_or_clear_disallow_compromised_credentials<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_disallow_compromised_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.disallow_compromised_credentials = v.map(|x| x.into());
         self
@@ -13405,6 +12729,7 @@ impl wkt::message::Message for PasswordValidationPolicy {
 pub mod password_validation_policy {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The complexity choices of the password.
     ///
@@ -13488,9 +12813,7 @@ pub mod password_validation_policy {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Default,
-                _ => Self::UnknownValue(complexity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(complexity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13501,9 +12824,7 @@ pub mod password_validation_policy {
             match value {
                 "COMPLEXITY_UNSPECIFIED" => Self::Unspecified,
                 "COMPLEXITY_DEFAULT" => Self::Default,
-                _ => Self::UnknownValue(complexity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(complexity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13527,8 +12848,7 @@ pub mod password_validation_policy {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Complexity>::new(
-                ".google.cloud.sql.v1.PasswordValidationPolicy.Complexity",
-            ))
+                ".google.cloud.sql.v1.PasswordValidationPolicy.Complexity"))
         }
     }
 }
@@ -13537,6 +12857,7 @@ pub mod password_validation_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataCacheConfig {
+
     /// Whether data cache is enabled for the instance.
     pub data_cache_enabled: bool,
 
@@ -13565,6 +12886,7 @@ impl wkt::message::Message for DataCacheConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Settings {
+
     /// The version of instance settings. This is a required field for update
     /// method to make sure concurrent updates are handled properly. During update,
     /// use the most recent settingsVersion value for this instance and do not try
@@ -13585,7 +12907,7 @@ pub struct Settings {
 
     /// User-provided labels, represented as a dictionary where each label is a
     /// single key value pair.
-    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub user_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Availability type. Potential values:
     ///
@@ -13736,8 +13058,7 @@ impl Settings {
 
     /// Sets the value of [settings_version][crate::model::Settings::settings_version].
     pub fn set_settings_version<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.settings_version = std::option::Option::Some(v.into());
         self
@@ -13745,8 +13066,7 @@ impl Settings {
 
     /// Sets or clears the value of [settings_version][crate::model::Settings::settings_version].
     pub fn set_or_clear_settings_version<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.settings_version = v.map(|x| x.into());
         self
@@ -13757,7 +13077,7 @@ impl Settings {
     pub fn set_authorized_gae_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.authorized_gae_applications = v.into_iter().map(|i| i.into()).collect();
@@ -13789,37 +13109,27 @@ impl Settings {
     }
 
     /// Sets the value of [availability_type][crate::model::Settings::availability_type].
-    pub fn set_availability_type<T: std::convert::Into<crate::model::SqlAvailabilityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_availability_type<T: std::convert::Into<crate::model::SqlAvailabilityType>>(mut self, v: T) -> Self {
         self.availability_type = v.into();
         self
     }
 
     /// Sets the value of [pricing_plan][crate::model::Settings::pricing_plan].
-    pub fn set_pricing_plan<T: std::convert::Into<crate::model::SqlPricingPlan>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_pricing_plan<T: std::convert::Into<crate::model::SqlPricingPlan>>(mut self, v: T) -> Self {
         self.pricing_plan = v.into();
         self
     }
 
     /// Sets the value of [replication_type][crate::model::Settings::replication_type].
     #[deprecated]
-    pub fn set_replication_type<T: std::convert::Into<crate::model::SqlReplicationType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_replication_type<T: std::convert::Into<crate::model::SqlReplicationType>>(mut self, v: T) -> Self {
         self.replication_type = v.into();
         self
     }
 
     /// Sets the value of [storage_auto_resize_limit][crate::model::Settings::storage_auto_resize_limit].
     pub fn set_storage_auto_resize_limit<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.storage_auto_resize_limit = std::option::Option::Some(v.into());
         self
@@ -13827,28 +13137,21 @@ impl Settings {
 
     /// Sets or clears the value of [storage_auto_resize_limit][crate::model::Settings::storage_auto_resize_limit].
     pub fn set_or_clear_storage_auto_resize_limit<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.storage_auto_resize_limit = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [activation_policy][crate::model::Settings::activation_policy].
-    pub fn set_activation_policy<
-        T: std::convert::Into<crate::model::settings::SqlActivationPolicy>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_activation_policy<T: std::convert::Into<crate::model::settings::SqlActivationPolicy>>(mut self, v: T) -> Self {
         self.activation_policy = v.into();
         self
     }
 
     /// Sets the value of [ip_configuration][crate::model::Settings::ip_configuration].
     pub fn set_ip_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IpConfiguration>,
+    where T: std::convert::Into<crate::model::IpConfiguration>
     {
         self.ip_configuration = std::option::Option::Some(v.into());
         self
@@ -13856,8 +13159,7 @@ impl Settings {
 
     /// Sets or clears the value of [ip_configuration][crate::model::Settings::ip_configuration].
     pub fn set_or_clear_ip_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IpConfiguration>,
+    where T: std::convert::Into<crate::model::IpConfiguration>
     {
         self.ip_configuration = v.map(|x| x.into());
         self
@@ -13865,8 +13167,7 @@ impl Settings {
 
     /// Sets the value of [storage_auto_resize][crate::model::Settings::storage_auto_resize].
     pub fn set_storage_auto_resize<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.storage_auto_resize = std::option::Option::Some(v.into());
         self
@@ -13874,8 +13175,7 @@ impl Settings {
 
     /// Sets or clears the value of [storage_auto_resize][crate::model::Settings::storage_auto_resize].
     pub fn set_or_clear_storage_auto_resize<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.storage_auto_resize = v.map(|x| x.into());
         self
@@ -13883,8 +13183,7 @@ impl Settings {
 
     /// Sets the value of [location_preference][crate::model::Settings::location_preference].
     pub fn set_location_preference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LocationPreference>,
+    where T: std::convert::Into<crate::model::LocationPreference>
     {
         self.location_preference = std::option::Option::Some(v.into());
         self
@@ -13892,8 +13191,7 @@ impl Settings {
 
     /// Sets or clears the value of [location_preference][crate::model::Settings::location_preference].
     pub fn set_or_clear_location_preference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LocationPreference>,
+    where T: std::convert::Into<crate::model::LocationPreference>
     {
         self.location_preference = v.map(|x| x.into());
         self
@@ -13903,7 +13201,7 @@ impl Settings {
     pub fn set_database_flags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatabaseFlags>,
+        V: std::convert::Into<crate::model::DatabaseFlags>
     {
         use std::iter::Iterator;
         self.database_flags = v.into_iter().map(|i| i.into()).collect();
@@ -13911,18 +13209,14 @@ impl Settings {
     }
 
     /// Sets the value of [data_disk_type][crate::model::Settings::data_disk_type].
-    pub fn set_data_disk_type<T: std::convert::Into<crate::model::SqlDataDiskType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_disk_type<T: std::convert::Into<crate::model::SqlDataDiskType>>(mut self, v: T) -> Self {
         self.data_disk_type = v.into();
         self
     }
 
     /// Sets the value of [maintenance_window][crate::model::Settings::maintenance_window].
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    where T: std::convert::Into<crate::model::MaintenanceWindow>
     {
         self.maintenance_window = std::option::Option::Some(v.into());
         self
@@ -13930,8 +13224,7 @@ impl Settings {
 
     /// Sets or clears the value of [maintenance_window][crate::model::Settings::maintenance_window].
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MaintenanceWindow>,
+    where T: std::convert::Into<crate::model::MaintenanceWindow>
     {
         self.maintenance_window = v.map(|x| x.into());
         self
@@ -13939,8 +13232,7 @@ impl Settings {
 
     /// Sets the value of [backup_configuration][crate::model::Settings::backup_configuration].
     pub fn set_backup_configuration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupConfiguration>,
+    where T: std::convert::Into<crate::model::BackupConfiguration>
     {
         self.backup_configuration = std::option::Option::Some(v.into());
         self
@@ -13948,8 +13240,7 @@ impl Settings {
 
     /// Sets or clears the value of [backup_configuration][crate::model::Settings::backup_configuration].
     pub fn set_or_clear_backup_configuration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::BackupConfiguration>,
+    where T: std::convert::Into<crate::model::BackupConfiguration>
     {
         self.backup_configuration = v.map(|x| x.into());
         self
@@ -13957,8 +13248,7 @@ impl Settings {
 
     /// Sets the value of [database_replication_enabled][crate::model::Settings::database_replication_enabled].
     pub fn set_database_replication_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.database_replication_enabled = std::option::Option::Some(v.into());
         self
@@ -13966,8 +13256,7 @@ impl Settings {
 
     /// Sets or clears the value of [database_replication_enabled][crate::model::Settings::database_replication_enabled].
     pub fn set_or_clear_database_replication_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.database_replication_enabled = v.map(|x| x.into());
         self
@@ -13976,8 +13265,7 @@ impl Settings {
     /// Sets the value of [crash_safe_replication_enabled][crate::model::Settings::crash_safe_replication_enabled].
     #[deprecated]
     pub fn set_crash_safe_replication_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.crash_safe_replication_enabled = std::option::Option::Some(v.into());
         self
@@ -13985,12 +13273,8 @@ impl Settings {
 
     /// Sets or clears the value of [crash_safe_replication_enabled][crate::model::Settings::crash_safe_replication_enabled].
     #[deprecated]
-    pub fn set_or_clear_crash_safe_replication_enabled<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    pub fn set_or_clear_crash_safe_replication_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.crash_safe_replication_enabled = v.map(|x| x.into());
         self
@@ -13998,8 +13282,7 @@ impl Settings {
 
     /// Sets the value of [data_disk_size_gb][crate::model::Settings::data_disk_size_gb].
     pub fn set_data_disk_size_gb<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_disk_size_gb = std::option::Option::Some(v.into());
         self
@@ -14007,8 +13290,7 @@ impl Settings {
 
     /// Sets or clears the value of [data_disk_size_gb][crate::model::Settings::data_disk_size_gb].
     pub fn set_or_clear_data_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Int64Value>,
+    where T: std::convert::Into<wkt::Int64Value>
     {
         self.data_disk_size_gb = v.map(|x| x.into());
         self
@@ -14016,8 +13298,7 @@ impl Settings {
 
     /// Sets the value of [active_directory_config][crate::model::Settings::active_directory_config].
     pub fn set_active_directory_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>,
+    where T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>
     {
         self.active_directory_config = std::option::Option::Some(v.into());
         self
@@ -14025,8 +13306,7 @@ impl Settings {
 
     /// Sets or clears the value of [active_directory_config][crate::model::Settings::active_directory_config].
     pub fn set_or_clear_active_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>,
+    where T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>
     {
         self.active_directory_config = v.map(|x| x.into());
         self
@@ -14042,7 +13322,7 @@ impl Settings {
     pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DenyMaintenancePeriod>,
+        V: std::convert::Into<crate::model::DenyMaintenancePeriod>
     {
         use std::iter::Iterator;
         self.deny_maintenance_periods = v.into_iter().map(|i| i.into()).collect();
@@ -14051,8 +13331,7 @@ impl Settings {
 
     /// Sets the value of [insights_config][crate::model::Settings::insights_config].
     pub fn set_insights_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightsConfig>,
+    where T: std::convert::Into<crate::model::InsightsConfig>
     {
         self.insights_config = std::option::Option::Some(v.into());
         self
@@ -14060,8 +13339,7 @@ impl Settings {
 
     /// Sets or clears the value of [insights_config][crate::model::Settings::insights_config].
     pub fn set_or_clear_insights_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightsConfig>,
+    where T: std::convert::Into<crate::model::InsightsConfig>
     {
         self.insights_config = v.map(|x| x.into());
         self
@@ -14069,8 +13347,7 @@ impl Settings {
 
     /// Sets the value of [password_validation_policy][crate::model::Settings::password_validation_policy].
     pub fn set_password_validation_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PasswordValidationPolicy>,
+    where T: std::convert::Into<crate::model::PasswordValidationPolicy>
     {
         self.password_validation_policy = std::option::Option::Some(v.into());
         self
@@ -14078,8 +13355,7 @@ impl Settings {
 
     /// Sets or clears the value of [password_validation_policy][crate::model::Settings::password_validation_policy].
     pub fn set_or_clear_password_validation_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PasswordValidationPolicy>,
+    where T: std::convert::Into<crate::model::PasswordValidationPolicy>
     {
         self.password_validation_policy = v.map(|x| x.into());
         self
@@ -14087,8 +13363,7 @@ impl Settings {
 
     /// Sets the value of [sql_server_audit_config][crate::model::Settings::sql_server_audit_config].
     pub fn set_sql_server_audit_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlServerAuditConfig>,
+    where T: std::convert::Into<crate::model::SqlServerAuditConfig>
     {
         self.sql_server_audit_config = std::option::Option::Some(v.into());
         self
@@ -14096,37 +13371,27 @@ impl Settings {
 
     /// Sets or clears the value of [sql_server_audit_config][crate::model::Settings::sql_server_audit_config].
     pub fn set_or_clear_sql_server_audit_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SqlServerAuditConfig>,
+    where T: std::convert::Into<crate::model::SqlServerAuditConfig>
     {
         self.sql_server_audit_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [edition][crate::model::Settings::edition].
-    pub fn set_edition<T: std::convert::Into<crate::model::settings::Edition>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_edition<T: std::convert::Into<crate::model::settings::Edition>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
     }
 
     /// Sets the value of [connector_enforcement][crate::model::Settings::connector_enforcement].
-    pub fn set_connector_enforcement<
-        T: std::convert::Into<crate::model::settings::ConnectorEnforcement>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_connector_enforcement<T: std::convert::Into<crate::model::settings::ConnectorEnforcement>>(mut self, v: T) -> Self {
         self.connector_enforcement = v.into();
         self
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Settings::deletion_protection_enabled].
     pub fn set_deletion_protection_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.deletion_protection_enabled = std::option::Option::Some(v.into());
         self
@@ -14134,8 +13399,7 @@ impl Settings {
 
     /// Sets or clears the value of [deletion_protection_enabled][crate::model::Settings::deletion_protection_enabled].
     pub fn set_or_clear_deletion_protection_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.deletion_protection_enabled = v.map(|x| x.into());
         self
@@ -14149,8 +13413,7 @@ impl Settings {
 
     /// Sets the value of [advanced_machine_features][crate::model::Settings::advanced_machine_features].
     pub fn set_advanced_machine_features<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
+    where T: std::convert::Into<crate::model::AdvancedMachineFeatures>
     {
         self.advanced_machine_features = std::option::Option::Some(v.into());
         self
@@ -14158,8 +13421,7 @@ impl Settings {
 
     /// Sets or clears the value of [advanced_machine_features][crate::model::Settings::advanced_machine_features].
     pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
+    where T: std::convert::Into<crate::model::AdvancedMachineFeatures>
     {
         self.advanced_machine_features = v.map(|x| x.into());
         self
@@ -14167,8 +13429,7 @@ impl Settings {
 
     /// Sets the value of [data_cache_config][crate::model::Settings::data_cache_config].
     pub fn set_data_cache_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataCacheConfig>,
+    where T: std::convert::Into<crate::model::DataCacheConfig>
     {
         self.data_cache_config = std::option::Option::Some(v.into());
         self
@@ -14176,8 +13437,7 @@ impl Settings {
 
     /// Sets or clears the value of [data_cache_config][crate::model::Settings::data_cache_config].
     pub fn set_or_clear_data_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataCacheConfig>,
+    where T: std::convert::Into<crate::model::DataCacheConfig>
     {
         self.data_cache_config = v.map(|x| x.into());
         self
@@ -14185,8 +13445,7 @@ impl Settings {
 
     /// Sets the value of [enable_google_ml_integration][crate::model::Settings::enable_google_ml_integration].
     pub fn set_enable_google_ml_integration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_google_ml_integration = std::option::Option::Some(v.into());
         self
@@ -14194,8 +13453,7 @@ impl Settings {
 
     /// Sets or clears the value of [enable_google_ml_integration][crate::model::Settings::enable_google_ml_integration].
     pub fn set_or_clear_enable_google_ml_integration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_google_ml_integration = v.map(|x| x.into());
         self
@@ -14203,8 +13461,7 @@ impl Settings {
 
     /// Sets the value of [enable_dataplex_integration][crate::model::Settings::enable_dataplex_integration].
     pub fn set_enable_dataplex_integration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_dataplex_integration = std::option::Option::Some(v.into());
         self
@@ -14212,8 +13469,7 @@ impl Settings {
 
     /// Sets or clears the value of [enable_dataplex_integration][crate::model::Settings::enable_dataplex_integration].
     pub fn set_or_clear_enable_dataplex_integration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::BoolValue>,
+    where T: std::convert::Into<wkt::BoolValue>
     {
         self.enable_dataplex_integration = v.map(|x| x.into());
         self
@@ -14221,8 +13477,7 @@ impl Settings {
 
     /// Sets the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
     pub fn set_auto_upgrade_enabled<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.auto_upgrade_enabled = std::option::Option::Some(v.into());
         self
@@ -14230,8 +13485,7 @@ impl Settings {
 
     /// Sets or clears the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
     pub fn set_or_clear_auto_upgrade_enabled<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.auto_upgrade_enabled = v.map(|x| x.into());
         self
@@ -14248,6 +13502,7 @@ impl wkt::message::Message for Settings {
 pub mod settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Specifies when the instance is activated.
     ///
@@ -14341,9 +13596,7 @@ pub mod settings {
                 1 => Self::Always,
                 2 => Self::Never,
                 3 => Self::OnDemand,
-                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14356,9 +13609,7 @@ pub mod settings {
                 "ALWAYS" => Self::Always,
                 "NEVER" => Self::Never,
                 "ON_DEMAND" => Self::OnDemand,
-                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_activation_policy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14384,8 +13635,7 @@ pub mod settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlActivationPolicy>::new(
-                ".google.cloud.sql.v1.Settings.SqlActivationPolicy",
-            ))
+                ".google.cloud.sql.v1.Settings.SqlActivationPolicy"))
         }
     }
 
@@ -14475,9 +13725,7 @@ pub mod settings {
                 0 => Self::Unspecified,
                 2 => Self::Enterprise,
                 3 => Self::EnterprisePlus,
-                _ => Self::UnknownValue(edition::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14489,9 +13737,7 @@ pub mod settings {
                 "EDITION_UNSPECIFIED" => Self::Unspecified,
                 "ENTERPRISE" => Self::Enterprise,
                 "ENTERPRISE_PLUS" => Self::EnterprisePlus,
-                _ => Self::UnknownValue(edition::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(edition::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14516,8 +13762,7 @@ pub mod settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
-                ".google.cloud.sql.v1.Settings.Edition",
-            ))
+                ".google.cloud.sql.v1.Settings.Edition"))
         }
     }
 
@@ -14609,9 +13854,7 @@ pub mod settings {
                 0 => Self::Unspecified,
                 1 => Self::NotRequired,
                 2 => Self::Required,
-                _ => Self::UnknownValue(connector_enforcement::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(connector_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14623,9 +13866,7 @@ pub mod settings {
                 "CONNECTOR_ENFORCEMENT_UNSPECIFIED" => Self::Unspecified,
                 "NOT_REQUIRED" => Self::NotRequired,
                 "REQUIRED" => Self::Required,
-                _ => Self::UnknownValue(connector_enforcement::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(connector_enforcement::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14650,8 +13891,7 @@ pub mod settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectorEnforcement>::new(
-                ".google.cloud.sql.v1.Settings.ConnectorEnforcement",
-            ))
+                ".google.cloud.sql.v1.Settings.ConnectorEnforcement"))
         }
     }
 }
@@ -14660,6 +13900,7 @@ pub mod settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvancedMachineFeatures {
+
     /// The number of threads per physical core.
     pub threads_per_core: i32,
 
@@ -14688,6 +13929,7 @@ impl wkt::message::Message for AdvancedMachineFeatures {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCert {
+
     /// This is always `sql#sslCert`.
     pub kind: std::string::String,
 
@@ -14734,10 +13976,7 @@ impl SslCert {
     }
 
     /// Sets the value of [cert_serial_number][crate::model::SslCert::cert_serial_number].
-    pub fn set_cert_serial_number<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cert_serial_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cert_serial_number = v.into();
         self
     }
@@ -14750,8 +13989,7 @@ impl SslCert {
 
     /// Sets the value of [create_time][crate::model::SslCert::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -14759,8 +13997,7 @@ impl SslCert {
 
     /// Sets or clears the value of [create_time][crate::model::SslCert::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -14774,8 +14011,7 @@ impl SslCert {
 
     /// Sets the value of [expiration_time][crate::model::SslCert::expiration_time].
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expiration_time = std::option::Option::Some(v.into());
         self
@@ -14783,18 +14019,14 @@ impl SslCert {
 
     /// Sets or clears the value of [expiration_time][crate::model::SslCert::expiration_time].
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expiration_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SslCert::sha1_fingerprint].
-    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha1_fingerprint = v.into();
         self
     }
@@ -14822,6 +14054,7 @@ impl wkt::message::Message for SslCert {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCertDetail {
+
     /// The public information about the cert.
     pub cert_info: std::option::Option<crate::model::SslCert>,
 
@@ -14839,8 +14072,7 @@ impl SslCertDetail {
 
     /// Sets the value of [cert_info][crate::model::SslCertDetail::cert_info].
     pub fn set_cert_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.cert_info = std::option::Option::Some(v.into());
         self
@@ -14848,18 +14080,14 @@ impl SslCertDetail {
 
     /// Sets or clears the value of [cert_info][crate::model::SslCertDetail::cert_info].
     pub fn set_or_clear_cert_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.cert_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [cert_private_key][crate::model::SslCertDetail::cert_private_key].
-    pub fn set_cert_private_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cert_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cert_private_key = v.into();
         self
     }
@@ -14875,6 +14103,7 @@ impl wkt::message::Message for SslCertDetail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlActiveDirectoryConfig {
+
     /// This is always sql#activeDirectoryConfig.
     pub kind: std::string::String,
 
@@ -14912,6 +14141,7 @@ impl wkt::message::Message for SqlActiveDirectoryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerAuditConfig {
+
     /// This is always sql#sqlServerAuditConfig
     pub kind: std::string::String,
 
@@ -14946,8 +14176,7 @@ impl SqlServerAuditConfig {
 
     /// Sets the value of [retention_interval][crate::model::SqlServerAuditConfig::retention_interval].
     pub fn set_retention_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.retention_interval = std::option::Option::Some(v.into());
         self
@@ -14955,8 +14184,7 @@ impl SqlServerAuditConfig {
 
     /// Sets or clears the value of [retention_interval][crate::model::SqlServerAuditConfig::retention_interval].
     pub fn set_or_clear_retention_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.retention_interval = v.map(|x| x.into());
         self
@@ -14964,8 +14192,7 @@ impl SqlServerAuditConfig {
 
     /// Sets the value of [upload_interval][crate::model::SqlServerAuditConfig::upload_interval].
     pub fn set_upload_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.upload_interval = std::option::Option::Some(v.into());
         self
@@ -14973,8 +14200,7 @@ impl SqlServerAuditConfig {
 
     /// Sets or clears the value of [upload_interval][crate::model::SqlServerAuditConfig::upload_interval].
     pub fn set_or_clear_upload_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.upload_interval = v.map(|x| x.into());
         self
@@ -14991,6 +14217,7 @@ impl wkt::message::Message for SqlServerAuditConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcquireSsrsLeaseContext {
+
     /// The username to be used as the setup login to connect to the database
     /// server for SSRS setup.
     pub setup_login: std::option::Option<std::string::String>,
@@ -15015,8 +14242,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
     pub fn set_setup_login<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.setup_login = std::option::Option::Some(v.into());
         self
@@ -15024,8 +14250,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets or clears the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
     pub fn set_or_clear_setup_login<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.setup_login = v.map(|x| x.into());
         self
@@ -15033,8 +14258,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets the value of [service_login][crate::model::AcquireSsrsLeaseContext::service_login].
     pub fn set_service_login<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.service_login = std::option::Option::Some(v.into());
         self
@@ -15042,8 +14266,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets or clears the value of [service_login][crate::model::AcquireSsrsLeaseContext::service_login].
     pub fn set_or_clear_service_login<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.service_login = v.map(|x| x.into());
         self
@@ -15051,8 +14274,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets the value of [report_database][crate::model::AcquireSsrsLeaseContext::report_database].
     pub fn set_report_database<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.report_database = std::option::Option::Some(v.into());
         self
@@ -15060,8 +14282,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets or clears the value of [report_database][crate::model::AcquireSsrsLeaseContext::report_database].
     pub fn set_or_clear_report_database<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.report_database = v.map(|x| x.into());
         self
@@ -15069,8 +14290,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets the value of [duration][crate::model::AcquireSsrsLeaseContext::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -15078,8 +14298,7 @@ impl AcquireSsrsLeaseContext {
 
     /// Sets or clears the value of [duration][crate::model::AcquireSsrsLeaseContext::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -15095,6 +14314,7 @@ impl wkt::message::Message for AcquireSsrsLeaseContext {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlSslCertsDeleteRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15125,10 +14345,7 @@ impl SqlSslCertsDeleteRequest {
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsDeleteRequest::sha1_fingerprint].
-    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha1_fingerprint = v.into();
         self
     }
@@ -15143,6 +14360,7 @@ impl wkt::message::Message for SqlSslCertsDeleteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlSslCertsGetRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15173,10 +14391,7 @@ impl SqlSslCertsGetRequest {
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsGetRequest::sha1_fingerprint].
-    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sha1_fingerprint = v.into();
         self
     }
@@ -15191,6 +14406,7 @@ impl wkt::message::Message for SqlSslCertsGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlSslCertsInsertRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15221,8 +14437,7 @@ impl SqlSslCertsInsertRequest {
 
     /// Sets the value of [body][crate::model::SqlSslCertsInsertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertsInsertRequest>,
+    where T: std::convert::Into<crate::model::SslCertsInsertRequest>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -15230,8 +14445,7 @@ impl SqlSslCertsInsertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlSslCertsInsertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertsInsertRequest>,
+    where T: std::convert::Into<crate::model::SslCertsInsertRequest>
     {
         self.body = v.map(|x| x.into());
         self
@@ -15247,6 +14461,7 @@ impl wkt::message::Message for SqlSslCertsInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlSslCertsListRequest {
+
     /// Cloud SQL instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15284,6 +14499,7 @@ impl wkt::message::Message for SqlSslCertsListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCertsInsertRequest {
+
     /// User supplied name.  Must be a distinct name from the other certificates
     /// for this instance.
     pub common_name: std::string::String,
@@ -15313,6 +14529,7 @@ impl wkt::message::Message for SslCertsInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCertsInsertResponse {
+
     /// This is always `sql#sslCertsInsert`.
     pub kind: std::string::String,
 
@@ -15343,8 +14560,7 @@ impl SslCertsInsertResponse {
 
     /// Sets the value of [operation][crate::model::SslCertsInsertResponse::operation].
     pub fn set_operation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Operation>,
+    where T: std::convert::Into<crate::model::Operation>
     {
         self.operation = std::option::Option::Some(v.into());
         self
@@ -15352,8 +14568,7 @@ impl SslCertsInsertResponse {
 
     /// Sets or clears the value of [operation][crate::model::SslCertsInsertResponse::operation].
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Operation>,
+    where T: std::convert::Into<crate::model::Operation>
     {
         self.operation = v.map(|x| x.into());
         self
@@ -15361,8 +14576,7 @@ impl SslCertsInsertResponse {
 
     /// Sets the value of [server_ca_cert][crate::model::SslCertsInsertResponse::server_ca_cert].
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = std::option::Option::Some(v.into());
         self
@@ -15370,8 +14584,7 @@ impl SslCertsInsertResponse {
 
     /// Sets or clears the value of [server_ca_cert][crate::model::SslCertsInsertResponse::server_ca_cert].
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCert>,
+    where T: std::convert::Into<crate::model::SslCert>
     {
         self.server_ca_cert = v.map(|x| x.into());
         self
@@ -15379,8 +14592,7 @@ impl SslCertsInsertResponse {
 
     /// Sets the value of [client_cert][crate::model::SslCertsInsertResponse::client_cert].
     pub fn set_client_cert<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertDetail>,
+    where T: std::convert::Into<crate::model::SslCertDetail>
     {
         self.client_cert = std::option::Option::Some(v.into());
         self
@@ -15388,8 +14600,7 @@ impl SslCertsInsertResponse {
 
     /// Sets or clears the value of [client_cert][crate::model::SslCertsInsertResponse::client_cert].
     pub fn set_or_clear_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SslCertDetail>,
+    where T: std::convert::Into<crate::model::SslCertDetail>
     {
         self.client_cert = v.map(|x| x.into());
         self
@@ -15406,6 +14617,7 @@ impl wkt::message::Message for SslCertsInsertResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SslCertsListResponse {
+
     /// This is always `sql#sslCertsList`.
     pub kind: std::string::String,
 
@@ -15430,7 +14642,7 @@ impl SslCertsListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SslCert>,
+        V: std::convert::Into<crate::model::SslCert>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -15448,6 +14660,7 @@ impl wkt::message::Message for SslCertsListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlTiersListRequest {
+
     /// Project ID of the project for which to list tiers.
     pub project: std::string::String,
 
@@ -15476,6 +14689,7 @@ impl wkt::message::Message for SqlTiersListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TiersListResponse {
+
     /// This is always `sql#tiersList`.
     pub kind: std::string::String,
 
@@ -15500,7 +14714,7 @@ impl TiersListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Tier>,
+        V: std::convert::Into<crate::model::Tier>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -15518,6 +14732,7 @@ impl wkt::message::Message for TiersListResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Tier {
+
     /// An identifier for the machine type, for example, `db-custom-1-3840`. For
     /// related information, see [Pricing](/sql/pricing).
     pub tier: std::string::String,
@@ -15570,7 +14785,7 @@ impl Tier {
     pub fn set_region<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.region = v.into_iter().map(|i| i.into()).collect();
@@ -15587,6 +14802,7 @@ impl wkt::message::Message for Tier {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlUsersDeleteRequest {
+
     /// Host of the user in the instance.
     pub host: std::string::String,
 
@@ -15642,6 +14858,7 @@ impl wkt::message::Message for SqlUsersDeleteRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlUsersGetRequest {
+
     /// Database instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15696,6 +14913,7 @@ impl wkt::message::Message for SqlUsersGetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlUsersInsertRequest {
+
     /// Database instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15726,8 +14944,7 @@ impl SqlUsersInsertRequest {
 
     /// Sets the value of [body][crate::model::SqlUsersInsertRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -15735,8 +14952,7 @@ impl SqlUsersInsertRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlUsersInsertRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.body = v.map(|x| x.into());
         self
@@ -15752,6 +14968,7 @@ impl wkt::message::Message for SqlUsersInsertRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlUsersListRequest {
+
     /// Database instance ID. This does not include the project ID.
     pub instance: std::string::String,
 
@@ -15788,6 +15005,7 @@ impl wkt::message::Message for SqlUsersListRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlUsersUpdateRequest {
+
     /// Optional. Host of the user in the instance.
     pub host: std::string::String,
 
@@ -15836,8 +15054,7 @@ impl SqlUsersUpdateRequest {
 
     /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
     pub fn set_body<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.body = std::option::Option::Some(v.into());
         self
@@ -15845,8 +15062,7 @@ impl SqlUsersUpdateRequest {
 
     /// Sets or clears the value of [body][crate::model::SqlUsersUpdateRequest::body].
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::User>,
+    where T: std::convert::Into<crate::model::User>
     {
         self.body = v.map(|x| x.into());
         self
@@ -15863,6 +15079,7 @@ impl wkt::message::Message for SqlUsersUpdateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserPasswordValidationPolicy {
+
     /// Number of failed login attempts allowed before user get locked.
     pub allowed_failed_attempts: i32,
 
@@ -15895,8 +15112,7 @@ impl UserPasswordValidationPolicy {
 
     /// Sets the value of [password_expiration_duration][crate::model::UserPasswordValidationPolicy::password_expiration_duration].
     pub fn set_password_expiration_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.password_expiration_duration = std::option::Option::Some(v.into());
         self
@@ -15904,8 +15120,7 @@ impl UserPasswordValidationPolicy {
 
     /// Sets or clears the value of [password_expiration_duration][crate::model::UserPasswordValidationPolicy::password_expiration_duration].
     pub fn set_or_clear_password_expiration_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.password_expiration_duration = v.map(|x| x.into());
         self
@@ -15919,8 +15134,7 @@ impl UserPasswordValidationPolicy {
 
     /// Sets the value of [status][crate::model::UserPasswordValidationPolicy::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PasswordStatus>,
+    where T: std::convert::Into<crate::model::PasswordStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -15928,8 +15142,7 @@ impl UserPasswordValidationPolicy {
 
     /// Sets or clears the value of [status][crate::model::UserPasswordValidationPolicy::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PasswordStatus>,
+    where T: std::convert::Into<crate::model::PasswordStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -15952,6 +15165,7 @@ impl wkt::message::Message for UserPasswordValidationPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PasswordStatus {
+
     /// If true, user does not have login privileges.
     pub locked: bool,
 
@@ -15974,8 +15188,7 @@ impl PasswordStatus {
 
     /// Sets the value of [password_expiration_time][crate::model::PasswordStatus::password_expiration_time].
     pub fn set_password_expiration_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.password_expiration_time = std::option::Option::Some(v.into());
         self
@@ -15983,8 +15196,7 @@ impl PasswordStatus {
 
     /// Sets or clears the value of [password_expiration_time][crate::model::PasswordStatus::password_expiration_time].
     pub fn set_or_clear_password_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.password_expiration_time = v.map(|x| x.into());
         self
@@ -16001,6 +15213,7 @@ impl wkt::message::Message for PasswordStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct User {
+
     /// This is always `sql#user`.
     pub kind: std::string::String,
 
@@ -16096,18 +15309,14 @@ impl User {
     }
 
     /// Sets the value of [r#type][crate::model::User::type].
-    pub fn set_type<T: std::convert::Into<crate::model::user::SqlUserType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::user::SqlUserType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [password_policy][crate::model::User::password_policy].
     pub fn set_password_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UserPasswordValidationPolicy>,
+    where T: std::convert::Into<crate::model::UserPasswordValidationPolicy>
     {
         self.password_policy = std::option::Option::Some(v.into());
         self
@@ -16115,8 +15324,7 @@ impl User {
 
     /// Sets or clears the value of [password_policy][crate::model::User::password_policy].
     pub fn set_or_clear_password_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UserPasswordValidationPolicy>,
+    where T: std::convert::Into<crate::model::UserPasswordValidationPolicy>
     {
         self.password_policy = v.map(|x| x.into());
         self
@@ -16124,8 +15332,7 @@ impl User {
 
     /// Sets the value of [dual_password_type][crate::model::User::dual_password_type].
     pub fn set_dual_password_type<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::user::DualPasswordType>,
+    where T: std::convert::Into<crate::model::user::DualPasswordType>
     {
         self.dual_password_type = std::option::Option::Some(v.into());
         self
@@ -16133,8 +15340,7 @@ impl User {
 
     /// Sets or clears the value of [dual_password_type][crate::model::User::dual_password_type].
     pub fn set_or_clear_dual_password_type<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::user::DualPasswordType>,
+    where T: std::convert::Into<crate::model::user::DualPasswordType>
     {
         self.dual_password_type = v.map(|x| x.into());
         self
@@ -16144,12 +15350,8 @@ impl User {
     ///
     /// Note that all the setters affecting `user_details` are mutually
     /// exclusive.
-    pub fn set_user_details<
-        T: std::convert::Into<std::option::Option<crate::model::user::UserDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_details<T: std::convert::Into<std::option::Option<crate::model::user::UserDetails>>>(mut self, v: T) -> Self
+    {
         self.user_details = v.into();
         self
     }
@@ -16157,14 +15359,10 @@ impl User {
     /// The value of [user_details][crate::model::User::user_details]
     /// if it holds a `SqlserverUserDetails`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sqlserver_user_details(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerUserDetails>> {
+    pub fn sqlserver_user_details(&self) -> std::option::Option<&std::boxed::Box<crate::model::SqlServerUserDetails>> {
         #[allow(unreachable_patterns)]
         self.user_details.as_ref().and_then(|v| match v {
-            crate::model::user::UserDetails::SqlserverUserDetails(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::user::UserDetails::SqlserverUserDetails(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -16174,14 +15372,11 @@ impl User {
     ///
     /// Note that all the setters affecting `user_details` are
     /// mutually exclusive.
-    pub fn set_sqlserver_user_details<
-        T: std::convert::Into<std::boxed::Box<crate::model::SqlServerUserDetails>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sqlserver_user_details<T: std::convert::Into<std::boxed::Box<crate::model::SqlServerUserDetails>>>(mut self, v: T) -> Self {
         self.user_details = std::option::Option::Some(
-            crate::model::user::UserDetails::SqlserverUserDetails(v.into()),
+            crate::model::user::UserDetails::SqlserverUserDetails(
+                v.into()
+            )
         );
         self
     }
@@ -16197,6 +15392,7 @@ impl wkt::message::Message for User {
 pub mod user {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The user type.
     ///
@@ -16268,14 +15464,10 @@ pub mod user {
             match self {
                 Self::BuiltIn => std::option::Option::Some("BUILT_IN"),
                 Self::CloudIamUser => std::option::Option::Some("CLOUD_IAM_USER"),
-                Self::CloudIamServiceAccount => {
-                    std::option::Option::Some("CLOUD_IAM_SERVICE_ACCOUNT")
-                }
+                Self::CloudIamServiceAccount => std::option::Option::Some("CLOUD_IAM_SERVICE_ACCOUNT"),
                 Self::CloudIamGroup => std::option::Option::Some("CLOUD_IAM_GROUP"),
                 Self::CloudIamGroupUser => std::option::Option::Some("CLOUD_IAM_GROUP_USER"),
-                Self::CloudIamGroupServiceAccount => {
-                    std::option::Option::Some("CLOUD_IAM_GROUP_SERVICE_ACCOUNT")
-                }
+                Self::CloudIamGroupServiceAccount => std::option::Option::Some("CLOUD_IAM_GROUP_SERVICE_ACCOUNT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -16303,9 +15495,7 @@ pub mod user {
                 3 => Self::CloudIamGroup,
                 4 => Self::CloudIamGroupUser,
                 5 => Self::CloudIamGroupServiceAccount,
-                _ => Self::UnknownValue(sql_user_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(sql_user_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16320,9 +15510,7 @@ pub mod user {
                 "CLOUD_IAM_GROUP" => Self::CloudIamGroup,
                 "CLOUD_IAM_GROUP_USER" => Self::CloudIamGroupUser,
                 "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => Self::CloudIamGroupServiceAccount,
-                _ => Self::UnknownValue(sql_user_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(sql_user_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16350,8 +15538,7 @@ pub mod user {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUserType>::new(
-                ".google.cloud.sql.v1.User.SqlUserType",
-            ))
+                ".google.cloud.sql.v1.User.SqlUserType"))
         }
     }
 
@@ -16446,9 +15633,7 @@ pub mod user {
                 1 => Self::NoModifyDualPassword,
                 2 => Self::NoDualPassword,
                 3 => Self::DualPassword,
-                _ => Self::UnknownValue(dual_password_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(dual_password_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16461,9 +15646,7 @@ pub mod user {
                 "NO_MODIFY_DUAL_PASSWORD" => Self::NoModifyDualPassword,
                 "NO_DUAL_PASSWORD" => Self::NoDualPassword,
                 "DUAL_PASSWORD" => Self::DualPassword,
-                _ => Self::UnknownValue(dual_password_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(dual_password_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16489,8 +15672,7 @@ pub mod user {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DualPasswordType>::new(
-                ".google.cloud.sql.v1.User.DualPasswordType",
-            ))
+                ".google.cloud.sql.v1.User.DualPasswordType"))
         }
     }
 
@@ -16506,6 +15688,7 @@ pub mod user {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SqlServerUserDetails {
+
     /// If the user has been disabled
     pub disabled: bool,
 
@@ -16530,7 +15713,7 @@ impl SqlServerUserDetails {
     pub fn set_server_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.server_roles = v.into_iter().map(|i| i.into()).collect();
@@ -16548,6 +15731,7 @@ impl wkt::message::Message for SqlServerUserDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsersListResponse {
+
     /// This is always `sql#usersList`.
     pub kind: std::string::String,
 
@@ -16576,7 +15760,7 @@ impl UsersListResponse {
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::User>,
+        V: std::convert::Into<crate::model::User>
     {
         use std::iter::Iterator;
         self.items = v.into_iter().map(|i| i.into()).collect();
@@ -16721,9 +15905,7 @@ impl std::convert::From<i32> for SqlBackupRunStatus {
             7 => Self::DeletionPending,
             8 => Self::DeletionFailed,
             9 => Self::Deleted,
-            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -16742,9 +15924,7 @@ impl std::convert::From<&str> for SqlBackupRunStatus {
             "DELETION_PENDING" => Self::DeletionPending,
             "DELETION_FAILED" => Self::DeletionFailed,
             "DELETED" => Self::Deleted,
-            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_backup_run_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -16776,8 +15956,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlBackupRunStatus {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupRunStatus>::new(
-            ".google.cloud.sql.v1.SqlBackupRunStatus",
-        ))
+            ".google.cloud.sql.v1.SqlBackupRunStatus"))
     }
 }
 
@@ -16867,9 +16046,7 @@ impl std::convert::From<i32> for SqlBackupKind {
             0 => Self::Unspecified,
             1 => Self::Snapshot,
             2 => Self::Physical,
-            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -16881,9 +16058,7 @@ impl std::convert::From<&str> for SqlBackupKind {
             "SQL_BACKUP_KIND_UNSPECIFIED" => Self::Unspecified,
             "SNAPSHOT" => Self::Snapshot,
             "PHYSICAL" => Self::Physical,
-            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_backup_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -16908,8 +16083,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlBackupKind {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupKind>::new(
-            ".google.cloud.sql.v1.SqlBackupKind",
-        ))
+            ".google.cloud.sql.v1.SqlBackupKind"))
     }
 }
 
@@ -16999,9 +16173,7 @@ impl std::convert::From<i32> for SqlBackupRunType {
             0 => Self::Unspecified,
             1 => Self::Automated,
             2 => Self::OnDemand,
-            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17013,9 +16185,7 @@ impl std::convert::From<&str> for SqlBackupRunType {
             "SQL_BACKUP_RUN_TYPE_UNSPECIFIED" => Self::Unspecified,
             "AUTOMATED" => Self::Automated,
             "ON_DEMAND" => Self::OnDemand,
-            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_backup_run_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17040,8 +16210,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlBackupRunType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackupRunType>::new(
-            ".google.cloud.sql.v1.SqlBackupRunType",
-        ))
+            ".google.cloud.sql.v1.SqlBackupRunType"))
     }
 }
 
@@ -17156,9 +16325,7 @@ impl std::convert::From<i32> for SqlFlagType {
             5 => Self::MysqlTimezoneOffset,
             6 => Self::Float,
             7 => Self::RepeatedString,
-            _ => Self::UnknownValue(sql_flag_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_flag_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17175,9 +16342,7 @@ impl std::convert::From<&str> for SqlFlagType {
             "MYSQL_TIMEZONE_OFFSET" => Self::MysqlTimezoneOffset,
             "FLOAT" => Self::Float,
             "REPEATED_STRING" => Self::RepeatedString,
-            _ => Self::UnknownValue(sql_flag_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_flag_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17207,8 +16372,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlFlagType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlFlagType>::new(
-            ".google.cloud.sql.v1.SqlFlagType",
-        ))
+            ".google.cloud.sql.v1.SqlFlagType"))
     }
 }
 
@@ -17274,9 +16438,7 @@ impl ExternalSyncParallelLevel {
     /// the integer representation of enums.
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
-            Self::Unspecified => {
-                std::option::Option::Some("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED")
-            }
+            Self::Unspecified => std::option::Option::Some("EXTERNAL_SYNC_PARALLEL_LEVEL_UNSPECIFIED"),
             Self::Min => std::option::Option::Some("MIN"),
             Self::Optimal => std::option::Option::Some("OPTIMAL"),
             Self::Max => std::option::Option::Some("MAX"),
@@ -17305,9 +16467,7 @@ impl std::convert::From<i32> for ExternalSyncParallelLevel {
             1 => Self::Min,
             2 => Self::Optimal,
             3 => Self::Max,
-            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17320,9 +16480,7 @@ impl std::convert::From<&str> for ExternalSyncParallelLevel {
             "MIN" => Self::Min,
             "OPTIMAL" => Self::Optimal,
             "MAX" => Self::Max,
-            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(external_sync_parallel_level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17347,11 +16505,8 @@ impl<'de> serde::de::Deserialize<'de> for ExternalSyncParallelLevel {
     where
         D: serde::Deserializer<'de>,
     {
-        deserializer.deserialize_any(
-            wkt::internal::EnumVisitor::<ExternalSyncParallelLevel>::new(
-                ".google.cloud.sql.v1.ExternalSyncParallelLevel",
-            ),
-        )
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExternalSyncParallelLevel>::new(
+            ".google.cloud.sql.v1.ExternalSyncParallelLevel"))
     }
 }
 
@@ -17447,9 +16602,7 @@ impl std::convert::From<i32> for SqlInstanceType {
             1 => Self::CloudSqlInstance,
             2 => Self::OnPremisesInstance,
             3 => Self::ReadReplicaInstance,
-            _ => Self::UnknownValue(sql_instance_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_instance_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17462,9 +16615,7 @@ impl std::convert::From<&str> for SqlInstanceType {
             "CLOUD_SQL_INSTANCE" => Self::CloudSqlInstance,
             "ON_PREMISES_INSTANCE" => Self::OnPremisesInstance,
             "READ_REPLICA_INSTANCE" => Self::ReadReplicaInstance,
-            _ => Self::UnknownValue(sql_instance_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_instance_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17490,8 +16641,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlInstanceType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlInstanceType>::new(
-            ".google.cloud.sql.v1.SqlInstanceType",
-        ))
+            ".google.cloud.sql.v1.SqlInstanceType"))
     }
 }
 
@@ -17594,9 +16744,7 @@ impl std::convert::From<i32> for SqlSuspensionReason {
             3 => Self::LegalIssue,
             4 => Self::OperationalIssue,
             5 => Self::KmsKeyIssue,
-            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17610,9 +16758,7 @@ impl std::convert::From<&str> for SqlSuspensionReason {
             "LEGAL_ISSUE" => Self::LegalIssue,
             "OPERATIONAL_ISSUE" => Self::OperationalIssue,
             "KMS_KEY_ISSUE" => Self::KmsKeyIssue,
-            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_suspension_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17639,8 +16785,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlSuspensionReason {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlSuspensionReason>::new(
-            ".google.cloud.sql.v1.SqlSuspensionReason",
-        ))
+            ".google.cloud.sql.v1.SqlSuspensionReason"))
     }
 }
 
@@ -17733,9 +16878,7 @@ impl std::convert::From<i32> for SqlFileType {
             1 => Self::Sql,
             2 => Self::Csv,
             4 => Self::Bak,
-            _ => Self::UnknownValue(sql_file_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_file_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17748,9 +16891,7 @@ impl std::convert::From<&str> for SqlFileType {
             "SQL" => Self::Sql,
             "CSV" => Self::Csv,
             "BAK" => Self::Bak,
-            _ => Self::UnknownValue(sql_file_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_file_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17776,8 +16917,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlFileType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlFileType>::new(
-            ".google.cloud.sql.v1.SqlFileType",
-        ))
+            ".google.cloud.sql.v1.SqlFileType"))
     }
 }
 
@@ -17871,9 +17011,7 @@ impl std::convert::From<i32> for BakType {
             1 => Self::Full,
             2 => Self::Diff,
             3 => Self::Tlog,
-            _ => Self::UnknownValue(bak_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(bak_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -17886,9 +17024,7 @@ impl std::convert::From<&str> for BakType {
             "FULL" => Self::Full,
             "DIFF" => Self::Diff,
             "TLOG" => Self::Tlog,
-            _ => Self::UnknownValue(bak_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(bak_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -17914,8 +17050,7 @@ impl<'de> serde::de::Deserialize<'de> for BakType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<BakType>::new(
-            ".google.cloud.sql.v1.BakType",
-        ))
+            ".google.cloud.sql.v1.BakType"))
     }
 }
 
@@ -18010,9 +17145,7 @@ impl std::convert::From<i32> for SqlBackendType {
             1 => Self::FirstGen,
             2 => Self::SecondGen,
             3 => Self::External,
-            _ => Self::UnknownValue(sql_backend_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_backend_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -18025,9 +17158,7 @@ impl std::convert::From<&str> for SqlBackendType {
             "FIRST_GEN" => Self::FirstGen,
             "SECOND_GEN" => Self::SecondGen,
             "EXTERNAL" => Self::External,
-            _ => Self::UnknownValue(sql_backend_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_backend_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -18053,8 +17184,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlBackendType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlBackendType>::new(
-            ".google.cloud.sql.v1.SqlBackendType",
-        ))
+            ".google.cloud.sql.v1.SqlBackendType"))
     }
 }
 
@@ -18159,9 +17289,7 @@ impl std::convert::From<i32> for SqlIpAddressType {
             2 => Self::Outgoing,
             3 => Self::Private,
             4 => Self::Migrated1StGen,
-            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -18175,9 +17303,7 @@ impl std::convert::From<&str> for SqlIpAddressType {
             "OUTGOING" => Self::Outgoing,
             "PRIVATE" => Self::Private,
             "MIGRATED_1ST_GEN" => Self::Migrated1StGen,
-            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_ip_address_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -18204,8 +17330,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlIpAddressType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlIpAddressType>::new(
-            ".google.cloud.sql.v1.SqlIpAddressType",
-        ))
+            ".google.cloud.sql.v1.SqlIpAddressType"))
     }
 }
 
@@ -18513,9 +17638,7 @@ impl std::convert::From<i32> for SqlDatabaseVersion {
             399 => Self::Mysql840,
             408 => Self::Postgres17,
             557 => Self::Postgres18,
-            _ => Self::UnknownValue(sql_database_version::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -18570,9 +17693,7 @@ impl std::convert::From<&str> for SqlDatabaseVersion {
             "SQLSERVER_2022_ENTERPRISE" => Self::Sqlserver2022Enterprise,
             "SQLSERVER_2022_EXPRESS" => Self::Sqlserver2022Express,
             "SQLSERVER_2022_WEB" => Self::Sqlserver2022Web,
-            _ => Self::UnknownValue(sql_database_version::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_database_version::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -18640,8 +17761,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlDatabaseVersion {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDatabaseVersion>::new(
-            ".google.cloud.sql.v1.SqlDatabaseVersion",
-        ))
+            ".google.cloud.sql.v1.SqlDatabaseVersion"))
     }
 }
 
@@ -18731,9 +17851,7 @@ impl std::convert::From<i32> for SqlPricingPlan {
             0 => Self::Unspecified,
             1 => Self::Package,
             2 => Self::PerUse,
-            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -18745,9 +17863,7 @@ impl std::convert::From<&str> for SqlPricingPlan {
             "SQL_PRICING_PLAN_UNSPECIFIED" => Self::Unspecified,
             "PACKAGE" => Self::Package,
             "PER_USE" => Self::PerUse,
-            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_pricing_plan::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -18772,8 +17888,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlPricingPlan {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlPricingPlan>::new(
-            ".google.cloud.sql.v1.SqlPricingPlan",
-        ))
+            ".google.cloud.sql.v1.SqlPricingPlan"))
     }
 }
 
@@ -18866,9 +17981,7 @@ impl std::convert::From<i32> for SqlReplicationType {
             0 => Self::Unspecified,
             1 => Self::Synchronous,
             2 => Self::Asynchronous,
-            _ => Self::UnknownValue(sql_replication_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_replication_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -18880,9 +17993,7 @@ impl std::convert::From<&str> for SqlReplicationType {
             "SQL_REPLICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
             "SYNCHRONOUS" => Self::Synchronous,
             "ASYNCHRONOUS" => Self::Asynchronous,
-            _ => Self::UnknownValue(sql_replication_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_replication_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -18907,8 +18018,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlReplicationType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlReplicationType>::new(
-            ".google.cloud.sql.v1.SqlReplicationType",
-        ))
+            ".google.cloud.sql.v1.SqlReplicationType"))
     }
 }
 
@@ -19005,9 +18115,7 @@ impl std::convert::From<i32> for SqlDataDiskType {
             1 => Self::PdSsd,
             2 => Self::PdHdd,
             3 => Self::ObsoleteLocalSsd,
-            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19020,9 +18128,7 @@ impl std::convert::From<&str> for SqlDataDiskType {
             "PD_SSD" => Self::PdSsd,
             "PD_HDD" => Self::PdHdd,
             "OBSOLETE_LOCAL_SSD" => Self::ObsoleteLocalSsd,
-            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_data_disk_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19048,8 +18154,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlDataDiskType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlDataDiskType>::new(
-            ".google.cloud.sql.v1.SqlDataDiskType",
-        ))
+            ".google.cloud.sql.v1.SqlDataDiskType"))
     }
 }
 
@@ -19139,9 +18244,7 @@ impl std::convert::From<i32> for SqlAvailabilityType {
             0 => Self::Unspecified,
             1 => Self::Zonal,
             2 => Self::Regional,
-            _ => Self::UnknownValue(sql_availability_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19153,9 +18256,7 @@ impl std::convert::From<&str> for SqlAvailabilityType {
             "SQL_AVAILABILITY_TYPE_UNSPECIFIED" => Self::Unspecified,
             "ZONAL" => Self::Zonal,
             "REGIONAL" => Self::Regional,
-            _ => Self::UnknownValue(sql_availability_type::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_availability_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19180,8 +18281,7 @@ impl<'de> serde::de::Deserialize<'de> for SqlAvailabilityType {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlAvailabilityType>::new(
-            ".google.cloud.sql.v1.SqlAvailabilityType",
-        ))
+            ".google.cloud.sql.v1.SqlAvailabilityType"))
     }
 }
 
@@ -19283,9 +18383,7 @@ impl std::convert::From<i32> for SqlUpdateTrack {
             1 => Self::Canary,
             2 => Self::Stable,
             3 => Self::Week5,
-            _ => Self::UnknownValue(sql_update_track::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(sql_update_track::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19298,9 +18396,7 @@ impl std::convert::From<&str> for SqlUpdateTrack {
             "canary" => Self::Canary,
             "stable" => Self::Stable,
             "week5" => Self::Week5,
-            _ => Self::UnknownValue(sql_update_track::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(sql_update_track::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19326,7 +18422,6 @@ impl<'de> serde::de::Deserialize<'de> for SqlUpdateTrack {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUpdateTrack>::new(
-            ".google.cloud.sql.v1.SqlUpdateTrack",
-        ))
+            ".google.cloud.sql.v1.SqlUpdateTrack"))
     }
 }

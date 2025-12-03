@@ -72,9 +72,7 @@ impl RapidMigrationAssessment {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::rapid_migration_assessment::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::rapid_migration_assessment::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::rapid_migration_assessment::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -82,44 +80,28 @@ impl RapidMigrationAssessment {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::RapidMigrationAssessment + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::RapidMigrationAssessment + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::RapidMigrationAssessment>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RapidMigrationAssessment>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
         super::transport::RapidMigrationAssessment::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::RapidMigrationAssessment::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::RapidMigrationAssessment> {
+        Self::build_transport(conf).await.map(super::tracing::RapidMigrationAssessment::new)
     }
 
     /// Create a Collector to manage the on-prem appliance which collects
@@ -134,7 +116,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_collector(&self) -> super::builder::rapid_migration_assessment::CreateCollector {
+    pub fn create_collector(&self) -> super::builder::rapid_migration_assessment::CreateCollector
+    {
         super::builder::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
     }
 
@@ -149,24 +132,26 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_annotation(
-        &self,
-    ) -> super::builder::rapid_migration_assessment::CreateAnnotation {
+    pub fn create_annotation(&self) -> super::builder::rapid_migration_assessment::CreateAnnotation
+    {
         super::builder::rapid_migration_assessment::CreateAnnotation::new(self.inner.clone())
     }
 
     /// Gets details of a single Annotation.
-    pub fn get_annotation(&self) -> super::builder::rapid_migration_assessment::GetAnnotation {
+    pub fn get_annotation(&self) -> super::builder::rapid_migration_assessment::GetAnnotation
+    {
         super::builder::rapid_migration_assessment::GetAnnotation::new(self.inner.clone())
     }
 
     /// Lists Collectors in a given project and location.
-    pub fn list_collectors(&self) -> super::builder::rapid_migration_assessment::ListCollectors {
+    pub fn list_collectors(&self) -> super::builder::rapid_migration_assessment::ListCollectors
+    {
         super::builder::rapid_migration_assessment::ListCollectors::new(self.inner.clone())
     }
 
     /// Gets details of a single Collector.
-    pub fn get_collector(&self) -> super::builder::rapid_migration_assessment::GetCollector {
+    pub fn get_collector(&self) -> super::builder::rapid_migration_assessment::GetCollector
+    {
         super::builder::rapid_migration_assessment::GetCollector::new(self.inner.clone())
     }
 
@@ -181,7 +166,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_collector(&self) -> super::builder::rapid_migration_assessment::UpdateCollector {
+    pub fn update_collector(&self) -> super::builder::rapid_migration_assessment::UpdateCollector
+    {
         super::builder::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
     }
 
@@ -197,7 +183,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_collector(&self) -> super::builder::rapid_migration_assessment::DeleteCollector {
+    pub fn delete_collector(&self) -> super::builder::rapid_migration_assessment::DeleteCollector
+    {
         super::builder::rapid_migration_assessment::DeleteCollector::new(self.inner.clone())
     }
 
@@ -212,7 +199,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resume_collector(&self) -> super::builder::rapid_migration_assessment::ResumeCollector {
+    pub fn resume_collector(&self) -> super::builder::rapid_migration_assessment::ResumeCollector
+    {
         super::builder::rapid_migration_assessment::ResumeCollector::new(self.inner.clone())
     }
 
@@ -227,9 +215,8 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn register_collector(
-        &self,
-    ) -> super::builder::rapid_migration_assessment::RegisterCollector {
+    pub fn register_collector(&self) -> super::builder::rapid_migration_assessment::RegisterCollector
+    {
         super::builder::rapid_migration_assessment::RegisterCollector::new(self.inner.clone())
     }
 
@@ -244,45 +231,52 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn pause_collector(&self) -> super::builder::rapid_migration_assessment::PauseCollector {
+    pub fn pause_collector(&self) -> super::builder::rapid_migration_assessment::PauseCollector
+    {
         super::builder::rapid_migration_assessment::PauseCollector::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::rapid_migration_assessment::ListLocations {
+    pub fn list_locations(&self) -> super::builder::rapid_migration_assessment::ListLocations
+    {
         super::builder::rapid_migration_assessment::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::rapid_migration_assessment::GetLocation {
+    pub fn get_location(&self) -> super::builder::rapid_migration_assessment::GetLocation
+    {
         super::builder::rapid_migration_assessment::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::rapid_migration_assessment::ListOperations {
+    pub fn list_operations(&self) -> super::builder::rapid_migration_assessment::ListOperations
+    {
         super::builder::rapid_migration_assessment::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::rapid_migration_assessment::GetOperation {
+    pub fn get_operation(&self) -> super::builder::rapid_migration_assessment::GetOperation
+    {
         super::builder::rapid_migration_assessment::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::rapid_migration_assessment::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::rapid_migration_assessment::DeleteOperation
+    {
         super::builder::rapid_migration_assessment::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::rapid_migration_assessment::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::rapid_migration_assessment::CancelOperation
+    {
         super::builder::rapid_migration_assessment::CancelOperation::new(self.inner.clone())
     }
 }

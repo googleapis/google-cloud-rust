@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [PublicCertificateAuthorityService](super::stub::PublicCertificateAuthorityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct PublicCertificateAuthorityService<T>
-where
-    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> PublicCertificateAuthorityService<T>
-where
-    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::PublicCertificateAuthorityService for PublicCertificateAuthorityService<T>
-where
-    T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_external_account_key(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_external_account_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_external_account_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_external_account_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -76,3 +67,4 @@ where
         self.inner.create_external_account_key(req, options).await
     }
 }
+

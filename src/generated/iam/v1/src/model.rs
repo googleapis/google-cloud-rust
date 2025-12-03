@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -39,6 +39,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
+
     /// REQUIRED: The resource for which the policy is being specified.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: std::string::String,
@@ -72,8 +73,7 @@ impl SetIamPolicyRequest {
 
     /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -81,8 +81,7 @@ impl SetIamPolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Policy>,
+    where T: std::convert::Into<crate::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -90,8 +89,7 @@ impl SetIamPolicyRequest {
 
     /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -99,8 +97,7 @@ impl SetIamPolicyRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -117,6 +114,7 @@ impl wkt::message::Message for SetIamPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
+
     /// REQUIRED: The resource for which the policy is being requested.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: std::string::String,
@@ -141,8 +139,7 @@ impl GetIamPolicyRequest {
 
     /// Sets the value of [options][crate::model::GetIamPolicyRequest::options].
     pub fn set_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GetPolicyOptions>,
+    where T: std::convert::Into<crate::model::GetPolicyOptions>
     {
         self.options = std::option::Option::Some(v.into());
         self
@@ -150,8 +147,7 @@ impl GetIamPolicyRequest {
 
     /// Sets or clears the value of [options][crate::model::GetIamPolicyRequest::options].
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GetPolicyOptions>,
+    where T: std::convert::Into<crate::model::GetPolicyOptions>
     {
         self.options = v.map(|x| x.into());
         self
@@ -168,6 +164,7 @@ impl wkt::message::Message for GetIamPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
+
     /// REQUIRED: The resource for which the policy detail is being requested.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: std::string::String,
@@ -196,7 +193,7 @@ impl TestIamPermissionsRequest {
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -214,6 +211,7 @@ impl wkt::message::Message for TestIamPermissionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
+
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: std::vec::Vec<std::string::String>,
@@ -230,7 +228,7 @@ impl TestIamPermissionsResponse {
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -248,6 +246,7 @@ impl wkt::message::Message for TestIamPermissionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPolicyOptions {
+
     /// Optional. The maximum policy version that will be used to format the
     /// policy.
     ///
@@ -364,6 +363,7 @@ impl wkt::message::Message for GetPolicyOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Specifies the format of the policy.
     ///
     /// Valid values are `0`, `1`, and `3`. Requests that specify an invalid value
@@ -438,7 +438,7 @@ impl Policy {
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Binding>,
+        V: std::convert::Into<crate::model::Binding>
     {
         use std::iter::Iterator;
         self.bindings = v.into_iter().map(|i| i.into()).collect();
@@ -449,7 +449,7 @@ impl Policy {
     pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuditConfig>,
+        V: std::convert::Into<crate::model::AuditConfig>
     {
         use std::iter::Iterator;
         self.audit_configs = v.into_iter().map(|i| i.into()).collect();
@@ -473,6 +473,7 @@ impl wkt::message::Message for Policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Binding {
+
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     pub role: std::string::String,
@@ -552,7 +553,7 @@ impl Binding {
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.members = v.into_iter().map(|i| i.into()).collect();
@@ -561,8 +562,7 @@ impl Binding {
 
     /// Sets the value of [condition][crate::model::Binding::condition].
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -570,8 +570,7 @@ impl Binding {
 
     /// Sets or clears the value of [condition][crate::model::Binding::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -640,6 +639,7 @@ impl wkt::message::Message for Binding {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfig {
+
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
@@ -666,7 +666,7 @@ impl AuditConfig {
     pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuditLogConfig>,
+        V: std::convert::Into<crate::model::AuditLogConfig>
     {
         use std::iter::Iterator;
         self.audit_log_configs = v.into_iter().map(|i| i.into()).collect();
@@ -704,6 +704,7 @@ impl wkt::message::Message for AuditConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditLogConfig {
+
     /// The log type that this config enables.
     pub log_type: crate::model::audit_log_config::LogType,
 
@@ -724,10 +725,7 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
-    pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
     }
@@ -736,7 +734,7 @@ impl AuditLogConfig {
     pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.exempted_members = v.into_iter().map(|i| i.into()).collect();
@@ -754,6 +752,7 @@ impl wkt::message::Message for AuditLogConfig {
 pub mod audit_log_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
@@ -847,9 +846,7 @@ pub mod audit_log_config {
                 1 => Self::AdminRead,
                 2 => Self::DataWrite,
                 3 => Self::DataRead,
-                _ => Self::UnknownValue(log_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(log_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -862,9 +859,7 @@ pub mod audit_log_config {
                 "ADMIN_READ" => Self::AdminRead,
                 "DATA_WRITE" => Self::DataWrite,
                 "DATA_READ" => Self::DataRead,
-                _ => Self::UnknownValue(log_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(log_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -890,8 +885,7 @@ pub mod audit_log_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogType>::new(
-                ".google.iam.v1.AuditLogConfig.LogType",
-            ))
+                ".google.iam.v1.AuditLogConfig.LogType"))
         }
     }
 }
@@ -900,6 +894,7 @@ pub mod audit_log_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PolicyDelta {
+
     /// The delta for Bindings between two policies.
     pub binding_deltas: std::vec::Vec<crate::model::BindingDelta>,
 
@@ -918,7 +913,7 @@ impl PolicyDelta {
     pub fn set_binding_deltas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BindingDelta>,
+        V: std::convert::Into<crate::model::BindingDelta>
     {
         use std::iter::Iterator;
         self.binding_deltas = v.into_iter().map(|i| i.into()).collect();
@@ -929,7 +924,7 @@ impl PolicyDelta {
     pub fn set_audit_config_deltas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuditConfigDelta>,
+        V: std::convert::Into<crate::model::AuditConfigDelta>
     {
         use std::iter::Iterator;
         self.audit_config_deltas = v.into_iter().map(|i| i.into()).collect();
@@ -948,6 +943,7 @@ impl wkt::message::Message for PolicyDelta {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BindingDelta {
+
     /// The action that was performed on a Binding.
     /// Required
     pub action: crate::model::binding_delta::Action,
@@ -974,10 +970,7 @@ impl BindingDelta {
     }
 
     /// Sets the value of [action][crate::model::BindingDelta::action].
-    pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -996,8 +989,7 @@ impl BindingDelta {
 
     /// Sets the value of [condition][crate::model::BindingDelta::condition].
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -1005,8 +997,7 @@ impl BindingDelta {
 
     /// Sets or clears the value of [condition][crate::model::BindingDelta::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -1023,6 +1014,7 @@ impl wkt::message::Message for BindingDelta {
 pub mod binding_delta {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of action performed on a Binding in a policy.
     ///
@@ -1110,9 +1102,7 @@ pub mod binding_delta {
                 0 => Self::Unspecified,
                 1 => Self::Add,
                 2 => Self::Remove,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1124,9 +1114,7 @@ pub mod binding_delta {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "ADD" => Self::Add,
                 "REMOVE" => Self::Remove,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1151,8 +1139,7 @@ pub mod binding_delta {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.iam.v1.BindingDelta.Action",
-            ))
+                ".google.iam.v1.BindingDelta.Action"))
         }
     }
 }
@@ -1162,6 +1149,7 @@ pub mod binding_delta {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuditConfigDelta {
+
     /// The action that was performed on an audit configuration in a policy.
     /// Required
     pub action: crate::model::audit_config_delta::Action,
@@ -1191,10 +1179,7 @@ impl AuditConfigDelta {
     }
 
     /// Sets the value of [action][crate::model::AuditConfigDelta::action].
-    pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
@@ -1228,6 +1213,7 @@ impl wkt::message::Message for AuditConfigDelta {
 pub mod audit_config_delta {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The type of action performed on an audit configuration in a policy.
     ///
@@ -1315,9 +1301,7 @@ pub mod audit_config_delta {
                 0 => Self::Unspecified,
                 1 => Self::Add,
                 2 => Self::Remove,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1329,9 +1313,7 @@ pub mod audit_config_delta {
                 "ACTION_UNSPECIFIED" => Self::Unspecified,
                 "ADD" => Self::Add,
                 "REMOVE" => Self::Remove,
-                _ => Self::UnknownValue(action::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1356,8 +1338,7 @@ pub mod audit_config_delta {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Action>::new(
-                ".google.iam.v1.AuditConfigDelta.Action",
-            ))
+                ".google.iam.v1.AuditConfigDelta.Action"))
         }
     }
 }
@@ -1367,6 +1348,7 @@ pub mod audit_config_delta {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourcePolicyMember {
+
     /// IAM policy binding member referring to a Google Cloud resource by
     /// user-assigned name (<https://google.aip.dev/122>). If a resource is deleted
     /// and recreated with the same name, the binding will be applicable to the new
@@ -1394,19 +1376,13 @@ impl ResourcePolicyMember {
     }
 
     /// Sets the value of [iam_policy_name_principal][crate::model::ResourcePolicyMember::iam_policy_name_principal].
-    pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_policy_name_principal = v.into();
         self
     }
 
     /// Sets the value of [iam_policy_uid_principal][crate::model::ResourcePolicyMember::iam_policy_uid_principal].
-    pub fn set_iam_policy_uid_principal<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_iam_policy_uid_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_policy_uid_principal = v.into();
         self
     }

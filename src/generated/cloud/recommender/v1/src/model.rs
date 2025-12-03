@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -27,7 +28,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Insight {
+
     /// Name of the insight.
     pub name: std::string::String,
 
@@ -105,7 +106,7 @@ impl Insight {
     pub fn set_target_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.target_resources = v.into_iter().map(|i| i.into()).collect();
@@ -120,8 +121,7 @@ impl Insight {
 
     /// Sets the value of [content][crate::model::Insight::content].
     pub fn set_content<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.content = std::option::Option::Some(v.into());
         self
@@ -129,8 +129,7 @@ impl Insight {
 
     /// Sets or clears the value of [content][crate::model::Insight::content].
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.content = v.map(|x| x.into());
         self
@@ -138,8 +137,7 @@ impl Insight {
 
     /// Sets the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
     pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_refresh_time = std::option::Option::Some(v.into());
         self
@@ -147,8 +145,7 @@ impl Insight {
 
     /// Sets or clears the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_refresh_time = v.map(|x| x.into());
         self
@@ -156,8 +153,7 @@ impl Insight {
 
     /// Sets the value of [observation_period][crate::model::Insight::observation_period].
     pub fn set_observation_period<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.observation_period = std::option::Option::Some(v.into());
         self
@@ -165,8 +161,7 @@ impl Insight {
 
     /// Sets or clears the value of [observation_period][crate::model::Insight::observation_period].
     pub fn set_or_clear_observation_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.observation_period = v.map(|x| x.into());
         self
@@ -174,8 +169,7 @@ impl Insight {
 
     /// Sets the value of [state_info][crate::model::Insight::state_info].
     pub fn set_state_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightStateInfo>,
+    where T: std::convert::Into<crate::model::InsightStateInfo>
     {
         self.state_info = std::option::Option::Some(v.into());
         self
@@ -183,27 +177,20 @@ impl Insight {
 
     /// Sets or clears the value of [state_info][crate::model::Insight::state_info].
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightStateInfo>,
+    where T: std::convert::Into<crate::model::InsightStateInfo>
     {
         self.state_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [category][crate::model::Insight::category].
-    pub fn set_category<T: std::convert::Into<crate::model::insight::Category>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_category<T: std::convert::Into<crate::model::insight::Category>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::Insight::severity].
-    pub fn set_severity<T: std::convert::Into<crate::model::insight::Severity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_severity<T: std::convert::Into<crate::model::insight::Severity>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
@@ -218,7 +205,7 @@ impl Insight {
     pub fn set_associated_recommendations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::insight::RecommendationReference>,
+        V: std::convert::Into<crate::model::insight::RecommendationReference>
     {
         use std::iter::Iterator;
         self.associated_recommendations = v.into_iter().map(|i| i.into()).collect();
@@ -237,10 +224,12 @@ pub mod insight {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Reference to an associated recommendation.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RecommendationReference {
+
         /// Recommendation resource name, e.g.
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/recommendations/[RECOMMENDATION_ID]
         pub recommendation: std::string::String,
@@ -254,10 +243,7 @@ pub mod insight {
         }
 
         /// Sets the value of [recommendation][crate::model::insight::RecommendationReference::recommendation].
-        pub fn set_recommendation<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_recommendation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.recommendation = v.into();
             self
         }
@@ -375,9 +361,7 @@ pub mod insight {
                 4 => Self::Manageability,
                 5 => Self::Sustainability,
                 6 => Self::Reliability,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -393,9 +377,7 @@ pub mod insight {
                 "MANAGEABILITY" => Self::Manageability,
                 "SUSTAINABILITY" => Self::Sustainability,
                 "RELIABILITY" => Self::Reliability,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -424,8 +406,7 @@ pub mod insight {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
-                ".google.cloud.recommender.v1.Insight.Category",
-            ))
+                ".google.cloud.recommender.v1.Insight.Category"))
         }
     }
 
@@ -525,9 +506,7 @@ pub mod insight {
                 2 => Self::Medium,
                 3 => Self::High,
                 4 => Self::Critical,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -541,9 +520,7 @@ pub mod insight {
                 "MEDIUM" => Self::Medium,
                 "HIGH" => Self::High,
                 "CRITICAL" => Self::Critical,
-                _ => Self::UnknownValue(severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -570,8 +547,7 @@ pub mod insight {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
-                ".google.cloud.recommender.v1.Insight.Severity",
-            ))
+                ".google.cloud.recommender.v1.Insight.Severity"))
         }
     }
 }
@@ -580,11 +556,12 @@ pub mod insight {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightStateInfo {
+
     /// Insight state.
     pub state: crate::model::insight_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -595,10 +572,7 @@ impl InsightStateInfo {
     }
 
     /// Sets the value of [state][crate::model::InsightStateInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::insight_state_info::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::insight_state_info::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -626,6 +600,7 @@ impl wkt::message::Message for InsightStateInfo {
 pub mod insight_state_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents insight state.
     ///
@@ -724,9 +699,7 @@ pub mod insight_state_info {
                 1 => Self::Active,
                 2 => Self::Accepted,
                 3 => Self::Dismissed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -739,9 +712,7 @@ pub mod insight_state_info {
                 "ACTIVE" => Self::Active,
                 "ACCEPTED" => Self::Accepted,
                 "DISMISSED" => Self::Dismissed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -767,8 +738,7 @@ pub mod insight_state_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.recommender.v1.InsightStateInfo.State",
-            ))
+                ".google.cloud.recommender.v1.InsightStateInfo.State"))
         }
     }
 }
@@ -777,6 +747,7 @@ pub mod insight_state_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightTypeConfig {
+
     /// Name of insight type config.
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/config
@@ -784,8 +755,7 @@ pub struct InsightTypeConfig {
 
     /// InsightTypeGenerationConfig which configures the generation of
     /// insights for this insight type.
-    pub insight_type_generation_config:
-        std::option::Option<crate::model::InsightTypeGenerationConfig>,
+    pub insight_type_generation_config: std::option::Option<crate::model::InsightTypeGenerationConfig>,
 
     /// Fingerprint of the InsightTypeConfig. Provides optimistic locking when
     /// updating.
@@ -807,7 +777,7 @@ pub struct InsightTypeConfig {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// A user-settable field to provide a human-readable name to be used in user
     /// interfaces.
@@ -829,20 +799,15 @@ impl InsightTypeConfig {
 
     /// Sets the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
     pub fn set_insight_type_generation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightTypeGenerationConfig>,
+    where T: std::convert::Into<crate::model::InsightTypeGenerationConfig>
     {
         self.insight_type_generation_config = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
-    pub fn set_or_clear_insight_type_generation_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightTypeGenerationConfig>,
+    pub fn set_or_clear_insight_type_generation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::InsightTypeGenerationConfig>
     {
         self.insight_type_generation_config = v.map(|x| x.into());
         self
@@ -856,8 +821,7 @@ impl InsightTypeConfig {
 
     /// Sets the value of [update_time][crate::model::InsightTypeConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -865,8 +829,7 @@ impl InsightTypeConfig {
 
     /// Sets or clears the value of [update_time][crate::model::InsightTypeConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -909,6 +872,7 @@ impl wkt::message::Message for InsightTypeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightTypeGenerationConfig {
+
     /// Parameters for this InsightTypeGenerationConfig. These configs can be used
     /// by or are applied to all subtypes.
     pub params: std::option::Option<wkt::Struct>,
@@ -923,8 +887,7 @@ impl InsightTypeGenerationConfig {
 
     /// Sets the value of [params][crate::model::InsightTypeGenerationConfig::params].
     pub fn set_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = std::option::Option::Some(v.into());
         self
@@ -932,8 +895,7 @@ impl InsightTypeGenerationConfig {
 
     /// Sets or clears the value of [params][crate::model::InsightTypeGenerationConfig::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = v.map(|x| x.into());
         self
@@ -951,6 +913,7 @@ impl wkt::message::Message for InsightTypeGenerationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Recommendation {
+
     /// Name of recommendation.
     pub name: std::string::String,
 
@@ -1025,18 +988,14 @@ impl Recommendation {
     }
 
     /// Sets the value of [recommender_subtype][crate::model::Recommendation::recommender_subtype].
-    pub fn set_recommender_subtype<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_recommender_subtype<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recommender_subtype = v.into();
         self
     }
 
     /// Sets the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
     pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_refresh_time = std::option::Option::Some(v.into());
         self
@@ -1044,8 +1003,7 @@ impl Recommendation {
 
     /// Sets or clears the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.last_refresh_time = v.map(|x| x.into());
         self
@@ -1053,8 +1011,7 @@ impl Recommendation {
 
     /// Sets the value of [primary_impact][crate::model::Recommendation::primary_impact].
     pub fn set_primary_impact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Impact>,
+    where T: std::convert::Into<crate::model::Impact>
     {
         self.primary_impact = std::option::Option::Some(v.into());
         self
@@ -1062,8 +1019,7 @@ impl Recommendation {
 
     /// Sets or clears the value of [primary_impact][crate::model::Recommendation::primary_impact].
     pub fn set_or_clear_primary_impact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Impact>,
+    where T: std::convert::Into<crate::model::Impact>
     {
         self.primary_impact = v.map(|x| x.into());
         self
@@ -1073,7 +1029,7 @@ impl Recommendation {
     pub fn set_additional_impact<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Impact>,
+        V: std::convert::Into<crate::model::Impact>
     {
         use std::iter::Iterator;
         self.additional_impact = v.into_iter().map(|i| i.into()).collect();
@@ -1081,18 +1037,14 @@ impl Recommendation {
     }
 
     /// Sets the value of [priority][crate::model::Recommendation::priority].
-    pub fn set_priority<T: std::convert::Into<crate::model::recommendation::Priority>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_priority<T: std::convert::Into<crate::model::recommendation::Priority>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::Recommendation::content].
     pub fn set_content<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommendationContent>,
+    where T: std::convert::Into<crate::model::RecommendationContent>
     {
         self.content = std::option::Option::Some(v.into());
         self
@@ -1100,8 +1052,7 @@ impl Recommendation {
 
     /// Sets or clears the value of [content][crate::model::Recommendation::content].
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommendationContent>,
+    where T: std::convert::Into<crate::model::RecommendationContent>
     {
         self.content = v.map(|x| x.into());
         self
@@ -1109,8 +1060,7 @@ impl Recommendation {
 
     /// Sets the value of [state_info][crate::model::Recommendation::state_info].
     pub fn set_state_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommendationStateInfo>,
+    where T: std::convert::Into<crate::model::RecommendationStateInfo>
     {
         self.state_info = std::option::Option::Some(v.into());
         self
@@ -1118,8 +1068,7 @@ impl Recommendation {
 
     /// Sets or clears the value of [state_info][crate::model::Recommendation::state_info].
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommendationStateInfo>,
+    where T: std::convert::Into<crate::model::RecommendationStateInfo>
     {
         self.state_info = v.map(|x| x.into());
         self
@@ -1135,7 +1084,7 @@ impl Recommendation {
     pub fn set_associated_insights<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::recommendation::InsightReference>,
+        V: std::convert::Into<crate::model::recommendation::InsightReference>
     {
         use std::iter::Iterator;
         self.associated_insights = v.into_iter().map(|i| i.into()).collect();
@@ -1160,10 +1109,12 @@ pub mod recommendation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Reference to an associated insight.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InsightReference {
+
         /// Insight resource name, e.g.
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/insights/[INSIGHT_ID]
         pub insight: std::string::String,
@@ -1285,9 +1236,7 @@ pub mod recommendation {
                 2 => Self::P3,
                 3 => Self::P2,
                 4 => Self::P1,
-                _ => Self::UnknownValue(priority::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1301,9 +1250,7 @@ pub mod recommendation {
                 "P3" => Self::P3,
                 "P2" => Self::P2,
                 "P1" => Self::P1,
-                _ => Self::UnknownValue(priority::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(priority::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1330,8 +1277,7 @@ pub mod recommendation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Priority>::new(
-                ".google.cloud.recommender.v1.Recommendation.Priority",
-            ))
+                ".google.cloud.recommender.v1.Recommendation.Priority"))
         }
     }
 }
@@ -1340,6 +1286,7 @@ pub mod recommendation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommendationContent {
+
     /// Operations to one or more Google Cloud resources grouped in such a way
     /// that, all operations within one group are expected to be performed
     /// atomically and in an order.
@@ -1360,7 +1307,7 @@ impl RecommendationContent {
     pub fn set_operation_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OperationGroup>,
+        V: std::convert::Into<crate::model::OperationGroup>
     {
         use std::iter::Iterator;
         self.operation_groups = v.into_iter().map(|i| i.into()).collect();
@@ -1369,8 +1316,7 @@ impl RecommendationContent {
 
     /// Sets the value of [overview][crate::model::RecommendationContent::overview].
     pub fn set_overview<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.overview = std::option::Option::Some(v.into());
         self
@@ -1378,8 +1324,7 @@ impl RecommendationContent {
 
     /// Sets or clears the value of [overview][crate::model::RecommendationContent::overview].
     pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.overview = v.map(|x| x.into());
         self
@@ -1396,6 +1341,7 @@ impl wkt::message::Message for RecommendationContent {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationGroup {
+
     /// List of operations across one or more resources that belong to this group.
     /// Loosely based on RFC6902 and should be performed in the order they appear.
     pub operations: std::vec::Vec<crate::model::Operation>,
@@ -1412,7 +1358,7 @@ impl OperationGroup {
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Operation>,
+        V: std::convert::Into<crate::model::Operation>
     {
         use std::iter::Iterator;
         self.operations = v.into_iter().map(|i| i.into()).collect();
@@ -1438,6 +1384,7 @@ impl wkt::message::Message for OperationGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Operation {
+
     /// Type of this operation. Contains one of 'add', 'remove', 'replace', 'move',
     /// 'copy', 'test' and custom operations. This field is case-insensitive and
     /// always populated.
@@ -1502,15 +1449,14 @@ pub struct Operation {
     ///
     /// When both path_filters and path_value_matchers are set, an implicit AND
     /// must be performed.
-    pub path_filters: std::collections::HashMap<std::string::String, wkt::Value>,
+    pub path_filters: std::collections::HashMap<std::string::String,wkt::Value>,
 
     /// Similar to path_filters, this contains set of filters to apply if `path`
     /// field refers to array elements. This is meant to support value matching
     /// beyond exact match. To perform exact match, use path_filters.
     /// When both path_filters and path_value_matchers are set, an implicit AND
     /// must be performed.
-    pub path_value_matchers:
-        std::collections::HashMap<std::string::String, crate::model::ValueMatcher>,
+    pub path_value_matchers: std::collections::HashMap<std::string::String,crate::model::ValueMatcher>,
 
     /// One of the fields in the following block will be set and intend to
     /// describe a value for 'path' field.
@@ -1588,12 +1534,8 @@ impl Operation {
     ///
     /// Note that all the setters affecting `path_value` are mutually
     /// exclusive.
-    pub fn set_path_value<
-        T: std::convert::Into<std::option::Option<crate::model::operation::PathValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_path_value<T: std::convert::Into<std::option::Option<crate::model::operation::PathValue>>>(mut self, v: T) -> Self
+    {
         self.path_value = v.into();
         self
     }
@@ -1615,17 +1557,18 @@ impl Operation {
     /// Note that all the setters affecting `path_value` are
     /// mutually exclusive.
     pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
-        self.path_value =
-            std::option::Option::Some(crate::model::operation::PathValue::Value(v.into()));
+        self.path_value = std::option::Option::Some(
+            crate::model::operation::PathValue::Value(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [path_value][crate::model::Operation::path_value]
     /// if it holds a `ValueMatcher`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn value_matcher(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ValueMatcher>> {
+    pub fn value_matcher(&self) -> std::option::Option<&std::boxed::Box<crate::model::ValueMatcher>> {
         #[allow(unreachable_patterns)]
         self.path_value.as_ref().and_then(|v| match v {
             crate::model::operation::PathValue::ValueMatcher(v) => std::option::Option::Some(v),
@@ -1638,12 +1581,12 @@ impl Operation {
     ///
     /// Note that all the setters affecting `path_value` are
     /// mutually exclusive.
-    pub fn set_value_matcher<T: std::convert::Into<std::boxed::Box<crate::model::ValueMatcher>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.path_value =
-            std::option::Option::Some(crate::model::operation::PathValue::ValueMatcher(v.into()));
+    pub fn set_value_matcher<T: std::convert::Into<std::boxed::Box<crate::model::ValueMatcher>>>(mut self, v: T) -> Self {
+        self.path_value = std::option::Option::Some(
+            crate::model::operation::PathValue::ValueMatcher(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1658,6 +1601,7 @@ impl wkt::message::Message for Operation {
 pub mod operation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// One of the fields in the following block will be set and intend to
     /// describe a value for 'path' field.
@@ -1678,6 +1622,7 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueMatcher {
+
     pub match_variant: std::option::Option<crate::model::value_matcher::MatchVariant>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1692,12 +1637,8 @@ impl ValueMatcher {
     ///
     /// Note that all the setters affecting `match_variant` are mutually
     /// exclusive.
-    pub fn set_match_variant<
-        T: std::convert::Into<std::option::Option<crate::model::value_matcher::MatchVariant>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_match_variant<T: std::convert::Into<std::option::Option<crate::model::value_matcher::MatchVariant>>>(mut self, v: T) -> Self
+    {
         self.match_variant = v.into();
         self
     }
@@ -1708,9 +1649,7 @@ impl ValueMatcher {
     pub fn matches_pattern(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.match_variant.as_ref().and_then(|v| match v {
-            crate::model::value_matcher::MatchVariant::MatchesPattern(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::value_matcher::MatchVariant::MatchesPattern(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1722,7 +1661,9 @@ impl ValueMatcher {
     /// mutually exclusive.
     pub fn set_matches_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.match_variant = std::option::Option::Some(
-            crate::model::value_matcher::MatchVariant::MatchesPattern(v.into()),
+            crate::model::value_matcher::MatchVariant::MatchesPattern(
+                v.into()
+            )
         );
         self
     }
@@ -1739,6 +1680,7 @@ pub mod value_matcher {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchVariant {
@@ -1753,6 +1695,7 @@ pub mod value_matcher {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CostProjection {
+
     /// An approximate projection on amount saved or amount incurred. Negative cost
     /// units indicate cost savings and positive cost units indicate increase.
     /// See google.type.Money documentation for positive/negative units.
@@ -1777,8 +1720,7 @@ impl CostProjection {
 
     /// Sets the value of [cost][crate::model::CostProjection::cost].
     pub fn set_cost<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.cost = std::option::Option::Some(v.into());
         self
@@ -1786,8 +1728,7 @@ impl CostProjection {
 
     /// Sets or clears the value of [cost][crate::model::CostProjection::cost].
     pub fn set_or_clear_cost<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.cost = v.map(|x| x.into());
         self
@@ -1795,8 +1736,7 @@ impl CostProjection {
 
     /// Sets the value of [duration][crate::model::CostProjection::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -1804,8 +1744,7 @@ impl CostProjection {
 
     /// Sets or clears the value of [duration][crate::model::CostProjection::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -1813,8 +1752,7 @@ impl CostProjection {
 
     /// Sets the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
     pub fn set_cost_in_local_currency<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.cost_in_local_currency = std::option::Option::Some(v.into());
         self
@@ -1822,8 +1760,7 @@ impl CostProjection {
 
     /// Sets or clears the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
     pub fn set_or_clear_cost_in_local_currency<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.cost_in_local_currency = v.map(|x| x.into());
         self
@@ -1840,6 +1777,7 @@ impl wkt::message::Message for CostProjection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityProjection {
+
     /// Additional security impact details that is provided by the recommender.
     pub details: std::option::Option<wkt::Struct>,
 
@@ -1853,8 +1791,7 @@ impl SecurityProjection {
 
     /// Sets the value of [details][crate::model::SecurityProjection::details].
     pub fn set_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -1862,8 +1799,7 @@ impl SecurityProjection {
 
     /// Sets or clears the value of [details][crate::model::SecurityProjection::details].
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.details = v.map(|x| x.into());
         self
@@ -1881,6 +1817,7 @@ impl wkt::message::Message for SecurityProjection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SustainabilityProjection {
+
     /// Carbon Footprint generated in kg of CO2 equivalent.
     /// Chose kg_c_o2e so that the name renders correctly in camelCase (kgCO2e).
     pub kg_c_o2e: f64,
@@ -1904,8 +1841,7 @@ impl SustainabilityProjection {
 
     /// Sets the value of [duration][crate::model::SustainabilityProjection::duration].
     pub fn set_duration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = std::option::Option::Some(v.into());
         self
@@ -1913,8 +1849,7 @@ impl SustainabilityProjection {
 
     /// Sets or clears the value of [duration][crate::model::SustainabilityProjection::duration].
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.duration = v.map(|x| x.into());
         self
@@ -1931,6 +1866,7 @@ impl wkt::message::Message for SustainabilityProjection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReliabilityProjection {
+
     /// Reliability risks mitigated by this recommendation.
     pub risks: std::vec::Vec<crate::model::reliability_projection::RiskType>,
 
@@ -1949,7 +1885,7 @@ impl ReliabilityProjection {
     pub fn set_risks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::reliability_projection::RiskType>,
+        V: std::convert::Into<crate::model::reliability_projection::RiskType>
     {
         use std::iter::Iterator;
         self.risks = v.into_iter().map(|i| i.into()).collect();
@@ -1958,8 +1894,7 @@ impl ReliabilityProjection {
 
     /// Sets the value of [details][crate::model::ReliabilityProjection::details].
     pub fn set_details<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.details = std::option::Option::Some(v.into());
         self
@@ -1967,8 +1902,7 @@ impl ReliabilityProjection {
 
     /// Sets or clears the value of [details][crate::model::ReliabilityProjection::details].
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.details = v.map(|x| x.into());
         self
@@ -1985,6 +1919,7 @@ impl wkt::message::Message for ReliabilityProjection {
 pub mod reliability_projection {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The risk associated with the reliability issue.
     ///
@@ -2078,9 +2013,7 @@ pub mod reliability_projection {
                 1 => Self::ServiceDisruption,
                 2 => Self::DataLoss,
                 3 => Self::AccessDeny,
-                _ => Self::UnknownValue(risk_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(risk_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2093,9 +2026,7 @@ pub mod reliability_projection {
                 "SERVICE_DISRUPTION" => Self::ServiceDisruption,
                 "DATA_LOSS" => Self::DataLoss,
                 "ACCESS_DENY" => Self::AccessDeny,
-                _ => Self::UnknownValue(risk_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(risk_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2121,8 +2052,7 @@ pub mod reliability_projection {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RiskType>::new(
-                ".google.cloud.recommender.v1.ReliabilityProjection.RiskType",
-            ))
+                ".google.cloud.recommender.v1.ReliabilityProjection.RiskType"))
         }
     }
 }
@@ -2131,6 +2061,7 @@ pub mod reliability_projection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Impact {
+
     /// Category that is being targeted.
     pub category: crate::model::impact::Category,
 
@@ -2146,10 +2077,7 @@ impl Impact {
     }
 
     /// Sets the value of [category][crate::model::Impact::category].
-    pub fn set_category<T: std::convert::Into<crate::model::impact::Category>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_category<T: std::convert::Into<crate::model::impact::Category>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
@@ -2158,12 +2086,8 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are mutually
     /// exclusive.
-    pub fn set_projection<
-        T: std::convert::Into<std::option::Option<crate::model::impact::Projection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_projection<T: std::convert::Into<std::option::Option<crate::model::impact::Projection>>>(mut self, v: T) -> Self
+    {
         self.projection = v.into();
         self
     }
@@ -2171,9 +2095,7 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `CostProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cost_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CostProjection>> {
+    pub fn cost_projection(&self) -> std::option::Option<&std::boxed::Box<crate::model::CostProjection>> {
         #[allow(unreachable_patterns)]
         self.projection.as_ref().and_then(|v| match v {
             crate::model::impact::Projection::CostProjection(v) => std::option::Option::Some(v),
@@ -2186,23 +2108,19 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
-    pub fn set_cost_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::CostProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.projection =
-            std::option::Option::Some(crate::model::impact::Projection::CostProjection(v.into()));
+    pub fn set_cost_projection<T: std::convert::Into<std::boxed::Box<crate::model::CostProjection>>>(mut self, v: T) -> Self {
+        self.projection = std::option::Option::Some(
+            crate::model::impact::Projection::CostProjection(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `SecurityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn security_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SecurityProjection>> {
+    pub fn security_projection(&self) -> std::option::Option<&std::boxed::Box<crate::model::SecurityProjection>> {
         #[allow(unreachable_patterns)]
         self.projection.as_ref().and_then(|v| match v {
             crate::model::impact::Projection::SecurityProjection(v) => std::option::Option::Some(v),
@@ -2215,14 +2133,11 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
-    pub fn set_security_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::SecurityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_security_projection<T: std::convert::Into<std::boxed::Box<crate::model::SecurityProjection>>>(mut self, v: T) -> Self {
         self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::SecurityProjection(v.into()),
+            crate::model::impact::Projection::SecurityProjection(
+                v.into()
+            )
         );
         self
     }
@@ -2230,14 +2145,10 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `SustainabilityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn sustainability_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SustainabilityProjection>> {
+    pub fn sustainability_projection(&self) -> std::option::Option<&std::boxed::Box<crate::model::SustainabilityProjection>> {
         #[allow(unreachable_patterns)]
         self.projection.as_ref().and_then(|v| match v {
-            crate::model::impact::Projection::SustainabilityProjection(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::impact::Projection::SustainabilityProjection(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2247,14 +2158,11 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
-    pub fn set_sustainability_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::SustainabilityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_sustainability_projection<T: std::convert::Into<std::boxed::Box<crate::model::SustainabilityProjection>>>(mut self, v: T) -> Self {
         self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::SustainabilityProjection(v.into()),
+            crate::model::impact::Projection::SustainabilityProjection(
+                v.into()
+            )
         );
         self
     }
@@ -2262,14 +2170,10 @@ impl Impact {
     /// The value of [projection][crate::model::Impact::projection]
     /// if it holds a `ReliabilityProjection`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn reliability_projection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ReliabilityProjection>> {
+    pub fn reliability_projection(&self) -> std::option::Option<&std::boxed::Box<crate::model::ReliabilityProjection>> {
         #[allow(unreachable_patterns)]
         self.projection.as_ref().and_then(|v| match v {
-            crate::model::impact::Projection::ReliabilityProjection(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::impact::Projection::ReliabilityProjection(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2279,14 +2183,11 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
-    pub fn set_reliability_projection<
-        T: std::convert::Into<std::boxed::Box<crate::model::ReliabilityProjection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_reliability_projection<T: std::convert::Into<std::boxed::Box<crate::model::ReliabilityProjection>>>(mut self, v: T) -> Self {
         self.projection = std::option::Option::Some(
-            crate::model::impact::Projection::ReliabilityProjection(v.into()),
+            crate::model::impact::Projection::ReliabilityProjection(
+                v.into()
+            )
         );
         self
     }
@@ -2302,6 +2203,7 @@ impl wkt::message::Message for Impact {
 pub mod impact {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The category of the impact.
     ///
@@ -2409,9 +2311,7 @@ pub mod impact {
                 4 => Self::Manageability,
                 5 => Self::Sustainability,
                 6 => Self::Reliability,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2427,9 +2327,7 @@ pub mod impact {
                 "MANAGEABILITY" => Self::Manageability,
                 "SUSTAINABILITY" => Self::Sustainability,
                 "RELIABILITY" => Self::Reliability,
-                _ => Self::UnknownValue(category::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(category::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2458,8 +2356,7 @@ pub mod impact {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Category>::new(
-                ".google.cloud.recommender.v1.Impact.Category",
-            ))
+                ".google.cloud.recommender.v1.Impact.Category"))
         }
     }
 
@@ -2482,11 +2379,12 @@ pub mod impact {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommendationStateInfo {
+
     /// The state of the recommendation, Eg ACTIVE, SUCCEEDED, FAILED.
     pub state: crate::model::recommendation_state_info::State,
 
     /// A map of metadata for the state, provided by user or automations systems.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2497,10 +2395,7 @@ impl RecommendationStateInfo {
     }
 
     /// Sets the value of [state][crate::model::RecommendationStateInfo::state].
-    pub fn set_state<T: std::convert::Into<crate::model::recommendation_state_info::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::recommendation_state_info::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -2528,6 +2423,7 @@ impl wkt::message::Message for RecommendationStateInfo {
 pub mod recommendation_state_info {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents Recommendation State.
     ///
@@ -2645,9 +2541,7 @@ pub mod recommendation_state_info {
                 4 => Self::Failed,
                 5 => Self::Dismissed,
                 6 => Self::Claimed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2662,9 +2556,7 @@ pub mod recommendation_state_info {
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
                 "DISMISSED" => Self::Dismissed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2692,8 +2584,7 @@ pub mod recommendation_state_info {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.recommender.v1.RecommendationStateInfo.State",
-            ))
+                ".google.cloud.recommender.v1.RecommendationStateInfo.State"))
         }
     }
 }
@@ -2702,6 +2593,7 @@ pub mod recommendation_state_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommenderConfig {
+
     /// Name of recommender config.
     /// Eg,
     /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/config
@@ -2709,8 +2601,7 @@ pub struct RecommenderConfig {
 
     /// RecommenderGenerationConfig which configures the Generation of
     /// recommendations for this recommender.
-    pub recommender_generation_config:
-        std::option::Option<crate::model::RecommenderGenerationConfig>,
+    pub recommender_generation_config: std::option::Option<crate::model::RecommenderGenerationConfig>,
 
     /// Fingerprint of the RecommenderConfig. Provides optimistic locking when
     /// updating.
@@ -2732,7 +2623,7 @@ pub struct RecommenderConfig {
     /// Prefix must be a DNS subdomain.
     /// Name must be 63 characters or less, begin and end with alphanumerics,
     /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// A user-settable field to provide a human-readable name to be used in user
     /// interfaces.
@@ -2754,20 +2645,15 @@ impl RecommenderConfig {
 
     /// Sets the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
     pub fn set_recommender_generation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommenderGenerationConfig>,
+    where T: std::convert::Into<crate::model::RecommenderGenerationConfig>
     {
         self.recommender_generation_config = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
-    pub fn set_or_clear_recommender_generation_config<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommenderGenerationConfig>,
+    pub fn set_or_clear_recommender_generation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::RecommenderGenerationConfig>
     {
         self.recommender_generation_config = v.map(|x| x.into());
         self
@@ -2781,8 +2667,7 @@ impl RecommenderConfig {
 
     /// Sets the value of [update_time][crate::model::RecommenderConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2790,8 +2675,7 @@ impl RecommenderConfig {
 
     /// Sets or clears the value of [update_time][crate::model::RecommenderConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2834,6 +2718,7 @@ impl wkt::message::Message for RecommenderConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RecommenderGenerationConfig {
+
     /// Parameters for this RecommenderGenerationConfig. These configs can be used
     /// by or are applied to all subtypes.
     pub params: std::option::Option<wkt::Struct>,
@@ -2848,8 +2733,7 @@ impl RecommenderGenerationConfig {
 
     /// Sets the value of [params][crate::model::RecommenderGenerationConfig::params].
     pub fn set_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = std::option::Option::Some(v.into());
         self
@@ -2857,8 +2741,7 @@ impl RecommenderGenerationConfig {
 
     /// Sets or clears the value of [params][crate::model::RecommenderGenerationConfig::params].
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Struct>,
+    where T: std::convert::Into<wkt::Struct>
     {
         self.params = v.map(|x| x.into());
         self
@@ -2875,6 +2758,7 @@ impl wkt::message::Message for RecommenderGenerationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInsightsRequest {
+
     /// Required. The container resource on which to execute the request.
     /// Acceptable formats:
     ///
@@ -2981,6 +2865,7 @@ impl wkt::message::Message for ListInsightsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInsightsResponse {
+
     /// The set of insights for the `parent` resource.
     pub insights: std::vec::Vec<crate::model::Insight>,
 
@@ -3000,7 +2885,7 @@ impl ListInsightsResponse {
     pub fn set_insights<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Insight>,
+        V: std::convert::Into<crate::model::Insight>
     {
         use std::iter::Iterator;
         self.insights = v.into_iter().map(|i| i.into()).collect();
@@ -3038,6 +2923,7 @@ impl gax::paginator::internal::PageableResponse for ListInsightsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInsightRequest {
+
     /// Required. Name of the insight.
     pub name: std::string::String,
 
@@ -3066,12 +2952,13 @@ impl wkt::message::Message for GetInsightRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkInsightAcceptedRequest {
+
     /// Required. Name of the insight.
     pub name: std::string::String,
 
     /// Optional. State properties user wish to include with this state.  Full
     /// replace of the current state_metadata.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Fingerprint of the Insight. Provides optimistic locking.
     pub etag: std::string::String,
@@ -3119,6 +3006,7 @@ impl wkt::message::Message for MarkInsightAcceptedRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecommendationsRequest {
+
     /// Required. The container resource on which to execute the request.
     /// Acceptable formats:
     ///
@@ -3225,6 +3113,7 @@ impl wkt::message::Message for ListRecommendationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRecommendationsResponse {
+
     /// The set of recommendations for the `parent` resource.
     pub recommendations: std::vec::Vec<crate::model::Recommendation>,
 
@@ -3244,7 +3133,7 @@ impl ListRecommendationsResponse {
     pub fn set_recommendations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Recommendation>,
+        V: std::convert::Into<crate::model::Recommendation>
     {
         use std::iter::Iterator;
         self.recommendations = v.into_iter().map(|i| i.into()).collect();
@@ -3282,6 +3171,7 @@ impl gax::paginator::internal::PageableResponse for ListRecommendationsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecommendationRequest {
+
     /// Required. Name of the recommendation.
     pub name: std::string::String,
 
@@ -3310,6 +3200,7 @@ impl wkt::message::Message for GetRecommendationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationDismissedRequest {
+
     /// Required. Name of the recommendation.
     pub name: std::string::String,
 
@@ -3347,6 +3238,7 @@ impl wkt::message::Message for MarkRecommendationDismissedRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationClaimedRequest {
+
     /// Required. Name of the recommendation.
     pub name: std::string::String,
 
@@ -3354,7 +3246,7 @@ pub struct MarkRecommendationClaimedRequest {
     /// `state_metadata`.
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     pub etag: std::string::String,
@@ -3402,6 +3294,7 @@ impl wkt::message::Message for MarkRecommendationClaimedRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationSucceededRequest {
+
     /// Required. Name of the recommendation.
     pub name: std::string::String,
 
@@ -3409,7 +3302,7 @@ pub struct MarkRecommendationSucceededRequest {
     /// `state_metadata`.
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     pub etag: std::string::String,
@@ -3457,6 +3350,7 @@ impl wkt::message::Message for MarkRecommendationSucceededRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MarkRecommendationFailedRequest {
+
     /// Required. Name of the recommendation.
     pub name: std::string::String,
 
@@ -3464,7 +3358,7 @@ pub struct MarkRecommendationFailedRequest {
     /// `state_metadata`.
     /// Keys must match the regex `/^[a-z0-9][a-z0-9_.-]{0,62}$/`.
     /// Values must match the regex `/^[a-zA-Z0-9_./-]{0,255}$/`.
-    pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub state_metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     pub etag: std::string::String,
@@ -3512,6 +3406,7 @@ impl wkt::message::Message for MarkRecommendationFailedRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRecommenderConfigRequest {
+
     /// Required. Name of the Recommendation Config to get.
     ///
     /// Acceptable formats:
@@ -3551,6 +3446,7 @@ impl wkt::message::Message for GetRecommenderConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRecommenderConfigRequest {
+
     /// Required. The RecommenderConfig to update.
     pub recommender_config: std::option::Option<crate::model::RecommenderConfig>,
 
@@ -3571,8 +3467,7 @@ impl UpdateRecommenderConfigRequest {
 
     /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
     pub fn set_recommender_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommenderConfig>,
+    where T: std::convert::Into<crate::model::RecommenderConfig>
     {
         self.recommender_config = std::option::Option::Some(v.into());
         self
@@ -3580,8 +3475,7 @@ impl UpdateRecommenderConfigRequest {
 
     /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
     pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RecommenderConfig>,
+    where T: std::convert::Into<crate::model::RecommenderConfig>
     {
         self.recommender_config = v.map(|x| x.into());
         self
@@ -3589,8 +3483,7 @@ impl UpdateRecommenderConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3598,8 +3491,7 @@ impl UpdateRecommenderConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3622,6 +3514,7 @@ impl wkt::message::Message for UpdateRecommenderConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInsightTypeConfigRequest {
+
     /// Required. Name of the InsightTypeConfig to get.
     ///
     /// Acceptable formats:
@@ -3661,6 +3554,7 @@ impl wkt::message::Message for GetInsightTypeConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateInsightTypeConfigRequest {
+
     /// Required. The InsightTypeConfig to update.
     pub insight_type_config: std::option::Option<crate::model::InsightTypeConfig>,
 
@@ -3681,8 +3575,7 @@ impl UpdateInsightTypeConfigRequest {
 
     /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
     pub fn set_insight_type_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightTypeConfig>,
+    where T: std::convert::Into<crate::model::InsightTypeConfig>
     {
         self.insight_type_config = std::option::Option::Some(v.into());
         self
@@ -3690,8 +3583,7 @@ impl UpdateInsightTypeConfigRequest {
 
     /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
     pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InsightTypeConfig>,
+    where T: std::convert::Into<crate::model::InsightTypeConfig>
     {
         self.insight_type_config = v.map(|x| x.into());
         self
@@ -3699,8 +3591,7 @@ impl UpdateInsightTypeConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3708,8 +3599,7 @@ impl UpdateInsightTypeConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self

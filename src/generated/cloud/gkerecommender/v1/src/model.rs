@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelsRequest {
+
     /// Optional. The target number of results to return in a single response.
     /// If not specified, a default value will be chosen by the service.
     /// Note that the response may include a partial list and a caller should
@@ -71,8 +72,7 @@ impl FetchModelsRequest {
 
     /// Sets the value of [page_size][crate::model::FetchModelsRequest::page_size].
     pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = std::option::Option::Some(v.into());
         self
@@ -80,8 +80,7 @@ impl FetchModelsRequest {
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelsRequest::page_size].
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = v.map(|x| x.into());
         self
@@ -89,8 +88,7 @@ impl FetchModelsRequest {
 
     /// Sets the value of [page_token][crate::model::FetchModelsRequest::page_token].
     pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = std::option::Option::Some(v.into());
         self
@@ -98,8 +96,7 @@ impl FetchModelsRequest {
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelsRequest::page_token].
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = v.map(|x| x.into());
         self
@@ -119,6 +116,7 @@ impl wkt::message::Message for FetchModelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelsResponse {
+
     /// Output only. List of available models. Open-source models follow the
     /// Huggingface Hub `owner/model_name` format.
     pub models: std::vec::Vec<std::string::String>,
@@ -142,7 +140,7 @@ impl FetchModelsResponse {
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.models = v.into_iter().map(|i| i.into()).collect();
@@ -169,6 +167,7 @@ impl wkt::message::Message for FetchModelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelServersRequest {
+
     /// Required. The model for which to list model servers. Open-source models
     /// follow the Huggingface Hub `owner/model_name` format. Use
     /// [GkeInferenceQuickstart.FetchModels][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchModels]
@@ -214,8 +213,7 @@ impl FetchModelServersRequest {
 
     /// Sets the value of [page_size][crate::model::FetchModelServersRequest::page_size].
     pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = std::option::Option::Some(v.into());
         self
@@ -223,8 +221,7 @@ impl FetchModelServersRequest {
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelServersRequest::page_size].
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = v.map(|x| x.into());
         self
@@ -232,8 +229,7 @@ impl FetchModelServersRequest {
 
     /// Sets the value of [page_token][crate::model::FetchModelServersRequest::page_token].
     pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = std::option::Option::Some(v.into());
         self
@@ -241,8 +237,7 @@ impl FetchModelServersRequest {
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelServersRequest::page_token].
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = v.map(|x| x.into());
         self
@@ -262,6 +257,7 @@ impl wkt::message::Message for FetchModelServersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelServersResponse {
+
     /// Output only. List of available model servers. Open-source model servers use
     /// simplified, lowercase names (e.g., `vllm`).
     pub model_servers: std::vec::Vec<std::string::String>,
@@ -285,7 +281,7 @@ impl FetchModelServersResponse {
     pub fn set_model_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.model_servers = v.into_iter().map(|i| i.into()).collect();
@@ -312,6 +308,7 @@ impl wkt::message::Message for FetchModelServersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelServerVersionsRequest {
+
     /// Required. The model for which to list model server versions. Open-source
     /// models follow the Huggingface Hub `owner/model_name` format. Use
     /// [GkeInferenceQuickstart.FetchModels][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchModels]
@@ -371,8 +368,7 @@ impl FetchModelServerVersionsRequest {
 
     /// Sets the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
     pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = std::option::Option::Some(v.into());
         self
@@ -380,8 +376,7 @@ impl FetchModelServerVersionsRequest {
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = v.map(|x| x.into());
         self
@@ -389,8 +384,7 @@ impl FetchModelServerVersionsRequest {
 
     /// Sets the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
     pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = std::option::Option::Some(v.into());
         self
@@ -398,8 +392,7 @@ impl FetchModelServerVersionsRequest {
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = v.map(|x| x.into());
         self
@@ -419,6 +412,7 @@ impl wkt::message::Message for FetchModelServerVersionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchModelServerVersionsResponse {
+
     /// Output only. A list of available model server versions.
     pub model_server_versions: std::vec::Vec<std::string::String>,
 
@@ -441,7 +435,7 @@ impl FetchModelServerVersionsResponse {
     pub fn set_model_server_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.model_server_versions = v.into_iter().map(|i| i.into()).collect();
@@ -468,6 +462,7 @@ impl wkt::message::Message for FetchModelServerVersionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchBenchmarkingDataRequest {
+
     /// Required. The model server configuration to get benchmarking data for. Use
     /// [GkeInferenceQuickstart.FetchProfiles][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchProfiles]
     /// to find valid configurations.
@@ -498,8 +493,7 @@ impl FetchBenchmarkingDataRequest {
 
     /// Sets the value of [model_server_info][crate::model::FetchBenchmarkingDataRequest::model_server_info].
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = std::option::Option::Some(v.into());
         self
@@ -507,8 +501,7 @@ impl FetchBenchmarkingDataRequest {
 
     /// Sets or clears the value of [model_server_info][crate::model::FetchBenchmarkingDataRequest::model_server_info].
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = v.map(|x| x.into());
         self
@@ -540,6 +533,7 @@ impl wkt::message::Message for FetchBenchmarkingDataRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchBenchmarkingDataResponse {
+
     /// Output only. List of profiles containing their respective benchmarking
     /// data.
     pub profile: std::vec::Vec<crate::model::Profile>,
@@ -556,7 +550,7 @@ impl FetchBenchmarkingDataResponse {
     pub fn set_profile<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Profile>,
+        V: std::convert::Into<crate::model::Profile>
     {
         use std::iter::Iterator;
         self.profile = v.into_iter().map(|i| i.into()).collect();
@@ -577,6 +571,7 @@ impl wkt::message::Message for FetchBenchmarkingDataResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProfilesRequest {
+
     /// Optional. The model to filter profiles by. Open-source models follow the
     /// Huggingface Hub `owner/model_name` format. If not provided, all models are
     /// returned. Use
@@ -649,18 +644,14 @@ impl FetchProfilesRequest {
     }
 
     /// Sets the value of [model_server_version][crate::model::FetchProfilesRequest::model_server_version].
-    pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_server_version = v.into();
         self
     }
 
     /// Sets the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
     pub fn set_performance_requirements<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRequirements>,
+    where T: std::convert::Into<crate::model::PerformanceRequirements>
     {
         self.performance_requirements = std::option::Option::Some(v.into());
         self
@@ -668,8 +659,7 @@ impl FetchProfilesRequest {
 
     /// Sets or clears the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
     pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRequirements>,
+    where T: std::convert::Into<crate::model::PerformanceRequirements>
     {
         self.performance_requirements = v.map(|x| x.into());
         self
@@ -677,8 +667,7 @@ impl FetchProfilesRequest {
 
     /// Sets the value of [page_size][crate::model::FetchProfilesRequest::page_size].
     pub fn set_page_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = std::option::Option::Some(v.into());
         self
@@ -686,8 +675,7 @@ impl FetchProfilesRequest {
 
     /// Sets or clears the value of [page_size][crate::model::FetchProfilesRequest::page_size].
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.page_size = v.map(|x| x.into());
         self
@@ -695,8 +683,7 @@ impl FetchProfilesRequest {
 
     /// Sets the value of [page_token][crate::model::FetchProfilesRequest::page_token].
     pub fn set_page_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = std::option::Option::Some(v.into());
         self
@@ -704,8 +691,7 @@ impl FetchProfilesRequest {
 
     /// Sets or clears the value of [page_token][crate::model::FetchProfilesRequest::page_token].
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.page_token = v.map(|x| x.into());
         self
@@ -722,6 +708,7 @@ impl wkt::message::Message for FetchProfilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PerformanceRequirements {
+
     /// Optional. The target Normalized Time Per Output Token (NTPOT) in
     /// milliseconds. NTPOT is calculated as `request_latency /
     /// total_output_tokens`. If not provided, this target will not be enforced.
@@ -746,8 +733,7 @@ impl PerformanceRequirements {
 
     /// Sets the value of [target_ntpot_milliseconds][crate::model::PerformanceRequirements::target_ntpot_milliseconds].
     pub fn set_target_ntpot_milliseconds<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.target_ntpot_milliseconds = std::option::Option::Some(v.into());
         self
@@ -755,8 +741,7 @@ impl PerformanceRequirements {
 
     /// Sets or clears the value of [target_ntpot_milliseconds][crate::model::PerformanceRequirements::target_ntpot_milliseconds].
     pub fn set_or_clear_target_ntpot_milliseconds<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.target_ntpot_milliseconds = v.map(|x| x.into());
         self
@@ -764,8 +749,7 @@ impl PerformanceRequirements {
 
     /// Sets the value of [target_ttft_milliseconds][crate::model::PerformanceRequirements::target_ttft_milliseconds].
     pub fn set_target_ttft_milliseconds<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.target_ttft_milliseconds = std::option::Option::Some(v.into());
         self
@@ -773,8 +757,7 @@ impl PerformanceRequirements {
 
     /// Sets or clears the value of [target_ttft_milliseconds][crate::model::PerformanceRequirements::target_ttft_milliseconds].
     pub fn set_or_clear_target_ttft_milliseconds<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i32>,
+    where T: std::convert::Into<i32>
     {
         self.target_ttft_milliseconds = v.map(|x| x.into());
         self
@@ -782,8 +765,7 @@ impl PerformanceRequirements {
 
     /// Sets the value of [target_cost][crate::model::PerformanceRequirements::target_cost].
     pub fn set_target_cost<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cost>,
+    where T: std::convert::Into<crate::model::Cost>
     {
         self.target_cost = std::option::Option::Some(v.into());
         self
@@ -791,8 +773,7 @@ impl PerformanceRequirements {
 
     /// Sets or clears the value of [target_cost][crate::model::PerformanceRequirements::target_cost].
     pub fn set_or_clear_target_cost<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cost>,
+    where T: std::convert::Into<crate::model::Cost>
     {
         self.target_cost = v.map(|x| x.into());
         self
@@ -809,6 +790,7 @@ impl wkt::message::Message for PerformanceRequirements {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Amount {
+
     /// Output only. The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
     pub units: i64,
@@ -853,6 +835,7 @@ impl wkt::message::Message for Amount {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cost {
+
     /// Optional. The cost per million output tokens, calculated as:
     /// $/output token = GPU $/s / (1/output-to-input-cost-ratio * input tokens/s +
     /// output tokens/s)
@@ -882,20 +865,15 @@ impl Cost {
 
     /// Sets the value of [cost_per_million_output_tokens][crate::model::Cost::cost_per_million_output_tokens].
     pub fn set_cost_per_million_output_tokens<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Amount>,
+    where T: std::convert::Into<crate::model::Amount>
     {
         self.cost_per_million_output_tokens = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [cost_per_million_output_tokens][crate::model::Cost::cost_per_million_output_tokens].
-    pub fn set_or_clear_cost_per_million_output_tokens<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::Amount>,
+    pub fn set_or_clear_cost_per_million_output_tokens<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::Amount>
     {
         self.cost_per_million_output_tokens = v.map(|x| x.into());
         self
@@ -903,20 +881,15 @@ impl Cost {
 
     /// Sets the value of [cost_per_million_input_tokens][crate::model::Cost::cost_per_million_input_tokens].
     pub fn set_cost_per_million_input_tokens<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Amount>,
+    where T: std::convert::Into<crate::model::Amount>
     {
         self.cost_per_million_input_tokens = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [cost_per_million_input_tokens][crate::model::Cost::cost_per_million_input_tokens].
-    pub fn set_or_clear_cost_per_million_input_tokens<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::Amount>,
+    pub fn set_or_clear_cost_per_million_input_tokens<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::Amount>
     {
         self.cost_per_million_input_tokens = v.map(|x| x.into());
         self
@@ -930,8 +903,7 @@ impl Cost {
 
     /// Sets the value of [output_input_cost_ratio][crate::model::Cost::output_input_cost_ratio].
     pub fn set_output_input_cost_ratio<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f32>,
+    where T: std::convert::Into<f32>
     {
         self.output_input_cost_ratio = std::option::Option::Some(v.into());
         self
@@ -939,8 +911,7 @@ impl Cost {
 
     /// Sets or clears the value of [output_input_cost_ratio][crate::model::Cost::output_input_cost_ratio].
     pub fn set_or_clear_output_input_cost_ratio<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<f32>,
+    where T: std::convert::Into<f32>
     {
         self.output_input_cost_ratio = v.map(|x| x.into());
         self
@@ -957,6 +928,7 @@ impl wkt::message::Message for Cost {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TokensPerSecondRange {
+
     /// Output only. The minimum value of the range.
     pub min: i32,
 
@@ -994,6 +966,7 @@ impl wkt::message::Message for TokensPerSecondRange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MillisecondRange {
+
     /// Output only. The minimum value of the range.
     pub min: i32,
 
@@ -1031,6 +1004,7 @@ impl wkt::message::Message for MillisecondRange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PerformanceRange {
+
     /// Output only. The range of throughput in output tokens per second. This is
     /// measured as total_output_tokens_generated_by_server /
     /// elapsed_time_in_seconds.
@@ -1055,8 +1029,7 @@ impl PerformanceRange {
 
     /// Sets the value of [throughput_output_range][crate::model::PerformanceRange::throughput_output_range].
     pub fn set_throughput_output_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TokensPerSecondRange>,
+    where T: std::convert::Into<crate::model::TokensPerSecondRange>
     {
         self.throughput_output_range = std::option::Option::Some(v.into());
         self
@@ -1064,8 +1037,7 @@ impl PerformanceRange {
 
     /// Sets or clears the value of [throughput_output_range][crate::model::PerformanceRange::throughput_output_range].
     pub fn set_or_clear_throughput_output_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TokensPerSecondRange>,
+    where T: std::convert::Into<crate::model::TokensPerSecondRange>
     {
         self.throughput_output_range = v.map(|x| x.into());
         self
@@ -1073,8 +1045,7 @@ impl PerformanceRange {
 
     /// Sets the value of [ttft_range][crate::model::PerformanceRange::ttft_range].
     pub fn set_ttft_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MillisecondRange>,
+    where T: std::convert::Into<crate::model::MillisecondRange>
     {
         self.ttft_range = std::option::Option::Some(v.into());
         self
@@ -1082,8 +1053,7 @@ impl PerformanceRange {
 
     /// Sets or clears the value of [ttft_range][crate::model::PerformanceRange::ttft_range].
     pub fn set_or_clear_ttft_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MillisecondRange>,
+    where T: std::convert::Into<crate::model::MillisecondRange>
     {
         self.ttft_range = v.map(|x| x.into());
         self
@@ -1091,8 +1061,7 @@ impl PerformanceRange {
 
     /// Sets the value of [ntpot_range][crate::model::PerformanceRange::ntpot_range].
     pub fn set_ntpot_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MillisecondRange>,
+    where T: std::convert::Into<crate::model::MillisecondRange>
     {
         self.ntpot_range = std::option::Option::Some(v.into());
         self
@@ -1100,8 +1069,7 @@ impl PerformanceRange {
 
     /// Sets or clears the value of [ntpot_range][crate::model::PerformanceRange::ntpot_range].
     pub fn set_or_clear_ntpot_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MillisecondRange>,
+    where T: std::convert::Into<crate::model::MillisecondRange>
     {
         self.ntpot_range = v.map(|x| x.into());
         self
@@ -1121,6 +1089,7 @@ impl wkt::message::Message for PerformanceRange {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchProfilesResponse {
+
     /// Output only. List of profiles that match the given model server info and
     /// performance requirements (if provided).
     pub profile: std::vec::Vec<crate::model::Profile>,
@@ -1150,7 +1119,7 @@ impl FetchProfilesResponse {
     pub fn set_profile<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Profile>,
+        V: std::convert::Into<crate::model::Profile>
     {
         use std::iter::Iterator;
         self.profile = v.into_iter().map(|i| i.into()).collect();
@@ -1159,8 +1128,7 @@ impl FetchProfilesResponse {
 
     /// Sets the value of [performance_range][crate::model::FetchProfilesResponse::performance_range].
     pub fn set_performance_range<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRange>,
+    where T: std::convert::Into<crate::model::PerformanceRange>
     {
         self.performance_range = std::option::Option::Some(v.into());
         self
@@ -1168,8 +1136,7 @@ impl FetchProfilesResponse {
 
     /// Sets or clears the value of [performance_range][crate::model::FetchProfilesResponse::performance_range].
     pub fn set_or_clear_performance_range<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRange>,
+    where T: std::convert::Into<crate::model::PerformanceRange>
     {
         self.performance_range = v.map(|x| x.into());
         self
@@ -1216,6 +1183,7 @@ impl gax::paginator::internal::PageableResponse for FetchProfilesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ModelServerInfo {
+
     /// Required. The model. Open-source models follow the Huggingface Hub
     /// `owner/model_name` format. Use
     /// [GkeInferenceQuickstart.FetchModels][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchModels]
@@ -1261,10 +1229,7 @@ impl ModelServerInfo {
     }
 
     /// Sets the value of [model_server_version][crate::model::ModelServerInfo::model_server_version].
-    pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_server_version = v.into();
         self
     }
@@ -1280,6 +1245,7 @@ impl wkt::message::Message for ModelServerInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourcesUsed {
+
     /// Output only. The number of accelerators (e.g., GPUs or TPUs) used by the
     /// model deployment on the Kubernetes node.
     pub accelerator_count: i32,
@@ -1309,6 +1275,7 @@ impl wkt::message::Message for ResourcesUsed {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PerformanceStats {
+
     /// Output only. The number of queries per second.
     /// Note: This metric can vary widely based on context length and may not be a
     /// reliable measure of LLM throughput.
@@ -1367,7 +1334,7 @@ impl PerformanceStats {
     pub fn set_cost<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Cost>,
+        V: std::convert::Into<crate::model::Cost>
     {
         use std::iter::Iterator;
         self.cost = v.into_iter().map(|i| i.into()).collect();
@@ -1385,6 +1352,7 @@ impl wkt::message::Message for PerformanceStats {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Profile {
+
     /// Output only. The model server configuration. Use
     /// [GkeInferenceQuickstart.FetchProfiles][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchProfiles]
     /// to find valid configurations.
@@ -1417,8 +1385,7 @@ impl Profile {
 
     /// Sets the value of [model_server_info][crate::model::Profile::model_server_info].
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = std::option::Option::Some(v.into());
         self
@@ -1426,18 +1393,14 @@ impl Profile {
 
     /// Sets or clears the value of [model_server_info][crate::model::Profile::model_server_info].
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [accelerator_type][crate::model::Profile::accelerator_type].
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
@@ -1456,8 +1419,7 @@ impl Profile {
 
     /// Sets the value of [resources_used][crate::model::Profile::resources_used].
     pub fn set_resources_used<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourcesUsed>,
+    where T: std::convert::Into<crate::model::ResourcesUsed>
     {
         self.resources_used = std::option::Option::Some(v.into());
         self
@@ -1465,8 +1427,7 @@ impl Profile {
 
     /// Sets or clears the value of [resources_used][crate::model::Profile::resources_used].
     pub fn set_or_clear_resources_used<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ResourcesUsed>,
+    where T: std::convert::Into<crate::model::ResourcesUsed>
     {
         self.resources_used = v.map(|x| x.into());
         self
@@ -1476,7 +1437,7 @@ impl Profile {
     pub fn set_performance_stats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::PerformanceStats>,
+        V: std::convert::Into<crate::model::PerformanceStats>
     {
         use std::iter::Iterator;
         self.performance_stats = v.into_iter().map(|i| i.into()).collect();
@@ -1497,6 +1458,7 @@ impl wkt::message::Message for Profile {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateOptimizedManifestRequest {
+
     /// Required. The model server configuration to generate the manifest for. Use
     /// [GkeInferenceQuickstart.FetchProfiles][google.cloud.gkerecommender.v1.GkeInferenceQuickstart.FetchProfiles]
     /// to find valid configurations.
@@ -1536,8 +1498,7 @@ impl GenerateOptimizedManifestRequest {
 
     /// Sets the value of [model_server_info][crate::model::GenerateOptimizedManifestRequest::model_server_info].
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = std::option::Option::Some(v.into());
         self
@@ -1545,35 +1506,27 @@ impl GenerateOptimizedManifestRequest {
 
     /// Sets or clears the value of [model_server_info][crate::model::GenerateOptimizedManifestRequest::model_server_info].
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ModelServerInfo>,
+    where T: std::convert::Into<crate::model::ModelServerInfo>
     {
         self.model_server_info = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [accelerator_type][crate::model::GenerateOptimizedManifestRequest::accelerator_type].
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
 
     /// Sets the value of [kubernetes_namespace][crate::model::GenerateOptimizedManifestRequest::kubernetes_namespace].
-    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kubernetes_namespace = v.into();
         self
     }
 
     /// Sets the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
     pub fn set_performance_requirements<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRequirements>,
+    where T: std::convert::Into<crate::model::PerformanceRequirements>
     {
         self.performance_requirements = std::option::Option::Some(v.into());
         self
@@ -1581,8 +1534,7 @@ impl GenerateOptimizedManifestRequest {
 
     /// Sets or clears the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
     pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PerformanceRequirements>,
+    where T: std::convert::Into<crate::model::PerformanceRequirements>
     {
         self.performance_requirements = v.map(|x| x.into());
         self
@@ -1590,8 +1542,7 @@ impl GenerateOptimizedManifestRequest {
 
     /// Sets the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
     pub fn set_storage_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageConfig>,
+    where T: std::convert::Into<crate::model::StorageConfig>
     {
         self.storage_config = std::option::Option::Some(v.into());
         self
@@ -1599,8 +1550,7 @@ impl GenerateOptimizedManifestRequest {
 
     /// Sets or clears the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
     pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StorageConfig>,
+    where T: std::convert::Into<crate::model::StorageConfig>
     {
         self.storage_config = v.map(|x| x.into());
         self
@@ -1617,6 +1567,7 @@ impl wkt::message::Message for GenerateOptimizedManifestRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesManifest {
+
     /// Output only. Kubernetes resource kind.
     pub kind: std::string::String,
 
@@ -1666,6 +1617,7 @@ impl wkt::message::Message for KubernetesManifest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateOptimizedManifestResponse {
+
     /// Output only. A list of generated Kubernetes manifests.
     pub kubernetes_manifests: std::vec::Vec<crate::model::KubernetesManifest>,
 
@@ -1691,7 +1643,7 @@ impl GenerateOptimizedManifestResponse {
     pub fn set_kubernetes_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::KubernetesManifest>,
+        V: std::convert::Into<crate::model::KubernetesManifest>
     {
         use std::iter::Iterator;
         self.kubernetes_manifests = v.into_iter().map(|i| i.into()).collect();
@@ -1702,7 +1654,7 @@ impl GenerateOptimizedManifestResponse {
     pub fn set_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.comments = v.into_iter().map(|i| i.into()).collect();
@@ -1710,10 +1662,7 @@ impl GenerateOptimizedManifestResponse {
     }
 
     /// Sets the value of [manifest_version][crate::model::GenerateOptimizedManifestResponse::manifest_version].
-    pub fn set_manifest_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_manifest_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.manifest_version = v.into();
         self
     }
@@ -1729,6 +1678,7 @@ impl wkt::message::Message for GenerateOptimizedManifestResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageConfig {
+
     /// Optional. The Google Cloud Storage bucket URI to load the model from. This
     /// URI must point to the directory containing the model's config file
     /// (`config.json`) and model weights. A tuned GCSFuse setup can improve
@@ -1751,19 +1701,13 @@ impl StorageConfig {
     }
 
     /// Sets the value of [model_bucket_uri][crate::model::StorageConfig::model_bucket_uri].
-    pub fn set_model_bucket_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_model_bucket_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_bucket_uri = v.into();
         self
     }
 
     /// Sets the value of [xla_cache_bucket_uri][crate::model::StorageConfig::xla_cache_bucket_uri].
-    pub fn set_xla_cache_bucket_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_xla_cache_bucket_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.xla_cache_bucket_uri = v.into();
         self
     }

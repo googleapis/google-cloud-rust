@@ -39,10 +39,7 @@ pub mod os_login_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsLoginService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod os_login_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod os_login_service {
     pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
 
     impl CreateSshPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateSshPublicKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateSshPublicKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
-            (*self.0.stub)
-                .create_ssh_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_ssh_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
@@ -133,8 +120,7 @@ pub mod os_login_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -144,8 +130,7 @@ pub mod os_login_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self
@@ -180,17 +165,14 @@ pub mod os_login_service {
     pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
 
     impl DeletePosixAccount {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePosixAccountRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePosixAccountRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -203,10 +185,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_posix_account(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_posix_account(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
@@ -246,17 +225,14 @@ pub mod os_login_service {
     pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
 
     impl DeleteSshPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteSshPublicKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteSshPublicKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -269,10 +245,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_ssh_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_ssh_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
@@ -312,10 +285,10 @@ pub mod os_login_service {
     pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
 
     impl GetLoginProfile {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -332,10 +305,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LoginProfile> {
-            (*self.0.stub)
-                .get_login_profile(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_login_profile(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
@@ -387,10 +357,10 @@ pub mod os_login_service {
     pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
     impl GetSshPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -407,10 +377,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
-            (*self.0.stub)
-                .get_ssh_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_ssh_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
@@ -450,17 +417,14 @@ pub mod os_login_service {
     pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
 
     impl ImportSshPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ImportSshPublicKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ImportSshPublicKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -473,10 +437,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ImportSshPublicKeyResponse> {
-            (*self.0.stub)
-                .import_ssh_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).import_ssh_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
@@ -489,8 +450,7 @@ pub mod os_login_service {
 
         /// Sets the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -498,8 +458,7 @@ pub mod os_login_service {
 
         /// Sets or clears the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self
@@ -515,7 +474,7 @@ pub mod os_login_service {
         pub fn set_regions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.regions = v.into_iter().map(|i| i.into()).collect();
@@ -551,17 +510,14 @@ pub mod os_login_service {
     pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
 
     impl UpdateSshPublicKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateSshPublicKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateSshPublicKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -574,10 +530,7 @@ pub mod os_login_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<oslogin_common::model::SshPublicKey> {
-            (*self.0.stub)
-                .update_ssh_public_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_ssh_public_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].
@@ -592,8 +545,7 @@ pub mod os_login_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = std::option::Option::Some(v.into());
             self
@@ -603,8 +555,7 @@ pub mod os_login_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        where T: std::convert::Into<oslogin_common::model::SshPublicKey>
         {
             self.0.request.ssh_public_key = v.map(|x| x.into());
             self
@@ -612,8 +563,7 @@ pub mod os_login_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -621,8 +571,7 @@ pub mod os_login_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -635,4 +584,5 @@ pub mod os_login_service {
             &mut self.0.options
         }
     }
+
 }

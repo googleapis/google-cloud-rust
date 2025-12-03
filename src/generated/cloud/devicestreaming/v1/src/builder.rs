@@ -39,10 +39,7 @@ pub mod direct_access_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DirectAccessService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod direct_access_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod direct_access_service {
     pub struct CreateDeviceSession(RequestBuilder<crate::model::CreateDeviceSessionRequest>);
 
     impl CreateDeviceSession {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateDeviceSessionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDeviceSessionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,10 +105,7 @@ pub mod direct_access_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeviceSession> {
-            (*self.0.stub)
-                .create_device_session(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_device_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeviceSessionRequest::parent].
@@ -133,8 +120,7 @@ pub mod direct_access_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_device_session<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DeviceSession>,
+        where T: std::convert::Into<crate::model::DeviceSession>
         {
             self.0.request.device_session = std::option::Option::Some(v.into());
             self
@@ -144,8 +130,7 @@ pub mod direct_access_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DeviceSession>,
+        where T: std::convert::Into<crate::model::DeviceSession>
         {
             self.0.request.device_session = v.map(|x| x.into());
             self
@@ -190,17 +175,14 @@ pub mod direct_access_service {
     pub struct ListDeviceSessions(RequestBuilder<crate::model::ListDeviceSessionsRequest>);
 
     impl ListDeviceSessions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListDeviceSessionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListDeviceSessionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -213,17 +195,11 @@ pub mod direct_access_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDeviceSessionsResponse> {
-            (*self.0.stub)
-                .list_device_sessions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_device_sessions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListDeviceSessionsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListDeviceSessionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -235,12 +211,7 @@ pub mod direct_access_service {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListDeviceSessionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListDeviceSessionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -300,17 +271,14 @@ pub mod direct_access_service {
     pub struct GetDeviceSession(RequestBuilder<crate::model::GetDeviceSessionRequest>);
 
     impl GetDeviceSession {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDeviceSessionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDeviceSessionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -323,10 +291,7 @@ pub mod direct_access_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeviceSession> {
-            (*self.0.stub)
-                .get_device_session(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_device_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeviceSessionRequest::name].
@@ -366,17 +331,14 @@ pub mod direct_access_service {
     pub struct CancelDeviceSession(RequestBuilder<crate::model::CancelDeviceSessionRequest>);
 
     impl CancelDeviceSession {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CancelDeviceSessionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CancelDeviceSessionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -389,10 +351,7 @@ pub mod direct_access_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .cancel_device_session(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).cancel_device_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelDeviceSessionRequest::name].
@@ -432,17 +391,14 @@ pub mod direct_access_service {
     pub struct UpdateDeviceSession(RequestBuilder<crate::model::UpdateDeviceSessionRequest>);
 
     impl UpdateDeviceSession {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::DirectAccessService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDeviceSessionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDeviceSessionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -455,18 +411,14 @@ pub mod direct_access_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DeviceSession> {
-            (*self.0.stub)
-                .update_device_session(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_device_session(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [device_session][crate::model::UpdateDeviceSessionRequest::device_session].
         ///
         /// This is a **required** field for requests.
         pub fn set_device_session<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DeviceSession>,
+        where T: std::convert::Into<crate::model::DeviceSession>
         {
             self.0.request.device_session = std::option::Option::Some(v.into());
             self
@@ -476,8 +428,7 @@ pub mod direct_access_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DeviceSession>,
+        where T: std::convert::Into<crate::model::DeviceSession>
         {
             self.0.request.device_session = v.map(|x| x.into());
             self
@@ -485,8 +436,7 @@ pub mod direct_access_service {
 
         /// Sets the value of [update_mask][crate::model::UpdateDeviceSessionRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -494,8 +444,7 @@ pub mod direct_access_service {
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateDeviceSessionRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -508,4 +457,5 @@ pub mod direct_access_service {
             &mut self.0.options
         }
     }
+
 }

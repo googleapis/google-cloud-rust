@@ -17,11 +17,11 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate bytes;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate wkt;
 
 mod debug;
@@ -32,6 +32,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageClassificationPredictionParams {
+
     /// The Model only returns predictions with at least this confidence score.
     /// Default value is 0.0
     pub confidence_threshold: f32,
@@ -72,6 +73,7 @@ impl wkt::message::Message for ImageClassificationPredictionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageObjectDetectionPredictionParams {
+
     /// The Model only returns predictions with at least this confidence score.
     /// Default value is 0.0
     pub confidence_threshold: f32,
@@ -112,6 +114,7 @@ impl wkt::message::Message for ImageObjectDetectionPredictionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ImageSegmentationPredictionParams {
+
     /// When the model predicts category of pixels of the image, it will only
     /// provide predictions for pixels that it is at least this much confident
     /// about. All other pixels will be classified as background. Default value is
@@ -143,6 +146,7 @@ impl wkt::message::Message for ImageSegmentationPredictionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoActionRecognitionPredictionParams {
+
     /// The Model only returns predictions with at least this confidence score.
     /// Default value is 0.0
     pub confidence_threshold: f32,
@@ -183,6 +187,7 @@ impl wkt::message::Message for VideoActionRecognitionPredictionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoClassificationPredictionParams {
+
     /// The Model only returns predictions with at least this confidence score.
     /// Default value is 0.0
     pub confidence_threshold: f32,
@@ -250,10 +255,7 @@ impl VideoClassificationPredictionParams {
     }
 
     /// Sets the value of [one_sec_interval_classification][crate::model::VideoClassificationPredictionParams::one_sec_interval_classification].
-    pub fn set_one_sec_interval_classification<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_one_sec_interval_classification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.one_sec_interval_classification = v.into();
         self
     }
@@ -269,6 +271,7 @@ impl wkt::message::Message for VideoClassificationPredictionParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoObjectTrackingPredictionParams {
+
     /// The Model only returns predictions with at least this confidence score.
     /// Default value is 0.0
     pub confidence_threshold: f32,

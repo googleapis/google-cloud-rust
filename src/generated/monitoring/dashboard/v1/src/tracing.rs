@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DashboardsService](super::stub::DashboardsService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DashboardsService<T>
-where
-    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DashboardsService<T>
-where
-    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DashboardsService for DashboardsService<T>
-where
-    T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_dashboard(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_dashboard",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_dashboard(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_dashboard(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_dashboards",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_dashboards(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_dashboards(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_dashboard",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_dashboard(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_dashboard(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_dashboard",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_dashboard(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_dashboard(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_dashboard",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_dashboard(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_dashboard(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -228,3 +207,4 @@ where
         self.inner.update_dashboard(req, options).await
     }
 }
+

@@ -84,51 +84,39 @@ impl TraceService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::TraceService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::TraceService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TraceService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TraceService> {
         super::transport::TraceService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::TraceService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::TraceService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::TraceService> {
+        Self::build_transport(conf).await.map(super::tracing::TraceService::new)
     }
 
     /// Returns of a list of traces that match the specified filter conditions.
-    pub fn list_traces(&self) -> super::builder::trace_service::ListTraces {
+    pub fn list_traces(&self) -> super::builder::trace_service::ListTraces
+    {
         super::builder::trace_service::ListTraces::new(self.inner.clone())
     }
 
     /// Gets a single trace by its ID.
-    pub fn get_trace(&self) -> super::builder::trace_service::GetTrace {
+    pub fn get_trace(&self) -> super::builder::trace_service::GetTrace
+    {
         super::builder::trace_service::GetTrace::new(self.inner.clone())
     }
 
@@ -137,7 +125,8 @@ impl TraceService {
     /// in the existing trace and its spans are overwritten by the provided values,
     /// and any new fields provided are merged with the existing trace data. If the
     /// ID does not match, a new trace is created.
-    pub fn patch_traces(&self) -> super::builder::trace_service::PatchTraces {
+    pub fn patch_traces(&self) -> super::builder::trace_service::PatchTraces
+    {
         super::builder::trace_service::PatchTraces::new(self.inner.clone())
     }
 }

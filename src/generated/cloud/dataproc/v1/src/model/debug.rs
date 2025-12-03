@@ -33,6 +33,7 @@ impl std::fmt::Debug for super::AutoscalingPolicy {
     }
 }
 
+
 impl std::fmt::Debug for super::BasicAutoscalingAlgorithm {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BasicAutoscalingAlgorithm");
@@ -48,20 +49,11 @@ impl std::fmt::Debug for super::BasicAutoscalingAlgorithm {
 impl std::fmt::Debug for super::BasicYarnAutoscalingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BasicYarnAutoscalingConfig");
-        debug_struct.field(
-            "graceful_decommission_timeout",
-            &self.graceful_decommission_timeout,
-        );
+        debug_struct.field("graceful_decommission_timeout", &self.graceful_decommission_timeout);
         debug_struct.field("scale_up_factor", &self.scale_up_factor);
         debug_struct.field("scale_down_factor", &self.scale_down_factor);
-        debug_struct.field(
-            "scale_up_min_worker_fraction",
-            &self.scale_up_min_worker_fraction,
-        );
-        debug_struct.field(
-            "scale_down_min_worker_fraction",
-            &self.scale_down_min_worker_fraction,
-        );
+        debug_struct.field("scale_up_min_worker_fraction", &self.scale_up_min_worker_fraction);
+        debug_struct.field("scale_down_min_worker_fraction", &self.scale_down_min_worker_fraction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -253,6 +245,7 @@ impl std::fmt::Debug for super::batch::StateHistory {
     }
 }
 
+
 impl std::fmt::Debug for super::PySparkBatch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PySparkBatch");
@@ -374,10 +367,7 @@ impl std::fmt::Debug for super::AuxiliaryServicesConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuxiliaryServicesConfig");
         debug_struct.field("metastore_config", &self.metastore_config);
-        debug_struct.field(
-            "spark_history_server_config",
-            &self.spark_history_server_config,
-        );
+        debug_struct.field("spark_history_server_config", &self.spark_history_server_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -427,10 +417,7 @@ impl std::fmt::Debug for super::GceClusterConfig {
         debug_struct.field("network_uri", &self.network_uri);
         debug_struct.field("subnetwork_uri", &self.subnetwork_uri);
         debug_struct.field("internal_ip_only", &self.internal_ip_only);
-        debug_struct.field(
-            "private_ipv6_google_access",
-            &self.private_ipv6_google_access,
-        );
+        debug_struct.field("private_ipv6_google_access", &self.private_ipv6_google_access);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("service_account_scopes", &self.service_account_scopes);
         debug_struct.field("tags", &self.tags);
@@ -438,16 +425,14 @@ impl std::fmt::Debug for super::GceClusterConfig {
         debug_struct.field("reservation_affinity", &self.reservation_affinity);
         debug_struct.field("node_group_affinity", &self.node_group_affinity);
         debug_struct.field("shielded_instance_config", &self.shielded_instance_config);
-        debug_struct.field(
-            "confidential_instance_config",
-            &self.confidential_instance_config,
-        );
+        debug_struct.field("confidential_instance_config", &self.confidential_instance_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::NodeGroupAffinity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -465,10 +450,7 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
         let mut debug_struct = f.debug_struct("ShieldedInstanceConfig");
         debug_struct.field("enable_secure_boot", &self.enable_secure_boot);
         debug_struct.field("enable_vtpm", &self.enable_vtpm);
-        debug_struct.field(
-            "enable_integrity_monitoring",
-            &self.enable_integrity_monitoring,
-        );
+        debug_struct.field("enable_integrity_monitoring", &self.enable_integrity_monitoring);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -479,10 +461,7 @@ impl std::fmt::Debug for super::ShieldedInstanceConfig {
 impl std::fmt::Debug for super::ConfidentialInstanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialInstanceConfig");
-        debug_struct.field(
-            "enable_confidential_compute",
-            &self.enable_confidential_compute,
-        );
+        debug_struct.field("enable_confidential_compute", &self.enable_confidential_compute);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -505,10 +484,7 @@ impl std::fmt::Debug for super::InstanceGroupConfig {
         debug_struct.field("accelerators", &self.accelerators);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("min_num_instances", &self.min_num_instances);
-        debug_struct.field(
-            "instance_flexibility_policy",
-            &self.instance_flexibility_policy,
-        );
+        debug_struct.field("instance_flexibility_policy", &self.instance_flexibility_policy);
         debug_struct.field("startup_config", &self.startup_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -520,10 +496,7 @@ impl std::fmt::Debug for super::InstanceGroupConfig {
 impl std::fmt::Debug for super::StartupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartupConfig");
-        debug_struct.field(
-            "required_registration_fraction",
-            &self.required_registration_fraction,
-        );
+        debug_struct.field("required_registration_fraction", &self.required_registration_fraction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -549,14 +522,8 @@ impl std::fmt::Debug for super::ManagedGroupConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManagedGroupConfig");
         debug_struct.field("instance_template_name", &self.instance_template_name);
-        debug_struct.field(
-            "instance_group_manager_name",
-            &self.instance_group_manager_name,
-        );
-        debug_struct.field(
-            "instance_group_manager_uri",
-            &self.instance_group_manager_uri,
-        );
+        debug_struct.field("instance_group_manager_name", &self.instance_group_manager_name);
+        debug_struct.field("instance_group_manager_uri", &self.instance_group_manager_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -569,10 +536,7 @@ impl std::fmt::Debug for super::InstanceFlexibilityPolicy {
         let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicy");
         debug_struct.field("provisioning_model_mix", &self.provisioning_model_mix);
         debug_struct.field("instance_selection_list", &self.instance_selection_list);
-        debug_struct.field(
-            "instance_selection_results",
-            &self.instance_selection_results,
-        );
+        debug_struct.field("instance_selection_results", &self.instance_selection_results);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -584,10 +548,7 @@ impl std::fmt::Debug for super::instance_flexibility_policy::ProvisioningModelMi
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProvisioningModelMix");
         debug_struct.field("standard_capacity_base", &self.standard_capacity_base);
-        debug_struct.field(
-            "standard_capacity_percent_above_base",
-            &self.standard_capacity_percent_above_base,
-        );
+        debug_struct.field("standard_capacity_percent_above_base", &self.standard_capacity_percent_above_base);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -638,14 +599,8 @@ impl std::fmt::Debug for super::DiskConfig {
         debug_struct.field("boot_disk_size_gb", &self.boot_disk_size_gb);
         debug_struct.field("num_local_ssds", &self.num_local_ssds);
         debug_struct.field("local_ssd_interface", &self.local_ssd_interface);
-        debug_struct.field(
-            "boot_disk_provisioned_iops",
-            &self.boot_disk_provisioned_iops,
-        );
-        debug_struct.field(
-            "boot_disk_provisioned_throughput",
-            &self.boot_disk_provisioned_throughput,
-        );
+        debug_struct.field("boot_disk_provisioned_iops", &self.boot_disk_provisioned_iops);
+        debug_struct.field("boot_disk_provisioned_throughput", &self.boot_disk_provisioned_throughput);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -678,6 +633,7 @@ impl std::fmt::Debug for super::NodeGroup {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::NodeInitializationAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -721,10 +677,7 @@ impl std::fmt::Debug for super::KerberosConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KerberosConfig");
         debug_struct.field("enable_kerberos", &self.enable_kerberos);
-        debug_struct.field(
-            "root_principal_password_uri",
-            &self.root_principal_password_uri,
-        );
+        debug_struct.field("root_principal_password_uri", &self.root_principal_password_uri);
         debug_struct.field("kms_key_uri", &self.kms_key_uri);
         debug_struct.field("keystore_uri", &self.keystore_uri);
         debug_struct.field("truststore_uri", &self.truststore_uri);
@@ -733,14 +686,8 @@ impl std::fmt::Debug for super::KerberosConfig {
         debug_struct.field("truststore_password_uri", &self.truststore_password_uri);
         debug_struct.field("cross_realm_trust_realm", &self.cross_realm_trust_realm);
         debug_struct.field("cross_realm_trust_kdc", &self.cross_realm_trust_kdc);
-        debug_struct.field(
-            "cross_realm_trust_admin_server",
-            &self.cross_realm_trust_admin_server,
-        );
-        debug_struct.field(
-            "cross_realm_trust_shared_password_uri",
-            &self.cross_realm_trust_shared_password_uri,
-        );
+        debug_struct.field("cross_realm_trust_admin_server", &self.cross_realm_trust_admin_server);
+        debug_struct.field("cross_realm_trust_shared_password_uri", &self.cross_realm_trust_shared_password_uri);
         debug_struct.field("kdc_db_key_uri", &self.kdc_db_key_uri);
         debug_struct.field("tgt_lifetime_hours", &self.tgt_lifetime_hours);
         debug_struct.field("realm", &self.realm);
@@ -754,10 +701,7 @@ impl std::fmt::Debug for super::KerberosConfig {
 impl std::fmt::Debug for super::IdentityConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IdentityConfig");
-        debug_struct.field(
-            "user_service_account_mapping",
-            &self.user_service_account_mapping,
-        );
+        debug_struct.field("user_service_account_mapping", &self.user_service_account_mapping);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -794,10 +738,7 @@ impl std::fmt::Debug for super::LifecycleConfig {
 impl std::fmt::Debug for super::MetastoreConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetastoreConfig");
-        debug_struct.field(
-            "dataproc_metastore_service",
-            &self.dataproc_metastore_service,
-        );
+        debug_struct.field("dataproc_metastore_service", &self.dataproc_metastore_service);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -847,10 +788,7 @@ impl std::fmt::Debug for super::CreateClusterRequest {
         debug_struct.field("region", &self.region);
         debug_struct.field("cluster", &self.cluster);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field(
-            "action_on_failed_primary_workers",
-            &self.action_on_failed_primary_workers,
-        );
+        debug_struct.field("action_on_failed_primary_workers", &self.action_on_failed_primary_workers);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -865,10 +803,7 @@ impl std::fmt::Debug for super::UpdateClusterRequest {
         debug_struct.field("region", &self.region);
         debug_struct.field("cluster_name", &self.cluster_name);
         debug_struct.field("cluster", &self.cluster);
-        debug_struct.field(
-            "graceful_decommission_timeout",
-            &self.graceful_decommission_timeout,
-        );
+        debug_struct.field("graceful_decommission_timeout", &self.graceful_decommission_timeout);
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -1016,6 +951,7 @@ impl std::fmt::Debug for super::LoggingConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::HadoopJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HadoopJob");
@@ -1033,6 +969,7 @@ impl std::fmt::Debug for super::HadoopJob {
     }
 }
 
+
 impl std::fmt::Debug for super::SparkJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkJob");
@@ -1049,6 +986,7 @@ impl std::fmt::Debug for super::SparkJob {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::PySparkJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1094,6 +1032,8 @@ impl std::fmt::Debug for super::HiveJob {
     }
 }
 
+
+
 impl std::fmt::Debug for super::SparkSqlJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SparkSqlJob");
@@ -1108,6 +1048,8 @@ impl std::fmt::Debug for super::SparkSqlJob {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::PigJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1124,6 +1066,8 @@ impl std::fmt::Debug for super::PigJob {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::SparkRJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1157,6 +1101,7 @@ impl std::fmt::Debug for super::PrestoJob {
     }
 }
 
+
 impl std::fmt::Debug for super::TrinoJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TrinoJob");
@@ -1173,6 +1118,7 @@ impl std::fmt::Debug for super::TrinoJob {
     }
 }
 
+
 impl std::fmt::Debug for super::FlinkJob {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FlinkJob");
@@ -1188,6 +1134,7 @@ impl std::fmt::Debug for super::FlinkJob {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::JobPlacement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1250,10 +1197,7 @@ impl std::fmt::Debug for super::Job {
         debug_struct.field("status", &self.status);
         debug_struct.field("status_history", &self.status_history);
         debug_struct.field("yarn_applications", &self.yarn_applications);
-        debug_struct.field(
-            "driver_output_resource_uri",
-            &self.driver_output_resource_uri,
-        );
+        debug_struct.field("driver_output_resource_uri", &self.driver_output_resource_uri);
         debug_struct.field("driver_control_files_uri", &self.driver_control_files_uri);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("scheduling", &self.scheduling);
@@ -1267,6 +1211,7 @@ impl std::fmt::Debug for super::Job {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::DriverSchedulingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1424,10 +1369,7 @@ impl std::fmt::Debug for super::ResizeNodeGroupRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("size", &self.size);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field(
-            "graceful_decommission_timeout",
-            &self.graceful_decommission_timeout,
-        );
+        debug_struct.field("graceful_decommission_timeout", &self.graceful_decommission_timeout);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1464,6 +1406,7 @@ impl std::fmt::Debug for super::BatchOperationMetadata {
     }
 }
 
+
 impl std::fmt::Debug for super::SessionOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionOperationMetadata");
@@ -1481,6 +1424,7 @@ impl std::fmt::Debug for super::SessionOperationMetadata {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ClusterOperationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1532,6 +1476,7 @@ impl std::fmt::Debug for super::NodeGroupOperationMetadata {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateSessionTemplateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1623,6 +1568,7 @@ impl std::fmt::Debug for super::SessionTemplate {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateSessionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1737,6 +1683,7 @@ impl std::fmt::Debug for super::session::SessionStateHistory {
     }
 }
 
+
 impl std::fmt::Debug for super::JupyterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("JupyterConfig");
@@ -1820,10 +1767,7 @@ impl std::fmt::Debug for super::PeripheralsConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PeripheralsConfig");
         debug_struct.field("metastore_service", &self.metastore_service);
-        debug_struct.field(
-            "spark_history_server_config",
-            &self.spark_history_server_config,
-        );
+        debug_struct.field("spark_history_server_config", &self.spark_history_server_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1850,10 +1794,7 @@ impl std::fmt::Debug for super::UsageMetrics {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UsageMetrics");
         debug_struct.field("milli_dcu_seconds", &self.milli_dcu_seconds);
-        debug_struct.field(
-            "shuffle_storage_gb_seconds",
-            &self.shuffle_storage_gb_seconds,
-        );
+        debug_struct.field("shuffle_storage_gb_seconds", &self.shuffle_storage_gb_seconds);
         debug_struct.field("milli_accelerator_seconds", &self.milli_accelerator_seconds);
         debug_struct.field("accelerator_type", &self.accelerator_type);
         if !self._unknown_fields.is_empty() {
@@ -1869,10 +1810,7 @@ impl std::fmt::Debug for super::UsageSnapshot {
         debug_struct.field("milli_dcu", &self.milli_dcu);
         debug_struct.field("shuffle_storage_gb", &self.shuffle_storage_gb);
         debug_struct.field("milli_dcu_premium", &self.milli_dcu_premium);
-        debug_struct.field(
-            "shuffle_storage_gb_premium",
-            &self.shuffle_storage_gb_premium,
-        );
+        debug_struct.field("shuffle_storage_gb_premium", &self.shuffle_storage_gb_premium);
         debug_struct.field("milli_accelerator", &self.milli_accelerator);
         debug_struct.field("accelerator_type", &self.accelerator_type);
         debug_struct.field("snapshot_time", &self.snapshot_time);
@@ -1899,10 +1837,7 @@ impl std::fmt::Debug for super::KubernetesClusterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KubernetesClusterConfig");
         debug_struct.field("kubernetes_namespace", &self.kubernetes_namespace);
-        debug_struct.field(
-            "kubernetes_software_config",
-            &self.kubernetes_software_config,
-        );
+        debug_struct.field("kubernetes_software_config", &self.kubernetes_software_config);
         debug_struct.field("config", &self.config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1994,10 +1929,7 @@ impl std::fmt::Debug for super::gke_node_pool_config::GkeNodePoolAutoscalingConf
 impl std::fmt::Debug for super::AuthenticationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AuthenticationConfig");
-        debug_struct.field(
-            "user_workload_authentication_type",
-            &self.user_workload_authentication_type,
-        );
+        debug_struct.field("user_workload_authentication_type", &self.user_workload_authentication_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2070,6 +2002,7 @@ impl std::fmt::Debug for super::workflow_template::EncryptionConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::WorkflowTemplatePlacement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkflowTemplatePlacement");
@@ -2120,6 +2053,7 @@ impl std::fmt::Debug for super::OrderedJob {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::TemplateParameter {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2191,6 +2125,7 @@ impl std::fmt::Debug for super::WorkflowMetadata {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ClusterOperation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

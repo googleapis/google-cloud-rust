@@ -77,9 +77,7 @@ impl FunctionService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::function_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::function_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::function_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -87,52 +85,39 @@ impl FunctionService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::FunctionService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::FunctionService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FunctionService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FunctionService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FunctionService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FunctionService> {
         super::transport::FunctionService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FunctionService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::FunctionService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FunctionService> {
+        Self::build_transport(conf).await.map(super::tracing::FunctionService::new)
     }
 
     /// Returns a function with the given name from the requested project.
-    pub fn get_function(&self) -> super::builder::function_service::GetFunction {
+    pub fn get_function(&self) -> super::builder::function_service::GetFunction
+    {
         super::builder::function_service::GetFunction::new(self.inner.clone())
     }
 
     /// Returns a list of functions that belong to the requested project.
-    pub fn list_functions(&self) -> super::builder::function_service::ListFunctions {
+    pub fn list_functions(&self) -> super::builder::function_service::ListFunctions
+    {
         super::builder::function_service::ListFunctions::new(self.inner.clone())
     }
 
@@ -149,7 +134,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_function(&self) -> super::builder::function_service::CreateFunction {
+    pub fn create_function(&self) -> super::builder::function_service::CreateFunction
+    {
         super::builder::function_service::CreateFunction::new(self.inner.clone())
     }
 
@@ -164,7 +150,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_function(&self) -> super::builder::function_service::UpdateFunction {
+    pub fn update_function(&self) -> super::builder::function_service::UpdateFunction
+    {
         super::builder::function_service::UpdateFunction::new(self.inner.clone())
     }
 
@@ -181,7 +168,8 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_function(&self) -> super::builder::function_service::DeleteFunction {
+    pub fn delete_function(&self) -> super::builder::function_service::DeleteFunction
+    {
         super::builder::function_service::DeleteFunction::new(self.inner.clone())
     }
 
@@ -208,7 +196,8 @@ impl FunctionService {
     /// Do not specify this header:
     ///
     /// * `Authorization: Bearer YOUR_TOKEN`
-    pub fn generate_upload_url(&self) -> super::builder::function_service::GenerateUploadUrl {
+    pub fn generate_upload_url(&self) -> super::builder::function_service::GenerateUploadUrl
+    {
         super::builder::function_service::GenerateUploadUrl::new(self.inner.clone())
     }
 
@@ -217,17 +206,20 @@ impl FunctionService {
     /// 30 minutes of generation.
     /// For more information about the signed URL usage see:
     /// <https://cloud.google.com/storage/docs/access-control/signed-urls>
-    pub fn generate_download_url(&self) -> super::builder::function_service::GenerateDownloadUrl {
+    pub fn generate_download_url(&self) -> super::builder::function_service::GenerateDownloadUrl
+    {
         super::builder::function_service::GenerateDownloadUrl::new(self.inner.clone())
     }
 
     /// Returns a list of runtimes that are supported for the requested project.
-    pub fn list_runtimes(&self) -> super::builder::function_service::ListRuntimes {
+    pub fn list_runtimes(&self) -> super::builder::function_service::ListRuntimes
+    {
         super::builder::function_service::ListRuntimes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::function_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::function_service::ListLocations
+    {
         super::builder::function_service::ListLocations::new(self.inner.clone())
     }
 
@@ -236,13 +228,15 @@ impl FunctionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(&self) -> super::builder::function_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::function_service::SetIamPolicy
+    {
         super::builder::function_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::function_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::function_service::GetIamPolicy
+    {
         super::builder::function_service::GetIamPolicy::new(self.inner.clone())
     }
 
@@ -253,21 +247,24 @@ impl FunctionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> super::builder::function_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::function_service::TestIamPermissions
+    {
         super::builder::function_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::function_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::function_service::ListOperations
+    {
         super::builder::function_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::function_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::function_service::GetOperation
+    {
         super::builder::function_service::GetOperation::new(self.inner.clone())
     }
 }

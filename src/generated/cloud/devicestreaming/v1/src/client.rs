@@ -81,9 +81,7 @@ impl DirectAccessService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::direct_access_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::direct_access_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::direct_access_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -91,63 +89,47 @@ impl DirectAccessService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::DirectAccessService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::DirectAccessService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DirectAccessService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DirectAccessService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DirectAccessService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DirectAccessService> {
         super::transport::DirectAccessService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::DirectAccessService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::DirectAccessService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::DirectAccessService> {
+        Self::build_transport(conf).await.map(super::tracing::DirectAccessService::new)
     }
 
     /// Creates a DeviceSession.
-    pub fn create_device_session(
-        &self,
-    ) -> super::builder::direct_access_service::CreateDeviceSession {
+    pub fn create_device_session(&self) -> super::builder::direct_access_service::CreateDeviceSession
+    {
         super::builder::direct_access_service::CreateDeviceSession::new(self.inner.clone())
     }
 
     /// Lists DeviceSessions owned by the project user.
-    pub fn list_device_sessions(
-        &self,
-    ) -> super::builder::direct_access_service::ListDeviceSessions {
+    pub fn list_device_sessions(&self) -> super::builder::direct_access_service::ListDeviceSessions
+    {
         super::builder::direct_access_service::ListDeviceSessions::new(self.inner.clone())
     }
 
     /// Gets a DeviceSession, which documents the allocation status and
     /// whether the device is allocated. Clients making requests from this API
     /// must poll GetDeviceSession.
-    pub fn get_device_session(&self) -> super::builder::direct_access_service::GetDeviceSession {
+    pub fn get_device_session(&self) -> super::builder::direct_access_service::GetDeviceSession
+    {
         super::builder::direct_access_service::GetDeviceSession::new(self.inner.clone())
     }
 
@@ -156,17 +138,15 @@ impl DirectAccessService {
     /// connections.
     /// Canceled sessions are not deleted and can be retrieved or
     /// listed by the user until they expire based on the 28 day deletion policy.
-    pub fn cancel_device_session(
-        &self,
-    ) -> super::builder::direct_access_service::CancelDeviceSession {
+    pub fn cancel_device_session(&self) -> super::builder::direct_access_service::CancelDeviceSession
+    {
         super::builder::direct_access_service::CancelDeviceSession::new(self.inner.clone())
     }
 
     /// Updates the current DeviceSession to the fields described by the
     /// update_mask.
-    pub fn update_device_session(
-        &self,
-    ) -> super::builder::direct_access_service::UpdateDeviceSession {
+    pub fn update_device_session(&self) -> super::builder::direct_access_service::UpdateDeviceSession
+    {
         super::builder::direct_access_service::UpdateDeviceSession::new(self.inner.clone())
     }
 }

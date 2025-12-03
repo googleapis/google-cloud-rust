@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ContainerAnalysis](super::stub::ContainerAnalysis) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ContainerAnalysis<T>
-where
-    T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ContainerAnalysis<T>
-where
-    T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ContainerAnalysis for ContainerAnalysis<T>
-where
-    T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ContainerAnalysis + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn set_iam_policy(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .set_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.set_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_iam_policy(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_iam_policy(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .test_iam_permissions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.test_iam_permissions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_vulnerability_occurrences_summary",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_vulnerability_occurrences_summary(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_vulnerability_occurrences_summary(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -187,9 +169,7 @@ where
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
-        self.inner
-            .get_vulnerability_occurrences_summary(req, options)
-            .await
+        self.inner.get_vulnerability_occurrences_summary(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn export_sbom(
@@ -207,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "export_sbom",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .export_sbom(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.export_sbom(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -230,3 +207,4 @@ where
         self.inner.export_sbom(req, options).await
     }
 }
+

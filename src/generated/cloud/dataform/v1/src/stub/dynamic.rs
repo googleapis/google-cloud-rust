@@ -63,9 +63,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>>;
 
     async fn fetch_repository_history(
         &self,
@@ -77,9 +75,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
-    >;
+    ) -> crate::Result<gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>>;
 
     async fn fetch_remote_branches(
         &self,
@@ -374,6 +370,7 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
 }
 
 /// All implementations of [super::Dataform] also implement [Dataform].
@@ -447,9 +444,7 @@ impl<T: super::Dataform> Dataform for T {
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryRepositoryDirectoryContentsResponse>> {
         T::query_repository_directory_contents(self, req, options).await
     }
 
@@ -467,9 +462,7 @@ impl<T: super::Dataform> Dataform for T {
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<
-        gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>,
-    > {
+    ) -> crate::Result<gax::response::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>> {
         T::compute_repository_access_token_status(self, req, options).await
     }
 
@@ -748,8 +741,7 @@ impl<T: super::Dataform> Dataform for T {
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryCompilationResultActionsResponse>> {
         T::query_compilation_result_actions(self, req, options).await
     }
 
@@ -839,8 +831,7 @@ impl<T: super::Dataform> Dataform for T {
         &self,
         req: crate::model::CancelWorkflowInvocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::CancelWorkflowInvocationResponse>> {
         T::cancel_workflow_invocation(self, req, options).await
     }
 
@@ -849,8 +840,7 @@ impl<T: super::Dataform> Dataform for T {
         &self,
         req: crate::model::QueryWorkflowInvocationActionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
         T::query_workflow_invocation_actions(self, req, options).await
     }
 
@@ -916,4 +906,5 @@ impl<T: super::Dataform> Dataform for T {
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
+
 }

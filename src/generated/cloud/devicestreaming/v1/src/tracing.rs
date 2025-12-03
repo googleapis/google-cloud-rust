@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [DirectAccessService](super::stub::DirectAccessService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::DirectAccessService for DirectAccessService<T>
-where
-    T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_device_session(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_device_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_device_session(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_device_session(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_device_sessions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_device_sessions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_device_sessions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_device_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_device_session(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_device_session(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_device_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .cancel_device_session(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.cancel_device_session(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_device_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_device_session(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_device_session(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -228,3 +207,4 @@ where
         self.inner.update_device_session(req, options).await
     }
 }
+

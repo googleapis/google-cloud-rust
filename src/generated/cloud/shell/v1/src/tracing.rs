@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [CloudShellService](super::stub::CloudShellService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct CloudShellService<T>
-where
-    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> CloudShellService<T>
-where
-    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::CloudShellService for CloudShellService<T>
-where
-    T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::CloudShellService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn get_environment(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_environment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_environment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_environment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "start_environment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .start_environment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.start_environment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "authorize_environment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .authorize_environment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.authorize_environment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "add_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .add_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.add_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "remove_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .remove_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.remove_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -280,3 +256,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

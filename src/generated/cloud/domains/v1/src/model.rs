@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -56,6 +56,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Registration {
+
     /// Output only. Name of the `Registration` resource, in the format
     /// `projects/*/locations/*/registrations/<domain_name>`.
     pub name: std::string::String,
@@ -76,7 +77,7 @@ pub struct Registration {
     pub issues: std::vec::Vec<crate::model::registration::Issue>,
 
     /// Set of labels associated with the `Registration`.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Settings for management of the `Registration`, including renewal, billing,
     /// and transfer. You cannot update these with the `UpdateRegistration`
@@ -129,8 +130,7 @@ impl Registration {
 
     /// Sets the value of [create_time][crate::model::Registration::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -138,8 +138,7 @@ impl Registration {
 
     /// Sets or clears the value of [create_time][crate::model::Registration::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -147,8 +146,7 @@ impl Registration {
 
     /// Sets the value of [expire_time][crate::model::Registration::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -156,18 +154,14 @@ impl Registration {
 
     /// Sets or clears the value of [expire_time][crate::model::Registration::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::Registration::state].
-    pub fn set_state<T: std::convert::Into<crate::model::registration::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::registration::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -176,7 +170,7 @@ impl Registration {
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::registration::Issue>,
+        V: std::convert::Into<crate::model::registration::Issue>
     {
         use std::iter::Iterator;
         self.issues = v.into_iter().map(|i| i.into()).collect();
@@ -197,8 +191,7 @@ impl Registration {
 
     /// Sets the value of [management_settings][crate::model::Registration::management_settings].
     pub fn set_management_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementSettings>,
+    where T: std::convert::Into<crate::model::ManagementSettings>
     {
         self.management_settings = std::option::Option::Some(v.into());
         self
@@ -206,8 +199,7 @@ impl Registration {
 
     /// Sets or clears the value of [management_settings][crate::model::Registration::management_settings].
     pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementSettings>,
+    where T: std::convert::Into<crate::model::ManagementSettings>
     {
         self.management_settings = v.map(|x| x.into());
         self
@@ -215,8 +207,7 @@ impl Registration {
 
     /// Sets the value of [dns_settings][crate::model::Registration::dns_settings].
     pub fn set_dns_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsSettings>,
+    where T: std::convert::Into<crate::model::DnsSettings>
     {
         self.dns_settings = std::option::Option::Some(v.into());
         self
@@ -224,8 +215,7 @@ impl Registration {
 
     /// Sets or clears the value of [dns_settings][crate::model::Registration::dns_settings].
     pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsSettings>,
+    where T: std::convert::Into<crate::model::DnsSettings>
     {
         self.dns_settings = v.map(|x| x.into());
         self
@@ -233,8 +223,7 @@ impl Registration {
 
     /// Sets the value of [contact_settings][crate::model::Registration::contact_settings].
     pub fn set_contact_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.contact_settings = std::option::Option::Some(v.into());
         self
@@ -242,8 +231,7 @@ impl Registration {
 
     /// Sets or clears the value of [contact_settings][crate::model::Registration::contact_settings].
     pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.contact_settings = v.map(|x| x.into());
         self
@@ -251,8 +239,7 @@ impl Registration {
 
     /// Sets the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
     pub fn set_pending_contact_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.pending_contact_settings = std::option::Option::Some(v.into());
         self
@@ -260,8 +247,7 @@ impl Registration {
 
     /// Sets or clears the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
     pub fn set_or_clear_pending_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.pending_contact_settings = v.map(|x| x.into());
         self
@@ -271,7 +257,7 @@ impl Registration {
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactPrivacy>,
+        V: std::convert::Into<crate::model::ContactPrivacy>
     {
         use std::iter::Iterator;
         self.supported_privacy = v.into_iter().map(|i| i.into()).collect();
@@ -289,6 +275,7 @@ impl wkt::message::Message for Registration {
 pub mod registration {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible states of a `Registration`.
     ///
@@ -410,9 +397,7 @@ pub mod registration {
                 6 => Self::Active,
                 7 => Self::Suspended,
                 8 => Self::Exported,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -429,9 +414,7 @@ pub mod registration {
                 "ACTIVE" => Self::Active,
                 "SUSPENDED" => Self::Suspended,
                 "EXPORTED" => Self::Exported,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -461,8 +444,7 @@ pub mod registration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.domains.v1.Registration.State",
-            ))
+                ".google.cloud.domains.v1.Registration.State"))
         }
     }
 
@@ -559,9 +541,7 @@ pub mod registration {
                 0 => Self::Unspecified,
                 1 => Self::ContactSupport,
                 2 => Self::UnverifiedEmail,
-                _ => Self::UnknownValue(issue::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(issue::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -573,9 +553,7 @@ pub mod registration {
                 "ISSUE_UNSPECIFIED" => Self::Unspecified,
                 "CONTACT_SUPPORT" => Self::ContactSupport,
                 "UNVERIFIED_EMAIL" => Self::UnverifiedEmail,
-                _ => Self::UnknownValue(issue::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(issue::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -600,8 +578,7 @@ pub mod registration {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Issue>::new(
-                ".google.cloud.domains.v1.Registration.Issue",
-            ))
+                ".google.cloud.domains.v1.Registration.Issue"))
         }
     }
 }
@@ -610,6 +587,7 @@ pub mod registration {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagementSettings {
+
     /// Output only. The renewal method for this `Registration`.
     pub renewal_method: crate::model::management_settings::RenewalMethod,
 
@@ -625,21 +603,13 @@ impl ManagementSettings {
     }
 
     /// Sets the value of [renewal_method][crate::model::ManagementSettings::renewal_method].
-    pub fn set_renewal_method<
-        T: std::convert::Into<crate::model::management_settings::RenewalMethod>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_renewal_method<T: std::convert::Into<crate::model::management_settings::RenewalMethod>>(mut self, v: T) -> Self {
         self.renewal_method = v.into();
         self
     }
 
     /// Sets the value of [transfer_lock_state][crate::model::ManagementSettings::transfer_lock_state].
-    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(mut self, v: T) -> Self {
         self.transfer_lock_state = v.into();
         self
     }
@@ -655,6 +625,7 @@ impl wkt::message::Message for ManagementSettings {
 pub mod management_settings {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines how the `Registration` is renewed.
     ///
@@ -750,9 +721,7 @@ pub mod management_settings {
                 0 => Self::Unspecified,
                 1 => Self::AutomaticRenewal,
                 2 => Self::ManualRenewal,
-                _ => Self::UnknownValue(renewal_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(renewal_method::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -764,9 +733,7 @@ pub mod management_settings {
                 "RENEWAL_METHOD_UNSPECIFIED" => Self::Unspecified,
                 "AUTOMATIC_RENEWAL" => Self::AutomaticRenewal,
                 "MANUAL_RENEWAL" => Self::ManualRenewal,
-                _ => Self::UnknownValue(renewal_method::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(renewal_method::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -791,8 +758,7 @@ pub mod management_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RenewalMethod>::new(
-                ".google.cloud.domains.v1.ManagementSettings.RenewalMethod",
-            ))
+                ".google.cloud.domains.v1.ManagementSettings.RenewalMethod"))
         }
     }
 }
@@ -802,6 +768,7 @@ pub mod management_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsSettings {
+
     /// The list of glue records for this `Registration`. Commonly empty.
     pub glue_records: std::vec::Vec<crate::model::dns_settings::GlueRecord>,
 
@@ -820,7 +787,7 @@ impl DnsSettings {
     pub fn set_glue_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::dns_settings::GlueRecord>,
+        V: std::convert::Into<crate::model::dns_settings::GlueRecord>
     {
         use std::iter::Iterator;
         self.glue_records = v.into_iter().map(|i| i.into()).collect();
@@ -831,12 +798,8 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are mutually
     /// exclusive.
-    pub fn set_dns_provider<
-        T: std::convert::Into<std::option::Option<crate::model::dns_settings::DnsProvider>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dns_provider<T: std::convert::Into<std::option::Option<crate::model::dns_settings::DnsProvider>>>(mut self, v: T) -> Self
+    {
         self.dns_provider = v.into();
         self
     }
@@ -844,9 +807,7 @@ impl DnsSettings {
     /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// if it holds a `CustomDns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn custom_dns(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::CustomDns>> {
+    pub fn custom_dns(&self) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::CustomDns>> {
         #[allow(unreachable_patterns)]
         self.dns_provider.as_ref().and_then(|v| match v {
             crate::model::dns_settings::DnsProvider::CustomDns(v) => std::option::Option::Some(v),
@@ -859,28 +820,22 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are
     /// mutually exclusive.
-    pub fn set_custom_dns<
-        T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::CustomDns>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.dns_provider =
-            std::option::Option::Some(crate::model::dns_settings::DnsProvider::CustomDns(v.into()));
+    pub fn set_custom_dns<T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::CustomDns>>>(mut self, v: T) -> Self {
+        self.dns_provider = std::option::Option::Some(
+            crate::model::dns_settings::DnsProvider::CustomDns(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [dns_provider][crate::model::DnsSettings::dns_provider]
     /// if it holds a `GoogleDomainsDns`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn google_domains_dns(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>> {
+    pub fn google_domains_dns(&self) -> std::option::Option<&std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>> {
         #[allow(unreachable_patterns)]
         self.dns_provider.as_ref().and_then(|v| match v {
-            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -890,14 +845,11 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are
     /// mutually exclusive.
-    pub fn set_google_domains_dns<
-        T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_domains_dns<T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>>>(mut self, v: T) -> Self {
         self.dns_provider = std::option::Option::Some(
-            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(v.into()),
+            crate::model::dns_settings::DnsProvider::GoogleDomainsDns(
+                v.into()
+            )
         );
         self
     }
@@ -914,10 +866,12 @@ pub mod dns_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Configuration for an arbitrary DNS provider.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomDns {
+
         /// Required. A list of name servers that store the DNS zone for this domain. Each name
         /// server is a domain name, with Unicode domain names expressed in
         /// Punycode format.
@@ -940,7 +894,7 @@ pub mod dns_settings {
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.name_servers = v.into_iter().map(|i| i.into()).collect();
@@ -951,7 +905,7 @@ pub mod dns_settings {
         pub fn set_ds_records<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::dns_settings::DsRecord>,
+            V: std::convert::Into<crate::model::dns_settings::DsRecord>
         {
             use std::iter::Iterator;
             self.ds_records = v.into_iter().map(|i| i.into()).collect();
@@ -972,6 +926,7 @@ pub mod dns_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GoogleDomainsDns {
+
         /// Output only. A list of name servers that store the DNS zone for this domain. Each name
         /// server is a domain name, with Unicode domain names expressed in
         /// Punycode format. This field is automatically populated with the name
@@ -999,7 +954,7 @@ pub mod dns_settings {
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.name_servers = v.into_iter().map(|i| i.into()).collect();
@@ -1007,10 +962,7 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [ds_state][crate::model::dns_settings::GoogleDomainsDns::ds_state].
-        pub fn set_ds_state<T: std::convert::Into<crate::model::dns_settings::DsState>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_ds_state<T: std::convert::Into<crate::model::dns_settings::DsState>>(mut self, v: T) -> Self {
             self.ds_state = v.into();
             self
         }
@@ -1019,7 +971,7 @@ pub mod dns_settings {
         pub fn set_ds_records<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::dns_settings::DsRecord>,
+            V: std::convert::Into<crate::model::dns_settings::DsRecord>
         {
             use std::iter::Iterator;
             self.ds_records = v.into_iter().map(|i| i.into()).collect();
@@ -1039,6 +991,7 @@ pub mod dns_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DsRecord {
+
         /// The key tag of the record. Must be set in range 0 -- 65535.
         pub key_tag: i32,
 
@@ -1066,23 +1019,13 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [algorithm][crate::model::dns_settings::DsRecord::algorithm].
-        pub fn set_algorithm<
-            T: std::convert::Into<crate::model::dns_settings::ds_record::Algorithm>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_algorithm<T: std::convert::Into<crate::model::dns_settings::ds_record::Algorithm>>(mut self, v: T) -> Self {
             self.algorithm = v.into();
             self
         }
 
         /// Sets the value of [digest_type][crate::model::dns_settings::DsRecord::digest_type].
-        pub fn set_digest_type<
-            T: std::convert::Into<crate::model::dns_settings::ds_record::DigestType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_digest_type<T: std::convert::Into<crate::model::dns_settings::ds_record::DigestType>>(mut self, v: T) -> Self {
             self.digest_type = v.into();
             self
         }
@@ -1104,6 +1047,7 @@ pub mod dns_settings {
     pub mod ds_record {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// List of algorithms used to create a DNSKEY. Certain
         /// algorithms are not supported for particular domains.
@@ -1241,10 +1185,7 @@ pub mod dns_settings {
         }
 
         impl std::fmt::Display for Algorithm {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1270,9 +1211,7 @@ pub mod dns_settings {
                     252 => Self::Indirect,
                     253 => Self::Privatedns,
                     254 => Self::Privateoid,
-                    _ => Self::UnknownValue(algorithm::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(algorithm::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1299,9 +1238,7 @@ pub mod dns_settings {
                     "INDIRECT" => Self::Indirect,
                     "PRIVATEDNS" => Self::Privatedns,
                     "PRIVATEOID" => Self::Privateoid,
-                    _ => Self::UnknownValue(algorithm::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(algorithm::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1341,8 +1278,7 @@ pub mod dns_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Algorithm>::new(
-                    ".google.cloud.domains.v1.DnsSettings.DsRecord.Algorithm",
-                ))
+                    ".google.cloud.domains.v1.DnsSettings.DsRecord.Algorithm"))
             }
         }
 
@@ -1430,10 +1366,7 @@ pub mod dns_settings {
         }
 
         impl std::fmt::Display for DigestType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -1446,9 +1379,7 @@ pub mod dns_settings {
                     2 => Self::Sha256,
                     3 => Self::Gost3411,
                     4 => Self::Sha384,
-                    _ => Self::UnknownValue(digest_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(digest_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -1462,9 +1393,7 @@ pub mod dns_settings {
                     "SHA256" => Self::Sha256,
                     "GOST3411" => Self::Gost3411,
                     "SHA384" => Self::Sha384,
-                    _ => Self::UnknownValue(digest_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(digest_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -1491,8 +1420,7 @@ pub mod dns_settings {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<DigestType>::new(
-                    ".google.cloud.domains.v1.DnsSettings.DsRecord.DigestType",
-                ))
+                    ".google.cloud.domains.v1.DnsSettings.DsRecord.DigestType"))
             }
         }
     }
@@ -1506,6 +1434,7 @@ pub mod dns_settings {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GlueRecord {
+
         /// Required. Domain name of the host in Punycode format.
         pub host_name: std::string::String,
 
@@ -1537,7 +1466,7 @@ pub mod dns_settings {
         pub fn set_ipv4_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.ipv4_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -1548,7 +1477,7 @@ pub mod dns_settings {
         pub fn set_ipv6_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.ipv6_addresses = v.into_iter().map(|i| i.into()).collect();
@@ -1652,9 +1581,7 @@ pub mod dns_settings {
                 0 => Self::Unspecified,
                 1 => Self::DsRecordsUnpublished,
                 2 => Self::DsRecordsPublished,
-                _ => Self::UnknownValue(ds_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(ds_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1666,9 +1593,7 @@ pub mod dns_settings {
                 "DS_STATE_UNSPECIFIED" => Self::Unspecified,
                 "DS_RECORDS_UNPUBLISHED" => Self::DsRecordsUnpublished,
                 "DS_RECORDS_PUBLISHED" => Self::DsRecordsPublished,
-                _ => Self::UnknownValue(ds_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(ds_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1693,8 +1618,7 @@ pub mod dns_settings {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<DsState>::new(
-                ".google.cloud.domains.v1.DnsSettings.DsState",
-            ))
+                ".google.cloud.domains.v1.DnsSettings.DsState"))
         }
     }
 
@@ -1718,6 +1642,7 @@ pub mod dns_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContactSettings {
+
     /// Required. Privacy setting for the contacts associated with the `Registration`.
     pub privacy: crate::model::ContactPrivacy,
 
@@ -1746,18 +1671,14 @@ impl ContactSettings {
     }
 
     /// Sets the value of [privacy][crate::model::ContactSettings::privacy].
-    pub fn set_privacy<T: std::convert::Into<crate::model::ContactPrivacy>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_privacy<T: std::convert::Into<crate::model::ContactPrivacy>>(mut self, v: T) -> Self {
         self.privacy = v.into();
         self
     }
 
     /// Sets the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
     pub fn set_registrant_contact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.registrant_contact = std::option::Option::Some(v.into());
         self
@@ -1765,8 +1686,7 @@ impl ContactSettings {
 
     /// Sets or clears the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
     pub fn set_or_clear_registrant_contact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.registrant_contact = v.map(|x| x.into());
         self
@@ -1774,8 +1694,7 @@ impl ContactSettings {
 
     /// Sets the value of [admin_contact][crate::model::ContactSettings::admin_contact].
     pub fn set_admin_contact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.admin_contact = std::option::Option::Some(v.into());
         self
@@ -1783,8 +1702,7 @@ impl ContactSettings {
 
     /// Sets or clears the value of [admin_contact][crate::model::ContactSettings::admin_contact].
     pub fn set_or_clear_admin_contact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.admin_contact = v.map(|x| x.into());
         self
@@ -1792,8 +1710,7 @@ impl ContactSettings {
 
     /// Sets the value of [technical_contact][crate::model::ContactSettings::technical_contact].
     pub fn set_technical_contact<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.technical_contact = std::option::Option::Some(v.into());
         self
@@ -1801,8 +1718,7 @@ impl ContactSettings {
 
     /// Sets or clears the value of [technical_contact][crate::model::ContactSettings::technical_contact].
     pub fn set_or_clear_technical_contact<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::contact_settings::Contact>,
+    where T: std::convert::Into<crate::model::contact_settings::Contact>
     {
         self.technical_contact = v.map(|x| x.into());
         self
@@ -1820,10 +1736,12 @@ pub mod contact_settings {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details required for a contact associated with a `Registration`.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Contact {
+
         /// Required. Postal address of the contact.
         pub postal_address: std::option::Option<gtype::model::PostalAddress>,
 
@@ -1848,8 +1766,7 @@ pub mod contact_settings {
 
         /// Sets the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
         pub fn set_postal_address<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<gtype::model::PostalAddress>,
+        where T: std::convert::Into<gtype::model::PostalAddress>
         {
             self.postal_address = std::option::Option::Some(v.into());
             self
@@ -1857,8 +1774,7 @@ pub mod contact_settings {
 
         /// Sets or clears the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
         pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<gtype::model::PostalAddress>,
+        where T: std::convert::Into<gtype::model::PostalAddress>
         {
             self.postal_address = v.map(|x| x.into());
             self
@@ -1871,10 +1787,7 @@ pub mod contact_settings {
         }
 
         /// Sets the value of [phone_number][crate::model::contact_settings::Contact::phone_number].
-        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_phone_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.phone_number = v.into();
             self
         }
@@ -1897,6 +1810,7 @@ pub mod contact_settings {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchDomainsRequest {
+
     /// Required. String used to search for available domain names.
     pub query: std::string::String,
 
@@ -1934,6 +1848,7 @@ impl wkt::message::Message for SearchDomainsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchDomainsResponse {
+
     /// Results of the domain name search.
     pub register_parameters: std::vec::Vec<crate::model::RegisterParameters>,
 
@@ -1949,7 +1864,7 @@ impl SearchDomainsResponse {
     pub fn set_register_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::RegisterParameters>,
+        V: std::convert::Into<crate::model::RegisterParameters>
     {
         use std::iter::Iterator;
         self.register_parameters = v.into_iter().map(|i| i.into()).collect();
@@ -1967,6 +1882,7 @@ impl wkt::message::Message for SearchDomainsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveRegisterParametersRequest {
+
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
     pub domain_name: std::string::String,
 
@@ -2004,6 +1920,7 @@ impl wkt::message::Message for RetrieveRegisterParametersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveRegisterParametersResponse {
+
     /// Parameters to use when calling the `RegisterDomain` method.
     pub register_parameters: std::option::Option<crate::model::RegisterParameters>,
 
@@ -2017,8 +1934,7 @@ impl RetrieveRegisterParametersResponse {
 
     /// Sets the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
     pub fn set_register_parameters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RegisterParameters>,
+    where T: std::convert::Into<crate::model::RegisterParameters>
     {
         self.register_parameters = std::option::Option::Some(v.into());
         self
@@ -2026,8 +1942,7 @@ impl RetrieveRegisterParametersResponse {
 
     /// Sets or clears the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
     pub fn set_or_clear_register_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RegisterParameters>,
+    where T: std::convert::Into<crate::model::RegisterParameters>
     {
         self.register_parameters = v.map(|x| x.into());
         self
@@ -2044,6 +1959,7 @@ impl wkt::message::Message for RetrieveRegisterParametersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterDomainRequest {
+
     /// Required. The parent resource of the `Registration`. Must be in the
     /// format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -2086,8 +2002,7 @@ impl RegisterDomainRequest {
 
     /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
     pub fn set_registration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = std::option::Option::Some(v.into());
         self
@@ -2095,8 +2010,7 @@ impl RegisterDomainRequest {
 
     /// Sets or clears the value of [registration][crate::model::RegisterDomainRequest::registration].
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = v.map(|x| x.into());
         self
@@ -2106,7 +2020,7 @@ impl RegisterDomainRequest {
     pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DomainNotice>,
+        V: std::convert::Into<crate::model::DomainNotice>
     {
         use std::iter::Iterator;
         self.domain_notices = v.into_iter().map(|i| i.into()).collect();
@@ -2117,7 +2031,7 @@ impl RegisterDomainRequest {
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactNotice>,
+        V: std::convert::Into<crate::model::ContactNotice>
     {
         use std::iter::Iterator;
         self.contact_notices = v.into_iter().map(|i| i.into()).collect();
@@ -2126,8 +2040,7 @@ impl RegisterDomainRequest {
 
     /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -2135,8 +2048,7 @@ impl RegisterDomainRequest {
 
     /// Sets or clears the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -2159,6 +2071,7 @@ impl wkt::message::Message for RegisterDomainRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveTransferParametersRequest {
+
     /// Required. The domain name. Unicode domain names must be expressed in Punycode format.
     pub domain_name: std::string::String,
 
@@ -2196,6 +2109,7 @@ impl wkt::message::Message for RetrieveTransferParametersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveTransferParametersResponse {
+
     /// Parameters to use when calling the `TransferDomain` method.
     pub transfer_parameters: std::option::Option<crate::model::TransferParameters>,
 
@@ -2209,8 +2123,7 @@ impl RetrieveTransferParametersResponse {
 
     /// Sets the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
     pub fn set_transfer_parameters<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferParameters>,
+    where T: std::convert::Into<crate::model::TransferParameters>
     {
         self.transfer_parameters = std::option::Option::Some(v.into());
         self
@@ -2218,8 +2131,7 @@ impl RetrieveTransferParametersResponse {
 
     /// Sets or clears the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
     pub fn set_or_clear_transfer_parameters<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TransferParameters>,
+    where T: std::convert::Into<crate::model::TransferParameters>
     {
         self.transfer_parameters = v.map(|x| x.into());
         self
@@ -2236,6 +2148,7 @@ impl wkt::message::Message for RetrieveTransferParametersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferDomainRequest {
+
     /// Required. The parent resource of the `Registration`. Must be in the
     /// format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -2282,8 +2195,7 @@ impl TransferDomainRequest {
 
     /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
     pub fn set_registration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = std::option::Option::Some(v.into());
         self
@@ -2291,8 +2203,7 @@ impl TransferDomainRequest {
 
     /// Sets or clears the value of [registration][crate::model::TransferDomainRequest::registration].
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = v.map(|x| x.into());
         self
@@ -2302,7 +2213,7 @@ impl TransferDomainRequest {
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactNotice>,
+        V: std::convert::Into<crate::model::ContactNotice>
     {
         use std::iter::Iterator;
         self.contact_notices = v.into_iter().map(|i| i.into()).collect();
@@ -2311,8 +2222,7 @@ impl TransferDomainRequest {
 
     /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -2320,8 +2230,7 @@ impl TransferDomainRequest {
 
     /// Sets or clears the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -2329,8 +2238,7 @@ impl TransferDomainRequest {
 
     /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
     pub fn set_authorization_code<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationCode>,
+    where T: std::convert::Into<crate::model::AuthorizationCode>
     {
         self.authorization_code = std::option::Option::Some(v.into());
         self
@@ -2338,8 +2246,7 @@ impl TransferDomainRequest {
 
     /// Sets or clears the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
     pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthorizationCode>,
+    where T: std::convert::Into<crate::model::AuthorizationCode>
     {
         self.authorization_code = v.map(|x| x.into());
         self
@@ -2362,6 +2269,7 @@ impl wkt::message::Message for TransferDomainRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRegistrationsRequest {
+
     /// Required. The project and location from which to list `Registration`s, specified in
     /// the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -2434,6 +2342,7 @@ impl wkt::message::Message for ListRegistrationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRegistrationsResponse {
+
     /// A list of `Registration`s.
     pub registrations: std::vec::Vec<crate::model::Registration>,
 
@@ -2453,7 +2362,7 @@ impl ListRegistrationsResponse {
     pub fn set_registrations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Registration>,
+        V: std::convert::Into<crate::model::Registration>
     {
         use std::iter::Iterator;
         self.registrations = v.into_iter().map(|i| i.into()).collect();
@@ -2491,6 +2400,7 @@ impl gax::paginator::internal::PageableResponse for ListRegistrationsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRegistrationRequest {
+
     /// Required. The name of the `Registration` to get, in the format
     /// `projects/*/locations/*/registrations/*`.
     pub name: std::string::String,
@@ -2520,6 +2430,7 @@ impl wkt::message::Message for GetRegistrationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRegistrationRequest {
+
     /// Fields of the `Registration` to update.
     pub registration: std::option::Option<crate::model::Registration>,
 
@@ -2538,8 +2449,7 @@ impl UpdateRegistrationRequest {
 
     /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
     pub fn set_registration<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = std::option::Option::Some(v.into());
         self
@@ -2547,8 +2457,7 @@ impl UpdateRegistrationRequest {
 
     /// Sets or clears the value of [registration][crate::model::UpdateRegistrationRequest::registration].
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Registration>,
+    where T: std::convert::Into<crate::model::Registration>
     {
         self.registration = v.map(|x| x.into());
         self
@@ -2556,8 +2465,7 @@ impl UpdateRegistrationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2565,8 +2473,7 @@ impl UpdateRegistrationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2583,6 +2490,7 @@ impl wkt::message::Message for UpdateRegistrationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureManagementSettingsRequest {
+
     /// Required. The name of the `Registration` whose management settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub registration: std::string::String,
@@ -2611,8 +2519,7 @@ impl ConfigureManagementSettingsRequest {
 
     /// Sets the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
     pub fn set_management_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementSettings>,
+    where T: std::convert::Into<crate::model::ManagementSettings>
     {
         self.management_settings = std::option::Option::Some(v.into());
         self
@@ -2620,8 +2527,7 @@ impl ConfigureManagementSettingsRequest {
 
     /// Sets or clears the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
     pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagementSettings>,
+    where T: std::convert::Into<crate::model::ManagementSettings>
     {
         self.management_settings = v.map(|x| x.into());
         self
@@ -2629,8 +2535,7 @@ impl ConfigureManagementSettingsRequest {
 
     /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2638,8 +2543,7 @@ impl ConfigureManagementSettingsRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2656,6 +2560,7 @@ impl wkt::message::Message for ConfigureManagementSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureDnsSettingsRequest {
+
     /// Required. The name of the `Registration` whose DNS settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub registration: std::string::String,
@@ -2693,8 +2598,7 @@ impl ConfigureDnsSettingsRequest {
 
     /// Sets the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
     pub fn set_dns_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsSettings>,
+    where T: std::convert::Into<crate::model::DnsSettings>
     {
         self.dns_settings = std::option::Option::Some(v.into());
         self
@@ -2702,8 +2606,7 @@ impl ConfigureDnsSettingsRequest {
 
     /// Sets or clears the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
     pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsSettings>,
+    where T: std::convert::Into<crate::model::DnsSettings>
     {
         self.dns_settings = v.map(|x| x.into());
         self
@@ -2711,8 +2614,7 @@ impl ConfigureDnsSettingsRequest {
 
     /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2720,8 +2622,7 @@ impl ConfigureDnsSettingsRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2744,6 +2645,7 @@ impl wkt::message::Message for ConfigureDnsSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfigureContactSettingsRequest {
+
     /// Required. The name of the `Registration` whose contact settings are being updated,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub registration: std::string::String,
@@ -2779,8 +2681,7 @@ impl ConfigureContactSettingsRequest {
 
     /// Sets the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
     pub fn set_contact_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.contact_settings = std::option::Option::Some(v.into());
         self
@@ -2788,8 +2689,7 @@ impl ConfigureContactSettingsRequest {
 
     /// Sets or clears the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
     pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ContactSettings>,
+    where T: std::convert::Into<crate::model::ContactSettings>
     {
         self.contact_settings = v.map(|x| x.into());
         self
@@ -2797,8 +2697,7 @@ impl ConfigureContactSettingsRequest {
 
     /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2806,8 +2705,7 @@ impl ConfigureContactSettingsRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2817,7 +2715,7 @@ impl ConfigureContactSettingsRequest {
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactNotice>,
+        V: std::convert::Into<crate::model::ContactNotice>
     {
         use std::iter::Iterator;
         self.contact_notices = v.into_iter().map(|i| i.into()).collect();
@@ -2841,6 +2739,7 @@ impl wkt::message::Message for ConfigureContactSettingsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExportRegistrationRequest {
+
     /// Required. The name of the `Registration` to export,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub name: std::string::String,
@@ -2870,6 +2769,7 @@ impl wkt::message::Message for ExportRegistrationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRegistrationRequest {
+
     /// Required. The name of the `Registration` to delete,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub name: std::string::String,
@@ -2899,6 +2799,7 @@ impl wkt::message::Message for DeleteRegistrationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RetrieveAuthorizationCodeRequest {
+
     /// Required. The name of the `Registration` whose authorization code is being retrieved,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub registration: std::string::String,
@@ -2928,6 +2829,7 @@ impl wkt::message::Message for RetrieveAuthorizationCodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetAuthorizationCodeRequest {
+
     /// Required. The name of the `Registration` whose authorization code is being reset,
     /// in the format `projects/*/locations/*/registrations/*`.
     pub registration: std::string::String,
@@ -2957,6 +2859,7 @@ impl wkt::message::Message for ResetAuthorizationCodeRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegisterParameters {
+
     /// The domain name. Unicode domain names are expressed in Punycode format.
     pub domain_name: std::string::String,
 
@@ -2989,12 +2892,7 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [availability][crate::model::RegisterParameters::availability].
-    pub fn set_availability<
-        T: std::convert::Into<crate::model::register_parameters::Availability>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_availability<T: std::convert::Into<crate::model::register_parameters::Availability>>(mut self, v: T) -> Self {
         self.availability = v.into();
         self
     }
@@ -3003,7 +2901,7 @@ impl RegisterParameters {
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactPrivacy>,
+        V: std::convert::Into<crate::model::ContactPrivacy>
     {
         use std::iter::Iterator;
         self.supported_privacy = v.into_iter().map(|i| i.into()).collect();
@@ -3014,7 +2912,7 @@ impl RegisterParameters {
     pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DomainNotice>,
+        V: std::convert::Into<crate::model::DomainNotice>
     {
         use std::iter::Iterator;
         self.domain_notices = v.into_iter().map(|i| i.into()).collect();
@@ -3023,8 +2921,7 @@ impl RegisterParameters {
 
     /// Sets the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -3032,8 +2929,7 @@ impl RegisterParameters {
 
     /// Sets or clears the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -3050,6 +2946,7 @@ impl wkt::message::Message for RegisterParameters {
 pub mod register_parameters {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Possible availability states of a domain name.
     ///
@@ -3150,9 +3047,7 @@ pub mod register_parameters {
                 2 => Self::Unavailable,
                 3 => Self::Unsupported,
                 4 => Self::Unknown,
-                _ => Self::UnknownValue(availability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(availability::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3166,9 +3061,7 @@ pub mod register_parameters {
                 "UNAVAILABLE" => Self::Unavailable,
                 "UNSUPPORTED" => Self::Unsupported,
                 "UNKNOWN" => Self::Unknown,
-                _ => Self::UnknownValue(availability::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(availability::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3195,8 +3088,7 @@ pub mod register_parameters {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Availability>::new(
-                ".google.cloud.domains.v1.RegisterParameters.Availability",
-            ))
+                ".google.cloud.domains.v1.RegisterParameters.Availability"))
         }
     }
 }
@@ -3205,6 +3097,7 @@ pub mod register_parameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransferParameters {
+
     /// The domain name. Unicode domain names are expressed in Punycode format.
     pub domain_name: std::string::String,
 
@@ -3240,10 +3133,7 @@ impl TransferParameters {
     }
 
     /// Sets the value of [current_registrar][crate::model::TransferParameters::current_registrar].
-    pub fn set_current_registrar<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_current_registrar<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_registrar = v.into();
         self
     }
@@ -3252,7 +3142,7 @@ impl TransferParameters {
     pub fn set_name_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.name_servers = v.into_iter().map(|i| i.into()).collect();
@@ -3260,10 +3150,7 @@ impl TransferParameters {
     }
 
     /// Sets the value of [transfer_lock_state][crate::model::TransferParameters::transfer_lock_state].
-    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(mut self, v: T) -> Self {
         self.transfer_lock_state = v.into();
         self
     }
@@ -3272,7 +3159,7 @@ impl TransferParameters {
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ContactPrivacy>,
+        V: std::convert::Into<crate::model::ContactPrivacy>
     {
         use std::iter::Iterator;
         self.supported_privacy = v.into_iter().map(|i| i.into()).collect();
@@ -3281,8 +3168,7 @@ impl TransferParameters {
 
     /// Sets the value of [yearly_price][crate::model::TransferParameters::yearly_price].
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = std::option::Option::Some(v.into());
         self
@@ -3290,8 +3176,7 @@ impl TransferParameters {
 
     /// Sets or clears the value of [yearly_price][crate::model::TransferParameters::yearly_price].
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Money>,
+    where T: std::convert::Into<gtype::model::Money>
     {
         self.yearly_price = v.map(|x| x.into());
         self
@@ -3308,6 +3193,7 @@ impl wkt::message::Message for TransferParameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthorizationCode {
+
     /// The Authorization Code in ASCII. It can be used to transfer the domain
     /// to or from another registrar.
     pub code: std::string::String,
@@ -3337,6 +3223,7 @@ impl wkt::message::Message for AuthorizationCode {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3365,8 +3252,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3374,8 +3260,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3383,8 +3268,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3392,8 +3276,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3535,9 +3418,7 @@ impl std::convert::From<i32> for ContactPrivacy {
             1 => Self::PublicContactData,
             2 => Self::PrivateContactData,
             3 => Self::RedactedContactData,
-            _ => Self::UnknownValue(contact_privacy::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(contact_privacy::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3550,9 +3431,7 @@ impl std::convert::From<&str> for ContactPrivacy {
             "PUBLIC_CONTACT_DATA" => Self::PublicContactData,
             "PRIVATE_CONTACT_DATA" => Self::PrivateContactData,
             "REDACTED_CONTACT_DATA" => Self::RedactedContactData,
-            _ => Self::UnknownValue(contact_privacy::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(contact_privacy::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3578,8 +3457,7 @@ impl<'de> serde::de::Deserialize<'de> for ContactPrivacy {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContactPrivacy>::new(
-            ".google.cloud.domains.v1.ContactPrivacy",
-        ))
+            ".google.cloud.domains.v1.ContactPrivacy"))
     }
 }
 
@@ -3668,9 +3546,7 @@ impl std::convert::From<i32> for DomainNotice {
         match value {
             0 => Self::Unspecified,
             1 => Self::HstsPreloaded,
-            _ => Self::UnknownValue(domain_notice::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(domain_notice::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3681,9 +3557,7 @@ impl std::convert::From<&str> for DomainNotice {
         match value {
             "DOMAIN_NOTICE_UNSPECIFIED" => Self::Unspecified,
             "HSTS_PRELOADED" => Self::HstsPreloaded,
-            _ => Self::UnknownValue(domain_notice::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(domain_notice::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3707,8 +3581,7 @@ impl<'de> serde::de::Deserialize<'de> for DomainNotice {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<DomainNotice>::new(
-            ".google.cloud.domains.v1.DomainNotice",
-        ))
+            ".google.cloud.domains.v1.DomainNotice"))
     }
 }
 
@@ -3770,9 +3643,7 @@ impl ContactNotice {
     pub fn name(&self) -> std::option::Option<&str> {
         match self {
             Self::Unspecified => std::option::Option::Some("CONTACT_NOTICE_UNSPECIFIED"),
-            Self::PublicContactDataAcknowledgement => {
-                std::option::Option::Some("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT")
-            }
+            Self::PublicContactDataAcknowledgement => std::option::Option::Some("PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -3796,9 +3667,7 @@ impl std::convert::From<i32> for ContactNotice {
         match value {
             0 => Self::Unspecified,
             1 => Self::PublicContactDataAcknowledgement,
-            _ => Self::UnknownValue(contact_notice::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(contact_notice::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3809,9 +3678,7 @@ impl std::convert::From<&str> for ContactNotice {
         match value {
             "CONTACT_NOTICE_UNSPECIFIED" => Self::Unspecified,
             "PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT" => Self::PublicContactDataAcknowledgement,
-            _ => Self::UnknownValue(contact_notice::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(contact_notice::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3835,8 +3702,7 @@ impl<'de> serde::de::Deserialize<'de> for ContactNotice {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ContactNotice>::new(
-            ".google.cloud.domains.v1.ContactNotice",
-        ))
+            ".google.cloud.domains.v1.ContactNotice"))
     }
 }
 
@@ -3926,9 +3792,7 @@ impl std::convert::From<i32> for TransferLockState {
             0 => Self::Unspecified,
             1 => Self::Unlocked,
             2 => Self::Locked,
-            _ => Self::UnknownValue(transfer_lock_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(transfer_lock_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -3940,9 +3804,7 @@ impl std::convert::From<&str> for TransferLockState {
             "TRANSFER_LOCK_STATE_UNSPECIFIED" => Self::Unspecified,
             "UNLOCKED" => Self::Unlocked,
             "LOCKED" => Self::Locked,
-            _ => Self::UnknownValue(transfer_lock_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(transfer_lock_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -3967,7 +3829,6 @@ impl<'de> serde::de::Deserialize<'de> for TransferLockState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TransferLockState>::new(
-            ".google.cloud.domains.v1.TransferLockState",
-        ))
+            ".google.cloud.domains.v1.TransferLockState"))
     }
 }

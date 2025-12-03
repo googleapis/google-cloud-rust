@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -41,6 +41,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateIssuanceConfigsRequest {
+
     /// Required. The project and location from which the certificate should be
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -111,6 +112,7 @@ impl wkt::message::Message for ListCertificateIssuanceConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateIssuanceConfigsResponse {
+
     /// A list of certificate configs for the parent resource.
     pub certificate_issuance_configs: std::vec::Vec<crate::model::CertificateIssuanceConfig>,
 
@@ -134,7 +136,7 @@ impl ListCertificateIssuanceConfigsResponse {
     pub fn set_certificate_issuance_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        V: std::convert::Into<crate::model::CertificateIssuanceConfig>
     {
         use std::iter::Iterator;
         self.certificate_issuance_configs = v.into_iter().map(|i| i.into()).collect();
@@ -151,7 +153,7 @@ impl ListCertificateIssuanceConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -183,6 +185,7 @@ impl gax::paginator::internal::PageableResponse for ListCertificateIssuanceConfi
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateIssuanceConfigRequest {
+
     /// Required. A name of the certificate issuance config to describe. Must be in
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     pub name: std::string::String,
@@ -212,6 +215,7 @@ impl wkt::message::Message for GetCertificateIssuanceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateIssuanceConfigRequest {
+
     /// Required. The parent resource of the certificate issuance config. Must be
     /// in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -237,18 +241,14 @@ impl CreateCertificateIssuanceConfigRequest {
     }
 
     /// Sets the value of [certificate_issuance_config_id][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config_id].
-    pub fn set_certificate_issuance_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_certificate_issuance_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_issuance_config_id = v.into();
         self
     }
 
     /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
     pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    where T: std::convert::Into<crate::model::CertificateIssuanceConfig>
     {
         self.certificate_issuance_config = std::option::Option::Some(v.into());
         self
@@ -256,8 +256,7 @@ impl CreateCertificateIssuanceConfigRequest {
 
     /// Sets or clears the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
     pub fn set_or_clear_certificate_issuance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+    where T: std::convert::Into<crate::model::CertificateIssuanceConfig>
     {
         self.certificate_issuance_config = v.map(|x| x.into());
         self
@@ -274,6 +273,7 @@ impl wkt::message::Message for CreateCertificateIssuanceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateIssuanceConfigRequest {
+
     /// Required. A name of the certificate issuance config to delete. Must be in
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     pub name: std::string::String,
@@ -303,6 +303,7 @@ impl wkt::message::Message for DeleteCertificateIssuanceConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateIssuanceConfig {
+
     /// A user-defined name of the certificate issuance config.
     /// CertificateIssuanceConfig names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateIssuanceConfigs/*`.
@@ -315,15 +316,14 @@ pub struct CertificateIssuanceConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a CertificateIssuanceConfig.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// One or more paragraphs of text description of a CertificateIssuanceConfig.
     pub description: std::string::String,
 
     /// Required. The CA that issues the workload certificate. It includes the CA
     /// address, type, authentication to CA service, etc.
-    pub certificate_authority_config:
-        std::option::Option<crate::model::certificate_issuance_config::CertificateAuthorityConfig>,
+    pub certificate_authority_config: std::option::Option<crate::model::certificate_issuance_config::CertificateAuthorityConfig>,
 
     /// Required. Workload certificate lifetime requested.
     pub lifetime: std::option::Option<wkt::Duration>,
@@ -352,8 +352,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -361,8 +360,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets or clears the value of [create_time][crate::model::CertificateIssuanceConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -370,8 +368,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -379,8 +376,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets or clears the value of [update_time][crate::model::CertificateIssuanceConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -406,10 +402,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
     pub fn set_certificate_authority_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::certificate_issuance_config::CertificateAuthorityConfig,
-            >,
+    where T: std::convert::Into<crate::model::certificate_issuance_config::CertificateAuthorityConfig>
     {
         self.certificate_authority_config = std::option::Option::Some(v.into());
         self
@@ -417,10 +410,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets or clears the value of [certificate_authority_config][crate::model::CertificateIssuanceConfig::certificate_authority_config].
     pub fn set_or_clear_certificate_authority_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<
-                crate::model::certificate_issuance_config::CertificateAuthorityConfig,
-            >,
+    where T: std::convert::Into<crate::model::certificate_issuance_config::CertificateAuthorityConfig>
     {
         self.certificate_authority_config = v.map(|x| x.into());
         self
@@ -428,8 +418,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
     pub fn set_lifetime<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.lifetime = std::option::Option::Some(v.into());
         self
@@ -437,8 +426,7 @@ impl CertificateIssuanceConfig {
 
     /// Sets or clears the value of [lifetime][crate::model::CertificateIssuanceConfig::lifetime].
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.lifetime = v.map(|x| x.into());
         self
@@ -451,12 +439,7 @@ impl CertificateIssuanceConfig {
     }
 
     /// Sets the value of [key_algorithm][crate::model::CertificateIssuanceConfig::key_algorithm].
-    pub fn set_key_algorithm<
-        T: std::convert::Into<crate::model::certificate_issuance_config::KeyAlgorithm>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_algorithm<T: std::convert::Into<crate::model::certificate_issuance_config::KeyAlgorithm>>(mut self, v: T) -> Self {
         self.key_algorithm = v.into();
         self
     }
@@ -473,14 +456,14 @@ pub mod certificate_issuance_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The CA that issues the workload certificate. It includes CA address, type,
     /// authentication to CA service, etc.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityConfig {
-        pub kind: std::option::Option<
-            crate::model::certificate_issuance_config::certificate_authority_config::Kind,
-        >,
+
+        pub kind: std::option::Option<crate::model::certificate_issuance_config::certificate_authority_config::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -503,7 +486,7 @@ pub mod certificate_issuance_config {
         /// The value of [kind][crate::model::certificate_issuance_config::CertificateAuthorityConfig::kind]
         /// if it holds a `CertificateAuthorityServiceConfig`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn certificate_authority_service_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>{
+        pub fn certificate_authority_service_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
                 crate::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(v) => std::option::Option::Some(v),
@@ -516,7 +499,7 @@ pub mod certificate_issuance_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_certificate_authority_service_config<T: std::convert::Into<std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>>(mut self, v: T) -> Self{
+        pub fn set_certificate_authority_service_config<T: std::convert::Into<std::boxed::Box<crate::model::certificate_issuance_config::certificate_authority_config::CertificateAuthorityServiceConfig>>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::certificate_issuance_config::certificate_authority_config::Kind::CertificateAuthorityServiceConfig(
                     v.into()
@@ -537,10 +520,12 @@ pub mod certificate_issuance_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Contains information required to contact CA service.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CertificateAuthorityServiceConfig {
+
             /// Required. A CA pool resource used to issue a certificate.
             /// The CA pool string has a relative resource path following the form
             /// "projects/{project}/locations/{location}/caPools/{ca_pool}".
@@ -661,9 +646,7 @@ pub mod certificate_issuance_config {
                 0 => Self::Unspecified,
                 1 => Self::Rsa2048,
                 4 => Self::EcdsaP256,
-                _ => Self::UnknownValue(key_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(key_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -675,9 +658,7 @@ pub mod certificate_issuance_config {
                 "KEY_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
                 "RSA_2048" => Self::Rsa2048,
                 "ECDSA_P256" => Self::EcdsaP256,
-                _ => Self::UnknownValue(key_algorithm::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(key_algorithm::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -702,8 +683,7 @@ pub mod certificate_issuance_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyAlgorithm>::new(
-                ".google.cloud.certificatemanager.v1.CertificateIssuanceConfig.KeyAlgorithm",
-            ))
+                ".google.cloud.certificatemanager.v1.CertificateIssuanceConfig.KeyAlgorithm"))
         }
     }
 }
@@ -712,6 +692,7 @@ pub mod certificate_issuance_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesRequest {
+
     /// Required. The project and location from which the certificate should be
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -781,6 +762,7 @@ impl wkt::message::Message for ListCertificatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificatesResponse {
+
     /// A list of certificates for the parent resource.
     pub certificates: std::vec::Vec<crate::model::Certificate>,
 
@@ -804,7 +786,7 @@ impl ListCertificatesResponse {
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Certificate>,
+        V: std::convert::Into<crate::model::Certificate>
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
@@ -821,7 +803,7 @@ impl ListCertificatesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -853,6 +835,7 @@ impl gax::paginator::internal::PageableResponse for ListCertificatesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateRequest {
+
     /// Required. A name of the certificate to describe. Must be in the format
     /// `projects/*/locations/*/certificates/*`.
     pub name: std::string::String,
@@ -882,6 +865,7 @@ impl wkt::message::Message for GetCertificateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateRequest {
+
     /// Required. The parent resource of the certificate. Must be in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -914,8 +898,7 @@ impl CreateCertificateRequest {
 
     /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
     pub fn set_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Certificate>,
+    where T: std::convert::Into<crate::model::Certificate>
     {
         self.certificate = std::option::Option::Some(v.into());
         self
@@ -923,8 +906,7 @@ impl CreateCertificateRequest {
 
     /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Certificate>,
+    where T: std::convert::Into<crate::model::Certificate>
     {
         self.certificate = v.map(|x| x.into());
         self
@@ -941,6 +923,7 @@ impl wkt::message::Message for CreateCertificateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateRequest {
+
     /// Required. A definition of the certificate to update.
     pub certificate: std::option::Option<crate::model::Certificate>,
 
@@ -959,8 +942,7 @@ impl UpdateCertificateRequest {
 
     /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
     pub fn set_certificate<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Certificate>,
+    where T: std::convert::Into<crate::model::Certificate>
     {
         self.certificate = std::option::Option::Some(v.into());
         self
@@ -968,8 +950,7 @@ impl UpdateCertificateRequest {
 
     /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Certificate>,
+    where T: std::convert::Into<crate::model::Certificate>
     {
         self.certificate = v.map(|x| x.into());
         self
@@ -977,8 +958,7 @@ impl UpdateCertificateRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -986,8 +966,7 @@ impl UpdateCertificateRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1004,6 +983,7 @@ impl wkt::message::Message for UpdateCertificateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateRequest {
+
     /// Required. A name of the certificate to delete. Must be in the format
     /// `projects/*/locations/*/certificates/*`.
     pub name: std::string::String,
@@ -1033,6 +1013,7 @@ impl wkt::message::Message for DeleteCertificateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapsRequest {
+
     /// Required. The project and location from which the certificate maps should
     /// be listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -1102,6 +1083,7 @@ impl wkt::message::Message for ListCertificateMapsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapsResponse {
+
     /// A list of certificate maps for the parent resource.
     pub certificate_maps: std::vec::Vec<crate::model::CertificateMap>,
 
@@ -1125,7 +1107,7 @@ impl ListCertificateMapsResponse {
     pub fn set_certificate_maps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertificateMap>,
+        V: std::convert::Into<crate::model::CertificateMap>
     {
         use std::iter::Iterator;
         self.certificate_maps = v.into_iter().map(|i| i.into()).collect();
@@ -1142,7 +1124,7 @@ impl ListCertificateMapsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1174,6 +1156,7 @@ impl gax::paginator::internal::PageableResponse for ListCertificateMapsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateMapRequest {
+
     /// Required. A name of the certificate map to describe. Must be in the format
     /// `projects/*/locations/*/certificateMaps/*`.
     pub name: std::string::String,
@@ -1203,6 +1186,7 @@ impl wkt::message::Message for GetCertificateMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateMapRequest {
+
     /// Required. The parent resource of the certificate map. Must be in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -1228,18 +1212,14 @@ impl CreateCertificateMapRequest {
     }
 
     /// Sets the value of [certificate_map_id][crate::model::CreateCertificateMapRequest::certificate_map_id].
-    pub fn set_certificate_map_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_certificate_map_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_map_id = v.into();
         self
     }
 
     /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
     pub fn set_certificate_map<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMap>,
+    where T: std::convert::Into<crate::model::CertificateMap>
     {
         self.certificate_map = std::option::Option::Some(v.into());
         self
@@ -1247,8 +1227,7 @@ impl CreateCertificateMapRequest {
 
     /// Sets or clears the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
     pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMap>,
+    where T: std::convert::Into<crate::model::CertificateMap>
     {
         self.certificate_map = v.map(|x| x.into());
         self
@@ -1265,6 +1244,7 @@ impl wkt::message::Message for CreateCertificateMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateMapRequest {
+
     /// Required. A definition of the certificate map to update.
     pub certificate_map: std::option::Option<crate::model::CertificateMap>,
 
@@ -1283,8 +1263,7 @@ impl UpdateCertificateMapRequest {
 
     /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
     pub fn set_certificate_map<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMap>,
+    where T: std::convert::Into<crate::model::CertificateMap>
     {
         self.certificate_map = std::option::Option::Some(v.into());
         self
@@ -1292,8 +1271,7 @@ impl UpdateCertificateMapRequest {
 
     /// Sets or clears the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
     pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMap>,
+    where T: std::convert::Into<crate::model::CertificateMap>
     {
         self.certificate_map = v.map(|x| x.into());
         self
@@ -1301,8 +1279,7 @@ impl UpdateCertificateMapRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1310,8 +1287,7 @@ impl UpdateCertificateMapRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1328,6 +1304,7 @@ impl wkt::message::Message for UpdateCertificateMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateMapRequest {
+
     /// Required. A name of the certificate map to delete. Must be in the format
     /// `projects/*/locations/*/certificateMaps/*`.
     pub name: std::string::String,
@@ -1357,6 +1334,7 @@ impl wkt::message::Message for DeleteCertificateMapRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapEntriesRequest {
+
     /// Required. The project, location and certificate map from which the
     /// certificate map entries should be listed, specified in the format
     /// `projects/*/locations/*/certificateMaps/*`.
@@ -1431,6 +1409,7 @@ impl wkt::message::Message for ListCertificateMapEntriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCertificateMapEntriesResponse {
+
     /// A list of certificate map entries for the parent resource.
     pub certificate_map_entries: std::vec::Vec<crate::model::CertificateMapEntry>,
 
@@ -1454,7 +1433,7 @@ impl ListCertificateMapEntriesResponse {
     pub fn set_certificate_map_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CertificateMapEntry>,
+        V: std::convert::Into<crate::model::CertificateMapEntry>
     {
         use std::iter::Iterator;
         self.certificate_map_entries = v.into_iter().map(|i| i.into()).collect();
@@ -1471,7 +1450,7 @@ impl ListCertificateMapEntriesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1503,6 +1482,7 @@ impl gax::paginator::internal::PageableResponse for ListCertificateMapEntriesRes
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCertificateMapEntryRequest {
+
     /// Required. A name of the certificate map entry to describe. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     pub name: std::string::String,
@@ -1532,6 +1512,7 @@ impl wkt::message::Message for GetCertificateMapEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCertificateMapEntryRequest {
+
     /// Required. The parent resource of the certificate map entry. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*`.
     pub parent: std::string::String,
@@ -1557,18 +1538,14 @@ impl CreateCertificateMapEntryRequest {
     }
 
     /// Sets the value of [certificate_map_entry_id][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry_id].
-    pub fn set_certificate_map_entry_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_certificate_map_entry_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_map_entry_id = v.into();
         self
     }
 
     /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
     pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    where T: std::convert::Into<crate::model::CertificateMapEntry>
     {
         self.certificate_map_entry = std::option::Option::Some(v.into());
         self
@@ -1576,8 +1553,7 @@ impl CreateCertificateMapEntryRequest {
 
     /// Sets or clears the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
     pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    where T: std::convert::Into<crate::model::CertificateMapEntry>
     {
         self.certificate_map_entry = v.map(|x| x.into());
         self
@@ -1594,6 +1570,7 @@ impl wkt::message::Message for CreateCertificateMapEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateCertificateMapEntryRequest {
+
     /// Required. A definition of the certificate map entry to create map entry.
     pub certificate_map_entry: std::option::Option<crate::model::CertificateMapEntry>,
 
@@ -1612,8 +1589,7 @@ impl UpdateCertificateMapEntryRequest {
 
     /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
     pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    where T: std::convert::Into<crate::model::CertificateMapEntry>
     {
         self.certificate_map_entry = std::option::Option::Some(v.into());
         self
@@ -1621,8 +1597,7 @@ impl UpdateCertificateMapEntryRequest {
 
     /// Sets or clears the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
     pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CertificateMapEntry>,
+    where T: std::convert::Into<crate::model::CertificateMapEntry>
     {
         self.certificate_map_entry = v.map(|x| x.into());
         self
@@ -1630,8 +1605,7 @@ impl UpdateCertificateMapEntryRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1639,8 +1613,7 @@ impl UpdateCertificateMapEntryRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1657,6 +1630,7 @@ impl wkt::message::Message for UpdateCertificateMapEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteCertificateMapEntryRequest {
+
     /// Required. A name of the certificate map entry to delete. Must be in the
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     pub name: std::string::String,
@@ -1686,6 +1660,7 @@ impl wkt::message::Message for DeleteCertificateMapEntryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDnsAuthorizationsRequest {
+
     /// Required. The project and location from which the dns authorizations should
     /// be listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -1755,6 +1730,7 @@ impl wkt::message::Message for ListDnsAuthorizationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDnsAuthorizationsResponse {
+
     /// A list of dns authorizations for the parent resource.
     pub dns_authorizations: std::vec::Vec<crate::model::DnsAuthorization>,
 
@@ -1778,7 +1754,7 @@ impl ListDnsAuthorizationsResponse {
     pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DnsAuthorization>,
+        V: std::convert::Into<crate::model::DnsAuthorization>
     {
         use std::iter::Iterator;
         self.dns_authorizations = v.into_iter().map(|i| i.into()).collect();
@@ -1795,7 +1771,7 @@ impl ListDnsAuthorizationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1827,6 +1803,7 @@ impl gax::paginator::internal::PageableResponse for ListDnsAuthorizationsRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDnsAuthorizationRequest {
+
     /// Required. A name of the dns authorization to describe. Must be in the
     /// format `projects/*/locations/*/dnsAuthorizations/*`.
     pub name: std::string::String,
@@ -1856,6 +1833,7 @@ impl wkt::message::Message for GetDnsAuthorizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDnsAuthorizationRequest {
+
     /// Required. The parent resource of the dns authorization. Must be in the
     /// format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -1881,18 +1859,14 @@ impl CreateDnsAuthorizationRequest {
     }
 
     /// Sets the value of [dns_authorization_id][crate::model::CreateDnsAuthorizationRequest::dns_authorization_id].
-    pub fn set_dns_authorization_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dns_authorization_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dns_authorization_id = v.into();
         self
     }
 
     /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
     pub fn set_dns_authorization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsAuthorization>,
+    where T: std::convert::Into<crate::model::DnsAuthorization>
     {
         self.dns_authorization = std::option::Option::Some(v.into());
         self
@@ -1900,8 +1874,7 @@ impl CreateDnsAuthorizationRequest {
 
     /// Sets or clears the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
     pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsAuthorization>,
+    where T: std::convert::Into<crate::model::DnsAuthorization>
     {
         self.dns_authorization = v.map(|x| x.into());
         self
@@ -1918,6 +1891,7 @@ impl wkt::message::Message for CreateDnsAuthorizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDnsAuthorizationRequest {
+
     /// Required. A definition of the dns authorization to update.
     pub dns_authorization: std::option::Option<crate::model::DnsAuthorization>,
 
@@ -1936,8 +1910,7 @@ impl UpdateDnsAuthorizationRequest {
 
     /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
     pub fn set_dns_authorization<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsAuthorization>,
+    where T: std::convert::Into<crate::model::DnsAuthorization>
     {
         self.dns_authorization = std::option::Option::Some(v.into());
         self
@@ -1945,8 +1918,7 @@ impl UpdateDnsAuthorizationRequest {
 
     /// Sets or clears the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
     pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DnsAuthorization>,
+    where T: std::convert::Into<crate::model::DnsAuthorization>
     {
         self.dns_authorization = v.map(|x| x.into());
         self
@@ -1954,8 +1926,7 @@ impl UpdateDnsAuthorizationRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1963,8 +1934,7 @@ impl UpdateDnsAuthorizationRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1981,6 +1951,7 @@ impl wkt::message::Message for UpdateDnsAuthorizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDnsAuthorizationRequest {
+
     /// Required. A name of the dns authorization to delete. Must be in the format
     /// `projects/*/locations/*/dnsAuthorizations/*`.
     pub name: std::string::String,
@@ -2010,6 +1981,7 @@ impl wkt::message::Message for DeleteDnsAuthorizationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -2047,8 +2019,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2056,8 +2027,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2065,8 +2035,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -2074,8 +2043,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -2122,6 +2090,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
+
     /// A user-defined name of the certificate. Certificate names must be unique
     /// globally and match pattern `projects/*/locations/*/certificates/*`.
     pub name: std::string::String,
@@ -2136,7 +2105,7 @@ pub struct Certificate {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a Certificate.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. The list of Subject Alternative Names of dnsName type defined
     /// in the certificate (see RFC 5280 4.2.1.6). Managed certificates that
@@ -2177,8 +2146,7 @@ impl Certificate {
 
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2186,8 +2154,7 @@ impl Certificate {
 
     /// Sets or clears the value of [create_time][crate::model::Certificate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2195,8 +2162,7 @@ impl Certificate {
 
     /// Sets the value of [update_time][crate::model::Certificate::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -2204,8 +2170,7 @@ impl Certificate {
 
     /// Sets or clears the value of [update_time][crate::model::Certificate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2227,7 +2192,7 @@ impl Certificate {
     pub fn set_san_dnsnames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.san_dnsnames = v.into_iter().map(|i| i.into()).collect();
@@ -2242,8 +2207,7 @@ impl Certificate {
 
     /// Sets the value of [expire_time][crate::model::Certificate::expire_time].
     pub fn set_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = std::option::Option::Some(v.into());
         self
@@ -2251,18 +2215,14 @@ impl Certificate {
 
     /// Sets or clears the value of [expire_time][crate::model::Certificate::expire_time].
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.expire_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [scope][crate::model::Certificate::scope].
-    pub fn set_scope<T: std::convert::Into<crate::model::certificate::Scope>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scope<T: std::convert::Into<crate::model::certificate::Scope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
@@ -2271,10 +2231,8 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
-    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::certificate::Type>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::certificate::Type>>>(mut self, v: T) -> Self
+    {
         self.r#type = v.into();
         self
     }
@@ -2282,10 +2240,7 @@ impl Certificate {
     /// The value of [r#type][crate::model::Certificate::r#type]
     /// if it holds a `SelfManaged`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn self_managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>
-    {
+    pub fn self_managed(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate::SelfManagedCertificate>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::certificate::Type::SelfManaged(v) => std::option::Option::Some(v),
@@ -2298,23 +2253,19 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    pub fn set_self_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type =
-            std::option::Option::Some(crate::model::certificate::Type::SelfManaged(v.into()));
+    pub fn set_self_managed<T: std::convert::Into<std::boxed::Box<crate::model::certificate::SelfManagedCertificate>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::certificate::Type::SelfManaged(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [r#type][crate::model::Certificate::r#type]
     /// if it holds a `Managed`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn managed(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedCertificate>> {
+    pub fn managed(&self) -> std::option::Option<&std::boxed::Box<crate::model::certificate::ManagedCertificate>> {
         #[allow(unreachable_patterns)]
         self.r#type.as_ref().and_then(|v| match v {
             crate::model::certificate::Type::Managed(v) => std::option::Option::Some(v),
@@ -2327,13 +2278,12 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    pub fn set_managed<
-        T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedCertificate>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.r#type = std::option::Option::Some(crate::model::certificate::Type::Managed(v.into()));
+    pub fn set_managed<T: std::convert::Into<std::boxed::Box<crate::model::certificate::ManagedCertificate>>>(mut self, v: T) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::certificate::Type::Managed(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -2349,12 +2299,14 @@ pub mod certificate {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Certificate data for a SelfManaged Certificate.
     /// SelfManaged Certificates are uploaded by the user. Updating such
     /// certificates before they expire remains the user's responsibility.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SelfManagedCertificate {
+
         /// Input only. The PEM-encoded certificate chain.
         /// Leaf certificate comes first, followed by intermediate ones if any.
         pub pem_certificate: std::string::String,
@@ -2371,19 +2323,13 @@ pub mod certificate {
         }
 
         /// Sets the value of [pem_certificate][crate::model::certificate::SelfManagedCertificate::pem_certificate].
-        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pem_certificate = v.into();
             self
         }
 
         /// Sets the value of [pem_private_key][crate::model::certificate::SelfManagedCertificate::pem_private_key].
-        pub fn set_pem_private_key<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pem_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pem_private_key = v.into();
             self
         }
@@ -2401,6 +2347,7 @@ pub mod certificate {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagedCertificate {
+
         /// Immutable. The domains for which a managed SSL certificate will be
         /// generated. Wildcard domains are only supported with DNS challenge
         /// resolution.
@@ -2426,13 +2373,11 @@ pub mod certificate {
 
         /// Output only. Information about issues with provisioning a Managed
         /// Certificate.
-        pub provisioning_issue:
-            std::option::Option<crate::model::certificate::managed_certificate::ProvisioningIssue>,
+        pub provisioning_issue: std::option::Option<crate::model::certificate::managed_certificate::ProvisioningIssue>,
 
         /// Output only. Detailed state of the latest authorization attempt for each
         /// domain specified for managed certificate resource.
-        pub authorization_attempt_info:
-            std::vec::Vec<crate::model::certificate::managed_certificate::AuthorizationAttemptInfo>,
+        pub authorization_attempt_info: std::vec::Vec<crate::model::certificate::managed_certificate::AuthorizationAttemptInfo>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2446,7 +2391,7 @@ pub mod certificate {
         pub fn set_domains<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.domains = v.into_iter().map(|i| i.into()).collect();
@@ -2457,7 +2402,7 @@ pub mod certificate {
         pub fn set_dns_authorizations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.dns_authorizations = v.into_iter().map(|i| i.into()).collect();
@@ -2465,31 +2410,20 @@ pub mod certificate {
         }
 
         /// Sets the value of [issuance_config][crate::model::certificate::ManagedCertificate::issuance_config].
-        pub fn set_issuance_config<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_issuance_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.issuance_config = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::certificate::ManagedCertificate::state].
-        pub fn set_state<
-            T: std::convert::Into<crate::model::certificate::managed_certificate::State>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::certificate::managed_certificate::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
         pub fn set_provisioning_issue<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::certificate::managed_certificate::ProvisioningIssue,
-                >,
+        where T: std::convert::Into<crate::model::certificate::managed_certificate::ProvisioningIssue>
         {
             self.provisioning_issue = std::option::Option::Some(v.into());
             self
@@ -2497,10 +2431,7 @@ pub mod certificate {
 
         /// Sets or clears the value of [provisioning_issue][crate::model::certificate::ManagedCertificate::provisioning_issue].
         pub fn set_or_clear_provisioning_issue<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::certificate::managed_certificate::ProvisioningIssue,
-                >,
+        where T: std::convert::Into<crate::model::certificate::managed_certificate::ProvisioningIssue>
         {
             self.provisioning_issue = v.map(|x| x.into());
             self
@@ -2510,9 +2441,7 @@ pub mod certificate {
         pub fn set_authorization_attempt_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::certificate::managed_certificate::AuthorizationAttemptInfo,
-                >,
+            V: std::convert::Into<crate::model::certificate::managed_certificate::AuthorizationAttemptInfo>
         {
             use std::iter::Iterator;
             self.authorization_attempt_info = v.into_iter().map(|i| i.into()).collect();
@@ -2531,10 +2460,12 @@ pub mod certificate {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Information about issues with provisioning a Managed Certificate.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ProvisioningIssue {
+
             /// Output only. Reason for provisioning failures.
             pub reason: crate::model::certificate::managed_certificate::provisioning_issue::Reason,
 
@@ -2552,14 +2483,7 @@ pub mod certificate {
             }
 
             /// Sets the value of [reason][crate::model::certificate::managed_certificate::ProvisioningIssue::reason].
-            pub fn set_reason<
-                T: std::convert::Into<
-                        crate::model::certificate::managed_certificate::provisioning_issue::Reason,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_reason<T: std::convert::Into<crate::model::certificate::managed_certificate::provisioning_issue::Reason>>(mut self, v: T) -> Self {
                 self.reason = v.into();
                 self
             }
@@ -2581,6 +2505,7 @@ pub mod certificate {
         pub mod provisioning_issue {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Reason for provisioning failures.
             ///
@@ -2646,9 +2571,7 @@ pub mod certificate {
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
                         Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
-                        Self::AuthorizationIssue => {
-                            std::option::Option::Some("AUTHORIZATION_ISSUE")
-                        }
+                        Self::AuthorizationIssue => std::option::Option::Some("AUTHORIZATION_ISSUE"),
                         Self::RateLimited => std::option::Option::Some("RATE_LIMITED"),
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -2663,10 +2586,7 @@ pub mod certificate {
             }
 
             impl std::fmt::Display for Reason {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2677,9 +2597,7 @@ pub mod certificate {
                         0 => Self::Unspecified,
                         1 => Self::AuthorizationIssue,
                         2 => Self::RateLimited,
-                        _ => Self::UnknownValue(reason::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -2691,9 +2609,7 @@ pub mod certificate {
                         "REASON_UNSPECIFIED" => Self::Unspecified,
                         "AUTHORIZATION_ISSUE" => Self::AuthorizationIssue,
                         "RATE_LIMITED" => Self::RateLimited,
-                        _ => Self::UnknownValue(reason::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -2759,13 +2675,13 @@ pub mod certificate {
             }
 
             /// Sets the value of [state][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::state].
-            pub fn set_state<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::State>>(mut self, v: T) -> Self{
+            pub fn set_state<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::State>>(mut self, v: T) -> Self {
                 self.state = v.into();
                 self
             }
 
             /// Sets the value of [failure_reason][crate::model::certificate::managed_certificate::AuthorizationAttemptInfo::failure_reason].
-            pub fn set_failure_reason<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason>>(mut self, v: T) -> Self{
+            pub fn set_failure_reason<T: std::convert::Into<crate::model::certificate::managed_certificate::authorization_attempt_info::FailureReason>>(mut self, v: T) -> Self {
                 self.failure_reason = v.into();
                 self
             }
@@ -2787,6 +2703,7 @@ pub mod certificate {
         pub mod authorization_attempt_info {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// State of the domain for managed certificate issuance.
             ///
@@ -2870,10 +2787,7 @@ pub mod certificate {
             }
 
             impl std::fmt::Display for State {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -2885,9 +2799,7 @@ pub mod certificate {
                         1 => Self::Authorizing,
                         6 => Self::Authorized,
                         7 => Self::Failed,
-                        _ => Self::UnknownValue(state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -2900,9 +2812,7 @@ pub mod certificate {
                         "AUTHORIZING" => Self::Authorizing,
                         "AUTHORIZED" => Self::Authorized,
                         "FAILED" => Self::Failed,
-                        _ => Self::UnknownValue(state::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -2997,9 +2907,7 @@ pub mod certificate {
                 /// the integer representation of enums.
                 pub fn name(&self) -> std::option::Option<&str> {
                     match self {
-                        Self::Unspecified => {
-                            std::option::Option::Some("FAILURE_REASON_UNSPECIFIED")
-                        }
+                        Self::Unspecified => std::option::Option::Some("FAILURE_REASON_UNSPECIFIED"),
                         Self::Config => std::option::Option::Some("CONFIG"),
                         Self::Caa => std::option::Option::Some("CAA"),
                         Self::RateLimited => std::option::Option::Some("RATE_LIMITED"),
@@ -3016,10 +2924,7 @@ pub mod certificate {
             }
 
             impl std::fmt::Display for FailureReason {
-                fn fmt(
-                    &self,
-                    f: &mut std::fmt::Formatter<'_>,
-                ) -> std::result::Result<(), std::fmt::Error> {
+                fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                     wkt::internal::display_enum(f, self.name(), self.value())
                 }
             }
@@ -3031,9 +2936,7 @@ pub mod certificate {
                         1 => Self::Config,
                         2 => Self::Caa,
                         3 => Self::RateLimited,
-                        _ => Self::UnknownValue(failure_reason::UnknownValue(
-                            wkt::internal::UnknownEnumValue::Integer(value),
-                        )),
+                        _ => Self::UnknownValue(failure_reason::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                     }
                 }
             }
@@ -3046,9 +2949,7 @@ pub mod certificate {
                         "CONFIG" => Self::Config,
                         "CAA" => Self::Caa,
                         "RATE_LIMITED" => Self::RateLimited,
-                        _ => Self::UnknownValue(failure_reason::UnknownValue(
-                            wkt::internal::UnknownEnumValue::String(value.to_string()),
-                        )),
+                        _ => Self::UnknownValue(failure_reason::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                     }
                 }
             }
@@ -3164,10 +3065,7 @@ pub mod certificate {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -3179,9 +3077,7 @@ pub mod certificate {
                     1 => Self::Provisioning,
                     2 => Self::Failed,
                     3 => Self::Active,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -3194,9 +3090,7 @@ pub mod certificate {
                     "PROVISIONING" => Self::Provisioning,
                     "FAILED" => Self::Failed,
                     "ACTIVE" => Self::Active,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -3222,8 +3116,7 @@ pub mod certificate {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                    ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.State",
-                ))
+                    ".google.cloud.certificatemanager.v1.Certificate.ManagedCertificate.State"))
             }
         }
     }
@@ -3318,9 +3211,7 @@ pub mod certificate {
                 0 => Self::Default,
                 1 => Self::EdgeCache,
                 2 => Self::AllRegions,
-                _ => Self::UnknownValue(scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(scope::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3332,9 +3223,7 @@ pub mod certificate {
                 "DEFAULT" => Self::Default,
                 "EDGE_CACHE" => Self::EdgeCache,
                 "ALL_REGIONS" => Self::AllRegions,
-                _ => Self::UnknownValue(scope::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(scope::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3359,8 +3248,7 @@ pub mod certificate {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
-                ".google.cloud.certificatemanager.v1.Certificate.Scope",
-            ))
+                ".google.cloud.certificatemanager.v1.Certificate.Scope"))
         }
     }
 
@@ -3378,6 +3266,7 @@ pub mod certificate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMap {
+
     /// A user-defined name of the Certificate Map. Certificate Map names must be
     /// unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*`.
@@ -3393,7 +3282,7 @@ pub struct CertificateMap {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a Certificate Map.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. A list of GCLB targets that use this Certificate Map.
     /// A Target Proxy is only present on this list if it's attached to a
@@ -3422,8 +3311,7 @@ impl CertificateMap {
 
     /// Sets the value of [create_time][crate::model::CertificateMap::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3431,8 +3319,7 @@ impl CertificateMap {
 
     /// Sets or clears the value of [create_time][crate::model::CertificateMap::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3440,8 +3327,7 @@ impl CertificateMap {
 
     /// Sets the value of [update_time][crate::model::CertificateMap::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3449,8 +3335,7 @@ impl CertificateMap {
 
     /// Sets or clears the value of [update_time][crate::model::CertificateMap::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3472,7 +3357,7 @@ impl CertificateMap {
     pub fn set_gclb_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::certificate_map::GclbTarget>,
+        V: std::convert::Into<crate::model::certificate_map::GclbTarget>
     {
         use std::iter::Iterator;
         self.gclb_targets = v.into_iter().map(|i| i.into()).collect();
@@ -3491,17 +3376,18 @@ pub mod certificate_map {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Describes a Target Proxy that uses this Certificate Map.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GclbTarget {
+
         /// Output only. IP configurations for this Target Proxy where the
         /// Certificate Map is serving.
         pub ip_configs: std::vec::Vec<crate::model::certificate_map::gclb_target::IpConfig>,
 
         /// A Target Proxy to which this map is attached to.
-        pub target_proxy:
-            std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
+        pub target_proxy: std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3515,7 +3401,7 @@ pub mod certificate_map {
         pub fn set_ip_configs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::certificate_map::gclb_target::IpConfig>,
+            V: std::convert::Into<crate::model::certificate_map::gclb_target::IpConfig>
         {
             use std::iter::Iterator;
             self.ip_configs = v.into_iter().map(|i| i.into()).collect();
@@ -3526,14 +3412,8 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are mutually
         /// exclusive.
-        pub fn set_target_proxy<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_proxy<T: std::convert::Into<std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>>>(mut self, v: T) -> Self
+        {
             self.target_proxy = v.into();
             self
         }
@@ -3544,9 +3424,7 @@ pub mod certificate_map {
         pub fn target_https_proxy(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target_proxy.as_ref().and_then(|v| match v {
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3556,12 +3434,11 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are
         /// mutually exclusive.
-        pub fn set_target_https_proxy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_https_proxy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_proxy = std::option::Option::Some(
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(v.into()),
+                crate::model::certificate_map::gclb_target::TargetProxy::TargetHttpsProxy(
+                    v.into()
+                )
             );
             self
         }
@@ -3572,9 +3449,7 @@ pub mod certificate_map {
         pub fn target_ssl_proxy(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.target_proxy.as_ref().and_then(|v| match v {
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -3584,12 +3459,11 @@ pub mod certificate_map {
         ///
         /// Note that all the setters affecting `target_proxy` are
         /// mutually exclusive.
-        pub fn set_target_ssl_proxy<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_target_ssl_proxy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_proxy = std::option::Option::Some(
-                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(v.into()),
+                crate::model::certificate_map::gclb_target::TargetProxy::TargetSslProxy(
+                    v.into()
+                )
             );
             self
         }
@@ -3606,10 +3480,12 @@ pub mod certificate_map {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Defines IP configuration where this Certificate Map is serving.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IpConfig {
+
             /// Output only. An external IP address.
             pub ip_address: std::string::String,
 
@@ -3625,10 +3501,7 @@ pub mod certificate_map {
             }
 
             /// Sets the value of [ip_address][crate::model::certificate_map::gclb_target::IpConfig::ip_address].
-            pub fn set_ip_address<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.ip_address = v.into();
                 self
             }
@@ -3637,7 +3510,7 @@ pub mod certificate_map {
             pub fn set_ports<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<u32>,
+                V: std::convert::Into<u32>
             {
                 use std::iter::Iterator;
                 self.ports = v.into_iter().map(|i| i.into()).collect();
@@ -3671,6 +3544,7 @@ pub mod certificate_map {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateMapEntry {
+
     /// A user-defined name of the Certificate Map Entry. Certificate Map Entry
     /// names must be unique globally and match pattern
     /// `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
@@ -3686,7 +3560,7 @@ pub struct CertificateMapEntry {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a Certificate Map Entry.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// A set of Certificates defines for the given `hostname`. There can be
     /// defined up to four certificates in each Certificate Map Entry. Each
@@ -3720,8 +3594,7 @@ impl CertificateMapEntry {
 
     /// Sets the value of [create_time][crate::model::CertificateMapEntry::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3729,8 +3602,7 @@ impl CertificateMapEntry {
 
     /// Sets or clears the value of [create_time][crate::model::CertificateMapEntry::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3738,8 +3610,7 @@ impl CertificateMapEntry {
 
     /// Sets the value of [update_time][crate::model::CertificateMapEntry::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3747,8 +3618,7 @@ impl CertificateMapEntry {
 
     /// Sets or clears the value of [update_time][crate::model::CertificateMapEntry::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3770,7 +3640,7 @@ impl CertificateMapEntry {
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.certificates = v.into_iter().map(|i| i.into()).collect();
@@ -3787,12 +3657,8 @@ impl CertificateMapEntry {
     ///
     /// Note that all the setters affecting `r#match` are mutually
     /// exclusive.
-    pub fn set_match<
-        T: std::convert::Into<std::option::Option<crate::model::certificate_map_entry::Match>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_match<T: std::convert::Into<std::option::Option<crate::model::certificate_map_entry::Match>>>(mut self, v: T) -> Self
+    {
         self.r#match = v.into();
         self
     }
@@ -3815,7 +3681,9 @@ impl CertificateMapEntry {
     /// mutually exclusive.
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#match = std::option::Option::Some(
-            crate::model::certificate_map_entry::Match::Hostname(v.into()),
+            crate::model::certificate_map_entry::Match::Hostname(
+                v.into()
+            )
         );
         self
     }
@@ -3836,12 +3704,11 @@ impl CertificateMapEntry {
     ///
     /// Note that all the setters affecting `r#match` are
     /// mutually exclusive.
-    pub fn set_matcher<T: std::convert::Into<crate::model::certificate_map_entry::Matcher>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_matcher<T: std::convert::Into<crate::model::certificate_map_entry::Matcher>>(mut self, v: T) -> Self {
         self.r#match = std::option::Option::Some(
-            crate::model::certificate_map_entry::Match::Matcher(v.into()),
+            crate::model::certificate_map_entry::Match::Matcher(
+                v.into()
+            )
         );
         self
     }
@@ -3857,6 +3724,7 @@ impl wkt::message::Message for CertificateMapEntry {
 pub mod certificate_map_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines predefined cases other than SNI-hostname match when this
     /// configuration should be applied.
@@ -3941,9 +3809,7 @@ pub mod certificate_map_entry {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Primary,
-                _ => Self::UnknownValue(matcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(matcher::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3954,9 +3820,7 @@ pub mod certificate_map_entry {
             match value {
                 "MATCHER_UNSPECIFIED" => Self::Unspecified,
                 "PRIMARY" => Self::Primary,
-                _ => Self::UnknownValue(matcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(matcher::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3980,8 +3844,7 @@ pub mod certificate_map_entry {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Matcher>::new(
-                ".google.cloud.certificatemanager.v1.CertificateMapEntry.Matcher",
-            ))
+                ".google.cloud.certificatemanager.v1.CertificateMapEntry.Matcher"))
         }
     }
 
@@ -4002,6 +3865,7 @@ pub mod certificate_map_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DnsAuthorization {
+
     /// A user-defined name of the dns authorization. DnsAuthorization names must
     /// be unique globally and match pattern
     /// `projects/*/locations/*/dnsAuthorizations/*`.
@@ -4014,7 +3878,7 @@ pub struct DnsAuthorization {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a DnsAuthorization.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// One or more paragraphs of text description of a DnsAuthorization.
     pub description: std::string::String,
@@ -4027,8 +3891,7 @@ pub struct DnsAuthorization {
 
     /// Output only. DNS Resource Record that needs to be added to DNS
     /// configuration.
-    pub dns_resource_record:
-        std::option::Option<crate::model::dns_authorization::DnsResourceRecord>,
+    pub dns_resource_record: std::option::Option<crate::model::dns_authorization::DnsResourceRecord>,
 
     /// Immutable. Type of DnsAuthorization. If unset during resource creation the
     /// following default will be used:
@@ -4052,8 +3915,7 @@ impl DnsAuthorization {
 
     /// Sets the value of [create_time][crate::model::DnsAuthorization::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4061,8 +3923,7 @@ impl DnsAuthorization {
 
     /// Sets or clears the value of [create_time][crate::model::DnsAuthorization::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4070,8 +3931,7 @@ impl DnsAuthorization {
 
     /// Sets the value of [update_time][crate::model::DnsAuthorization::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4079,8 +3939,7 @@ impl DnsAuthorization {
 
     /// Sets or clears the value of [update_time][crate::model::DnsAuthorization::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4112,8 +3971,7 @@ impl DnsAuthorization {
 
     /// Sets the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
     pub fn set_dns_resource_record<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
+    where T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>
     {
         self.dns_resource_record = std::option::Option::Some(v.into());
         self
@@ -4121,18 +3979,14 @@ impl DnsAuthorization {
 
     /// Sets or clears the value of [dns_resource_record][crate::model::DnsAuthorization::dns_resource_record].
     pub fn set_or_clear_dns_resource_record<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>,
+    where T: std::convert::Into<crate::model::dns_authorization::DnsResourceRecord>
     {
         self.dns_resource_record = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [r#type][crate::model::DnsAuthorization::type].
-    pub fn set_type<T: std::convert::Into<crate::model::dns_authorization::Type>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::dns_authorization::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -4149,12 +4003,14 @@ pub mod dns_authorization {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The structure describing the DNS Resource Record that needs to be added
     /// to DNS configuration for the authorization to be usable by
     /// certificate.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DnsResourceRecord {
+
         /// Output only. Fully qualified name of the DNS Resource Record.
         /// e.g. `_acme-challenge.example.com`
         pub name: std::string::String,
@@ -4287,9 +4143,7 @@ pub mod dns_authorization {
                 0 => Self::Unspecified,
                 1 => Self::FixedRecord,
                 2 => Self::PerProjectRecord,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4301,9 +4155,7 @@ pub mod dns_authorization {
                 "TYPE_UNSPECIFIED" => Self::Unspecified,
                 "FIXED_RECORD" => Self::FixedRecord,
                 "PER_PROJECT_RECORD" => Self::PerProjectRecord,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4328,8 +4180,7 @@ pub mod dns_authorization {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.certificatemanager.v1.DnsAuthorization.Type",
-            ))
+                ".google.cloud.certificatemanager.v1.DnsAuthorization.Type"))
         }
     }
 }
@@ -4338,6 +4189,7 @@ pub mod dns_authorization {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTrustConfigsRequest {
+
     /// Required. The project and location from which the TrustConfigs should be
     /// listed, specified in the format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -4407,6 +4259,7 @@ impl wkt::message::Message for ListTrustConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTrustConfigsResponse {
+
     /// A list of TrustConfigs for the parent resource.
     pub trust_configs: std::vec::Vec<crate::model::TrustConfig>,
 
@@ -4430,7 +4283,7 @@ impl ListTrustConfigsResponse {
     pub fn set_trust_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TrustConfig>,
+        V: std::convert::Into<crate::model::TrustConfig>
     {
         use std::iter::Iterator;
         self.trust_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4447,7 +4300,7 @@ impl ListTrustConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4479,6 +4332,7 @@ impl gax::paginator::internal::PageableResponse for ListTrustConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTrustConfigRequest {
+
     /// Required. A name of the TrustConfig to describe. Must be in the format
     /// `projects/*/locations/*/trustConfigs/*`.
     pub name: std::string::String,
@@ -4508,6 +4362,7 @@ impl wkt::message::Message for GetTrustConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTrustConfigRequest {
+
     /// Required. The parent resource of the TrustConfig. Must be in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -4541,8 +4396,7 @@ impl CreateTrustConfigRequest {
 
     /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
     pub fn set_trust_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = std::option::Option::Some(v.into());
         self
@@ -4550,8 +4404,7 @@ impl CreateTrustConfigRequest {
 
     /// Sets or clears the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = v.map(|x| x.into());
         self
@@ -4568,6 +4421,7 @@ impl wkt::message::Message for CreateTrustConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTrustConfigRequest {
+
     /// Required. A definition of the TrustConfig to update.
     pub trust_config: std::option::Option<crate::model::TrustConfig>,
 
@@ -4586,8 +4440,7 @@ impl UpdateTrustConfigRequest {
 
     /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
     pub fn set_trust_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = std::option::Option::Some(v.into());
         self
@@ -4595,8 +4448,7 @@ impl UpdateTrustConfigRequest {
 
     /// Sets or clears the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::TrustConfig>,
+    where T: std::convert::Into<crate::model::TrustConfig>
     {
         self.trust_config = v.map(|x| x.into());
         self
@@ -4604,8 +4456,7 @@ impl UpdateTrustConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4613,8 +4464,7 @@ impl UpdateTrustConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4631,6 +4481,7 @@ impl wkt::message::Message for UpdateTrustConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTrustConfigRequest {
+
     /// Required. A name of the TrustConfig to delete. Must be in the format
     /// `projects/*/locations/*/trustConfigs/*`.
     pub name: std::string::String,
@@ -4671,6 +4522,7 @@ impl wkt::message::Message for DeleteTrustConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrustConfig {
+
     /// A user-defined name of the trust config. TrustConfig names must be
     /// unique globally and match pattern
     /// `projects/*/locations/*/trustConfigs/*`.
@@ -4683,7 +4535,7 @@ pub struct TrustConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Set of labels associated with a TrustConfig.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// One or more paragraphs of text description of a TrustConfig.
     pub description: std::string::String,
@@ -4717,8 +4569,7 @@ impl TrustConfig {
 
     /// Sets the value of [create_time][crate::model::TrustConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4726,8 +4577,7 @@ impl TrustConfig {
 
     /// Sets or clears the value of [create_time][crate::model::TrustConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4735,8 +4585,7 @@ impl TrustConfig {
 
     /// Sets the value of [update_time][crate::model::TrustConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4744,8 +4593,7 @@ impl TrustConfig {
 
     /// Sets or clears the value of [update_time][crate::model::TrustConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4779,7 +4627,7 @@ impl TrustConfig {
     pub fn set_trust_stores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::trust_config::TrustStore>,
+        V: std::convert::Into<crate::model::trust_config::TrustStore>
     {
         use std::iter::Iterator;
         self.trust_stores = v.into_iter().map(|i| i.into()).collect();
@@ -4798,10 +4646,12 @@ pub mod trust_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines a trust anchor.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustAnchor {
+
         pub kind: std::option::Option<crate::model::trust_config::trust_anchor::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4816,12 +4666,8 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
-        pub fn set_kind<
-            T: std::convert::Into<std::option::Option<crate::model::trust_config::trust_anchor::Kind>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::trust_config::trust_anchor::Kind>>>(mut self, v: T) -> Self
+        {
             self.kind = v.into();
             self
         }
@@ -4832,9 +4678,7 @@ pub mod trust_config {
         pub fn pem_certificate(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::trust_config::trust_anchor::Kind::PemCertificate(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::trust_config::trust_anchor::Kind::PemCertificate(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4844,12 +4688,11 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::trust_config::trust_anchor::Kind::PemCertificate(v.into()),
+                crate::model::trust_config::trust_anchor::Kind::PemCertificate(
+                    v.into()
+                )
             );
             self
         }
@@ -4866,6 +4709,7 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -4880,6 +4724,7 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntermediateCA {
+
         pub kind: std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4894,14 +4739,8 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
-        pub fn set_kind<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::trust_config::intermediate_ca::Kind>>>(mut self, v: T) -> Self
+        {
             self.kind = v.into();
             self
         }
@@ -4912,9 +4751,7 @@ pub mod trust_config {
         pub fn pem_certificate(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::trust_config::intermediate_ca::Kind::PemCertificate(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::trust_config::intermediate_ca::Kind::PemCertificate(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4924,12 +4761,11 @@ pub mod trust_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::trust_config::intermediate_ca::Kind::PemCertificate(v.into()),
+                crate::model::trust_config::intermediate_ca::Kind::PemCertificate(
+                    v.into()
+                )
             );
             self
         }
@@ -4946,6 +4782,7 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
+
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -4961,6 +4798,7 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustStore {
+
         /// List of Trust Anchors to be used while performing validation
         /// against a given TrustStore.
         pub trust_anchors: std::vec::Vec<crate::model::trust_config::TrustAnchor>,
@@ -4984,7 +4822,7 @@ pub mod trust_config {
         pub fn set_trust_anchors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::trust_config::TrustAnchor>,
+            V: std::convert::Into<crate::model::trust_config::TrustAnchor>
         {
             use std::iter::Iterator;
             self.trust_anchors = v.into_iter().map(|i| i.into()).collect();
@@ -4995,7 +4833,7 @@ pub mod trust_config {
         pub fn set_intermediate_cas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::trust_config::IntermediateCA>,
+            V: std::convert::Into<crate::model::trust_config::IntermediateCA>
         {
             use std::iter::Iterator;
             self.intermediate_cas = v.into_iter().map(|i| i.into()).collect();
@@ -5096,9 +4934,7 @@ impl std::convert::From<i32> for ServingState {
             0 => Self::Unspecified,
             1 => Self::Active,
             2 => Self::Pending,
-            _ => Self::UnknownValue(serving_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(serving_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -5110,9 +4946,7 @@ impl std::convert::From<&str> for ServingState {
             "SERVING_STATE_UNSPECIFIED" => Self::Unspecified,
             "ACTIVE" => Self::Active,
             "PENDING" => Self::Pending,
-            _ => Self::UnknownValue(serving_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(serving_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -5137,7 +4971,6 @@ impl<'de> serde::de::Deserialize<'de> for ServingState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServingState>::new(
-            ".google.cloud.certificatemanager.v1.ServingState",
-        ))
+            ".google.cloud.certificatemanager.v1.ServingState"))
     }
 }

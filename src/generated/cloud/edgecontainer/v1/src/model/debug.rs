@@ -36,20 +36,14 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("node_version", &self.node_version);
         debug_struct.field("control_plane", &self.control_plane);
         debug_struct.field("system_addons_config", &self.system_addons_config);
-        debug_struct.field(
-            "external_load_balancer_ipv4_address_pools",
-            &self.external_load_balancer_ipv4_address_pools,
-        );
+        debug_struct.field("external_load_balancer_ipv4_address_pools", &self.external_load_balancer_ipv4_address_pools);
         debug_struct.field("control_plane_encryption", &self.control_plane_encryption);
         debug_struct.field("status", &self.status);
         debug_struct.field("maintenance_events", &self.maintenance_events);
         debug_struct.field("target_version", &self.target_version);
         debug_struct.field("release_channel", &self.release_channel);
         debug_struct.field("survivability_config", &self.survivability_config);
-        debug_struct.field(
-            "external_load_balancer_ipv6_address_pools",
-            &self.external_load_balancer_ipv6_address_pools,
-        );
+        debug_struct.field("external_load_balancer_ipv6_address_pools", &self.external_load_balancer_ipv6_address_pools);
         debug_struct.field("connection_state", &self.connection_state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -86,10 +80,7 @@ impl std::fmt::Debug for super::cluster::control_plane::Local {
         debug_struct.field("node_count", &self.node_count);
         debug_struct.field("machine_filter", &self.machine_filter);
         debug_struct.field("shared_deployment_policy", &self.shared_deployment_policy);
-        debug_struct.field(
-            "control_plane_node_storage_schema",
-            &self.control_plane_node_storage_schema,
-        );
+        debug_struct.field("control_plane_node_storage_schema", &self.control_plane_node_storage_schema);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -190,6 +181,7 @@ impl std::fmt::Debug for super::cluster::ConnectionState {
     }
 }
 
+
 impl std::fmt::Debug for super::ClusterNetworking {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterNetworking");
@@ -283,6 +275,7 @@ impl std::fmt::Debug for super::node_pool::NodeConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::Machine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Machine");
@@ -371,6 +364,7 @@ impl std::fmt::Debug for super::vpn_connection::details::CloudVpn {
     }
 }
 
+
 impl std::fmt::Debug for super::LocationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationMetadata");
@@ -395,17 +389,12 @@ impl std::fmt::Debug for super::ZoneMetadata {
     }
 }
 
+
 impl std::fmt::Debug for super::ConfigData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfigData");
-        debug_struct.field(
-            "available_external_lb_pools_ipv4",
-            &self.available_external_lb_pools_ipv4,
-        );
-        debug_struct.field(
-            "available_external_lb_pools_ipv6",
-            &self.available_external_lb_pools_ipv6,
-        );
+        debug_struct.field("available_external_lb_pools_ipv4", &self.available_external_lb_pools_ipv4);
+        debug_struct.field("available_external_lb_pools_ipv6", &self.available_external_lb_pools_ipv6);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

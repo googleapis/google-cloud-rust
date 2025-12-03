@@ -46,6 +46,7 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         req: crate::model::AnnotateTextRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>>;
+
 }
 
 /// All implementations of [super::LanguageService] also implement [LanguageService].
@@ -95,4 +96,5 @@ impl<T: super::LanguageService> LanguageService for T {
     ) -> crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         T::annotate_text(self, req, options).await
     }
+
 }

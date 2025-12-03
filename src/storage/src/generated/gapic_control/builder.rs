@@ -26,12 +26,8 @@ pub mod storage_control {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -61,10 +57,10 @@ pub mod storage_control {
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -82,16 +78,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Folder> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .create_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::CreateFolderRequest,
-            force: bool,
-        ) -> crate::model::CreateFolderRequest {
+        fn auto_populate(mut req: crate::model::CreateFolderRequest, force: bool) -> crate::model::CreateFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -110,8 +100,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_folder<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Folder>,
+        where T: std::convert::Into<crate::model::Folder>
         {
             self.0.request.folder = std::option::Option::Some(v.into());
             self
@@ -121,8 +110,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Folder>,
+        where T: std::convert::Into<crate::model::Folder>
         {
             self.0.request.folder = v.map(|x| x.into());
             self
@@ -177,10 +165,10 @@ pub mod storage_control {
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -198,16 +186,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .delete_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::DeleteFolderRequest,
-            force: bool,
-        ) -> crate::model::DeleteFolderRequest {
+        fn auto_populate(mut req: crate::model::DeleteFolderRequest, force: bool) -> crate::model::DeleteFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -224,8 +206,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -233,8 +214,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -242,20 +222,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -296,10 +271,10 @@ pub mod storage_control {
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -317,16 +292,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Folder> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .get_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::GetFolderRequest,
-            force: bool,
-        ) -> crate::model::GetFolderRequest {
+        fn auto_populate(mut req: crate::model::GetFolderRequest, force: bool) -> crate::model::GetFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -343,8 +312,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -352,8 +320,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -361,20 +328,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -419,10 +381,10 @@ pub mod storage_control {
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -439,17 +401,11 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListFoldersResponse> {
-            (*self.0.stub)
-                .list_folders(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_folders(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -461,10 +417,7 @@ pub mod storage_control {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFoldersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListFoldersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -549,10 +502,10 @@ pub mod storage_control {
     pub struct RenameFolder(RequestBuilder<crate::model::RenameFolderRequest>);
 
     impl RenameFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -575,18 +528,16 @@ pub mod storage_control {
         /// on [rename_folder][crate::client::StorageControl::rename_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .rename_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).rename_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `rename_folder`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Folder, crate::model::RenameFolderMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Folder, crate::model::RenameFolderMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Folder, crate::model::RenameFolderMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Folder, crate::model::RenameFolderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -614,10 +565,7 @@ pub mod storage_control {
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
-        fn auto_populate(
-            mut req: crate::model::RenameFolderRequest,
-            force: bool,
-        ) -> crate::model::RenameFolderRequest {
+        fn auto_populate(mut req: crate::model::RenameFolderRequest, force: bool) -> crate::model::RenameFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -642,8 +590,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -651,8 +598,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -660,20 +606,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -714,17 +655,14 @@ pub mod storage_control {
     pub struct GetStorageLayout(RequestBuilder<crate::model::GetStorageLayoutRequest>);
 
     impl GetStorageLayout {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetStorageLayoutRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetStorageLayoutRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -738,16 +676,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StorageLayout> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .get_storage_layout(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_storage_layout(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::GetStorageLayoutRequest,
-            force: bool,
-        ) -> crate::model::GetStorageLayoutRequest {
+        fn auto_populate(mut req: crate::model::GetStorageLayoutRequest, force: bool) -> crate::model::GetStorageLayoutRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -803,17 +735,14 @@ pub mod storage_control {
     pub struct CreateManagedFolder(RequestBuilder<crate::model::CreateManagedFolderRequest>);
 
     impl CreateManagedFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateManagedFolderRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateManagedFolderRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -827,16 +756,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagedFolder> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .create_managed_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_managed_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::CreateManagedFolderRequest,
-            force: bool,
-        ) -> crate::model::CreateManagedFolderRequest {
+        fn auto_populate(mut req: crate::model::CreateManagedFolderRequest, force: bool) -> crate::model::CreateManagedFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -855,8 +778,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_managed_folder<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagedFolder>,
+        where T: std::convert::Into<crate::model::ManagedFolder>
         {
             self.0.request.managed_folder = std::option::Option::Some(v.into());
             self
@@ -866,8 +788,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagedFolder>,
+        where T: std::convert::Into<crate::model::ManagedFolder>
         {
             self.0.request.managed_folder = v.map(|x| x.into());
             self
@@ -916,17 +837,14 @@ pub mod storage_control {
     pub struct DeleteManagedFolder(RequestBuilder<crate::model::DeleteManagedFolderRequest>);
 
     impl DeleteManagedFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteManagedFolderRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteManagedFolderRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -940,16 +858,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .delete_managed_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_managed_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::DeleteManagedFolderRequest,
-            force: bool,
-        ) -> crate::model::DeleteManagedFolderRequest {
+        fn auto_populate(mut req: crate::model::DeleteManagedFolderRequest, force: bool) -> crate::model::DeleteManagedFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -966,8 +878,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -975,8 +886,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -984,20 +894,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1044,17 +949,14 @@ pub mod storage_control {
     pub struct GetManagedFolder(RequestBuilder<crate::model::GetManagedFolderRequest>);
 
     impl GetManagedFolder {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetManagedFolderRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetManagedFolderRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1068,16 +970,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagedFolder> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .get_managed_folder(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_managed_folder(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::GetManagedFolderRequest,
-            force: bool,
-        ) -> crate::model::GetManagedFolderRequest {
+        fn auto_populate(mut req: crate::model::GetManagedFolderRequest, force: bool) -> crate::model::GetManagedFolderRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1094,8 +990,7 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
         pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = std::option::Option::Some(v.into());
             self
@@ -1103,8 +998,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
         pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_match = v.map(|x| x.into());
             self
@@ -1112,20 +1006,15 @@ pub mod storage_control {
 
         /// Sets the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
         pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
-        pub fn set_or_clear_if_metageneration_not_match<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.0.request.if_metageneration_not_match = v.map(|x| x.into());
             self
@@ -1170,17 +1059,14 @@ pub mod storage_control {
     pub struct ListManagedFolders(RequestBuilder<crate::model::ListManagedFoldersRequest>);
 
     impl ListManagedFolders {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListManagedFoldersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListManagedFoldersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1194,17 +1080,11 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListManagedFoldersResponse> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .list_managed_folders(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_managed_folders(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListManagedFoldersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListManagedFoldersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1218,20 +1098,12 @@ pub mod storage_control {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListManagedFoldersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListManagedFoldersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        fn auto_populate(
-            mut req: crate::model::ListManagedFoldersRequest,
-            force: bool,
-        ) -> crate::model::ListManagedFoldersRequest {
+        fn auto_populate(mut req: crate::model::ListManagedFoldersRequest, force: bool) -> crate::model::ListManagedFoldersRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1300,17 +1172,14 @@ pub mod storage_control {
     pub struct CreateAnywhereCache(RequestBuilder<crate::model::CreateAnywhereCacheRequest>);
 
     impl CreateAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1329,21 +1198,16 @@ pub mod storage_control {
         /// on [create_anywhere_cache][crate::client::StorageControl::create_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .create_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_anywhere_cache`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::CreateAnywhereCacheMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AnywhereCache, crate::model::CreateAnywhereCacheMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AnywhereCache,
-                crate::model::CreateAnywhereCacheMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AnywhereCache, crate::model::CreateAnywhereCacheMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1371,10 +1235,7 @@ pub mod storage_control {
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
-        fn auto_populate(
-            mut req: crate::model::CreateAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::CreateAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::CreateAnywhereCacheRequest, force: bool) -> crate::model::CreateAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1393,8 +1254,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AnywhereCache>,
+        where T: std::convert::Into<crate::model::AnywhereCache>
         {
             self.0.request.anywhere_cache = std::option::Option::Some(v.into());
             self
@@ -1404,8 +1264,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AnywhereCache>,
+        where T: std::convert::Into<crate::model::AnywhereCache>
         {
             self.0.request.anywhere_cache = v.map(|x| x.into());
             self
@@ -1447,17 +1306,14 @@ pub mod storage_control {
     pub struct UpdateAnywhereCache(RequestBuilder<crate::model::UpdateAnywhereCacheRequest>);
 
     impl UpdateAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1476,21 +1332,16 @@ pub mod storage_control {
         /// on [update_anywhere_cache][crate::client::StorageControl::update_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .update_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_anywhere_cache`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::AnywhereCache, crate::model::UpdateAnywhereCacheMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::AnywhereCache, crate::model::UpdateAnywhereCacheMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::AnywhereCache,
-                crate::model::UpdateAnywhereCacheMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::AnywhereCache, crate::model::UpdateAnywhereCacheMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1518,10 +1369,7 @@ pub mod storage_control {
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
-        fn auto_populate(
-            mut req: crate::model::UpdateAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::UpdateAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::UpdateAnywhereCacheRequest, force: bool) -> crate::model::UpdateAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1532,8 +1380,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::AnywhereCache>,
+        where T: std::convert::Into<crate::model::AnywhereCache>
         {
             self.0.request.anywhere_cache = std::option::Option::Some(v.into());
             self
@@ -1543,8 +1390,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::AnywhereCache>,
+        where T: std::convert::Into<crate::model::AnywhereCache>
         {
             self.0.request.anywhere_cache = v.map(|x| x.into());
             self
@@ -1554,8 +1400,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1565,8 +1410,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1607,17 +1451,14 @@ pub mod storage_control {
     pub struct DisableAnywhereCache(RequestBuilder<crate::model::DisableAnywhereCacheRequest>);
 
     impl DisableAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DisableAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DisableAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1631,16 +1472,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .disable_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).disable_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::DisableAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::DisableAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::DisableAnywhereCacheRequest, force: bool) -> crate::model::DisableAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1690,17 +1525,14 @@ pub mod storage_control {
     pub struct PauseAnywhereCache(RequestBuilder<crate::model::PauseAnywhereCacheRequest>);
 
     impl PauseAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::PauseAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::PauseAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1714,16 +1546,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .pause_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).pause_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::PauseAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::PauseAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::PauseAnywhereCacheRequest, force: bool) -> crate::model::PauseAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1773,17 +1599,14 @@ pub mod storage_control {
     pub struct ResumeAnywhereCache(RequestBuilder<crate::model::ResumeAnywhereCacheRequest>);
 
     impl ResumeAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResumeAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ResumeAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1797,16 +1620,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .resume_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).resume_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::ResumeAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::ResumeAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::ResumeAnywhereCacheRequest, force: bool) -> crate::model::ResumeAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1856,17 +1673,14 @@ pub mod storage_control {
     pub struct GetAnywhereCache(RequestBuilder<crate::model::GetAnywhereCacheRequest>);
 
     impl GetAnywhereCache {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetAnywhereCacheRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetAnywhereCacheRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1880,16 +1694,10 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .get_anywhere_cache(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_anywhere_cache(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
-        fn auto_populate(
-            mut req: crate::model::GetAnywhereCacheRequest,
-            force: bool,
-        ) -> crate::model::GetAnywhereCacheRequest {
+        fn auto_populate(mut req: crate::model::GetAnywhereCacheRequest, force: bool) -> crate::model::GetAnywhereCacheRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -1943,17 +1751,14 @@ pub mod storage_control {
     pub struct ListAnywhereCaches(RequestBuilder<crate::model::ListAnywhereCachesRequest>);
 
     impl ListAnywhereCaches {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListAnywhereCachesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListAnywhereCachesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1967,17 +1772,11 @@ pub mod storage_control {
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAnywhereCachesResponse> {
             let req = Self::auto_populate(self.0.request, false);
-            (*self.0.stub)
-                .list_anywhere_caches(req, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_anywhere_caches(req, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListAnywhereCachesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListAnywhereCachesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1991,20 +1790,12 @@ pub mod storage_control {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListAnywhereCachesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListAnywhereCachesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
 
-        fn auto_populate(
-            mut req: crate::model::ListAnywhereCachesRequest,
-            force: bool,
-        ) -> crate::model::ListAnywhereCachesRequest {
+        fn auto_populate(mut req: crate::model::ListAnywhereCachesRequest, force: bool) -> crate::model::ListAnywhereCachesRequest {
             if force || req.request_id.is_empty() {
                 req = req.set_request_id(uuid::Uuid::new_v4().to_string())
             }
@@ -2063,22 +1854,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetProjectIntelligenceConfig(
-        RequestBuilder<crate::model::GetProjectIntelligenceConfigRequest>,
-    );
+    pub struct GetProjectIntelligenceConfig(RequestBuilder<crate::model::GetProjectIntelligenceConfigRequest>);
 
     impl GetProjectIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetProjectIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetProjectIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2091,10 +1877,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .get_project_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_project_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectIntelligenceConfigRequest::name].
@@ -2131,22 +1914,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateProjectIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateProjectIntelligenceConfigRequest>,
-    );
+    pub struct UpdateProjectIntelligenceConfig(RequestBuilder<crate::model::UpdateProjectIntelligenceConfigRequest>);
 
     impl UpdateProjectIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateProjectIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateProjectIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2159,18 +1937,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .update_project_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_project_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = std::option::Option::Some(v.into());
             self
@@ -2180,8 +1954,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = v.map(|x| x.into());
             self
@@ -2191,8 +1964,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2202,8 +1974,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2241,22 +2012,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetFolderIntelligenceConfig(
-        RequestBuilder<crate::model::GetFolderIntelligenceConfigRequest>,
-    );
+    pub struct GetFolderIntelligenceConfig(RequestBuilder<crate::model::GetFolderIntelligenceConfigRequest>);
 
     impl GetFolderIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetFolderIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetFolderIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2269,10 +2035,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .get_folder_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_folder_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFolderIntelligenceConfigRequest::name].
@@ -2309,22 +2072,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateFolderIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateFolderIntelligenceConfigRequest>,
-    );
+    pub struct UpdateFolderIntelligenceConfig(RequestBuilder<crate::model::UpdateFolderIntelligenceConfigRequest>);
 
     impl UpdateFolderIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateFolderIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateFolderIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2337,18 +2095,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .update_folder_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_folder_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = std::option::Option::Some(v.into());
             self
@@ -2358,8 +2112,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = v.map(|x| x.into());
             self
@@ -2369,8 +2122,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2380,8 +2132,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2419,22 +2170,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetOrganizationIntelligenceConfig(
-        RequestBuilder<crate::model::GetOrganizationIntelligenceConfigRequest>,
-    );
+    pub struct GetOrganizationIntelligenceConfig(RequestBuilder<crate::model::GetOrganizationIntelligenceConfigRequest>);
 
     impl GetOrganizationIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetOrganizationIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetOrganizationIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2447,10 +2193,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .get_organization_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_organization_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationIntelligenceConfigRequest::name].
@@ -2487,22 +2230,17 @@ pub mod storage_control {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateOrganizationIntelligenceConfig(
-        RequestBuilder<crate::model::UpdateOrganizationIntelligenceConfigRequest>,
-    );
+    pub struct UpdateOrganizationIntelligenceConfig(RequestBuilder<crate::model::UpdateOrganizationIntelligenceConfigRequest>);
 
     impl UpdateOrganizationIntelligenceConfig {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateOrganizationIntelligenceConfigRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateOrganizationIntelligenceConfigRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2515,18 +2253,14 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::IntelligenceConfig> {
-            (*self.0.stub)
-                .update_organization_intelligence_config(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_organization_intelligence_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
         ///
         /// This is a **required** field for requests.
         pub fn set_intelligence_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = std::option::Option::Some(v.into());
             self
@@ -2536,8 +2270,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::IntelligenceConfig>,
+        where T: std::convert::Into<crate::model::IntelligenceConfig>
         {
             self.0.request.intelligence_config = v.map(|x| x.into());
             self
@@ -2547,8 +2280,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2558,8 +2290,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2600,10 +2331,10 @@ pub mod storage_control {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2620,10 +2351,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2636,8 +2364,7 @@ pub mod storage_control {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -2645,8 +2372,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -2681,10 +2407,10 @@ pub mod storage_control {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2701,10 +2427,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2719,8 +2442,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -2730,8 +2452,7 @@ pub mod storage_control {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -2739,8 +2460,7 @@ pub mod storage_control {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2748,8 +2468,7 @@ pub mod storage_control {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2784,17 +2503,14 @@ pub mod storage_control {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2807,10 +2523,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2827,7 +2540,7 @@ pub mod storage_control {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -2863,17 +2576,14 @@ pub mod storage_control {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageControl>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2886,10 +2596,7 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2905,4 +2612,5 @@ pub mod storage_control {
             &mut self.0.options
         }
     }
+
 }

@@ -306,8 +306,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::ListUserWorkloadsSecretsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListUserWorkloadsSecretsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUserWorkloadsSecretsResponse>> {
         T::list_user_workloads_secrets(self, req, options).await
     }
 
@@ -352,8 +351,7 @@ impl<T: super::Environments> Environments for T {
         &self,
         req: crate::model::ListUserWorkloadsConfigMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>> {
         T::list_user_workloads_config_maps(self, req, options).await
     }
 
@@ -479,6 +477,7 @@ pub trait ImageVersions: std::fmt::Debug + Send + Sync {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::ImageVersions] also implement [ImageVersions].
@@ -519,4 +518,5 @@ impl<T: super::ImageVersions> ImageVersions for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
+
 }

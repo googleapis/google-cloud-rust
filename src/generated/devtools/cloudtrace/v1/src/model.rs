@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -26,7 +27,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -40,6 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Trace {
+
     /// Project ID of the Cloud project where the trace data is stored.
     pub project_id: std::string::String,
 
@@ -75,7 +76,7 @@ impl Trace {
     pub fn set_spans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TraceSpan>,
+        V: std::convert::Into<crate::model::TraceSpan>
     {
         use std::iter::Iterator;
         self.spans = v.into_iter().map(|i| i.into()).collect();
@@ -93,6 +94,7 @@ impl wkt::message::Message for Trace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Traces {
+
     /// List of traces.
     pub traces: std::vec::Vec<crate::model::Trace>,
 
@@ -108,7 +110,7 @@ impl Traces {
     pub fn set_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Trace>,
+        V: std::convert::Into<crate::model::Trace>
     {
         use std::iter::Iterator;
         self.traces = v.into_iter().map(|i| i.into()).collect();
@@ -130,6 +132,7 @@ impl wkt::message::Message for Traces {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TraceSpan {
+
     /// Identifier for the span. Must be a 64-bit integer other than 0 and
     /// unique within a trace. For example, `2205310701640571284`.
     pub span_id: u64,
@@ -192,7 +195,7 @@ pub struct TraceSpan {
     /// * `/pid`
     /// * `/stacktrace`
     /// * `/tid`
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -209,10 +212,7 @@ impl TraceSpan {
     }
 
     /// Sets the value of [kind][crate::model::TraceSpan::kind].
-    pub fn set_kind<T: std::convert::Into<crate::model::trace_span::SpanKind>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kind<T: std::convert::Into<crate::model::trace_span::SpanKind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
@@ -225,8 +225,7 @@ impl TraceSpan {
 
     /// Sets the value of [start_time][crate::model::TraceSpan::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -234,8 +233,7 @@ impl TraceSpan {
 
     /// Sets or clears the value of [start_time][crate::model::TraceSpan::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -243,8 +241,7 @@ impl TraceSpan {
 
     /// Sets the value of [end_time][crate::model::TraceSpan::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -252,8 +249,7 @@ impl TraceSpan {
 
     /// Sets or clears the value of [end_time][crate::model::TraceSpan::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -288,6 +284,7 @@ impl wkt::message::Message for TraceSpan {
 pub mod trace_span {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Type of span. Can be used to specify additional relationships between spans
     /// in addition to a parent/child relationship.
@@ -378,9 +375,7 @@ pub mod trace_span {
                 0 => Self::Unspecified,
                 1 => Self::RpcServer,
                 2 => Self::RpcClient,
-                _ => Self::UnknownValue(span_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(span_kind::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -392,9 +387,7 @@ pub mod trace_span {
                 "SPAN_KIND_UNSPECIFIED" => Self::Unspecified,
                 "RPC_SERVER" => Self::RpcServer,
                 "RPC_CLIENT" => Self::RpcClient,
-                _ => Self::UnknownValue(span_kind::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(span_kind::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -419,8 +412,7 @@ pub mod trace_span {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SpanKind>::new(
-                ".google.devtools.cloudtrace.v1.TraceSpan.SpanKind",
-            ))
+                ".google.devtools.cloudtrace.v1.TraceSpan.SpanKind"))
         }
     }
 }
@@ -430,6 +422,7 @@ pub mod trace_span {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTracesRequest {
+
     /// Required. ID of the Cloud project where the trace data is stored.
     pub project_id: std::string::String,
 
@@ -516,10 +509,7 @@ impl ListTracesRequest {
     }
 
     /// Sets the value of [view][crate::model::ListTracesRequest::view].
-    pub fn set_view<T: std::convert::Into<crate::model::list_traces_request::ViewType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_view<T: std::convert::Into<crate::model::list_traces_request::ViewType>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
@@ -538,8 +528,7 @@ impl ListTracesRequest {
 
     /// Sets the value of [start_time][crate::model::ListTracesRequest::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -547,8 +536,7 @@ impl ListTracesRequest {
 
     /// Sets or clears the value of [start_time][crate::model::ListTracesRequest::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -556,8 +544,7 @@ impl ListTracesRequest {
 
     /// Sets the value of [end_time][crate::model::ListTracesRequest::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -565,8 +552,7 @@ impl ListTracesRequest {
 
     /// Sets or clears the value of [end_time][crate::model::ListTracesRequest::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -595,6 +581,7 @@ impl wkt::message::Message for ListTracesRequest {
 pub mod list_traces_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Type of data returned for traces in the list.
     ///
@@ -691,9 +678,7 @@ pub mod list_traces_request {
                 1 => Self::Minimal,
                 2 => Self::Rootspan,
                 3 => Self::Complete,
-                _ => Self::UnknownValue(view_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(view_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -706,9 +691,7 @@ pub mod list_traces_request {
                 "MINIMAL" => Self::Minimal,
                 "ROOTSPAN" => Self::Rootspan,
                 "COMPLETE" => Self::Complete,
-                _ => Self::UnknownValue(view_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(view_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -734,8 +717,7 @@ pub mod list_traces_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ViewType>::new(
-                ".google.devtools.cloudtrace.v1.ListTracesRequest.ViewType",
-            ))
+                ".google.devtools.cloudtrace.v1.ListTracesRequest.ViewType"))
         }
     }
 }
@@ -744,6 +726,7 @@ pub mod list_traces_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTracesResponse {
+
     /// List of trace records as specified by the view parameter.
     pub traces: std::vec::Vec<crate::model::Trace>,
 
@@ -764,7 +747,7 @@ impl ListTracesResponse {
     pub fn set_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Trace>,
+        V: std::convert::Into<crate::model::Trace>
     {
         use std::iter::Iterator;
         self.traces = v.into_iter().map(|i| i.into()).collect();
@@ -802,6 +785,7 @@ impl gax::paginator::internal::PageableResponse for ListTracesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTraceRequest {
+
     /// Required. ID of the Cloud project where the trace data is stored.
     pub project_id: std::string::String,
 
@@ -839,6 +823,7 @@ impl wkt::message::Message for GetTraceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchTracesRequest {
+
     /// Required. ID of the Cloud project where the trace data is stored.
     pub project_id: std::string::String,
 
@@ -861,8 +846,7 @@ impl PatchTracesRequest {
 
     /// Sets the value of [traces][crate::model::PatchTracesRequest::traces].
     pub fn set_traces<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Traces>,
+    where T: std::convert::Into<crate::model::Traces>
     {
         self.traces = std::option::Option::Some(v.into());
         self
@@ -870,8 +854,7 @@ impl PatchTracesRequest {
 
     /// Sets or clears the value of [traces][crate::model::PatchTracesRequest::traces].
     pub fn set_or_clear_traces<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Traces>,
+    where T: std::convert::Into<crate::model::Traces>
     {
         self.traces = v.map(|x| x.into());
         self

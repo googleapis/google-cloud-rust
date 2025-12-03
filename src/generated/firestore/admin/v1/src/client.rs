@@ -107,42 +107,28 @@ impl FirestoreAdmin {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::FirestoreAdmin + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::FirestoreAdmin + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FirestoreAdmin>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FirestoreAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
         super::transport::FirestoreAdmin::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::FirestoreAdmin::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::FirestoreAdmin> {
+        Self::build_transport(conf).await.map(super::tracing::FirestoreAdmin::new)
     }
 
     /// Creates a composite index. This returns a
@@ -163,27 +149,32 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_index(&self) -> super::builder::firestore_admin::CreateIndex {
+    pub fn create_index(&self) -> super::builder::firestore_admin::CreateIndex
+    {
         super::builder::firestore_admin::CreateIndex::new(self.inner.clone())
     }
 
     /// Lists composite indexes.
-    pub fn list_indexes(&self) -> super::builder::firestore_admin::ListIndexes {
+    pub fn list_indexes(&self) -> super::builder::firestore_admin::ListIndexes
+    {
         super::builder::firestore_admin::ListIndexes::new(self.inner.clone())
     }
 
     /// Gets a composite index.
-    pub fn get_index(&self) -> super::builder::firestore_admin::GetIndex {
+    pub fn get_index(&self) -> super::builder::firestore_admin::GetIndex
+    {
         super::builder::firestore_admin::GetIndex::new(self.inner.clone())
     }
 
     /// Deletes a composite index.
-    pub fn delete_index(&self) -> super::builder::firestore_admin::DeleteIndex {
+    pub fn delete_index(&self) -> super::builder::firestore_admin::DeleteIndex
+    {
         super::builder::firestore_admin::DeleteIndex::new(self.inner.clone())
     }
 
     /// Gets the metadata and configuration for a Field.
-    pub fn get_field(&self) -> super::builder::firestore_admin::GetField {
+    pub fn get_field(&self) -> super::builder::firestore_admin::GetField
+    {
         super::builder::firestore_admin::GetField::new(self.inner.clone())
     }
 
@@ -217,7 +208,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_field(&self) -> super::builder::firestore_admin::UpdateField {
+    pub fn update_field(&self) -> super::builder::firestore_admin::UpdateField
+    {
         super::builder::firestore_admin::UpdateField::new(self.inner.clone())
     }
 
@@ -232,7 +224,8 @@ impl FirestoreAdmin {
     /// `ttlConfig:*`.
     ///
     /// [google.firestore.admin.v1.FirestoreAdmin.ListFields]: crate::client::FirestoreAdmin::list_fields
-    pub fn list_fields(&self) -> super::builder::firestore_admin::ListFields {
+    pub fn list_fields(&self) -> super::builder::firestore_admin::ListFields
+    {
         super::builder::firestore_admin::ListFields::new(self.inner.clone())
     }
 
@@ -257,7 +250,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_documents(&self) -> super::builder::firestore_admin::ExportDocuments {
+    pub fn export_documents(&self) -> super::builder::firestore_admin::ExportDocuments
+    {
         super::builder::firestore_admin::ExportDocuments::new(self.inner.clone())
     }
 
@@ -276,7 +270,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_documents(&self) -> super::builder::firestore_admin::ImportDocuments {
+    pub fn import_documents(&self) -> super::builder::firestore_admin::ImportDocuments
+    {
         super::builder::firestore_admin::ImportDocuments::new(self.inner.clone())
     }
 
@@ -298,7 +293,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn bulk_delete_documents(&self) -> super::builder::firestore_admin::BulkDeleteDocuments {
+    pub fn bulk_delete_documents(&self) -> super::builder::firestore_admin::BulkDeleteDocuments
+    {
         super::builder::firestore_admin::BulkDeleteDocuments::new(self.inner.clone())
     }
 
@@ -313,17 +309,20 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_database(&self) -> super::builder::firestore_admin::CreateDatabase {
+    pub fn create_database(&self) -> super::builder::firestore_admin::CreateDatabase
+    {
         super::builder::firestore_admin::CreateDatabase::new(self.inner.clone())
     }
 
     /// Gets information about a database.
-    pub fn get_database(&self) -> super::builder::firestore_admin::GetDatabase {
+    pub fn get_database(&self) -> super::builder::firestore_admin::GetDatabase
+    {
         super::builder::firestore_admin::GetDatabase::new(self.inner.clone())
     }
 
     /// List all the databases in the project.
-    pub fn list_databases(&self) -> super::builder::firestore_admin::ListDatabases {
+    pub fn list_databases(&self) -> super::builder::firestore_admin::ListDatabases
+    {
         super::builder::firestore_admin::ListDatabases::new(self.inner.clone())
     }
 
@@ -338,7 +337,8 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_database(&self) -> super::builder::firestore_admin::UpdateDatabase {
+    pub fn update_database(&self) -> super::builder::firestore_admin::UpdateDatabase
+    {
         super::builder::firestore_admin::UpdateDatabase::new(self.inner.clone())
     }
 
@@ -353,59 +353,70 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_database(&self) -> super::builder::firestore_admin::DeleteDatabase {
+    pub fn delete_database(&self) -> super::builder::firestore_admin::DeleteDatabase
+    {
         super::builder::firestore_admin::DeleteDatabase::new(self.inner.clone())
     }
 
     /// Create a user creds.
-    pub fn create_user_creds(&self) -> super::builder::firestore_admin::CreateUserCreds {
+    pub fn create_user_creds(&self) -> super::builder::firestore_admin::CreateUserCreds
+    {
         super::builder::firestore_admin::CreateUserCreds::new(self.inner.clone())
     }
 
     /// Gets a user creds resource. Note that the returned resource does not
     /// contain the secret value itself.
-    pub fn get_user_creds(&self) -> super::builder::firestore_admin::GetUserCreds {
+    pub fn get_user_creds(&self) -> super::builder::firestore_admin::GetUserCreds
+    {
         super::builder::firestore_admin::GetUserCreds::new(self.inner.clone())
     }
 
     /// List all user creds in the database. Note that the returned resource
     /// does not contain the secret value itself.
-    pub fn list_user_creds(&self) -> super::builder::firestore_admin::ListUserCreds {
+    pub fn list_user_creds(&self) -> super::builder::firestore_admin::ListUserCreds
+    {
         super::builder::firestore_admin::ListUserCreds::new(self.inner.clone())
     }
 
     /// Enables a user creds. No-op if the user creds are already enabled.
-    pub fn enable_user_creds(&self) -> super::builder::firestore_admin::EnableUserCreds {
+    pub fn enable_user_creds(&self) -> super::builder::firestore_admin::EnableUserCreds
+    {
         super::builder::firestore_admin::EnableUserCreds::new(self.inner.clone())
     }
 
     /// Disables a user creds. No-op if the user creds are already disabled.
-    pub fn disable_user_creds(&self) -> super::builder::firestore_admin::DisableUserCreds {
+    pub fn disable_user_creds(&self) -> super::builder::firestore_admin::DisableUserCreds
+    {
         super::builder::firestore_admin::DisableUserCreds::new(self.inner.clone())
     }
 
     /// Resets the password of a user creds.
-    pub fn reset_user_password(&self) -> super::builder::firestore_admin::ResetUserPassword {
+    pub fn reset_user_password(&self) -> super::builder::firestore_admin::ResetUserPassword
+    {
         super::builder::firestore_admin::ResetUserPassword::new(self.inner.clone())
     }
 
     /// Deletes a user creds.
-    pub fn delete_user_creds(&self) -> super::builder::firestore_admin::DeleteUserCreds {
+    pub fn delete_user_creds(&self) -> super::builder::firestore_admin::DeleteUserCreds
+    {
         super::builder::firestore_admin::DeleteUserCreds::new(self.inner.clone())
     }
 
     /// Gets information about a backup.
-    pub fn get_backup(&self) -> super::builder::firestore_admin::GetBackup {
+    pub fn get_backup(&self) -> super::builder::firestore_admin::GetBackup
+    {
         super::builder::firestore_admin::GetBackup::new(self.inner.clone())
     }
 
     /// Lists all the backups.
-    pub fn list_backups(&self) -> super::builder::firestore_admin::ListBackups {
+    pub fn list_backups(&self) -> super::builder::firestore_admin::ListBackups
+    {
         super::builder::firestore_admin::ListBackups::new(self.inner.clone())
     }
 
     /// Deletes a backup.
-    pub fn delete_backup(&self) -> super::builder::firestore_admin::DeleteBackup {
+    pub fn delete_backup(&self) -> super::builder::firestore_admin::DeleteBackup
+    {
         super::builder::firestore_admin::DeleteBackup::new(self.inner.clone())
     }
 
@@ -443,34 +454,40 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_database(&self) -> super::builder::firestore_admin::RestoreDatabase {
+    pub fn restore_database(&self) -> super::builder::firestore_admin::RestoreDatabase
+    {
         super::builder::firestore_admin::RestoreDatabase::new(self.inner.clone())
     }
 
     /// Creates a backup schedule on a database.
     /// At most two backup schedules can be configured on a database, one daily
     /// backup schedule and one weekly backup schedule.
-    pub fn create_backup_schedule(&self) -> super::builder::firestore_admin::CreateBackupSchedule {
+    pub fn create_backup_schedule(&self) -> super::builder::firestore_admin::CreateBackupSchedule
+    {
         super::builder::firestore_admin::CreateBackupSchedule::new(self.inner.clone())
     }
 
     /// Gets information about a backup schedule.
-    pub fn get_backup_schedule(&self) -> super::builder::firestore_admin::GetBackupSchedule {
+    pub fn get_backup_schedule(&self) -> super::builder::firestore_admin::GetBackupSchedule
+    {
         super::builder::firestore_admin::GetBackupSchedule::new(self.inner.clone())
     }
 
     /// List backup schedules.
-    pub fn list_backup_schedules(&self) -> super::builder::firestore_admin::ListBackupSchedules {
+    pub fn list_backup_schedules(&self) -> super::builder::firestore_admin::ListBackupSchedules
+    {
         super::builder::firestore_admin::ListBackupSchedules::new(self.inner.clone())
     }
 
     /// Updates a backup schedule.
-    pub fn update_backup_schedule(&self) -> super::builder::firestore_admin::UpdateBackupSchedule {
+    pub fn update_backup_schedule(&self) -> super::builder::firestore_admin::UpdateBackupSchedule
+    {
         super::builder::firestore_admin::UpdateBackupSchedule::new(self.inner.clone())
     }
 
     /// Deletes a backup schedule.
-    pub fn delete_backup_schedule(&self) -> super::builder::firestore_admin::DeleteBackupSchedule {
+    pub fn delete_backup_schedule(&self) -> super::builder::firestore_admin::DeleteBackupSchedule
+    {
         super::builder::firestore_admin::DeleteBackupSchedule::new(self.inner.clone())
     }
 
@@ -508,35 +525,40 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn clone_database(&self) -> super::builder::firestore_admin::CloneDatabase {
+    pub fn clone_database(&self) -> super::builder::firestore_admin::CloneDatabase
+    {
         super::builder::firestore_admin::CloneDatabase::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::firestore_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::firestore_admin::ListOperations
+    {
         super::builder::firestore_admin::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::firestore_admin::GetOperation {
+    pub fn get_operation(&self) -> super::builder::firestore_admin::GetOperation
+    {
         super::builder::firestore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::firestore_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::firestore_admin::DeleteOperation
+    {
         super::builder::firestore_admin::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::firestore_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::firestore_admin::CancelOperation
+    {
         super::builder::firestore_admin::CancelOperation::new(self.inner.clone())
     }
 }

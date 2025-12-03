@@ -100,6 +100,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::OsConfigService] also implement [OsConfigService].
@@ -146,8 +147,7 @@ impl<T: super::OsConfigService> OsConfigService for T {
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
         T::list_patch_job_instance_details(self, req, options).await
     }
 
@@ -231,6 +231,7 @@ impl<T: super::OsConfigService> OsConfigService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
+
 }
 
 /// A dyn-compatible, crate-private version of [super::OsConfigZonalService].
@@ -375,8 +376,7 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>> {
         T::list_os_policy_assignment_revisions(self, req, options).await
     }
 
@@ -403,8 +403,7 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
         T::list_os_policy_assignment_reports(self, req, options).await
     }
 
@@ -440,8 +439,7 @@ impl<T: super::OsConfigZonalService> OsConfigZonalService for T {
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>> {
         T::list_vulnerability_reports(self, req, options).await
     }
 

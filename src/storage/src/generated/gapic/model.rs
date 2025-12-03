@@ -27,6 +27,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBucketRequest {
+
     /// Required. Name of a bucket to delete.
     pub name: std::string::String,
 
@@ -53,8 +54,7 @@ impl DeleteBucketRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -62,8 +62,7 @@ impl DeleteBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -71,8 +70,7 @@ impl DeleteBucketRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -80,8 +78,7 @@ impl DeleteBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -100,6 +97,7 @@ impl wkt::message::Message for DeleteBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBucketRequest {
+
     /// Required. Name of a bucket.
     pub name: std::string::String,
 
@@ -132,8 +130,7 @@ impl GetBucketRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -141,8 +138,7 @@ impl GetBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -150,8 +146,7 @@ impl GetBucketRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -159,8 +154,7 @@ impl GetBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -168,8 +162,7 @@ impl GetBucketRequest {
 
     /// Sets the value of [read_mask][crate::model::GetBucketRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -177,8 +170,7 @@ impl GetBucketRequest {
 
     /// Sets or clears the value of [read_mask][crate::model::GetBucketRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
@@ -197,6 +189,7 @@ impl wkt::message::Message for GetBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBucketRequest {
+
     /// Required. The project to which this bucket belongs. This field must either
     /// be empty or `projects/_`. The project ID that owns this bucket should be
     /// specified in the `bucket.project` field.
@@ -245,8 +238,7 @@ impl CreateBucketRequest {
 
     /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
     pub fn set_bucket<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Bucket>,
+    where T: std::convert::Into<crate::model::Bucket>
     {
         self.bucket = std::option::Option::Some(v.into());
         self
@@ -254,8 +246,7 @@ impl CreateBucketRequest {
 
     /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Bucket>,
+    where T: std::convert::Into<crate::model::Bucket>
     {
         self.bucket = v.map(|x| x.into());
         self
@@ -274,10 +265,7 @@ impl CreateBucketRequest {
     }
 
     /// Sets the value of [predefined_default_object_acl][crate::model::CreateBucketRequest::predefined_default_object_acl].
-    pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_default_object_acl = v.into();
         self
     }
@@ -301,6 +289,7 @@ impl wkt::message::Message for CreateBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsRequest {
+
     /// Required. The project whose buckets we are listing.
     pub parent: std::string::String,
 
@@ -361,8 +350,7 @@ impl ListBucketsRequest {
 
     /// Sets the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -370,8 +358,7 @@ impl ListBucketsRequest {
 
     /// Sets or clears the value of [read_mask][crate::model::ListBucketsRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
@@ -396,6 +383,7 @@ impl wkt::message::Message for ListBucketsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBucketsResponse {
+
     /// The list of items.
     pub buckets: std::vec::Vec<crate::model::Bucket>,
 
@@ -427,7 +415,7 @@ impl ListBucketsResponse {
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Bucket>,
+        V: std::convert::Into<crate::model::Bucket>
     {
         use std::iter::Iterator;
         self.buckets = v.into_iter().map(|i| i.into()).collect();
@@ -444,7 +432,7 @@ impl ListBucketsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -479,6 +467,7 @@ impl gax::paginator::internal::PageableResponse for ListBucketsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LockBucketRetentionPolicyRequest {
+
     /// Required. Name of a bucket.
     pub bucket: std::string::String,
 
@@ -519,6 +508,7 @@ impl wkt::message::Message for LockBucketRetentionPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBucketRequest {
+
     /// Required. The bucket to update.
     /// The bucket's `name` field is used to identify the bucket.
     pub bucket: std::option::Option<crate::model::Bucket>,
@@ -561,8 +551,7 @@ impl UpdateBucketRequest {
 
     /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
     pub fn set_bucket<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Bucket>,
+    where T: std::convert::Into<crate::model::Bucket>
     {
         self.bucket = std::option::Option::Some(v.into());
         self
@@ -570,8 +559,7 @@ impl UpdateBucketRequest {
 
     /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
     pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Bucket>,
+    where T: std::convert::Into<crate::model::Bucket>
     {
         self.bucket = v.map(|x| x.into());
         self
@@ -579,8 +567,7 @@ impl UpdateBucketRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -588,8 +575,7 @@ impl UpdateBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateBucketRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -597,8 +583,7 @@ impl UpdateBucketRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -606,8 +591,7 @@ impl UpdateBucketRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateBucketRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -620,18 +604,14 @@ impl UpdateBucketRequest {
     }
 
     /// Sets the value of [predefined_default_object_acl][crate::model::UpdateBucketRequest::predefined_default_object_acl].
-    pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_predefined_default_object_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.predefined_default_object_acl = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -639,8 +619,7 @@ impl UpdateBucketRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -659,6 +638,7 @@ impl wkt::message::Message for UpdateBucketRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComposeObjectRequest {
+
     /// Required. Properties of the resulting object.
     pub destination: std::option::Option<crate::model::Object>,
 
@@ -704,8 +684,7 @@ impl ComposeObjectRequest {
 
     /// Sets the value of [destination][crate::model::ComposeObjectRequest::destination].
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -713,8 +692,7 @@ impl ComposeObjectRequest {
 
     /// Sets or clears the value of [destination][crate::model::ComposeObjectRequest::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.destination = v.map(|x| x.into());
         self
@@ -724,7 +702,7 @@ impl ComposeObjectRequest {
     pub fn set_source_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compose_object_request::SourceObject>,
+        V: std::convert::Into<crate::model::compose_object_request::SourceObject>
     {
         use std::iter::Iterator;
         self.source_objects = v.into_iter().map(|i| i.into()).collect();
@@ -732,18 +710,14 @@ impl ComposeObjectRequest {
     }
 
     /// Sets the value of [destination_predefined_acl][crate::model::ComposeObjectRequest::destination_predefined_acl].
-    pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -751,8 +725,7 @@ impl ComposeObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::ComposeObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -760,8 +733,7 @@ impl ComposeObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -769,8 +741,7 @@ impl ComposeObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::ComposeObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -784,8 +755,7 @@ impl ComposeObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -793,8 +763,7 @@ impl ComposeObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::ComposeObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -802,8 +771,7 @@ impl ComposeObjectRequest {
 
     /// Sets the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
     pub fn set_object_checksums<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.object_checksums = std::option::Option::Some(v.into());
         self
@@ -811,8 +779,7 @@ impl ComposeObjectRequest {
 
     /// Sets or clears the value of [object_checksums][crate::model::ComposeObjectRequest::object_checksums].
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.object_checksums = v.map(|x| x.into());
         self
@@ -830,10 +797,12 @@ pub mod compose_object_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Description of a source object for a composition request.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceObject {
+
         /// Required. The source object's name. All source objects must reside in the
         /// same bucket.
         pub name: std::string::String,
@@ -842,9 +811,7 @@ pub mod compose_object_request {
         pub generation: i64,
 
         /// Optional. Conditions that must be met for this operation to execute.
-        pub object_preconditions: std::option::Option<
-            crate::model::compose_object_request::source_object::ObjectPreconditions,
-        >,
+        pub object_preconditions: std::option::Option<crate::model::compose_object_request::source_object::ObjectPreconditions>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -868,10 +835,7 @@ pub mod compose_object_request {
 
         /// Sets the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
         pub fn set_object_preconditions<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::compose_object_request::source_object::ObjectPreconditions,
-                >,
+        where T: std::convert::Into<crate::model::compose_object_request::source_object::ObjectPreconditions>
         {
             self.object_preconditions = std::option::Option::Some(v.into());
             self
@@ -879,10 +843,7 @@ pub mod compose_object_request {
 
         /// Sets or clears the value of [object_preconditions][crate::model::compose_object_request::SourceObject::object_preconditions].
         pub fn set_or_clear_object_preconditions<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::compose_object_request::source_object::ObjectPreconditions,
-                >,
+        where T: std::convert::Into<crate::model::compose_object_request::source_object::ObjectPreconditions>
         {
             self.object_preconditions = v.map(|x| x.into());
             self
@@ -900,10 +861,12 @@ pub mod compose_object_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Preconditions for a source object of a composition request.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ObjectPreconditions {
+
             /// Only perform the composition if the generation of the source object
             /// that would be used matches this value.  If this value and a generation
             /// are both specified, they must be the same value or the call fails.
@@ -919,8 +882,7 @@ pub mod compose_object_request {
 
             /// Sets the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
             pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<i64>,
+            where T: std::convert::Into<i64>
             {
                 self.if_generation_match = std::option::Option::Some(v.into());
                 self
@@ -928,8 +890,7 @@ pub mod compose_object_request {
 
             /// Sets or clears the value of [if_generation_match][crate::model::compose_object_request::source_object::ObjectPreconditions::if_generation_match].
             pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<i64>,
+            where T: std::convert::Into<i64>
             {
                 self.if_generation_match = v.map(|x| x.into());
                 self
@@ -948,6 +909,7 @@ pub mod compose_object_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteObjectRequest {
+
     /// Required. Name of the bucket in which the object resides.
     pub bucket: std::string::String,
 
@@ -1011,8 +973,7 @@ impl DeleteObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -1020,8 +981,7 @@ impl DeleteObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::DeleteObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -1029,8 +989,7 @@ impl DeleteObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -1038,8 +997,7 @@ impl DeleteObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::DeleteObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -1047,8 +1005,7 @@ impl DeleteObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1056,8 +1013,7 @@ impl DeleteObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1065,8 +1021,7 @@ impl DeleteObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1074,8 +1029,7 @@ impl DeleteObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1083,8 +1037,7 @@ impl DeleteObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -1092,8 +1045,7 @@ impl DeleteObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::DeleteObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -1114,6 +1066,7 @@ impl wkt::message::Message for DeleteObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreObjectRequest {
+
     /// Required. Name of the bucket in which the object resides.
     pub bucket: std::string::String,
 
@@ -1192,8 +1145,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -1201,8 +1153,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::RestoreObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -1210,8 +1161,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -1219,8 +1169,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::RestoreObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -1228,8 +1177,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1237,8 +1185,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::RestoreObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1246,8 +1193,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1255,8 +1201,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::RestoreObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1264,8 +1209,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
     pub fn set_copy_source_acl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.copy_source_acl = std::option::Option::Some(v.into());
         self
@@ -1273,8 +1217,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [copy_source_acl][crate::model::RestoreObjectRequest::copy_source_acl].
     pub fn set_or_clear_copy_source_acl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.copy_source_acl = v.map(|x| x.into());
         self
@@ -1282,8 +1225,7 @@ impl RestoreObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -1291,8 +1233,7 @@ impl RestoreObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::RestoreObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -1309,6 +1250,7 @@ impl wkt::message::Message for RestoreObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadObjectRequest {
+
     /// Required. The name of the bucket containing the object to read.
     pub bucket: std::string::String,
 
@@ -1410,8 +1352,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -1419,8 +1360,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::ReadObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -1428,8 +1368,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -1437,8 +1376,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::ReadObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -1446,8 +1384,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1455,8 +1392,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::ReadObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1464,8 +1400,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1473,8 +1408,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::ReadObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1482,8 +1416,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -1491,8 +1424,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::ReadObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -1500,8 +1432,7 @@ impl ReadObjectRequest {
 
     /// Sets the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -1509,8 +1440,7 @@ impl ReadObjectRequest {
 
     /// Sets or clears the value of [read_mask][crate::model::ReadObjectRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
@@ -1529,6 +1459,7 @@ impl wkt::message::Message for ReadObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetObjectRequest {
+
     /// Required. Name of the bucket in which the object resides.
     pub bucket: std::string::String,
 
@@ -1606,8 +1537,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
     pub fn set_soft_deleted<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.soft_deleted = std::option::Option::Some(v.into());
         self
@@ -1615,8 +1545,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [soft_deleted][crate::model::GetObjectRequest::soft_deleted].
     pub fn set_or_clear_soft_deleted<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.soft_deleted = v.map(|x| x.into());
         self
@@ -1624,8 +1553,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -1633,8 +1561,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::GetObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -1642,8 +1569,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -1651,8 +1577,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::GetObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -1660,8 +1585,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1669,8 +1593,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1678,8 +1601,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1687,8 +1609,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1696,8 +1617,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -1705,8 +1625,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::GetObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -1714,8 +1633,7 @@ impl GetObjectRequest {
 
     /// Sets the value of [read_mask][crate::model::GetObjectRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -1723,8 +1641,7 @@ impl GetObjectRequest {
 
     /// Sets or clears the value of [read_mask][crate::model::GetObjectRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
@@ -1747,6 +1664,7 @@ impl wkt::message::Message for GetObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteObjectSpec {
+
     /// Required. Destination object, including its name and its metadata.
     pub resource: std::option::Option<crate::model::Object>,
 
@@ -1797,8 +1715,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [resource][crate::model::WriteObjectSpec::resource].
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -1806,8 +1723,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [resource][crate::model::WriteObjectSpec::resource].
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -1821,8 +1737,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -1830,8 +1745,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [if_generation_match][crate::model::WriteObjectSpec::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -1839,8 +1753,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -1848,8 +1761,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::WriteObjectSpec::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -1857,8 +1769,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -1866,8 +1777,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::WriteObjectSpec::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -1875,8 +1785,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -1884,8 +1793,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::WriteObjectSpec::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -1893,8 +1801,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [object_size][crate::model::WriteObjectSpec::object_size].
     pub fn set_object_size<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.object_size = std::option::Option::Some(v.into());
         self
@@ -1902,8 +1809,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [object_size][crate::model::WriteObjectSpec::object_size].
     pub fn set_or_clear_object_size<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.object_size = v.map(|x| x.into());
         self
@@ -1911,8 +1817,7 @@ impl WriteObjectSpec {
 
     /// Sets the value of [appendable][crate::model::WriteObjectSpec::appendable].
     pub fn set_appendable<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.appendable = std::option::Option::Some(v.into());
         self
@@ -1920,8 +1825,7 @@ impl WriteObjectSpec {
 
     /// Sets or clears the value of [appendable][crate::model::WriteObjectSpec::appendable].
     pub fn set_or_clear_appendable<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.appendable = v.map(|x| x.into());
         self
@@ -1940,6 +1844,7 @@ impl wkt::message::Message for WriteObjectSpec {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListObjectsRequest {
+
     /// Required. Name of the bucket in which to look for objects.
     pub parent: std::string::String,
 
@@ -2062,8 +1967,7 @@ impl ListObjectsRequest {
 
     /// Sets the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
     pub fn set_read_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = std::option::Option::Some(v.into());
         self
@@ -2071,27 +1975,20 @@ impl ListObjectsRequest {
 
     /// Sets or clears the value of [read_mask][crate::model::ListObjectsRequest::read_mask].
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.read_mask = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [lexicographic_start][crate::model::ListObjectsRequest::lexicographic_start].
-    pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lexicographic_start = v.into();
         self
     }
 
     /// Sets the value of [lexicographic_end][crate::model::ListObjectsRequest::lexicographic_end].
-    pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lexicographic_end = v.into();
         self
     }
@@ -2141,6 +2038,7 @@ impl wkt::message::Message for ListObjectsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteObjectRequest {
+
     /// Required. Immutable. The name of the destination object.
     /// See the
     /// [Naming Guidelines](https://cloud.google.com/storage/docs/objects#naming).
@@ -2267,36 +2165,26 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination_name][crate::model::RewriteObjectRequest::destination_name].
-    pub fn set_destination_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_name = v.into();
         self
     }
 
     /// Sets the value of [destination_bucket][crate::model::RewriteObjectRequest::destination_bucket].
-    pub fn set_destination_bucket<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_bucket = v.into();
         self
     }
 
     /// Sets the value of [destination_kms_key][crate::model::RewriteObjectRequest::destination_kms_key].
-    pub fn set_destination_kms_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_kms_key = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::RewriteObjectRequest::destination].
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -2304,8 +2192,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [destination][crate::model::RewriteObjectRequest::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.destination = v.map(|x| x.into());
         self
@@ -2336,18 +2223,14 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [destination_predefined_acl][crate::model::RewriteObjectRequest::destination_predefined_acl].
-    pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_predefined_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_predefined_acl = v.into();
         self
     }
 
     /// Sets the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -2355,8 +2238,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::RewriteObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -2364,8 +2246,7 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -2373,8 +2254,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::RewriteObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -2382,8 +2262,7 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -2391,8 +2270,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::RewriteObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -2400,8 +2278,7 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -2409,8 +2286,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::RewriteObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -2418,8 +2294,7 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
     pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_match = std::option::Option::Some(v.into());
         self
@@ -2427,8 +2302,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [if_source_generation_match][crate::model::RewriteObjectRequest::if_source_generation_match].
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_match = v.map(|x| x.into());
         self
@@ -2436,20 +2310,15 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
     pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_not_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_generation_not_match][crate::model::RewriteObjectRequest::if_source_generation_not_match].
-    pub fn set_or_clear_if_source_generation_not_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_not_match = v.map(|x| x.into());
         self
@@ -2457,20 +2326,15 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
     pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_metageneration_match][crate::model::RewriteObjectRequest::if_source_metageneration_match].
-    pub fn set_or_clear_if_source_metageneration_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_match = v.map(|x| x.into());
         self
@@ -2478,20 +2342,15 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
     pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_not_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::RewriteObjectRequest::if_source_metageneration_not_match].
-    pub fn set_or_clear_if_source_metageneration_not_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_not_match = v.map(|x| x.into());
         self
@@ -2504,36 +2363,26 @@ impl RewriteObjectRequest {
     }
 
     /// Sets the value of [copy_source_encryption_algorithm][crate::model::RewriteObjectRequest::copy_source_encryption_algorithm].
-    pub fn set_copy_source_encryption_algorithm<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_copy_source_encryption_algorithm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.copy_source_encryption_algorithm = v.into();
         self
     }
 
     /// Sets the value of [copy_source_encryption_key_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_bytes].
-    pub fn set_copy_source_encryption_key_bytes<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_copy_source_encryption_key_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.copy_source_encryption_key_bytes = v.into();
         self
     }
 
     /// Sets the value of [copy_source_encryption_key_sha256_bytes][crate::model::RewriteObjectRequest::copy_source_encryption_key_sha256_bytes].
-    pub fn set_copy_source_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_copy_source_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.copy_source_encryption_key_sha256_bytes = v.into();
         self
     }
 
     /// Sets the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -2541,8 +2390,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::RewriteObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -2550,8 +2398,7 @@ impl RewriteObjectRequest {
 
     /// Sets the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
     pub fn set_object_checksums<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.object_checksums = std::option::Option::Some(v.into());
         self
@@ -2559,8 +2406,7 @@ impl RewriteObjectRequest {
 
     /// Sets or clears the value of [object_checksums][crate::model::RewriteObjectRequest::object_checksums].
     pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.object_checksums = v.map(|x| x.into());
         self
@@ -2577,6 +2423,7 @@ impl wkt::message::Message for RewriteObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RewriteResponse {
+
     /// The total bytes written so far, which can be used to provide a waiting user
     /// with a progress indicator. This property is always present in the response.
     pub total_bytes_rewritten: i64,
@@ -2631,8 +2478,7 @@ impl RewriteResponse {
 
     /// Sets the value of [resource][crate::model::RewriteResponse::resource].
     pub fn set_resource<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.resource = std::option::Option::Some(v.into());
         self
@@ -2640,8 +2486,7 @@ impl RewriteResponse {
 
     /// Sets or clears the value of [resource][crate::model::RewriteResponse::resource].
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.resource = v.map(|x| x.into());
         self
@@ -2660,6 +2505,7 @@ impl wkt::message::Message for RewriteResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveObjectRequest {
+
     /// Required. Name of the bucket in which the object resides.
     pub bucket: std::string::String,
 
@@ -2746,18 +2592,14 @@ impl MoveObjectRequest {
     }
 
     /// Sets the value of [destination_object][crate::model::MoveObjectRequest::destination_object].
-    pub fn set_destination_object<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_object = v.into();
         self
     }
 
     /// Sets the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
     pub fn set_if_source_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_match = std::option::Option::Some(v.into());
         self
@@ -2765,8 +2607,7 @@ impl MoveObjectRequest {
 
     /// Sets or clears the value of [if_source_generation_match][crate::model::MoveObjectRequest::if_source_generation_match].
     pub fn set_or_clear_if_source_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_match = v.map(|x| x.into());
         self
@@ -2774,20 +2615,15 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
     pub fn set_if_source_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_not_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_generation_not_match][crate::model::MoveObjectRequest::if_source_generation_not_match].
-    pub fn set_or_clear_if_source_generation_not_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_generation_not_match = v.map(|x| x.into());
         self
@@ -2795,20 +2631,15 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
     pub fn set_if_source_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_metageneration_match][crate::model::MoveObjectRequest::if_source_metageneration_match].
-    pub fn set_or_clear_if_source_metageneration_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_match = v.map(|x| x.into());
         self
@@ -2816,20 +2647,15 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
     pub fn set_if_source_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_not_match = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [if_source_metageneration_not_match][crate::model::MoveObjectRequest::if_source_metageneration_not_match].
-    pub fn set_or_clear_if_source_metageneration_not_match<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_if_source_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.if_source_metageneration_not_match = v.map(|x| x.into());
         self
@@ -2837,8 +2663,7 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -2846,8 +2671,7 @@ impl MoveObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::MoveObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -2855,8 +2679,7 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -2864,8 +2687,7 @@ impl MoveObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::MoveObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -2873,8 +2695,7 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -2882,8 +2703,7 @@ impl MoveObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::MoveObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -2891,8 +2711,7 @@ impl MoveObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -2900,8 +2719,7 @@ impl MoveObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::MoveObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -2920,6 +2738,7 @@ impl wkt::message::Message for MoveObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateObjectRequest {
+
     /// Required. The object to update.
     /// The object's bucket and name fields are used to identify the object to
     /// update. If present, the object's generation field selects a specific
@@ -2978,8 +2797,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [object][crate::model::UpdateObjectRequest::object].
     pub fn set_object<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.object = std::option::Option::Some(v.into());
         self
@@ -2987,8 +2805,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [object][crate::model::UpdateObjectRequest::object].
     pub fn set_or_clear_object<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Object>,
+    where T: std::convert::Into<crate::model::Object>
     {
         self.object = v.map(|x| x.into());
         self
@@ -2996,8 +2813,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
     pub fn set_if_generation_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = std::option::Option::Some(v.into());
         self
@@ -3005,8 +2821,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [if_generation_match][crate::model::UpdateObjectRequest::if_generation_match].
     pub fn set_or_clear_if_generation_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_match = v.map(|x| x.into());
         self
@@ -3014,8 +2829,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
     pub fn set_if_generation_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = std::option::Option::Some(v.into());
         self
@@ -3023,8 +2837,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [if_generation_not_match][crate::model::UpdateObjectRequest::if_generation_not_match].
     pub fn set_or_clear_if_generation_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_generation_not_match = v.map(|x| x.into());
         self
@@ -3032,8 +2845,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = std::option::Option::Some(v.into());
         self
@@ -3041,8 +2853,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::UpdateObjectRequest::if_metageneration_match].
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_match = v.map(|x| x.into());
         self
@@ -3050,8 +2861,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = std::option::Option::Some(v.into());
         self
@@ -3059,8 +2869,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::UpdateObjectRequest::if_metageneration_not_match].
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.if_metageneration_not_match = v.map(|x| x.into());
         self
@@ -3074,8 +2883,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3083,8 +2891,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateObjectRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3092,8 +2899,7 @@ impl UpdateObjectRequest {
 
     /// Sets the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
     pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = std::option::Option::Some(v.into());
         self
@@ -3101,8 +2907,7 @@ impl UpdateObjectRequest {
 
     /// Sets or clears the value of [common_object_request_params][crate::model::UpdateObjectRequest::common_object_request_params].
     pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    where T: std::convert::Into<crate::model::CommonObjectRequestParams>
     {
         self.common_object_request_params = v.map(|x| x.into());
         self
@@ -3125,6 +2930,7 @@ impl wkt::message::Message for UpdateObjectRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonObjectRequestParams {
+
     /// Optional. Encryption algorithm used with the Customer-Supplied Encryption
     /// Keys feature.
     pub encryption_algorithm: std::string::String,
@@ -3146,10 +2952,7 @@ impl CommonObjectRequestParams {
     }
 
     /// Sets the value of [encryption_algorithm][crate::model::CommonObjectRequestParams::encryption_algorithm].
-    pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_algorithm = v.into();
         self
     }
@@ -3161,10 +2964,7 @@ impl CommonObjectRequestParams {
     }
 
     /// Sets the value of [encryption_key_sha256_bytes][crate::model::CommonObjectRequestParams::encryption_key_sha256_bytes].
-    pub fn set_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_key_sha256_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.encryption_key_sha256_bytes = v.into();
         self
     }
@@ -3180,6 +2980,7 @@ impl wkt::message::Message for CommonObjectRequestParams {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Bucket {
+
     /// Identifier. The name of the bucket.
     /// Format: `projects/{project}/buckets/{bucket}`
     pub name: std::string::String,
@@ -3270,7 +3071,7 @@ pub struct Bucket {
     pub default_event_based_hold: bool,
 
     /// Optional. User-provided labels, in key/value pairs.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The bucket's website config, controlling how the service behaves
     /// when accessing bucket contents as a web site. See the [Static website
@@ -3404,7 +3205,7 @@ impl Bucket {
     pub fn set_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BucketAccessControl>,
+        V: std::convert::Into<crate::model::BucketAccessControl>
     {
         use std::iter::Iterator;
         self.acl = v.into_iter().map(|i| i.into()).collect();
@@ -3415,7 +3216,7 @@ impl Bucket {
     pub fn set_default_object_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>
     {
         use std::iter::Iterator;
         self.default_object_acl = v.into_iter().map(|i| i.into()).collect();
@@ -3424,8 +3225,7 @@ impl Bucket {
 
     /// Sets the value of [lifecycle][crate::model::Bucket::lifecycle].
     pub fn set_lifecycle<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Lifecycle>,
+    where T: std::convert::Into<crate::model::bucket::Lifecycle>
     {
         self.lifecycle = std::option::Option::Some(v.into());
         self
@@ -3433,8 +3233,7 @@ impl Bucket {
 
     /// Sets or clears the value of [lifecycle][crate::model::Bucket::lifecycle].
     pub fn set_or_clear_lifecycle<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Lifecycle>,
+    where T: std::convert::Into<crate::model::bucket::Lifecycle>
     {
         self.lifecycle = v.map(|x| x.into());
         self
@@ -3442,8 +3241,7 @@ impl Bucket {
 
     /// Sets the value of [create_time][crate::model::Bucket::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3451,8 +3249,7 @@ impl Bucket {
 
     /// Sets or clears the value of [create_time][crate::model::Bucket::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3462,7 +3259,7 @@ impl Bucket {
     pub fn set_cors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::bucket::Cors>,
+        V: std::convert::Into<crate::model::bucket::Cors>
     {
         use std::iter::Iterator;
         self.cors = v.into_iter().map(|i| i.into()).collect();
@@ -3471,8 +3268,7 @@ impl Bucket {
 
     /// Sets the value of [update_time][crate::model::Bucket::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3480,8 +3276,7 @@ impl Bucket {
 
     /// Sets or clears the value of [update_time][crate::model::Bucket::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -3507,8 +3302,7 @@ impl Bucket {
 
     /// Sets the value of [website][crate::model::Bucket::website].
     pub fn set_website<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Website>,
+    where T: std::convert::Into<crate::model::bucket::Website>
     {
         self.website = std::option::Option::Some(v.into());
         self
@@ -3516,8 +3310,7 @@ impl Bucket {
 
     /// Sets or clears the value of [website][crate::model::Bucket::website].
     pub fn set_or_clear_website<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Website>,
+    where T: std::convert::Into<crate::model::bucket::Website>
     {
         self.website = v.map(|x| x.into());
         self
@@ -3525,8 +3318,7 @@ impl Bucket {
 
     /// Sets the value of [versioning][crate::model::Bucket::versioning].
     pub fn set_versioning<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Versioning>,
+    where T: std::convert::Into<crate::model::bucket::Versioning>
     {
         self.versioning = std::option::Option::Some(v.into());
         self
@@ -3534,8 +3326,7 @@ impl Bucket {
 
     /// Sets or clears the value of [versioning][crate::model::Bucket::versioning].
     pub fn set_or_clear_versioning<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Versioning>,
+    where T: std::convert::Into<crate::model::bucket::Versioning>
     {
         self.versioning = v.map(|x| x.into());
         self
@@ -3543,8 +3334,7 @@ impl Bucket {
 
     /// Sets the value of [logging][crate::model::Bucket::logging].
     pub fn set_logging<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Logging>,
+    where T: std::convert::Into<crate::model::bucket::Logging>
     {
         self.logging = std::option::Option::Some(v.into());
         self
@@ -3552,8 +3342,7 @@ impl Bucket {
 
     /// Sets or clears the value of [logging][crate::model::Bucket::logging].
     pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Logging>,
+    where T: std::convert::Into<crate::model::bucket::Logging>
     {
         self.logging = v.map(|x| x.into());
         self
@@ -3561,8 +3350,7 @@ impl Bucket {
 
     /// Sets the value of [owner][crate::model::Bucket::owner].
     pub fn set_owner<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Owner>,
+    where T: std::convert::Into<crate::model::Owner>
     {
         self.owner = std::option::Option::Some(v.into());
         self
@@ -3570,8 +3358,7 @@ impl Bucket {
 
     /// Sets or clears the value of [owner][crate::model::Bucket::owner].
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Owner>,
+    where T: std::convert::Into<crate::model::Owner>
     {
         self.owner = v.map(|x| x.into());
         self
@@ -3579,8 +3366,7 @@ impl Bucket {
 
     /// Sets the value of [encryption][crate::model::Bucket::encryption].
     pub fn set_encryption<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Encryption>,
+    where T: std::convert::Into<crate::model::bucket::Encryption>
     {
         self.encryption = std::option::Option::Some(v.into());
         self
@@ -3588,8 +3374,7 @@ impl Bucket {
 
     /// Sets or clears the value of [encryption][crate::model::Bucket::encryption].
     pub fn set_or_clear_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Encryption>,
+    where T: std::convert::Into<crate::model::bucket::Encryption>
     {
         self.encryption = v.map(|x| x.into());
         self
@@ -3597,8 +3382,7 @@ impl Bucket {
 
     /// Sets the value of [billing][crate::model::Bucket::billing].
     pub fn set_billing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Billing>,
+    where T: std::convert::Into<crate::model::bucket::Billing>
     {
         self.billing = std::option::Option::Some(v.into());
         self
@@ -3606,8 +3390,7 @@ impl Bucket {
 
     /// Sets or clears the value of [billing][crate::model::Bucket::billing].
     pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Billing>,
+    where T: std::convert::Into<crate::model::bucket::Billing>
     {
         self.billing = v.map(|x| x.into());
         self
@@ -3615,8 +3398,7 @@ impl Bucket {
 
     /// Sets the value of [retention_policy][crate::model::Bucket::retention_policy].
     pub fn set_retention_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::RetentionPolicy>,
+    where T: std::convert::Into<crate::model::bucket::RetentionPolicy>
     {
         self.retention_policy = std::option::Option::Some(v.into());
         self
@@ -3624,8 +3406,7 @@ impl Bucket {
 
     /// Sets or clears the value of [retention_policy][crate::model::Bucket::retention_policy].
     pub fn set_or_clear_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::RetentionPolicy>,
+    where T: std::convert::Into<crate::model::bucket::RetentionPolicy>
     {
         self.retention_policy = v.map(|x| x.into());
         self
@@ -3633,8 +3414,7 @@ impl Bucket {
 
     /// Sets the value of [iam_config][crate::model::Bucket::iam_config].
     pub fn set_iam_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::IamConfig>,
+    where T: std::convert::Into<crate::model::bucket::IamConfig>
     {
         self.iam_config = std::option::Option::Some(v.into());
         self
@@ -3642,8 +3422,7 @@ impl Bucket {
 
     /// Sets or clears the value of [iam_config][crate::model::Bucket::iam_config].
     pub fn set_or_clear_iam_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::IamConfig>,
+    where T: std::convert::Into<crate::model::bucket::IamConfig>
     {
         self.iam_config = v.map(|x| x.into());
         self
@@ -3657,8 +3436,7 @@ impl Bucket {
 
     /// Sets the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
     pub fn set_custom_placement_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>,
+    where T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>
     {
         self.custom_placement_config = std::option::Option::Some(v.into());
         self
@@ -3666,8 +3444,7 @@ impl Bucket {
 
     /// Sets or clears the value of [custom_placement_config][crate::model::Bucket::custom_placement_config].
     pub fn set_or_clear_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>,
+    where T: std::convert::Into<crate::model::bucket::CustomPlacementConfig>
     {
         self.custom_placement_config = v.map(|x| x.into());
         self
@@ -3675,8 +3452,7 @@ impl Bucket {
 
     /// Sets the value of [autoclass][crate::model::Bucket::autoclass].
     pub fn set_autoclass<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Autoclass>,
+    where T: std::convert::Into<crate::model::bucket::Autoclass>
     {
         self.autoclass = std::option::Option::Some(v.into());
         self
@@ -3684,8 +3460,7 @@ impl Bucket {
 
     /// Sets or clears the value of [autoclass][crate::model::Bucket::autoclass].
     pub fn set_or_clear_autoclass<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::Autoclass>,
+    where T: std::convert::Into<crate::model::bucket::Autoclass>
     {
         self.autoclass = v.map(|x| x.into());
         self
@@ -3693,8 +3468,7 @@ impl Bucket {
 
     /// Sets the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
     pub fn set_hierarchical_namespace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>,
+    where T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>
     {
         self.hierarchical_namespace = std::option::Option::Some(v.into());
         self
@@ -3702,8 +3476,7 @@ impl Bucket {
 
     /// Sets or clears the value of [hierarchical_namespace][crate::model::Bucket::hierarchical_namespace].
     pub fn set_or_clear_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>,
+    where T: std::convert::Into<crate::model::bucket::HierarchicalNamespace>
     {
         self.hierarchical_namespace = v.map(|x| x.into());
         self
@@ -3711,8 +3484,7 @@ impl Bucket {
 
     /// Sets the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
     pub fn set_soft_delete_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>,
+    where T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>
     {
         self.soft_delete_policy = std::option::Option::Some(v.into());
         self
@@ -3720,8 +3492,7 @@ impl Bucket {
 
     /// Sets or clears the value of [soft_delete_policy][crate::model::Bucket::soft_delete_policy].
     pub fn set_or_clear_soft_delete_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>,
+    where T: std::convert::Into<crate::model::bucket::SoftDeletePolicy>
     {
         self.soft_delete_policy = v.map(|x| x.into());
         self
@@ -3729,8 +3500,7 @@ impl Bucket {
 
     /// Sets the value of [object_retention][crate::model::Bucket::object_retention].
     pub fn set_object_retention<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::ObjectRetention>,
+    where T: std::convert::Into<crate::model::bucket::ObjectRetention>
     {
         self.object_retention = std::option::Option::Some(v.into());
         self
@@ -3738,8 +3508,7 @@ impl Bucket {
 
     /// Sets or clears the value of [object_retention][crate::model::Bucket::object_retention].
     pub fn set_or_clear_object_retention<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::ObjectRetention>,
+    where T: std::convert::Into<crate::model::bucket::ObjectRetention>
     {
         self.object_retention = v.map(|x| x.into());
         self
@@ -3747,8 +3516,7 @@ impl Bucket {
 
     /// Sets the value of [ip_filter][crate::model::Bucket::ip_filter].
     pub fn set_ip_filter<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::IpFilter>,
+    where T: std::convert::Into<crate::model::bucket::IpFilter>
     {
         self.ip_filter = std::option::Option::Some(v.into());
         self
@@ -3756,8 +3524,7 @@ impl Bucket {
 
     /// Sets or clears the value of [ip_filter][crate::model::Bucket::ip_filter].
     pub fn set_or_clear_ip_filter<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::bucket::IpFilter>,
+    where T: std::convert::Into<crate::model::bucket::IpFilter>
     {
         self.ip_filter = v.map(|x| x.into());
         self
@@ -3775,10 +3542,12 @@ pub mod bucket {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Billing properties of a bucket.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Billing {
+
         /// Optional. When set to true, Requester Pays is enabled for this bucket.
         pub requester_pays: bool,
 
@@ -3810,6 +3579,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Cors {
+
         /// Optional. The list of origins eligible to receive CORS response headers.
         /// For more information about origins, see [RFC
         /// 6454](https://tools.ietf.org/html/rfc6454). Note: `*` is permitted in the
@@ -3844,7 +3614,7 @@ pub mod bucket {
         pub fn set_origin<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.origin = v.into_iter().map(|i| i.into()).collect();
@@ -3855,7 +3625,7 @@ pub mod bucket {
         pub fn set_method<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.method = v.into_iter().map(|i| i.into()).collect();
@@ -3866,7 +3636,7 @@ pub mod bucket {
         pub fn set_response_header<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.response_header = v.into_iter().map(|i| i.into()).collect();
@@ -3890,6 +3660,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Encryption {
+
         /// Optional. The name of the Cloud KMS key that is used to encrypt objects
         /// inserted into this bucket, if no encryption method is specified.
         pub default_kms_key: std::string::String,
@@ -3898,25 +3669,19 @@ pub mod bucket {
         /// allowed. If set, then new objects created in this bucket must comply with
         /// enforcement config. Changing this has no effect on existing objects; it
         /// applies to new objects only.
-        pub google_managed_encryption_enforcement_config: std::option::Option<
-            crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
-        >,
+        pub google_managed_encryption_enforcement_config: std::option::Option<crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig>,
 
         /// Optional. If omitted, then new objects with CMEK encryption-type is
         /// allowed. If set, then new objects created in this bucket must comply with
         /// enforcement config. Changing this has no effect on existing objects; it
         /// applies to new objects only.
-        pub customer_managed_encryption_enforcement_config: std::option::Option<
-            crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
-        >,
+        pub customer_managed_encryption_enforcement_config: std::option::Option<crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig>,
 
         /// Optional. If omitted, then new objects with CSEK encryption-type is
         /// allowed. If set, then new objects created in this bucket must comply with
         /// enforcement config. Changing this has no effect on existing objects; it
         /// applies to new objects only.
-        pub customer_supplied_encryption_enforcement_config: std::option::Option<
-            crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
-        >,
+        pub customer_supplied_encryption_enforcement_config: std::option::Option<crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3927,34 +3692,22 @@ pub mod bucket {
         }
 
         /// Sets the value of [default_kms_key][crate::model::bucket::Encryption::default_kms_key].
-        pub fn set_default_kms_key<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_default_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.default_kms_key = v.into();
             self
         }
 
         /// Sets the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
         pub fn set_google_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
-                >,
+        where T: std::convert::Into<crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig>
         {
             self.google_managed_encryption_enforcement_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
-        pub fn set_or_clear_google_managed_encryption_enforcement_config<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
-                >,
+        pub fn set_or_clear_google_managed_encryption_enforcement_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig>
         {
             self.google_managed_encryption_enforcement_config = v.map(|x| x.into());
             self
@@ -3962,25 +3715,15 @@ pub mod bucket {
 
         /// Sets the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
         pub fn set_customer_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
-                >,
+        where T: std::convert::Into<crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig>
         {
-            self.customer_managed_encryption_enforcement_config =
-                std::option::Option::Some(v.into());
+            self.customer_managed_encryption_enforcement_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
-        pub fn set_or_clear_customer_managed_encryption_enforcement_config<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
-                >,
+        pub fn set_or_clear_customer_managed_encryption_enforcement_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig>
         {
             self.customer_managed_encryption_enforcement_config = v.map(|x| x.into());
             self
@@ -3988,25 +3731,15 @@ pub mod bucket {
 
         /// Sets the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
         pub fn set_customer_supplied_encryption_enforcement_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
-                >,
+        where T: std::convert::Into<crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig>
         {
-            self.customer_supplied_encryption_enforcement_config =
-                std::option::Option::Some(v.into());
+            self.customer_supplied_encryption_enforcement_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
-        pub fn set_or_clear_customer_supplied_encryption_enforcement_config<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
-                >,
+        pub fn set_or_clear_customer_supplied_encryption_enforcement_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig>
         {
             self.customer_supplied_encryption_enforcement_config = v.map(|x| x.into());
             self
@@ -4024,10 +3757,12 @@ pub mod bucket {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Google Managed Encryption (GMEK) enforcement config of a bucket.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleManagedEncryptionEnforcementConfig {
+
             /// Restriction mode for google-managed encryption for new objects within
             /// the bucket. Valid values are: `NotRestricted` and `FullyRestricted`.
             /// If `NotRestricted` or unset, creation of new objects with
@@ -4049,8 +3784,7 @@ pub mod bucket {
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = std::option::Option::Some(v.into());
                 self
@@ -4058,8 +3792,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = v.map(|x| x.into());
                 self
@@ -4067,8 +3800,7 @@ pub mod bucket {
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
             pub fn set_effective_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = std::option::Option::Some(v.into());
                 self
@@ -4076,8 +3808,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = v.map(|x| x.into());
                 self
@@ -4094,6 +3825,7 @@ pub mod bucket {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerManagedEncryptionEnforcementConfig {
+
             /// Restriction mode for customer-managed encryption for new objects within
             /// the bucket. Valid values are: `NotRestricted` and `FullyRestricted`.
             /// If `NotRestricted` or unset, creation of new objects with
@@ -4115,8 +3847,7 @@ pub mod bucket {
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = std::option::Option::Some(v.into());
                 self
@@ -4124,8 +3855,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = v.map(|x| x.into());
                 self
@@ -4133,8 +3863,7 @@ pub mod bucket {
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
             pub fn set_effective_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = std::option::Option::Some(v.into());
                 self
@@ -4142,8 +3871,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = v.map(|x| x.into());
                 self
@@ -4160,6 +3888,7 @@ pub mod bucket {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerSuppliedEncryptionEnforcementConfig {
+
             /// Restriction mode for customer-supplied encryption for new objects
             /// within the bucket. Valid values are: `NotRestricted` and
             /// `FullyRestricted`.
@@ -4182,8 +3911,7 @@ pub mod bucket {
 
             /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_restriction_mode<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = std::option::Option::Some(v.into());
                 self
@@ -4191,8 +3919,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
             pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.restriction_mode = v.map(|x| x.into());
                 self
@@ -4200,8 +3927,7 @@ pub mod bucket {
 
             /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
             pub fn set_effective_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = std::option::Option::Some(v.into());
                 self
@@ -4209,8 +3935,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
             pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.effective_time = v.map(|x| x.into());
                 self
@@ -4228,9 +3953,9 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IamConfig {
+
         /// Optional. Bucket restriction options currently enforced on the bucket.
-        pub uniform_bucket_level_access:
-            std::option::Option<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
+        pub uniform_bucket_level_access: std::option::Option<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
 
         /// Optional. Whether IAM enforces public access prevention. Valid values are
         /// `enforced` or `inherited`.
@@ -4246,30 +3971,22 @@ pub mod bucket {
 
         /// Sets the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
         pub fn set_uniform_bucket_level_access<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
+        where T: std::convert::Into<crate::model::bucket::iam_config::UniformBucketLevelAccess>
         {
             self.uniform_bucket_level_access = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [uniform_bucket_level_access][crate::model::bucket::IamConfig::uniform_bucket_level_access].
-        pub fn set_or_clear_uniform_bucket_level_access<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::bucket::iam_config::UniformBucketLevelAccess>,
+        pub fn set_or_clear_uniform_bucket_level_access<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::bucket::iam_config::UniformBucketLevelAccess>
         {
             self.uniform_bucket_level_access = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [public_access_prevention][crate::model::bucket::IamConfig::public_access_prevention].
-        pub fn set_public_access_prevention<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_public_access_prevention<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.public_access_prevention = v.into();
             self
         }
@@ -4286,11 +4003,13 @@ pub mod bucket {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Settings for Uniform Bucket level access.
         /// See <https://cloud.google.com/storage/docs/uniform-bucket-level-access>.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct UniformBucketLevelAccess {
+
             /// Optional. If set, access checks only use bucket-level IAM policies or
             /// above.
             pub enabled: bool,
@@ -4317,8 +4036,7 @@ pub mod bucket {
 
             /// Sets the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
             pub fn set_lock_time<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.lock_time = std::option::Option::Some(v.into());
                 self
@@ -4326,8 +4044,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [lock_time][crate::model::bucket::iam_config::UniformBucketLevelAccess::lock_time].
             pub fn set_or_clear_lock_time<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Timestamp>,
+            where T: std::convert::Into<wkt::Timestamp>
             {
                 self.lock_time = v.map(|x| x.into());
                 self
@@ -4347,6 +4064,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Lifecycle {
+
         /// Optional. A lifecycle management rule, which is made of an action to take
         /// and the condition under which the action is taken.
         pub rule: std::vec::Vec<crate::model::bucket::lifecycle::Rule>,
@@ -4363,7 +4081,7 @@ pub mod bucket {
         pub fn set_rule<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::bucket::lifecycle::Rule>,
+            V: std::convert::Into<crate::model::bucket::lifecycle::Rule>
         {
             use std::iter::Iterator;
             self.rule = v.into_iter().map(|i| i.into()).collect();
@@ -4382,11 +4100,13 @@ pub mod bucket {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// A lifecycle Rule, combining an action to take on an object and a
         /// condition which triggers that action.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Rule {
+
             /// Optional. The action to take.
             pub action: std::option::Option<crate::model::bucket::lifecycle::rule::Action>,
 
@@ -4403,8 +4123,7 @@ pub mod bucket {
 
             /// Sets the value of [action][crate::model::bucket::lifecycle::Rule::action].
             pub fn set_action<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>,
+            where T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>
             {
                 self.action = std::option::Option::Some(v.into());
                 self
@@ -4412,8 +4131,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [action][crate::model::bucket::lifecycle::Rule::action].
             pub fn set_or_clear_action<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>,
+            where T: std::convert::Into<crate::model::bucket::lifecycle::rule::Action>
             {
                 self.action = v.map(|x| x.into());
                 self
@@ -4421,8 +4139,7 @@ pub mod bucket {
 
             /// Sets the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
             pub fn set_condition<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>,
+            where T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>
             {
                 self.condition = std::option::Option::Some(v.into());
                 self
@@ -4430,8 +4147,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [condition][crate::model::bucket::lifecycle::Rule::condition].
             pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>,
+            where T: std::convert::Into<crate::model::bucket::lifecycle::rule::Condition>
             {
                 self.condition = v.map(|x| x.into());
                 self
@@ -4449,10 +4165,12 @@ pub mod bucket {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// An action to take on an object.
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Action {
+
                 /// Optional. Type of the action. Currently, only `Delete`,
                 /// `SetStorageClass`, and `AbortIncompleteMultipartUpload` are
                 /// supported.
@@ -4471,19 +4189,13 @@ pub mod bucket {
                 }
 
                 /// Sets the value of [r#type][crate::model::bucket::lifecycle::rule::Action::type].
-                pub fn set_type<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.r#type = v.into();
                     self
                 }
 
                 /// Sets the value of [storage_class][crate::model::bucket::lifecycle::rule::Action::storage_class].
-                pub fn set_storage_class<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_storage_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.storage_class = v.into();
                     self
                 }
@@ -4499,6 +4211,7 @@ pub mod bucket {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct Condition {
+
                 /// Age of an object (in days). This condition is satisfied when an
                 /// object reaches the specified age.
                 /// A value of 0 indicates that all objects immediately match this
@@ -4564,8 +4277,7 @@ pub mod bucket {
 
                 /// Sets the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
                 pub fn set_age_days<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                where T: std::convert::Into<i32>
                 {
                     self.age_days = std::option::Option::Some(v.into());
                     self
@@ -4573,8 +4285,7 @@ pub mod bucket {
 
                 /// Sets or clears the value of [age_days][crate::model::bucket::lifecycle::rule::Condition::age_days].
                 pub fn set_or_clear_age_days<T>(mut self, v: std::option::Option<T>) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                where T: std::convert::Into<i32>
                 {
                     self.age_days = v.map(|x| x.into());
                     self
@@ -4582,8 +4293,7 @@ pub mod bucket {
 
                 /// Sets the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
                 pub fn set_created_before<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.created_before = std::option::Option::Some(v.into());
                     self
@@ -4591,8 +4301,7 @@ pub mod bucket {
 
                 /// Sets or clears the value of [created_before][crate::model::bucket::lifecycle::rule::Condition::created_before].
                 pub fn set_or_clear_created_before<T>(mut self, v: std::option::Option<T>) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.created_before = v.map(|x| x.into());
                     self
@@ -4600,8 +4309,7 @@ pub mod bucket {
 
                 /// Sets the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
                 pub fn set_is_live<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<bool>,
+                where T: std::convert::Into<bool>
                 {
                     self.is_live = std::option::Option::Some(v.into());
                     self
@@ -4609,8 +4317,7 @@ pub mod bucket {
 
                 /// Sets or clears the value of [is_live][crate::model::bucket::lifecycle::rule::Condition::is_live].
                 pub fn set_or_clear_is_live<T>(mut self, v: std::option::Option<T>) -> Self
-                where
-                    T: std::convert::Into<bool>,
+                where T: std::convert::Into<bool>
                 {
                     self.is_live = v.map(|x| x.into());
                     self
@@ -4618,20 +4325,15 @@ pub mod bucket {
 
                 /// Sets the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
                 pub fn set_num_newer_versions<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                where T: std::convert::Into<i32>
                 {
                     self.num_newer_versions = std::option::Option::Some(v.into());
                     self
                 }
 
                 /// Sets or clears the value of [num_newer_versions][crate::model::bucket::lifecycle::rule::Condition::num_newer_versions].
-                pub fn set_or_clear_num_newer_versions<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                pub fn set_or_clear_num_newer_versions<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<i32>
                 {
                     self.num_newer_versions = v.map(|x| x.into());
                     self
@@ -4641,7 +4343,7 @@ pub mod bucket {
                 pub fn set_matches_storage_class<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
+                    V: std::convert::Into<std::string::String>
                 {
                     use std::iter::Iterator;
                     self.matches_storage_class = v.into_iter().map(|i| i.into()).collect();
@@ -4650,20 +4352,15 @@ pub mod bucket {
 
                 /// Sets the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
                 pub fn set_days_since_custom_time<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                where T: std::convert::Into<i32>
                 {
                     self.days_since_custom_time = std::option::Option::Some(v.into());
                     self
                 }
 
                 /// Sets or clears the value of [days_since_custom_time][crate::model::bucket::lifecycle::rule::Condition::days_since_custom_time].
-                pub fn set_or_clear_days_since_custom_time<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                pub fn set_or_clear_days_since_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<i32>
                 {
                     self.days_since_custom_time = v.map(|x| x.into());
                     self
@@ -4671,20 +4368,15 @@ pub mod bucket {
 
                 /// Sets the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
                 pub fn set_custom_time_before<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.custom_time_before = std::option::Option::Some(v.into());
                     self
                 }
 
                 /// Sets or clears the value of [custom_time_before][crate::model::bucket::lifecycle::rule::Condition::custom_time_before].
-                pub fn set_or_clear_custom_time_before<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                pub fn set_or_clear_custom_time_before<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.custom_time_before = v.map(|x| x.into());
                     self
@@ -4692,20 +4384,15 @@ pub mod bucket {
 
                 /// Sets the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
                 pub fn set_days_since_noncurrent_time<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                where T: std::convert::Into<i32>
                 {
                     self.days_since_noncurrent_time = std::option::Option::Some(v.into());
                     self
                 }
 
                 /// Sets or clears the value of [days_since_noncurrent_time][crate::model::bucket::lifecycle::rule::Condition::days_since_noncurrent_time].
-                pub fn set_or_clear_days_since_noncurrent_time<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<i32>,
+                pub fn set_or_clear_days_since_noncurrent_time<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<i32>
                 {
                     self.days_since_noncurrent_time = v.map(|x| x.into());
                     self
@@ -4713,20 +4400,15 @@ pub mod bucket {
 
                 /// Sets the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
                 pub fn set_noncurrent_time_before<T>(mut self, v: T) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.noncurrent_time_before = std::option::Option::Some(v.into());
                     self
                 }
 
                 /// Sets or clears the value of [noncurrent_time_before][crate::model::bucket::lifecycle::rule::Condition::noncurrent_time_before].
-                pub fn set_or_clear_noncurrent_time_before<T>(
-                    mut self,
-                    v: std::option::Option<T>,
-                ) -> Self
-                where
-                    T: std::convert::Into<gtype::model::Date>,
+                pub fn set_or_clear_noncurrent_time_before<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<gtype::model::Date>
                 {
                     self.noncurrent_time_before = v.map(|x| x.into());
                     self
@@ -4736,7 +4418,7 @@ pub mod bucket {
                 pub fn set_matches_prefix<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
+                    V: std::convert::Into<std::string::String>
                 {
                     use std::iter::Iterator;
                     self.matches_prefix = v.into_iter().map(|i| i.into()).collect();
@@ -4747,7 +4429,7 @@ pub mod bucket {
                 pub fn set_matches_suffix<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
-                    V: std::convert::Into<std::string::String>,
+                    V: std::convert::Into<std::string::String>
                 {
                     use std::iter::Iterator;
                     self.matches_suffix = v.into_iter().map(|i| i.into()).collect();
@@ -4767,6 +4449,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Logging {
+
         /// Optional. The destination bucket where the current bucket's logs should
         /// be placed, using path format (like `projects/123456/buckets/foo`).
         pub log_bucket: std::string::String,
@@ -4789,10 +4472,7 @@ pub mod bucket {
         }
 
         /// Sets the value of [log_object_prefix][crate::model::bucket::Logging::log_object_prefix].
-        pub fn set_log_object_prefix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_log_object_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.log_object_prefix = v.into();
             self
         }
@@ -4808,6 +4488,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ObjectRetention {
+
         /// Optional. Output only. If true, object retention is enabled for the
         /// bucket.
         pub enabled: bool,
@@ -4837,6 +4518,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetentionPolicy {
+
         /// Optional. Server-determined value that indicates the time from which
         /// policy was enforced and effective.
         pub effective_time: std::option::Option<wkt::Timestamp>,
@@ -4861,8 +4543,7 @@ pub mod bucket {
 
         /// Sets the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
         pub fn set_effective_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.effective_time = std::option::Option::Some(v.into());
             self
@@ -4870,8 +4551,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [effective_time][crate::model::bucket::RetentionPolicy::effective_time].
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.effective_time = v.map(|x| x.into());
             self
@@ -4885,8 +4565,7 @@ pub mod bucket {
 
         /// Sets the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
         pub fn set_retention_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.retention_duration = std::option::Option::Some(v.into());
             self
@@ -4894,8 +4573,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [retention_duration][crate::model::bucket::RetentionPolicy::retention_duration].
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.retention_duration = v.map(|x| x.into());
             self
@@ -4912,6 +4590,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SoftDeletePolicy {
+
         /// The period of time that soft-deleted objects in the bucket must be
         /// retained and cannot be permanently deleted. The duration must be greater
         /// than or equal to 7 days and less than 1 year.
@@ -4930,8 +4609,7 @@ pub mod bucket {
 
         /// Sets the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
         pub fn set_retention_duration<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.retention_duration = std::option::Option::Some(v.into());
             self
@@ -4939,8 +4617,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [retention_duration][crate::model::bucket::SoftDeletePolicy::retention_duration].
         pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.retention_duration = v.map(|x| x.into());
             self
@@ -4948,8 +4625,7 @@ pub mod bucket {
 
         /// Sets the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
         pub fn set_effective_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.effective_time = std::option::Option::Some(v.into());
             self
@@ -4957,8 +4633,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [effective_time][crate::model::bucket::SoftDeletePolicy::effective_time].
         pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.effective_time = v.map(|x| x.into());
             self
@@ -4977,6 +4652,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Versioning {
+
         /// Optional. While set to true, versioning is fully enabled for this bucket.
         pub enabled: bool,
 
@@ -5007,6 +4683,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Website {
+
         /// Optional. If the requested object path is missing, the service ensures
         /// the path has a trailing '/', append this suffix, and attempt to retrieve
         /// the resulting object. This allows the creation of `index.html` objects to
@@ -5029,19 +4706,13 @@ pub mod bucket {
         }
 
         /// Sets the value of [main_page_suffix][crate::model::bucket::Website::main_page_suffix].
-        pub fn set_main_page_suffix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_main_page_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.main_page_suffix = v.into();
             self
         }
 
         /// Sets the value of [not_found_page][crate::model::bucket::Website::not_found_page].
-        pub fn set_not_found_page<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_not_found_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.not_found_page = v.into();
             self
         }
@@ -5061,6 +4732,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CustomPlacementConfig {
+
         /// Optional. List of locations to use for data placement.
         pub data_locations: std::vec::Vec<std::string::String>,
 
@@ -5076,7 +4748,7 @@ pub mod bucket {
         pub fn set_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.data_locations = v.into_iter().map(|i| i.into()).collect();
@@ -5094,6 +4766,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Autoclass {
+
         /// Optional. Enables Autoclass.
         pub enabled: bool,
 
@@ -5128,8 +4801,7 @@ pub mod bucket {
 
         /// Sets the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
         pub fn set_toggle_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.toggle_time = std::option::Option::Some(v.into());
             self
@@ -5137,8 +4809,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [toggle_time][crate::model::bucket::Autoclass::toggle_time].
         pub fn set_or_clear_toggle_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.toggle_time = v.map(|x| x.into());
             self
@@ -5146,8 +4817,7 @@ pub mod bucket {
 
         /// Sets the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
         pub fn set_terminal_storage_class<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.terminal_storage_class = std::option::Option::Some(v.into());
             self
@@ -5155,8 +4825,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [terminal_storage_class][crate::model::bucket::Autoclass::terminal_storage_class].
         pub fn set_or_clear_terminal_storage_class<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.terminal_storage_class = v.map(|x| x.into());
             self
@@ -5164,20 +4833,15 @@ pub mod bucket {
 
         /// Sets the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
         pub fn set_terminal_storage_class_update_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.terminal_storage_class_update_time = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [terminal_storage_class_update_time][crate::model::bucket::Autoclass::terminal_storage_class_update_time].
-        pub fn set_or_clear_terminal_storage_class_update_time<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        pub fn set_or_clear_terminal_storage_class_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.terminal_storage_class_update_time = v.map(|x| x.into());
             self
@@ -5197,6 +4861,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IpFilter {
+
         /// The state of the IP filter configuration. Valid values are `Enabled` and
         /// `Disabled`. When set to `Enabled`, IP filtering rules are applied to a
         /// bucket and all incoming requests to the bucket are evaluated against
@@ -5205,8 +4870,7 @@ pub mod bucket {
         pub mode: std::option::Option<std::string::String>,
 
         /// Public IPs allowed to operate or access the bucket.
-        pub public_network_source:
-            std::option::Option<crate::model::bucket::ip_filter::PublicNetworkSource>,
+        pub public_network_source: std::option::Option<crate::model::bucket::ip_filter::PublicNetworkSource>,
 
         /// Optional. The list of network sources that are allowed to access
         /// operations on the bucket or the underlying objects.
@@ -5233,8 +4897,7 @@ pub mod bucket {
 
         /// Sets the value of [mode][crate::model::bucket::IpFilter::mode].
         pub fn set_mode<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.mode = std::option::Option::Some(v.into());
             self
@@ -5242,8 +4905,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [mode][crate::model::bucket::IpFilter::mode].
         pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.mode = v.map(|x| x.into());
             self
@@ -5251,8 +4913,7 @@ pub mod bucket {
 
         /// Sets the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
         pub fn set_public_network_source<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
+        where T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>
         {
             self.public_network_source = std::option::Option::Some(v.into());
             self
@@ -5260,8 +4921,7 @@ pub mod bucket {
 
         /// Sets or clears the value of [public_network_source][crate::model::bucket::IpFilter::public_network_source].
         pub fn set_or_clear_public_network_source<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>,
+        where T: std::convert::Into<crate::model::bucket::ip_filter::PublicNetworkSource>
         {
             self.public_network_source = v.map(|x| x.into());
             self
@@ -5271,7 +4931,7 @@ pub mod bucket {
         pub fn set_vpc_network_sources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::bucket::ip_filter::VpcNetworkSource>,
+            V: std::convert::Into<crate::model::bucket::ip_filter::VpcNetworkSource>
         {
             use std::iter::Iterator;
             self.vpc_network_sources = v.into_iter().map(|i| i.into()).collect();
@@ -5286,20 +4946,15 @@ pub mod bucket {
 
         /// Sets the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
         pub fn set_allow_all_service_agent_access<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<bool>,
+        where T: std::convert::Into<bool>
         {
             self.allow_all_service_agent_access = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
-        pub fn set_or_clear_allow_all_service_agent_access<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<bool>,
+        pub fn set_or_clear_allow_all_service_agent_access<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<bool>
         {
             self.allow_all_service_agent_access = v.map(|x| x.into());
             self
@@ -5317,11 +4972,13 @@ pub mod bucket {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// The public network IP address ranges that can access the bucket and its
         /// data.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct PublicNetworkSource {
+
             /// Optional. The list of IPv4 and IPv6 cidr blocks that are allowed to
             /// operate or access the bucket and its underlying objects.
             pub allowed_ip_cidr_ranges: std::vec::Vec<std::string::String>,
@@ -5338,7 +4995,7 @@ pub mod bucket {
             pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.allowed_ip_cidr_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -5356,6 +5013,7 @@ pub mod bucket {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VpcNetworkSource {
+
             /// Name of the network.
             ///
             /// Format: `projects/PROJECT_ID/global/networks/NETWORK_NAME`
@@ -5379,8 +5037,7 @@ pub mod bucket {
 
             /// Sets the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
             pub fn set_network<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.network = std::option::Option::Some(v.into());
                 self
@@ -5388,8 +5045,7 @@ pub mod bucket {
 
             /// Sets or clears the value of [network][crate::model::bucket::ip_filter::VpcNetworkSource::network].
             pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<std::string::String>,
+            where T: std::convert::Into<std::string::String>
             {
                 self.network = v.map(|x| x.into());
                 self
@@ -5399,7 +5055,7 @@ pub mod bucket {
             pub fn set_allowed_ip_cidr_ranges<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.allowed_ip_cidr_ranges = v.into_iter().map(|i| i.into()).collect();
@@ -5418,6 +5074,7 @@ pub mod bucket {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct HierarchicalNamespace {
+
         /// Optional. Enables the hierarchical namespace feature.
         pub enabled: bool,
 
@@ -5447,6 +5104,7 @@ pub mod bucket {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BucketAccessControl {
+
     /// Optional. The access permission for the entity.
     pub role: std::string::String,
 
@@ -5554,8 +5212,7 @@ impl BucketAccessControl {
 
     /// Sets the value of [project_team][crate::model::BucketAccessControl::project_team].
     pub fn set_project_team<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ProjectTeam>,
+    where T: std::convert::Into<crate::model::ProjectTeam>
     {
         self.project_team = std::option::Option::Some(v.into());
         self
@@ -5563,8 +5220,7 @@ impl BucketAccessControl {
 
     /// Sets or clears the value of [project_team][crate::model::BucketAccessControl::project_team].
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ProjectTeam>,
+    where T: std::convert::Into<crate::model::ProjectTeam>
     {
         self.project_team = v.map(|x| x.into());
         self
@@ -5581,6 +5237,7 @@ impl wkt::message::Message for BucketAccessControl {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectChecksums {
+
     /// CRC32C digest of the object data. Computed by the Cloud Storage service for
     /// all written objects.
     /// If set in a WriteObjectRequest, service validates that the stored
@@ -5605,8 +5262,7 @@ impl ObjectChecksums {
 
     /// Sets the value of [crc32c][crate::model::ObjectChecksums::crc32c].
     pub fn set_crc32c<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<u32>,
+    where T: std::convert::Into<u32>
     {
         self.crc32c = std::option::Option::Some(v.into());
         self
@@ -5614,8 +5270,7 @@ impl ObjectChecksums {
 
     /// Sets or clears the value of [crc32c][crate::model::ObjectChecksums::crc32c].
     pub fn set_or_clear_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<u32>,
+    where T: std::convert::Into<u32>
     {
         self.crc32c = v.map(|x| x.into());
         self
@@ -5638,6 +5293,7 @@ impl wkt::message::Message for ObjectChecksums {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectCustomContextPayload {
+
     /// Required. The value of the object context.
     pub value: std::string::String,
 
@@ -5663,8 +5319,7 @@ impl ObjectCustomContextPayload {
 
     /// Sets the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -5672,8 +5327,7 @@ impl ObjectCustomContextPayload {
 
     /// Sets or clears the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -5681,8 +5335,7 @@ impl ObjectCustomContextPayload {
 
     /// Sets the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -5690,8 +5343,7 @@ impl ObjectCustomContextPayload {
 
     /// Sets or clears the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -5708,9 +5360,9 @@ impl wkt::message::Message for ObjectCustomContextPayload {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectContexts {
+
     /// Optional. User-defined object contexts.
-    pub custom:
-        std::collections::HashMap<std::string::String, crate::model::ObjectCustomContextPayload>,
+    pub custom: std::collections::HashMap<std::string::String,crate::model::ObjectCustomContextPayload>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5744,6 +5396,7 @@ impl wkt::message::Message for ObjectContexts {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomerEncryption {
+
     /// Optional. The encryption algorithm.
     pub encryption_algorithm: std::string::String,
 
@@ -5760,10 +5413,7 @@ impl CustomerEncryption {
     }
 
     /// Sets the value of [encryption_algorithm][crate::model::CustomerEncryption::encryption_algorithm].
-    pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_encryption_algorithm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_algorithm = v.into();
         self
     }
@@ -5785,6 +5435,7 @@ impl wkt::message::Message for CustomerEncryption {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Object {
+
     /// Immutable. The name of this object. Nearly any sequence of unicode
     /// characters is valid. See
     /// [Guidelines](https://cloud.google.com/storage/docs/objects#naming).
@@ -5908,7 +5559,7 @@ pub struct Object {
     pub retention_expire_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. User-provided metadata, in key/value pairs.
-    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. User-defined or system-defined object contexts. Each object
     /// context is a key-payload pair, where the key provides the identification
@@ -5989,8 +5640,7 @@ impl Object {
 
     /// Sets the value of [restore_token][crate::model::Object::restore_token].
     pub fn set_restore_token<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.restore_token = std::option::Option::Some(v.into());
         self
@@ -5998,8 +5648,7 @@ impl Object {
 
     /// Sets or clears the value of [restore_token][crate::model::Object::restore_token].
     pub fn set_or_clear_restore_token<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.restore_token = v.map(|x| x.into());
         self
@@ -6024,19 +5673,13 @@ impl Object {
     }
 
     /// Sets the value of [content_encoding][crate::model::Object::content_encoding].
-    pub fn set_content_encoding<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_content_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_encoding = v.into();
         self
     }
 
     /// Sets the value of [content_disposition][crate::model::Object::content_disposition].
-    pub fn set_content_disposition<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_content_disposition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_disposition = v.into();
         self
     }
@@ -6051,7 +5694,7 @@ impl Object {
     pub fn set_acl<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ObjectAccessControl>,
+        V: std::convert::Into<crate::model::ObjectAccessControl>
     {
         use std::iter::Iterator;
         self.acl = v.into_iter().map(|i| i.into()).collect();
@@ -6059,18 +5702,14 @@ impl Object {
     }
 
     /// Sets the value of [content_language][crate::model::Object::content_language].
-    pub fn set_content_language<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_content_language<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_language = v.into();
         self
     }
 
     /// Sets the value of [delete_time][crate::model::Object::delete_time].
     pub fn set_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = std::option::Option::Some(v.into());
         self
@@ -6078,8 +5717,7 @@ impl Object {
 
     /// Sets or clears the value of [delete_time][crate::model::Object::delete_time].
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.delete_time = v.map(|x| x.into());
         self
@@ -6087,8 +5725,7 @@ impl Object {
 
     /// Sets the value of [finalize_time][crate::model::Object::finalize_time].
     pub fn set_finalize_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finalize_time = std::option::Option::Some(v.into());
         self
@@ -6096,8 +5733,7 @@ impl Object {
 
     /// Sets or clears the value of [finalize_time][crate::model::Object::finalize_time].
     pub fn set_or_clear_finalize_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.finalize_time = v.map(|x| x.into());
         self
@@ -6111,8 +5747,7 @@ impl Object {
 
     /// Sets the value of [create_time][crate::model::Object::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6120,8 +5755,7 @@ impl Object {
 
     /// Sets or clears the value of [create_time][crate::model::Object::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6135,8 +5769,7 @@ impl Object {
 
     /// Sets the value of [checksums][crate::model::Object::checksums].
     pub fn set_checksums<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.checksums = std::option::Option::Some(v.into());
         self
@@ -6144,8 +5777,7 @@ impl Object {
 
     /// Sets or clears the value of [checksums][crate::model::Object::checksums].
     pub fn set_or_clear_checksums<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectChecksums>,
+    where T: std::convert::Into<crate::model::ObjectChecksums>
     {
         self.checksums = v.map(|x| x.into());
         self
@@ -6153,8 +5785,7 @@ impl Object {
 
     /// Sets the value of [update_time][crate::model::Object::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6162,8 +5793,7 @@ impl Object {
 
     /// Sets or clears the value of [update_time][crate::model::Object::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6177,8 +5807,7 @@ impl Object {
 
     /// Sets the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
     pub fn set_update_storage_class_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_storage_class_time = std::option::Option::Some(v.into());
         self
@@ -6186,8 +5815,7 @@ impl Object {
 
     /// Sets or clears the value of [update_storage_class_time][crate::model::Object::update_storage_class_time].
     pub fn set_or_clear_update_storage_class_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_storage_class_time = v.map(|x| x.into());
         self
@@ -6201,8 +5829,7 @@ impl Object {
 
     /// Sets the value of [retention_expire_time][crate::model::Object::retention_expire_time].
     pub fn set_retention_expire_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.retention_expire_time = std::option::Option::Some(v.into());
         self
@@ -6210,8 +5837,7 @@ impl Object {
 
     /// Sets or clears the value of [retention_expire_time][crate::model::Object::retention_expire_time].
     pub fn set_or_clear_retention_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.retention_expire_time = v.map(|x| x.into());
         self
@@ -6231,8 +5857,7 @@ impl Object {
 
     /// Sets the value of [contexts][crate::model::Object::contexts].
     pub fn set_contexts<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectContexts>,
+    where T: std::convert::Into<crate::model::ObjectContexts>
     {
         self.contexts = std::option::Option::Some(v.into());
         self
@@ -6240,8 +5865,7 @@ impl Object {
 
     /// Sets or clears the value of [contexts][crate::model::Object::contexts].
     pub fn set_or_clear_contexts<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ObjectContexts>,
+    where T: std::convert::Into<crate::model::ObjectContexts>
     {
         self.contexts = v.map(|x| x.into());
         self
@@ -6249,8 +5873,7 @@ impl Object {
 
     /// Sets the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_event_based_hold<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.event_based_hold = std::option::Option::Some(v.into());
         self
@@ -6258,8 +5881,7 @@ impl Object {
 
     /// Sets or clears the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_or_clear_event_based_hold<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.event_based_hold = v.map(|x| x.into());
         self
@@ -6267,8 +5889,7 @@ impl Object {
 
     /// Sets the value of [owner][crate::model::Object::owner].
     pub fn set_owner<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Owner>,
+    where T: std::convert::Into<crate::model::Owner>
     {
         self.owner = std::option::Option::Some(v.into());
         self
@@ -6276,8 +5897,7 @@ impl Object {
 
     /// Sets or clears the value of [owner][crate::model::Object::owner].
     pub fn set_or_clear_owner<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Owner>,
+    where T: std::convert::Into<crate::model::Owner>
     {
         self.owner = v.map(|x| x.into());
         self
@@ -6285,8 +5905,7 @@ impl Object {
 
     /// Sets the value of [customer_encryption][crate::model::Object::customer_encryption].
     pub fn set_customer_encryption<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomerEncryption>,
+    where T: std::convert::Into<crate::model::CustomerEncryption>
     {
         self.customer_encryption = std::option::Option::Some(v.into());
         self
@@ -6294,8 +5913,7 @@ impl Object {
 
     /// Sets or clears the value of [customer_encryption][crate::model::Object::customer_encryption].
     pub fn set_or_clear_customer_encryption<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CustomerEncryption>,
+    where T: std::convert::Into<crate::model::CustomerEncryption>
     {
         self.customer_encryption = v.map(|x| x.into());
         self
@@ -6303,8 +5921,7 @@ impl Object {
 
     /// Sets the value of [custom_time][crate::model::Object::custom_time].
     pub fn set_custom_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.custom_time = std::option::Option::Some(v.into());
         self
@@ -6312,8 +5929,7 @@ impl Object {
 
     /// Sets or clears the value of [custom_time][crate::model::Object::custom_time].
     pub fn set_or_clear_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.custom_time = v.map(|x| x.into());
         self
@@ -6321,8 +5937,7 @@ impl Object {
 
     /// Sets the value of [soft_delete_time][crate::model::Object::soft_delete_time].
     pub fn set_soft_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.soft_delete_time = std::option::Option::Some(v.into());
         self
@@ -6330,8 +5945,7 @@ impl Object {
 
     /// Sets or clears the value of [soft_delete_time][crate::model::Object::soft_delete_time].
     pub fn set_or_clear_soft_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.soft_delete_time = v.map(|x| x.into());
         self
@@ -6339,8 +5953,7 @@ impl Object {
 
     /// Sets the value of [hard_delete_time][crate::model::Object::hard_delete_time].
     pub fn set_hard_delete_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.hard_delete_time = std::option::Option::Some(v.into());
         self
@@ -6348,8 +5961,7 @@ impl Object {
 
     /// Sets or clears the value of [hard_delete_time][crate::model::Object::hard_delete_time].
     pub fn set_or_clear_hard_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.hard_delete_time = v.map(|x| x.into());
         self
@@ -6357,8 +5969,7 @@ impl Object {
 
     /// Sets the value of [retention][crate::model::Object::retention].
     pub fn set_retention<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::object::Retention>,
+    where T: std::convert::Into<crate::model::object::Retention>
     {
         self.retention = std::option::Option::Some(v.into());
         self
@@ -6366,8 +5977,7 @@ impl Object {
 
     /// Sets or clears the value of [retention][crate::model::Object::retention].
     pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::object::Retention>,
+    where T: std::convert::Into<crate::model::object::Retention>
     {
         self.retention = v.map(|x| x.into());
         self
@@ -6385,11 +5995,13 @@ pub mod object {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Specifies retention parameters of the object. Objects under retention
     /// cannot be deleted or overwritten until their retention expires.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Retention {
+
         /// Optional. The mode of the Retention.
         pub mode: crate::model::object::retention::Mode,
 
@@ -6406,18 +6018,14 @@ pub mod object {
         }
 
         /// Sets the value of [mode][crate::model::object::Retention::mode].
-        pub fn set_mode<T: std::convert::Into<crate::model::object::retention::Mode>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<crate::model::object::retention::Mode>>(mut self, v: T) -> Self {
             self.mode = v.into();
             self
         }
 
         /// Sets the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
         pub fn set_retain_until_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.retain_until_time = std::option::Option::Some(v.into());
             self
@@ -6425,8 +6033,7 @@ pub mod object {
 
         /// Sets or clears the value of [retain_until_time][crate::model::object::Retention::retain_until_time].
         pub fn set_or_clear_retain_until_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.retain_until_time = v.map(|x| x.into());
             self
@@ -6443,6 +6050,7 @@ pub mod object {
     pub mod retention {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Retention mode values.
         ///
@@ -6523,10 +6131,7 @@ pub mod object {
         }
 
         impl std::fmt::Display for Mode {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6537,9 +6142,7 @@ pub mod object {
                     0 => Self::Unspecified,
                     1 => Self::Unlocked,
                     2 => Self::Locked,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -6551,9 +6154,7 @@ pub mod object {
                     "MODE_UNSPECIFIED" => Self::Unspecified,
                     "UNLOCKED" => Self::Unlocked,
                     "LOCKED" => Self::Locked,
-                    _ => Self::UnknownValue(mode::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -6578,8 +6179,7 @@ pub mod object {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
-                    ".google.storage.v2.Object.Retention.Mode",
-                ))
+                    ".google.storage.v2.Object.Retention.Mode"))
             }
         }
     }
@@ -6589,6 +6189,7 @@ pub mod object {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectAccessControl {
+
     /// Optional. The access permission for the entity. One of the following
     /// values:
     ///
@@ -6701,8 +6302,7 @@ impl ObjectAccessControl {
 
     /// Sets the value of [project_team][crate::model::ObjectAccessControl::project_team].
     pub fn set_project_team<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ProjectTeam>,
+    where T: std::convert::Into<crate::model::ProjectTeam>
     {
         self.project_team = std::option::Option::Some(v.into());
         self
@@ -6710,8 +6310,7 @@ impl ObjectAccessControl {
 
     /// Sets or clears the value of [project_team][crate::model::ObjectAccessControl::project_team].
     pub fn set_or_clear_project_team<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ProjectTeam>,
+    where T: std::convert::Into<crate::model::ProjectTeam>
     {
         self.project_team = v.map(|x| x.into());
         self
@@ -6728,6 +6327,7 @@ impl wkt::message::Message for ObjectAccessControl {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListObjectsResponse {
+
     /// The list of items.
     pub objects: std::vec::Vec<crate::model::Object>,
 
@@ -6751,7 +6351,7 @@ impl ListObjectsResponse {
     pub fn set_objects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Object>,
+        V: std::convert::Into<crate::model::Object>
     {
         use std::iter::Iterator;
         self.objects = v.into_iter().map(|i| i.into()).collect();
@@ -6762,7 +6362,7 @@ impl ListObjectsResponse {
     pub fn set_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.prefixes = v.into_iter().map(|i| i.into()).collect();
@@ -6800,6 +6400,7 @@ impl gax::paginator::internal::PageableResponse for ListObjectsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProjectTeam {
+
     /// Optional. The project number.
     pub project_number: std::string::String,
 
@@ -6837,6 +6438,7 @@ impl wkt::message::Message for ProjectTeam {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Owner {
+
     /// Optional. The entity, in the form `user-`*userId*.
     pub entity: std::string::String,
 

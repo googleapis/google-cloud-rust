@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -46,6 +46,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Channel {
+
     /// Required. The resource name of the channel. Must be unique within the
     /// location on the project and must be in
     /// `projects/{project}/locations/{location}/channels/{channel_id}` format.
@@ -87,7 +88,7 @@ pub struct Channel {
     pub satisfies_pzs: bool,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub transport: std::option::Option<crate::model::channel::Transport>,
 
@@ -113,8 +114,7 @@ impl Channel {
 
     /// Sets the value of [create_time][crate::model::Channel::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -122,8 +122,7 @@ impl Channel {
 
     /// Sets or clears the value of [create_time][crate::model::Channel::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -131,8 +130,7 @@ impl Channel {
 
     /// Sets the value of [update_time][crate::model::Channel::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -140,8 +138,7 @@ impl Channel {
 
     /// Sets or clears the value of [update_time][crate::model::Channel::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -160,10 +157,7 @@ impl Channel {
     }
 
     /// Sets the value of [activation_token][crate::model::Channel::activation_token].
-    pub fn set_activation_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_activation_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.activation_token = v.into();
         self
     }
@@ -196,12 +190,8 @@ impl Channel {
     ///
     /// Note that all the setters affecting `transport` are mutually
     /// exclusive.
-    pub fn set_transport<
-        T: std::convert::Into<std::option::Option<crate::model::channel::Transport>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transport<T: std::convert::Into<std::option::Option<crate::model::channel::Transport>>>(mut self, v: T) -> Self
+    {
         self.transport = v.into();
         self
     }
@@ -223,8 +213,11 @@ impl Channel {
     /// Note that all the setters affecting `transport` are
     /// mutually exclusive.
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.transport =
-            std::option::Option::Some(crate::model::channel::Transport::PubsubTopic(v.into()));
+        self.transport = std::option::Option::Some(
+            crate::model::channel::Transport::PubsubTopic(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -239,6 +232,7 @@ impl wkt::message::Message for Channel {
 pub mod channel {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// State lists all the possible states of a Channel
     ///
@@ -344,9 +338,7 @@ pub mod channel {
                 1 => Self::Pending,
                 2 => Self::Active,
                 3 => Self::Inactive,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -359,9 +351,7 @@ pub mod channel {
                 "PENDING" => Self::Pending,
                 "ACTIVE" => Self::Active,
                 "INACTIVE" => Self::Inactive,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -387,8 +377,7 @@ pub mod channel {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.eventarc.v1.Channel.State",
-            ))
+                ".google.cloud.eventarc.v1.Channel.State"))
         }
     }
 
@@ -409,6 +398,7 @@ pub mod channel {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ChannelConnection {
+
     /// Required. The name of the connection.
     pub name: std::string::String,
 
@@ -434,7 +424,7 @@ pub struct ChannelConnection {
     pub activation_token: std::string::String,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -464,8 +454,7 @@ impl ChannelConnection {
 
     /// Sets the value of [create_time][crate::model::ChannelConnection::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -473,8 +462,7 @@ impl ChannelConnection {
 
     /// Sets or clears the value of [create_time][crate::model::ChannelConnection::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -482,8 +470,7 @@ impl ChannelConnection {
 
     /// Sets the value of [update_time][crate::model::ChannelConnection::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -491,18 +478,14 @@ impl ChannelConnection {
 
     /// Sets or clears the value of [update_time][crate::model::ChannelConnection::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [activation_token][crate::model::ChannelConnection::activation_token].
-    pub fn set_activation_token<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_activation_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.activation_token = v.into();
         self
     }
@@ -530,6 +513,7 @@ impl wkt::message::Message for ChannelConnection {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Provider {
+
     /// Output only. In
     /// `projects/{project}/locations/{location}/providers/{provider_id}` format.
     pub name: std::string::String,
@@ -565,7 +549,7 @@ impl Provider {
     pub fn set_event_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventType>,
+        V: std::convert::Into<crate::model::EventType>
     {
         use std::iter::Iterator;
         self.event_types = v.into_iter().map(|i| i.into()).collect();
@@ -583,6 +567,7 @@ impl wkt::message::Message for Provider {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventType {
+
     /// Output only. The full name of the event type (for example,
     /// "google.cloud.storage.object.v1.finalized"). In the form of
     /// {provider-specific-prefix}.{resource}.{version}.{verb}. Types MUST be
@@ -627,7 +612,7 @@ impl EventType {
     pub fn set_filtering_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::FilteringAttribute>,
+        V: std::convert::Into<crate::model::FilteringAttribute>
     {
         use std::iter::Iterator;
         self.filtering_attributes = v.into_iter().map(|i| i.into()).collect();
@@ -635,10 +620,7 @@ impl EventType {
     }
 
     /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
-    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_schema_uri = v.into();
         self
     }
@@ -655,6 +637,7 @@ impl wkt::message::Message for EventType {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FilteringAttribute {
+
     /// Output only. Attribute used for filtering the event type.
     pub attribute: std::string::String,
 
@@ -714,6 +697,7 @@ impl wkt::message::Message for FilteringAttribute {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enrollment {
+
     /// Identifier. Resource name of the form
     /// projects/{project}/locations/{location}/enrollments/{enrollment}
     pub name: std::string::String,
@@ -735,10 +719,10 @@ pub struct Enrollment {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource display name.
     pub display_name: std::string::String,
@@ -785,8 +769,7 @@ impl Enrollment {
 
     /// Sets the value of [create_time][crate::model::Enrollment::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -794,8 +777,7 @@ impl Enrollment {
 
     /// Sets or clears the value of [create_time][crate::model::Enrollment::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -803,8 +785,7 @@ impl Enrollment {
 
     /// Sets the value of [update_time][crate::model::Enrollment::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -812,8 +793,7 @@ impl Enrollment {
 
     /// Sets or clears the value of [update_time][crate::model::Enrollment::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -878,6 +858,7 @@ impl wkt::message::Message for Enrollment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTriggerRequest {
+
     /// Required. The name of the trigger to get.
     pub name: std::string::String,
 
@@ -906,6 +887,7 @@ impl wkt::message::Message for GetTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTriggersRequest {
+
     /// Required. The parent collection to list triggers on.
     pub parent: std::string::String,
 
@@ -981,6 +963,7 @@ impl wkt::message::Message for ListTriggersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTriggersResponse {
+
     /// The requested triggers, up to the number specified in `page_size`.
     pub triggers: std::vec::Vec<crate::model::Trigger>,
 
@@ -1003,7 +986,7 @@ impl ListTriggersResponse {
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Trigger>,
+        V: std::convert::Into<crate::model::Trigger>
     {
         use std::iter::Iterator;
         self.triggers = v.into_iter().map(|i| i.into()).collect();
@@ -1020,7 +1003,7 @@ impl ListTriggersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1052,6 +1035,7 @@ impl gax::paginator::internal::PageableResponse for ListTriggersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateTriggerRequest {
+
     /// Required. The parent collection in which to add this trigger.
     pub parent: std::string::String,
 
@@ -1081,8 +1065,7 @@ impl CreateTriggerRequest {
 
     /// Sets the value of [trigger][crate::model::CreateTriggerRequest::trigger].
     pub fn set_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Trigger>,
+    where T: std::convert::Into<crate::model::Trigger>
     {
         self.trigger = std::option::Option::Some(v.into());
         self
@@ -1090,8 +1073,7 @@ impl CreateTriggerRequest {
 
     /// Sets or clears the value of [trigger][crate::model::CreateTriggerRequest::trigger].
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Trigger>,
+    where T: std::convert::Into<crate::model::Trigger>
     {
         self.trigger = v.map(|x| x.into());
         self
@@ -1120,6 +1102,7 @@ impl wkt::message::Message for CreateTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateTriggerRequest {
+
     /// The trigger to be updated.
     pub trigger: std::option::Option<crate::model::Trigger>,
 
@@ -1146,8 +1129,7 @@ impl UpdateTriggerRequest {
 
     /// Sets the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
     pub fn set_trigger<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Trigger>,
+    where T: std::convert::Into<crate::model::Trigger>
     {
         self.trigger = std::option::Option::Some(v.into());
         self
@@ -1155,8 +1137,7 @@ impl UpdateTriggerRequest {
 
     /// Sets or clears the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Trigger>,
+    where T: std::convert::Into<crate::model::Trigger>
     {
         self.trigger = v.map(|x| x.into());
         self
@@ -1164,8 +1145,7 @@ impl UpdateTriggerRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1173,8 +1153,7 @@ impl UpdateTriggerRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1203,6 +1182,7 @@ impl wkt::message::Message for UpdateTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTriggerRequest {
+
     /// Required. The name of the trigger to be deleted.
     pub name: std::string::String,
 
@@ -1261,6 +1241,7 @@ impl wkt::message::Message for DeleteTriggerRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChannelRequest {
+
     /// Required. The name of the channel to get.
     pub name: std::string::String,
 
@@ -1289,6 +1270,7 @@ impl wkt::message::Message for GetChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsRequest {
+
     /// Required. The parent collection to list channels on.
     pub parent: std::string::String,
 
@@ -1353,6 +1335,7 @@ impl wkt::message::Message for ListChannelsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelsResponse {
+
     /// The requested channels, up to the number specified in `page_size`.
     pub channels: std::vec::Vec<crate::model::Channel>,
 
@@ -1375,7 +1358,7 @@ impl ListChannelsResponse {
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Channel>,
+        V: std::convert::Into<crate::model::Channel>
     {
         use std::iter::Iterator;
         self.channels = v.into_iter().map(|i| i.into()).collect();
@@ -1392,7 +1375,7 @@ impl ListChannelsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1424,6 +1407,7 @@ impl gax::paginator::internal::PageableResponse for ListChannelsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChannelRequest {
+
     /// Required. The parent collection in which to add this channel.
     pub parent: std::string::String,
 
@@ -1453,8 +1437,7 @@ impl CreateChannelRequest {
 
     /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
     pub fn set_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Channel>,
+    where T: std::convert::Into<crate::model::Channel>
     {
         self.channel = std::option::Option::Some(v.into());
         self
@@ -1462,8 +1445,7 @@ impl CreateChannelRequest {
 
     /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Channel>,
+    where T: std::convert::Into<crate::model::Channel>
     {
         self.channel = v.map(|x| x.into());
         self
@@ -1492,6 +1474,7 @@ impl wkt::message::Message for CreateChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateChannelRequest {
+
     /// The channel to be updated.
     pub channel: std::option::Option<crate::model::Channel>,
 
@@ -1514,8 +1497,7 @@ impl UpdateChannelRequest {
 
     /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
     pub fn set_channel<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Channel>,
+    where T: std::convert::Into<crate::model::Channel>
     {
         self.channel = std::option::Option::Some(v.into());
         self
@@ -1523,8 +1505,7 @@ impl UpdateChannelRequest {
 
     /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Channel>,
+    where T: std::convert::Into<crate::model::Channel>
     {
         self.channel = v.map(|x| x.into());
         self
@@ -1532,8 +1513,7 @@ impl UpdateChannelRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -1541,8 +1521,7 @@ impl UpdateChannelRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -1565,6 +1544,7 @@ impl wkt::message::Message for UpdateChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteChannelRequest {
+
     /// Required. The name of the channel to be deleted.
     pub name: std::string::String,
 
@@ -1603,6 +1583,7 @@ impl wkt::message::Message for DeleteChannelRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetProviderRequest {
+
     /// Required. The name of the provider to get.
     pub name: std::string::String,
 
@@ -1631,6 +1612,7 @@ impl wkt::message::Message for GetProviderRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersRequest {
+
     /// Required. The parent of the provider to get.
     pub parent: std::string::String,
 
@@ -1702,6 +1684,7 @@ impl wkt::message::Message for ListProvidersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListProvidersResponse {
+
     /// The requested providers, up to the number specified in `page_size`.
     pub providers: std::vec::Vec<crate::model::Provider>,
 
@@ -1724,7 +1707,7 @@ impl ListProvidersResponse {
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Provider>,
+        V: std::convert::Into<crate::model::Provider>
     {
         use std::iter::Iterator;
         self.providers = v.into_iter().map(|i| i.into()).collect();
@@ -1741,7 +1724,7 @@ impl ListProvidersResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1773,6 +1756,7 @@ impl gax::paginator::internal::PageableResponse for ListProvidersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetChannelConnectionRequest {
+
     /// Required. The name of the channel connection to get.
     pub name: std::string::String,
 
@@ -1801,6 +1785,7 @@ impl wkt::message::Message for GetChannelConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelConnectionsRequest {
+
     /// Required. The parent collection from which to list channel connections.
     pub parent: std::string::String,
 
@@ -1853,6 +1838,7 @@ impl wkt::message::Message for ListChannelConnectionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListChannelConnectionsResponse {
+
     /// The requested channel connections, up to the number specified in
     /// `page_size`.
     pub channel_connections: std::vec::Vec<crate::model::ChannelConnection>,
@@ -1877,7 +1863,7 @@ impl ListChannelConnectionsResponse {
     pub fn set_channel_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ChannelConnection>,
+        V: std::convert::Into<crate::model::ChannelConnection>
     {
         use std::iter::Iterator;
         self.channel_connections = v.into_iter().map(|i| i.into()).collect();
@@ -1894,7 +1880,7 @@ impl ListChannelConnectionsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1926,6 +1912,7 @@ impl gax::paginator::internal::PageableResponse for ListChannelConnectionsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateChannelConnectionRequest {
+
     /// Required. The parent collection in which to add this channel connection.
     pub parent: std::string::String,
 
@@ -1951,8 +1938,7 @@ impl CreateChannelConnectionRequest {
 
     /// Sets the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
     pub fn set_channel_connection<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ChannelConnection>,
+    where T: std::convert::Into<crate::model::ChannelConnection>
     {
         self.channel_connection = std::option::Option::Some(v.into());
         self
@@ -1960,18 +1946,14 @@ impl CreateChannelConnectionRequest {
 
     /// Sets or clears the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
     pub fn set_or_clear_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ChannelConnection>,
+    where T: std::convert::Into<crate::model::ChannelConnection>
     {
         self.channel_connection = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [channel_connection_id][crate::model::CreateChannelConnectionRequest::channel_connection_id].
-    pub fn set_channel_connection_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_channel_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel_connection_id = v.into();
         self
     }
@@ -1987,6 +1969,7 @@ impl wkt::message::Message for CreateChannelConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteChannelConnectionRequest {
+
     /// Required. The name of the channel connection to delete.
     pub name: std::string::String,
 
@@ -2015,6 +1998,7 @@ impl wkt::message::Message for DeleteChannelConnectionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGoogleChannelConfigRequest {
+
     /// Required. The config to be updated.
     pub google_channel_config: std::option::Option<crate::model::GoogleChannelConfig>,
 
@@ -2033,8 +2017,7 @@ impl UpdateGoogleChannelConfigRequest {
 
     /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
     pub fn set_google_channel_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleChannelConfig>,
+    where T: std::convert::Into<crate::model::GoogleChannelConfig>
     {
         self.google_channel_config = std::option::Option::Some(v.into());
         self
@@ -2042,8 +2025,7 @@ impl UpdateGoogleChannelConfigRequest {
 
     /// Sets or clears the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
     pub fn set_or_clear_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleChannelConfig>,
+    where T: std::convert::Into<crate::model::GoogleChannelConfig>
     {
         self.google_channel_config = v.map(|x| x.into());
         self
@@ -2051,8 +2033,7 @@ impl UpdateGoogleChannelConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2060,8 +2041,7 @@ impl UpdateGoogleChannelConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2078,6 +2058,7 @@ impl wkt::message::Message for UpdateGoogleChannelConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleChannelConfigRequest {
+
     /// Required. The name of the config to get.
     pub name: std::string::String,
 
@@ -2106,6 +2087,7 @@ impl wkt::message::Message for GetGoogleChannelConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetMessageBusRequest {
+
     /// Required. The name of the message bus to get.
     pub name: std::string::String,
 
@@ -2134,6 +2116,7 @@ impl wkt::message::Message for GetMessageBusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusesRequest {
+
     /// Required. The parent collection to list message buses on.
     pub parent: std::string::String,
 
@@ -2208,6 +2191,7 @@ impl wkt::message::Message for ListMessageBusesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusesResponse {
+
     /// The requested message buses, up to the number specified in `page_size`.
     pub message_buses: std::vec::Vec<crate::model::MessageBus>,
 
@@ -2230,7 +2214,7 @@ impl ListMessageBusesResponse {
     pub fn set_message_buses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::MessageBus>,
+        V: std::convert::Into<crate::model::MessageBus>
     {
         use std::iter::Iterator;
         self.message_buses = v.into_iter().map(|i| i.into()).collect();
@@ -2247,7 +2231,7 @@ impl ListMessageBusesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2279,6 +2263,7 @@ impl gax::paginator::internal::PageableResponse for ListMessageBusesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusEnrollmentsRequest {
+
     /// Required. The parent message bus to list enrollments on.
     pub parent: std::string::String,
 
@@ -2331,6 +2316,7 @@ impl wkt::message::Message for ListMessageBusEnrollmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListMessageBusEnrollmentsResponse {
+
     /// The requested enrollments, up to the number specified in `page_size`.
     pub enrollments: std::vec::Vec<std::string::String>,
 
@@ -2353,7 +2339,7 @@ impl ListMessageBusEnrollmentsResponse {
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
@@ -2370,7 +2356,7 @@ impl ListMessageBusEnrollmentsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2388,6 +2374,7 @@ impl wkt::message::Message for ListMessageBusEnrollmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateMessageBusRequest {
+
     /// Required. The parent collection in which to add this message bus.
     pub parent: std::string::String,
 
@@ -2418,8 +2405,7 @@ impl CreateMessageBusRequest {
 
     /// Sets the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
     pub fn set_message_bus<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageBus>,
+    where T: std::convert::Into<crate::model::MessageBus>
     {
         self.message_bus = std::option::Option::Some(v.into());
         self
@@ -2427,8 +2413,7 @@ impl CreateMessageBusRequest {
 
     /// Sets or clears the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
     pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageBus>,
+    where T: std::convert::Into<crate::model::MessageBus>
     {
         self.message_bus = v.map(|x| x.into());
         self
@@ -2457,6 +2442,7 @@ impl wkt::message::Message for CreateMessageBusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateMessageBusRequest {
+
     /// Required. The MessageBus to be updated.
     pub message_bus: std::option::Option<crate::model::MessageBus>,
 
@@ -2483,8 +2469,7 @@ impl UpdateMessageBusRequest {
 
     /// Sets the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
     pub fn set_message_bus<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageBus>,
+    where T: std::convert::Into<crate::model::MessageBus>
     {
         self.message_bus = std::option::Option::Some(v.into());
         self
@@ -2492,8 +2477,7 @@ impl UpdateMessageBusRequest {
 
     /// Sets or clears the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
     pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MessageBus>,
+    where T: std::convert::Into<crate::model::MessageBus>
     {
         self.message_bus = v.map(|x| x.into());
         self
@@ -2501,8 +2485,7 @@ impl UpdateMessageBusRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2510,8 +2493,7 @@ impl UpdateMessageBusRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2540,6 +2522,7 @@ impl wkt::message::Message for UpdateMessageBusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteMessageBusRequest {
+
     /// Required. The name of the MessageBus to be deleted.
     pub name: std::string::String,
 
@@ -2598,6 +2581,7 @@ impl wkt::message::Message for DeleteMessageBusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEnrollmentRequest {
+
     /// Required. The name of the Enrollment to get.
     pub name: std::string::String,
 
@@ -2626,6 +2610,7 @@ impl wkt::message::Message for GetEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnrollmentsRequest {
+
     /// Required. The parent collection to list triggers on.
     pub parent: std::string::String,
 
@@ -2700,6 +2685,7 @@ impl wkt::message::Message for ListEnrollmentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEnrollmentsResponse {
+
     /// The requested Enrollments, up to the number specified in `page_size`.
     pub enrollments: std::vec::Vec<crate::model::Enrollment>,
 
@@ -2722,7 +2708,7 @@ impl ListEnrollmentsResponse {
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Enrollment>,
+        V: std::convert::Into<crate::model::Enrollment>
     {
         use std::iter::Iterator;
         self.enrollments = v.into_iter().map(|i| i.into()).collect();
@@ -2739,7 +2725,7 @@ impl ListEnrollmentsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2771,6 +2757,7 @@ impl gax::paginator::internal::PageableResponse for ListEnrollmentsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEnrollmentRequest {
+
     /// Required. The parent collection in which to add this enrollment.
     pub parent: std::string::String,
 
@@ -2801,8 +2788,7 @@ impl CreateEnrollmentRequest {
 
     /// Sets the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
     pub fn set_enrollment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Enrollment>,
+    where T: std::convert::Into<crate::model::Enrollment>
     {
         self.enrollment = std::option::Option::Some(v.into());
         self
@@ -2810,8 +2796,7 @@ impl CreateEnrollmentRequest {
 
     /// Sets or clears the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
     pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Enrollment>,
+    where T: std::convert::Into<crate::model::Enrollment>
     {
         self.enrollment = v.map(|x| x.into());
         self
@@ -2840,6 +2825,7 @@ impl wkt::message::Message for CreateEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateEnrollmentRequest {
+
     /// Required. The Enrollment to be updated.
     pub enrollment: std::option::Option<crate::model::Enrollment>,
 
@@ -2866,8 +2852,7 @@ impl UpdateEnrollmentRequest {
 
     /// Sets the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
     pub fn set_enrollment<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Enrollment>,
+    where T: std::convert::Into<crate::model::Enrollment>
     {
         self.enrollment = std::option::Option::Some(v.into());
         self
@@ -2875,8 +2860,7 @@ impl UpdateEnrollmentRequest {
 
     /// Sets or clears the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
     pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Enrollment>,
+    where T: std::convert::Into<crate::model::Enrollment>
     {
         self.enrollment = v.map(|x| x.into());
         self
@@ -2884,8 +2868,7 @@ impl UpdateEnrollmentRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -2893,8 +2876,7 @@ impl UpdateEnrollmentRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -2923,6 +2905,7 @@ impl wkt::message::Message for UpdateEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEnrollmentRequest {
+
     /// Required. The name of the Enrollment to be deleted.
     pub name: std::string::String,
 
@@ -2981,6 +2964,7 @@ impl wkt::message::Message for DeleteEnrollmentRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetPipelineRequest {
+
     /// Required. The name of the pipeline to get.
     pub name: std::string::String,
 
@@ -3009,6 +2993,7 @@ impl wkt::message::Message for GetPipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPipelinesRequest {
+
     /// Required. The parent collection to list pipelines on.
     pub parent: std::string::String,
 
@@ -3083,6 +3068,7 @@ impl wkt::message::Message for ListPipelinesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListPipelinesResponse {
+
     /// The requested pipelines, up to the number specified in `page_size`.
     pub pipelines: std::vec::Vec<crate::model::Pipeline>,
 
@@ -3105,7 +3091,7 @@ impl ListPipelinesResponse {
     pub fn set_pipelines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Pipeline>,
+        V: std::convert::Into<crate::model::Pipeline>
     {
         use std::iter::Iterator;
         self.pipelines = v.into_iter().map(|i| i.into()).collect();
@@ -3122,7 +3108,7 @@ impl ListPipelinesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3154,6 +3140,7 @@ impl gax::paginator::internal::PageableResponse for ListPipelinesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreatePipelineRequest {
+
     /// Required. The parent collection in which to add this pipeline.
     pub parent: std::string::String,
 
@@ -3184,8 +3171,7 @@ impl CreatePipelineRequest {
 
     /// Sets the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
     pub fn set_pipeline<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Pipeline>,
+    where T: std::convert::Into<crate::model::Pipeline>
     {
         self.pipeline = std::option::Option::Some(v.into());
         self
@@ -3193,8 +3179,7 @@ impl CreatePipelineRequest {
 
     /// Sets or clears the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
     pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Pipeline>,
+    where T: std::convert::Into<crate::model::Pipeline>
     {
         self.pipeline = v.map(|x| x.into());
         self
@@ -3223,6 +3208,7 @@ impl wkt::message::Message for CreatePipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdatePipelineRequest {
+
     /// Required. The Pipeline to be updated.
     pub pipeline: std::option::Option<crate::model::Pipeline>,
 
@@ -3249,8 +3235,7 @@ impl UpdatePipelineRequest {
 
     /// Sets the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
     pub fn set_pipeline<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Pipeline>,
+    where T: std::convert::Into<crate::model::Pipeline>
     {
         self.pipeline = std::option::Option::Some(v.into());
         self
@@ -3258,8 +3243,7 @@ impl UpdatePipelineRequest {
 
     /// Sets or clears the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
     pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Pipeline>,
+    where T: std::convert::Into<crate::model::Pipeline>
     {
         self.pipeline = v.map(|x| x.into());
         self
@@ -3267,8 +3251,7 @@ impl UpdatePipelineRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3276,8 +3259,7 @@ impl UpdatePipelineRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3306,6 +3288,7 @@ impl wkt::message::Message for UpdatePipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeletePipelineRequest {
+
     /// Required. The name of the Pipeline to be deleted.
     pub name: std::string::String,
 
@@ -3364,6 +3347,7 @@ impl wkt::message::Message for DeletePipelineRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGoogleApiSourceRequest {
+
     /// Required. The name of the google api source to get.
     pub name: std::string::String,
 
@@ -3392,6 +3376,7 @@ impl wkt::message::Message for GetGoogleApiSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGoogleApiSourcesRequest {
+
     /// Required. The parent collection to list GoogleApiSources on.
     pub parent: std::string::String,
 
@@ -3466,6 +3451,7 @@ impl wkt::message::Message for ListGoogleApiSourcesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGoogleApiSourcesResponse {
+
     /// The requested GoogleApiSources, up to the number specified in `page_size`.
     pub google_api_sources: std::vec::Vec<crate::model::GoogleApiSource>,
 
@@ -3488,7 +3474,7 @@ impl ListGoogleApiSourcesResponse {
     pub fn set_google_api_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GoogleApiSource>,
+        V: std::convert::Into<crate::model::GoogleApiSource>
     {
         use std::iter::Iterator;
         self.google_api_sources = v.into_iter().map(|i| i.into()).collect();
@@ -3505,7 +3491,7 @@ impl ListGoogleApiSourcesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3537,6 +3523,7 @@ impl gax::paginator::internal::PageableResponse for ListGoogleApiSourcesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGoogleApiSourceRequest {
+
     /// Required. The parent collection in which to add this google api source.
     pub parent: std::string::String,
 
@@ -3567,8 +3554,7 @@ impl CreateGoogleApiSourceRequest {
 
     /// Sets the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
     pub fn set_google_api_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleApiSource>,
+    where T: std::convert::Into<crate::model::GoogleApiSource>
     {
         self.google_api_source = std::option::Option::Some(v.into());
         self
@@ -3576,18 +3562,14 @@ impl CreateGoogleApiSourceRequest {
 
     /// Sets or clears the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
     pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleApiSource>,
+    where T: std::convert::Into<crate::model::GoogleApiSource>
     {
         self.google_api_source = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [google_api_source_id][crate::model::CreateGoogleApiSourceRequest::google_api_source_id].
-    pub fn set_google_api_source_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_google_api_source_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.google_api_source_id = v.into();
         self
     }
@@ -3609,6 +3591,7 @@ impl wkt::message::Message for CreateGoogleApiSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGoogleApiSourceRequest {
+
     /// Required. The GoogleApiSource to be updated.
     pub google_api_source: std::option::Option<crate::model::GoogleApiSource>,
 
@@ -3636,8 +3619,7 @@ impl UpdateGoogleApiSourceRequest {
 
     /// Sets the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
     pub fn set_google_api_source<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleApiSource>,
+    where T: std::convert::Into<crate::model::GoogleApiSource>
     {
         self.google_api_source = std::option::Option::Some(v.into());
         self
@@ -3645,8 +3627,7 @@ impl UpdateGoogleApiSourceRequest {
 
     /// Sets or clears the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
     pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GoogleApiSource>,
+    where T: std::convert::Into<crate::model::GoogleApiSource>
     {
         self.google_api_source = v.map(|x| x.into());
         self
@@ -3654,8 +3635,7 @@ impl UpdateGoogleApiSourceRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3663,8 +3643,7 @@ impl UpdateGoogleApiSourceRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3693,6 +3672,7 @@ impl wkt::message::Message for UpdateGoogleApiSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGoogleApiSourceRequest {
+
     /// Required. The name of the GoogleApiSource to be deleted.
     pub name: std::string::String,
 
@@ -3751,6 +3731,7 @@ impl wkt::message::Message for DeleteGoogleApiSourceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -3788,8 +3769,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3797,8 +3777,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3806,8 +3785,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -3815,8 +3793,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -3863,6 +3840,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleApiSource {
+
     /// Identifier. Resource name of the form
     /// projects/{project}/locations/{location}/googleApiSources/{google_api_source}
     pub name: std::string::String,
@@ -3884,10 +3862,10 @@ pub struct GoogleApiSource {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource display name.
     pub display_name: std::string::String,
@@ -3936,8 +3914,7 @@ impl GoogleApiSource {
 
     /// Sets the value of [create_time][crate::model::GoogleApiSource::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -3945,8 +3922,7 @@ impl GoogleApiSource {
 
     /// Sets or clears the value of [create_time][crate::model::GoogleApiSource::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -3954,8 +3930,7 @@ impl GoogleApiSource {
 
     /// Sets the value of [update_time][crate::model::GoogleApiSource::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -3963,8 +3938,7 @@ impl GoogleApiSource {
 
     /// Sets or clears the value of [update_time][crate::model::GoogleApiSource::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4014,8 +3988,7 @@ impl GoogleApiSource {
 
     /// Sets the value of [logging_config][crate::model::GoogleApiSource::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -4023,8 +3996,7 @@ impl GoogleApiSource {
 
     /// Sets or clears the value of [logging_config][crate::model::GoogleApiSource::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -4045,6 +4017,7 @@ impl wkt::message::Message for GoogleApiSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GoogleChannelConfig {
+
     /// Required. The resource name of the config. Must be in the format of,
     /// `projects/{project}/locations/{location}/googleChannelConfig`.
     /// In API responses, the config name always includes the projectID, regardless
@@ -4062,7 +4035,7 @@ pub struct GoogleChannelConfig {
     pub crypto_key_name: std::string::String,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4080,8 +4053,7 @@ impl GoogleChannelConfig {
 
     /// Sets the value of [update_time][crate::model::GoogleChannelConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4089,8 +4061,7 @@ impl GoogleChannelConfig {
 
     /// Sets or clears the value of [update_time][crate::model::GoogleChannelConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4126,6 +4097,7 @@ impl wkt::message::Message for GoogleChannelConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
+
     /// Optional. The minimum severity of logs that will be sent to
     /// Stackdriver/Platform Telemetry. Logs at severitiy ≥ this value will be
     /// sent, unless it is NONE.
@@ -4140,10 +4112,7 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [log_severity][crate::model::LoggingConfig::log_severity].
-    pub fn set_log_severity<T: std::convert::Into<crate::model::logging_config::LogSeverity>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_log_severity<T: std::convert::Into<crate::model::logging_config::LogSeverity>>(mut self, v: T) -> Self {
         self.log_severity = v.into();
         self
     }
@@ -4159,6 +4128,7 @@ impl wkt::message::Message for LoggingConfig {
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The different severities for logging supported by Eventarc Advanced
     /// resources.
@@ -4288,9 +4258,7 @@ pub mod logging_config {
                 7 => Self::Critical,
                 8 => Self::Alert,
                 9 => Self::Emergency,
-                _ => Self::UnknownValue(log_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(log_severity::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4309,9 +4277,7 @@ pub mod logging_config {
                 "CRITICAL" => Self::Critical,
                 "ALERT" => Self::Alert,
                 "EMERGENCY" => Self::Emergency,
-                _ => Self::UnknownValue(log_severity::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(log_severity::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4343,8 +4309,7 @@ pub mod logging_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogSeverity>::new(
-                ".google.cloud.eventarc.v1.LoggingConfig.LogSeverity",
-            ))
+                ".google.cloud.eventarc.v1.LoggingConfig.LogSeverity"))
         }
     }
 }
@@ -4356,6 +4321,7 @@ pub mod logging_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageBus {
+
     /// Identifier. Resource name of the form
     /// projects/{project}/locations/{location}/messageBuses/{message_bus}
     pub name: std::string::String,
@@ -4377,10 +4343,10 @@ pub struct MessageBus {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Resource labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource annotations.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Resource display name.
     pub display_name: std::string::String,
@@ -4425,8 +4391,7 @@ impl MessageBus {
 
     /// Sets the value of [create_time][crate::model::MessageBus::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4434,8 +4399,7 @@ impl MessageBus {
 
     /// Sets or clears the value of [create_time][crate::model::MessageBus::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4443,8 +4407,7 @@ impl MessageBus {
 
     /// Sets the value of [update_time][crate::model::MessageBus::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4452,8 +4415,7 @@ impl MessageBus {
 
     /// Sets or clears the value of [update_time][crate::model::MessageBus::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4497,8 +4459,7 @@ impl MessageBus {
 
     /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -4506,8 +4467,7 @@ impl MessageBus {
 
     /// Sets or clears the value of [logging_config][crate::model::MessageBus::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -4524,6 +4484,7 @@ impl wkt::message::Message for MessageBus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NetworkConfig {
+
     /// Required. Name of the NetworkAttachment that allows access to the
     /// customer's VPC. Format:
     /// `projects/{PROJECT_ID}/regions/{REGION}/networkAttachments/{NETWORK_ATTACHMENT_NAME}`
@@ -4538,10 +4499,7 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network_attachment][crate::model::NetworkConfig::network_attachment].
-    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_attachment = v.into();
         self
     }
@@ -4557,6 +4515,7 @@ impl wkt::message::Message for NetworkConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Pipeline {
+
     /// Identifier. The resource name of the Pipeline. Must be unique within the
     /// location of the project and must be in
     /// `projects/{project}/locations/{location}/pipelines/{pipeline}` format.
@@ -4577,7 +4536,7 @@ pub struct Pipeline {
     /// Optional. User labels attached to the Pipeline that can be used to group
     /// resources. An object containing a list of "key": value pairs. Example: {
     /// "name": "wrench", "mass": "1.3kg", "count": "3" }.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Server-assigned unique identifier for the Pipeline. The value
     /// is a UUID4 string and guaranteed to remain unchanged until the resource is
@@ -4586,7 +4545,7 @@ pub struct Pipeline {
 
     /// Optional. User-defined annotations. See
     /// <https://google.aip.dev/128#annotations>.
-    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Display name of resource.
     pub display_name: std::string::String,
@@ -4646,8 +4605,7 @@ impl Pipeline {
 
     /// Sets the value of [create_time][crate::model::Pipeline::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4655,8 +4613,7 @@ impl Pipeline {
 
     /// Sets or clears the value of [create_time][crate::model::Pipeline::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4664,8 +4621,7 @@ impl Pipeline {
 
     /// Sets the value of [update_time][crate::model::Pipeline::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -4673,8 +4629,7 @@ impl Pipeline {
 
     /// Sets or clears the value of [update_time][crate::model::Pipeline::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -4720,7 +4675,7 @@ impl Pipeline {
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Destination>,
+        V: std::convert::Into<crate::model::pipeline::Destination>
     {
         use std::iter::Iterator;
         self.destinations = v.into_iter().map(|i| i.into()).collect();
@@ -4731,7 +4686,7 @@ impl Pipeline {
     pub fn set_mediations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::pipeline::Mediation>,
+        V: std::convert::Into<crate::model::pipeline::Mediation>
     {
         use std::iter::Iterator;
         self.mediations = v.into_iter().map(|i| i.into()).collect();
@@ -4746,8 +4701,7 @@ impl Pipeline {
 
     /// Sets the value of [input_payload_format][crate::model::Pipeline::input_payload_format].
     pub fn set_input_payload_format<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
+    where T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>
     {
         self.input_payload_format = std::option::Option::Some(v.into());
         self
@@ -4755,8 +4709,7 @@ impl Pipeline {
 
     /// Sets or clears the value of [input_payload_format][crate::model::Pipeline::input_payload_format].
     pub fn set_or_clear_input_payload_format<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
+    where T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>
     {
         self.input_payload_format = v.map(|x| x.into());
         self
@@ -4764,8 +4717,7 @@ impl Pipeline {
 
     /// Sets the value of [logging_config][crate::model::Pipeline::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -4773,8 +4725,7 @@ impl Pipeline {
 
     /// Sets or clears the value of [logging_config][crate::model::Pipeline::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -4782,8 +4733,7 @@ impl Pipeline {
 
     /// Sets the value of [retry_policy][crate::model::Pipeline::retry_policy].
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::pipeline::RetryPolicy>,
+    where T: std::convert::Into<crate::model::pipeline::RetryPolicy>
     {
         self.retry_policy = std::option::Option::Some(v.into());
         self
@@ -4791,8 +4741,7 @@ impl Pipeline {
 
     /// Sets or clears the value of [retry_policy][crate::model::Pipeline::retry_policy].
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::pipeline::RetryPolicy>,
+    where T: std::convert::Into<crate::model::pipeline::RetryPolicy>
     {
         self.retry_policy = v.map(|x| x.into());
         self
@@ -4822,10 +4771,12 @@ pub mod pipeline {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents the format of message data.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MessagePayloadFormat {
+
         /// The kind of message format.
         /// One of Protobuf, Avro, and JSON supported.
         /// This allows specification of what specific format
@@ -4844,14 +4795,8 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
-        pub fn set_kind<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::pipeline::message_payload_format::Kind>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::pipeline::message_payload_format::Kind>>>(mut self, v: T) -> Self
+        {
             self.kind = v.into();
             self
         }
@@ -4859,16 +4804,10 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Protobuf`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn protobuf(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
-        > {
+        pub fn protobuf(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Protobuf(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::message_payload_format::Kind::Protobuf(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4878,16 +4817,11 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_protobuf<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_protobuf<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Protobuf(v.into()),
+                crate::model::pipeline::message_payload_format::Kind::Protobuf(
+                    v.into()
+                )
             );
             self
         }
@@ -4895,16 +4829,10 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Avro`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn avro(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-        > {
+        pub fn avro(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Avro(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::message_payload_format::Kind::Avro(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4914,16 +4842,11 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_avro<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_avro<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Avro(v.into()),
+                crate::model::pipeline::message_payload_format::Kind::Avro(
+                    v.into()
+                )
             );
             self
         }
@@ -4931,16 +4854,10 @@ pub mod pipeline {
         /// The value of [kind][crate::model::pipeline::MessagePayloadFormat::kind]
         /// if it holds a `Json`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn json(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-        > {
+        pub fn json(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>> {
             #[allow(unreachable_patterns)]
             self.kind.as_ref().and_then(|v| match v {
-                crate::model::pipeline::message_payload_format::Kind::Json(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::message_payload_format::Kind::Json(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4950,16 +4867,11 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
-        pub fn set_json<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_json<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
-                crate::model::pipeline::message_payload_format::Kind::Json(v.into()),
+                crate::model::pipeline::message_payload_format::Kind::Json(
+                    v.into()
+                )
             );
             self
         }
@@ -4976,10 +4888,12 @@ pub mod pipeline {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// The format of a JSON message payload.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct JsonFormat {
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -4999,6 +4913,7 @@ pub mod pipeline {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ProtobufFormat {
+
             /// Optional. The entire schema definition is stored in this field.
             pub schema_definition: std::string::String,
 
@@ -5011,10 +4926,7 @@ pub mod pipeline {
             }
 
             /// Sets the value of [schema_definition][crate::model::pipeline::message_payload_format::ProtobufFormat::schema_definition].
-            pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.schema_definition = v.into();
                 self
             }
@@ -5030,6 +4942,7 @@ pub mod pipeline {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AvroFormat {
+
             /// Optional. The entire schema definition is stored in this field.
             pub schema_definition: std::string::String,
 
@@ -5042,10 +4955,7 @@ pub mod pipeline {
             }
 
             /// Sets the value of [schema_definition][crate::model::pipeline::message_payload_format::AvroFormat::schema_definition].
-            pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.schema_definition = v.into();
                 self
             }
@@ -5065,9 +4975,7 @@ pub mod pipeline {
         #[non_exhaustive]
         pub enum Kind {
             /// Optional. Protobuf format.
-            Protobuf(
-                std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
-            ),
+            Protobuf(std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>),
             /// Optional. Avro format.
             Avro(std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>),
             /// Optional. JSON format.
@@ -5079,6 +4987,7 @@ pub mod pipeline {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Destination {
+
         /// Optional. Network config is used to configure how Pipeline resolves and
         /// connects to a destination.
         pub network_config: std::option::Option<crate::model::pipeline::destination::NetworkConfig>,
@@ -5088,19 +4997,16 @@ pub mod pipeline {
         /// used with private Google Cloud destinations that require Google Cloud
         /// credentials for access like Cloud Run. This field is optional and should
         /// be set only by users interested in authenticated push.
-        pub authentication_config:
-            std::option::Option<crate::model::pipeline::destination::AuthenticationConfig>,
+        pub authentication_config: std::option::Option<crate::model::pipeline::destination::AuthenticationConfig>,
 
         /// Optional. The message format before it is delivered to the destination.
         /// If not set, the message will be delivered in the format it was originally
         /// delivered to the Pipeline. This field can only be set if
         /// Pipeline.input_payload_format is also set.
-        pub output_payload_format:
-            std::option::Option<crate::model::pipeline::MessagePayloadFormat>,
+        pub output_payload_format: std::option::Option<crate::model::pipeline::MessagePayloadFormat>,
 
         /// The destination identifier to which the request should be routed to.
-        pub destination_descriptor:
-            std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
+        pub destination_descriptor: std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5112,8 +5018,7 @@ pub mod pipeline {
 
         /// Sets the value of [network_config][crate::model::pipeline::Destination::network_config].
         pub fn set_network_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>,
+        where T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>
         {
             self.network_config = std::option::Option::Some(v.into());
             self
@@ -5121,8 +5026,7 @@ pub mod pipeline {
 
         /// Sets or clears the value of [network_config][crate::model::pipeline::Destination::network_config].
         pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>,
+        where T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>
         {
             self.network_config = v.map(|x| x.into());
             self
@@ -5130,8 +5034,7 @@ pub mod pipeline {
 
         /// Sets the value of [authentication_config][crate::model::pipeline::Destination::authentication_config].
         pub fn set_authentication_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>,
+        where T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>
         {
             self.authentication_config = std::option::Option::Some(v.into());
             self
@@ -5139,8 +5042,7 @@ pub mod pipeline {
 
         /// Sets or clears the value of [authentication_config][crate::model::pipeline::Destination::authentication_config].
         pub fn set_or_clear_authentication_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>,
+        where T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>
         {
             self.authentication_config = v.map(|x| x.into());
             self
@@ -5148,8 +5050,7 @@ pub mod pipeline {
 
         /// Sets the value of [output_payload_format][crate::model::pipeline::Destination::output_payload_format].
         pub fn set_output_payload_format<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
+        where T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>
         {
             self.output_payload_format = std::option::Option::Some(v.into());
             self
@@ -5157,8 +5058,7 @@ pub mod pipeline {
 
         /// Sets or clears the value of [output_payload_format][crate::model::pipeline::Destination::output_payload_format].
         pub fn set_or_clear_output_payload_format<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
+        where T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>
         {
             self.output_payload_format = v.map(|x| x.into());
             self
@@ -5168,14 +5068,8 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are mutually
         /// exclusive.
-        pub fn set_destination_descriptor<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_descriptor<T: std::convert::Into<std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>>>(mut self, v: T) -> Self
+        {
             self.destination_descriptor = v.into();
             self
         }
@@ -5183,15 +5077,10 @@ pub mod pipeline {
         /// The value of [destination_descriptor][crate::model::pipeline::Destination::destination_descriptor]
         /// if it holds a `HttpEndpoint`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn http_endpoint(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>
-        {
+        pub fn http_endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::HttpEndpoint(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::destination::DestinationDescriptor::HttpEndpoint(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -5201,14 +5090,11 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are
         /// mutually exclusive.
-        pub fn set_http_endpoint<
-            T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_http_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::HttpEndpoint(v.into()),
+                crate::model::pipeline::destination::DestinationDescriptor::HttpEndpoint(
+                    v.into()
+                )
             );
             self
         }
@@ -5219,9 +5105,7 @@ pub mod pipeline {
         pub fn workflow(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -5233,7 +5117,9 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::Workflow(v.into()),
+                crate::model::pipeline::destination::DestinationDescriptor::Workflow(
+                    v.into()
+                )
             );
             self
         }
@@ -5244,9 +5130,7 @@ pub mod pipeline {
         pub fn message_bus(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -5258,7 +5142,9 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v.into()),
+                crate::model::pipeline::destination::DestinationDescriptor::MessageBus(
+                    v.into()
+                )
             );
             self
         }
@@ -5269,9 +5155,7 @@ pub mod pipeline {
         pub fn topic(&self) -> std::option::Option<&std::string::String> {
             #[allow(unreachable_patterns)]
             self.destination_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::destination::DestinationDescriptor::Topic(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -5283,7 +5167,9 @@ pub mod pipeline {
         /// mutually exclusive.
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
-                crate::model::pipeline::destination::DestinationDescriptor::Topic(v.into()),
+                crate::model::pipeline::destination::DestinationDescriptor::Topic(
+                    v.into()
+                )
             );
             self
         }
@@ -5300,11 +5186,13 @@ pub mod pipeline {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Represents a network config to be used for destination resolution and
         /// connectivity.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct NetworkConfig {
+
             /// Required. Name of the NetworkAttachment that allows access to the
             /// consumer VPC. Format:
             /// `projects/{PROJECT_ID}/regions/{REGION}/networkAttachments/{NETWORK_ATTACHMENT_NAME}`
@@ -5319,10 +5207,7 @@ pub mod pipeline {
             }
 
             /// Sets the value of [network_attachment][crate::model::pipeline::destination::NetworkConfig::network_attachment].
-            pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.network_attachment = v.into();
                 self
             }
@@ -5338,6 +5223,7 @@ pub mod pipeline {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HttpEndpoint {
+
             /// Required. The URI of the HTTP endpoint.
             ///
             /// The value must be a RFC2396 URI string.
@@ -5533,10 +5419,7 @@ pub mod pipeline {
             }
 
             /// Sets the value of [message_binding_template][crate::model::pipeline::destination::HttpEndpoint::message_binding_template].
-            pub fn set_message_binding_template<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_message_binding_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.message_binding_template = v.into();
                 self
             }
@@ -5577,13 +5460,7 @@ pub mod pipeline {
             /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// if it holds a `GoogleOidc`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn google_oidc(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::pipeline::destination::authentication_config::OidcToken,
-                >,
-            > {
+            pub fn google_oidc(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::destination::authentication_config::OidcToken>> {
                 #[allow(unreachable_patterns)]
                 self.authentication_method_descriptor.as_ref().and_then(|v| match v {
                     crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::GoogleOidc(v) => std::option::Option::Some(v),
@@ -5596,16 +5473,7 @@ pub mod pipeline {
             ///
             /// Note that all the setters affecting `authentication_method_descriptor` are
             /// mutually exclusive.
-            pub fn set_google_oidc<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::pipeline::destination::authentication_config::OidcToken,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_google_oidc<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::authentication_config::OidcToken>>>(mut self, v: T) -> Self {
                 self.authentication_method_descriptor = std::option::Option::Some(
                     crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::GoogleOidc(
                         v.into()
@@ -5617,13 +5485,7 @@ pub mod pipeline {
             /// The value of [authentication_method_descriptor][crate::model::pipeline::destination::AuthenticationConfig::authentication_method_descriptor]
             /// if it holds a `OauthToken`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn oauth_token(
-                &self,
-            ) -> std::option::Option<
-                &std::boxed::Box<
-                    crate::model::pipeline::destination::authentication_config::OAuthToken,
-                >,
-            > {
+            pub fn oauth_token(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::destination::authentication_config::OAuthToken>> {
                 #[allow(unreachable_patterns)]
                 self.authentication_method_descriptor.as_ref().and_then(|v| match v {
                     crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(v) => std::option::Option::Some(v),
@@ -5636,16 +5498,7 @@ pub mod pipeline {
             ///
             /// Note that all the setters affecting `authentication_method_descriptor` are
             /// mutually exclusive.
-            pub fn set_oauth_token<
-                T: std::convert::Into<
-                        std::boxed::Box<
-                            crate::model::pipeline::destination::authentication_config::OAuthToken,
-                        >,
-                    >,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::authentication_config::OAuthToken>>>(mut self, v: T) -> Self {
                 self.authentication_method_descriptor = std::option::Option::Some(
                     crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor::OauthToken(
                         v.into()
@@ -5666,6 +5519,7 @@ pub mod pipeline {
             #[allow(unused_imports)]
             use super::*;
 
+
             /// Represents a config used to authenticate with a Google OIDC token using
             /// a Google Cloud service account. Use this authentication method to
             /// invoke your Cloud Run and Cloud Functions destinations or HTTP
@@ -5673,6 +5527,7 @@ pub mod pipeline {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OidcToken {
+
                 /// Required. Service account email used to generate the OIDC Token.
                 /// The principal who calls this API must have
                 /// iam.serviceAccounts.actAs permission in the service account. See
@@ -5696,19 +5551,13 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [service_account][crate::model::pipeline::destination::authentication_config::OidcToken::service_account].
-                pub fn set_service_account<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.service_account = v.into();
                     self
                 }
 
                 /// Sets the value of [audience][crate::model::pipeline::destination::authentication_config::OidcToken::audience].
-                pub fn set_audience<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.audience = v.into();
                     self
                 }
@@ -5727,6 +5576,7 @@ pub mod pipeline {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct OAuthToken {
+
                 /// Required. Service account email used to generate the [OAuth
                 /// token](https://developers.google.com/identity/protocols/OAuth2).
                 /// The principal who calls this API must have
@@ -5751,19 +5601,13 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [service_account][crate::model::pipeline::destination::authentication_config::OAuthToken::service_account].
-                pub fn set_service_account<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.service_account = v.into();
                     self
                 }
 
                 /// Sets the value of [scope][crate::model::pipeline::destination::authentication_config::OAuthToken::scope].
-                pub fn set_scope<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
+                pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.scope = v.into();
                     self
                 }
@@ -5781,11 +5625,7 @@ pub mod pipeline {
             pub enum AuthenticationMethodDescriptor {
                 /// Optional. This authenticate method will apply Google OIDC tokens
                 /// signed by a Google Cloud service account to the requests.
-                GoogleOidc(
-                    std::boxed::Box<
-                        crate::model::pipeline::destination::authentication_config::OidcToken,
-                    >,
-                ),
+                GoogleOidc(std::boxed::Box<crate::model::pipeline::destination::authentication_config::OidcToken>),
                 /// Optional. If specified, an [OAuth
                 /// token](https://developers.google.com/identity/protocols/OAuth2) will
                 /// be generated and attached as an `Authorization` header in the HTTP
@@ -5793,11 +5633,7 @@ pub mod pipeline {
                 ///
                 /// This type of authorization should generally only be used when calling
                 /// Google APIs hosted on *.googleapis.com.
-                OauthToken(
-                    std::boxed::Box<
-                        crate::model::pipeline::destination::authentication_config::OAuthToken,
-                    >,
-                ),
+                OauthToken(std::boxed::Box<crate::model::pipeline::destination::authentication_config::OAuthToken>),
             }
         }
 
@@ -5832,9 +5668,9 @@ pub mod pipeline {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Mediation {
+
         /// The config of mediation.
-        pub mediation_descriptor:
-            std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
+        pub mediation_descriptor: std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5848,14 +5684,8 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `mediation_descriptor` are mutually
         /// exclusive.
-        pub fn set_mediation_descriptor<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mediation_descriptor<T: std::convert::Into<std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>>>(mut self, v: T) -> Self
+        {
             self.mediation_descriptor = v.into();
             self
         }
@@ -5863,15 +5693,10 @@ pub mod pipeline {
         /// The value of [mediation_descriptor][crate::model::pipeline::Mediation::mediation_descriptor]
         /// if it holds a `Transformation`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn transformation(
-            &self,
-        ) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::mediation::Transformation>>
-        {
+        pub fn transformation(&self) -> std::option::Option<&std::boxed::Box<crate::model::pipeline::mediation::Transformation>> {
             #[allow(unreachable_patterns)]
             self.mediation_descriptor.as_ref().and_then(|v| match v {
-                crate::model::pipeline::mediation::MediationDescriptor::Transformation(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::pipeline::mediation::MediationDescriptor::Transformation(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -5881,14 +5706,11 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `mediation_descriptor` are
         /// mutually exclusive.
-        pub fn set_transformation<
-            T: std::convert::Into<std::boxed::Box<crate::model::pipeline::mediation::Transformation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_transformation<T: std::convert::Into<std::boxed::Box<crate::model::pipeline::mediation::Transformation>>>(mut self, v: T) -> Self {
             self.mediation_descriptor = std::option::Option::Some(
-                crate::model::pipeline::mediation::MediationDescriptor::Transformation(v.into()),
+                crate::model::pipeline::mediation::MediationDescriptor::Transformation(
+                    v.into()
+                )
             );
             self
         }
@@ -5905,10 +5727,12 @@ pub mod pipeline {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Transformation defines the way to transform an incoming message.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Transformation {
+
             /// Optional. The CEL expression template to apply to transform messages.
             /// The following CEL extension functions are provided for
             /// use in this CEL expression:
@@ -5997,10 +5821,7 @@ pub mod pipeline {
             }
 
             /// Sets the value of [transformation_template][crate::model::pipeline::mediation::Transformation::transformation_template].
-            pub fn set_transformation_template<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_transformation_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.transformation_template = v.into();
                 self
             }
@@ -6032,6 +5853,7 @@ pub mod pipeline {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RetryPolicy {
+
         /// Optional. The maximum number of delivery attempts for any message. The
         /// value must be between 1 and 100. The default value for this field is 5.
         pub max_attempts: i32,
@@ -6062,8 +5884,7 @@ pub mod pipeline {
 
         /// Sets the value of [min_retry_delay][crate::model::pipeline::RetryPolicy::min_retry_delay].
         pub fn set_min_retry_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.min_retry_delay = std::option::Option::Some(v.into());
             self
@@ -6071,8 +5892,7 @@ pub mod pipeline {
 
         /// Sets or clears the value of [min_retry_delay][crate::model::pipeline::RetryPolicy::min_retry_delay].
         pub fn set_or_clear_min_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.min_retry_delay = v.map(|x| x.into());
             self
@@ -6080,8 +5900,7 @@ pub mod pipeline {
 
         /// Sets the value of [max_retry_delay][crate::model::pipeline::RetryPolicy::max_retry_delay].
         pub fn set_max_retry_delay<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.max_retry_delay = std::option::Option::Some(v.into());
             self
@@ -6089,8 +5908,7 @@ pub mod pipeline {
 
         /// Sets or clears the value of [max_retry_delay][crate::model::pipeline::RetryPolicy::max_retry_delay].
         pub fn set_or_clear_max_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Duration>,
+        where T: std::convert::Into<wkt::Duration>
         {
             self.max_retry_delay = v.map(|x| x.into());
             self
@@ -6108,6 +5926,7 @@ pub mod pipeline {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Trigger {
+
     /// Required. The resource name of the trigger. Must be unique within the
     /// location of the project and must be in
     /// `projects/{project}/locations/{location}/triggers/{trigger}` format.
@@ -6150,7 +5969,7 @@ pub struct Trigger {
 
     /// Optional. User labels attached to the triggers that can be used to group
     /// resources.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The name of the channel associated with the trigger in
     /// `projects/{project}/locations/{location}/channels/{channel}` format.
@@ -6158,7 +5977,7 @@ pub struct Trigger {
     pub channel: std::string::String,
 
     /// Output only. The reason(s) why a trigger is in FAILED state.
-    pub conditions: std::collections::HashMap<std::string::String, crate::model::StateCondition>,
+    pub conditions: std::collections::HashMap<std::string::String,crate::model::StateCondition>,
 
     /// Optional. EventDataContentType specifies the type of payload in MIME
     /// format that is expected from the CloudEvent data field. This is set to
@@ -6196,8 +6015,7 @@ impl Trigger {
 
     /// Sets the value of [create_time][crate::model::Trigger::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -6205,8 +6023,7 @@ impl Trigger {
 
     /// Sets or clears the value of [create_time][crate::model::Trigger::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -6214,8 +6031,7 @@ impl Trigger {
 
     /// Sets the value of [update_time][crate::model::Trigger::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -6223,8 +6039,7 @@ impl Trigger {
 
     /// Sets or clears the value of [update_time][crate::model::Trigger::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -6234,7 +6049,7 @@ impl Trigger {
     pub fn set_event_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::EventFilter>,
+        V: std::convert::Into<crate::model::EventFilter>
     {
         use std::iter::Iterator;
         self.event_filters = v.into_iter().map(|i| i.into()).collect();
@@ -6249,8 +6064,7 @@ impl Trigger {
 
     /// Sets the value of [destination][crate::model::Trigger::destination].
     pub fn set_destination<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Destination>,
+    where T: std::convert::Into<crate::model::Destination>
     {
         self.destination = std::option::Option::Some(v.into());
         self
@@ -6258,8 +6072,7 @@ impl Trigger {
 
     /// Sets or clears the value of [destination][crate::model::Trigger::destination].
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Destination>,
+    where T: std::convert::Into<crate::model::Destination>
     {
         self.destination = v.map(|x| x.into());
         self
@@ -6267,8 +6080,7 @@ impl Trigger {
 
     /// Sets the value of [transport][crate::model::Trigger::transport].
     pub fn set_transport<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Transport>,
+    where T: std::convert::Into<crate::model::Transport>
     {
         self.transport = std::option::Option::Some(v.into());
         self
@@ -6276,8 +6088,7 @@ impl Trigger {
 
     /// Sets or clears the value of [transport][crate::model::Trigger::transport].
     pub fn set_or_clear_transport<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Transport>,
+    where T: std::convert::Into<crate::model::Transport>
     {
         self.transport = v.map(|x| x.into());
         self
@@ -6314,10 +6125,7 @@ impl Trigger {
     }
 
     /// Sets the value of [event_data_content_type][crate::model::Trigger::event_data_content_type].
-    pub fn set_event_data_content_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_event_data_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_data_content_type = v.into();
         self
     }
@@ -6345,6 +6153,7 @@ impl wkt::message::Message for Trigger {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EventFilter {
+
     /// Required. The name of a CloudEvents attribute. Currently, only a subset of
     /// attributes are supported for filtering. You can [retrieve a specific
     /// provider's supported event
@@ -6400,6 +6209,7 @@ impl wkt::message::Message for EventFilter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StateCondition {
+
     /// The canonical code of the condition.
     pub code: rpc::model::Code,
 
@@ -6437,6 +6247,7 @@ impl wkt::message::Message for StateCondition {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Destination {
+
     /// Optional. Network config is used to configure how Eventarc resolves and
     /// connect to a destination.
     /// This should only be used with HttpEndpoint destination type.
@@ -6454,8 +6265,7 @@ impl Destination {
 
     /// Sets the value of [network_config][crate::model::Destination::network_config].
     pub fn set_network_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = std::option::Option::Some(v.into());
         self
@@ -6463,8 +6273,7 @@ impl Destination {
 
     /// Sets or clears the value of [network_config][crate::model::Destination::network_config].
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NetworkConfig>,
+    where T: std::convert::Into<crate::model::NetworkConfig>
     {
         self.network_config = v.map(|x| x.into());
         self
@@ -6474,12 +6283,8 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are mutually
     /// exclusive.
-    pub fn set_descriptor<
-        T: std::convert::Into<std::option::Option<crate::model::destination::Descriptor>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_descriptor<T: std::convert::Into<std::option::Option<crate::model::destination::Descriptor>>>(mut self, v: T) -> Self
+    {
         self.descriptor = v.into();
         self
     }
@@ -6500,12 +6305,12 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
-    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRun>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::CloudRun(v.into()));
+    pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRun>>>(mut self, v: T) -> Self {
+        self.descriptor = std::option::Option::Some(
+            crate::model::destination::Descriptor::CloudRun(
+                v.into()
+            )
+        );
         self
     }
 
@@ -6527,7 +6332,9 @@ impl Destination {
     /// mutually exclusive.
     pub fn set_cloud_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.descriptor = std::option::Option::Some(
-            crate::model::destination::Descriptor::CloudFunction(v.into()),
+            crate::model::destination::Descriptor::CloudFunction(
+                v.into()
+            )
         );
         self
     }
@@ -6548,12 +6355,12 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
-    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::Gke>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::Gke(v.into()));
+    pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::Gke>>>(mut self, v: T) -> Self {
+        self.descriptor = std::option::Option::Some(
+            crate::model::destination::Descriptor::Gke(
+                v.into()
+            )
+        );
         self
     }
 
@@ -6574,17 +6381,18 @@ impl Destination {
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
     pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.descriptor =
-            std::option::Option::Some(crate::model::destination::Descriptor::Workflow(v.into()));
+        self.descriptor = std::option::Option::Some(
+            crate::model::destination::Descriptor::Workflow(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [descriptor][crate::model::Destination::descriptor]
     /// if it holds a `HttpEndpoint`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn http_endpoint(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
+    pub fn http_endpoint(&self) -> std::option::Option<&std::boxed::Box<crate::model::HttpEndpoint>> {
         #[allow(unreachable_patterns)]
         self.descriptor.as_ref().and_then(|v| match v {
             crate::model::destination::Descriptor::HttpEndpoint(v) => std::option::Option::Some(v),
@@ -6597,12 +6405,11 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
-    pub fn set_http_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::HttpEndpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_http_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::HttpEndpoint>>>(mut self, v: T) -> Self {
         self.descriptor = std::option::Option::Some(
-            crate::model::destination::Descriptor::HttpEndpoint(v.into()),
+            crate::model::destination::Descriptor::HttpEndpoint(
+                v.into()
+            )
         );
         self
     }
@@ -6618,6 +6425,7 @@ impl wkt::message::Message for Destination {
 pub mod destination {
     #[allow(unused_imports)]
     use super::*;
+
 
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -6651,6 +6459,7 @@ pub mod destination {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Transport {
+
     pub intermediary: std::option::Option<crate::model::transport::Intermediary>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6665,12 +6474,8 @@ impl Transport {
     ///
     /// Note that all the setters affecting `intermediary` are mutually
     /// exclusive.
-    pub fn set_intermediary<
-        T: std::convert::Into<std::option::Option<crate::model::transport::Intermediary>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_intermediary<T: std::convert::Into<std::option::Option<crate::model::transport::Intermediary>>>(mut self, v: T) -> Self
+    {
         self.intermediary = v.into();
         self
     }
@@ -6691,12 +6496,12 @@ impl Transport {
     ///
     /// Note that all the setters affecting `intermediary` are
     /// mutually exclusive.
-    pub fn set_pubsub<T: std::convert::Into<std::boxed::Box<crate::model::Pubsub>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.intermediary =
-            std::option::Option::Some(crate::model::transport::Intermediary::Pubsub(v.into()));
+    pub fn set_pubsub<T: std::convert::Into<std::boxed::Box<crate::model::Pubsub>>>(mut self, v: T) -> Self {
+        self.intermediary = std::option::Option::Some(
+            crate::model::transport::Intermediary::Pubsub(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6712,6 +6517,7 @@ pub mod transport {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Intermediary {
@@ -6725,6 +6531,7 @@ pub mod transport {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudRun {
+
     /// Required. The name of the Cloud Run service being addressed. See
     /// <https://cloud.google.com/run/docs/reference/rest/v1/namespaces.services>.
     ///
@@ -6779,6 +6586,7 @@ impl wkt::message::Message for CloudRun {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Gke {
+
     /// Required. The name of the cluster the GKE service is running in. The
     /// cluster must be running in the same project as the trigger being created.
     pub cluster: std::string::String,
@@ -6851,6 +6659,7 @@ impl wkt::message::Message for Gke {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Pubsub {
+
     /// Optional. The name of the Pub/Sub topic created and managed by Eventarc as
     /// a transport for the event delivery. Format:
     /// `projects/{PROJECT_ID}/topics/{TOPIC_NAME}`.
@@ -6896,6 +6705,7 @@ impl wkt::message::Message for Pubsub {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpEndpoint {
+
     /// Required. The URI of the HTTP endpoint.
     ///
     /// The value must be a RFC2396 URI string.

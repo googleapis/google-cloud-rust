@@ -81,51 +81,39 @@ impl ConfigDelivery {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ConfigDelivery + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ConfigDelivery + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfigDelivery>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfigDelivery>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfigDelivery> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfigDelivery> {
         super::transport::ConfigDelivery::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ConfigDelivery> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ConfigDelivery::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ConfigDelivery> {
+        Self::build_transport(conf).await.map(super::tracing::ConfigDelivery::new)
     }
 
     /// Lists ResourceBundles in a given project and location.
-    pub fn list_resource_bundles(&self) -> super::builder::config_delivery::ListResourceBundles {
+    pub fn list_resource_bundles(&self) -> super::builder::config_delivery::ListResourceBundles
+    {
         super::builder::config_delivery::ListResourceBundles::new(self.inner.clone())
     }
 
     /// Gets details of a single ResourceBundle.
-    pub fn get_resource_bundle(&self) -> super::builder::config_delivery::GetResourceBundle {
+    pub fn get_resource_bundle(&self) -> super::builder::config_delivery::GetResourceBundle
+    {
         super::builder::config_delivery::GetResourceBundle::new(self.inner.clone())
     }
 
@@ -140,7 +128,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_resource_bundle(&self) -> super::builder::config_delivery::CreateResourceBundle {
+    pub fn create_resource_bundle(&self) -> super::builder::config_delivery::CreateResourceBundle
+    {
         super::builder::config_delivery::CreateResourceBundle::new(self.inner.clone())
     }
 
@@ -155,7 +144,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_resource_bundle(&self) -> super::builder::config_delivery::UpdateResourceBundle {
+    pub fn update_resource_bundle(&self) -> super::builder::config_delivery::UpdateResourceBundle
+    {
         super::builder::config_delivery::UpdateResourceBundle::new(self.inner.clone())
     }
 
@@ -170,17 +160,20 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_resource_bundle(&self) -> super::builder::config_delivery::DeleteResourceBundle {
+    pub fn delete_resource_bundle(&self) -> super::builder::config_delivery::DeleteResourceBundle
+    {
         super::builder::config_delivery::DeleteResourceBundle::new(self.inner.clone())
     }
 
     /// Lists FleetPackages in a given project and location.
-    pub fn list_fleet_packages(&self) -> super::builder::config_delivery::ListFleetPackages {
+    pub fn list_fleet_packages(&self) -> super::builder::config_delivery::ListFleetPackages
+    {
         super::builder::config_delivery::ListFleetPackages::new(self.inner.clone())
     }
 
     /// Gets details of a single FleetPackage.
-    pub fn get_fleet_package(&self) -> super::builder::config_delivery::GetFleetPackage {
+    pub fn get_fleet_package(&self) -> super::builder::config_delivery::GetFleetPackage
+    {
         super::builder::config_delivery::GetFleetPackage::new(self.inner.clone())
     }
 
@@ -195,7 +188,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_fleet_package(&self) -> super::builder::config_delivery::CreateFleetPackage {
+    pub fn create_fleet_package(&self) -> super::builder::config_delivery::CreateFleetPackage
+    {
         super::builder::config_delivery::CreateFleetPackage::new(self.inner.clone())
     }
 
@@ -210,7 +204,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_fleet_package(&self) -> super::builder::config_delivery::UpdateFleetPackage {
+    pub fn update_fleet_package(&self) -> super::builder::config_delivery::UpdateFleetPackage
+    {
         super::builder::config_delivery::UpdateFleetPackage::new(self.inner.clone())
     }
 
@@ -225,17 +220,20 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_fleet_package(&self) -> super::builder::config_delivery::DeleteFleetPackage {
+    pub fn delete_fleet_package(&self) -> super::builder::config_delivery::DeleteFleetPackage
+    {
         super::builder::config_delivery::DeleteFleetPackage::new(self.inner.clone())
     }
 
     /// Lists Releases in a given project and location.
-    pub fn list_releases(&self) -> super::builder::config_delivery::ListReleases {
+    pub fn list_releases(&self) -> super::builder::config_delivery::ListReleases
+    {
         super::builder::config_delivery::ListReleases::new(self.inner.clone())
     }
 
     /// Gets details of a single Release.
-    pub fn get_release(&self) -> super::builder::config_delivery::GetRelease {
+    pub fn get_release(&self) -> super::builder::config_delivery::GetRelease
+    {
         super::builder::config_delivery::GetRelease::new(self.inner.clone())
     }
 
@@ -250,7 +248,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_release(&self) -> super::builder::config_delivery::CreateRelease {
+    pub fn create_release(&self) -> super::builder::config_delivery::CreateRelease
+    {
         super::builder::config_delivery::CreateRelease::new(self.inner.clone())
     }
 
@@ -265,7 +264,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_release(&self) -> super::builder::config_delivery::UpdateRelease {
+    pub fn update_release(&self) -> super::builder::config_delivery::UpdateRelease
+    {
         super::builder::config_delivery::UpdateRelease::new(self.inner.clone())
     }
 
@@ -280,17 +280,20 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_release(&self) -> super::builder::config_delivery::DeleteRelease {
+    pub fn delete_release(&self) -> super::builder::config_delivery::DeleteRelease
+    {
         super::builder::config_delivery::DeleteRelease::new(self.inner.clone())
     }
 
     /// Lists Variants in a given project and location.
-    pub fn list_variants(&self) -> super::builder::config_delivery::ListVariants {
+    pub fn list_variants(&self) -> super::builder::config_delivery::ListVariants
+    {
         super::builder::config_delivery::ListVariants::new(self.inner.clone())
     }
 
     /// Gets details of a single Variant.
-    pub fn get_variant(&self) -> super::builder::config_delivery::GetVariant {
+    pub fn get_variant(&self) -> super::builder::config_delivery::GetVariant
+    {
         super::builder::config_delivery::GetVariant::new(self.inner.clone())
     }
 
@@ -306,7 +309,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_variant(&self) -> super::builder::config_delivery::CreateVariant {
+    pub fn create_variant(&self) -> super::builder::config_delivery::CreateVariant
+    {
         super::builder::config_delivery::CreateVariant::new(self.inner.clone())
     }
 
@@ -321,7 +325,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_variant(&self) -> super::builder::config_delivery::UpdateVariant {
+    pub fn update_variant(&self) -> super::builder::config_delivery::UpdateVariant
+    {
         super::builder::config_delivery::UpdateVariant::new(self.inner.clone())
     }
 
@@ -336,17 +341,20 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_variant(&self) -> super::builder::config_delivery::DeleteVariant {
+    pub fn delete_variant(&self) -> super::builder::config_delivery::DeleteVariant
+    {
         super::builder::config_delivery::DeleteVariant::new(self.inner.clone())
     }
 
     /// Lists Rollouts in a given project, location, and Fleet Package.
-    pub fn list_rollouts(&self) -> super::builder::config_delivery::ListRollouts {
+    pub fn list_rollouts(&self) -> super::builder::config_delivery::ListRollouts
+    {
         super::builder::config_delivery::ListRollouts::new(self.inner.clone())
     }
 
     /// Gets details of a single Rollout.
-    pub fn get_rollout(&self) -> super::builder::config_delivery::GetRollout {
+    pub fn get_rollout(&self) -> super::builder::config_delivery::GetRollout
+    {
         super::builder::config_delivery::GetRollout::new(self.inner.clone())
     }
 
@@ -361,7 +369,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn suspend_rollout(&self) -> super::builder::config_delivery::SuspendRollout {
+    pub fn suspend_rollout(&self) -> super::builder::config_delivery::SuspendRollout
+    {
         super::builder::config_delivery::SuspendRollout::new(self.inner.clone())
     }
 
@@ -376,7 +385,8 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resume_rollout(&self) -> super::builder::config_delivery::ResumeRollout {
+    pub fn resume_rollout(&self) -> super::builder::config_delivery::ResumeRollout
+    {
         super::builder::config_delivery::ResumeRollout::new(self.inner.clone())
     }
 
@@ -391,45 +401,52 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn abort_rollout(&self) -> super::builder::config_delivery::AbortRollout {
+    pub fn abort_rollout(&self) -> super::builder::config_delivery::AbortRollout
+    {
         super::builder::config_delivery::AbortRollout::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::config_delivery::ListLocations {
+    pub fn list_locations(&self) -> super::builder::config_delivery::ListLocations
+    {
         super::builder::config_delivery::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::config_delivery::GetLocation {
+    pub fn get_location(&self) -> super::builder::config_delivery::GetLocation
+    {
         super::builder::config_delivery::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::config_delivery::ListOperations {
+    pub fn list_operations(&self) -> super::builder::config_delivery::ListOperations
+    {
         super::builder::config_delivery::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::config_delivery::GetOperation {
+    pub fn get_operation(&self) -> super::builder::config_delivery::GetOperation
+    {
         super::builder::config_delivery::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(&self) -> super::builder::config_delivery::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::config_delivery::DeleteOperation
+    {
         super::builder::config_delivery::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(&self) -> super::builder::config_delivery::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::config_delivery::CancelOperation
+    {
         super::builder::config_delivery::CancelOperation::new(self.inner.clone())
     }
 }

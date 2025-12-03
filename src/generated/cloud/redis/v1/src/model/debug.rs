@@ -66,16 +66,15 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("persistence_config", &self.persistence_config);
         debug_struct.field("suspension_reasons", &self.suspension_reasons);
         debug_struct.field("maintenance_version", &self.maintenance_version);
-        debug_struct.field(
-            "available_maintenance_versions",
-            &self.available_maintenance_versions,
-        );
+        debug_struct.field("available_maintenance_versions", &self.available_maintenance_versions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::PersistenceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

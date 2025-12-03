@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [GkeInferenceQuickstart](super::stub::GkeInferenceQuickstart) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct GkeInferenceQuickstart<T>
-where
-    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> GkeInferenceQuickstart<T>
-where
-    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart<T>
-where
-    T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn fetch_models(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_models",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_models(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_models(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_model_servers",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_model_servers(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_model_servers(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_model_server_versions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_model_server_versions(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_model_server_versions(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_profiles",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_profiles(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_profiles(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "generate_optimized_manifest",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .generate_optimized_manifest(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.generate_optimized_manifest(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fetch_benchmarking_data",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .fetch_benchmarking_data(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.fetch_benchmarking_data(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -266,3 +242,4 @@ where
         self.inner.fetch_benchmarking_data(req, options).await
     }
 }
+

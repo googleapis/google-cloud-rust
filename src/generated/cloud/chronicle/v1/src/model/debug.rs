@@ -132,10 +132,7 @@ impl std::fmt::Debug for super::ListDataAccessScopesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListDataAccessScopesResponse");
         debug_struct.field("data_access_scopes", &self.data_access_scopes);
-        debug_struct.field(
-            "global_data_access_scope_granted",
-            &self.global_data_access_scope_granted,
-        );
+        debug_struct.field("global_data_access_scope_granted", &self.global_data_access_scope_granted);
         debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -189,10 +186,7 @@ impl std::fmt::Debug for super::DataAccessScope {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataAccessScope");
         debug_struct.field("name", &self.name);
-        debug_struct.field(
-            "allowed_data_access_labels",
-            &self.allowed_data_access_labels,
-        );
+        debug_struct.field("allowed_data_access_labels", &self.allowed_data_access_labels);
         debug_struct.field("denied_data_access_labels", &self.denied_data_access_labels);
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("create_time", &self.create_time);
@@ -239,17 +233,11 @@ impl std::fmt::Debug for super::Watchlist {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("description", &self.description);
         debug_struct.field("multiplying_factor", &self.multiplying_factor);
-        debug_struct.field(
-            "entity_population_mechanism",
-            &self.entity_population_mechanism,
-        );
+        debug_struct.field("entity_population_mechanism", &self.entity_population_mechanism);
         debug_struct.field("entity_count", &self.entity_count);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field(
-            "watchlist_user_preferences",
-            &self.watchlist_user_preferences,
-        );
+        debug_struct.field("watchlist_user_preferences", &self.watchlist_user_preferences);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -531,10 +519,7 @@ impl std::fmt::Debug for super::Rule {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("scope", &self.scope);
         debug_struct.field("compilation_diagnostics", &self.compilation_diagnostics);
-        debug_struct.field(
-            "near_real_time_live_rule_eligible",
-            &self.near_real_time_live_rule_eligible,
-        );
+        debug_struct.field("near_real_time_live_rule_eligible", &self.near_real_time_live_rule_eligible);
         debug_struct.field("inputs_used", &self.inputs_used);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -542,6 +527,7 @@ impl std::fmt::Debug for super::Rule {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::RuleDeployment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -555,10 +541,7 @@ impl std::fmt::Debug for super::RuleDeployment {
         debug_struct.field("execution_state", &self.execution_state);
         debug_struct.field("producer_rules", &self.producer_rules);
         debug_struct.field("consumer_rules", &self.consumer_rules);
-        debug_struct.field(
-            "last_alert_status_change_time",
-            &self.last_alert_status_change_time,
-        );
+        debug_struct.field("last_alert_status_change_time", &self.last_alert_status_change_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

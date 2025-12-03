@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingPolicy {
+
     /// Required. The policy id.
     ///
     /// The id must contain only letters (a-z, A-Z), numbers (0-9),
@@ -66,8 +67,7 @@ pub struct AutoscalingPolicy {
     pub worker_config: std::option::Option<crate::model::InstanceGroupAutoscalingPolicyConfig>,
 
     /// Optional. Describes how the autoscaler will operate for secondary workers.
-    pub secondary_worker_config:
-        std::option::Option<crate::model::InstanceGroupAutoscalingPolicyConfig>,
+    pub secondary_worker_config: std::option::Option<crate::model::InstanceGroupAutoscalingPolicyConfig>,
 
     /// Optional. The labels to associate with this autoscaling policy.
     /// Label **keys** must contain 1 to 63 characters, and must conform to
@@ -76,7 +76,7 @@ pub struct AutoscalingPolicy {
     /// characters, and must conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with an autoscaling policy.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Autoscaling algorithm for policy.
     pub algorithm: std::option::Option<crate::model::autoscaling_policy::Algorithm>,
@@ -103,8 +103,7 @@ impl AutoscalingPolicy {
 
     /// Sets the value of [worker_config][crate::model::AutoscalingPolicy::worker_config].
     pub fn set_worker_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>
     {
         self.worker_config = std::option::Option::Some(v.into());
         self
@@ -112,8 +111,7 @@ impl AutoscalingPolicy {
 
     /// Sets or clears the value of [worker_config][crate::model::AutoscalingPolicy::worker_config].
     pub fn set_or_clear_worker_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>
     {
         self.worker_config = v.map(|x| x.into());
         self
@@ -121,8 +119,7 @@ impl AutoscalingPolicy {
 
     /// Sets the value of [secondary_worker_config][crate::model::AutoscalingPolicy::secondary_worker_config].
     pub fn set_secondary_worker_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>
     {
         self.secondary_worker_config = std::option::Option::Some(v.into());
         self
@@ -130,8 +127,7 @@ impl AutoscalingPolicy {
 
     /// Sets or clears the value of [secondary_worker_config][crate::model::AutoscalingPolicy::secondary_worker_config].
     pub fn set_or_clear_secondary_worker_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupAutoscalingPolicyConfig>
     {
         self.secondary_worker_config = v.map(|x| x.into());
         self
@@ -153,12 +149,8 @@ impl AutoscalingPolicy {
     ///
     /// Note that all the setters affecting `algorithm` are mutually
     /// exclusive.
-    pub fn set_algorithm<
-        T: std::convert::Into<std::option::Option<crate::model::autoscaling_policy::Algorithm>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_algorithm<T: std::convert::Into<std::option::Option<crate::model::autoscaling_policy::Algorithm>>>(mut self, v: T) -> Self
+    {
         self.algorithm = v.into();
         self
     }
@@ -166,14 +158,10 @@ impl AutoscalingPolicy {
     /// The value of [algorithm][crate::model::AutoscalingPolicy::algorithm]
     /// if it holds a `BasicAlgorithm`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn basic_algorithm(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>> {
+    pub fn basic_algorithm(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>> {
         #[allow(unreachable_patterns)]
         self.algorithm.as_ref().and_then(|v| match v {
-            crate::model::autoscaling_policy::Algorithm::BasicAlgorithm(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::autoscaling_policy::Algorithm::BasicAlgorithm(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -183,14 +171,11 @@ impl AutoscalingPolicy {
     ///
     /// Note that all the setters affecting `algorithm` are
     /// mutually exclusive.
-    pub fn set_basic_algorithm<
-        T: std::convert::Into<std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_basic_algorithm<T: std::convert::Into<std::boxed::Box<crate::model::BasicAutoscalingAlgorithm>>>(mut self, v: T) -> Self {
         self.algorithm = std::option::Option::Some(
-            crate::model::autoscaling_policy::Algorithm::BasicAlgorithm(v.into()),
+            crate::model::autoscaling_policy::Algorithm::BasicAlgorithm(
+                v.into()
+            )
         );
         self
     }
@@ -207,6 +192,7 @@ pub mod autoscaling_policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Autoscaling algorithm for policy.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -219,6 +205,7 @@ pub mod autoscaling_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicAutoscalingAlgorithm {
+
     /// Optional. Duration between scaling events. A scaling period starts after
     /// the update operation from the previous event has completed.
     ///
@@ -237,8 +224,7 @@ impl BasicAutoscalingAlgorithm {
 
     /// Sets the value of [cooldown_period][crate::model::BasicAutoscalingAlgorithm::cooldown_period].
     pub fn set_cooldown_period<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.cooldown_period = std::option::Option::Some(v.into());
         self
@@ -246,8 +232,7 @@ impl BasicAutoscalingAlgorithm {
 
     /// Sets or clears the value of [cooldown_period][crate::model::BasicAutoscalingAlgorithm::cooldown_period].
     pub fn set_or_clear_cooldown_period<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.cooldown_period = v.map(|x| x.into());
         self
@@ -257,12 +242,8 @@ impl BasicAutoscalingAlgorithm {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::basic_autoscaling_algorithm::Config>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::basic_autoscaling_algorithm::Config>>>(mut self, v: T) -> Self
+    {
         self.config = v.into();
         self
     }
@@ -270,14 +251,10 @@ impl BasicAutoscalingAlgorithm {
     /// The value of [config][crate::model::BasicAutoscalingAlgorithm::config]
     /// if it holds a `YarnConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn yarn_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>> {
+    pub fn yarn_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>> {
         #[allow(unreachable_patterns)]
         self.config.as_ref().and_then(|v| match v {
-            crate::model::basic_autoscaling_algorithm::Config::YarnConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::basic_autoscaling_algorithm::Config::YarnConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -287,14 +264,11 @@ impl BasicAutoscalingAlgorithm {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
-    pub fn set_yarn_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_yarn_config<T: std::convert::Into<std::boxed::Box<crate::model::BasicYarnAutoscalingConfig>>>(mut self, v: T) -> Self {
         self.config = std::option::Option::Some(
-            crate::model::basic_autoscaling_algorithm::Config::YarnConfig(v.into()),
+            crate::model::basic_autoscaling_algorithm::Config::YarnConfig(
+                v.into()
+            )
         );
         self
     }
@@ -311,6 +285,7 @@ pub mod basic_autoscaling_algorithm {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Config {
@@ -323,6 +298,7 @@ pub mod basic_autoscaling_algorithm {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicYarnAutoscalingConfig {
+
     /// Required. Timeout for YARN graceful decommissioning of Node Managers.
     /// Specifies the duration to wait for jobs to complete before forcefully
     /// removing workers (and potentially interrupting jobs). Only applicable to
@@ -383,20 +359,15 @@ impl BasicYarnAutoscalingConfig {
 
     /// Sets the value of [graceful_decommission_timeout][crate::model::BasicYarnAutoscalingConfig::graceful_decommission_timeout].
     pub fn set_graceful_decommission_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [graceful_decommission_timeout][crate::model::BasicYarnAutoscalingConfig::graceful_decommission_timeout].
-    pub fn set_or_clear_graceful_decommission_timeout<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_graceful_decommission_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = v.map(|x| x.into());
         self
@@ -438,6 +409,7 @@ impl wkt::message::Message for BasicYarnAutoscalingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceGroupAutoscalingPolicyConfig {
+
     /// Optional. Minimum number of instances for this group.
     ///
     /// Primary workers - Bounds: [2, max_instances]. Default: 2.
@@ -509,6 +481,7 @@ impl wkt::message::Message for InstanceGroupAutoscalingPolicyConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAutoscalingPolicyRequest {
+
     /// Required. The "resource name" of the region or location, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -541,8 +514,7 @@ impl CreateAutoscalingPolicyRequest {
 
     /// Sets the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingPolicy>,
+    where T: std::convert::Into<crate::model::AutoscalingPolicy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -550,8 +522,7 @@ impl CreateAutoscalingPolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingPolicy>,
+    where T: std::convert::Into<crate::model::AutoscalingPolicy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -568,6 +539,7 @@ impl wkt::message::Message for CreateAutoscalingPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAutoscalingPolicyRequest {
+
     /// Required. The "resource name" of the autoscaling policy, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -606,6 +578,7 @@ impl wkt::message::Message for GetAutoscalingPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAutoscalingPolicyRequest {
+
     /// Required. The updated autoscaling policy.
     pub policy: std::option::Option<crate::model::AutoscalingPolicy>,
 
@@ -619,8 +592,7 @@ impl UpdateAutoscalingPolicyRequest {
 
     /// Sets the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingPolicy>,
+    where T: std::convert::Into<crate::model::AutoscalingPolicy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -628,8 +600,7 @@ impl UpdateAutoscalingPolicyRequest {
 
     /// Sets or clears the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingPolicy>,
+    where T: std::convert::Into<crate::model::AutoscalingPolicy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -648,6 +619,7 @@ impl wkt::message::Message for UpdateAutoscalingPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAutoscalingPolicyRequest {
+
     /// Required. The "resource name" of the autoscaling policy, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -686,6 +658,7 @@ impl wkt::message::Message for DeleteAutoscalingPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutoscalingPoliciesRequest {
+
     /// Required. The "resource name" of the region or location, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -744,6 +717,7 @@ impl wkt::message::Message for ListAutoscalingPoliciesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAutoscalingPoliciesResponse {
+
     /// Output only. Autoscaling policies list.
     pub policies: std::vec::Vec<crate::model::AutoscalingPolicy>,
 
@@ -763,7 +737,7 @@ impl ListAutoscalingPoliciesResponse {
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AutoscalingPolicy>,
+        V: std::convert::Into<crate::model::AutoscalingPolicy>
     {
         use std::iter::Iterator;
         self.policies = v.into_iter().map(|i| i.into()).collect();
@@ -801,6 +775,7 @@ impl gax::paginator::internal::PageableResponse for ListAutoscalingPoliciesRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBatchRequest {
+
     /// Required. The parent resource where this batch will be created.
     pub parent: std::string::String,
 
@@ -843,8 +818,7 @@ impl CreateBatchRequest {
 
     /// Sets the value of [batch][crate::model::CreateBatchRequest::batch].
     pub fn set_batch<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Batch>,
+    where T: std::convert::Into<crate::model::Batch>
     {
         self.batch = std::option::Option::Some(v.into());
         self
@@ -852,8 +826,7 @@ impl CreateBatchRequest {
 
     /// Sets or clears the value of [batch][crate::model::CreateBatchRequest::batch].
     pub fn set_or_clear_batch<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Batch>,
+    where T: std::convert::Into<crate::model::Batch>
     {
         self.batch = v.map(|x| x.into());
         self
@@ -882,6 +855,7 @@ impl wkt::message::Message for CreateBatchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetBatchRequest {
+
     /// Required. The fully qualified name of the batch to retrieve
     /// in the format
     /// "projects/PROJECT_ID/locations/DATAPROC_REGION/batches/BATCH_ID"
@@ -912,6 +886,7 @@ impl wkt::message::Message for GetBatchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBatchesRequest {
+
     /// Required. The parent, which owns this collection of batches.
     pub parent: std::string::String,
 
@@ -995,6 +970,7 @@ impl wkt::message::Message for ListBatchesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBatchesResponse {
+
     /// The batches from the specified collection.
     pub batches: std::vec::Vec<crate::model::Batch>,
 
@@ -1019,7 +995,7 @@ impl ListBatchesResponse {
     pub fn set_batches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Batch>,
+        V: std::convert::Into<crate::model::Batch>
     {
         use std::iter::Iterator;
         self.batches = v.into_iter().map(|i| i.into()).collect();
@@ -1036,7 +1012,7 @@ impl ListBatchesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -1068,6 +1044,7 @@ impl gax::paginator::internal::PageableResponse for ListBatchesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBatchRequest {
+
     /// Required. The fully qualified name of the batch to retrieve
     /// in the format
     /// "projects/PROJECT_ID/locations/DATAPROC_REGION/batches/BATCH_ID"
@@ -1098,6 +1075,7 @@ impl wkt::message::Message for DeleteBatchRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Batch {
+
     /// Output only. The resource name of the batch.
     pub name: std::string::String,
 
@@ -1131,7 +1109,7 @@ pub struct Batch {
     /// characters, and must conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with a batch.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Runtime configuration for the batch execution.
     pub runtime_config: std::option::Option<crate::model::RuntimeConfig>,
@@ -1170,8 +1148,7 @@ impl Batch {
 
     /// Sets the value of [create_time][crate::model::Batch::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1179,8 +1156,7 @@ impl Batch {
 
     /// Sets or clears the value of [create_time][crate::model::Batch::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1188,8 +1164,7 @@ impl Batch {
 
     /// Sets the value of [runtime_info][crate::model::Batch::runtime_info].
     pub fn set_runtime_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeInfo>,
+    where T: std::convert::Into<crate::model::RuntimeInfo>
     {
         self.runtime_info = std::option::Option::Some(v.into());
         self
@@ -1197,8 +1172,7 @@ impl Batch {
 
     /// Sets or clears the value of [runtime_info][crate::model::Batch::runtime_info].
     pub fn set_or_clear_runtime_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeInfo>,
+    where T: std::convert::Into<crate::model::RuntimeInfo>
     {
         self.runtime_info = v.map(|x| x.into());
         self
@@ -1218,8 +1192,7 @@ impl Batch {
 
     /// Sets the value of [state_time][crate::model::Batch::state_time].
     pub fn set_state_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_time = std::option::Option::Some(v.into());
         self
@@ -1227,8 +1200,7 @@ impl Batch {
 
     /// Sets or clears the value of [state_time][crate::model::Batch::state_time].
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_time = v.map(|x| x.into());
         self
@@ -1254,8 +1226,7 @@ impl Batch {
 
     /// Sets the value of [runtime_config][crate::model::Batch::runtime_config].
     pub fn set_runtime_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = std::option::Option::Some(v.into());
         self
@@ -1263,8 +1234,7 @@ impl Batch {
 
     /// Sets or clears the value of [runtime_config][crate::model::Batch::runtime_config].
     pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = v.map(|x| x.into());
         self
@@ -1272,8 +1242,7 @@ impl Batch {
 
     /// Sets the value of [environment_config][crate::model::Batch::environment_config].
     pub fn set_environment_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = std::option::Option::Some(v.into());
         self
@@ -1281,8 +1250,7 @@ impl Batch {
 
     /// Sets or clears the value of [environment_config][crate::model::Batch::environment_config].
     pub fn set_or_clear_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = v.map(|x| x.into());
         self
@@ -1298,7 +1266,7 @@ impl Batch {
     pub fn set_state_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::batch::StateHistory>,
+        V: std::convert::Into<crate::model::batch::StateHistory>
     {
         use std::iter::Iterator;
         self.state_history = v.into_iter().map(|i| i.into()).collect();
@@ -1309,12 +1277,8 @@ impl Batch {
     ///
     /// Note that all the setters affecting `batch_config` are mutually
     /// exclusive.
-    pub fn set_batch_config<
-        T: std::convert::Into<std::option::Option<crate::model::batch::BatchConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_batch_config<T: std::convert::Into<std::option::Option<crate::model::batch::BatchConfig>>>(mut self, v: T) -> Self
+    {
         self.batch_config = v.into();
         self
     }
@@ -1322,9 +1286,7 @@ impl Batch {
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `PysparkBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn pyspark_batch(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PySparkBatch>> {
+    pub fn pyspark_batch(&self) -> std::option::Option<&std::boxed::Box<crate::model::PySparkBatch>> {
         #[allow(unreachable_patterns)]
         self.batch_config.as_ref().and_then(|v| match v {
             crate::model::batch::BatchConfig::PysparkBatch(v) => std::option::Option::Some(v),
@@ -1337,12 +1299,12 @@ impl Batch {
     ///
     /// Note that all the setters affecting `batch_config` are
     /// mutually exclusive.
-    pub fn set_pyspark_batch<T: std::convert::Into<std::boxed::Box<crate::model::PySparkBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::PysparkBatch(v.into()));
+    pub fn set_pyspark_batch<T: std::convert::Into<std::boxed::Box<crate::model::PySparkBatch>>>(mut self, v: T) -> Self {
+        self.batch_config = std::option::Option::Some(
+            crate::model::batch::BatchConfig::PysparkBatch(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1362,21 +1324,19 @@ impl Batch {
     ///
     /// Note that all the setters affecting `batch_config` are
     /// mutually exclusive.
-    pub fn set_spark_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkBatch(v.into()));
+    pub fn set_spark_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkBatch>>>(mut self, v: T) -> Self {
+        self.batch_config = std::option::Option::Some(
+            crate::model::batch::BatchConfig::SparkBatch(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkRBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_r_batch(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkRBatch>> {
+    pub fn spark_r_batch(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkRBatch>> {
         #[allow(unreachable_patterns)]
         self.batch_config.as_ref().and_then(|v| match v {
             crate::model::batch::BatchConfig::SparkRBatch(v) => std::option::Option::Some(v),
@@ -1389,21 +1349,19 @@ impl Batch {
     ///
     /// Note that all the setters affecting `batch_config` are
     /// mutually exclusive.
-    pub fn set_spark_r_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkRBatch>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkRBatch(v.into()));
+    pub fn set_spark_r_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkRBatch>>>(mut self, v: T) -> Self {
+        self.batch_config = std::option::Option::Some(
+            crate::model::batch::BatchConfig::SparkRBatch(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [batch_config][crate::model::Batch::batch_config]
     /// if it holds a `SparkSqlBatch`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_sql_batch(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlBatch>> {
+    pub fn spark_sql_batch(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlBatch>> {
         #[allow(unreachable_patterns)]
         self.batch_config.as_ref().and_then(|v| match v {
             crate::model::batch::BatchConfig::SparkSqlBatch(v) => std::option::Option::Some(v),
@@ -1416,14 +1374,12 @@ impl Batch {
     ///
     /// Note that all the setters affecting `batch_config` are
     /// mutually exclusive.
-    pub fn set_spark_sql_batch<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlBatch>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.batch_config =
-            std::option::Option::Some(crate::model::batch::BatchConfig::SparkSqlBatch(v.into()));
+    pub fn set_spark_sql_batch<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlBatch>>>(mut self, v: T) -> Self {
+        self.batch_config = std::option::Option::Some(
+            crate::model::batch::BatchConfig::SparkSqlBatch(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1439,10 +1395,12 @@ pub mod batch {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Historical state information.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateHistory {
+
         /// Output only. The state of the batch at this point in history.
         pub state: crate::model::batch::State,
 
@@ -1461,27 +1419,20 @@ pub mod batch {
         }
 
         /// Sets the value of [state][crate::model::batch::StateHistory::state].
-        pub fn set_state<T: std::convert::Into<crate::model::batch::State>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::batch::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [state_message][crate::model::batch::StateHistory::state_message].
-        pub fn set_state_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.state_message = v.into();
             self
         }
 
         /// Sets the value of [state_start_time][crate::model::batch::StateHistory::state_start_time].
         pub fn set_state_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.state_start_time = std::option::Option::Some(v.into());
             self
@@ -1489,8 +1440,7 @@ pub mod batch {
 
         /// Sets or clears the value of [state_start_time][crate::model::batch::StateHistory::state_start_time].
         pub fn set_or_clear_state_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.state_start_time = v.map(|x| x.into());
             self
@@ -1609,9 +1559,7 @@ pub mod batch {
                 4 => Self::Cancelled,
                 5 => Self::Succeeded,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1627,9 +1575,7 @@ pub mod batch {
                 "CANCELLED" => Self::Cancelled,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1658,8 +1604,7 @@ pub mod batch {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.Batch.State",
-            ))
+                ".google.cloud.dataproc.v1.Batch.State"))
         }
     }
 
@@ -1685,6 +1630,7 @@ pub mod batch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PySparkBatch {
+
     /// Required. The HCFS URI of the main Python file to use as the Spark driver.
     /// Must be a .py file.
     pub main_python_file_uri: std::string::String,
@@ -1720,10 +1666,7 @@ impl PySparkBatch {
     }
 
     /// Sets the value of [main_python_file_uri][crate::model::PySparkBatch::main_python_file_uri].
-    pub fn set_main_python_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_main_python_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.main_python_file_uri = v.into();
         self
     }
@@ -1732,7 +1675,7 @@ impl PySparkBatch {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -1743,7 +1686,7 @@ impl PySparkBatch {
     pub fn set_python_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.python_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1754,7 +1697,7 @@ impl PySparkBatch {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1765,7 +1708,7 @@ impl PySparkBatch {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1776,7 +1719,7 @@ impl PySparkBatch {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1795,6 +1738,7 @@ impl wkt::message::Message for PySparkBatch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkBatch {
+
     /// Optional. The arguments to pass to the driver. Do not include arguments
     /// that can be set as batch properties, such as `--conf`, since a collision
     /// can occur that causes an incorrect batch submission.
@@ -1832,7 +1776,7 @@ impl SparkBatch {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -1843,7 +1787,7 @@ impl SparkBatch {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1854,7 +1798,7 @@ impl SparkBatch {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1865,7 +1809,7 @@ impl SparkBatch {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -1876,12 +1820,8 @@ impl SparkBatch {
     ///
     /// Note that all the setters affecting `driver` are mutually
     /// exclusive.
-    pub fn set_driver<
-        T: std::convert::Into<std::option::Option<crate::model::spark_batch::Driver>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver<T: std::convert::Into<std::option::Option<crate::model::spark_batch::Driver>>>(mut self, v: T) -> Self
+    {
         self.driver = v.into();
         self
     }
@@ -1902,12 +1842,12 @@ impl SparkBatch {
     ///
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_batch::Driver::MainJarFileUri(v.into()));
+    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.driver = std::option::Option::Some(
+            crate::model::spark_batch::Driver::MainJarFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -1928,8 +1868,11 @@ impl SparkBatch {
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
     pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_batch::Driver::MainClass(v.into()));
+        self.driver = std::option::Option::Some(
+            crate::model::spark_batch::Driver::MainClass(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -1944,6 +1887,7 @@ impl wkt::message::Message for SparkBatch {
 pub mod spark_batch {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The specification of the main method to call to drive the Spark
     /// workload. Specify either the jar file that contains the main class or the
@@ -1967,6 +1911,7 @@ pub mod spark_batch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkRBatch {
+
     /// Required. The HCFS URI of the main R file to use as the driver.
     /// Must be a `.R` or `.r` file.
     pub main_r_file_uri: std::string::String,
@@ -2003,7 +1948,7 @@ impl SparkRBatch {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -2014,7 +1959,7 @@ impl SparkRBatch {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -2025,7 +1970,7 @@ impl SparkRBatch {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -2045,13 +1990,14 @@ impl wkt::message::Message for SparkRBatch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkSqlBatch {
+
     /// Required. The HCFS URI of the script that contains Spark SQL queries to
     /// execute.
     pub query_file_uri: std::string::String,
 
     /// Optional. Mapping of query variable names to values (equivalent to the
     /// Spark SQL command: `SET name="value";`).
-    pub query_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub query_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH.
     pub jar_file_uris: std::vec::Vec<std::string::String>,
@@ -2086,7 +2032,7 @@ impl SparkSqlBatch {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -2105,6 +2051,7 @@ impl wkt::message::Message for SparkSqlBatch {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
+
     /// Required. The Google Cloud Platform project ID that the cluster belongs to.
     pub project_id: std::string::String,
 
@@ -2142,7 +2089,7 @@ pub struct Cluster {
     /// characters, and must conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with a cluster.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Cluster status.
     pub status: std::option::Option<crate::model::ClusterStatus>,
@@ -2182,8 +2129,7 @@ impl Cluster {
 
     /// Sets the value of [config][crate::model::Cluster::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterConfig>,
+    where T: std::convert::Into<crate::model::ClusterConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -2191,8 +2137,7 @@ impl Cluster {
 
     /// Sets or clears the value of [config][crate::model::Cluster::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterConfig>,
+    where T: std::convert::Into<crate::model::ClusterConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -2200,8 +2145,7 @@ impl Cluster {
 
     /// Sets the value of [virtual_cluster_config][crate::model::Cluster::virtual_cluster_config].
     pub fn set_virtual_cluster_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::VirtualClusterConfig>,
+    where T: std::convert::Into<crate::model::VirtualClusterConfig>
     {
         self.virtual_cluster_config = std::option::Option::Some(v.into());
         self
@@ -2209,8 +2153,7 @@ impl Cluster {
 
     /// Sets or clears the value of [virtual_cluster_config][crate::model::Cluster::virtual_cluster_config].
     pub fn set_or_clear_virtual_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::VirtualClusterConfig>,
+    where T: std::convert::Into<crate::model::VirtualClusterConfig>
     {
         self.virtual_cluster_config = v.map(|x| x.into());
         self
@@ -2230,8 +2173,7 @@ impl Cluster {
 
     /// Sets the value of [status][crate::model::Cluster::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterStatus>,
+    where T: std::convert::Into<crate::model::ClusterStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2239,8 +2181,7 @@ impl Cluster {
 
     /// Sets or clears the value of [status][crate::model::Cluster::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterStatus>,
+    where T: std::convert::Into<crate::model::ClusterStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -2250,7 +2191,7 @@ impl Cluster {
     pub fn set_status_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterStatus>,
+        V: std::convert::Into<crate::model::ClusterStatus>
     {
         use std::iter::Iterator;
         self.status_history = v.into_iter().map(|i| i.into()).collect();
@@ -2265,8 +2206,7 @@ impl Cluster {
 
     /// Sets the value of [metrics][crate::model::Cluster::metrics].
     pub fn set_metrics<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterMetrics>,
+    where T: std::convert::Into<crate::model::ClusterMetrics>
     {
         self.metrics = std::option::Option::Some(v.into());
         self
@@ -2274,8 +2214,7 @@ impl Cluster {
 
     /// Sets or clears the value of [metrics][crate::model::Cluster::metrics].
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterMetrics>,
+    where T: std::convert::Into<crate::model::ClusterMetrics>
     {
         self.metrics = v.map(|x| x.into());
         self
@@ -2292,6 +2231,7 @@ impl wkt::message::Message for Cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterConfig {
+
     /// Optional. The cluster tier.
     pub cluster_tier: crate::model::cluster_config::ClusterTier,
 
@@ -2391,10 +2331,7 @@ impl ClusterConfig {
     }
 
     /// Sets the value of [cluster_tier][crate::model::ClusterConfig::cluster_tier].
-    pub fn set_cluster_tier<T: std::convert::Into<crate::model::cluster_config::ClusterTier>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_tier<T: std::convert::Into<crate::model::cluster_config::ClusterTier>>(mut self, v: T) -> Self {
         self.cluster_tier = v.into();
         self
     }
@@ -2413,8 +2350,7 @@ impl ClusterConfig {
 
     /// Sets the value of [gce_cluster_config][crate::model::ClusterConfig::gce_cluster_config].
     pub fn set_gce_cluster_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GceClusterConfig>,
+    where T: std::convert::Into<crate::model::GceClusterConfig>
     {
         self.gce_cluster_config = std::option::Option::Some(v.into());
         self
@@ -2422,8 +2358,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [gce_cluster_config][crate::model::ClusterConfig::gce_cluster_config].
     pub fn set_or_clear_gce_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GceClusterConfig>,
+    where T: std::convert::Into<crate::model::GceClusterConfig>
     {
         self.gce_cluster_config = v.map(|x| x.into());
         self
@@ -2431,8 +2366,7 @@ impl ClusterConfig {
 
     /// Sets the value of [master_config][crate::model::ClusterConfig::master_config].
     pub fn set_master_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.master_config = std::option::Option::Some(v.into());
         self
@@ -2440,8 +2374,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [master_config][crate::model::ClusterConfig::master_config].
     pub fn set_or_clear_master_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.master_config = v.map(|x| x.into());
         self
@@ -2449,8 +2382,7 @@ impl ClusterConfig {
 
     /// Sets the value of [worker_config][crate::model::ClusterConfig::worker_config].
     pub fn set_worker_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.worker_config = std::option::Option::Some(v.into());
         self
@@ -2458,8 +2390,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [worker_config][crate::model::ClusterConfig::worker_config].
     pub fn set_or_clear_worker_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.worker_config = v.map(|x| x.into());
         self
@@ -2467,8 +2398,7 @@ impl ClusterConfig {
 
     /// Sets the value of [secondary_worker_config][crate::model::ClusterConfig::secondary_worker_config].
     pub fn set_secondary_worker_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.secondary_worker_config = std::option::Option::Some(v.into());
         self
@@ -2476,8 +2406,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [secondary_worker_config][crate::model::ClusterConfig::secondary_worker_config].
     pub fn set_or_clear_secondary_worker_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.secondary_worker_config = v.map(|x| x.into());
         self
@@ -2485,8 +2414,7 @@ impl ClusterConfig {
 
     /// Sets the value of [software_config][crate::model::ClusterConfig::software_config].
     pub fn set_software_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SoftwareConfig>,
+    where T: std::convert::Into<crate::model::SoftwareConfig>
     {
         self.software_config = std::option::Option::Some(v.into());
         self
@@ -2494,8 +2422,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [software_config][crate::model::ClusterConfig::software_config].
     pub fn set_or_clear_software_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SoftwareConfig>,
+    where T: std::convert::Into<crate::model::SoftwareConfig>
     {
         self.software_config = v.map(|x| x.into());
         self
@@ -2505,7 +2432,7 @@ impl ClusterConfig {
     pub fn set_initialization_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::NodeInitializationAction>,
+        V: std::convert::Into<crate::model::NodeInitializationAction>
     {
         use std::iter::Iterator;
         self.initialization_actions = v.into_iter().map(|i| i.into()).collect();
@@ -2514,8 +2441,7 @@ impl ClusterConfig {
 
     /// Sets the value of [encryption_config][crate::model::ClusterConfig::encryption_config].
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -2523,8 +2449,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [encryption_config][crate::model::ClusterConfig::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -2532,8 +2457,7 @@ impl ClusterConfig {
 
     /// Sets the value of [autoscaling_config][crate::model::ClusterConfig::autoscaling_config].
     pub fn set_autoscaling_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingConfig>,
+    where T: std::convert::Into<crate::model::AutoscalingConfig>
     {
         self.autoscaling_config = std::option::Option::Some(v.into());
         self
@@ -2541,8 +2465,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [autoscaling_config][crate::model::ClusterConfig::autoscaling_config].
     pub fn set_or_clear_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutoscalingConfig>,
+    where T: std::convert::Into<crate::model::AutoscalingConfig>
     {
         self.autoscaling_config = v.map(|x| x.into());
         self
@@ -2550,8 +2473,7 @@ impl ClusterConfig {
 
     /// Sets the value of [security_config][crate::model::ClusterConfig::security_config].
     pub fn set_security_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SecurityConfig>,
+    where T: std::convert::Into<crate::model::SecurityConfig>
     {
         self.security_config = std::option::Option::Some(v.into());
         self
@@ -2559,8 +2481,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [security_config][crate::model::ClusterConfig::security_config].
     pub fn set_or_clear_security_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SecurityConfig>,
+    where T: std::convert::Into<crate::model::SecurityConfig>
     {
         self.security_config = v.map(|x| x.into());
         self
@@ -2568,8 +2489,7 @@ impl ClusterConfig {
 
     /// Sets the value of [lifecycle_config][crate::model::ClusterConfig::lifecycle_config].
     pub fn set_lifecycle_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LifecycleConfig>,
+    where T: std::convert::Into<crate::model::LifecycleConfig>
     {
         self.lifecycle_config = std::option::Option::Some(v.into());
         self
@@ -2577,8 +2497,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [lifecycle_config][crate::model::ClusterConfig::lifecycle_config].
     pub fn set_or_clear_lifecycle_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LifecycleConfig>,
+    where T: std::convert::Into<crate::model::LifecycleConfig>
     {
         self.lifecycle_config = v.map(|x| x.into());
         self
@@ -2586,8 +2505,7 @@ impl ClusterConfig {
 
     /// Sets the value of [endpoint_config][crate::model::ClusterConfig::endpoint_config].
     pub fn set_endpoint_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EndpointConfig>,
+    where T: std::convert::Into<crate::model::EndpointConfig>
     {
         self.endpoint_config = std::option::Option::Some(v.into());
         self
@@ -2595,8 +2513,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [endpoint_config][crate::model::ClusterConfig::endpoint_config].
     pub fn set_or_clear_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EndpointConfig>,
+    where T: std::convert::Into<crate::model::EndpointConfig>
     {
         self.endpoint_config = v.map(|x| x.into());
         self
@@ -2604,8 +2521,7 @@ impl ClusterConfig {
 
     /// Sets the value of [metastore_config][crate::model::ClusterConfig::metastore_config].
     pub fn set_metastore_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MetastoreConfig>,
+    where T: std::convert::Into<crate::model::MetastoreConfig>
     {
         self.metastore_config = std::option::Option::Some(v.into());
         self
@@ -2613,8 +2529,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [metastore_config][crate::model::ClusterConfig::metastore_config].
     pub fn set_or_clear_metastore_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MetastoreConfig>,
+    where T: std::convert::Into<crate::model::MetastoreConfig>
     {
         self.metastore_config = v.map(|x| x.into());
         self
@@ -2622,8 +2537,7 @@ impl ClusterConfig {
 
     /// Sets the value of [dataproc_metric_config][crate::model::ClusterConfig::dataproc_metric_config].
     pub fn set_dataproc_metric_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataprocMetricConfig>,
+    where T: std::convert::Into<crate::model::DataprocMetricConfig>
     {
         self.dataproc_metric_config = std::option::Option::Some(v.into());
         self
@@ -2631,8 +2545,7 @@ impl ClusterConfig {
 
     /// Sets or clears the value of [dataproc_metric_config][crate::model::ClusterConfig::dataproc_metric_config].
     pub fn set_or_clear_dataproc_metric_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataprocMetricConfig>,
+    where T: std::convert::Into<crate::model::DataprocMetricConfig>
     {
         self.dataproc_metric_config = v.map(|x| x.into());
         self
@@ -2642,7 +2555,7 @@ impl ClusterConfig {
     pub fn set_auxiliary_node_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AuxiliaryNodeGroup>,
+        V: std::convert::Into<crate::model::AuxiliaryNodeGroup>
     {
         use std::iter::Iterator;
         self.auxiliary_node_groups = v.into_iter().map(|i| i.into()).collect();
@@ -2660,6 +2573,7 @@ impl wkt::message::Message for ClusterConfig {
 pub mod cluster_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The cluster tier.
     ///
@@ -2747,9 +2661,7 @@ pub mod cluster_config {
                 0 => Self::Unspecified,
                 1 => Self::Standard,
                 2 => Self::Premium,
-                _ => Self::UnknownValue(cluster_tier::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -2761,9 +2673,7 @@ pub mod cluster_config {
                 "CLUSTER_TIER_UNSPECIFIED" => Self::Unspecified,
                 "CLUSTER_TIER_STANDARD" => Self::Standard,
                 "CLUSTER_TIER_PREMIUM" => Self::Premium,
-                _ => Self::UnknownValue(cluster_tier::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -2788,8 +2698,7 @@ pub mod cluster_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterTier>::new(
-                ".google.cloud.dataproc.v1.ClusterConfig.ClusterTier",
-            ))
+                ".google.cloud.dataproc.v1.ClusterConfig.ClusterTier"))
         }
     }
 }
@@ -2800,6 +2709,7 @@ pub mod cluster_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VirtualClusterConfig {
+
     /// Optional. A Cloud Storage bucket used to stage job
     /// dependencies, config files, and job driver console output.
     /// If you do not specify a staging bucket, Cloud
@@ -2816,8 +2726,7 @@ pub struct VirtualClusterConfig {
     /// Optional. Configuration of auxiliary services used by this cluster.
     pub auxiliary_services_config: std::option::Option<crate::model::AuxiliaryServicesConfig>,
 
-    pub infrastructure_config:
-        std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
+    pub infrastructure_config: std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2835,8 +2744,7 @@ impl VirtualClusterConfig {
 
     /// Sets the value of [auxiliary_services_config][crate::model::VirtualClusterConfig::auxiliary_services_config].
     pub fn set_auxiliary_services_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuxiliaryServicesConfig>,
+    where T: std::convert::Into<crate::model::AuxiliaryServicesConfig>
     {
         self.auxiliary_services_config = std::option::Option::Some(v.into());
         self
@@ -2844,8 +2752,7 @@ impl VirtualClusterConfig {
 
     /// Sets or clears the value of [auxiliary_services_config][crate::model::VirtualClusterConfig::auxiliary_services_config].
     pub fn set_or_clear_auxiliary_services_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuxiliaryServicesConfig>,
+    where T: std::convert::Into<crate::model::AuxiliaryServicesConfig>
     {
         self.auxiliary_services_config = v.map(|x| x.into());
         self
@@ -2855,14 +2762,8 @@ impl VirtualClusterConfig {
     ///
     /// Note that all the setters affecting `infrastructure_config` are mutually
     /// exclusive.
-    pub fn set_infrastructure_config<
-        T: std::convert::Into<
-                std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_infrastructure_config<T: std::convert::Into<std::option::Option<crate::model::virtual_cluster_config::InfrastructureConfig>>>(mut self, v: T) -> Self
+    {
         self.infrastructure_config = v.into();
         self
     }
@@ -2870,14 +2771,10 @@ impl VirtualClusterConfig {
     /// The value of [infrastructure_config][crate::model::VirtualClusterConfig::infrastructure_config]
     /// if it holds a `KubernetesClusterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn kubernetes_cluster_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesClusterConfig>> {
+    pub fn kubernetes_cluster_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::KubernetesClusterConfig>> {
         #[allow(unreachable_patterns)]
         self.infrastructure_config.as_ref().and_then(|v| match v {
-            crate::model::virtual_cluster_config::InfrastructureConfig::KubernetesClusterConfig(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::virtual_cluster_config::InfrastructureConfig::KubernetesClusterConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2887,16 +2784,11 @@ impl VirtualClusterConfig {
     ///
     /// Note that all the setters affecting `infrastructure_config` are
     /// mutually exclusive.
-    pub fn set_kubernetes_cluster_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::KubernetesClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes_cluster_config<T: std::convert::Into<std::boxed::Box<crate::model::KubernetesClusterConfig>>>(mut self, v: T) -> Self {
         self.infrastructure_config = std::option::Option::Some(
             crate::model::virtual_cluster_config::InfrastructureConfig::KubernetesClusterConfig(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -2913,6 +2805,7 @@ pub mod virtual_cluster_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InfrastructureConfig {
@@ -2926,6 +2819,7 @@ pub mod virtual_cluster_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuxiliaryServicesConfig {
+
     /// Optional. The Hive Metastore configuration for this workload.
     pub metastore_config: std::option::Option<crate::model::MetastoreConfig>,
 
@@ -2942,8 +2836,7 @@ impl AuxiliaryServicesConfig {
 
     /// Sets the value of [metastore_config][crate::model::AuxiliaryServicesConfig::metastore_config].
     pub fn set_metastore_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::MetastoreConfig>,
+    where T: std::convert::Into<crate::model::MetastoreConfig>
     {
         self.metastore_config = std::option::Option::Some(v.into());
         self
@@ -2951,8 +2844,7 @@ impl AuxiliaryServicesConfig {
 
     /// Sets or clears the value of [metastore_config][crate::model::AuxiliaryServicesConfig::metastore_config].
     pub fn set_or_clear_metastore_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::MetastoreConfig>,
+    where T: std::convert::Into<crate::model::MetastoreConfig>
     {
         self.metastore_config = v.map(|x| x.into());
         self
@@ -2960,8 +2852,7 @@ impl AuxiliaryServicesConfig {
 
     /// Sets the value of [spark_history_server_config][crate::model::AuxiliaryServicesConfig::spark_history_server_config].
     pub fn set_spark_history_server_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    where T: std::convert::Into<crate::model::SparkHistoryServerConfig>
     {
         self.spark_history_server_config = std::option::Option::Some(v.into());
         self
@@ -2969,8 +2860,7 @@ impl AuxiliaryServicesConfig {
 
     /// Sets or clears the value of [spark_history_server_config][crate::model::AuxiliaryServicesConfig::spark_history_server_config].
     pub fn set_or_clear_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    where T: std::convert::Into<crate::model::SparkHistoryServerConfig>
     {
         self.spark_history_server_config = v.map(|x| x.into());
         self
@@ -2987,9 +2877,10 @@ impl wkt::message::Message for AuxiliaryServicesConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EndpointConfig {
+
     /// Output only. The map of port descriptions to URLs. Will only be populated
     /// if enable_http_port_access is true.
-    pub http_ports: std::collections::HashMap<std::string::String, std::string::String>,
+    pub http_ports: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. If true, enable http access to specific ports on the cluster
     /// from external sources. Defaults to false.
@@ -3032,6 +2923,7 @@ impl wkt::message::Message for EndpointConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutoscalingConfig {
+
     /// Optional. The autoscaling policy used by the cluster.
     ///
     /// Only resource names including projectid and location (region) are valid.
@@ -3068,6 +2960,7 @@ impl wkt::message::Message for AutoscalingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EncryptionConfig {
+
     /// Optional. The Cloud KMS key resource name to use for persistent disk
     /// encryption for all instances in the cluster. See [Use CMEK with cluster
     /// data]
@@ -3112,10 +3005,7 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [gce_pd_kms_key_name][crate::model::EncryptionConfig::gce_pd_kms_key_name].
-    pub fn set_gce_pd_kms_key_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gce_pd_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gce_pd_kms_key_name = v.into();
         self
     }
@@ -3138,6 +3028,7 @@ impl wkt::message::Message for EncryptionConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GceClusterConfig {
+
     /// Optional. The Compute Engine zone where the Dataproc cluster will be
     /// located. If omitted, the service will pick a zone in the cluster's Compute
     /// Engine region. On a get request, zone will always be present.
@@ -3230,7 +3121,7 @@ pub struct GceClusterConfig {
     /// Optional. The Compute Engine metadata entries to add to all instances (see
     /// [Project and instance
     /// metadata](https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)).
-    pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+    pub metadata: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Reservation Affinity for consuming Zonal reservation.
     pub reservation_affinity: std::option::Option<crate::model::ReservationAffinity>,
@@ -3275,8 +3166,7 @@ impl GceClusterConfig {
 
     /// Sets the value of [internal_ip_only][crate::model::GceClusterConfig::internal_ip_only].
     pub fn set_internal_ip_only<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.internal_ip_only = std::option::Option::Some(v.into());
         self
@@ -3284,20 +3174,14 @@ impl GceClusterConfig {
 
     /// Sets or clears the value of [internal_ip_only][crate::model::GceClusterConfig::internal_ip_only].
     pub fn set_or_clear_internal_ip_only<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.internal_ip_only = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [private_ipv6_google_access][crate::model::GceClusterConfig::private_ipv6_google_access].
-    pub fn set_private_ipv6_google_access<
-        T: std::convert::Into<crate::model::gce_cluster_config::PrivateIpv6GoogleAccess>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_private_ipv6_google_access<T: std::convert::Into<crate::model::gce_cluster_config::PrivateIpv6GoogleAccess>>(mut self, v: T) -> Self {
         self.private_ipv6_google_access = v.into();
         self
     }
@@ -3312,7 +3196,7 @@ impl GceClusterConfig {
     pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.service_account_scopes = v.into_iter().map(|i| i.into()).collect();
@@ -3323,7 +3207,7 @@ impl GceClusterConfig {
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -3344,8 +3228,7 @@ impl GceClusterConfig {
 
     /// Sets the value of [reservation_affinity][crate::model::GceClusterConfig::reservation_affinity].
     pub fn set_reservation_affinity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReservationAffinity>,
+    where T: std::convert::Into<crate::model::ReservationAffinity>
     {
         self.reservation_affinity = std::option::Option::Some(v.into());
         self
@@ -3353,8 +3236,7 @@ impl GceClusterConfig {
 
     /// Sets or clears the value of [reservation_affinity][crate::model::GceClusterConfig::reservation_affinity].
     pub fn set_or_clear_reservation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReservationAffinity>,
+    where T: std::convert::Into<crate::model::ReservationAffinity>
     {
         self.reservation_affinity = v.map(|x| x.into());
         self
@@ -3362,8 +3244,7 @@ impl GceClusterConfig {
 
     /// Sets the value of [node_group_affinity][crate::model::GceClusterConfig::node_group_affinity].
     pub fn set_node_group_affinity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroupAffinity>,
+    where T: std::convert::Into<crate::model::NodeGroupAffinity>
     {
         self.node_group_affinity = std::option::Option::Some(v.into());
         self
@@ -3371,8 +3252,7 @@ impl GceClusterConfig {
 
     /// Sets or clears the value of [node_group_affinity][crate::model::GceClusterConfig::node_group_affinity].
     pub fn set_or_clear_node_group_affinity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroupAffinity>,
+    where T: std::convert::Into<crate::model::NodeGroupAffinity>
     {
         self.node_group_affinity = v.map(|x| x.into());
         self
@@ -3380,8 +3260,7 @@ impl GceClusterConfig {
 
     /// Sets the value of [shielded_instance_config][crate::model::GceClusterConfig::shielded_instance_config].
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
     {
         self.shielded_instance_config = std::option::Option::Some(v.into());
         self
@@ -3389,8 +3268,7 @@ impl GceClusterConfig {
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::GceClusterConfig::shielded_instance_config].
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
+    where T: std::convert::Into<crate::model::ShieldedInstanceConfig>
     {
         self.shielded_instance_config = v.map(|x| x.into());
         self
@@ -3398,8 +3276,7 @@ impl GceClusterConfig {
 
     /// Sets the value of [confidential_instance_config][crate::model::GceClusterConfig::confidential_instance_config].
     pub fn set_confidential_instance_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
+    where T: std::convert::Into<crate::model::ConfidentialInstanceConfig>
     {
         self.confidential_instance_config = std::option::Option::Some(v.into());
         self
@@ -3407,8 +3284,7 @@ impl GceClusterConfig {
 
     /// Sets or clears the value of [confidential_instance_config][crate::model::GceClusterConfig::confidential_instance_config].
     pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ConfidentialInstanceConfig>,
+    where T: std::convert::Into<crate::model::ConfidentialInstanceConfig>
     {
         self.confidential_instance_config = v.map(|x| x.into());
         self
@@ -3425,6 +3301,7 @@ impl wkt::message::Message for GceClusterConfig {
 pub mod gce_cluster_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// `PrivateIpv6GoogleAccess` controls whether and how Dataproc cluster nodes
     /// can communicate with Google Services through gRPC over IPv6.
@@ -3500,9 +3377,7 @@ pub mod gce_cluster_config {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED"),
                 Self::InheritFromSubnetwork => std::option::Option::Some("INHERIT_FROM_SUBNETWORK"),
                 Self::Outbound => std::option::Option::Some("OUTBOUND"),
                 Self::Bidirectional => std::option::Option::Some("BIDIRECTIONAL"),
@@ -3531,9 +3406,7 @@ pub mod gce_cluster_config {
                 1 => Self::InheritFromSubnetwork,
                 2 => Self::Outbound,
                 3 => Self::Bidirectional,
-                _ => Self::UnknownValue(private_ipv_6_google_access::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(private_ipv_6_google_access::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3546,9 +3419,7 @@ pub mod gce_cluster_config {
                 "INHERIT_FROM_SUBNETWORK" => Self::InheritFromSubnetwork,
                 "OUTBOUND" => Self::Outbound,
                 "BIDIRECTIONAL" => Self::Bidirectional,
-                _ => Self::UnknownValue(private_ipv_6_google_access::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(private_ipv_6_google_access::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3573,11 +3444,8 @@ pub mod gce_cluster_config {
         where
             D: serde::Deserializer<'de>,
         {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<PrivateIpv6GoogleAccess>::new(
-                    ".google.cloud.dataproc.v1.GceClusterConfig.PrivateIpv6GoogleAccess",
-                ),
-            )
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PrivateIpv6GoogleAccess>::new(
+                ".google.cloud.dataproc.v1.GceClusterConfig.PrivateIpv6GoogleAccess"))
         }
     }
 }
@@ -3590,6 +3458,7 @@ pub mod gce_cluster_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroupAffinity {
+
     /// Required. The URI of a
     /// sole-tenant [node group
     /// resource](https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups)
@@ -3628,6 +3497,7 @@ impl wkt::message::Message for NodeGroupAffinity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShieldedInstanceConfig {
+
     /// Optional. Defines whether instances have Secure Boot enabled.
     pub enable_secure_boot: std::option::Option<bool>,
 
@@ -3647,8 +3517,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
     pub fn set_enable_secure_boot<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_secure_boot = std::option::Option::Some(v.into());
         self
@@ -3656,8 +3525,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets or clears the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
     pub fn set_or_clear_enable_secure_boot<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_secure_boot = v.map(|x| x.into());
         self
@@ -3665,8 +3533,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
     pub fn set_enable_vtpm<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_vtpm = std::option::Option::Some(v.into());
         self
@@ -3674,8 +3541,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets or clears the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
     pub fn set_or_clear_enable_vtpm<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_vtpm = v.map(|x| x.into());
         self
@@ -3683,8 +3549,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
     pub fn set_enable_integrity_monitoring<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_integrity_monitoring = std::option::Option::Some(v.into());
         self
@@ -3692,8 +3557,7 @@ impl ShieldedInstanceConfig {
 
     /// Sets or clears the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
     pub fn set_or_clear_enable_integrity_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<bool>,
+    where T: std::convert::Into<bool>
     {
         self.enable_integrity_monitoring = v.map(|x| x.into());
         self
@@ -3711,6 +3575,7 @@ impl wkt::message::Message for ShieldedInstanceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConfidentialInstanceConfig {
+
     /// Optional. Defines whether the instance should have confidential compute
     /// enabled.
     pub enable_confidential_compute: bool,
@@ -3741,6 +3606,7 @@ impl wkt::message::Message for ConfidentialInstanceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceGroupConfig {
+
     /// Optional. The number of VM instances in the instance group.
     /// For [HA
     /// cluster](/dataproc/docs/concepts/configuring-clusters/high-availability)
@@ -3863,7 +3729,7 @@ impl InstanceGroupConfig {
     pub fn set_instance_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.instance_names = v.into_iter().map(|i| i.into()).collect();
@@ -3874,7 +3740,7 @@ impl InstanceGroupConfig {
     pub fn set_instance_references<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::InstanceReference>,
+        V: std::convert::Into<crate::model::InstanceReference>
     {
         use std::iter::Iterator;
         self.instance_references = v.into_iter().map(|i| i.into()).collect();
@@ -3888,18 +3754,14 @@ impl InstanceGroupConfig {
     }
 
     /// Sets the value of [machine_type_uri][crate::model::InstanceGroupConfig::machine_type_uri].
-    pub fn set_machine_type_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_machine_type_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type_uri = v.into();
         self
     }
 
     /// Sets the value of [disk_config][crate::model::InstanceGroupConfig::disk_config].
     pub fn set_disk_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskConfig>,
+    where T: std::convert::Into<crate::model::DiskConfig>
     {
         self.disk_config = std::option::Option::Some(v.into());
         self
@@ -3907,8 +3769,7 @@ impl InstanceGroupConfig {
 
     /// Sets or clears the value of [disk_config][crate::model::InstanceGroupConfig::disk_config].
     pub fn set_or_clear_disk_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DiskConfig>,
+    where T: std::convert::Into<crate::model::DiskConfig>
     {
         self.disk_config = v.map(|x| x.into());
         self
@@ -3921,20 +3782,14 @@ impl InstanceGroupConfig {
     }
 
     /// Sets the value of [preemptibility][crate::model::InstanceGroupConfig::preemptibility].
-    pub fn set_preemptibility<
-        T: std::convert::Into<crate::model::instance_group_config::Preemptibility>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_preemptibility<T: std::convert::Into<crate::model::instance_group_config::Preemptibility>>(mut self, v: T) -> Self {
         self.preemptibility = v.into();
         self
     }
 
     /// Sets the value of [managed_group_config][crate::model::InstanceGroupConfig::managed_group_config].
     pub fn set_managed_group_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedGroupConfig>,
+    where T: std::convert::Into<crate::model::ManagedGroupConfig>
     {
         self.managed_group_config = std::option::Option::Some(v.into());
         self
@@ -3942,8 +3797,7 @@ impl InstanceGroupConfig {
 
     /// Sets or clears the value of [managed_group_config][crate::model::InstanceGroupConfig::managed_group_config].
     pub fn set_or_clear_managed_group_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ManagedGroupConfig>,
+    where T: std::convert::Into<crate::model::ManagedGroupConfig>
     {
         self.managed_group_config = v.map(|x| x.into());
         self
@@ -3953,7 +3807,7 @@ impl InstanceGroupConfig {
     pub fn set_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::AcceleratorConfig>,
+        V: std::convert::Into<crate::model::AcceleratorConfig>
     {
         use std::iter::Iterator;
         self.accelerators = v.into_iter().map(|i| i.into()).collect();
@@ -3961,10 +3815,7 @@ impl InstanceGroupConfig {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::InstanceGroupConfig::min_cpu_platform].
-    pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.min_cpu_platform = v.into();
         self
     }
@@ -3977,8 +3828,7 @@ impl InstanceGroupConfig {
 
     /// Sets the value of [instance_flexibility_policy][crate::model::InstanceGroupConfig::instance_flexibility_policy].
     pub fn set_instance_flexibility_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceFlexibilityPolicy>,
+    where T: std::convert::Into<crate::model::InstanceFlexibilityPolicy>
     {
         self.instance_flexibility_policy = std::option::Option::Some(v.into());
         self
@@ -3986,8 +3836,7 @@ impl InstanceGroupConfig {
 
     /// Sets or clears the value of [instance_flexibility_policy][crate::model::InstanceGroupConfig::instance_flexibility_policy].
     pub fn set_or_clear_instance_flexibility_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceFlexibilityPolicy>,
+    where T: std::convert::Into<crate::model::InstanceFlexibilityPolicy>
     {
         self.instance_flexibility_policy = v.map(|x| x.into());
         self
@@ -3995,8 +3844,7 @@ impl InstanceGroupConfig {
 
     /// Sets the value of [startup_config][crate::model::InstanceGroupConfig::startup_config].
     pub fn set_startup_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::StartupConfig>,
+    where T: std::convert::Into<crate::model::StartupConfig>
     {
         self.startup_config = std::option::Option::Some(v.into());
         self
@@ -4004,8 +3852,7 @@ impl InstanceGroupConfig {
 
     /// Sets or clears the value of [startup_config][crate::model::InstanceGroupConfig::startup_config].
     pub fn set_or_clear_startup_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::StartupConfig>,
+    where T: std::convert::Into<crate::model::StartupConfig>
     {
         self.startup_config = v.map(|x| x.into());
         self
@@ -4022,6 +3869,7 @@ impl wkt::message::Message for InstanceGroupConfig {
 pub mod instance_group_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Controls the use of preemptible instances within the group.
     ///
@@ -4130,9 +3978,7 @@ pub mod instance_group_config {
                 1 => Self::NonPreemptible,
                 2 => Self::Preemptible,
                 3 => Self::Spot,
-                _ => Self::UnknownValue(preemptibility::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(preemptibility::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -4145,9 +3991,7 @@ pub mod instance_group_config {
                 "NON_PREEMPTIBLE" => Self::NonPreemptible,
                 "PREEMPTIBLE" => Self::Preemptible,
                 "SPOT" => Self::Spot,
-                _ => Self::UnknownValue(preemptibility::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(preemptibility::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -4173,8 +4017,7 @@ pub mod instance_group_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Preemptibility>::new(
-                ".google.cloud.dataproc.v1.InstanceGroupConfig.Preemptibility",
-            ))
+                ".google.cloud.dataproc.v1.InstanceGroupConfig.Preemptibility"))
         }
     }
 }
@@ -4184,6 +4027,7 @@ pub mod instance_group_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartupConfig {
+
     /// Optional. The config setting to enable cluster creation/ updation to be
     /// successful only after required_registration_fraction of instances are up
     /// and running. This configuration is applicable to only secondary workers for
@@ -4202,20 +4046,15 @@ impl StartupConfig {
 
     /// Sets the value of [required_registration_fraction][crate::model::StartupConfig::required_registration_fraction].
     pub fn set_required_registration_fraction<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<f64>,
+    where T: std::convert::Into<f64>
     {
         self.required_registration_fraction = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [required_registration_fraction][crate::model::StartupConfig::required_registration_fraction].
-    pub fn set_or_clear_required_registration_fraction<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<f64>,
+    pub fn set_or_clear_required_registration_fraction<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<f64>
     {
         self.required_registration_fraction = v.map(|x| x.into());
         self
@@ -4232,6 +4071,7 @@ impl wkt::message::Message for StartupConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceReference {
+
     /// The user-friendly name of the Compute Engine instance.
     pub instance_name: std::string::String,
 
@@ -4271,10 +4111,7 @@ impl InstanceReference {
     }
 
     /// Sets the value of [public_ecies_key][crate::model::InstanceReference::public_ecies_key].
-    pub fn set_public_ecies_key<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_public_ecies_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_ecies_key = v.into();
         self
     }
@@ -4290,6 +4127,7 @@ impl wkt::message::Message for InstanceReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedGroupConfig {
+
     /// Output only. The name of the Instance Template used for the Managed
     /// Instance Group.
     pub instance_template_name: std::string::String,
@@ -4310,28 +4148,19 @@ impl ManagedGroupConfig {
     }
 
     /// Sets the value of [instance_template_name][crate::model::ManagedGroupConfig::instance_template_name].
-    pub fn set_instance_template_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_instance_template_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_template_name = v.into();
         self
     }
 
     /// Sets the value of [instance_group_manager_name][crate::model::ManagedGroupConfig::instance_group_manager_name].
-    pub fn set_instance_group_manager_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_instance_group_manager_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_group_manager_name = v.into();
         self
     }
 
     /// Sets the value of [instance_group_manager_uri][crate::model::ManagedGroupConfig::instance_group_manager_uri].
-    pub fn set_instance_group_manager_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_instance_group_manager_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_group_manager_uri = v.into();
         self
     }
@@ -4348,19 +4177,17 @@ impl wkt::message::Message for ManagedGroupConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstanceFlexibilityPolicy {
+
     /// Optional. Defines how the Group selects the provisioning model to ensure
     /// required reliability.
-    pub provisioning_model_mix:
-        std::option::Option<crate::model::instance_flexibility_policy::ProvisioningModelMix>,
+    pub provisioning_model_mix: std::option::Option<crate::model::instance_flexibility_policy::ProvisioningModelMix>,
 
     /// Optional. List of instance selection options that the group will use when
     /// creating new VMs.
-    pub instance_selection_list:
-        std::vec::Vec<crate::model::instance_flexibility_policy::InstanceSelection>,
+    pub instance_selection_list: std::vec::Vec<crate::model::instance_flexibility_policy::InstanceSelection>,
 
     /// Output only. A list of instance selection results in the group.
-    pub instance_selection_results:
-        std::vec::Vec<crate::model::instance_flexibility_policy::InstanceSelectionResult>,
+    pub instance_selection_results: std::vec::Vec<crate::model::instance_flexibility_policy::InstanceSelectionResult>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4372,8 +4199,7 @@ impl InstanceFlexibilityPolicy {
 
     /// Sets the value of [provisioning_model_mix][crate::model::InstanceFlexibilityPolicy::provisioning_model_mix].
     pub fn set_provisioning_model_mix<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::instance_flexibility_policy::ProvisioningModelMix>,
+    where T: std::convert::Into<crate::model::instance_flexibility_policy::ProvisioningModelMix>
     {
         self.provisioning_model_mix = std::option::Option::Some(v.into());
         self
@@ -4381,8 +4207,7 @@ impl InstanceFlexibilityPolicy {
 
     /// Sets or clears the value of [provisioning_model_mix][crate::model::InstanceFlexibilityPolicy::provisioning_model_mix].
     pub fn set_or_clear_provisioning_model_mix<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::instance_flexibility_policy::ProvisioningModelMix>,
+    where T: std::convert::Into<crate::model::instance_flexibility_policy::ProvisioningModelMix>
     {
         self.provisioning_model_mix = v.map(|x| x.into());
         self
@@ -4392,7 +4217,7 @@ impl InstanceFlexibilityPolicy {
     pub fn set_instance_selection_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance_flexibility_policy::InstanceSelection>,
+        V: std::convert::Into<crate::model::instance_flexibility_policy::InstanceSelection>
     {
         use std::iter::Iterator;
         self.instance_selection_list = v.into_iter().map(|i| i.into()).collect();
@@ -4403,7 +4228,7 @@ impl InstanceFlexibilityPolicy {
     pub fn set_instance_selection_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::instance_flexibility_policy::InstanceSelectionResult>,
+        V: std::convert::Into<crate::model::instance_flexibility_policy::InstanceSelectionResult>
     {
         use std::iter::Iterator;
         self.instance_selection_results = v.into_iter().map(|i| i.into()).collect();
@@ -4422,11 +4247,13 @@ pub mod instance_flexibility_policy {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Defines how Dataproc should create VMs with a mixture of provisioning
     /// models.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProvisioningModelMix {
+
         /// Optional. The base capacity that will always use Standard VMs to avoid
         /// risk of more preemption than the minimum capacity you need. Dataproc will
         /// create only standard VMs until it reaches standard_capacity_base, then it
@@ -4455,8 +4282,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets the value of [standard_capacity_base][crate::model::instance_flexibility_policy::ProvisioningModelMix::standard_capacity_base].
         pub fn set_standard_capacity_base<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.standard_capacity_base = std::option::Option::Some(v.into());
             self
@@ -4464,8 +4290,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets or clears the value of [standard_capacity_base][crate::model::instance_flexibility_policy::ProvisioningModelMix::standard_capacity_base].
         pub fn set_or_clear_standard_capacity_base<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.standard_capacity_base = v.map(|x| x.into());
             self
@@ -4473,20 +4298,15 @@ pub mod instance_flexibility_policy {
 
         /// Sets the value of [standard_capacity_percent_above_base][crate::model::instance_flexibility_policy::ProvisioningModelMix::standard_capacity_percent_above_base].
         pub fn set_standard_capacity_percent_above_base<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.standard_capacity_percent_above_base = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [standard_capacity_percent_above_base][crate::model::instance_flexibility_policy::ProvisioningModelMix::standard_capacity_percent_above_base].
-        pub fn set_or_clear_standard_capacity_percent_above_base<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i32>,
+        pub fn set_or_clear_standard_capacity_percent_above_base<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i32>
         {
             self.standard_capacity_percent_above_base = v.map(|x| x.into());
             self
@@ -4503,6 +4323,7 @@ pub mod instance_flexibility_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceSelection {
+
         /// Optional. Full machine-type names, e.g. "n1-standard-16".
         pub machine_types: std::vec::Vec<std::string::String>,
 
@@ -4525,7 +4346,7 @@ pub mod instance_flexibility_policy {
         pub fn set_machine_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.machine_types = v.into_iter().map(|i| i.into()).collect();
@@ -4550,6 +4371,7 @@ pub mod instance_flexibility_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceSelectionResult {
+
         /// Output only. Full machine-type names, e.g. "n1-standard-16".
         pub machine_type: std::option::Option<std::string::String>,
 
@@ -4566,8 +4388,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets the value of [machine_type][crate::model::instance_flexibility_policy::InstanceSelectionResult::machine_type].
         pub fn set_machine_type<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.machine_type = std::option::Option::Some(v.into());
             self
@@ -4575,8 +4396,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets or clears the value of [machine_type][crate::model::instance_flexibility_policy::InstanceSelectionResult::machine_type].
         pub fn set_or_clear_machine_type<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<std::string::String>,
+        where T: std::convert::Into<std::string::String>
         {
             self.machine_type = v.map(|x| x.into());
             self
@@ -4584,8 +4404,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets the value of [vm_count][crate::model::instance_flexibility_policy::InstanceSelectionResult::vm_count].
         pub fn set_vm_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.vm_count = std::option::Option::Some(v.into());
             self
@@ -4593,8 +4412,7 @@ pub mod instance_flexibility_policy {
 
         /// Sets or clears the value of [vm_count][crate::model::instance_flexibility_policy::InstanceSelectionResult::vm_count].
         pub fn set_or_clear_vm_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.vm_count = v.map(|x| x.into());
             self
@@ -4614,6 +4432,7 @@ pub mod instance_flexibility_policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AcceleratorConfig {
+
     /// Full URL, partial URI, or short name of the accelerator type resource to
     /// expose to this instance. See
     /// [Compute Engine
@@ -4644,10 +4463,7 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [accelerator_type_uri][crate::model::AcceleratorConfig::accelerator_type_uri].
-    pub fn set_accelerator_type_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type_uri = v.into();
         self
     }
@@ -4669,6 +4485,7 @@ impl wkt::message::Message for AcceleratorConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiskConfig {
+
     /// Optional. Type of the boot disk (default is "pd-standard").
     /// Valid values: "pd-balanced" (Persistent Disk Balanced Solid State Drive),
     /// "pd-ssd" (Persistent Disk Solid State Drive),
@@ -4735,18 +4552,14 @@ impl DiskConfig {
     }
 
     /// Sets the value of [local_ssd_interface][crate::model::DiskConfig::local_ssd_interface].
-    pub fn set_local_ssd_interface<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_local_ssd_interface<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.local_ssd_interface = v.into();
         self
     }
 
     /// Sets the value of [boot_disk_provisioned_iops][crate::model::DiskConfig::boot_disk_provisioned_iops].
     pub fn set_boot_disk_provisioned_iops<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.boot_disk_provisioned_iops = std::option::Option::Some(v.into());
         self
@@ -4754,8 +4567,7 @@ impl DiskConfig {
 
     /// Sets or clears the value of [boot_disk_provisioned_iops][crate::model::DiskConfig::boot_disk_provisioned_iops].
     pub fn set_or_clear_boot_disk_provisioned_iops<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.boot_disk_provisioned_iops = v.map(|x| x.into());
         self
@@ -4763,20 +4575,15 @@ impl DiskConfig {
 
     /// Sets the value of [boot_disk_provisioned_throughput][crate::model::DiskConfig::boot_disk_provisioned_throughput].
     pub fn set_boot_disk_provisioned_throughput<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<i64>,
+    where T: std::convert::Into<i64>
     {
         self.boot_disk_provisioned_throughput = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [boot_disk_provisioned_throughput][crate::model::DiskConfig::boot_disk_provisioned_throughput].
-    pub fn set_or_clear_boot_disk_provisioned_throughput<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<i64>,
+    pub fn set_or_clear_boot_disk_provisioned_throughput<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<i64>
     {
         self.boot_disk_provisioned_throughput = v.map(|x| x.into());
         self
@@ -4793,6 +4600,7 @@ impl wkt::message::Message for DiskConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuxiliaryNodeGroup {
+
     /// Required. Node group configuration.
     pub node_group: std::option::Option<crate::model::NodeGroup>,
 
@@ -4813,8 +4621,7 @@ impl AuxiliaryNodeGroup {
 
     /// Sets the value of [node_group][crate::model::AuxiliaryNodeGroup::node_group].
     pub fn set_node_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroup>,
+    where T: std::convert::Into<crate::model::NodeGroup>
     {
         self.node_group = std::option::Option::Some(v.into());
         self
@@ -4822,8 +4629,7 @@ impl AuxiliaryNodeGroup {
 
     /// Sets or clears the value of [node_group][crate::model::AuxiliaryNodeGroup::node_group].
     pub fn set_or_clear_node_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroup>,
+    where T: std::convert::Into<crate::model::NodeGroup>
     {
         self.node_group = v.map(|x| x.into());
         self
@@ -4851,6 +4657,7 @@ impl wkt::message::Message for AuxiliaryNodeGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroup {
+
     /// The Node group [resource name](https://aip.dev/122).
     pub name: std::string::String,
 
@@ -4868,7 +4675,7 @@ pub struct NodeGroup {
     ///   1 to 63 characters and conform to [RFC 1035]
     ///   (<https://www.ietf.org/rfc/rfc1035.txt>).
     /// * The node group must have no more than 32 labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4888,7 +4695,7 @@ impl NodeGroup {
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::node_group::Role>,
+        V: std::convert::Into<crate::model::node_group::Role>
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
@@ -4897,8 +4704,7 @@ impl NodeGroup {
 
     /// Sets the value of [node_group_config][crate::model::NodeGroup::node_group_config].
     pub fn set_node_group_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.node_group_config = std::option::Option::Some(v.into());
         self
@@ -4906,8 +4712,7 @@ impl NodeGroup {
 
     /// Sets or clears the value of [node_group_config][crate::model::NodeGroup::node_group_config].
     pub fn set_or_clear_node_group_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InstanceGroupConfig>,
+    where T: std::convert::Into<crate::model::InstanceGroupConfig>
     {
         self.node_group_config = v.map(|x| x.into());
         self
@@ -4936,6 +4741,7 @@ impl wkt::message::Message for NodeGroup {
 pub mod node_group {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Node pool roles.
     ///
@@ -5018,9 +4824,7 @@ pub mod node_group {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Driver,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5031,9 +4835,7 @@ pub mod node_group {
             match value {
                 "ROLE_UNSPECIFIED" => Self::Unspecified,
                 "DRIVER" => Self::Driver,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5057,8 +4859,7 @@ pub mod node_group {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Role>::new(
-                ".google.cloud.dataproc.v1.NodeGroup.Role",
-            ))
+                ".google.cloud.dataproc.v1.NodeGroup.Role"))
         }
     }
 }
@@ -5068,6 +4869,7 @@ pub mod node_group {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeInitializationAction {
+
     /// Required. Cloud Storage URI of executable file.
     pub executable_file: std::string::String,
 
@@ -5096,8 +4898,7 @@ impl NodeInitializationAction {
 
     /// Sets the value of [execution_timeout][crate::model::NodeInitializationAction::execution_timeout].
     pub fn set_execution_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.execution_timeout = std::option::Option::Some(v.into());
         self
@@ -5105,8 +4906,7 @@ impl NodeInitializationAction {
 
     /// Sets or clears the value of [execution_timeout][crate::model::NodeInitializationAction::execution_timeout].
     pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.execution_timeout = v.map(|x| x.into());
         self
@@ -5123,6 +4923,7 @@ impl wkt::message::Message for NodeInitializationAction {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterStatus {
+
     /// Output only. The cluster's state.
     pub state: crate::model::cluster_status::State,
 
@@ -5146,10 +4947,7 @@ impl ClusterStatus {
     }
 
     /// Sets the value of [state][crate::model::ClusterStatus::state].
-    pub fn set_state<T: std::convert::Into<crate::model::cluster_status::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::cluster_status::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -5162,8 +4960,7 @@ impl ClusterStatus {
 
     /// Sets the value of [state_start_time][crate::model::ClusterStatus::state_start_time].
     pub fn set_state_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = std::option::Option::Some(v.into());
         self
@@ -5171,18 +4968,14 @@ impl ClusterStatus {
 
     /// Sets or clears the value of [state_start_time][crate::model::ClusterStatus::state_start_time].
     pub fn set_or_clear_state_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [substate][crate::model::ClusterStatus::substate].
-    pub fn set_substate<T: std::convert::Into<crate::model::cluster_status::Substate>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_substate<T: std::convert::Into<crate::model::cluster_status::Substate>>(mut self, v: T) -> Self {
         self.substate = v.into();
         self
     }
@@ -5198,6 +4991,7 @@ impl wkt::message::Message for ClusterStatus {
 pub mod cluster_status {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The cluster state.
     ///
@@ -5330,9 +5124,7 @@ pub mod cluster_status {
                 8 => Self::Starting,
                 9 => Self::ErrorDueToUpdate,
                 10 => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5352,9 +5144,7 @@ pub mod cluster_status {
                 "STOPPED" => Self::Stopped,
                 "STARTING" => Self::Starting,
                 "REPAIRING" => Self::Repairing,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5387,8 +5177,7 @@ pub mod cluster_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.ClusterStatus.State",
-            ))
+                ".google.cloud.dataproc.v1.ClusterStatus.State"))
         }
     }
 
@@ -5485,9 +5274,7 @@ pub mod cluster_status {
                 0 => Self::Unspecified,
                 1 => Self::Unhealthy,
                 2 => Self::StaleStatus,
-                _ => Self::UnknownValue(substate::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(substate::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -5499,9 +5286,7 @@ pub mod cluster_status {
                 "UNSPECIFIED" => Self::Unspecified,
                 "UNHEALTHY" => Self::Unhealthy,
                 "STALE_STATUS" => Self::StaleStatus,
-                _ => Self::UnknownValue(substate::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(substate::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -5526,8 +5311,7 @@ pub mod cluster_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Substate>::new(
-                ".google.cloud.dataproc.v1.ClusterStatus.Substate",
-            ))
+                ".google.cloud.dataproc.v1.ClusterStatus.Substate"))
         }
     }
 }
@@ -5536,6 +5320,7 @@ pub mod cluster_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SecurityConfig {
+
     /// Optional. Kerberos related configuration.
     pub kerberos_config: std::option::Option<crate::model::KerberosConfig>,
 
@@ -5553,8 +5338,7 @@ impl SecurityConfig {
 
     /// Sets the value of [kerberos_config][crate::model::SecurityConfig::kerberos_config].
     pub fn set_kerberos_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KerberosConfig>,
+    where T: std::convert::Into<crate::model::KerberosConfig>
     {
         self.kerberos_config = std::option::Option::Some(v.into());
         self
@@ -5562,8 +5346,7 @@ impl SecurityConfig {
 
     /// Sets or clears the value of [kerberos_config][crate::model::SecurityConfig::kerberos_config].
     pub fn set_or_clear_kerberos_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KerberosConfig>,
+    where T: std::convert::Into<crate::model::KerberosConfig>
     {
         self.kerberos_config = v.map(|x| x.into());
         self
@@ -5571,8 +5354,7 @@ impl SecurityConfig {
 
     /// Sets the value of [identity_config][crate::model::SecurityConfig::identity_config].
     pub fn set_identity_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::IdentityConfig>,
+    where T: std::convert::Into<crate::model::IdentityConfig>
     {
         self.identity_config = std::option::Option::Some(v.into());
         self
@@ -5580,8 +5362,7 @@ impl SecurityConfig {
 
     /// Sets or clears the value of [identity_config][crate::model::SecurityConfig::identity_config].
     pub fn set_or_clear_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::IdentityConfig>,
+    where T: std::convert::Into<crate::model::IdentityConfig>
     {
         self.identity_config = v.map(|x| x.into());
         self
@@ -5598,6 +5379,7 @@ impl wkt::message::Message for SecurityConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KerberosConfig {
+
     /// Optional. Flag to indicate whether to Kerberize the cluster (default:
     /// false). Set this field to true to enable Kerberos on a cluster.
     pub enable_kerberos: bool,
@@ -5680,10 +5462,7 @@ impl KerberosConfig {
     }
 
     /// Sets the value of [root_principal_password_uri][crate::model::KerberosConfig::root_principal_password_uri].
-    pub fn set_root_principal_password_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_root_principal_password_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_principal_password_uri = v.into();
         self
     }
@@ -5707,64 +5486,43 @@ impl KerberosConfig {
     }
 
     /// Sets the value of [keystore_password_uri][crate::model::KerberosConfig::keystore_password_uri].
-    pub fn set_keystore_password_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_keystore_password_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.keystore_password_uri = v.into();
         self
     }
 
     /// Sets the value of [key_password_uri][crate::model::KerberosConfig::key_password_uri].
-    pub fn set_key_password_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_key_password_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_password_uri = v.into();
         self
     }
 
     /// Sets the value of [truststore_password_uri][crate::model::KerberosConfig::truststore_password_uri].
-    pub fn set_truststore_password_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_truststore_password_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.truststore_password_uri = v.into();
         self
     }
 
     /// Sets the value of [cross_realm_trust_realm][crate::model::KerberosConfig::cross_realm_trust_realm].
-    pub fn set_cross_realm_trust_realm<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cross_realm_trust_realm<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cross_realm_trust_realm = v.into();
         self
     }
 
     /// Sets the value of [cross_realm_trust_kdc][crate::model::KerberosConfig::cross_realm_trust_kdc].
-    pub fn set_cross_realm_trust_kdc<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cross_realm_trust_kdc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cross_realm_trust_kdc = v.into();
         self
     }
 
     /// Sets the value of [cross_realm_trust_admin_server][crate::model::KerberosConfig::cross_realm_trust_admin_server].
-    pub fn set_cross_realm_trust_admin_server<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cross_realm_trust_admin_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cross_realm_trust_admin_server = v.into();
         self
     }
 
     /// Sets the value of [cross_realm_trust_shared_password_uri][crate::model::KerberosConfig::cross_realm_trust_shared_password_uri].
-    pub fn set_cross_realm_trust_shared_password_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cross_realm_trust_shared_password_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cross_realm_trust_shared_password_uri = v.into();
         self
     }
@@ -5799,9 +5557,9 @@ impl wkt::message::Message for KerberosConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IdentityConfig {
+
     /// Required. Map of user to service account.
-    pub user_service_account_mapping:
-        std::collections::HashMap<std::string::String, std::string::String>,
+    pub user_service_account_mapping: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5819,8 +5577,7 @@ impl IdentityConfig {
         V: std::convert::Into<std::string::String>,
     {
         use std::iter::Iterator;
-        self.user_service_account_mapping =
-            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.user_service_account_mapping = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5835,6 +5592,7 @@ impl wkt::message::Message for IdentityConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SoftwareConfig {
+
     /// Optional. The version of software inside the cluster. It must be one of the
     /// supported [Dataproc
     /// Versions](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#supported-dataproc-image-versions),
@@ -5862,7 +5620,7 @@ pub struct SoftwareConfig {
     ///
     /// For more information, see [Cluster
     /// properties](https://cloud.google.com/dataproc/docs/concepts/cluster-properties).
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The set of components to activate on the cluster.
     pub optional_components: std::vec::Vec<crate::model::Component>,
@@ -5897,7 +5655,7 @@ impl SoftwareConfig {
     pub fn set_optional_components<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Component>,
+        V: std::convert::Into<crate::model::Component>
     {
         use std::iter::Iterator;
         self.optional_components = v.into_iter().map(|i| i.into()).collect();
@@ -5915,6 +5673,7 @@ impl wkt::message::Message for SoftwareConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LifecycleConfig {
+
     /// Optional. The duration to keep the cluster alive while idling (when no jobs
     /// are running). Passing this threshold will cause the cluster to be
     /// deleted. Minimum value is 5 minutes; maximum value is 14 days (see JSON
@@ -5942,8 +5701,7 @@ impl LifecycleConfig {
 
     /// Sets the value of [idle_delete_ttl][crate::model::LifecycleConfig::idle_delete_ttl].
     pub fn set_idle_delete_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_delete_ttl = std::option::Option::Some(v.into());
         self
@@ -5951,8 +5709,7 @@ impl LifecycleConfig {
 
     /// Sets or clears the value of [idle_delete_ttl][crate::model::LifecycleConfig::idle_delete_ttl].
     pub fn set_or_clear_idle_delete_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_delete_ttl = v.map(|x| x.into());
         self
@@ -5960,8 +5717,7 @@ impl LifecycleConfig {
 
     /// Sets the value of [idle_start_time][crate::model::LifecycleConfig::idle_start_time].
     pub fn set_idle_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.idle_start_time = std::option::Option::Some(v.into());
         self
@@ -5969,8 +5725,7 @@ impl LifecycleConfig {
 
     /// Sets or clears the value of [idle_start_time][crate::model::LifecycleConfig::idle_start_time].
     pub fn set_or_clear_idle_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.idle_start_time = v.map(|x| x.into());
         self
@@ -5980,12 +5735,8 @@ impl LifecycleConfig {
     ///
     /// Note that all the setters affecting `ttl` are mutually
     /// exclusive.
-    pub fn set_ttl<
-        T: std::convert::Into<std::option::Option<crate::model::lifecycle_config::Ttl>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<crate::model::lifecycle_config::Ttl>>>(mut self, v: T) -> Self
+    {
         self.ttl = v.into();
         self
     }
@@ -6006,13 +5757,12 @@ impl LifecycleConfig {
     ///
     /// Note that all the setters affecting `ttl` are
     /// mutually exclusive.
-    pub fn set_auto_delete_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl = std::option::Option::Some(crate::model::lifecycle_config::Ttl::AutoDeleteTime(
-            v.into(),
-        ));
+    pub fn set_auto_delete_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(mut self, v: T) -> Self {
+        self.ttl = std::option::Option::Some(
+            crate::model::lifecycle_config::Ttl::AutoDeleteTime(
+                v.into()
+            )
+        );
         self
     }
 
@@ -6032,12 +5782,12 @@ impl LifecycleConfig {
     ///
     /// Note that all the setters affecting `ttl` are
     /// mutually exclusive.
-    pub fn set_auto_delete_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ttl =
-            std::option::Option::Some(crate::model::lifecycle_config::Ttl::AutoDeleteTtl(v.into()));
+    pub fn set_auto_delete_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+        self.ttl = std::option::Option::Some(
+            crate::model::lifecycle_config::Ttl::AutoDeleteTtl(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -6052,6 +5802,7 @@ impl wkt::message::Message for LifecycleConfig {
 pub mod lifecycle_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Either the exact time the cluster should be deleted at or
     /// the cluster maximum age.
@@ -6074,6 +5825,7 @@ pub mod lifecycle_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MetastoreConfig {
+
     /// Required. Resource name of an existing Dataproc Metastore service.
     ///
     /// Example:
@@ -6090,10 +5842,7 @@ impl MetastoreConfig {
     }
 
     /// Sets the value of [dataproc_metastore_service][crate::model::MetastoreConfig::dataproc_metastore_service].
-    pub fn set_dataproc_metastore_service<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataproc_metastore_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataproc_metastore_service = v.into();
         self
     }
@@ -6112,11 +5861,12 @@ impl wkt::message::Message for MetastoreConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterMetrics {
+
     /// The HDFS metrics.
-    pub hdfs_metrics: std::collections::HashMap<std::string::String, i64>,
+    pub hdfs_metrics: std::collections::HashMap<std::string::String,i64>,
 
     /// YARN metrics.
-    pub yarn_metrics: std::collections::HashMap<std::string::String, i64>,
+    pub yarn_metrics: std::collections::HashMap<std::string::String,i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -6161,6 +5911,7 @@ impl wkt::message::Message for ClusterMetrics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataprocMetricConfig {
+
     /// Required. Metrics sources to enable.
     pub metrics: std::vec::Vec<crate::model::dataproc_metric_config::Metric>,
 
@@ -6176,7 +5927,7 @@ impl DataprocMetricConfig {
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::dataproc_metric_config::Metric>,
+        V: std::convert::Into<crate::model::dataproc_metric_config::Metric>
     {
         use std::iter::Iterator;
         self.metrics = v.into_iter().map(|i| i.into()).collect();
@@ -6195,10 +5946,12 @@ pub mod dataproc_metric_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A Dataproc custom metric.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metric {
+
         /// Required. A standard set of metrics is collected unless `metricOverrides`
         /// are specified for the metric source (see [Custom metrics]
         /// (<https://cloud.google.com/dataproc/docs/guides/dataproc-metrics#custom_metrics>)
@@ -6245,12 +5998,7 @@ pub mod dataproc_metric_config {
         }
 
         /// Sets the value of [metric_source][crate::model::dataproc_metric_config::Metric::metric_source].
-        pub fn set_metric_source<
-            T: std::convert::Into<crate::model::dataproc_metric_config::MetricSource>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_metric_source<T: std::convert::Into<crate::model::dataproc_metric_config::MetricSource>>(mut self, v: T) -> Self {
             self.metric_source = v.into();
             self
         }
@@ -6259,7 +6007,7 @@ pub mod dataproc_metric_config {
         pub fn set_metric_overrides<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.metric_overrides = v.into_iter().map(|i| i.into()).collect();
@@ -6356,9 +6104,7 @@ pub mod dataproc_metric_config {
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
                 Self::Unspecified => std::option::Option::Some("METRIC_SOURCE_UNSPECIFIED"),
-                Self::MonitoringAgentDefaults => {
-                    std::option::Option::Some("MONITORING_AGENT_DEFAULTS")
-                }
+                Self::MonitoringAgentDefaults => std::option::Option::Some("MONITORING_AGENT_DEFAULTS"),
                 Self::Hdfs => std::option::Option::Some("HDFS"),
                 Self::Spark => std::option::Option::Some("SPARK"),
                 Self::Yarn => std::option::Option::Some("YARN"),
@@ -6396,9 +6142,7 @@ pub mod dataproc_metric_config {
                 6 => Self::Hiveserver2,
                 7 => Self::Hivemetastore,
                 8 => Self::Flink,
-                _ => Self::UnknownValue(metric_source::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(metric_source::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -6416,9 +6160,7 @@ pub mod dataproc_metric_config {
                 "HIVESERVER2" => Self::Hiveserver2,
                 "HIVEMETASTORE" => Self::Hivemetastore,
                 "FLINK" => Self::Flink,
-                _ => Self::UnknownValue(metric_source::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(metric_source::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -6449,8 +6191,7 @@ pub mod dataproc_metric_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<MetricSource>::new(
-                ".google.cloud.dataproc.v1.DataprocMetricConfig.MetricSource",
-            ))
+                ".google.cloud.dataproc.v1.DataprocMetricConfig.MetricSource"))
         }
     }
 }
@@ -6459,6 +6200,7 @@ pub mod dataproc_metric_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the cluster
     /// belongs to.
     pub project_id: std::string::String,
@@ -6510,8 +6252,7 @@ impl CreateClusterRequest {
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -6519,8 +6260,7 @@ impl CreateClusterRequest {
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -6533,12 +6273,7 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [action_on_failed_primary_workers][crate::model::CreateClusterRequest::action_on_failed_primary_workers].
-    pub fn set_action_on_failed_primary_workers<
-        T: std::convert::Into<crate::model::FailureAction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action_on_failed_primary_workers<T: std::convert::Into<crate::model::FailureAction>>(mut self, v: T) -> Self {
         self.action_on_failed_primary_workers = v.into();
         self
     }
@@ -6554,6 +6289,7 @@ impl wkt::message::Message for CreateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project the
     /// cluster belongs to.
     pub project_id: std::string::String,
@@ -6656,8 +6392,7 @@ impl UpdateClusterRequest {
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
     pub fn set_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = std::option::Option::Some(v.into());
         self
@@ -6665,8 +6400,7 @@ impl UpdateClusterRequest {
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Cluster>,
+    where T: std::convert::Into<crate::model::Cluster>
     {
         self.cluster = v.map(|x| x.into());
         self
@@ -6674,20 +6408,15 @@ impl UpdateClusterRequest {
 
     /// Sets the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
     pub fn set_graceful_decommission_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
-    pub fn set_or_clear_graceful_decommission_timeout<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_graceful_decommission_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = v.map(|x| x.into());
         self
@@ -6695,8 +6424,7 @@ impl UpdateClusterRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -6704,8 +6432,7 @@ impl UpdateClusterRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -6728,6 +6455,7 @@ impl wkt::message::Message for UpdateClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StopClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project the
     /// cluster belongs to.
     pub project_id: std::string::String,
@@ -6807,6 +6535,7 @@ impl wkt::message::Message for StopClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project the
     /// cluster belongs to.
     pub project_id: std::string::String,
@@ -6886,6 +6615,7 @@ impl wkt::message::Message for StartClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the cluster
     /// belongs to.
     pub project_id: std::string::String,
@@ -6965,6 +6695,7 @@ impl wkt::message::Message for DeleteClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the cluster
     /// belongs to.
     pub project_id: std::string::String,
@@ -7012,6 +6743,7 @@ impl wkt::message::Message for GetClusterRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the cluster
     /// belongs to.
     pub project_id: std::string::String,
@@ -7095,6 +6827,7 @@ impl wkt::message::Message for ListClustersRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListClustersResponse {
+
     /// Output only. The clusters in the project.
     pub clusters: std::vec::Vec<crate::model::Cluster>,
 
@@ -7115,7 +6848,7 @@ impl ListClustersResponse {
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Cluster>,
+        V: std::convert::Into<crate::model::Cluster>
     {
         use std::iter::Iterator;
         self.clusters = v.into_iter().map(|i| i.into()).collect();
@@ -7153,6 +6886,7 @@ impl gax::paginator::internal::PageableResponse for ListClustersResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseClusterRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the cluster
     /// belongs to.
     pub project_id: std::string::String,
@@ -7217,20 +6951,14 @@ impl DiagnoseClusterRequest {
     }
 
     /// Sets the value of [tarball_access][crate::model::DiagnoseClusterRequest::tarball_access].
-    pub fn set_tarball_access<
-        T: std::convert::Into<crate::model::diagnose_cluster_request::TarballAccess>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_tarball_access<T: std::convert::Into<crate::model::diagnose_cluster_request::TarballAccess>>(mut self, v: T) -> Self {
         self.tarball_access = v.into();
         self
     }
 
     /// Sets the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
     pub fn set_diagnosis_interval<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.diagnosis_interval = std::option::Option::Some(v.into());
         self
@@ -7238,8 +6966,7 @@ impl DiagnoseClusterRequest {
 
     /// Sets or clears the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
     pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.diagnosis_interval = v.map(|x| x.into());
         self
@@ -7249,7 +6976,7 @@ impl DiagnoseClusterRequest {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -7260,7 +6987,7 @@ impl DiagnoseClusterRequest {
     pub fn set_yarn_application_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.yarn_application_ids = v.into_iter().map(|i| i.into()).collect();
@@ -7278,6 +7005,7 @@ impl wkt::message::Message for DiagnoseClusterRequest {
 pub mod diagnose_cluster_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Defines who has access to the diagnostic tarball
     ///
@@ -7342,9 +7070,7 @@ pub mod diagnose_cluster_request {
             match self {
                 Self::Unspecified => std::option::Option::Some("TARBALL_ACCESS_UNSPECIFIED"),
                 Self::GoogleCloudSupport => std::option::Option::Some("GOOGLE_CLOUD_SUPPORT"),
-                Self::GoogleDataprocDiagnose => {
-                    std::option::Option::Some("GOOGLE_DATAPROC_DIAGNOSE")
-                }
+                Self::GoogleDataprocDiagnose => std::option::Option::Some("GOOGLE_DATAPROC_DIAGNOSE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7369,9 +7095,7 @@ pub mod diagnose_cluster_request {
                 0 => Self::Unspecified,
                 1 => Self::GoogleCloudSupport,
                 2 => Self::GoogleDataprocDiagnose,
-                _ => Self::UnknownValue(tarball_access::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(tarball_access::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7383,9 +7107,7 @@ pub mod diagnose_cluster_request {
                 "TARBALL_ACCESS_UNSPECIFIED" => Self::Unspecified,
                 "GOOGLE_CLOUD_SUPPORT" => Self::GoogleCloudSupport,
                 "GOOGLE_DATAPROC_DIAGNOSE" => Self::GoogleDataprocDiagnose,
-                _ => Self::UnknownValue(tarball_access::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(tarball_access::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7410,8 +7132,7 @@ pub mod diagnose_cluster_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TarballAccess>::new(
-                ".google.cloud.dataproc.v1.DiagnoseClusterRequest.TarballAccess",
-            ))
+                ".google.cloud.dataproc.v1.DiagnoseClusterRequest.TarballAccess"))
         }
     }
 }
@@ -7420,6 +7141,7 @@ pub mod diagnose_cluster_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DiagnoseClusterResults {
+
     /// Output only. The Cloud Storage URI of the diagnostic output.
     /// The output report is a plain text file with a summary of collected
     /// diagnostics.
@@ -7450,6 +7172,7 @@ impl wkt::message::Message for DiagnoseClusterResults {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReservationAffinity {
+
     /// Optional. Type of reservation to consume
     pub consume_reservation_type: crate::model::reservation_affinity::Type,
 
@@ -7468,12 +7191,7 @@ impl ReservationAffinity {
     }
 
     /// Sets the value of [consume_reservation_type][crate::model::ReservationAffinity::consume_reservation_type].
-    pub fn set_consume_reservation_type<
-        T: std::convert::Into<crate::model::reservation_affinity::Type>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_consume_reservation_type<T: std::convert::Into<crate::model::reservation_affinity::Type>>(mut self, v: T) -> Self {
         self.consume_reservation_type = v.into();
         self
     }
@@ -7488,7 +7206,7 @@ impl ReservationAffinity {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -7506,6 +7224,7 @@ impl wkt::message::Message for ReservationAffinity {
 pub mod reservation_affinity {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates whether to consume capacity from an reservation or not.
     ///
@@ -7598,9 +7317,7 @@ pub mod reservation_affinity {
                 1 => Self::NoReservation,
                 2 => Self::AnyReservation,
                 3 => Self::SpecificReservation,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7613,9 +7330,7 @@ pub mod reservation_affinity {
                 "NO_RESERVATION" => Self::NoReservation,
                 "ANY_RESERVATION" => Self::AnyReservation,
                 "SPECIFIC_RESERVATION" => Self::SpecificReservation,
-                _ => Self::UnknownValue(r#type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(r#type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7641,8 +7356,7 @@ pub mod reservation_affinity {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
-                ".google.cloud.dataproc.v1.ReservationAffinity.Type",
-            ))
+                ".google.cloud.dataproc.v1.ReservationAffinity.Type"))
         }
     }
 }
@@ -7651,6 +7365,7 @@ pub mod reservation_affinity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LoggingConfig {
+
     /// The per-package log levels for the driver. This can include
     /// "root" package name to configure rootLogger.
     /// Examples:
@@ -7658,8 +7373,7 @@ pub struct LoggingConfig {
     /// - 'com.google = FATAL'
     /// - 'root = INFO'
     /// - 'org.apache = DEBUG'
-    pub driver_log_levels:
-        std::collections::HashMap<std::string::String, crate::model::logging_config::Level>,
+    pub driver_log_levels: std::collections::HashMap<std::string::String,crate::model::logging_config::Level>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7692,6 +7406,7 @@ impl wkt::message::Message for LoggingConfig {
 pub mod logging_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The Log4j level for job execution. When running an
     /// [Apache Hive](https://hive.apache.org/) job, Cloud
@@ -7811,9 +7526,7 @@ pub mod logging_config {
                 6 => Self::Error,
                 7 => Self::Fatal,
                 8 => Self::Off,
-                _ => Self::UnknownValue(level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -7831,9 +7544,7 @@ pub mod logging_config {
                 "ERROR" => Self::Error,
                 "FATAL" => Self::Fatal,
                 "OFF" => Self::Off,
-                _ => Self::UnknownValue(level::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(level::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -7864,8 +7575,7 @@ pub mod logging_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Level>::new(
-                ".google.cloud.dataproc.v1.LoggingConfig.Level",
-            ))
+                ".google.cloud.dataproc.v1.LoggingConfig.Level"))
         }
     }
 }
@@ -7878,6 +7588,7 @@ pub mod logging_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HadoopJob {
+
     /// Optional. The arguments to pass to the driver. Do not
     /// include arguments, such as `-libjars` or `-Dfoo=bar`, that can be set as
     /// job properties, since a collision might occur that causes an incorrect job
@@ -7902,7 +7613,7 @@ pub struct HadoopJob {
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in `/etc/hadoop/conf/*-site` and
     /// classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -7925,7 +7636,7 @@ impl HadoopJob {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -7936,7 +7647,7 @@ impl HadoopJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -7947,7 +7658,7 @@ impl HadoopJob {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -7958,7 +7669,7 @@ impl HadoopJob {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -7979,8 +7690,7 @@ impl HadoopJob {
 
     /// Sets the value of [logging_config][crate::model::HadoopJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -7988,8 +7698,7 @@ impl HadoopJob {
 
     /// Sets or clears the value of [logging_config][crate::model::HadoopJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -7999,12 +7708,8 @@ impl HadoopJob {
     ///
     /// Note that all the setters affecting `driver` are mutually
     /// exclusive.
-    pub fn set_driver<
-        T: std::convert::Into<std::option::Option<crate::model::hadoop_job::Driver>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver<T: std::convert::Into<std::option::Option<crate::model::hadoop_job::Driver>>>(mut self, v: T) -> Self
+    {
         self.driver = v.into();
         self
     }
@@ -8025,12 +7730,12 @@ impl HadoopJob {
     ///
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::hadoop_job::Driver::MainJarFileUri(v.into()));
+    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.driver = std::option::Option::Some(
+            crate::model::hadoop_job::Driver::MainJarFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -8051,8 +7756,11 @@ impl HadoopJob {
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
     pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::hadoop_job::Driver::MainClass(v.into()));
+        self.driver = std::option::Option::Some(
+            crate::model::hadoop_job::Driver::MainClass(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -8067,6 +7775,7 @@ impl wkt::message::Message for HadoopJob {
 pub mod hadoop_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Indicates the location of the driver's main class. Specify
     /// either the jar file that contains the main class or the main class name.
@@ -8092,6 +7801,7 @@ pub mod hadoop_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkJob {
+
     /// Optional. The arguments to pass to the driver. Do not include arguments,
     /// such as `--conf`, that can be set as job properties, since a collision may
     /// occur that causes an incorrect job submission.
@@ -8114,7 +7824,7 @@ pub struct SparkJob {
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in
     /// /etc/spark/conf/spark-defaults.conf and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -8142,7 +7852,7 @@ impl SparkJob {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -8153,7 +7863,7 @@ impl SparkJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8164,7 +7874,7 @@ impl SparkJob {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8175,7 +7885,7 @@ impl SparkJob {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8196,8 +7906,7 @@ impl SparkJob {
 
     /// Sets the value of [logging_config][crate::model::SparkJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -8205,8 +7914,7 @@ impl SparkJob {
 
     /// Sets or clears the value of [logging_config][crate::model::SparkJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -8216,12 +7924,8 @@ impl SparkJob {
     ///
     /// Note that all the setters affecting `driver` are mutually
     /// exclusive.
-    pub fn set_driver<
-        T: std::convert::Into<std::option::Option<crate::model::spark_job::Driver>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver<T: std::convert::Into<std::option::Option<crate::model::spark_job::Driver>>>(mut self, v: T) -> Self
+    {
         self.driver = v.into();
         self
     }
@@ -8242,12 +7946,12 @@ impl SparkJob {
     ///
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_job::Driver::MainJarFileUri(v.into()));
+    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.driver = std::option::Option::Some(
+            crate::model::spark_job::Driver::MainJarFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -8268,8 +7972,11 @@ impl SparkJob {
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
     pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::spark_job::Driver::MainClass(v.into()));
+        self.driver = std::option::Option::Some(
+            crate::model::spark_job::Driver::MainClass(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -8284,6 +7991,7 @@ impl wkt::message::Message for SparkJob {
 pub mod spark_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The specification of the main method to call to drive the job.
     /// Specify either the jar file that contains the main class or the main class
@@ -8313,6 +8021,7 @@ pub mod spark_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PySparkJob {
+
     /// Required. The HCFS URI of the main Python file to use as the driver. Must
     /// be a .py file.
     pub main_python_file_uri: std::string::String,
@@ -8343,7 +8052,7 @@ pub struct PySparkJob {
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in
     /// /etc/spark/conf/spark-defaults.conf and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -8357,10 +8066,7 @@ impl PySparkJob {
     }
 
     /// Sets the value of [main_python_file_uri][crate::model::PySparkJob::main_python_file_uri].
-    pub fn set_main_python_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_main_python_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.main_python_file_uri = v.into();
         self
     }
@@ -8369,7 +8075,7 @@ impl PySparkJob {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -8380,7 +8086,7 @@ impl PySparkJob {
     pub fn set_python_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.python_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8391,7 +8097,7 @@ impl PySparkJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8402,7 +8108,7 @@ impl PySparkJob {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8413,7 +8119,7 @@ impl PySparkJob {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8434,8 +8140,7 @@ impl PySparkJob {
 
     /// Sets the value of [logging_config][crate::model::PySparkJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -8443,8 +8148,7 @@ impl PySparkJob {
 
     /// Sets or clears the value of [logging_config][crate::model::PySparkJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -8461,6 +8165,7 @@ impl wkt::message::Message for PySparkJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryList {
+
     /// Required. The queries to execute. You do not need to end a query expression
     /// with a semicolon. Multiple queries can be specified in one
     /// string by separating each with a semicolon. Here is an example of a
@@ -8491,7 +8196,7 @@ impl QueryList {
     pub fn set_queries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.queries = v.into_iter().map(|i| i.into()).collect();
@@ -8510,6 +8215,7 @@ impl wkt::message::Message for QueryList {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HiveJob {
+
     /// Optional. Whether to continue executing queries if a query fails.
     /// The default value is `false`. Setting to `true` can be useful when
     /// executing independent parallel queries.
@@ -8517,13 +8223,13 @@ pub struct HiveJob {
 
     /// Optional. Mapping of query variable names to values (equivalent to the
     /// Hive command: `SET name="value";`).
-    pub script_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub script_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A mapping of property names and values, used to configure Hive.
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in `/etc/hadoop/conf/*-site.xml`,
     /// /etc/hive/conf/hive-site.xml, and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. HCFS URIs of jar files to add to the CLASSPATH of the
     /// Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive SerDes
@@ -8576,7 +8282,7 @@ impl HiveJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8587,12 +8293,8 @@ impl HiveJob {
     ///
     /// Note that all the setters affecting `queries` are mutually
     /// exclusive.
-    pub fn set_queries<
-        T: std::convert::Into<std::option::Option<crate::model::hive_job::Queries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queries<T: std::convert::Into<std::option::Option<crate::model::hive_job::Queries>>>(mut self, v: T) -> Self
+    {
         self.queries = v.into();
         self
     }
@@ -8614,8 +8316,11 @@ impl HiveJob {
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
     pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::hive_job::Queries::QueryFileUri(v.into()));
+        self.queries = std::option::Option::Some(
+            crate::model::hive_job::Queries::QueryFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -8635,12 +8340,12 @@ impl HiveJob {
     ///
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::hive_job::Queries::QueryList(v.into()));
+    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(mut self, v: T) -> Self {
+        self.queries = std::option::Option::Some(
+            crate::model::hive_job::Queries::QueryList(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -8655,6 +8360,7 @@ impl wkt::message::Message for HiveJob {
 pub mod hive_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The sequence of Hive queries to execute, specified as either
     /// an HCFS file URI or a list of queries.
@@ -8673,14 +8379,15 @@ pub mod hive_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkSqlJob {
+
     /// Optional. Mapping of query variable names to values (equivalent to the
     /// Spark SQL command: SET `name="value";`).
-    pub script_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub script_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A mapping of property names to values, used to configure
     /// Spark SQL's SparkConf. Properties that conflict with values set by the
     /// Dataproc API might be overwritten.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH.
     pub jar_file_uris: std::vec::Vec<std::string::String>,
@@ -8728,7 +8435,7 @@ impl SparkSqlJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8737,8 +8444,7 @@ impl SparkSqlJob {
 
     /// Sets the value of [logging_config][crate::model::SparkSqlJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -8746,8 +8452,7 @@ impl SparkSqlJob {
 
     /// Sets or clears the value of [logging_config][crate::model::SparkSqlJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -8757,12 +8462,8 @@ impl SparkSqlJob {
     ///
     /// Note that all the setters affecting `queries` are mutually
     /// exclusive.
-    pub fn set_queries<
-        T: std::convert::Into<std::option::Option<crate::model::spark_sql_job::Queries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queries<T: std::convert::Into<std::option::Option<crate::model::spark_sql_job::Queries>>>(mut self, v: T) -> Self
+    {
         self.queries = v.into();
         self
     }
@@ -8784,8 +8485,11 @@ impl SparkSqlJob {
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
     pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::spark_sql_job::Queries::QueryFileUri(v.into()));
+        self.queries = std::option::Option::Some(
+            crate::model::spark_sql_job::Queries::QueryFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -8805,12 +8509,12 @@ impl SparkSqlJob {
     ///
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::spark_sql_job::Queries::QueryList(v.into()));
+    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(mut self, v: T) -> Self {
+        self.queries = std::option::Option::Some(
+            crate::model::spark_sql_job::Queries::QueryList(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -8825,6 +8529,7 @@ impl wkt::message::Message for SparkSqlJob {
 pub mod spark_sql_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The sequence of Spark SQL queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
@@ -8843,6 +8548,7 @@ pub mod spark_sql_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PigJob {
+
     /// Optional. Whether to continue executing queries if a query fails.
     /// The default value is `false`. Setting to `true` can be useful when
     /// executing independent parallel queries.
@@ -8850,13 +8556,13 @@ pub struct PigJob {
 
     /// Optional. Mapping of query variable names to values (equivalent to the Pig
     /// command: `name=[value]`).
-    pub script_variables: std::collections::HashMap<std::string::String, std::string::String>,
+    pub script_variables: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A mapping of property names to values, used to configure Pig.
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in `/etc/hadoop/conf/*-site.xml`,
     /// /etc/pig/conf/pig.properties, and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. HCFS URIs of jar files to add to the CLASSPATH of
     /// the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig UDFs.
@@ -8911,7 +8617,7 @@ impl PigJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -8920,8 +8626,7 @@ impl PigJob {
 
     /// Sets the value of [logging_config][crate::model::PigJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -8929,8 +8634,7 @@ impl PigJob {
 
     /// Sets or clears the value of [logging_config][crate::model::PigJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -8940,12 +8644,8 @@ impl PigJob {
     ///
     /// Note that all the setters affecting `queries` are mutually
     /// exclusive.
-    pub fn set_queries<
-        T: std::convert::Into<std::option::Option<crate::model::pig_job::Queries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queries<T: std::convert::Into<std::option::Option<crate::model::pig_job::Queries>>>(mut self, v: T) -> Self
+    {
         self.queries = v.into();
         self
     }
@@ -8967,8 +8667,11 @@ impl PigJob {
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
     pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::pig_job::Queries::QueryFileUri(v.into()));
+        self.queries = std::option::Option::Some(
+            crate::model::pig_job::Queries::QueryFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -8988,12 +8691,12 @@ impl PigJob {
     ///
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::pig_job::Queries::QueryList(v.into()));
+    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(mut self, v: T) -> Self {
+        self.queries = std::option::Option::Some(
+            crate::model::pig_job::Queries::QueryList(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -9008,6 +8711,7 @@ impl wkt::message::Message for PigJob {
 pub mod pig_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The sequence of Pig queries to execute, specified as an HCFS
     /// file URI or a list of queries.
@@ -9027,6 +8731,7 @@ pub mod pig_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkRJob {
+
     /// Required. The HCFS URI of the main R file to use as the driver.
     /// Must be a .R file.
     pub main_r_file_uri: std::string::String,
@@ -9049,7 +8754,7 @@ pub struct SparkRJob {
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in
     /// /etc/spark/conf/spark-defaults.conf and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -9072,7 +8777,7 @@ impl SparkRJob {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -9083,7 +8788,7 @@ impl SparkRJob {
     pub fn set_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -9094,7 +8799,7 @@ impl SparkRJob {
     pub fn set_archive_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.archive_uris = v.into_iter().map(|i| i.into()).collect();
@@ -9115,8 +8820,7 @@ impl SparkRJob {
 
     /// Sets the value of [logging_config][crate::model::SparkRJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -9124,8 +8828,7 @@ impl SparkRJob {
 
     /// Sets or clears the value of [logging_config][crate::model::SparkRJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -9146,6 +8849,7 @@ impl wkt::message::Message for SparkRJob {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrestoJob {
+
     /// Optional. Whether to continue executing queries if a query fails.
     /// The default value is `false`. Setting to `true` can be useful when
     /// executing independent parallel queries.
@@ -9161,7 +8865,7 @@ pub struct PrestoJob {
     /// Optional. A mapping of property names to values. Used to set Presto
     /// [session properties](https://prestodb.io/docs/current/sql/set-session.html)
     /// Equivalent to using the --session flag in the Presto CLI
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -9194,7 +8898,7 @@ impl PrestoJob {
     pub fn set_client_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.client_tags = v.into_iter().map(|i| i.into()).collect();
@@ -9215,8 +8919,7 @@ impl PrestoJob {
 
     /// Sets the value of [logging_config][crate::model::PrestoJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -9224,8 +8927,7 @@ impl PrestoJob {
 
     /// Sets or clears the value of [logging_config][crate::model::PrestoJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -9235,12 +8937,8 @@ impl PrestoJob {
     ///
     /// Note that all the setters affecting `queries` are mutually
     /// exclusive.
-    pub fn set_queries<
-        T: std::convert::Into<std::option::Option<crate::model::presto_job::Queries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queries<T: std::convert::Into<std::option::Option<crate::model::presto_job::Queries>>>(mut self, v: T) -> Self
+    {
         self.queries = v.into();
         self
     }
@@ -9262,8 +8960,11 @@ impl PrestoJob {
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
     pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::presto_job::Queries::QueryFileUri(v.into()));
+        self.queries = std::option::Option::Some(
+            crate::model::presto_job::Queries::QueryFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -9283,12 +8984,12 @@ impl PrestoJob {
     ///
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::presto_job::Queries::QueryList(v.into()));
+    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(mut self, v: T) -> Self {
+        self.queries = std::option::Option::Some(
+            crate::model::presto_job::Queries::QueryList(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -9303,6 +9004,7 @@ impl wkt::message::Message for PrestoJob {
 pub mod presto_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The sequence of Presto queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
@@ -9324,6 +9026,7 @@ pub mod presto_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TrinoJob {
+
     /// Optional. Whether to continue executing queries if a query fails.
     /// The default value is `false`. Setting to `true` can be useful when
     /// executing independent parallel queries.
@@ -9339,7 +9042,7 @@ pub struct TrinoJob {
     /// Optional. A mapping of property names to values. Used to set Trino
     /// [session properties](https://trino.io/docs/current/sql/set-session.html)
     /// Equivalent to using the --session flag in the Trino CLI
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -9372,7 +9075,7 @@ impl TrinoJob {
     pub fn set_client_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.client_tags = v.into_iter().map(|i| i.into()).collect();
@@ -9393,8 +9096,7 @@ impl TrinoJob {
 
     /// Sets the value of [logging_config][crate::model::TrinoJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -9402,8 +9104,7 @@ impl TrinoJob {
 
     /// Sets or clears the value of [logging_config][crate::model::TrinoJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -9413,12 +9114,8 @@ impl TrinoJob {
     ///
     /// Note that all the setters affecting `queries` are mutually
     /// exclusive.
-    pub fn set_queries<
-        T: std::convert::Into<std::option::Option<crate::model::trino_job::Queries>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_queries<T: std::convert::Into<std::option::Option<crate::model::trino_job::Queries>>>(mut self, v: T) -> Self
+    {
         self.queries = v.into();
         self
     }
@@ -9440,8 +9137,11 @@ impl TrinoJob {
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
     pub fn set_query_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::trino_job::Queries::QueryFileUri(v.into()));
+        self.queries = std::option::Option::Some(
+            crate::model::trino_job::Queries::QueryFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -9461,12 +9161,12 @@ impl TrinoJob {
     ///
     /// Note that all the setters affecting `queries` are
     /// mutually exclusive.
-    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.queries =
-            std::option::Option::Some(crate::model::trino_job::Queries::QueryList(v.into()));
+    pub fn set_query_list<T: std::convert::Into<std::boxed::Box<crate::model::QueryList>>>(mut self, v: T) -> Self {
+        self.queries = std::option::Option::Some(
+            crate::model::trino_job::Queries::QueryList(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -9481,6 +9181,7 @@ impl wkt::message::Message for TrinoJob {
 pub mod trino_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The sequence of Trino queries to execute, specified as
     /// either an HCFS file URI or as a list of queries.
@@ -9498,6 +9199,7 @@ pub mod trino_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlinkJob {
+
     /// Optional. The arguments to pass to the driver. Do not include arguments,
     /// such as `--conf`, that can be set as job properties, since a collision
     /// might occur that causes an incorrect job submission.
@@ -9515,7 +9217,7 @@ pub struct FlinkJob {
     /// Properties that conflict with values set by the Dataproc API might be
     /// overwritten. Can include properties set in
     /// `/etc/flink/conf/flink-defaults.conf` and classes in user code.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The runtime log config for job execution.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
@@ -9543,7 +9245,7 @@ impl FlinkJob {
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.args = v.into_iter().map(|i| i.into()).collect();
@@ -9554,7 +9256,7 @@ impl FlinkJob {
     pub fn set_jar_file_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.jar_file_uris = v.into_iter().map(|i| i.into()).collect();
@@ -9581,8 +9283,7 @@ impl FlinkJob {
 
     /// Sets the value of [logging_config][crate::model::FlinkJob::logging_config].
     pub fn set_logging_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = std::option::Option::Some(v.into());
         self
@@ -9590,8 +9291,7 @@ impl FlinkJob {
 
     /// Sets or clears the value of [logging_config][crate::model::FlinkJob::logging_config].
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::LoggingConfig>,
+    where T: std::convert::Into<crate::model::LoggingConfig>
     {
         self.logging_config = v.map(|x| x.into());
         self
@@ -9601,12 +9301,8 @@ impl FlinkJob {
     ///
     /// Note that all the setters affecting `driver` are mutually
     /// exclusive.
-    pub fn set_driver<
-        T: std::convert::Into<std::option::Option<crate::model::flink_job::Driver>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver<T: std::convert::Into<std::option::Option<crate::model::flink_job::Driver>>>(mut self, v: T) -> Self
+    {
         self.driver = v.into();
         self
     }
@@ -9627,12 +9323,12 @@ impl FlinkJob {
     ///
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
-    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::flink_job::Driver::MainJarFileUri(v.into()));
+    pub fn set_main_jar_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.driver = std::option::Option::Some(
+            crate::model::flink_job::Driver::MainJarFileUri(
+                v.into()
+            )
+        );
         self
     }
 
@@ -9653,8 +9349,11 @@ impl FlinkJob {
     /// Note that all the setters affecting `driver` are
     /// mutually exclusive.
     pub fn set_main_class<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.driver =
-            std::option::Option::Some(crate::model::flink_job::Driver::MainClass(v.into()));
+        self.driver = std::option::Option::Some(
+            crate::model::flink_job::Driver::MainClass(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -9669,6 +9368,7 @@ impl wkt::message::Message for FlinkJob {
 pub mod flink_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The specification of the main method to call to drive the job.
     /// Specify either the jar file that contains the main class or the main class
@@ -9697,6 +9397,7 @@ pub mod flink_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobPlacement {
+
     /// Required. The name of the cluster where the job will be submitted.
     pub cluster_name: std::string::String,
 
@@ -9706,7 +9407,7 @@ pub struct JobPlacement {
 
     /// Optional. Cluster labels to identify a cluster where the job will be
     /// submitted.
-    pub cluster_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub cluster_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9751,6 +9452,7 @@ impl wkt::message::Message for JobPlacement {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobStatus {
+
     /// Output only. A state message specifying the overall job state.
     pub state: crate::model::job_status::State,
 
@@ -9774,10 +9476,7 @@ impl JobStatus {
     }
 
     /// Sets the value of [state][crate::model::JobStatus::state].
-    pub fn set_state<T: std::convert::Into<crate::model::job_status::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::job_status::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -9790,8 +9489,7 @@ impl JobStatus {
 
     /// Sets the value of [state_start_time][crate::model::JobStatus::state_start_time].
     pub fn set_state_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = std::option::Option::Some(v.into());
         self
@@ -9799,18 +9497,14 @@ impl JobStatus {
 
     /// Sets or clears the value of [state_start_time][crate::model::JobStatus::state_start_time].
     pub fn set_or_clear_state_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [substate][crate::model::JobStatus::substate].
-    pub fn set_substate<T: std::convert::Into<crate::model::job_status::Substate>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_substate<T: std::convert::Into<crate::model::job_status::Substate>>(mut self, v: T) -> Self {
         self.substate = v.into();
         self
     }
@@ -9826,6 +9520,7 @@ impl wkt::message::Message for JobStatus {
 pub mod job_status {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The job state.
     ///
@@ -9953,9 +9648,7 @@ pub mod job_status {
                 7 => Self::CancelStarted,
                 8 => Self::SetupDone,
                 9 => Self::AttemptFailure,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9974,9 +9667,7 @@ pub mod job_status {
                 "DONE" => Self::Done,
                 "ERROR" => Self::Error,
                 "ATTEMPT_FAILURE" => Self::AttemptFailure,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10008,8 +9699,7 @@ pub mod job_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.JobStatus.State",
-            ))
+                ".google.cloud.dataproc.v1.JobStatus.State"))
         }
     }
 
@@ -10114,9 +9804,7 @@ pub mod job_status {
                 1 => Self::Submitted,
                 2 => Self::Queued,
                 3 => Self::StaleStatus,
-                _ => Self::UnknownValue(substate::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(substate::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10129,9 +9817,7 @@ pub mod job_status {
                 "SUBMITTED" => Self::Submitted,
                 "QUEUED" => Self::Queued,
                 "STALE_STATUS" => Self::StaleStatus,
-                _ => Self::UnknownValue(substate::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(substate::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10157,8 +9843,7 @@ pub mod job_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Substate>::new(
-                ".google.cloud.dataproc.v1.JobStatus.Substate",
-            ))
+                ".google.cloud.dataproc.v1.JobStatus.Substate"))
         }
     }
 }
@@ -10167,6 +9852,7 @@ pub mod job_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobReference {
+
     /// Optional. The ID of the Google Cloud Platform project that the job belongs
     /// to. If specified, must match the request project ID.
     pub project_id: std::string::String,
@@ -10214,6 +9900,7 @@ impl wkt::message::Message for JobReference {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct YarnApplication {
+
     /// Required. The application name.
     pub name: std::string::String,
 
@@ -10244,10 +9931,7 @@ impl YarnApplication {
     }
 
     /// Sets the value of [state][crate::model::YarnApplication::state].
-    pub fn set_state<T: std::convert::Into<crate::model::yarn_application::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::yarn_application::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -10275,6 +9959,7 @@ impl wkt::message::Message for YarnApplication {
 pub mod yarn_application {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The application state, corresponding to
     /// \<code\>YarnProtos.YarnApplicationStateProto\</code\>.
@@ -10393,9 +10078,7 @@ pub mod yarn_application {
                 6 => Self::Finished,
                 7 => Self::Failed,
                 8 => Self::Killed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -10413,9 +10096,7 @@ pub mod yarn_application {
                 "FINISHED" => Self::Finished,
                 "FAILED" => Self::Failed,
                 "KILLED" => Self::Killed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -10446,8 +10127,7 @@ pub mod yarn_application {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.YarnApplication.State",
-            ))
+                ".google.cloud.dataproc.v1.YarnApplication.State"))
         }
     }
 }
@@ -10456,6 +10136,7 @@ pub mod yarn_application {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Job {
+
     /// Optional. The fully qualified reference to the job, which can be used to
     /// obtain the equivalent REST path of the job resource. If this property
     /// is not specified when a job is created, the server generates a
@@ -10496,7 +10177,7 @@ pub struct Job {
     /// characters, and must conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with a job.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Job scheduling configuration.
     pub scheduling: std::option::Option<crate::model::JobScheduling>,
@@ -10528,8 +10209,7 @@ impl Job {
 
     /// Sets the value of [reference][crate::model::Job::reference].
     pub fn set_reference<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobReference>,
+    where T: std::convert::Into<crate::model::JobReference>
     {
         self.reference = std::option::Option::Some(v.into());
         self
@@ -10537,8 +10217,7 @@ impl Job {
 
     /// Sets or clears the value of [reference][crate::model::Job::reference].
     pub fn set_or_clear_reference<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobReference>,
+    where T: std::convert::Into<crate::model::JobReference>
     {
         self.reference = v.map(|x| x.into());
         self
@@ -10546,8 +10225,7 @@ impl Job {
 
     /// Sets the value of [placement][crate::model::Job::placement].
     pub fn set_placement<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobPlacement>,
+    where T: std::convert::Into<crate::model::JobPlacement>
     {
         self.placement = std::option::Option::Some(v.into());
         self
@@ -10555,8 +10233,7 @@ impl Job {
 
     /// Sets or clears the value of [placement][crate::model::Job::placement].
     pub fn set_or_clear_placement<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobPlacement>,
+    where T: std::convert::Into<crate::model::JobPlacement>
     {
         self.placement = v.map(|x| x.into());
         self
@@ -10564,8 +10241,7 @@ impl Job {
 
     /// Sets the value of [status][crate::model::Job::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobStatus>,
+    where T: std::convert::Into<crate::model::JobStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -10573,8 +10249,7 @@ impl Job {
 
     /// Sets or clears the value of [status][crate::model::Job::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobStatus>,
+    where T: std::convert::Into<crate::model::JobStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -10584,7 +10259,7 @@ impl Job {
     pub fn set_status_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::JobStatus>,
+        V: std::convert::Into<crate::model::JobStatus>
     {
         use std::iter::Iterator;
         self.status_history = v.into_iter().map(|i| i.into()).collect();
@@ -10595,7 +10270,7 @@ impl Job {
     pub fn set_yarn_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::YarnApplication>,
+        V: std::convert::Into<crate::model::YarnApplication>
     {
         use std::iter::Iterator;
         self.yarn_applications = v.into_iter().map(|i| i.into()).collect();
@@ -10603,19 +10278,13 @@ impl Job {
     }
 
     /// Sets the value of [driver_output_resource_uri][crate::model::Job::driver_output_resource_uri].
-    pub fn set_driver_output_resource_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver_output_resource_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.driver_output_resource_uri = v.into();
         self
     }
 
     /// Sets the value of [driver_control_files_uri][crate::model::Job::driver_control_files_uri].
-    pub fn set_driver_control_files_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_driver_control_files_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.driver_control_files_uri = v.into();
         self
     }
@@ -10634,8 +10303,7 @@ impl Job {
 
     /// Sets the value of [scheduling][crate::model::Job::scheduling].
     pub fn set_scheduling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobScheduling>,
+    where T: std::convert::Into<crate::model::JobScheduling>
     {
         self.scheduling = std::option::Option::Some(v.into());
         self
@@ -10643,8 +10311,7 @@ impl Job {
 
     /// Sets or clears the value of [scheduling][crate::model::Job::scheduling].
     pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobScheduling>,
+    where T: std::convert::Into<crate::model::JobScheduling>
     {
         self.scheduling = v.map(|x| x.into());
         self
@@ -10664,8 +10331,7 @@ impl Job {
 
     /// Sets the value of [driver_scheduling_config][crate::model::Job::driver_scheduling_config].
     pub fn set_driver_scheduling_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DriverSchedulingConfig>,
+    where T: std::convert::Into<crate::model::DriverSchedulingConfig>
     {
         self.driver_scheduling_config = std::option::Option::Some(v.into());
         self
@@ -10673,8 +10339,7 @@ impl Job {
 
     /// Sets or clears the value of [driver_scheduling_config][crate::model::Job::driver_scheduling_config].
     pub fn set_or_clear_driver_scheduling_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DriverSchedulingConfig>,
+    where T: std::convert::Into<crate::model::DriverSchedulingConfig>
     {
         self.driver_scheduling_config = v.map(|x| x.into());
         self
@@ -10684,10 +10349,8 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are mutually
     /// exclusive.
-    pub fn set_type_job<T: std::convert::Into<std::option::Option<crate::model::job::TypeJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type_job<T: std::convert::Into<std::option::Option<crate::model::job::TypeJob>>>(mut self, v: T) -> Self
+    {
         self.type_job = v.into();
         self
     }
@@ -10708,11 +10371,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::HadoopJob(v.into()));
+    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::HadoopJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10732,11 +10396,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::SparkJob(v.into()));
+    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::SparkJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10756,11 +10421,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PysparkJob(v.into()));
+    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::PysparkJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10780,11 +10446,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::HiveJob(v.into()));
+    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::HiveJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10804,11 +10471,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PigJob(v.into()));
+    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::PigJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10828,20 +10496,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::SparkRJob(v.into()));
+    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::SparkRJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [type_job][crate::model::Job::type_job]
     /// if it holds a `SparkSqlJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_sql_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
+    pub fn spark_sql_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
         #[allow(unreachable_patterns)]
         self.type_job.as_ref().and_then(|v| match v {
             crate::model::job::TypeJob::SparkSqlJob(v) => std::option::Option::Some(v),
@@ -10854,12 +10521,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job =
-            std::option::Option::Some(crate::model::job::TypeJob::SparkSqlJob(v.into()));
+    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::SparkSqlJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10879,11 +10546,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::PrestoJob(v.into()));
+    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::PrestoJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10903,11 +10571,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::TrinoJob(v.into()));
+    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::TrinoJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -10927,11 +10596,12 @@ impl Job {
     ///
     /// Note that all the setters affecting `type_job` are
     /// mutually exclusive.
-    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.type_job = std::option::Option::Some(crate::model::job::TypeJob::FlinkJob(v.into()));
+    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(mut self, v: T) -> Self {
+        self.type_job = std::option::Option::Some(
+            crate::model::job::TypeJob::FlinkJob(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -10946,6 +10616,7 @@ impl wkt::message::Message for Job {
 pub mod job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The application/framework-specific portion of the job.
     #[derive(Clone, Debug, PartialEq)]
@@ -10978,6 +10649,7 @@ pub mod job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DriverSchedulingConfig {
+
     /// Required. The amount of memory in MB the driver is requesting.
     pub memory_mb: i32,
 
@@ -11015,6 +10687,7 @@ impl wkt::message::Message for DriverSchedulingConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobScheduling {
+
     /// Optional. Maximum number of times per hour a driver can be restarted as
     /// a result of driver exiting with non-zero code before job is
     /// reported failed.
@@ -11072,6 +10745,7 @@ impl wkt::message::Message for JobScheduling {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitJobRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11120,8 +10794,7 @@ impl SubmitJobRequest {
 
     /// Sets the value of [job][crate::model::SubmitJobRequest::job].
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -11129,8 +10802,7 @@ impl SubmitJobRequest {
 
     /// Sets or clears the value of [job][crate::model::SubmitJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -11153,6 +10825,7 @@ impl wkt::message::Message for SubmitJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JobMetadata {
+
     /// Output only. The job id.
     pub job_id: std::string::String,
 
@@ -11181,8 +10854,7 @@ impl JobMetadata {
 
     /// Sets the value of [status][crate::model::JobMetadata::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobStatus>,
+    where T: std::convert::Into<crate::model::JobStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -11190,8 +10862,7 @@ impl JobMetadata {
 
     /// Sets or clears the value of [status][crate::model::JobMetadata::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobStatus>,
+    where T: std::convert::Into<crate::model::JobStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -11205,8 +10876,7 @@ impl JobMetadata {
 
     /// Sets the value of [start_time][crate::model::JobMetadata::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -11214,8 +10884,7 @@ impl JobMetadata {
 
     /// Sets or clears the value of [start_time][crate::model::JobMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -11232,6 +10901,7 @@ impl wkt::message::Message for JobMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetJobRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11279,6 +10949,7 @@ impl wkt::message::Message for GetJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11358,12 +11029,7 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [job_state_matcher][crate::model::ListJobsRequest::job_state_matcher].
-    pub fn set_job_state_matcher<
-        T: std::convert::Into<crate::model::list_jobs_request::JobStateMatcher>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_state_matcher<T: std::convert::Into<crate::model::list_jobs_request::JobStateMatcher>>(mut self, v: T) -> Self {
         self.job_state_matcher = v.into();
         self
     }
@@ -11385,6 +11051,7 @@ impl wkt::message::Message for ListJobsRequest {
 pub mod list_jobs_request {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// A matcher that specifies categories of job states.
     ///
@@ -11473,9 +11140,7 @@ pub mod list_jobs_request {
                 0 => Self::All,
                 1 => Self::Active,
                 2 => Self::NonActive,
-                _ => Self::UnknownValue(job_state_matcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(job_state_matcher::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -11487,9 +11152,7 @@ pub mod list_jobs_request {
                 "ALL" => Self::All,
                 "ACTIVE" => Self::Active,
                 "NON_ACTIVE" => Self::NonActive,
-                _ => Self::UnknownValue(job_state_matcher::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(job_state_matcher::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -11514,8 +11177,7 @@ pub mod list_jobs_request {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<JobStateMatcher>::new(
-                ".google.cloud.dataproc.v1.ListJobsRequest.JobStateMatcher",
-            ))
+                ".google.cloud.dataproc.v1.ListJobsRequest.JobStateMatcher"))
         }
     }
 }
@@ -11524,6 +11186,7 @@ pub mod list_jobs_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateJobRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11573,8 +11236,7 @@ impl UpdateJobRequest {
 
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = std::option::Option::Some(v.into());
         self
@@ -11582,8 +11244,7 @@ impl UpdateJobRequest {
 
     /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Job>,
+    where T: std::convert::Into<crate::model::Job>
     {
         self.job = v.map(|x| x.into());
         self
@@ -11591,8 +11252,7 @@ impl UpdateJobRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -11600,8 +11260,7 @@ impl UpdateJobRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -11618,6 +11277,7 @@ impl wkt::message::Message for UpdateJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListJobsResponse {
+
     /// Output only. Jobs list.
     pub jobs: std::vec::Vec<crate::model::Job>,
 
@@ -11646,7 +11306,7 @@ impl ListJobsResponse {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Job>,
+        V: std::convert::Into<crate::model::Job>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -11663,7 +11323,7 @@ impl ListJobsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -11695,6 +11355,7 @@ impl gax::paginator::internal::PageableResponse for ListJobsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelJobRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11742,6 +11403,7 @@ impl wkt::message::Message for CancelJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteJobRequest {
+
     /// Required. The ID of the Google Cloud Platform project that the job
     /// belongs to.
     pub project_id: std::string::String,
@@ -11789,6 +11451,7 @@ impl wkt::message::Message for DeleteJobRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateNodeGroupRequest {
+
     /// Required. The parent resource where this node group will be created.
     /// Format: `projects/{project}/regions/{region}/clusters/{cluster}`
     pub parent: std::string::String,
@@ -11835,8 +11498,7 @@ impl CreateNodeGroupRequest {
 
     /// Sets the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
     pub fn set_node_group<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroup>,
+    where T: std::convert::Into<crate::model::NodeGroup>
     {
         self.node_group = std::option::Option::Some(v.into());
         self
@@ -11844,8 +11506,7 @@ impl CreateNodeGroupRequest {
 
     /// Sets or clears the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
     pub fn set_or_clear_node_group<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::NodeGroup>,
+    where T: std::convert::Into<crate::model::NodeGroup>
     {
         self.node_group = v.map(|x| x.into());
         self
@@ -11874,6 +11535,7 @@ impl wkt::message::Message for CreateNodeGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResizeNodeGroupRequest {
+
     /// Required. The name of the node group to resize.
     /// Format:
     /// `projects/{project}/regions/{region}/clusters/{cluster}/nodeGroups/{nodeGroup}`
@@ -11942,20 +11604,15 @@ impl ResizeNodeGroupRequest {
 
     /// Sets the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
     pub fn set_graceful_decommission_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
-    pub fn set_or_clear_graceful_decommission_timeout<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    pub fn set_or_clear_graceful_decommission_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<wkt::Duration>
     {
         self.graceful_decommission_timeout = v.map(|x| x.into());
         self
@@ -11972,6 +11629,7 @@ impl wkt::message::Message for ResizeNodeGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetNodeGroupRequest {
+
     /// Required. The name of the node group to retrieve.
     /// Format:
     /// `projects/{project}/regions/{region}/clusters/{cluster}/nodeGroups/{nodeGroup}`
@@ -12002,6 +11660,7 @@ impl wkt::message::Message for GetNodeGroupRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOperationMetadata {
+
     /// Name of the batch for the operation.
     pub batch: std::string::String,
 
@@ -12021,7 +11680,7 @@ pub struct BatchOperationMetadata {
     pub description: std::string::String,
 
     /// Labels associated with the operation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Warnings encountered during operation execution.
     pub warnings: std::vec::Vec<std::string::String>,
@@ -12048,8 +11707,7 @@ impl BatchOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::BatchOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12057,8 +11715,7 @@ impl BatchOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::BatchOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12066,8 +11723,7 @@ impl BatchOperationMetadata {
 
     /// Sets the value of [done_time][crate::model::BatchOperationMetadata::done_time].
     pub fn set_done_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.done_time = std::option::Option::Some(v.into());
         self
@@ -12075,20 +11731,14 @@ impl BatchOperationMetadata {
 
     /// Sets or clears the value of [done_time][crate::model::BatchOperationMetadata::done_time].
     pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.done_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operation_type][crate::model::BatchOperationMetadata::operation_type].
-    pub fn set_operation_type<
-        T: std::convert::Into<crate::model::batch_operation_metadata::BatchOperationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::batch_operation_metadata::BatchOperationType>>(mut self, v: T) -> Self {
         self.operation_type = v.into();
         self
     }
@@ -12115,7 +11765,7 @@ impl BatchOperationMetadata {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -12133,6 +11783,7 @@ impl wkt::message::Message for BatchOperationMetadata {
 pub mod batch_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Operation type for Batch resources
     ///
@@ -12215,9 +11866,7 @@ pub mod batch_operation_metadata {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Batch,
-                _ => Self::UnknownValue(batch_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(batch_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12228,9 +11877,7 @@ pub mod batch_operation_metadata {
             match value {
                 "BATCH_OPERATION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "BATCH" => Self::Batch,
-                _ => Self::UnknownValue(batch_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(batch_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12254,8 +11901,7 @@ pub mod batch_operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<BatchOperationType>::new(
-                ".google.cloud.dataproc.v1.BatchOperationMetadata.BatchOperationType",
-            ))
+                ".google.cloud.dataproc.v1.BatchOperationMetadata.BatchOperationType"))
         }
     }
 }
@@ -12264,6 +11910,7 @@ pub mod batch_operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionOperationMetadata {
+
     /// Name of the session for the operation.
     pub session: std::string::String,
 
@@ -12283,7 +11930,7 @@ pub struct SessionOperationMetadata {
     pub description: std::string::String,
 
     /// Labels associated with the operation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Warnings encountered during operation execution.
     pub warnings: std::vec::Vec<std::string::String>,
@@ -12310,8 +11957,7 @@ impl SessionOperationMetadata {
 
     /// Sets the value of [create_time][crate::model::SessionOperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -12319,8 +11965,7 @@ impl SessionOperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::SessionOperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -12328,8 +11973,7 @@ impl SessionOperationMetadata {
 
     /// Sets the value of [done_time][crate::model::SessionOperationMetadata::done_time].
     pub fn set_done_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.done_time = std::option::Option::Some(v.into());
         self
@@ -12337,20 +11981,14 @@ impl SessionOperationMetadata {
 
     /// Sets or clears the value of [done_time][crate::model::SessionOperationMetadata::done_time].
     pub fn set_or_clear_done_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.done_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [operation_type][crate::model::SessionOperationMetadata::operation_type].
-    pub fn set_operation_type<
-        T: std::convert::Into<crate::model::session_operation_metadata::SessionOperationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::session_operation_metadata::SessionOperationType>>(mut self, v: T) -> Self {
         self.operation_type = v.into();
         self
     }
@@ -12377,7 +12015,7 @@ impl SessionOperationMetadata {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -12395,6 +12033,7 @@ impl wkt::message::Message for SessionOperationMetadata {
 pub mod session_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Operation type for Session resources
     ///
@@ -12458,9 +12097,7 @@ pub mod session_operation_metadata {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("SESSION_OPERATION_TYPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("SESSION_OPERATION_TYPE_UNSPECIFIED"),
                 Self::Create => std::option::Option::Some("CREATE"),
                 Self::Terminate => std::option::Option::Some("TERMINATE"),
                 Self::Delete => std::option::Option::Some("DELETE"),
@@ -12489,9 +12126,7 @@ pub mod session_operation_metadata {
                 1 => Self::Create,
                 2 => Self::Terminate,
                 3 => Self::Delete,
-                _ => Self::UnknownValue(session_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(session_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12504,9 +12139,7 @@ pub mod session_operation_metadata {
                 "CREATE" => Self::Create,
                 "TERMINATE" => Self::Terminate,
                 "DELETE" => Self::Delete,
-                _ => Self::UnknownValue(session_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(session_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12532,8 +12165,7 @@ pub mod session_operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SessionOperationType>::new(
-                ".google.cloud.dataproc.v1.SessionOperationMetadata.SessionOperationType",
-            ))
+                ".google.cloud.dataproc.v1.SessionOperationMetadata.SessionOperationType"))
         }
     }
 }
@@ -12542,6 +12174,7 @@ pub mod session_operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperationStatus {
+
     /// Output only. A message containing the operation state.
     pub state: crate::model::cluster_operation_status::State,
 
@@ -12563,10 +12196,7 @@ impl ClusterOperationStatus {
     }
 
     /// Sets the value of [state][crate::model::ClusterOperationStatus::state].
-    pub fn set_state<T: std::convert::Into<crate::model::cluster_operation_status::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::cluster_operation_status::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -12585,8 +12215,7 @@ impl ClusterOperationStatus {
 
     /// Sets the value of [state_start_time][crate::model::ClusterOperationStatus::state_start_time].
     pub fn set_state_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = std::option::Option::Some(v.into());
         self
@@ -12594,8 +12223,7 @@ impl ClusterOperationStatus {
 
     /// Sets or clears the value of [state_start_time][crate::model::ClusterOperationStatus::state_start_time].
     pub fn set_or_clear_state_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_start_time = v.map(|x| x.into());
         self
@@ -12612,6 +12240,7 @@ impl wkt::message::Message for ClusterOperationStatus {
 pub mod cluster_operation_status {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The operation state.
     ///
@@ -12704,9 +12333,7 @@ pub mod cluster_operation_status {
                 1 => Self::Pending,
                 2 => Self::Running,
                 3 => Self::Done,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -12719,9 +12346,7 @@ pub mod cluster_operation_status {
                 "PENDING" => Self::Pending,
                 "RUNNING" => Self::Running,
                 "DONE" => Self::Done,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -12747,8 +12372,7 @@ pub mod cluster_operation_status {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.ClusterOperationStatus.State",
-            ))
+                ".google.cloud.dataproc.v1.ClusterOperationStatus.State"))
         }
     }
 }
@@ -12757,6 +12381,7 @@ pub mod cluster_operation_status {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperationMetadata {
+
     /// Output only. Name of the cluster for the operation.
     pub cluster_name: std::string::String,
 
@@ -12776,7 +12401,7 @@ pub struct ClusterOperationMetadata {
     pub description: std::string::String,
 
     /// Output only. Labels associated with the operation
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Errors encountered during operation execution.
     pub warnings: std::vec::Vec<std::string::String>,
@@ -12806,8 +12431,7 @@ impl ClusterOperationMetadata {
 
     /// Sets the value of [status][crate::model::ClusterOperationMetadata::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperationStatus>,
+    where T: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -12815,8 +12439,7 @@ impl ClusterOperationMetadata {
 
     /// Sets or clears the value of [status][crate::model::ClusterOperationMetadata::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperationStatus>,
+    where T: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -12826,7 +12449,7 @@ impl ClusterOperationMetadata {
     pub fn set_status_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterOperationStatus>,
+        V: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         use std::iter::Iterator;
         self.status_history = v.into_iter().map(|i| i.into()).collect();
@@ -12861,7 +12484,7 @@ impl ClusterOperationMetadata {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -12872,7 +12495,7 @@ impl ClusterOperationMetadata {
     pub fn set_child_operation_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.child_operation_ids = v.into_iter().map(|i| i.into()).collect();
@@ -12890,6 +12513,7 @@ impl wkt::message::Message for ClusterOperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NodeGroupOperationMetadata {
+
     /// Output only. Node group ID for the operation.
     pub node_group_id: std::string::String,
 
@@ -12909,7 +12533,7 @@ pub struct NodeGroupOperationMetadata {
     pub description: std::string::String,
 
     /// Output only. Labels associated with the operation.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Errors encountered during operation execution.
     pub warnings: std::vec::Vec<std::string::String>,
@@ -12936,8 +12560,7 @@ impl NodeGroupOperationMetadata {
 
     /// Sets the value of [status][crate::model::NodeGroupOperationMetadata::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperationStatus>,
+    where T: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -12945,8 +12568,7 @@ impl NodeGroupOperationMetadata {
 
     /// Sets or clears the value of [status][crate::model::NodeGroupOperationMetadata::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperationStatus>,
+    where T: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         self.status = v.map(|x| x.into());
         self
@@ -12956,7 +12578,7 @@ impl NodeGroupOperationMetadata {
     pub fn set_status_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ClusterOperationStatus>,
+        V: std::convert::Into<crate::model::ClusterOperationStatus>
     {
         use std::iter::Iterator;
         self.status_history = v.into_iter().map(|i| i.into()).collect();
@@ -12964,12 +12586,7 @@ impl NodeGroupOperationMetadata {
     }
 
     /// Sets the value of [operation_type][crate::model::NodeGroupOperationMetadata::operation_type].
-    pub fn set_operation_type<
-        T: std::convert::Into<crate::model::node_group_operation_metadata::NodeGroupOperationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operation_type<T: std::convert::Into<crate::model::node_group_operation_metadata::NodeGroupOperationType>>(mut self, v: T) -> Self {
         self.operation_type = v.into();
         self
     }
@@ -12996,7 +12613,7 @@ impl NodeGroupOperationMetadata {
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.warnings = v.into_iter().map(|i| i.into()).collect();
@@ -13014,6 +12631,7 @@ impl wkt::message::Message for NodeGroupOperationMetadata {
 pub mod node_group_operation_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Operation type for node group resources.
     ///
@@ -13080,9 +12698,7 @@ pub mod node_group_operation_metadata {
         /// the integer representation of enums.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("NODE_GROUP_OPERATION_TYPE_UNSPECIFIED")
-                }
+                Self::Unspecified => std::option::Option::Some("NODE_GROUP_OPERATION_TYPE_UNSPECIFIED"),
                 Self::Create => std::option::Option::Some("CREATE"),
                 Self::Update => std::option::Option::Some("UPDATE"),
                 Self::Delete => std::option::Option::Some("DELETE"),
@@ -13113,9 +12729,7 @@ pub mod node_group_operation_metadata {
                 2 => Self::Update,
                 3 => Self::Delete,
                 4 => Self::Resize,
-                _ => Self::UnknownValue(node_group_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(node_group_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -13129,9 +12743,7 @@ pub mod node_group_operation_metadata {
                 "UPDATE" => Self::Update,
                 "DELETE" => Self::Delete,
                 "RESIZE" => Self::Resize,
-                _ => Self::UnknownValue(node_group_operation_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(node_group_operation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -13158,8 +12770,7 @@ pub mod node_group_operation_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NodeGroupOperationType>::new(
-                ".google.cloud.dataproc.v1.NodeGroupOperationMetadata.NodeGroupOperationType",
-            ))
+                ".google.cloud.dataproc.v1.NodeGroupOperationMetadata.NodeGroupOperationType"))
         }
     }
 }
@@ -13168,6 +12779,7 @@ pub mod node_group_operation_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionTemplateRequest {
+
     /// Required. The parent resource where this session template will be created.
     pub parent: std::string::String,
 
@@ -13190,8 +12802,7 @@ impl CreateSessionTemplateRequest {
 
     /// Sets the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
     pub fn set_session_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SessionTemplate>,
+    where T: std::convert::Into<crate::model::SessionTemplate>
     {
         self.session_template = std::option::Option::Some(v.into());
         self
@@ -13199,8 +12810,7 @@ impl CreateSessionTemplateRequest {
 
     /// Sets or clears the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
     pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SessionTemplate>,
+    where T: std::convert::Into<crate::model::SessionTemplate>
     {
         self.session_template = v.map(|x| x.into());
         self
@@ -13217,6 +12827,7 @@ impl wkt::message::Message for CreateSessionTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateSessionTemplateRequest {
+
     /// Required. The updated session template.
     pub session_template: std::option::Option<crate::model::SessionTemplate>,
 
@@ -13230,8 +12841,7 @@ impl UpdateSessionTemplateRequest {
 
     /// Sets the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
     pub fn set_session_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SessionTemplate>,
+    where T: std::convert::Into<crate::model::SessionTemplate>
     {
         self.session_template = std::option::Option::Some(v.into());
         self
@@ -13239,8 +12849,7 @@ impl UpdateSessionTemplateRequest {
 
     /// Sets or clears the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
     pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SessionTemplate>,
+    where T: std::convert::Into<crate::model::SessionTemplate>
     {
         self.session_template = v.map(|x| x.into());
         self
@@ -13257,6 +12866,7 @@ impl wkt::message::Message for UpdateSessionTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionTemplateRequest {
+
     /// Required. The name of the session template to retrieve.
     pub name: std::string::String,
 
@@ -13285,6 +12895,7 @@ impl wkt::message::Message for GetSessionTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionTemplatesRequest {
+
     /// Required. The parent that owns this collection of session templates.
     pub parent: std::string::String,
 
@@ -13345,6 +12956,7 @@ impl wkt::message::Message for ListSessionTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionTemplatesResponse {
+
     /// Output only. Session template list
     pub session_templates: std::vec::Vec<crate::model::SessionTemplate>,
 
@@ -13364,7 +12976,7 @@ impl ListSessionTemplatesResponse {
     pub fn set_session_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SessionTemplate>,
+        V: std::convert::Into<crate::model::SessionTemplate>
     {
         use std::iter::Iterator;
         self.session_templates = v.into_iter().map(|i| i.into()).collect();
@@ -13402,6 +13014,7 @@ impl gax::paginator::internal::PageableResponse for ListSessionTemplatesResponse
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionTemplateRequest {
+
     /// Required. The name of the session template resource to delete.
     pub name: std::string::String,
 
@@ -13430,6 +13043,7 @@ impl wkt::message::Message for DeleteSessionTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SessionTemplate {
+
     /// Required. The resource name of the session template.
     pub name: std::string::String,
 
@@ -13449,7 +13063,7 @@ pub struct SessionTemplate {
     /// characters and conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with a session.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Runtime configuration for session execution.
     pub runtime_config: std::option::Option<crate::model::RuntimeConfig>,
@@ -13489,8 +13103,7 @@ impl SessionTemplate {
 
     /// Sets the value of [create_time][crate::model::SessionTemplate::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -13498,8 +13111,7 @@ impl SessionTemplate {
 
     /// Sets or clears the value of [create_time][crate::model::SessionTemplate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -13525,8 +13137,7 @@ impl SessionTemplate {
 
     /// Sets the value of [runtime_config][crate::model::SessionTemplate::runtime_config].
     pub fn set_runtime_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = std::option::Option::Some(v.into());
         self
@@ -13534,8 +13145,7 @@ impl SessionTemplate {
 
     /// Sets or clears the value of [runtime_config][crate::model::SessionTemplate::runtime_config].
     pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = v.map(|x| x.into());
         self
@@ -13543,8 +13153,7 @@ impl SessionTemplate {
 
     /// Sets the value of [environment_config][crate::model::SessionTemplate::environment_config].
     pub fn set_environment_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = std::option::Option::Some(v.into());
         self
@@ -13552,8 +13161,7 @@ impl SessionTemplate {
 
     /// Sets or clears the value of [environment_config][crate::model::SessionTemplate::environment_config].
     pub fn set_or_clear_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = v.map(|x| x.into());
         self
@@ -13561,8 +13169,7 @@ impl SessionTemplate {
 
     /// Sets the value of [update_time][crate::model::SessionTemplate::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -13570,8 +13177,7 @@ impl SessionTemplate {
 
     /// Sets or clears the value of [update_time][crate::model::SessionTemplate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -13587,12 +13193,8 @@ impl SessionTemplate {
     ///
     /// Note that all the setters affecting `session_config` are mutually
     /// exclusive.
-    pub fn set_session_config<
-        T: std::convert::Into<std::option::Option<crate::model::session_template::SessionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_session_config<T: std::convert::Into<std::option::Option<crate::model::session_template::SessionConfig>>>(mut self, v: T) -> Self
+    {
         self.session_config = v.into();
         self
     }
@@ -13600,14 +13202,10 @@ impl SessionTemplate {
     /// The value of [session_config][crate::model::SessionTemplate::session_config]
     /// if it holds a `JupyterSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn jupyter_session(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
+    pub fn jupyter_session(&self) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
         #[allow(unreachable_patterns)]
         self.session_config.as_ref().and_then(|v| match v {
-            crate::model::session_template::SessionConfig::JupyterSession(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::session_template::SessionConfig::JupyterSession(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13617,14 +13215,11 @@ impl SessionTemplate {
     ///
     /// Note that all the setters affecting `session_config` are
     /// mutually exclusive.
-    pub fn set_jupyter_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_jupyter_session<T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>>(mut self, v: T) -> Self {
         self.session_config = std::option::Option::Some(
-            crate::model::session_template::SessionConfig::JupyterSession(v.into()),
+            crate::model::session_template::SessionConfig::JupyterSession(
+                v.into()
+            )
         );
         self
     }
@@ -13632,14 +13227,10 @@ impl SessionTemplate {
     /// The value of [session_config][crate::model::SessionTemplate::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_connect_session(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
+    pub fn spark_connect_session(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
         #[allow(unreachable_patterns)]
         self.session_config.as_ref().and_then(|v| match v {
-            crate::model::session_template::SessionConfig::SparkConnectSession(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::session_template::SessionConfig::SparkConnectSession(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -13649,14 +13240,11 @@ impl SessionTemplate {
     ///
     /// Note that all the setters affecting `session_config` are
     /// mutually exclusive.
-    pub fn set_spark_connect_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_spark_connect_session<T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>>(mut self, v: T) -> Self {
         self.session_config = std::option::Option::Some(
-            crate::model::session_template::SessionConfig::SparkConnectSession(v.into()),
+            crate::model::session_template::SessionConfig::SparkConnectSession(
+                v.into()
+            )
         );
         self
     }
@@ -13673,6 +13261,7 @@ pub mod session_template {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The session configuration.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13688,6 +13277,7 @@ pub mod session_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSessionRequest {
+
     /// Required. The parent resource where this session will be created.
     pub parent: std::string::String,
 
@@ -13733,8 +13323,7 @@ impl CreateSessionRequest {
 
     /// Sets the value of [session][crate::model::CreateSessionRequest::session].
     pub fn set_session<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Session>,
+    where T: std::convert::Into<crate::model::Session>
     {
         self.session = std::option::Option::Some(v.into());
         self
@@ -13742,8 +13331,7 @@ impl CreateSessionRequest {
 
     /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
     pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Session>,
+    where T: std::convert::Into<crate::model::Session>
     {
         self.session = v.map(|x| x.into());
         self
@@ -13772,6 +13360,7 @@ impl wkt::message::Message for CreateSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSessionRequest {
+
     /// Required. The name of the session to retrieve.
     pub name: std::string::String,
 
@@ -13800,6 +13389,7 @@ impl wkt::message::Message for GetSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsRequest {
+
     /// Required. The parent, which owns this collection of sessions.
     pub parent: std::string::String,
 
@@ -13871,6 +13461,7 @@ impl wkt::message::Message for ListSessionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSessionsResponse {
+
     /// Output only. The sessions from the specified collection.
     pub sessions: std::vec::Vec<crate::model::Session>,
 
@@ -13890,7 +13481,7 @@ impl ListSessionsResponse {
     pub fn set_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Session>,
+        V: std::convert::Into<crate::model::Session>
     {
         use std::iter::Iterator;
         self.sessions = v.into_iter().map(|i| i.into()).collect();
@@ -13928,6 +13519,7 @@ impl gax::paginator::internal::PageableResponse for ListSessionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TerminateSessionRequest {
+
     /// Required. The name of the session resource to terminate.
     pub name: std::string::String,
 
@@ -13974,6 +13566,7 @@ impl wkt::message::Message for TerminateSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSessionRequest {
+
     /// Required. The name of the session resource to delete.
     pub name: std::string::String,
 
@@ -14020,6 +13613,7 @@ impl wkt::message::Message for DeleteSessionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Session {
+
     /// Required. The resource name of the session.
     pub name: std::string::String,
 
@@ -14053,7 +13647,7 @@ pub struct Session {
     /// characters, and must conform to [RFC
     /// 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be
     /// associated with a session.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Runtime configuration for the session execution.
     pub runtime_config: std::option::Option<crate::model::RuntimeConfig>,
@@ -14105,8 +13699,7 @@ impl Session {
 
     /// Sets the value of [create_time][crate::model::Session::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -14114,8 +13707,7 @@ impl Session {
 
     /// Sets or clears the value of [create_time][crate::model::Session::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -14123,8 +13715,7 @@ impl Session {
 
     /// Sets the value of [runtime_info][crate::model::Session::runtime_info].
     pub fn set_runtime_info<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeInfo>,
+    where T: std::convert::Into<crate::model::RuntimeInfo>
     {
         self.runtime_info = std::option::Option::Some(v.into());
         self
@@ -14132,8 +13723,7 @@ impl Session {
 
     /// Sets or clears the value of [runtime_info][crate::model::Session::runtime_info].
     pub fn set_or_clear_runtime_info<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeInfo>,
+    where T: std::convert::Into<crate::model::RuntimeInfo>
     {
         self.runtime_info = v.map(|x| x.into());
         self
@@ -14153,8 +13743,7 @@ impl Session {
 
     /// Sets the value of [state_time][crate::model::Session::state_time].
     pub fn set_state_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_time = std::option::Option::Some(v.into());
         self
@@ -14162,8 +13751,7 @@ impl Session {
 
     /// Sets or clears the value of [state_time][crate::model::Session::state_time].
     pub fn set_or_clear_state_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.state_time = v.map(|x| x.into());
         self
@@ -14189,8 +13777,7 @@ impl Session {
 
     /// Sets the value of [runtime_config][crate::model::Session::runtime_config].
     pub fn set_runtime_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = std::option::Option::Some(v.into());
         self
@@ -14198,8 +13785,7 @@ impl Session {
 
     /// Sets or clears the value of [runtime_config][crate::model::Session::runtime_config].
     pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RuntimeConfig>,
+    where T: std::convert::Into<crate::model::RuntimeConfig>
     {
         self.runtime_config = v.map(|x| x.into());
         self
@@ -14207,8 +13793,7 @@ impl Session {
 
     /// Sets the value of [environment_config][crate::model::Session::environment_config].
     pub fn set_environment_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = std::option::Option::Some(v.into());
         self
@@ -14216,8 +13801,7 @@ impl Session {
 
     /// Sets or clears the value of [environment_config][crate::model::Session::environment_config].
     pub fn set_or_clear_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::EnvironmentConfig>,
+    where T: std::convert::Into<crate::model::EnvironmentConfig>
     {
         self.environment_config = v.map(|x| x.into());
         self
@@ -14233,7 +13817,7 @@ impl Session {
     pub fn set_state_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::session::SessionStateHistory>,
+        V: std::convert::Into<crate::model::session::SessionStateHistory>
     {
         use std::iter::Iterator;
         self.state_history = v.into_iter().map(|i| i.into()).collect();
@@ -14241,10 +13825,7 @@ impl Session {
     }
 
     /// Sets the value of [session_template][crate::model::Session::session_template].
-    pub fn set_session_template<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_session_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session_template = v.into();
         self
     }
@@ -14253,12 +13834,8 @@ impl Session {
     ///
     /// Note that all the setters affecting `session_config` are mutually
     /// exclusive.
-    pub fn set_session_config<
-        T: std::convert::Into<std::option::Option<crate::model::session::SessionConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_session_config<T: std::convert::Into<std::option::Option<crate::model::session::SessionConfig>>>(mut self, v: T) -> Self
+    {
         self.session_config = v.into();
         self
     }
@@ -14266,9 +13843,7 @@ impl Session {
     /// The value of [session_config][crate::model::Session::session_config]
     /// if it holds a `JupyterSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn jupyter_session(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
+    pub fn jupyter_session(&self) -> std::option::Option<&std::boxed::Box<crate::model::JupyterConfig>> {
         #[allow(unreachable_patterns)]
         self.session_config.as_ref().and_then(|v| match v {
             crate::model::session::SessionConfig::JupyterSession(v) => std::option::Option::Some(v),
@@ -14281,14 +13856,11 @@ impl Session {
     ///
     /// Note that all the setters affecting `session_config` are
     /// mutually exclusive.
-    pub fn set_jupyter_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_jupyter_session<T: std::convert::Into<std::boxed::Box<crate::model::JupyterConfig>>>(mut self, v: T) -> Self {
         self.session_config = std::option::Option::Some(
-            crate::model::session::SessionConfig::JupyterSession(v.into()),
+            crate::model::session::SessionConfig::JupyterSession(
+                v.into()
+            )
         );
         self
     }
@@ -14296,14 +13868,10 @@ impl Session {
     /// The value of [session_config][crate::model::Session::session_config]
     /// if it holds a `SparkConnectSession`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_connect_session(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
+    pub fn spark_connect_session(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkConnectConfig>> {
         #[allow(unreachable_patterns)]
         self.session_config.as_ref().and_then(|v| match v {
-            crate::model::session::SessionConfig::SparkConnectSession(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::session::SessionConfig::SparkConnectSession(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -14313,14 +13881,11 @@ impl Session {
     ///
     /// Note that all the setters affecting `session_config` are
     /// mutually exclusive.
-    pub fn set_spark_connect_session<
-        T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_spark_connect_session<T: std::convert::Into<std::boxed::Box<crate::model::SparkConnectConfig>>>(mut self, v: T) -> Self {
         self.session_config = std::option::Option::Some(
-            crate::model::session::SessionConfig::SparkConnectSession(v.into()),
+            crate::model::session::SessionConfig::SparkConnectSession(
+                v.into()
+            )
         );
         self
     }
@@ -14337,10 +13902,12 @@ pub mod session {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Historical state information.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SessionStateHistory {
+
         /// Output only. The state of the session at this point in the session
         /// history.
         pub state: crate::model::session::State,
@@ -14361,27 +13928,20 @@ pub mod session {
         }
 
         /// Sets the value of [state][crate::model::session::SessionStateHistory::state].
-        pub fn set_state<T: std::convert::Into<crate::model::session::State>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::session::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [state_message][crate::model::session::SessionStateHistory::state_message].
-        pub fn set_state_message<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.state_message = v.into();
             self
         }
 
         /// Sets the value of [state_start_time][crate::model::session::SessionStateHistory::state_start_time].
         pub fn set_state_start_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.state_start_time = std::option::Option::Some(v.into());
             self
@@ -14389,8 +13949,7 @@ pub mod session {
 
         /// Sets or clears the value of [state_start_time][crate::model::session::SessionStateHistory::state_start_time].
         pub fn set_or_clear_state_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.state_start_time = v.map(|x| x.into());
             self
@@ -14504,9 +14063,7 @@ pub mod session {
                 3 => Self::Terminating,
                 4 => Self::Terminated,
                 5 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14521,9 +14078,7 @@ pub mod session {
                 "TERMINATING" => Self::Terminating,
                 "TERMINATED" => Self::Terminated,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14551,8 +14106,7 @@ pub mod session {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.Session.State",
-            ))
+                ".google.cloud.dataproc.v1.Session.State"))
         }
     }
 
@@ -14571,6 +14125,7 @@ pub mod session {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JupyterConfig {
+
     /// Optional. Kernel
     pub kernel: crate::model::jupyter_config::Kernel,
 
@@ -14586,10 +14141,7 @@ impl JupyterConfig {
     }
 
     /// Sets the value of [kernel][crate::model::JupyterConfig::kernel].
-    pub fn set_kernel<T: std::convert::Into<crate::model::jupyter_config::Kernel>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kernel<T: std::convert::Into<crate::model::jupyter_config::Kernel>>(mut self, v: T) -> Self {
         self.kernel = v.into();
         self
     }
@@ -14611,6 +14163,7 @@ impl wkt::message::Message for JupyterConfig {
 pub mod jupyter_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Jupyter kernel types.
     ///
@@ -14698,9 +14251,7 @@ pub mod jupyter_config {
                 0 => Self::Unspecified,
                 1 => Self::Python,
                 2 => Self::Scala,
-                _ => Self::UnknownValue(kernel::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(kernel::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -14712,9 +14263,7 @@ pub mod jupyter_config {
                 "KERNEL_UNSPECIFIED" => Self::Unspecified,
                 "PYTHON" => Self::Python,
                 "SCALA" => Self::Scala,
-                _ => Self::UnknownValue(kernel::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(kernel::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -14739,8 +14288,7 @@ pub mod jupyter_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Kernel>::new(
-                ".google.cloud.dataproc.v1.JupyterConfig.Kernel",
-            ))
+                ".google.cloud.dataproc.v1.JupyterConfig.Kernel"))
         }
     }
 }
@@ -14749,6 +14297,7 @@ pub mod jupyter_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkConnectConfig {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14768,6 +14317,7 @@ impl wkt::message::Message for SparkConnectConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeConfig {
+
     /// Optional. Version of the batch runtime.
     pub version: std::string::String,
 
@@ -14777,7 +14327,7 @@ pub struct RuntimeConfig {
 
     /// Optional. A mapping of property names to values, which are used to
     /// configure workload execution.
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Dependency repository configuration.
     pub repository_config: std::option::Option<crate::model::RepositoryConfig>,
@@ -14823,8 +14373,7 @@ impl RuntimeConfig {
 
     /// Sets the value of [repository_config][crate::model::RuntimeConfig::repository_config].
     pub fn set_repository_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::RepositoryConfig>,
+    where T: std::convert::Into<crate::model::RepositoryConfig>
     {
         self.repository_config = std::option::Option::Some(v.into());
         self
@@ -14832,8 +14381,7 @@ impl RuntimeConfig {
 
     /// Sets or clears the value of [repository_config][crate::model::RuntimeConfig::repository_config].
     pub fn set_or_clear_repository_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::RepositoryConfig>,
+    where T: std::convert::Into<crate::model::RepositoryConfig>
     {
         self.repository_config = v.map(|x| x.into());
         self
@@ -14841,8 +14389,7 @@ impl RuntimeConfig {
 
     /// Sets the value of [autotuning_config][crate::model::RuntimeConfig::autotuning_config].
     pub fn set_autotuning_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AutotuningConfig>,
+    where T: std::convert::Into<crate::model::AutotuningConfig>
     {
         self.autotuning_config = std::option::Option::Some(v.into());
         self
@@ -14850,8 +14397,7 @@ impl RuntimeConfig {
 
     /// Sets or clears the value of [autotuning_config][crate::model::RuntimeConfig::autotuning_config].
     pub fn set_or_clear_autotuning_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AutotuningConfig>,
+    where T: std::convert::Into<crate::model::AutotuningConfig>
     {
         self.autotuning_config = v.map(|x| x.into());
         self
@@ -14874,6 +14420,7 @@ impl wkt::message::Message for RuntimeConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvironmentConfig {
+
     /// Optional. Execution configuration for a workload.
     pub execution_config: std::option::Option<crate::model::ExecutionConfig>,
 
@@ -14890,8 +14437,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [execution_config][crate::model::EnvironmentConfig::execution_config].
     pub fn set_execution_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionConfig>,
+    where T: std::convert::Into<crate::model::ExecutionConfig>
     {
         self.execution_config = std::option::Option::Some(v.into());
         self
@@ -14899,8 +14445,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [execution_config][crate::model::EnvironmentConfig::execution_config].
     pub fn set_or_clear_execution_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ExecutionConfig>,
+    where T: std::convert::Into<crate::model::ExecutionConfig>
     {
         self.execution_config = v.map(|x| x.into());
         self
@@ -14908,8 +14453,7 @@ impl EnvironmentConfig {
 
     /// Sets the value of [peripherals_config][crate::model::EnvironmentConfig::peripherals_config].
     pub fn set_peripherals_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PeripheralsConfig>,
+    where T: std::convert::Into<crate::model::PeripheralsConfig>
     {
         self.peripherals_config = std::option::Option::Some(v.into());
         self
@@ -14917,8 +14461,7 @@ impl EnvironmentConfig {
 
     /// Sets or clears the value of [peripherals_config][crate::model::EnvironmentConfig::peripherals_config].
     pub fn set_or_clear_peripherals_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PeripheralsConfig>,
+    where T: std::convert::Into<crate::model::PeripheralsConfig>
     {
         self.peripherals_config = v.map(|x| x.into());
         self
@@ -14935,6 +14478,7 @@ impl wkt::message::Message for EnvironmentConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExecutionConfig {
+
     /// Optional. Service account that used to execute workload.
     pub service_account: std::string::String,
 
@@ -15009,7 +14553,7 @@ impl ExecutionConfig {
     pub fn set_network_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.network_tags = v.into_iter().map(|i| i.into()).collect();
@@ -15024,8 +14568,7 @@ impl ExecutionConfig {
 
     /// Sets the value of [idle_ttl][crate::model::ExecutionConfig::idle_ttl].
     pub fn set_idle_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_ttl = std::option::Option::Some(v.into());
         self
@@ -15033,8 +14576,7 @@ impl ExecutionConfig {
 
     /// Sets or clears the value of [idle_ttl][crate::model::ExecutionConfig::idle_ttl].
     pub fn set_or_clear_idle_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.idle_ttl = v.map(|x| x.into());
         self
@@ -15042,8 +14584,7 @@ impl ExecutionConfig {
 
     /// Sets the value of [ttl][crate::model::ExecutionConfig::ttl].
     pub fn set_ttl<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = std::option::Option::Some(v.into());
         self
@@ -15051,8 +14592,7 @@ impl ExecutionConfig {
 
     /// Sets or clears the value of [ttl][crate::model::ExecutionConfig::ttl].
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.ttl = v.map(|x| x.into());
         self
@@ -15066,8 +14606,7 @@ impl ExecutionConfig {
 
     /// Sets the value of [authentication_config][crate::model::ExecutionConfig::authentication_config].
     pub fn set_authentication_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthenticationConfig>,
+    where T: std::convert::Into<crate::model::AuthenticationConfig>
     {
         self.authentication_config = std::option::Option::Some(v.into());
         self
@@ -15075,8 +14614,7 @@ impl ExecutionConfig {
 
     /// Sets or clears the value of [authentication_config][crate::model::ExecutionConfig::authentication_config].
     pub fn set_or_clear_authentication_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AuthenticationConfig>,
+    where T: std::convert::Into<crate::model::AuthenticationConfig>
     {
         self.authentication_config = v.map(|x| x.into());
         self
@@ -15086,12 +14624,8 @@ impl ExecutionConfig {
     ///
     /// Note that all the setters affecting `network` are mutually
     /// exclusive.
-    pub fn set_network<
-        T: std::convert::Into<std::option::Option<crate::model::execution_config::Network>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_network<T: std::convert::Into<std::option::Option<crate::model::execution_config::Network>>>(mut self, v: T) -> Self
+    {
         self.network = v.into();
         self
     }
@@ -15114,7 +14648,9 @@ impl ExecutionConfig {
     /// mutually exclusive.
     pub fn set_network_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = std::option::Option::Some(
-            crate::model::execution_config::Network::NetworkUri(v.into()),
+            crate::model::execution_config::Network::NetworkUri(
+                v.into()
+            )
         );
         self
     }
@@ -15125,9 +14661,7 @@ impl ExecutionConfig {
     pub fn subnetwork_uri(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.network.as_ref().and_then(|v| match v {
-            crate::model::execution_config::Network::SubnetworkUri(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::execution_config::Network::SubnetworkUri(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15139,7 +14673,9 @@ impl ExecutionConfig {
     /// mutually exclusive.
     pub fn set_subnetwork_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = std::option::Option::Some(
-            crate::model::execution_config::Network::SubnetworkUri(v.into()),
+            crate::model::execution_config::Network::SubnetworkUri(
+                v.into()
+            )
         );
         self
     }
@@ -15156,6 +14692,7 @@ pub mod execution_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Network configuration for workload execution.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -15171,6 +14708,7 @@ pub mod execution_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SparkHistoryServerConfig {
+
     /// Optional. Resource name of an existing Dataproc Cluster to act as a Spark
     /// History Server for the workload.
     ///
@@ -15188,10 +14726,7 @@ impl SparkHistoryServerConfig {
     }
 
     /// Sets the value of [dataproc_cluster][crate::model::SparkHistoryServerConfig::dataproc_cluster].
-    pub fn set_dataproc_cluster<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataproc_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataproc_cluster = v.into();
         self
     }
@@ -15207,6 +14742,7 @@ impl wkt::message::Message for SparkHistoryServerConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PeripheralsConfig {
+
     /// Optional. Resource name of an existing Dataproc Metastore service.
     ///
     /// Example:
@@ -15226,18 +14762,14 @@ impl PeripheralsConfig {
     }
 
     /// Sets the value of [metastore_service][crate::model::PeripheralsConfig::metastore_service].
-    pub fn set_metastore_service<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_metastore_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metastore_service = v.into();
         self
     }
 
     /// Sets the value of [spark_history_server_config][crate::model::PeripheralsConfig::spark_history_server_config].
     pub fn set_spark_history_server_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    where T: std::convert::Into<crate::model::SparkHistoryServerConfig>
     {
         self.spark_history_server_config = std::option::Option::Some(v.into());
         self
@@ -15245,8 +14777,7 @@ impl PeripheralsConfig {
 
     /// Sets or clears the value of [spark_history_server_config][crate::model::PeripheralsConfig::spark_history_server_config].
     pub fn set_or_clear_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
+    where T: std::convert::Into<crate::model::SparkHistoryServerConfig>
     {
         self.spark_history_server_config = v.map(|x| x.into());
         self
@@ -15263,9 +14794,10 @@ impl wkt::message::Message for PeripheralsConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RuntimeInfo {
+
     /// Output only. Map of remote access endpoints (such as web interfaces and
     /// APIs) to their URIs.
-    pub endpoints: std::collections::HashMap<std::string::String, std::string::String>,
+    pub endpoints: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. A URI pointing to the location of the stdout and stderr of the
     /// workload.
@@ -15317,18 +14849,14 @@ impl RuntimeInfo {
     }
 
     /// Sets the value of [diagnostic_output_uri][crate::model::RuntimeInfo::diagnostic_output_uri].
-    pub fn set_diagnostic_output_uri<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_diagnostic_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.diagnostic_output_uri = v.into();
         self
     }
 
     /// Sets the value of [approximate_usage][crate::model::RuntimeInfo::approximate_usage].
     pub fn set_approximate_usage<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UsageMetrics>,
+    where T: std::convert::Into<crate::model::UsageMetrics>
     {
         self.approximate_usage = std::option::Option::Some(v.into());
         self
@@ -15336,8 +14864,7 @@ impl RuntimeInfo {
 
     /// Sets or clears the value of [approximate_usage][crate::model::RuntimeInfo::approximate_usage].
     pub fn set_or_clear_approximate_usage<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UsageMetrics>,
+    where T: std::convert::Into<crate::model::UsageMetrics>
     {
         self.approximate_usage = v.map(|x| x.into());
         self
@@ -15345,8 +14872,7 @@ impl RuntimeInfo {
 
     /// Sets the value of [current_usage][crate::model::RuntimeInfo::current_usage].
     pub fn set_current_usage<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::UsageSnapshot>,
+    where T: std::convert::Into<crate::model::UsageSnapshot>
     {
         self.current_usage = std::option::Option::Some(v.into());
         self
@@ -15354,8 +14880,7 @@ impl RuntimeInfo {
 
     /// Sets or clears the value of [current_usage][crate::model::RuntimeInfo::current_usage].
     pub fn set_or_clear_current_usage<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::UsageSnapshot>,
+    where T: std::convert::Into<crate::model::UsageSnapshot>
     {
         self.current_usage = v.map(|x| x.into());
         self
@@ -15372,6 +14897,7 @@ impl wkt::message::Message for RuntimeInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageMetrics {
+
     /// Optional. DCU (Dataproc Compute Units) usage in (`milliDCU` x `seconds`)
     /// (see [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
@@ -15417,10 +14943,7 @@ impl UsageMetrics {
     }
 
     /// Sets the value of [accelerator_type][crate::model::UsageMetrics::accelerator_type].
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
@@ -15437,6 +14960,7 @@ impl wkt::message::Message for UsageMetrics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageSnapshot {
+
     /// Optional. Milli (one-thousandth) Dataproc Compute Units (DCUs) (see
     /// [Dataproc Serverless pricing]
     /// (<https://cloud.google.com/dataproc-serverless/pricing>)).
@@ -15505,18 +15029,14 @@ impl UsageSnapshot {
     }
 
     /// Sets the value of [accelerator_type][crate::model::UsageSnapshot::accelerator_type].
-    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator_type = v.into();
         self
     }
 
     /// Sets the value of [snapshot_time][crate::model::UsageSnapshot::snapshot_time].
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.snapshot_time = std::option::Option::Some(v.into());
         self
@@ -15524,8 +15044,7 @@ impl UsageSnapshot {
 
     /// Sets or clears the value of [snapshot_time][crate::model::UsageSnapshot::snapshot_time].
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.snapshot_time = v.map(|x| x.into());
         self
@@ -15542,6 +15061,7 @@ impl wkt::message::Message for UsageSnapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeClusterConfig {
+
     /// Optional. A target GKE cluster to deploy to. It must be in the same project
     /// and region as the Dataproc cluster (the GKE cluster can be zonal or
     /// regional). Format:
@@ -15567,10 +15087,7 @@ impl GkeClusterConfig {
     }
 
     /// Sets the value of [gke_cluster_target][crate::model::GkeClusterConfig::gke_cluster_target].
-    pub fn set_gke_cluster_target<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gke_cluster_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gke_cluster_target = v.into();
         self
     }
@@ -15579,7 +15096,7 @@ impl GkeClusterConfig {
     pub fn set_node_pool_target<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::GkeNodePoolTarget>,
+        V: std::convert::Into<crate::model::GkeNodePoolTarget>
     {
         use std::iter::Iterator;
         self.node_pool_target = v.into_iter().map(|i| i.into()).collect();
@@ -15597,6 +15114,7 @@ impl wkt::message::Message for GkeClusterConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesClusterConfig {
+
     /// Optional. A namespace within the Kubernetes cluster to deploy into. If this
     /// namespace does not exist, it is created. If it exists, Dataproc verifies
     /// that another Dataproc VirtualCluster is not installed into it. If not
@@ -15618,18 +15136,14 @@ impl KubernetesClusterConfig {
     }
 
     /// Sets the value of [kubernetes_namespace][crate::model::KubernetesClusterConfig::kubernetes_namespace].
-    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kubernetes_namespace = v.into();
         self
     }
 
     /// Sets the value of [kubernetes_software_config][crate::model::KubernetesClusterConfig::kubernetes_software_config].
     pub fn set_kubernetes_software_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesSoftwareConfig>,
+    where T: std::convert::Into<crate::model::KubernetesSoftwareConfig>
     {
         self.kubernetes_software_config = std::option::Option::Some(v.into());
         self
@@ -15637,8 +15151,7 @@ impl KubernetesClusterConfig {
 
     /// Sets or clears the value of [kubernetes_software_config][crate::model::KubernetesClusterConfig::kubernetes_software_config].
     pub fn set_or_clear_kubernetes_software_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::KubernetesSoftwareConfig>,
+    where T: std::convert::Into<crate::model::KubernetesSoftwareConfig>
     {
         self.kubernetes_software_config = v.map(|x| x.into());
         self
@@ -15648,12 +15161,8 @@ impl KubernetesClusterConfig {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
-    pub fn set_config<
-        T: std::convert::Into<std::option::Option<crate::model::kubernetes_cluster_config::Config>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_config<T: std::convert::Into<std::option::Option<crate::model::kubernetes_cluster_config::Config>>>(mut self, v: T) -> Self
+    {
         self.config = v.into();
         self
     }
@@ -15661,14 +15170,10 @@ impl KubernetesClusterConfig {
     /// The value of [config][crate::model::KubernetesClusterConfig::config]
     /// if it holds a `GkeClusterConfig`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn gke_cluster_config(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::GkeClusterConfig>> {
+    pub fn gke_cluster_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::GkeClusterConfig>> {
         #[allow(unreachable_patterns)]
         self.config.as_ref().and_then(|v| match v {
-            crate::model::kubernetes_cluster_config::Config::GkeClusterConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::kubernetes_cluster_config::Config::GkeClusterConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -15678,14 +15183,11 @@ impl KubernetesClusterConfig {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
-    pub fn set_gke_cluster_config<
-        T: std::convert::Into<std::boxed::Box<crate::model::GkeClusterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gke_cluster_config<T: std::convert::Into<std::boxed::Box<crate::model::GkeClusterConfig>>>(mut self, v: T) -> Self {
         self.config = std::option::Option::Some(
-            crate::model::kubernetes_cluster_config::Config::GkeClusterConfig(v.into()),
+            crate::model::kubernetes_cluster_config::Config::GkeClusterConfig(
+                v.into()
+            )
         );
         self
     }
@@ -15702,6 +15204,7 @@ pub mod kubernetes_cluster_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Config {
@@ -15714,11 +15217,12 @@ pub mod kubernetes_cluster_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KubernetesSoftwareConfig {
+
     /// The components that should be installed in this Dataproc cluster. The key
     /// must be a string from the KubernetesComponent enumeration. The value is
     /// the version of the software to be installed.
     /// At least one entry must be specified.
-    pub component_version: std::collections::HashMap<std::string::String, std::string::String>,
+    pub component_version: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The properties to set on daemon config files.
     ///
@@ -15730,7 +15234,7 @@ pub struct KubernetesSoftwareConfig {
     ///
     /// For more information, see [Cluster
     /// properties](https://cloud.google.com/dataproc/docs/concepts/cluster-properties).
-    pub properties: std::collections::HashMap<std::string::String, std::string::String>,
+    pub properties: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -15775,6 +15279,7 @@ impl wkt::message::Message for KubernetesSoftwareConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeNodePoolTarget {
+
     /// Required. The target GKE node pool.
     /// Format:
     /// 'projects/{project}/locations/{location}/clusters/{cluster}/nodePools/{node_pool}'
@@ -15815,7 +15320,7 @@ impl GkeNodePoolTarget {
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::gke_node_pool_target::Role>,
+        V: std::convert::Into<crate::model::gke_node_pool_target::Role>
     {
         use std::iter::Iterator;
         self.roles = v.into_iter().map(|i| i.into()).collect();
@@ -15824,8 +15329,7 @@ impl GkeNodePoolTarget {
 
     /// Sets the value of [node_pool_config][crate::model::GkeNodePoolTarget::node_pool_config].
     pub fn set_node_pool_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::GkeNodePoolConfig>,
+    where T: std::convert::Into<crate::model::GkeNodePoolConfig>
     {
         self.node_pool_config = std::option::Option::Some(v.into());
         self
@@ -15833,8 +15337,7 @@ impl GkeNodePoolTarget {
 
     /// Sets or clears the value of [node_pool_config][crate::model::GkeNodePoolTarget::node_pool_config].
     pub fn set_or_clear_node_pool_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::GkeNodePoolConfig>,
+    where T: std::convert::Into<crate::model::GkeNodePoolConfig>
     {
         self.node_pool_config = v.map(|x| x.into());
         self
@@ -15851,6 +15354,7 @@ impl wkt::message::Message for GkeNodePoolTarget {
 pub mod gke_node_pool_target {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// `Role` specifies the tasks that will run on the node pool. Roles can be
     /// specific to workloads. Exactly one
@@ -15959,9 +15463,7 @@ pub mod gke_node_pool_target {
                 2 => Self::Controller,
                 3 => Self::SparkDriver,
                 4 => Self::SparkExecutor,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -15975,9 +15477,7 @@ pub mod gke_node_pool_target {
                 "CONTROLLER" => Self::Controller,
                 "SPARK_DRIVER" => Self::SparkDriver,
                 "SPARK_EXECUTOR" => Self::SparkExecutor,
-                _ => Self::UnknownValue(role::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(role::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16004,8 +15504,7 @@ pub mod gke_node_pool_target {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Role>::new(
-                ".google.cloud.dataproc.v1.GkeNodePoolTarget.Role",
-            ))
+                ".google.cloud.dataproc.v1.GkeNodePoolTarget.Role"))
         }
     }
 }
@@ -16015,6 +15514,7 @@ pub mod gke_node_pool_target {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GkeNodePoolConfig {
+
     /// Optional. The node pool configuration.
     pub config: std::option::Option<crate::model::gke_node_pool_config::GkeNodeConfig>,
 
@@ -16033,8 +15533,7 @@ pub struct GkeNodePoolConfig {
 
     /// Optional. The autoscaler configuration for this node pool. The autoscaler
     /// is enabled only when a valid configuration is present.
-    pub autoscaling:
-        std::option::Option<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>,
+    pub autoscaling: std::option::Option<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16046,8 +15545,7 @@ impl GkeNodePoolConfig {
 
     /// Sets the value of [config][crate::model::GkeNodePoolConfig::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodeConfig>,
+    where T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodeConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -16055,8 +15553,7 @@ impl GkeNodePoolConfig {
 
     /// Sets or clears the value of [config][crate::model::GkeNodePoolConfig::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodeConfig>,
+    where T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodeConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -16066,7 +15563,7 @@ impl GkeNodePoolConfig {
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -16075,8 +15572,7 @@ impl GkeNodePoolConfig {
 
     /// Sets the value of [autoscaling][crate::model::GkeNodePoolConfig::autoscaling].
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>,
+    where T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>
     {
         self.autoscaling = std::option::Option::Some(v.into());
         self
@@ -16084,8 +15580,7 @@ impl GkeNodePoolConfig {
 
     /// Sets or clears the value of [autoscaling][crate::model::GkeNodePoolConfig::autoscaling].
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>,
+    where T: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAutoscalingConfig>
     {
         self.autoscaling = v.map(|x| x.into());
         self
@@ -16103,10 +15598,12 @@ pub mod gke_node_pool_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Parameters that describe cluster nodes.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodeConfig {
+
         /// Optional. The name of a Compute Engine [machine
         /// type](https://cloud.google.com/compute/docs/machine-types).
         pub machine_type: std::string::String,
@@ -16133,8 +15630,7 @@ pub mod gke_node_pool_config {
         /// Optional. A list of [hardware
         /// accelerators](https://cloud.google.com/compute/docs/gpus) to attach to
         /// each node.
-        pub accelerators:
-            std::vec::Vec<crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig>,
+        pub accelerators: std::vec::Vec<crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig>,
 
         /// Optional. [Minimum CPU
         /// platform](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform)
@@ -16173,10 +15669,7 @@ pub mod gke_node_pool_config {
         }
 
         /// Sets the value of [machine_type][crate::model::gke_node_pool_config::GkeNodeConfig::machine_type].
-        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.machine_type = v.into();
             self
         }
@@ -16197,7 +15690,7 @@ pub mod gke_node_pool_config {
         pub fn set_accelerators<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig>,
+            V: std::convert::Into<crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig>
         {
             use std::iter::Iterator;
             self.accelerators = v.into_iter().map(|i| i.into()).collect();
@@ -16205,19 +15698,13 @@ pub mod gke_node_pool_config {
         }
 
         /// Sets the value of [min_cpu_platform][crate::model::gke_node_pool_config::GkeNodeConfig::min_cpu_platform].
-        pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.min_cpu_platform = v.into();
             self
         }
 
         /// Sets the value of [boot_disk_kms_key][crate::model::gke_node_pool_config::GkeNodeConfig::boot_disk_kms_key].
-        pub fn set_boot_disk_kms_key<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_boot_disk_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.boot_disk_kms_key = v.into();
             self
         }
@@ -16240,6 +15727,7 @@ pub mod gke_node_pool_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodePoolAcceleratorConfig {
+
         /// The number of accelerator cards exposed to an instance.
         pub accelerator_count: i64,
 
@@ -16266,19 +15754,13 @@ pub mod gke_node_pool_config {
         }
 
         /// Sets the value of [accelerator_type][crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig::accelerator_type].
-        pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.accelerator_type = v.into();
             self
         }
 
         /// Sets the value of [gpu_partition_size][crate::model::gke_node_pool_config::GkeNodePoolAcceleratorConfig::gpu_partition_size].
-        pub fn set_gpu_partition_size<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_gpu_partition_size<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gpu_partition_size = v.into();
             self
         }
@@ -16295,6 +15777,7 @@ pub mod gke_node_pool_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GkeNodePoolAutoscalingConfig {
+
         /// The minimum number of nodes in the node pool. Must be >= 0 and <=
         /// max_node_count.
         pub min_node_count: i32,
@@ -16339,6 +15822,7 @@ pub mod gke_node_pool_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AuthenticationConfig {
+
     /// Optional. Authentication type for the user workload running in containers.
     pub user_workload_authentication_type: crate::model::authentication_config::AuthenticationType,
 
@@ -16351,12 +15835,7 @@ impl AuthenticationConfig {
     }
 
     /// Sets the value of [user_workload_authentication_type][crate::model::AuthenticationConfig::user_workload_authentication_type].
-    pub fn set_user_workload_authentication_type<
-        T: std::convert::Into<crate::model::authentication_config::AuthenticationType>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_user_workload_authentication_type<T: std::convert::Into<crate::model::authentication_config::AuthenticationType>>(mut self, v: T) -> Self {
         self.user_workload_authentication_type = v.into();
         self
     }
@@ -16372,6 +15851,7 @@ impl wkt::message::Message for AuthenticationConfig {
 pub mod authentication_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Authentication types for workload execution.
     ///
@@ -16462,9 +15942,7 @@ pub mod authentication_config {
                 0 => Self::Unspecified,
                 1 => Self::ServiceAccount,
                 2 => Self::EndUserCredentials,
-                _ => Self::UnknownValue(authentication_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(authentication_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16476,9 +15954,7 @@ pub mod authentication_config {
                 "AUTHENTICATION_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "SERVICE_ACCOUNT" => Self::ServiceAccount,
                 "END_USER_CREDENTIALS" => Self::EndUserCredentials,
-                _ => Self::UnknownValue(authentication_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(authentication_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16503,8 +15979,7 @@ pub mod authentication_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthenticationType>::new(
-                ".google.cloud.dataproc.v1.AuthenticationConfig.AuthenticationType",
-            ))
+                ".google.cloud.dataproc.v1.AuthenticationConfig.AuthenticationType"))
         }
     }
 }
@@ -16513,6 +15988,7 @@ pub mod authentication_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AutotuningConfig {
+
     /// Optional. Scenarios for which tunings are applied.
     pub scenarios: std::vec::Vec<crate::model::autotuning_config::Scenario>,
 
@@ -16528,7 +16004,7 @@ impl AutotuningConfig {
     pub fn set_scenarios<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::autotuning_config::Scenario>,
+        V: std::convert::Into<crate::model::autotuning_config::Scenario>
     {
         use std::iter::Iterator;
         self.scenarios = v.into_iter().map(|i| i.into()).collect();
@@ -16546,6 +16022,7 @@ impl wkt::message::Message for AutotuningConfig {
 pub mod autotuning_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Scenario represents a specific goal that autotuning will attempt to achieve
     /// by modifying workloads.
@@ -16649,9 +16126,7 @@ pub mod autotuning_config {
                 4 => Self::Memory,
                 5 => Self::None,
                 6 => Self::Auto,
-                _ => Self::UnknownValue(scenario::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(scenario::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -16666,9 +16141,7 @@ pub mod autotuning_config {
                 "MEMORY" => Self::Memory,
                 "NONE" => Self::None,
                 "AUTO" => Self::Auto,
-                _ => Self::UnknownValue(scenario::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(scenario::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -16696,8 +16169,7 @@ pub mod autotuning_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scenario>::new(
-                ".google.cloud.dataproc.v1.AutotuningConfig.Scenario",
-            ))
+                ".google.cloud.dataproc.v1.AutotuningConfig.Scenario"))
         }
     }
 }
@@ -16706,6 +16178,7 @@ pub mod autotuning_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepositoryConfig {
+
     /// Optional. Configuration for PyPi repository.
     pub pypi_repository_config: std::option::Option<crate::model::PyPiRepositoryConfig>,
 
@@ -16719,8 +16192,7 @@ impl RepositoryConfig {
 
     /// Sets the value of [pypi_repository_config][crate::model::RepositoryConfig::pypi_repository_config].
     pub fn set_pypi_repository_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::PyPiRepositoryConfig>,
+    where T: std::convert::Into<crate::model::PyPiRepositoryConfig>
     {
         self.pypi_repository_config = std::option::Option::Some(v.into());
         self
@@ -16728,8 +16200,7 @@ impl RepositoryConfig {
 
     /// Sets or clears the value of [pypi_repository_config][crate::model::RepositoryConfig::pypi_repository_config].
     pub fn set_or_clear_pypi_repository_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::PyPiRepositoryConfig>,
+    where T: std::convert::Into<crate::model::PyPiRepositoryConfig>
     {
         self.pypi_repository_config = v.map(|x| x.into());
         self
@@ -16746,6 +16217,7 @@ impl wkt::message::Message for RepositoryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PyPiRepositoryConfig {
+
     /// Optional. PyPi repository address
     pub pypi_repository: std::string::String,
 
@@ -16774,6 +16246,7 @@ impl wkt::message::Message for PyPiRepositoryConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowTemplate {
+
     pub id: std::string::String,
 
     /// Output only. The resource name of the workflow template, as described
@@ -16818,7 +16291,7 @@ pub struct WorkflowTemplate {
     /// [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt).
     ///
     /// No more than 32 labels can be associated with a template.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Required. WorkflowTemplate scheduling information.
     pub placement: std::option::Option<crate::model::WorkflowTemplatePlacement>,
@@ -16875,8 +16348,7 @@ impl WorkflowTemplate {
 
     /// Sets the value of [create_time][crate::model::WorkflowTemplate::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -16884,8 +16356,7 @@ impl WorkflowTemplate {
 
     /// Sets or clears the value of [create_time][crate::model::WorkflowTemplate::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -16893,8 +16364,7 @@ impl WorkflowTemplate {
 
     /// Sets the value of [update_time][crate::model::WorkflowTemplate::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -16902,8 +16372,7 @@ impl WorkflowTemplate {
 
     /// Sets or clears the value of [update_time][crate::model::WorkflowTemplate::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -16923,8 +16392,7 @@ impl WorkflowTemplate {
 
     /// Sets the value of [placement][crate::model::WorkflowTemplate::placement].
     pub fn set_placement<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplatePlacement>,
+    where T: std::convert::Into<crate::model::WorkflowTemplatePlacement>
     {
         self.placement = std::option::Option::Some(v.into());
         self
@@ -16932,8 +16400,7 @@ impl WorkflowTemplate {
 
     /// Sets or clears the value of [placement][crate::model::WorkflowTemplate::placement].
     pub fn set_or_clear_placement<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplatePlacement>,
+    where T: std::convert::Into<crate::model::WorkflowTemplatePlacement>
     {
         self.placement = v.map(|x| x.into());
         self
@@ -16943,7 +16410,7 @@ impl WorkflowTemplate {
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::OrderedJob>,
+        V: std::convert::Into<crate::model::OrderedJob>
     {
         use std::iter::Iterator;
         self.jobs = v.into_iter().map(|i| i.into()).collect();
@@ -16954,7 +16421,7 @@ impl WorkflowTemplate {
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::TemplateParameter>,
+        V: std::convert::Into<crate::model::TemplateParameter>
     {
         use std::iter::Iterator;
         self.parameters = v.into_iter().map(|i| i.into()).collect();
@@ -16963,8 +16430,7 @@ impl WorkflowTemplate {
 
     /// Sets the value of [dag_timeout][crate::model::WorkflowTemplate::dag_timeout].
     pub fn set_dag_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.dag_timeout = std::option::Option::Some(v.into());
         self
@@ -16972,8 +16438,7 @@ impl WorkflowTemplate {
 
     /// Sets or clears the value of [dag_timeout][crate::model::WorkflowTemplate::dag_timeout].
     pub fn set_or_clear_dag_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.dag_timeout = v.map(|x| x.into());
         self
@@ -16981,8 +16446,7 @@ impl WorkflowTemplate {
 
     /// Sets the value of [encryption_config][crate::model::WorkflowTemplate::encryption_config].
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::workflow_template::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::workflow_template::EncryptionConfig>
     {
         self.encryption_config = std::option::Option::Some(v.into());
         self
@@ -16990,8 +16454,7 @@ impl WorkflowTemplate {
 
     /// Sets or clears the value of [encryption_config][crate::model::WorkflowTemplate::encryption_config].
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::workflow_template::EncryptionConfig>,
+    where T: std::convert::Into<crate::model::workflow_template::EncryptionConfig>
     {
         self.encryption_config = v.map(|x| x.into());
         self
@@ -17009,10 +16472,12 @@ pub mod workflow_template {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Encryption settings for encrypting workflow template job arguments.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncryptionConfig {
+
         /// Optional. The Cloud KMS key name to use for encrypting
         /// workflow template job arguments.
         ///
@@ -17071,6 +16536,7 @@ pub mod workflow_template {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowTemplatePlacement {
+
     /// Required. Specifies where workflow executes; either on a managed
     /// cluster or an existing cluster chosen by labels.
     pub placement: std::option::Option<crate::model::workflow_template_placement::Placement>,
@@ -17087,14 +16553,8 @@ impl WorkflowTemplatePlacement {
     ///
     /// Note that all the setters affecting `placement` are mutually
     /// exclusive.
-    pub fn set_placement<
-        T: std::convert::Into<
-                std::option::Option<crate::model::workflow_template_placement::Placement>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_placement<T: std::convert::Into<std::option::Option<crate::model::workflow_template_placement::Placement>>>(mut self, v: T) -> Self
+    {
         self.placement = v.into();
         self
     }
@@ -17102,14 +16562,10 @@ impl WorkflowTemplatePlacement {
     /// The value of [placement][crate::model::WorkflowTemplatePlacement::placement]
     /// if it holds a `ManagedCluster`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn managed_cluster(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ManagedCluster>> {
+    pub fn managed_cluster(&self) -> std::option::Option<&std::boxed::Box<crate::model::ManagedCluster>> {
         #[allow(unreachable_patterns)]
         self.placement.as_ref().and_then(|v| match v {
-            crate::model::workflow_template_placement::Placement::ManagedCluster(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_template_placement::Placement::ManagedCluster(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -17119,14 +16575,11 @@ impl WorkflowTemplatePlacement {
     ///
     /// Note that all the setters affecting `placement` are
     /// mutually exclusive.
-    pub fn set_managed_cluster<
-        T: std::convert::Into<std::boxed::Box<crate::model::ManagedCluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_managed_cluster<T: std::convert::Into<std::boxed::Box<crate::model::ManagedCluster>>>(mut self, v: T) -> Self {
         self.placement = std::option::Option::Some(
-            crate::model::workflow_template_placement::Placement::ManagedCluster(v.into()),
+            crate::model::workflow_template_placement::Placement::ManagedCluster(
+                v.into()
+            )
         );
         self
     }
@@ -17134,14 +16587,10 @@ impl WorkflowTemplatePlacement {
     /// The value of [placement][crate::model::WorkflowTemplatePlacement::placement]
     /// if it holds a `ClusterSelector`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn cluster_selector(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ClusterSelector>> {
+    pub fn cluster_selector(&self) -> std::option::Option<&std::boxed::Box<crate::model::ClusterSelector>> {
         #[allow(unreachable_patterns)]
         self.placement.as_ref().and_then(|v| match v {
-            crate::model::workflow_template_placement::Placement::ClusterSelector(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_template_placement::Placement::ClusterSelector(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -17151,14 +16600,11 @@ impl WorkflowTemplatePlacement {
     ///
     /// Note that all the setters affecting `placement` are
     /// mutually exclusive.
-    pub fn set_cluster_selector<
-        T: std::convert::Into<std::boxed::Box<crate::model::ClusterSelector>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cluster_selector<T: std::convert::Into<std::boxed::Box<crate::model::ClusterSelector>>>(mut self, v: T) -> Self {
         self.placement = std::option::Option::Some(
-            crate::model::workflow_template_placement::Placement::ClusterSelector(v.into()),
+            crate::model::workflow_template_placement::Placement::ClusterSelector(
+                v.into()
+            )
         );
         self
     }
@@ -17174,6 +16620,7 @@ impl wkt::message::Message for WorkflowTemplatePlacement {
 pub mod workflow_template_placement {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. Specifies where workflow executes; either on a managed
     /// cluster or an existing cluster chosen by labels.
@@ -17194,6 +16641,7 @@ pub mod workflow_template_placement {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ManagedCluster {
+
     /// Required. The cluster name prefix. A unique cluster name will be formed by
     /// appending a random suffix.
     ///
@@ -17215,7 +16663,7 @@ pub struct ManagedCluster {
     /// the following PCRE regular expression: [\p{Ll}\p{Lo}\p{N}_-]{0,63}
     ///
     /// No more than 32 labels can be associated with a given cluster.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17233,8 +16681,7 @@ impl ManagedCluster {
 
     /// Sets the value of [config][crate::model::ManagedCluster::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterConfig>,
+    where T: std::convert::Into<crate::model::ClusterConfig>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -17242,8 +16689,7 @@ impl ManagedCluster {
 
     /// Sets or clears the value of [config][crate::model::ManagedCluster::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterConfig>,
+    where T: std::convert::Into<crate::model::ClusterConfig>
     {
         self.config = v.map(|x| x.into());
         self
@@ -17272,6 +16718,7 @@ impl wkt::message::Message for ManagedCluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterSelector {
+
     /// Optional. The zone where workflow process executes. This parameter does not
     /// affect the selection of the cluster.
     ///
@@ -17281,7 +16728,7 @@ pub struct ClusterSelector {
 
     /// Required. The cluster labels. Cluster must have all labels
     /// to match.
-    pub cluster_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub cluster_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17320,6 +16767,7 @@ impl wkt::message::Message for ClusterSelector {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OrderedJob {
+
     /// Required. The step id. The id must be unique among all jobs
     /// within the template.
     ///
@@ -17345,7 +16793,7 @@ pub struct OrderedJob {
     /// the following regular expression: [\p{Ll}\p{Lo}\p{N}_-]{0,63}
     ///
     /// No more than 32 labels can be associated with a given job.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Job scheduling configuration.
     pub scheduling: std::option::Option<crate::model::JobScheduling>,
@@ -17385,8 +16833,7 @@ impl OrderedJob {
 
     /// Sets the value of [scheduling][crate::model::OrderedJob::scheduling].
     pub fn set_scheduling<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::JobScheduling>,
+    where T: std::convert::Into<crate::model::JobScheduling>
     {
         self.scheduling = std::option::Option::Some(v.into());
         self
@@ -17394,8 +16841,7 @@ impl OrderedJob {
 
     /// Sets or clears the value of [scheduling][crate::model::OrderedJob::scheduling].
     pub fn set_or_clear_scheduling<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::JobScheduling>,
+    where T: std::convert::Into<crate::model::JobScheduling>
     {
         self.scheduling = v.map(|x| x.into());
         self
@@ -17405,7 +16851,7 @@ impl OrderedJob {
     pub fn set_prerequisite_step_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.prerequisite_step_ids = v.into_iter().map(|i| i.into()).collect();
@@ -17416,12 +16862,8 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are mutually
     /// exclusive.
-    pub fn set_job_type<
-        T: std::convert::Into<std::option::Option<crate::model::ordered_job::JobType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::ordered_job::JobType>>>(mut self, v: T) -> Self
+    {
         self.job_type = v.into();
         self
     }
@@ -17442,12 +16884,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::HadoopJob(v.into()));
+    pub fn set_hadoop_job<T: std::convert::Into<std::boxed::Box<crate::model::HadoopJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::HadoopJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17467,12 +16909,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkJob(v.into()));
+    pub fn set_spark_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::SparkJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17492,12 +16934,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PysparkJob(v.into()));
+    pub fn set_pyspark_job<T: std::convert::Into<std::boxed::Box<crate::model::PySparkJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::PysparkJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17517,12 +16959,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::HiveJob(v.into()));
+    pub fn set_hive_job<T: std::convert::Into<std::boxed::Box<crate::model::HiveJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::HiveJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17542,12 +16984,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PigJob(v.into()));
+    pub fn set_pig_job<T: std::convert::Into<std::boxed::Box<crate::model::PigJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::PigJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17567,21 +17009,19 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkRJob(v.into()));
+    pub fn set_spark_r_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkRJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::SparkRJob(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [job_type][crate::model::OrderedJob::job_type]
     /// if it holds a `SparkSqlJob`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn spark_sql_job(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
+    pub fn spark_sql_job(&self) -> std::option::Option<&std::boxed::Box<crate::model::SparkSqlJob>> {
         #[allow(unreachable_patterns)]
         self.job_type.as_ref().and_then(|v| match v {
             crate::model::ordered_job::JobType::SparkSqlJob(v) => std::option::Option::Some(v),
@@ -17594,12 +17034,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::SparkSqlJob(v.into()));
+    pub fn set_spark_sql_job<T: std::convert::Into<std::boxed::Box<crate::model::SparkSqlJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::SparkSqlJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17619,12 +17059,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::PrestoJob(v.into()));
+    pub fn set_presto_job<T: std::convert::Into<std::boxed::Box<crate::model::PrestoJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::PrestoJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17644,12 +17084,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::TrinoJob(v.into()));
+    pub fn set_trino_job<T: std::convert::Into<std::boxed::Box<crate::model::TrinoJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::TrinoJob(
+                v.into()
+            )
+        );
         self
     }
 
@@ -17669,12 +17109,12 @@ impl OrderedJob {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
-    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.job_type =
-            std::option::Option::Some(crate::model::ordered_job::JobType::FlinkJob(v.into()));
+    pub fn set_flink_job<T: std::convert::Into<std::boxed::Box<crate::model::FlinkJob>>>(mut self, v: T) -> Self {
+        self.job_type = std::option::Option::Some(
+            crate::model::ordered_job::JobType::FlinkJob(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -17689,6 +17129,7 @@ impl wkt::message::Message for OrderedJob {
 pub mod ordered_job {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Required. The job definition.
     #[derive(Clone, Debug, PartialEq)]
@@ -17730,6 +17171,7 @@ pub mod ordered_job {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TemplateParameter {
+
     /// Required. Parameter name.
     /// The parameter name is used as the key, and paired with the
     /// parameter value, which are passed to the template when the template
@@ -17813,7 +17255,7 @@ impl TemplateParameter {
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.fields = v.into_iter().map(|i| i.into()).collect();
@@ -17828,8 +17270,7 @@ impl TemplateParameter {
 
     /// Sets the value of [validation][crate::model::TemplateParameter::validation].
     pub fn set_validation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ParameterValidation>,
+    where T: std::convert::Into<crate::model::ParameterValidation>
     {
         self.validation = std::option::Option::Some(v.into());
         self
@@ -17837,8 +17278,7 @@ impl TemplateParameter {
 
     /// Sets or clears the value of [validation][crate::model::TemplateParameter::validation].
     pub fn set_or_clear_validation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ParameterValidation>,
+    where T: std::convert::Into<crate::model::ParameterValidation>
     {
         self.validation = v.map(|x| x.into());
         self
@@ -17855,6 +17295,7 @@ impl wkt::message::Message for TemplateParameter {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParameterValidation {
+
     /// Required. The type of validation to be performed.
     pub validation_type: std::option::Option<crate::model::parameter_validation::ValidationType>,
 
@@ -17870,12 +17311,8 @@ impl ParameterValidation {
     ///
     /// Note that all the setters affecting `validation_type` are mutually
     /// exclusive.
-    pub fn set_validation_type<
-        T: std::convert::Into<std::option::Option<crate::model::parameter_validation::ValidationType>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_validation_type<T: std::convert::Into<std::option::Option<crate::model::parameter_validation::ValidationType>>>(mut self, v: T) -> Self
+    {
         self.validation_type = v.into();
         self
     }
@@ -17886,9 +17323,7 @@ impl ParameterValidation {
     pub fn regex(&self) -> std::option::Option<&std::boxed::Box<crate::model::RegexValidation>> {
         #[allow(unreachable_patterns)]
         self.validation_type.as_ref().and_then(|v| match v {
-            crate::model::parameter_validation::ValidationType::Regex(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::parameter_validation::ValidationType::Regex(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -17898,12 +17333,11 @@ impl ParameterValidation {
     ///
     /// Note that all the setters affecting `validation_type` are
     /// mutually exclusive.
-    pub fn set_regex<T: std::convert::Into<std::boxed::Box<crate::model::RegexValidation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_regex<T: std::convert::Into<std::boxed::Box<crate::model::RegexValidation>>>(mut self, v: T) -> Self {
         self.validation_type = std::option::Option::Some(
-            crate::model::parameter_validation::ValidationType::Regex(v.into()),
+            crate::model::parameter_validation::ValidationType::Regex(
+                v.into()
+            )
         );
         self
     }
@@ -17914,9 +17348,7 @@ impl ParameterValidation {
     pub fn values(&self) -> std::option::Option<&std::boxed::Box<crate::model::ValueValidation>> {
         #[allow(unreachable_patterns)]
         self.validation_type.as_ref().and_then(|v| match v {
-            crate::model::parameter_validation::ValidationType::Values(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::parameter_validation::ValidationType::Values(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -17926,12 +17358,11 @@ impl ParameterValidation {
     ///
     /// Note that all the setters affecting `validation_type` are
     /// mutually exclusive.
-    pub fn set_values<T: std::convert::Into<std::boxed::Box<crate::model::ValueValidation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_values<T: std::convert::Into<std::boxed::Box<crate::model::ValueValidation>>>(mut self, v: T) -> Self {
         self.validation_type = std::option::Option::Some(
-            crate::model::parameter_validation::ValidationType::Values(v.into()),
+            crate::model::parameter_validation::ValidationType::Values(
+                v.into()
+            )
         );
         self
     }
@@ -17948,6 +17379,7 @@ pub mod parameter_validation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Required. The type of validation to be performed.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -17963,6 +17395,7 @@ pub mod parameter_validation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RegexValidation {
+
     /// Required. RE2 regular expressions used to validate the parameter's value.
     /// The value must match the regex in its entirety (substring
     /// matches are not sufficient).
@@ -17980,7 +17413,7 @@ impl RegexValidation {
     pub fn set_regexes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.regexes = v.into_iter().map(|i| i.into()).collect();
@@ -17998,6 +17431,7 @@ impl wkt::message::Message for RegexValidation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueValidation {
+
     /// Required. List of allowed values for the parameter.
     pub values: std::vec::Vec<std::string::String>,
 
@@ -18013,7 +17447,7 @@ impl ValueValidation {
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.values = v.into_iter().map(|i| i.into()).collect();
@@ -18031,6 +17465,7 @@ impl wkt::message::Message for ValueValidation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowMetadata {
+
     /// Output only. The resource name of the workflow template as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -18064,7 +17499,7 @@ pub struct WorkflowMetadata {
     pub cluster_name: std::string::String,
 
     /// Map from parameter names to values that were used for those parameters.
-    pub parameters: std::collections::HashMap<std::string::String, std::string::String>,
+    pub parameters: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. Workflow start time.
     pub start_time: std::option::Option<wkt::Timestamp>,
@@ -18116,8 +17551,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [create_cluster][crate::model::WorkflowMetadata::create_cluster].
     pub fn set_create_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperation>,
+    where T: std::convert::Into<crate::model::ClusterOperation>
     {
         self.create_cluster = std::option::Option::Some(v.into());
         self
@@ -18125,8 +17559,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [create_cluster][crate::model::WorkflowMetadata::create_cluster].
     pub fn set_or_clear_create_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperation>,
+    where T: std::convert::Into<crate::model::ClusterOperation>
     {
         self.create_cluster = v.map(|x| x.into());
         self
@@ -18134,8 +17567,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [graph][crate::model::WorkflowMetadata::graph].
     pub fn set_graph<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowGraph>,
+    where T: std::convert::Into<crate::model::WorkflowGraph>
     {
         self.graph = std::option::Option::Some(v.into());
         self
@@ -18143,8 +17575,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [graph][crate::model::WorkflowMetadata::graph].
     pub fn set_or_clear_graph<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowGraph>,
+    where T: std::convert::Into<crate::model::WorkflowGraph>
     {
         self.graph = v.map(|x| x.into());
         self
@@ -18152,8 +17583,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [delete_cluster][crate::model::WorkflowMetadata::delete_cluster].
     pub fn set_delete_cluster<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperation>,
+    where T: std::convert::Into<crate::model::ClusterOperation>
     {
         self.delete_cluster = std::option::Option::Some(v.into());
         self
@@ -18161,18 +17591,14 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [delete_cluster][crate::model::WorkflowMetadata::delete_cluster].
     pub fn set_or_clear_delete_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ClusterOperation>,
+    where T: std::convert::Into<crate::model::ClusterOperation>
     {
         self.delete_cluster = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::WorkflowMetadata::state].
-    pub fn set_state<T: std::convert::Into<crate::model::workflow_metadata::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workflow_metadata::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -18197,8 +17623,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [start_time][crate::model::WorkflowMetadata::start_time].
     pub fn set_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = std::option::Option::Some(v.into());
         self
@@ -18206,8 +17631,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [start_time][crate::model::WorkflowMetadata::start_time].
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.start_time = v.map(|x| x.into());
         self
@@ -18215,8 +17639,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [end_time][crate::model::WorkflowMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -18224,8 +17647,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::WorkflowMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -18239,8 +17661,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [dag_timeout][crate::model::WorkflowMetadata::dag_timeout].
     pub fn set_dag_timeout<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.dag_timeout = std::option::Option::Some(v.into());
         self
@@ -18248,8 +17669,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [dag_timeout][crate::model::WorkflowMetadata::dag_timeout].
     pub fn set_or_clear_dag_timeout<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Duration>,
+    where T: std::convert::Into<wkt::Duration>
     {
         self.dag_timeout = v.map(|x| x.into());
         self
@@ -18257,8 +17677,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [dag_start_time][crate::model::WorkflowMetadata::dag_start_time].
     pub fn set_dag_start_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dag_start_time = std::option::Option::Some(v.into());
         self
@@ -18266,8 +17685,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [dag_start_time][crate::model::WorkflowMetadata::dag_start_time].
     pub fn set_or_clear_dag_start_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dag_start_time = v.map(|x| x.into());
         self
@@ -18275,8 +17693,7 @@ impl WorkflowMetadata {
 
     /// Sets the value of [dag_end_time][crate::model::WorkflowMetadata::dag_end_time].
     pub fn set_dag_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dag_end_time = std::option::Option::Some(v.into());
         self
@@ -18284,8 +17701,7 @@ impl WorkflowMetadata {
 
     /// Sets or clears the value of [dag_end_time][crate::model::WorkflowMetadata::dag_end_time].
     pub fn set_or_clear_dag_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.dag_end_time = v.map(|x| x.into());
         self
@@ -18302,6 +17718,7 @@ impl wkt::message::Message for WorkflowMetadata {
 pub mod workflow_metadata {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The operation state.
     ///
@@ -18394,9 +17811,7 @@ pub mod workflow_metadata {
                 1 => Self::Pending,
                 2 => Self::Running,
                 3 => Self::Done,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -18409,9 +17824,7 @@ pub mod workflow_metadata {
                 "PENDING" => Self::Pending,
                 "RUNNING" => Self::Running,
                 "DONE" => Self::Done,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -18437,8 +17850,7 @@ pub mod workflow_metadata {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataproc.v1.WorkflowMetadata.State",
-            ))
+                ".google.cloud.dataproc.v1.WorkflowMetadata.State"))
         }
     }
 }
@@ -18447,6 +17859,7 @@ pub mod workflow_metadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterOperation {
+
     /// Output only. The id of the cluster operation.
     pub operation_id: std::string::String,
 
@@ -18493,6 +17906,7 @@ impl wkt::message::Message for ClusterOperation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowGraph {
+
     /// Output only. The workflow nodes.
     pub nodes: std::vec::Vec<crate::model::WorkflowNode>,
 
@@ -18508,7 +17922,7 @@ impl WorkflowGraph {
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkflowNode>,
+        V: std::convert::Into<crate::model::WorkflowNode>
     {
         use std::iter::Iterator;
         self.nodes = v.into_iter().map(|i| i.into()).collect();
@@ -18526,6 +17940,7 @@ impl wkt::message::Message for WorkflowGraph {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowNode {
+
     /// Output only. The name of the node.
     pub step_id: std::string::String,
 
@@ -18559,7 +17974,7 @@ impl WorkflowNode {
     pub fn set_prerequisite_step_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.prerequisite_step_ids = v.into_iter().map(|i| i.into()).collect();
@@ -18573,10 +17988,7 @@ impl WorkflowNode {
     }
 
     /// Sets the value of [state][crate::model::WorkflowNode::state].
-    pub fn set_state<T: std::convert::Into<crate::model::workflow_node::NodeState>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workflow_node::NodeState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -18598,6 +18010,7 @@ impl wkt::message::Message for WorkflowNode {
 pub mod workflow_node {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The workflow node state.
     ///
@@ -18701,9 +18114,7 @@ pub mod workflow_node {
                 3 => Self::Running,
                 4 => Self::Completed,
                 5 => Self::Failed,
-                _ => Self::UnknownValue(node_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(node_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -18718,9 +18129,7 @@ pub mod workflow_node {
                 "RUNNING" => Self::Running,
                 "COMPLETED" => Self::Completed,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(node_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(node_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -18748,8 +18157,7 @@ pub mod workflow_node {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<NodeState>::new(
-                ".google.cloud.dataproc.v1.WorkflowNode.NodeState",
-            ))
+                ".google.cloud.dataproc.v1.WorkflowNode.NodeState"))
         }
     }
 }
@@ -18758,6 +18166,7 @@ pub mod workflow_node {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowTemplateRequest {
+
     /// Required. The resource name of the region or location, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -18790,8 +18199,7 @@ impl CreateWorkflowTemplateRequest {
 
     /// Sets the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -18799,8 +18207,7 @@ impl CreateWorkflowTemplateRequest {
 
     /// Sets or clears the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -18817,6 +18224,7 @@ impl wkt::message::Message for CreateWorkflowTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowTemplateRequest {
+
     /// Required. The resource name of the workflow template, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -18867,6 +18275,7 @@ impl wkt::message::Message for GetWorkflowTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstantiateWorkflowTemplateRequest {
+
     /// Required. The resource name of the workflow template, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -18901,7 +18310,7 @@ pub struct InstantiateWorkflowTemplateRequest {
 
     /// Optional. Map from parameter names to values that should be used for those
     /// parameters. Values may not exceed 1000 characters.
-    pub parameters: std::collections::HashMap<std::string::String, std::string::String>,
+    pub parameters: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18952,6 +18361,7 @@ impl wkt::message::Message for InstantiateWorkflowTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstantiateInlineWorkflowTemplateRequest {
+
     /// Required. The resource name of the region or location, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -18995,8 +18405,7 @@ impl InstantiateInlineWorkflowTemplateRequest {
 
     /// Sets the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -19004,8 +18413,7 @@ impl InstantiateInlineWorkflowTemplateRequest {
 
     /// Sets or clears the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -19028,6 +18436,7 @@ impl wkt::message::Message for InstantiateInlineWorkflowTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowTemplateRequest {
+
     /// Required. The updated workflow template.
     ///
     /// The `template.version` field must match the current version.
@@ -19043,8 +18452,7 @@ impl UpdateWorkflowTemplateRequest {
 
     /// Sets the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
     pub fn set_template<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = std::option::Option::Some(v.into());
         self
@@ -19052,8 +18460,7 @@ impl UpdateWorkflowTemplateRequest {
 
     /// Sets or clears the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowTemplate>,
+    where T: std::convert::Into<crate::model::WorkflowTemplate>
     {
         self.template = v.map(|x| x.into());
         self
@@ -19070,6 +18477,7 @@ impl wkt::message::Message for UpdateWorkflowTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowTemplatesRequest {
+
     /// Required. The resource name of the region or location, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -19127,6 +18535,7 @@ impl wkt::message::Message for ListWorkflowTemplatesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowTemplatesResponse {
+
     /// Output only. WorkflowTemplates list.
     pub templates: std::vec::Vec<crate::model::WorkflowTemplate>,
 
@@ -19152,7 +18561,7 @@ impl ListWorkflowTemplatesResponse {
     pub fn set_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkflowTemplate>,
+        V: std::convert::Into<crate::model::WorkflowTemplate>
     {
         use std::iter::Iterator;
         self.templates = v.into_iter().map(|i| i.into()).collect();
@@ -19169,7 +18578,7 @@ impl ListWorkflowTemplatesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -19203,6 +18612,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowTemplatesRespons
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowTemplateRequest {
+
     /// Required. The resource name of the workflow template, as described
     /// in <https://cloud.google.com/apis/design/resource_names>.
     ///
@@ -19418,9 +18828,7 @@ impl std::convert::From<i32> for Component {
             20 => Self::Delta,
             21 => Self::Pig,
             22 => Self::JupyterKernelGateway,
-            _ => Self::UnknownValue(component::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(component::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19448,9 +18856,7 @@ impl std::convert::From<&str> for Component {
             "SOLR" => Self::Solr,
             "ZEPPELIN" => Self::Zeppelin,
             "ZOOKEEPER" => Self::Zookeeper,
-            _ => Self::UnknownValue(component::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(component::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19491,8 +18897,7 @@ impl<'de> serde::de::Deserialize<'de> for Component {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<Component>::new(
-            ".google.cloud.dataproc.v1.Component",
-        ))
+            ".google.cloud.dataproc.v1.Component"))
     }
 }
 
@@ -19583,9 +18988,7 @@ impl std::convert::From<i32> for FailureAction {
             0 => Self::Unspecified,
             1 => Self::NoAction,
             2 => Self::Delete,
-            _ => Self::UnknownValue(failure_action::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(failure_action::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -19597,9 +19000,7 @@ impl std::convert::From<&str> for FailureAction {
             "FAILURE_ACTION_UNSPECIFIED" => Self::Unspecified,
             "NO_ACTION" => Self::NoAction,
             "DELETE" => Self::Delete,
-            _ => Self::UnknownValue(failure_action::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(failure_action::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -19624,7 +19025,6 @@ impl<'de> serde::de::Deserialize<'de> for FailureAction {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<FailureAction>::new(
-            ".google.cloud.dataproc.v1.FailureAction",
-        ))
+            ".google.cloud.dataproc.v1.FailureAction"))
     }
 }

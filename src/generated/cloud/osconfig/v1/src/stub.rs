@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsConfigService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::OsConfigService::execute_patch_job].
     fn execute_patch_job(
         &self,
         _req: crate::model::ExecutePatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchJob>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchJob>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelPatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchJob>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,9 +71,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPatchJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -87,11 +80,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPatchJobInstanceDetailsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -100,9 +89,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -111,9 +98,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -122,9 +107,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPatchDeploymentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -142,9 +125,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -153,9 +134,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PausePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -164,9 +143,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResumePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -175,9 +152,7 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -203,14 +178,13 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::OsConfigZonalService::create_os_policy_assignment].
     fn create_os_policy_assignment(
         &self,
         _req: crate::model::CreateOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -219,9 +193,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -230,9 +202,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -241,11 +211,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOSPolicyAssignmentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -254,11 +220,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -267,9 +229,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -278,9 +238,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOSPolicyAssignmentReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -289,11 +247,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOSPolicyAssignmentReportsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -302,9 +256,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInventoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Inventory>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Inventory>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -313,9 +265,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInventoriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -324,9 +274,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVulnerabilityReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::VulnerabilityReport>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::VulnerabilityReport>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -335,11 +283,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVulnerabilityReportsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            gax::response::Response<crate::model::ListVulnerabilityReportsResponse>,
-        >,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -348,9 +292,7 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<longrunning::model::Operation>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -385,3 +327,4 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
+

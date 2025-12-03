@@ -39,10 +39,7 @@ pub mod vmware_engine {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VmwareEngine;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod vmware_engine {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -96,17 +89,14 @@ pub mod vmware_engine {
     pub struct ListPrivateClouds(RequestBuilder<crate::model::ListPrivateCloudsRequest>);
 
     impl ListPrivateClouds {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPrivateCloudsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPrivateCloudsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -119,17 +109,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPrivateCloudsResponse> {
-            (*self.0.stub)
-                .list_private_clouds(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_private_clouds(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -141,10 +125,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPrivateCloudsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -210,10 +191,10 @@ pub mod vmware_engine {
     pub struct GetPrivateCloud(RequestBuilder<crate::model::GetPrivateCloudRequest>);
 
     impl GetPrivateCloud {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -230,10 +211,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PrivateCloud> {
-            (*self.0.stub)
-                .get_private_cloud(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_private_cloud(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateCloudRequest::name].
@@ -274,17 +252,14 @@ pub mod vmware_engine {
     pub struct CreatePrivateCloud(RequestBuilder<crate::model::CreatePrivateCloudRequest>);
 
     impl CreatePrivateCloud {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePrivateCloudRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePrivateCloudRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -302,20 +277,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_cloud][crate::client::VmwareEngine::create_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_private_cloud(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_private_cloud(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_cloud`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -363,8 +334,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_private_cloud<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateCloud>,
+        where T: std::convert::Into<crate::model::PrivateCloud>
         {
             self.0.request.private_cloud = std::option::Option::Some(v.into());
             self
@@ -374,8 +344,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateCloud>,
+        where T: std::convert::Into<crate::model::PrivateCloud>
         {
             self.0.request.private_cloud = v.map(|x| x.into());
             self
@@ -423,17 +392,14 @@ pub mod vmware_engine {
     pub struct UpdatePrivateCloud(RequestBuilder<crate::model::UpdatePrivateCloudRequest>);
 
     impl UpdatePrivateCloud {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePrivateCloudRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePrivateCloudRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -451,20 +417,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_cloud][crate::client::VmwareEngine::update_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_private_cloud(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_private_cloud(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_private_cloud`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -496,8 +458,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_private_cloud<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateCloud>,
+        where T: std::convert::Into<crate::model::PrivateCloud>
         {
             self.0.request.private_cloud = std::option::Option::Some(v.into());
             self
@@ -507,8 +468,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateCloud>,
+        where T: std::convert::Into<crate::model::PrivateCloud>
         {
             self.0.request.private_cloud = v.map(|x| x.into());
             self
@@ -518,8 +478,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -529,8 +488,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -572,17 +530,14 @@ pub mod vmware_engine {
     pub struct DeletePrivateCloud(RequestBuilder<crate::model::DeletePrivateCloudRequest>);
 
     impl DeletePrivateCloud {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePrivateCloudRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePrivateCloudRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -600,20 +555,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_cloud][crate::client::VmwareEngine::delete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_private_cloud(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_private_cloud(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_cloud`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -663,8 +614,7 @@ pub mod vmware_engine {
 
         /// Sets the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
         pub fn set_delay_hours<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.delay_hours = std::option::Option::Some(v.into());
             self
@@ -672,8 +622,7 @@ pub mod vmware_engine {
 
         /// Sets or clears the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
         pub fn set_or_clear_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i32>,
+        where T: std::convert::Into<i32>
         {
             self.0.request.delay_hours = v.map(|x| x.into());
             self
@@ -709,17 +658,14 @@ pub mod vmware_engine {
     pub struct UndeletePrivateCloud(RequestBuilder<crate::model::UndeletePrivateCloudRequest>);
 
     impl UndeletePrivateCloud {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UndeletePrivateCloudRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UndeletePrivateCloudRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -737,20 +683,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [undelete_private_cloud][crate::client::VmwareEngine::undelete_private_cloud].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .undelete_private_cloud(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).undelete_private_cloud(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_private_cloud`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -825,10 +767,10 @@ pub mod vmware_engine {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -845,17 +787,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListClustersResponse> {
-            (*self.0.stub)
-                .list_clusters(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_clusters(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -867,10 +803,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -936,10 +869,10 @@ pub mod vmware_engine {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -956,10 +889,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Cluster> {
-            (*self.0.stub)
-                .get_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -1000,10 +930,10 @@ pub mod vmware_engine {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1025,18 +955,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_cluster][crate::client::VmwareEngine::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1084,8 +1012,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -1095,8 +1022,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -1144,10 +1070,10 @@ pub mod vmware_engine {
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1169,18 +1095,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_cluster][crate::client::VmwareEngine::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1212,8 +1136,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -1223,8 +1146,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -1234,8 +1156,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_cluster<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = std::option::Option::Some(v.into());
             self
@@ -1245,8 +1166,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Cluster>,
+        where T: std::convert::Into<crate::model::Cluster>
         {
             self.0.request.cluster = v.map(|x| x.into());
             self
@@ -1294,10 +1214,10 @@ pub mod vmware_engine {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1319,14 +1239,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_cluster][crate::client::VmwareEngine::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_cluster(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_cluster(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -1352,12 +1273,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1407,10 +1323,10 @@ pub mod vmware_engine {
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1427,17 +1343,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNodesResponse> {
-            (*self.0.stub)
-                .list_nodes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_nodes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1449,10 +1359,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNodesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNodesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1506,10 +1413,10 @@ pub mod vmware_engine {
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1526,10 +1433,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Node> {
-            (*self.0.stub)
-                .get_node(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_node(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeRequest::name].
@@ -1573,17 +1477,14 @@ pub mod vmware_engine {
     pub struct ListExternalAddresses(RequestBuilder<crate::model::ListExternalAddressesRequest>);
 
     impl ListExternalAddresses {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListExternalAddressesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListExternalAddressesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1596,17 +1497,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListExternalAddressesResponse> {
-            (*self.0.stub)
-                .list_external_addresses(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_external_addresses(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1618,12 +1513,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListExternalAddressesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListExternalAddressesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1690,22 +1580,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct FetchNetworkPolicyExternalAddresses(
-        RequestBuilder<crate::model::FetchNetworkPolicyExternalAddressesRequest>,
-    );
+    pub struct FetchNetworkPolicyExternalAddresses(RequestBuilder<crate::model::FetchNetworkPolicyExternalAddressesRequest>);
 
     impl FetchNetworkPolicyExternalAddresses {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::FetchNetworkPolicyExternalAddressesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::FetchNetworkPolicyExternalAddressesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1717,22 +1602,12 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::FetchNetworkPolicyExternalAddressesResponse> {
-            (*self.0.stub)
-                .fetch_network_policy_external_addresses(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::FetchNetworkPolicyExternalAddressesResponse> {
+            (*self.0.stub).fetch_network_policy_external_addresses(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::FetchNetworkPolicyExternalAddressesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::FetchNetworkPolicyExternalAddressesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1744,12 +1619,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::FetchNetworkPolicyExternalAddressesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::FetchNetworkPolicyExternalAddressesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -1803,17 +1673,14 @@ pub mod vmware_engine {
     pub struct GetExternalAddress(RequestBuilder<crate::model::GetExternalAddressRequest>);
 
     impl GetExternalAddress {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetExternalAddressRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetExternalAddressRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1826,10 +1693,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExternalAddress> {
-            (*self.0.stub)
-                .get_external_address(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_external_address(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExternalAddressRequest::name].
@@ -1870,17 +1734,14 @@ pub mod vmware_engine {
     pub struct CreateExternalAddress(RequestBuilder<crate::model::CreateExternalAddressRequest>);
 
     impl CreateExternalAddress {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateExternalAddressRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateExternalAddressRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1898,21 +1759,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_address][crate::client::VmwareEngine::create_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_external_address(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_external_address(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_external_address`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExternalAddress,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1952,8 +1808,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_external_address<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAddress>,
+        where T: std::convert::Into<crate::model::ExternalAddress>
         {
             self.0.request.external_address = std::option::Option::Some(v.into());
             self
@@ -1963,8 +1818,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAddress>,
+        where T: std::convert::Into<crate::model::ExternalAddress>
         {
             self.0.request.external_address = v.map(|x| x.into());
             self
@@ -2014,17 +1868,14 @@ pub mod vmware_engine {
     pub struct UpdateExternalAddress(RequestBuilder<crate::model::UpdateExternalAddressRequest>);
 
     impl UpdateExternalAddress {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateExternalAddressRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateExternalAddressRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2042,21 +1893,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_address][crate::client::VmwareEngine::update_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_external_address(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_external_address(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_external_address`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExternalAddress, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExternalAddress,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExternalAddress, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2088,8 +1934,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2099,8 +1944,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2110,8 +1954,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_external_address<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAddress>,
+        where T: std::convert::Into<crate::model::ExternalAddress>
         {
             self.0.request.external_address = std::option::Option::Some(v.into());
             self
@@ -2121,8 +1964,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAddress>,
+        where T: std::convert::Into<crate::model::ExternalAddress>
         {
             self.0.request.external_address = v.map(|x| x.into());
             self
@@ -2164,17 +2006,14 @@ pub mod vmware_engine {
     pub struct DeleteExternalAddress(RequestBuilder<crate::model::DeleteExternalAddressRequest>);
 
     impl DeleteExternalAddress {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteExternalAddressRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteExternalAddressRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2192,14 +2031,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_address][crate::client::VmwareEngine::delete_external_address].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_external_address(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_external_address(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -2225,12 +2065,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAddressRequest::name].
@@ -2280,10 +2115,10 @@ pub mod vmware_engine {
     pub struct ListSubnets(RequestBuilder<crate::model::ListSubnetsRequest>);
 
     impl ListSubnets {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2300,17 +2135,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSubnetsResponse> {
-            (*self.0.stub)
-                .list_subnets(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_subnets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2322,10 +2151,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubnetsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListSubnetsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2379,10 +2205,10 @@ pub mod vmware_engine {
     pub struct GetSubnet(RequestBuilder<crate::model::GetSubnetRequest>);
 
     impl GetSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2399,10 +2225,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Subnet> {
-            (*self.0.stub)
-                .get_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
@@ -2443,10 +2266,10 @@ pub mod vmware_engine {
     pub struct UpdateSubnet(RequestBuilder<crate::model::UpdateSubnetRequest>);
 
     impl UpdateSubnet {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -2468,18 +2291,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_subnet][crate::client::VmwareEngine::update_subnet].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_subnet(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_subnet(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_subnet`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata> {
-            type Operation =
-                lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
+            self
+        ) ->
+            impl lro::Poller<crate::model::Subnet, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::Subnet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2511,8 +2332,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -2522,8 +2342,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -2533,8 +2352,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_subnet<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = std::option::Option::Some(v.into());
             self
@@ -2544,8 +2362,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Subnet>,
+        where T: std::convert::Into<crate::model::Subnet>
         {
             self.0.request.subnet = v.map(|x| x.into());
             self
@@ -2581,22 +2398,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListExternalAccessRules(
-        RequestBuilder<crate::model::ListExternalAccessRulesRequest>,
-    );
+    pub struct ListExternalAccessRules(RequestBuilder<crate::model::ListExternalAccessRulesRequest>);
 
     impl ListExternalAccessRules {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListExternalAccessRulesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListExternalAccessRulesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2609,19 +2421,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListExternalAccessRulesResponse> {
-            (*self.0.stub)
-                .list_external_access_rules(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_external_access_rules(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListExternalAccessRulesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListExternalAccessRulesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -2633,12 +2437,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListExternalAccessRulesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListExternalAccessRulesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -2704,17 +2503,14 @@ pub mod vmware_engine {
     pub struct GetExternalAccessRule(RequestBuilder<crate::model::GetExternalAccessRuleRequest>);
 
     impl GetExternalAccessRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetExternalAccessRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetExternalAccessRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2727,10 +2523,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ExternalAccessRule> {
-            (*self.0.stub)
-                .get_external_access_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_external_access_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExternalAccessRuleRequest::name].
@@ -2768,22 +2561,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateExternalAccessRule(
-        RequestBuilder<crate::model::CreateExternalAccessRuleRequest>,
-    );
+    pub struct CreateExternalAccessRule(RequestBuilder<crate::model::CreateExternalAccessRuleRequest>);
 
     impl CreateExternalAccessRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateExternalAccessRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateExternalAccessRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2801,21 +2589,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_external_access_rule][crate::client::VmwareEngine::create_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_external_access_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_external_access_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_external_access_rule`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExternalAccessRule,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2855,8 +2638,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_external_access_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        where T: std::convert::Into<crate::model::ExternalAccessRule>
         {
             self.0.request.external_access_rule = std::option::Option::Some(v.into());
             self
@@ -2866,8 +2648,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        where T: std::convert::Into<crate::model::ExternalAccessRule>
         {
             self.0.request.external_access_rule = v.map(|x| x.into());
             self
@@ -2914,22 +2695,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateExternalAccessRule(
-        RequestBuilder<crate::model::UpdateExternalAccessRuleRequest>,
-    );
+    pub struct UpdateExternalAccessRule(RequestBuilder<crate::model::UpdateExternalAccessRuleRequest>);
 
     impl UpdateExternalAccessRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateExternalAccessRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateExternalAccessRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2947,21 +2723,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_external_access_rule][crate::client::VmwareEngine::update_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_external_access_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_external_access_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_external_access_rule`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ExternalAccessRule, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ExternalAccessRule,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ExternalAccessRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2993,8 +2764,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3004,8 +2774,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3015,8 +2784,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_external_access_rule<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        where T: std::convert::Into<crate::model::ExternalAccessRule>
         {
             self.0.request.external_access_rule = std::option::Option::Some(v.into());
             self
@@ -3026,8 +2794,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::ExternalAccessRule>,
+        where T: std::convert::Into<crate::model::ExternalAccessRule>
         {
             self.0.request.external_access_rule = v.map(|x| x.into());
             self
@@ -3066,22 +2833,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteExternalAccessRule(
-        RequestBuilder<crate::model::DeleteExternalAccessRuleRequest>,
-    );
+    pub struct DeleteExternalAccessRule(RequestBuilder<crate::model::DeleteExternalAccessRuleRequest>);
 
     impl DeleteExternalAccessRule {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteExternalAccessRuleRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteExternalAccessRuleRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3099,14 +2861,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_external_access_rule][crate::client::VmwareEngine::delete_external_access_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_external_access_rule(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_external_access_rule(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3132,12 +2895,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteExternalAccessRuleRequest::name].
@@ -3187,17 +2945,14 @@ pub mod vmware_engine {
     pub struct ListLoggingServers(RequestBuilder<crate::model::ListLoggingServersRequest>);
 
     impl ListLoggingServers {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListLoggingServersRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListLoggingServersRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3210,17 +2965,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListLoggingServersResponse> {
-            (*self.0.stub)
-                .list_logging_servers(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_logging_servers(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3232,12 +2981,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListLoggingServersResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListLoggingServersResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3303,17 +3047,14 @@ pub mod vmware_engine {
     pub struct GetLoggingServer(RequestBuilder<crate::model::GetLoggingServerRequest>);
 
     impl GetLoggingServer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetLoggingServerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetLoggingServerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3326,10 +3067,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::LoggingServer> {
-            (*self.0.stub)
-                .get_logging_server(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_logging_server(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLoggingServerRequest::name].
@@ -3370,17 +3108,14 @@ pub mod vmware_engine {
     pub struct CreateLoggingServer(RequestBuilder<crate::model::CreateLoggingServerRequest>);
 
     impl CreateLoggingServer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateLoggingServerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateLoggingServerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3398,21 +3133,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_logging_server][crate::client::VmwareEngine::create_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_logging_server(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_logging_server(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_logging_server`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::LoggingServer,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3452,8 +3182,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_logging_server<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::LoggingServer>,
+        where T: std::convert::Into<crate::model::LoggingServer>
         {
             self.0.request.logging_server = std::option::Option::Some(v.into());
             self
@@ -3463,8 +3192,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::LoggingServer>,
+        where T: std::convert::Into<crate::model::LoggingServer>
         {
             self.0.request.logging_server = v.map(|x| x.into());
             self
@@ -3514,17 +3242,14 @@ pub mod vmware_engine {
     pub struct UpdateLoggingServer(RequestBuilder<crate::model::UpdateLoggingServerRequest>);
 
     impl UpdateLoggingServer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateLoggingServerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateLoggingServerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3542,21 +3267,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_logging_server][crate::client::VmwareEngine::update_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_logging_server(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_logging_server(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_logging_server`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::LoggingServer, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::LoggingServer,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::LoggingServer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3588,8 +3308,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -3599,8 +3318,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -3610,8 +3328,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_logging_server<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::LoggingServer>,
+        where T: std::convert::Into<crate::model::LoggingServer>
         {
             self.0.request.logging_server = std::option::Option::Some(v.into());
             self
@@ -3621,8 +3338,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::LoggingServer>,
+        where T: std::convert::Into<crate::model::LoggingServer>
         {
             self.0.request.logging_server = v.map(|x| x.into());
             self
@@ -3664,17 +3380,14 @@ pub mod vmware_engine {
     pub struct DeleteLoggingServer(RequestBuilder<crate::model::DeleteLoggingServerRequest>);
 
     impl DeleteLoggingServer {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteLoggingServerRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteLoggingServerRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3692,14 +3405,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_logging_server][crate::client::VmwareEngine::delete_logging_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_logging_server(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_logging_server(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -3725,12 +3439,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteLoggingServerRequest::name].
@@ -3780,10 +3489,10 @@ pub mod vmware_engine {
     pub struct ListNodeTypes(RequestBuilder<crate::model::ListNodeTypesRequest>);
 
     impl ListNodeTypes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3800,17 +3509,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNodeTypesResponse> {
-            (*self.0.stub)
-                .list_node_types(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_node_types(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3822,10 +3525,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNodeTypesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNodeTypesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -3885,10 +3585,10 @@ pub mod vmware_engine {
     pub struct GetNodeType(RequestBuilder<crate::model::GetNodeTypeRequest>);
 
     impl GetNodeType {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3905,10 +3605,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NodeType> {
-            (*self.0.stub)
-                .get_node_type(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_node_type(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeTypeRequest::name].
@@ -3948,17 +3645,14 @@ pub mod vmware_engine {
     pub struct ShowNsxCredentials(RequestBuilder<crate::model::ShowNsxCredentialsRequest>);
 
     impl ShowNsxCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ShowNsxCredentialsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ShowNsxCredentialsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3971,10 +3665,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Credentials> {
-            (*self.0.stub)
-                .show_nsx_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).show_nsx_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowNsxCredentialsRequest::private_cloud].
@@ -4014,17 +3705,14 @@ pub mod vmware_engine {
     pub struct ShowVcenterCredentials(RequestBuilder<crate::model::ShowVcenterCredentialsRequest>);
 
     impl ShowVcenterCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ShowVcenterCredentialsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ShowVcenterCredentialsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4037,10 +3725,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Credentials> {
-            (*self.0.stub)
-                .show_vcenter_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).show_vcenter_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowVcenterCredentialsRequest::private_cloud].
@@ -4087,17 +3772,14 @@ pub mod vmware_engine {
     pub struct ResetNsxCredentials(RequestBuilder<crate::model::ResetNsxCredentialsRequest>);
 
     impl ResetNsxCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResetNsxCredentialsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ResetNsxCredentialsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4115,20 +3797,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_nsx_credentials][crate::client::VmwareEngine::reset_nsx_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .reset_nsx_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).reset_nsx_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_nsx_credentials`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4197,22 +3875,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ResetVcenterCredentials(
-        RequestBuilder<crate::model::ResetVcenterCredentialsRequest>,
-    );
+    pub struct ResetVcenterCredentials(RequestBuilder<crate::model::ResetVcenterCredentialsRequest>);
 
     impl ResetVcenterCredentials {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ResetVcenterCredentialsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ResetVcenterCredentialsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4230,20 +3903,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [reset_vcenter_credentials][crate::client::VmwareEngine::reset_vcenter_credentials].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .reset_vcenter_credentials(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).reset_vcenter_credentials(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_vcenter_credentials`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata> {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateCloud,
-                crate::model::OperationMetadata,
-            >;
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateCloud, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<crate::model::PrivateCloud, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4320,17 +3989,14 @@ pub mod vmware_engine {
     pub struct GetDnsForwarding(RequestBuilder<crate::model::GetDnsForwardingRequest>);
 
     impl GetDnsForwarding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDnsForwardingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDnsForwardingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4343,10 +4009,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DnsForwarding> {
-            (*self.0.stub)
-                .get_dns_forwarding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_dns_forwarding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDnsForwardingRequest::name].
@@ -4387,17 +4050,14 @@ pub mod vmware_engine {
     pub struct UpdateDnsForwarding(RequestBuilder<crate::model::UpdateDnsForwardingRequest>);
 
     impl UpdateDnsForwarding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateDnsForwardingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateDnsForwardingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4415,21 +4075,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_dns_forwarding][crate::client::VmwareEngine::update_dns_forwarding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_dns_forwarding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_dns_forwarding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_dns_forwarding`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::DnsForwarding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::DnsForwarding,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::DnsForwarding, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4461,8 +4116,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_dns_forwarding<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::DnsForwarding>,
+        where T: std::convert::Into<crate::model::DnsForwarding>
         {
             self.0.request.dns_forwarding = std::option::Option::Some(v.into());
             self
@@ -4472,8 +4126,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::DnsForwarding>,
+        where T: std::convert::Into<crate::model::DnsForwarding>
         {
             self.0.request.dns_forwarding = v.map(|x| x.into());
             self
@@ -4483,8 +4136,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -4494,8 +4146,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -4536,17 +4187,14 @@ pub mod vmware_engine {
     pub struct GetNetworkPeering(RequestBuilder<crate::model::GetNetworkPeeringRequest>);
 
     impl GetNetworkPeering {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetNetworkPeeringRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetNetworkPeeringRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4559,10 +4207,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NetworkPeering> {
-            (*self.0.stub)
-                .get_network_peering(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_network_peering(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPeeringRequest::name].
@@ -4606,17 +4251,14 @@ pub mod vmware_engine {
     pub struct ListNetworkPeerings(RequestBuilder<crate::model::ListNetworkPeeringsRequest>);
 
     impl ListNetworkPeerings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListNetworkPeeringsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListNetworkPeeringsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4629,17 +4271,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNetworkPeeringsResponse> {
-            (*self.0.stub)
-                .list_network_peerings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_network_peerings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -4651,12 +4287,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListNetworkPeeringsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -4723,17 +4354,14 @@ pub mod vmware_engine {
     pub struct CreateNetworkPeering(RequestBuilder<crate::model::CreateNetworkPeeringRequest>);
 
     impl CreateNetworkPeering {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateNetworkPeeringRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateNetworkPeeringRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4751,21 +4379,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_peering][crate::client::VmwareEngine::create_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_network_peering(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_network_peering(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network_peering`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::NetworkPeering,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4813,8 +4436,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_network_peering<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPeering>,
+        where T: std::convert::Into<crate::model::NetworkPeering>
         {
             self.0.request.network_peering = std::option::Option::Some(v.into());
             self
@@ -4824,8 +4446,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPeering>,
+        where T: std::convert::Into<crate::model::NetworkPeering>
         {
             self.0.request.network_peering = v.map(|x| x.into());
             self
@@ -4867,17 +4488,14 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPeering(RequestBuilder<crate::model::DeleteNetworkPeeringRequest>);
 
     impl DeleteNetworkPeering {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteNetworkPeeringRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteNetworkPeeringRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -4895,14 +4513,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_peering][crate::client::VmwareEngine::delete_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_network_peering(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_network_peering(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -4928,12 +4547,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPeeringRequest::name].
@@ -4980,17 +4594,14 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPeering(RequestBuilder<crate::model::UpdateNetworkPeeringRequest>);
 
     impl UpdateNetworkPeering {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateNetworkPeeringRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateNetworkPeeringRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5008,21 +4619,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_peering][crate::client::VmwareEngine::update_network_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_network_peering(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_network_peering(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network_peering`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::NetworkPeering, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::NetworkPeering,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::NetworkPeering, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5054,8 +4660,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_network_peering<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPeering>,
+        where T: std::convert::Into<crate::model::NetworkPeering>
         {
             self.0.request.network_peering = std::option::Option::Some(v.into());
             self
@@ -5065,8 +4670,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPeering>,
+        where T: std::convert::Into<crate::model::NetworkPeering>
         {
             self.0.request.network_peering = v.map(|x| x.into());
             self
@@ -5076,8 +4680,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5087,8 +4690,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -5133,17 +4735,14 @@ pub mod vmware_engine {
     pub struct ListPeeringRoutes(RequestBuilder<crate::model::ListPeeringRoutesRequest>);
 
     impl ListPeeringRoutes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPeeringRoutesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPeeringRoutesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5156,17 +4755,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPeeringRoutesResponse> {
-            (*self.0.stub)
-                .list_peering_routes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_peering_routes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5178,10 +4771,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPeeringRoutesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5242,17 +4832,14 @@ pub mod vmware_engine {
     pub struct CreateHcxActivationKey(RequestBuilder<crate::model::CreateHcxActivationKeyRequest>);
 
     impl CreateHcxActivationKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateHcxActivationKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateHcxActivationKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5270,21 +4857,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_hcx_activation_key][crate::client::VmwareEngine::create_hcx_activation_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_hcx_activation_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_hcx_activation_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_hcx_activation_key`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::HcxActivationKey, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::HcxActivationKey,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::HcxActivationKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5324,8 +4906,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_hcx_activation_key<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::HcxActivationKey>,
+        where T: std::convert::Into<crate::model::HcxActivationKey>
         {
             self.0.request.hcx_activation_key = std::option::Option::Some(v.into());
             self
@@ -5335,8 +4916,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::HcxActivationKey>,
+        where T: std::convert::Into<crate::model::HcxActivationKey>
         {
             self.0.request.hcx_activation_key = v.map(|x| x.into());
             self
@@ -5389,17 +4969,14 @@ pub mod vmware_engine {
     pub struct ListHcxActivationKeys(RequestBuilder<crate::model::ListHcxActivationKeysRequest>);
 
     impl ListHcxActivationKeys {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListHcxActivationKeysRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListHcxActivationKeysRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5412,17 +4989,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListHcxActivationKeysResponse> {
-            (*self.0.stub)
-                .list_hcx_activation_keys(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_hcx_activation_keys(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5434,12 +5005,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListHcxActivationKeysResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5493,17 +5059,14 @@ pub mod vmware_engine {
     pub struct GetHcxActivationKey(RequestBuilder<crate::model::GetHcxActivationKeyRequest>);
 
     impl GetHcxActivationKey {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetHcxActivationKeyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetHcxActivationKeyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5516,10 +5079,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::HcxActivationKey> {
-            (*self.0.stub)
-                .get_hcx_activation_key(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_hcx_activation_key(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHcxActivationKeyRequest::name].
@@ -5559,17 +5119,14 @@ pub mod vmware_engine {
     pub struct GetNetworkPolicy(RequestBuilder<crate::model::GetNetworkPolicyRequest>);
 
     impl GetNetworkPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetNetworkPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetNetworkPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5582,10 +5139,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::NetworkPolicy> {
-            (*self.0.stub)
-                .get_network_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_network_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPolicyRequest::name].
@@ -5629,17 +5183,14 @@ pub mod vmware_engine {
     pub struct ListNetworkPolicies(RequestBuilder<crate::model::ListNetworkPoliciesRequest>);
 
     impl ListNetworkPolicies {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListNetworkPoliciesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListNetworkPoliciesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5652,17 +5203,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListNetworkPoliciesResponse> {
-            (*self.0.stub)
-                .list_network_policies(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_network_policies(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -5674,12 +5219,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListNetworkPoliciesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -5746,17 +5286,14 @@ pub mod vmware_engine {
     pub struct CreateNetworkPolicy(RequestBuilder<crate::model::CreateNetworkPolicyRequest>);
 
     impl CreateNetworkPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateNetworkPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateNetworkPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5774,21 +5311,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_network_policy][crate::client::VmwareEngine::create_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_network_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_network_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network_policy`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::NetworkPolicy,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5836,8 +5368,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_network_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = std::option::Option::Some(v.into());
             self
@@ -5847,8 +5378,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = v.map(|x| x.into());
             self
@@ -5890,17 +5420,14 @@ pub mod vmware_engine {
     pub struct UpdateNetworkPolicy(RequestBuilder<crate::model::UpdateNetworkPolicyRequest>);
 
     impl UpdateNetworkPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateNetworkPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateNetworkPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -5918,21 +5445,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_network_policy][crate::client::VmwareEngine::update_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_network_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_network_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network_policy`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::NetworkPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::NetworkPolicy,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::NetworkPolicy, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5964,8 +5486,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_network_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = std::option::Option::Some(v.into());
             self
@@ -5975,8 +5496,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::NetworkPolicy>,
+        where T: std::convert::Into<crate::model::NetworkPolicy>
         {
             self.0.request.network_policy = v.map(|x| x.into());
             self
@@ -5986,8 +5506,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -5997,8 +5516,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6040,17 +5558,14 @@ pub mod vmware_engine {
     pub struct DeleteNetworkPolicy(RequestBuilder<crate::model::DeleteNetworkPolicyRequest>);
 
     impl DeleteNetworkPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteNetworkPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteNetworkPolicyRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6068,14 +5583,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_network_policy][crate::client::VmwareEngine::delete_network_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_network_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_network_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -6101,12 +5617,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteNetworkPolicyRequest::name].
@@ -6153,22 +5664,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListManagementDnsZoneBindings(
-        RequestBuilder<crate::model::ListManagementDnsZoneBindingsRequest>,
-    );
+    pub struct ListManagementDnsZoneBindings(RequestBuilder<crate::model::ListManagementDnsZoneBindingsRequest>);
 
     impl ListManagementDnsZoneBindings {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListManagementDnsZoneBindingsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListManagementDnsZoneBindingsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6181,19 +5687,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListManagementDnsZoneBindingsResponse> {
-            (*self.0.stub)
-                .list_management_dns_zone_bindings(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_management_dns_zone_bindings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListManagementDnsZoneBindingsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListManagementDnsZoneBindingsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -6205,12 +5703,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListManagementDnsZoneBindingsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListManagementDnsZoneBindingsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -6273,22 +5766,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct GetManagementDnsZoneBinding(
-        RequestBuilder<crate::model::GetManagementDnsZoneBindingRequest>,
-    );
+    pub struct GetManagementDnsZoneBinding(RequestBuilder<crate::model::GetManagementDnsZoneBindingRequest>);
 
     impl GetManagementDnsZoneBinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetManagementDnsZoneBindingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetManagementDnsZoneBindingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6301,10 +5789,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagementDnsZoneBinding> {
-            (*self.0.stub)
-                .get_management_dns_zone_binding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_management_dns_zone_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetManagementDnsZoneBindingRequest::name].
@@ -6342,22 +5827,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateManagementDnsZoneBinding(
-        RequestBuilder<crate::model::CreateManagementDnsZoneBindingRequest>,
-    );
+    pub struct CreateManagementDnsZoneBinding(RequestBuilder<crate::model::CreateManagementDnsZoneBindingRequest>);
 
     impl CreateManagementDnsZoneBinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateManagementDnsZoneBindingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateManagementDnsZoneBindingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6375,21 +5855,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_management_dns_zone_binding][crate::client::VmwareEngine::create_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_management_dns_zone_binding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_management_dns_zone_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_management_dns_zone_binding`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ManagementDnsZoneBinding,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6429,8 +5904,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
         {
             self.0.request.management_dns_zone_binding = std::option::Option::Some(v.into());
             self
@@ -6439,12 +5913,8 @@ pub mod vmware_engine {
         /// Sets or clears the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_management_dns_zone_binding<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
         {
             self.0.request.management_dns_zone_binding = v.map(|x| x.into());
             self
@@ -6453,10 +5923,7 @@ pub mod vmware_engine {
         /// Sets the value of [management_dns_zone_binding_id][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding_id].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management_dns_zone_binding_id<T: Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_management_dns_zone_binding_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.management_dns_zone_binding_id = v.into();
             self
         }
@@ -6494,22 +5961,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateManagementDnsZoneBinding(
-        RequestBuilder<crate::model::UpdateManagementDnsZoneBindingRequest>,
-    );
+    pub struct UpdateManagementDnsZoneBinding(RequestBuilder<crate::model::UpdateManagementDnsZoneBindingRequest>);
 
     impl UpdateManagementDnsZoneBinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateManagementDnsZoneBindingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateManagementDnsZoneBindingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6527,21 +5989,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_management_dns_zone_binding][crate::client::VmwareEngine::update_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_management_dns_zone_binding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_management_dns_zone_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_management_dns_zone_binding`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ManagementDnsZoneBinding,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6573,8 +6030,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -6584,8 +6040,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -6595,8 +6050,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
         {
             self.0.request.management_dns_zone_binding = std::option::Option::Some(v.into());
             self
@@ -6605,12 +6059,8 @@ pub mod vmware_engine {
         /// Sets or clears the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_or_clear_management_dns_zone_binding<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
+        pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::ManagementDnsZoneBinding>
         {
             self.0.request.management_dns_zone_binding = v.map(|x| x.into());
             self
@@ -6649,22 +6099,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteManagementDnsZoneBinding(
-        RequestBuilder<crate::model::DeleteManagementDnsZoneBindingRequest>,
-    );
+    pub struct DeleteManagementDnsZoneBinding(RequestBuilder<crate::model::DeleteManagementDnsZoneBindingRequest>);
 
     impl DeleteManagementDnsZoneBinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteManagementDnsZoneBindingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteManagementDnsZoneBindingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6682,14 +6127,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_management_dns_zone_binding][crate::client::VmwareEngine::delete_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_management_dns_zone_binding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_management_dns_zone_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -6715,12 +6161,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementDnsZoneBindingRequest::name].
@@ -6764,22 +6205,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RepairManagementDnsZoneBinding(
-        RequestBuilder<crate::model::RepairManagementDnsZoneBindingRequest>,
-    );
+    pub struct RepairManagementDnsZoneBinding(RequestBuilder<crate::model::RepairManagementDnsZoneBindingRequest>);
 
     impl RepairManagementDnsZoneBinding {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RepairManagementDnsZoneBindingRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RepairManagementDnsZoneBindingRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6797,21 +6233,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [repair_management_dns_zone_binding][crate::client::VmwareEngine::repair_management_dns_zone_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .repair_management_dns_zone_binding(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).repair_management_dns_zone_binding(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `repair_management_dns_zone_binding`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::ManagementDnsZoneBinding,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::ManagementDnsZoneBinding, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6880,22 +6311,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateVmwareEngineNetwork(
-        RequestBuilder<crate::model::CreateVmwareEngineNetworkRequest>,
-    );
+    pub struct CreateVmwareEngineNetwork(RequestBuilder<crate::model::CreateVmwareEngineNetworkRequest>);
 
     impl CreateVmwareEngineNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateVmwareEngineNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateVmwareEngineNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -6913,21 +6339,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_vmware_engine_network][crate::client::VmwareEngine::create_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_vmware_engine_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_vmware_engine_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_vmware_engine_network`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::VmwareEngineNetwork,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6975,8 +6396,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        where T: std::convert::Into<crate::model::VmwareEngineNetwork>
         {
             self.0.request.vmware_engine_network = std::option::Option::Some(v.into());
             self
@@ -6986,8 +6406,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        where T: std::convert::Into<crate::model::VmwareEngineNetwork>
         {
             self.0.request.vmware_engine_network = v.map(|x| x.into());
             self
@@ -7026,22 +6445,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdateVmwareEngineNetwork(
-        RequestBuilder<crate::model::UpdateVmwareEngineNetworkRequest>,
-    );
+    pub struct UpdateVmwareEngineNetwork(RequestBuilder<crate::model::UpdateVmwareEngineNetworkRequest>);
 
     impl UpdateVmwareEngineNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateVmwareEngineNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdateVmwareEngineNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7059,21 +6473,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_vmware_engine_network][crate::client::VmwareEngine::update_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_vmware_engine_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_vmware_engine_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_vmware_engine_network`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::VmwareEngineNetwork,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::VmwareEngineNetwork, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7105,8 +6514,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        where T: std::convert::Into<crate::model::VmwareEngineNetwork>
         {
             self.0.request.vmware_engine_network = std::option::Option::Some(v.into());
             self
@@ -7116,8 +6524,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::VmwareEngineNetwork>,
+        where T: std::convert::Into<crate::model::VmwareEngineNetwork>
         {
             self.0.request.vmware_engine_network = v.map(|x| x.into());
             self
@@ -7127,8 +6534,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -7138,8 +6544,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -7178,22 +6583,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeleteVmwareEngineNetwork(
-        RequestBuilder<crate::model::DeleteVmwareEngineNetworkRequest>,
-    );
+    pub struct DeleteVmwareEngineNetwork(RequestBuilder<crate::model::DeleteVmwareEngineNetworkRequest>);
 
     impl DeleteVmwareEngineNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteVmwareEngineNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeleteVmwareEngineNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7211,14 +6611,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_vmware_engine_network][crate::client::VmwareEngine::delete_vmware_engine_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_vmware_engine_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_vmware_engine_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -7244,12 +6645,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteVmwareEngineNetworkRequest::name].
@@ -7301,17 +6697,14 @@ pub mod vmware_engine {
     pub struct GetVmwareEngineNetwork(RequestBuilder<crate::model::GetVmwareEngineNetworkRequest>);
 
     impl GetVmwareEngineNetwork {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetVmwareEngineNetworkRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetVmwareEngineNetworkRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7324,10 +6717,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::VmwareEngineNetwork> {
-            (*self.0.stub)
-                .get_vmware_engine_network(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_vmware_engine_network(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVmwareEngineNetworkRequest::name].
@@ -7368,22 +6758,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListVmwareEngineNetworks(
-        RequestBuilder<crate::model::ListVmwareEngineNetworksRequest>,
-    );
+    pub struct ListVmwareEngineNetworks(RequestBuilder<crate::model::ListVmwareEngineNetworksRequest>);
 
     impl ListVmwareEngineNetworks {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListVmwareEngineNetworksRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListVmwareEngineNetworksRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7396,19 +6781,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListVmwareEngineNetworksResponse> {
-            (*self.0.stub)
-                .list_vmware_engine_networks(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_vmware_engine_networks(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListVmwareEngineNetworksResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListVmwareEngineNetworksResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7420,12 +6797,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListVmwareEngineNetworksResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListVmwareEngineNetworksResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -7489,22 +6861,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct CreatePrivateConnection(
-        RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
-    );
+    pub struct CreatePrivateConnection(RequestBuilder<crate::model::CreatePrivateConnectionRequest>);
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreatePrivateConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::CreatePrivateConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7522,21 +6889,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_private_connection][crate::client::VmwareEngine::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_private_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).create_private_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateConnection,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7584,8 +6946,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_private_connection<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateConnection>,
+        where T: std::convert::Into<crate::model::PrivateConnection>
         {
             self.0.request.private_connection = std::option::Option::Some(v.into());
             self
@@ -7595,8 +6956,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateConnection>,
+        where T: std::convert::Into<crate::model::PrivateConnection>
         {
             self.0.request.private_connection = v.map(|x| x.into());
             self
@@ -7637,17 +6997,14 @@ pub mod vmware_engine {
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetPrivateConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetPrivateConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7660,10 +7017,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PrivateConnection> {
-            (*self.0.stub)
-                .get_private_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_private_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
@@ -7707,17 +7061,14 @@ pub mod vmware_engine {
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPrivateConnectionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPrivateConnectionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7730,19 +7081,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListPrivateConnectionsResponse> {
-            (*self.0.stub)
-                .list_private_connections(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_private_connections(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListPrivateConnectionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPrivateConnectionsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -7754,12 +7097,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPrivateConnectionsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPrivateConnectionsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -7823,22 +7161,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct UpdatePrivateConnection(
-        RequestBuilder<crate::model::UpdatePrivateConnectionRequest>,
-    );
+    pub struct UpdatePrivateConnection(RequestBuilder<crate::model::UpdatePrivateConnectionRequest>);
 
     impl UpdatePrivateConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdatePrivateConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::UpdatePrivateConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -7856,21 +7189,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_private_connection][crate::client::VmwareEngine::update_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_private_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).update_private_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_private_connection`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::PrivateConnection,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -7902,8 +7230,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_private_connection<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateConnection>,
+        where T: std::convert::Into<crate::model::PrivateConnection>
         {
             self.0.request.private_connection = std::option::Option::Some(v.into());
             self
@@ -7913,8 +7240,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::PrivateConnection>,
+        where T: std::convert::Into<crate::model::PrivateConnection>
         {
             self.0.request.private_connection = v.map(|x| x.into());
             self
@@ -7924,8 +7250,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -7935,8 +7260,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -7975,22 +7299,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct DeletePrivateConnection(
-        RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
-    );
+    pub struct DeletePrivateConnection(RequestBuilder<crate::model::DeletePrivateConnectionRequest>);
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeletePrivateConnectionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::DeletePrivateConnectionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8008,14 +7327,15 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_private_connection][crate::client::VmwareEngine::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_private_connection(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_private_connection(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
-        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+        pub fn poller(
+            self
+        ) ->
+            impl lro::Poller<(), crate::model::OperationMetadata>
+        {
             type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
@@ -8041,12 +7361,7 @@ pub mod vmware_engine {
                 Ok(Operation::new(op))
             };
 
-            lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
+            lro::internal::new_unit_response_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
@@ -8093,22 +7408,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct ListPrivateConnectionPeeringRoutes(
-        RequestBuilder<crate::model::ListPrivateConnectionPeeringRoutesRequest>,
-    );
+    pub struct ListPrivateConnectionPeeringRoutes(RequestBuilder<crate::model::ListPrivateConnectionPeeringRoutesRequest>);
 
     impl ListPrivateConnectionPeeringRoutes {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListPrivateConnectionPeeringRoutesRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::ListPrivateConnectionPeeringRoutesRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8120,22 +7430,12 @@ pub mod vmware_engine {
         }
 
         /// Sends the request.
-        pub async fn send(
-            self,
-        ) -> Result<crate::model::ListPrivateConnectionPeeringRoutesResponse> {
-            (*self.0.stub)
-                .list_private_connection_peering_routes(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+        pub async fn send(self) -> Result<crate::model::ListPrivateConnectionPeeringRoutesResponse> {
+            (*self.0.stub).list_private_connection_peering_routes(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<
-            crate::model::ListPrivateConnectionPeeringRoutesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<crate::model::ListPrivateConnectionPeeringRoutesResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -8147,12 +7447,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            crate::model::ListPrivateConnectionPeeringRoutesResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<crate::model::ListPrivateConnectionPeeringRoutesResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -8207,17 +7502,14 @@ pub mod vmware_engine {
     pub struct GrantDnsBindPermission(RequestBuilder<crate::model::GrantDnsBindPermissionRequest>);
 
     impl GrantDnsBindPermission {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GrantDnsBindPermissionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GrantDnsBindPermissionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8235,21 +7527,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [grant_dns_bind_permission][crate::client::VmwareEngine::grant_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .grant_dns_bind_permission(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).grant_dns_bind_permission(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `grant_dns_bind_permission`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::DnsBindPermission,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8289,8 +7576,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_principal<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Principal>,
+        where T: std::convert::Into<crate::model::Principal>
         {
             self.0.request.principal = std::option::Option::Some(v.into());
             self
@@ -8300,8 +7586,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Principal>,
+        where T: std::convert::Into<crate::model::Principal>
         {
             self.0.request.principal = v.map(|x| x.into());
             self
@@ -8342,17 +7627,14 @@ pub mod vmware_engine {
     pub struct GetDnsBindPermission(RequestBuilder<crate::model::GetDnsBindPermissionRequest>);
 
     impl GetDnsBindPermission {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetDnsBindPermissionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::GetDnsBindPermissionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8365,10 +7647,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DnsBindPermission> {
-            (*self.0.stub)
-                .get_dns_bind_permission(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_dns_bind_permission(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDnsBindPermissionRequest::name].
@@ -8406,22 +7685,17 @@ pub mod vmware_engine {
     /// }
     /// ```
     #[derive(Clone, Debug)]
-    pub struct RevokeDnsBindPermission(
-        RequestBuilder<crate::model::RevokeDnsBindPermissionRequest>,
-    );
+    pub struct RevokeDnsBindPermission(RequestBuilder<crate::model::RevokeDnsBindPermissionRequest>);
 
     impl RevokeDnsBindPermission {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::RevokeDnsBindPermissionRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::RevokeDnsBindPermissionRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8439,21 +7713,16 @@ pub mod vmware_engine {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [revoke_dns_bind_permission][crate::client::VmwareEngine::revoke_dns_bind_permission].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .revoke_dns_bind_permission(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).revoke_dns_bind_permission(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `revoke_dns_bind_permission`.
         pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
+            self
+        ) ->
+            impl lro::Poller<crate::model::DnsBindPermission, crate::model::OperationMetadata>
         {
-            type Operation = lro::internal::Operation<
-                crate::model::DnsBindPermission,
-                crate::model::OperationMetadata,
-            >;
+            type Operation = lro::internal::Operation<crate::model::DnsBindPermission, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -8493,8 +7762,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_principal<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Principal>,
+        where T: std::convert::Into<crate::model::Principal>
         {
             self.0.request.principal = std::option::Option::Some(v.into());
             self
@@ -8504,8 +7772,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Principal>,
+        where T: std::convert::Into<crate::model::Principal>
         {
             self.0.request.principal = v.map(|x| x.into());
             self
@@ -8550,17 +7817,14 @@ pub mod vmware_engine {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8573,17 +7837,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            (*self.0.stub)
-                .list_locations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -8595,10 +7853,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
-        {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -8656,10 +7911,10 @@ pub mod vmware_engine {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -8676,10 +7931,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            (*self.0.stub)
-                .get_location(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -8717,10 +7969,10 @@ pub mod vmware_engine {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -8737,10 +7989,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -8755,8 +8004,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = std::option::Option::Some(v.into());
             self
@@ -8766,8 +8014,7 @@ pub mod vmware_engine {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::Policy>,
+        where T: std::convert::Into<iam_v1::model::Policy>
         {
             self.0.request.policy = v.map(|x| x.into());
             self
@@ -8775,8 +8022,7 @@ pub mod vmware_engine {
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = std::option::Option::Some(v.into());
             self
@@ -8784,8 +8030,7 @@ pub mod vmware_engine {
 
         /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
+        where T: std::convert::Into<wkt::FieldMask>
         {
             self.0.request.update_mask = v.map(|x| x.into());
             self
@@ -8820,10 +8065,10 @@ pub mod vmware_engine {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -8840,10 +8085,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -8856,8 +8098,7 @@ pub mod vmware_engine {
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = std::option::Option::Some(v.into());
             self
@@ -8865,8 +8106,7 @@ pub mod vmware_engine {
 
         /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        where T: std::convert::Into<iam_v1::model::GetPolicyOptions>
         {
             self.0.request.options = v.map(|x| x.into());
             self
@@ -8901,17 +8141,14 @@ pub mod vmware_engine {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<iam_v1::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -8924,10 +8161,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -8944,7 +8178,7 @@ pub mod vmware_engine {
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
@@ -8984,17 +8218,14 @@ pub mod vmware_engine {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9007,17 +8238,11 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            (*self.0.stub)
-                .list_operations(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).list_operations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
-        {
+        pub fn by_page(self) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -9029,12 +8254,7 @@ pub mod vmware_engine {
         }
 
         /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl gax::paginator::ItemPaginator<
-            longrunning::model::ListOperationsResponse,
-            gax::error::Error,
-        > {
+        pub fn by_item(self) -> impl gax::paginator::ItemPaginator<longrunning::model::ListOperationsResponse, gax::error::Error> {
             use gax::paginator::Paginator;
             self.by_page().items()
         }
@@ -9098,17 +8318,14 @@ pub mod vmware_engine {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9121,10 +8338,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub)
-                .get_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).get_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -9162,17 +8376,14 @@ pub mod vmware_engine {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::VmwareEngine>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -9185,10 +8396,7 @@ pub mod vmware_engine {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_operation(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).delete_operation(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -9204,4 +8412,5 @@ pub mod vmware_engine {
             &mut self.0.options
         }
     }
+
 }

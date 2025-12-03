@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [LanguageService](super::stub::LanguageService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::LanguageService for LanguageService<T>
-where
-    T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::LanguageService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn analyze_sentiment(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "analyze_sentiment",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .analyze_sentiment(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.analyze_sentiment(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "analyze_entities",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .analyze_entities(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.analyze_entities(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "classify_text",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .classify_text(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.classify_text(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "moderate_text",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .moderate_text(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.moderate_text(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "annotate_text",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .annotate_text(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.annotate_text(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -228,3 +207,4 @@ where
         self.inner.annotate_text(req, options).await
     }
 }
+

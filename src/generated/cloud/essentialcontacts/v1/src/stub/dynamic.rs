@@ -58,6 +58,7 @@ pub trait EssentialContactsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
 }
 
 /// All implementations of [super::EssentialContactsService] also implement [EssentialContactsService].
@@ -125,4 +126,5 @@ impl<T: super::EssentialContactsService> EssentialContactsService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::send_test_message(self, req, options).await
     }
+
 }

@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [FleetRouting](super::stub::FleetRouting) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct FleetRouting<T>
-where
-    T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> FleetRouting<T>
-where
-    T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::FleetRouting for FleetRouting<T>
-where
-    T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::FleetRouting + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn optimize_tours(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "optimize_tours",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .optimize_tours(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.optimize_tours(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "batch_optimize_tours",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .batch_optimize_tours(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.batch_optimize_tours(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -166,3 +151,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

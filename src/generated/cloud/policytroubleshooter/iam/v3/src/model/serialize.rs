@@ -23,9 +23,9 @@ impl serde::ser::Serialize for super::TroubleshootIamPolicyRequest {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.access_tuple.is_some() {
             state.serialize_entry("accessTuple", &self.access_tuple)?;
@@ -45,9 +45,9 @@ impl serde::ser::Serialize for super::TroubleshootIamPolicyResponse {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.overall_access_state) {
             state.serialize_entry("overallAccessState", &self.overall_access_state)?;
@@ -76,9 +76,9 @@ impl serde::ser::Serialize for super::AccessTuple {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.principal.is_empty() {
             state.serialize_entry("principal", &self.principal)?;
@@ -110,9 +110,9 @@ impl serde::ser::Serialize for super::ConditionContext {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.resource.is_some() {
             state.serialize_entry("resource", &self.resource)?;
@@ -141,9 +141,9 @@ impl serde::ser::Serialize for super::condition_context::Resource {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.service.is_empty() {
             state.serialize_entry("service", &self.service)?;
@@ -169,9 +169,9 @@ impl serde::ser::Serialize for super::condition_context::Peer {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.ip.is_empty() {
             state.serialize_entry("ip", &self.ip)?;
@@ -203,9 +203,9 @@ impl serde::ser::Serialize for super::condition_context::Request {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.receive_time.is_some() {
             state.serialize_entry("receiveTime", &self.receive_time)?;
@@ -225,9 +225,9 @@ impl serde::ser::Serialize for super::condition_context::EffectiveTag {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.tag_value.is_empty() {
             state.serialize_entry("tagValue", &self.tag_value)?;
@@ -262,9 +262,9 @@ impl serde::ser::Serialize for super::AllowPolicyExplanation {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.allow_access_state) {
             state.serialize_entry("allowAccessState", &self.allow_access_state)?;
@@ -290,9 +290,9 @@ impl serde::ser::Serialize for super::ExplainedAllowPolicy {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.allow_access_state) {
             state.serialize_entry("allowAccessState", &self.allow_access_state)?;
@@ -324,9 +324,9 @@ impl serde::ser::Serialize for super::AllowBindingExplanation {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.allow_access_state) {
             state.serialize_entry("allowAccessState", &self.allow_access_state)?;
@@ -370,9 +370,9 @@ impl serde::ser::Serialize for super::allow_binding_explanation::AnnotatedAllowM
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.membership) {
             state.serialize_entry("membership", &self.membership)?;
@@ -389,15 +389,16 @@ impl serde::ser::Serialize for super::allow_binding_explanation::AnnotatedAllowM
     }
 }
 
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DenyPolicyExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.deny_access_state) {
             state.serialize_entry("denyAccessState", &self.deny_access_state)?;
@@ -426,9 +427,9 @@ impl serde::ser::Serialize for super::ExplainedDenyResource {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.deny_access_state) {
             state.serialize_entry("denyAccessState", &self.deny_access_state)?;
@@ -457,9 +458,9 @@ impl serde::ser::Serialize for super::ExplainedDenyPolicy {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.deny_access_state) {
             state.serialize_entry("denyAccessState", &self.deny_access_state)?;
@@ -488,9 +489,9 @@ impl serde::ser::Serialize for super::DenyRuleExplanation {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.deny_access_state) {
             state.serialize_entry("denyAccessState", &self.deny_access_state)?;
@@ -502,10 +503,7 @@ impl serde::ser::Serialize for super::DenyRuleExplanation {
             state.serialize_entry("deniedPermissions", &self.denied_permissions)?;
         }
         if self.combined_exception_permission.is_some() {
-            state.serialize_entry(
-                "combinedExceptionPermission",
-                &self.combined_exception_permission,
-            )?;
+            state.serialize_entry("combinedExceptionPermission", &self.combined_exception_permission)?;
         }
         if !self.exception_permissions.is_empty() {
             state.serialize_entry("exceptionPermissions", &self.exception_permissions)?;
@@ -517,10 +515,7 @@ impl serde::ser::Serialize for super::DenyRuleExplanation {
             state.serialize_entry("deniedPrincipals", &self.denied_principals)?;
         }
         if self.combined_exception_principal.is_some() {
-            state.serialize_entry(
-                "combinedExceptionPrincipal",
-                &self.combined_exception_principal,
-            )?;
+            state.serialize_entry("combinedExceptionPrincipal", &self.combined_exception_principal)?;
         }
         if !self.exception_principals.is_empty() {
             state.serialize_entry("exceptionPrincipals", &self.exception_principals)?;
@@ -549,9 +544,9 @@ impl serde::ser::Serialize for super::deny_rule_explanation::AnnotatedPermission
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.permission_matching_state) {
             state.serialize_entry("permissionMatchingState", &self.permission_matching_state)?;
@@ -574,9 +569,9 @@ impl serde::ser::Serialize for super::deny_rule_explanation::AnnotatedDenyPrinci
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.membership) {
             state.serialize_entry("membership", &self.membership)?;
@@ -593,15 +588,19 @@ impl serde::ser::Serialize for super::deny_rule_explanation::AnnotatedDenyPrinci
     }
 }
 
+
+
+
+
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ConditionExplanation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
@@ -627,9 +626,9 @@ impl serde::ser::Serialize for super::condition_explanation::EvaluationState {
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeMap;
         #[allow(unused_imports)]
         use std::option::Option::Some;
+        use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.start) {
             struct __With<'a>(&'a i32);

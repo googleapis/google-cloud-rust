@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [OsLoginService](super::stub::OsLoginService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct OsLoginService<T>
-where
-    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> OsLoginService<T>
-where
-    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::OsLoginService for OsLoginService<T>
-where
-    T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_ssh_public_key(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_ssh_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_ssh_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_ssh_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_posix_account",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_posix_account(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_posix_account(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_ssh_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_ssh_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_ssh_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_login_profile",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_login_profile(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_login_profile(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_ssh_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_ssh_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_ssh_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -243,14 +222,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "import_ssh_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .import_ssh_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.import_ssh_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -281,14 +257,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_ssh_public_key",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_ssh_public_key(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_ssh_public_key(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -304,3 +277,4 @@ where
         self.inner.update_ssh_public_key(req, options).await
     }
 }
+

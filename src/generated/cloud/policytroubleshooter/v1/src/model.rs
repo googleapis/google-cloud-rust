@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -29,7 +30,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -44,6 +44,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyRequest {
+
     /// The information to use for checking whether a principal has a permission
     /// for a resource.
     pub access_tuple: std::option::Option<crate::model::AccessTuple>,
@@ -58,8 +59,7 @@ impl TroubleshootIamPolicyRequest {
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = std::option::Option::Some(v.into());
         self
@@ -67,8 +67,7 @@ impl TroubleshootIamPolicyRequest {
 
     /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::AccessTuple>,
+    where T: std::convert::Into<crate::model::AccessTuple>
     {
         self.access_tuple = v.map(|x| x.into());
         self
@@ -88,6 +87,7 @@ impl wkt::message::Message for TroubleshootIamPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TroubleshootIamPolicyResponse {
+
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all of the applicable IAM policies.
     pub access: crate::model::AccessState,
@@ -125,7 +125,7 @@ impl TroubleshootIamPolicyResponse {
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ExplainedPolicy>,
+        V: std::convert::Into<crate::model::ExplainedPolicy>
     {
         use std::iter::Iterator;
         self.explained_policies = v.into_iter().map(|i| i.into()).collect();
@@ -136,7 +136,7 @@ impl TroubleshootIamPolicyResponse {
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<rpc::model::Status>,
+        V: std::convert::Into<rpc::model::Status>
     {
         use std::iter::Iterator;
         self.errors = v.into_iter().map(|i| i.into()).collect();
@@ -154,6 +154,7 @@ impl wkt::message::Message for TroubleshootIamPolicyResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessTuple {
+
     /// Required. The principal whose access you want to check, in the form of
     /// the email address that represents that principal. For example,
     /// `alice@example.com` or
@@ -195,10 +196,7 @@ impl AccessTuple {
     }
 
     /// Sets the value of [full_resource_name][crate::model::AccessTuple::full_resource_name].
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
@@ -223,6 +221,7 @@ impl wkt::message::Message for AccessTuple {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplainedPolicy {
+
     /// Indicates whether _this policy_ provides the specified permission to the
     /// specified principal for the specified resource.
     ///
@@ -278,18 +277,14 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedPolicy::full_resource_name].
-    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource_name = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::ExplainedPolicy::policy].
     pub fn set_policy<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<iam_v1::model::Policy>,
+    where T: std::convert::Into<iam_v1::model::Policy>
     {
         self.policy = std::option::Option::Some(v.into());
         self
@@ -297,8 +292,7 @@ impl ExplainedPolicy {
 
     /// Sets or clears the value of [policy][crate::model::ExplainedPolicy::policy].
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<iam_v1::model::Policy>,
+    where T: std::convert::Into<iam_v1::model::Policy>
     {
         self.policy = v.map(|x| x.into());
         self
@@ -308,7 +302,7 @@ impl ExplainedPolicy {
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::BindingExplanation>,
+        V: std::convert::Into<crate::model::BindingExplanation>
     {
         use std::iter::Iterator;
         self.binding_explanations = v.into_iter().map(|i| i.into()).collect();
@@ -316,10 +310,7 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
@@ -336,6 +327,7 @@ impl wkt::message::Message for ExplainedPolicy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BindingExplanation {
+
     /// Required. Indicates whether _this binding_ provides the specified
     /// permission to the specified principal for the specified resource.
     ///
@@ -381,10 +373,7 @@ pub struct BindingExplanation {
     /// For the second principal in the binding, the key is
     /// `group:product-eng@example.com`, and the `membership` field in the value is
     /// set to `MEMBERSHIP_INCLUDED`.
-    pub memberships: std::collections::HashMap<
-        std::string::String,
-        crate::model::binding_explanation::AnnotatedMembership,
-    >,
+    pub memberships: std::collections::HashMap<std::string::String,crate::model::binding_explanation::AnnotatedMembership>,
 
     /// The relevance of this binding to the overall determination for the entire
     /// policy.
@@ -418,23 +407,13 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [role_permission][crate::model::BindingExplanation::role_permission].
-    pub fn set_role_permission<
-        T: std::convert::Into<crate::model::binding_explanation::RolePermission>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_role_permission<T: std::convert::Into<crate::model::binding_explanation::RolePermission>>(mut self, v: T) -> Self {
         self.role_permission = v.into();
         self
     }
 
     /// Sets the value of [role_permission_relevance][crate::model::BindingExplanation::role_permission_relevance].
-    pub fn set_role_permission_relevance<
-        T: std::convert::Into<crate::model::HeuristicRelevance>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_role_permission_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.role_permission_relevance = v.into();
         self
     }
@@ -452,18 +431,14 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::BindingExplanation::relevance].
-    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
         self.relevance = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::BindingExplanation::condition].
     pub fn set_condition<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = std::option::Option::Some(v.into());
         self
@@ -471,8 +446,7 @@ impl BindingExplanation {
 
     /// Sets or clears the value of [condition][crate::model::BindingExplanation::condition].
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Expr>,
+    where T: std::convert::Into<gtype::model::Expr>
     {
         self.condition = v.map(|x| x.into());
         self
@@ -490,10 +464,12 @@ pub mod binding_explanation {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Details about whether the binding includes the principal.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnnotatedMembership {
+
         /// Indicates whether the binding includes the principal.
         pub membership: crate::model::binding_explanation::Membership,
 
@@ -510,21 +486,13 @@ pub mod binding_explanation {
         }
 
         /// Sets the value of [membership][crate::model::binding_explanation::AnnotatedMembership::membership].
-        pub fn set_membership<
-            T: std::convert::Into<crate::model::binding_explanation::Membership>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_membership<T: std::convert::Into<crate::model::binding_explanation::Membership>>(mut self, v: T) -> Self {
             self.membership = v.into();
             self
         }
 
         /// Sets the value of [relevance][crate::model::binding_explanation::AnnotatedMembership::relevance].
-        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(mut self, v: T) -> Self {
             self.relevance = v.into();
             self
         }
@@ -601,9 +569,7 @@ pub mod binding_explanation {
                 Self::Unspecified => std::option::Option::Some("ROLE_PERMISSION_UNSPECIFIED"),
                 Self::Included => std::option::Option::Some("ROLE_PERMISSION_INCLUDED"),
                 Self::NotIncluded => std::option::Option::Some("ROLE_PERMISSION_NOT_INCLUDED"),
-                Self::UnknownInfoDenied => {
-                    std::option::Option::Some("ROLE_PERMISSION_UNKNOWN_INFO_DENIED")
-                }
+                Self::UnknownInfoDenied => std::option::Option::Some("ROLE_PERMISSION_UNKNOWN_INFO_DENIED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -629,9 +595,7 @@ pub mod binding_explanation {
                 1 => Self::Included,
                 2 => Self::NotIncluded,
                 3 => Self::UnknownInfoDenied,
-                _ => Self::UnknownValue(role_permission::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(role_permission::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -644,9 +608,7 @@ pub mod binding_explanation {
                 "ROLE_PERMISSION_INCLUDED" => Self::Included,
                 "ROLE_PERMISSION_NOT_INCLUDED" => Self::NotIncluded,
                 "ROLE_PERMISSION_UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
-                _ => Self::UnknownValue(role_permission::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(role_permission::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -672,8 +634,7 @@ pub mod binding_explanation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<RolePermission>::new(
-                ".google.cloud.policytroubleshooter.v1.BindingExplanation.RolePermission",
-            ))
+                ".google.cloud.policytroubleshooter.v1.BindingExplanation.RolePermission"))
         }
     }
 
@@ -752,12 +713,8 @@ pub mod binding_explanation {
                 Self::Unspecified => std::option::Option::Some("MEMBERSHIP_UNSPECIFIED"),
                 Self::Included => std::option::Option::Some("MEMBERSHIP_INCLUDED"),
                 Self::NotIncluded => std::option::Option::Some("MEMBERSHIP_NOT_INCLUDED"),
-                Self::UnknownInfoDenied => {
-                    std::option::Option::Some("MEMBERSHIP_UNKNOWN_INFO_DENIED")
-                }
-                Self::UnknownUnsupported => {
-                    std::option::Option::Some("MEMBERSHIP_UNKNOWN_UNSUPPORTED")
-                }
+                Self::UnknownInfoDenied => std::option::Option::Some("MEMBERSHIP_UNKNOWN_INFO_DENIED"),
+                Self::UnknownUnsupported => std::option::Option::Some("MEMBERSHIP_UNKNOWN_UNSUPPORTED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -784,9 +741,7 @@ pub mod binding_explanation {
                 2 => Self::NotIncluded,
                 3 => Self::UnknownInfoDenied,
                 4 => Self::UnknownUnsupported,
-                _ => Self::UnknownValue(membership::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(membership::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -800,9 +755,7 @@ pub mod binding_explanation {
                 "MEMBERSHIP_NOT_INCLUDED" => Self::NotIncluded,
                 "MEMBERSHIP_UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
                 "MEMBERSHIP_UNKNOWN_UNSUPPORTED" => Self::UnknownUnsupported,
-                _ => Self::UnknownValue(membership::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(membership::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -829,8 +782,7 @@ pub mod binding_explanation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Membership>::new(
-                ".google.cloud.policytroubleshooter.v1.BindingExplanation.Membership",
-            ))
+                ".google.cloud.policytroubleshooter.v1.BindingExplanation.Membership"))
         }
     }
 }
@@ -933,9 +885,7 @@ impl std::convert::From<i32> for AccessState {
             2 => Self::NotGranted,
             3 => Self::UnknownConditional,
             4 => Self::UnknownInfoDenied,
-            _ => Self::UnknownValue(access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(access_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -949,9 +899,7 @@ impl std::convert::From<&str> for AccessState {
             "NOT_GRANTED" => Self::NotGranted,
             "UNKNOWN_CONDITIONAL" => Self::UnknownConditional,
             "UNKNOWN_INFO_DENIED" => Self::UnknownInfoDenied,
-            _ => Self::UnknownValue(access_state::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(access_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -978,8 +926,7 @@ impl<'de> serde::de::Deserialize<'de> for AccessState {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<AccessState>::new(
-            ".google.cloud.policytroubleshooter.v1.AccessState",
-        ))
+            ".google.cloud.policytroubleshooter.v1.AccessState"))
     }
 }
 
@@ -1073,9 +1020,7 @@ impl std::convert::From<i32> for HeuristicRelevance {
             0 => Self::Unspecified,
             1 => Self::Normal,
             2 => Self::High,
-            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
-                wkt::internal::UnknownEnumValue::Integer(value),
-            )),
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
         }
     }
 }
@@ -1087,9 +1032,7 @@ impl std::convert::From<&str> for HeuristicRelevance {
             "HEURISTIC_RELEVANCE_UNSPECIFIED" => Self::Unspecified,
             "NORMAL" => Self::Normal,
             "HIGH" => Self::High,
-            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(
-                wkt::internal::UnknownEnumValue::String(value.to_string()),
-            )),
+            _ => Self::UnknownValue(heuristic_relevance::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
         }
     }
 }
@@ -1114,7 +1057,6 @@ impl<'de> serde::de::Deserialize<'de> for HeuristicRelevance {
         D: serde::Deserializer<'de>,
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<HeuristicRelevance>::new(
-            ".google.cloud.policytroubleshooter.v1.HeuristicRelevance",
-        ))
+            ".google.cloud.policytroubleshooter.v1.HeuristicRelevance"))
     }
 }

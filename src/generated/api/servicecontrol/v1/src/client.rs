@@ -75,9 +75,7 @@ impl QuotaController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::quota_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::quota_controller::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::quota_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -85,43 +83,28 @@ impl QuotaController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::QuotaController + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::QuotaController + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::QuotaController>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::QuotaController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::QuotaController> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::QuotaController> {
         super::transport::QuotaController::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::QuotaController> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::QuotaController::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::QuotaController> {
+        Self::build_transport(conf).await.map(super::tracing::QuotaController::new)
     }
 
     /// Attempts to allocate quota for the specified consumer. It should be called
@@ -135,7 +118,8 @@ impl QuotaController {
     /// `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
     /// reliability, the server may inject these errors to prohibit any hard
     /// dependency on the quota functionality.
-    pub fn allocate_quota(&self) -> super::builder::quota_controller::AllocateQuota {
+    pub fn allocate_quota(&self) -> super::builder::quota_controller::AllocateQuota
+    {
         super::builder::quota_controller::AllocateQuota::new(self.inner.clone())
     }
 }
@@ -199,9 +183,7 @@ impl ServiceController {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::service_controller::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::service_controller::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::service_controller::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -209,43 +191,28 @@ impl ServiceController {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ServiceController + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ServiceController + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceController>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceController>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceController> {
         super::transport::ServiceController::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ServiceController::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ServiceController> {
+        Self::build_transport(conf).await.map(super::tracing::ServiceController::new)
     }
 
     /// Checks whether an operation on a service should be allowed to proceed
@@ -267,7 +234,8 @@ impl ServiceController {
     /// [Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.CheckRequest]: crate::model::CheckRequest
-    pub fn check(&self) -> super::builder::service_controller::Check {
+    pub fn check(&self) -> super::builder::service_controller::Check
+    {
         super::builder::service_controller::Check::new(self.inner.clone())
     }
 
@@ -288,7 +256,8 @@ impl ServiceController {
     /// [Google Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.ReportRequest]: crate::model::ReportRequest
-    pub fn report(&self) -> super::builder::service_controller::Report {
+    pub fn report(&self) -> super::builder::service_controller::Report
+    {
         super::builder::service_controller::Report::new(self.inner.clone())
     }
 }

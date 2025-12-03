@@ -38,14 +38,13 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
+
     /// Implements [super::client::SecretManagerService::list_locations].
     fn list_locations(
         &self,
         _req: crate::model::secret_manager_service::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -54,9 +53,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Location>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Location>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -65,9 +62,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::ListSecretsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -76,9 +71,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::CreateSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -87,9 +80,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSecretsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -98,9 +89,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -109,9 +98,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::AddSecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -120,9 +107,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -131,9 +116,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -142,9 +125,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DeleteSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Empty>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Empty>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -153,9 +134,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::UpdateSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -164,9 +143,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -175,9 +152,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Empty>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Empty>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -186,9 +161,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Secret>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Secret>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -197,9 +170,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -208,9 +179,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListSecretVersionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -219,9 +188,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetSecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -230,9 +197,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -241,9 +206,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -252,9 +215,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::AccessSecretVersionResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -263,9 +224,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -274,9 +233,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -285,9 +242,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -296,9 +251,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -307,9 +260,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -318,9 +269,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::SecretVersion>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -329,9 +278,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -340,9 +287,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -351,9 +296,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -362,9 +305,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Policy>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -373,9 +314,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -384,9 +323,8 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
-    > + Send {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+

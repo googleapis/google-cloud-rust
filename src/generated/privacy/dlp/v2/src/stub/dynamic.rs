@@ -346,6 +346,7 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
+
 }
 
 /// All implementations of [super::DlpService] also implement [DlpService].
@@ -725,8 +726,7 @@ impl<T: super::DlpService> DlpService for T {
         &self,
         req: crate::model::ListFileStoreDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>>
-    {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>> {
         T::list_file_store_data_profiles(self, req, options).await
     }
 
@@ -846,4 +846,5 @@ impl<T: super::DlpService> DlpService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::update_connection(self, req, options).await
     }
+
 }

@@ -22,6 +22,7 @@ pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
         req: crate::model::CreateExternalAccountKeyRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>;
+
 }
 
 /// All implementations of [super::PublicCertificateAuthorityService] also implement [PublicCertificateAuthorityService].
@@ -35,4 +36,5 @@ impl<T: super::PublicCertificateAuthorityService> PublicCertificateAuthorityServ
     ) -> crate::Result<gax::response::Response<crate::model::ExternalAccountKey>> {
         T::create_external_account_key(self, req, options).await
     }
+
 }

@@ -46,6 +46,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Dashboard>>;
+
 }
 
 /// All implementations of [super::DashboardsService] also implement [DashboardsService].
@@ -95,4 +96,5 @@ impl<T: super::DashboardsService> DashboardsService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Dashboard>> {
         T::update_dashboard(self, req, options).await
     }
+
 }

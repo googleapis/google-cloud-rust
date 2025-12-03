@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -31,7 +32,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -46,6 +46,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportConfigsRequest {
+
     /// Required. Parent value for ListReportConfigsRequest
     pub parent: std::string::String,
 
@@ -111,6 +112,7 @@ impl wkt::message::Message for ListReportConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportConfigsResponse {
+
     /// The list of ReportConfig
     pub report_configs: std::vec::Vec<crate::model::ReportConfig>,
 
@@ -132,7 +134,7 @@ impl ListReportConfigsResponse {
     pub fn set_report_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReportConfig>,
+        V: std::convert::Into<crate::model::ReportConfig>
     {
         use std::iter::Iterator;
         self.report_configs = v.into_iter().map(|i| i.into()).collect();
@@ -149,7 +151,7 @@ impl ListReportConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -181,6 +183,7 @@ impl gax::paginator::internal::PageableResponse for ListReportConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReportConfigRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -209,6 +212,7 @@ impl wkt::message::Message for GetReportConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReportConfigRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -246,8 +250,7 @@ impl CreateReportConfigRequest {
 
     /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
     pub fn set_report_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportConfig>,
+    where T: std::convert::Into<crate::model::ReportConfig>
     {
         self.report_config = std::option::Option::Some(v.into());
         self
@@ -255,8 +258,7 @@ impl CreateReportConfigRequest {
 
     /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
     pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportConfig>,
+    where T: std::convert::Into<crate::model::ReportConfig>
     {
         self.report_config = v.map(|x| x.into());
         self
@@ -279,6 +281,7 @@ impl wkt::message::Message for CreateReportConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReportConfigRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// ReportConfig resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
@@ -314,8 +317,7 @@ impl UpdateReportConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -323,8 +325,7 @@ impl UpdateReportConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -332,8 +333,7 @@ impl UpdateReportConfigRequest {
 
     /// Sets the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
     pub fn set_report_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportConfig>,
+    where T: std::convert::Into<crate::model::ReportConfig>
     {
         self.report_config = std::option::Option::Some(v.into());
         self
@@ -341,8 +341,7 @@ impl UpdateReportConfigRequest {
 
     /// Sets or clears the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
     pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReportConfig>,
+    where T: std::convert::Into<crate::model::ReportConfig>
     {
         self.report_config = v.map(|x| x.into());
         self
@@ -365,6 +364,7 @@ impl wkt::message::Message for UpdateReportConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReportConfigRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -425,6 +425,7 @@ impl wkt::message::Message for DeleteReportConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportDetail {
+
     /// Name of resource. It will be of form
     /// projects/\<project\>/locations/\<location\>/reportConfigs/\<report-config-id\>/reportDetails/\<report-detail-id\>.
     pub name: std::string::String,
@@ -449,7 +450,7 @@ pub struct ReportDetail {
     pub status: std::option::Option<rpc::model::Status>,
 
     /// Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// The date for which report is generated. The time part of target_datetime
     /// will be zero till we support multiple reports per day.
@@ -474,8 +475,7 @@ impl ReportDetail {
 
     /// Sets the value of [snapshot_time][crate::model::ReportDetail::snapshot_time].
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.snapshot_time = std::option::Option::Some(v.into());
         self
@@ -483,18 +483,14 @@ impl ReportDetail {
 
     /// Sets or clears the value of [snapshot_time][crate::model::ReportDetail::snapshot_time].
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.snapshot_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [report_path_prefix][crate::model::ReportDetail::report_path_prefix].
-    pub fn set_report_path_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_report_path_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.report_path_prefix = v.into();
         self
     }
@@ -507,8 +503,7 @@ impl ReportDetail {
 
     /// Sets the value of [status][crate::model::ReportDetail::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -516,8 +511,7 @@ impl ReportDetail {
 
     /// Sets or clears the value of [status][crate::model::ReportDetail::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
@@ -537,8 +531,7 @@ impl ReportDetail {
 
     /// Sets the value of [target_datetime][crate::model::ReportDetail::target_datetime].
     pub fn set_target_datetime<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::DateTime>,
+    where T: std::convert::Into<gtype::model::DateTime>
     {
         self.target_datetime = std::option::Option::Some(v.into());
         self
@@ -546,8 +539,7 @@ impl ReportDetail {
 
     /// Sets or clears the value of [target_datetime][crate::model::ReportDetail::target_datetime].
     pub fn set_or_clear_target_datetime<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::DateTime>,
+    where T: std::convert::Into<gtype::model::DateTime>
     {
         self.target_datetime = v.map(|x| x.into());
         self
@@ -555,8 +547,7 @@ impl ReportDetail {
 
     /// Sets the value of [report_metrics][crate::model::ReportDetail::report_metrics].
     pub fn set_report_metrics<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::report_detail::Metrics>,
+    where T: std::convert::Into<crate::model::report_detail::Metrics>
     {
         self.report_metrics = std::option::Option::Some(v.into());
         self
@@ -564,8 +555,7 @@ impl ReportDetail {
 
     /// Sets or clears the value of [report_metrics][crate::model::ReportDetail::report_metrics].
     pub fn set_or_clear_report_metrics<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::report_detail::Metrics>,
+    where T: std::convert::Into<crate::model::report_detail::Metrics>
     {
         self.report_metrics = v.map(|x| x.into());
         self
@@ -583,10 +573,12 @@ pub mod report_detail {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Different metrics associated with the generated report.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
+
         /// Count of Cloud Storage objects which are part of the report.
         pub processed_records_count: i64,
 
@@ -616,6 +608,7 @@ pub mod report_detail {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportDetailsRequest {
+
     /// Required. Parent value for ListReportDetailsRequest
     pub parent: std::string::String,
 
@@ -681,6 +674,7 @@ impl wkt::message::Message for ListReportDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReportDetailsResponse {
+
     /// The list of ReportDetail
     pub report_details: std::vec::Vec<crate::model::ReportDetail>,
 
@@ -702,7 +696,7 @@ impl ListReportDetailsResponse {
     pub fn set_report_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReportDetail>,
+        V: std::convert::Into<crate::model::ReportDetail>
     {
         use std::iter::Iterator;
         self.report_details = v.into_iter().map(|i| i.into()).collect();
@@ -719,7 +713,7 @@ impl ListReportDetailsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -751,6 +745,7 @@ impl gax::paginator::internal::PageableResponse for ListReportDetailsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReportDetailRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -779,6 +774,7 @@ impl wkt::message::Message for GetReportDetailRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OperationMetadata {
+
     /// Output only. The time the operation was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -816,8 +812,7 @@ impl OperationMetadata {
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -825,8 +820,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -834,8 +828,7 @@ impl OperationMetadata {
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = std::option::Option::Some(v.into());
         self
@@ -843,8 +836,7 @@ impl OperationMetadata {
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.end_time = v.map(|x| x.into());
         self
@@ -893,6 +885,7 @@ impl wkt::message::Message for OperationMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FrequencyOptions {
+
     /// Frequency of report generation.
     pub frequency: crate::model::frequency_options::Frequency,
 
@@ -913,18 +906,14 @@ impl FrequencyOptions {
     }
 
     /// Sets the value of [frequency][crate::model::FrequencyOptions::frequency].
-    pub fn set_frequency<T: std::convert::Into<crate::model::frequency_options::Frequency>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_frequency<T: std::convert::Into<crate::model::frequency_options::Frequency>>(mut self, v: T) -> Self {
         self.frequency = v.into();
         self
     }
 
     /// Sets the value of [start_date][crate::model::FrequencyOptions::start_date].
     pub fn set_start_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.start_date = std::option::Option::Some(v.into());
         self
@@ -932,8 +921,7 @@ impl FrequencyOptions {
 
     /// Sets or clears the value of [start_date][crate::model::FrequencyOptions::start_date].
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.start_date = v.map(|x| x.into());
         self
@@ -941,8 +929,7 @@ impl FrequencyOptions {
 
     /// Sets the value of [end_date][crate::model::FrequencyOptions::end_date].
     pub fn set_end_date<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.end_date = std::option::Option::Some(v.into());
         self
@@ -950,8 +937,7 @@ impl FrequencyOptions {
 
     /// Sets or clears the value of [end_date][crate::model::FrequencyOptions::end_date].
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Date>,
+    where T: std::convert::Into<gtype::model::Date>
     {
         self.end_date = v.map(|x| x.into());
         self
@@ -968,6 +954,7 @@ impl wkt::message::Message for FrequencyOptions {
 pub mod frequency_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// This ENUM specifies possible frequencies of report generation.
     ///
@@ -1055,9 +1042,7 @@ pub mod frequency_options {
                 0 => Self::Unspecified,
                 1 => Self::Daily,
                 2 => Self::Weekly,
-                _ => Self::UnknownValue(frequency::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(frequency::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1069,9 +1054,7 @@ pub mod frequency_options {
                 "FREQUENCY_UNSPECIFIED" => Self::Unspecified,
                 "DAILY" => Self::Daily,
                 "WEEKLY" => Self::Weekly,
-                _ => Self::UnknownValue(frequency::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(frequency::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1096,8 +1079,7 @@ pub mod frequency_options {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Frequency>::new(
-                ".google.cloud.storageinsights.v1.FrequencyOptions.Frequency",
-            ))
+                ".google.cloud.storageinsights.v1.FrequencyOptions.Frequency"))
         }
     }
 }
@@ -1106,6 +1088,7 @@ pub mod frequency_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CSVOptions {
+
     /// Record separator characters in CSV.
     pub record_separator: std::string::String,
 
@@ -1124,10 +1107,7 @@ impl CSVOptions {
     }
 
     /// Sets the value of [record_separator][crate::model::CSVOptions::record_separator].
-    pub fn set_record_separator<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_record_separator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.record_separator = v.into();
         self
     }
@@ -1155,6 +1135,7 @@ impl wkt::message::Message for CSVOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ParquetOptions {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1175,6 +1156,7 @@ impl wkt::message::Message for ParquetOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageFilters {
+
     /// Bucket for which the report will be generated.
     pub bucket: std::string::String,
 
@@ -1204,6 +1186,7 @@ impl wkt::message::Message for CloudStorageFilters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudStorageDestinationOptions {
+
     /// Destination bucket.
     pub bucket: std::string::String,
 
@@ -1226,10 +1209,7 @@ impl CloudStorageDestinationOptions {
     }
 
     /// Sets the value of [destination_path][crate::model::CloudStorageDestinationOptions::destination_path].
-    pub fn set_destination_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_path = v.into();
         self
     }
@@ -1246,6 +1226,7 @@ impl wkt::message::Message for CloudStorageDestinationOptions {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectMetadataReportOptions {
+
     /// Metadata fields to be included in the report.
     pub metadata_fields: std::vec::Vec<std::string::String>,
 
@@ -1253,8 +1234,7 @@ pub struct ObjectMetadataReportOptions {
     pub filter: std::option::Option<crate::model::object_metadata_report_options::Filter>,
 
     /// Options on destination for storage systems.
-    pub destination_options:
-        std::option::Option<crate::model::object_metadata_report_options::DestinationOptions>,
+    pub destination_options: std::option::Option<crate::model::object_metadata_report_options::DestinationOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1268,7 +1248,7 @@ impl ObjectMetadataReportOptions {
     pub fn set_metadata_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.metadata_fields = v.into_iter().map(|i| i.into()).collect();
@@ -1279,14 +1259,8 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
-    pub fn set_filter<
-        T: std::convert::Into<
-                std::option::Option<crate::model::object_metadata_report_options::Filter>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<crate::model::object_metadata_report_options::Filter>>>(mut self, v: T) -> Self
+    {
         self.filter = v.into();
         self
     }
@@ -1294,14 +1268,10 @@ impl ObjectMetadataReportOptions {
     /// The value of [filter][crate::model::ObjectMetadataReportOptions::filter]
     /// if it holds a `StorageFilters`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn storage_filters(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageFilters>> {
+    pub fn storage_filters(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageFilters>> {
         #[allow(unreachable_patterns)]
         self.filter.as_ref().and_then(|v| match v {
-            crate::model::object_metadata_report_options::Filter::StorageFilters(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::object_metadata_report_options::Filter::StorageFilters(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1311,14 +1281,11 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
-    pub fn set_storage_filters<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageFilters>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_filters<T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageFilters>>>(mut self, v: T) -> Self {
         self.filter = std::option::Option::Some(
-            crate::model::object_metadata_report_options::Filter::StorageFilters(v.into()),
+            crate::model::object_metadata_report_options::Filter::StorageFilters(
+                v.into()
+            )
         );
         self
     }
@@ -1327,16 +1294,8 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `destination_options` are mutually
     /// exclusive.
-    pub fn set_destination_options<
-        T: std::convert::Into<
-                std::option::Option<
-                    crate::model::object_metadata_report_options::DestinationOptions,
-                >,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_destination_options<T: std::convert::Into<std::option::Option<crate::model::object_metadata_report_options::DestinationOptions>>>(mut self, v: T) -> Self
+    {
         self.destination_options = v.into();
         self
     }
@@ -1344,9 +1303,7 @@ impl ObjectMetadataReportOptions {
     /// The value of [destination_options][crate::model::ObjectMetadataReportOptions::destination_options]
     /// if it holds a `StorageDestinationOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn storage_destination_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageDestinationOptions>> {
+    pub fn storage_destination_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::CloudStorageDestinationOptions>> {
         #[allow(unreachable_patterns)]
         self.destination_options.as_ref().and_then(|v| match v {
             crate::model::object_metadata_report_options::DestinationOptions::StorageDestinationOptions(v) => std::option::Option::Some(v),
@@ -1359,12 +1316,7 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `destination_options` are
     /// mutually exclusive.
-    pub fn set_storage_destination_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageDestinationOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_storage_destination_options<T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageDestinationOptions>>>(mut self, v: T) -> Self {
         self.destination_options = std::option::Option::Some(
             crate::model::object_metadata_report_options::DestinationOptions::StorageDestinationOptions(
                 v.into()
@@ -1384,6 +1336,7 @@ impl wkt::message::Message for ObjectMetadataReportOptions {
 pub mod object_metadata_report_options {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Filter options for storage systems.
     #[derive(Clone, Debug, PartialEq)]
@@ -1411,6 +1364,7 @@ pub mod object_metadata_report_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReportConfig {
+
     /// name of resource. It will be of form
     /// projects/\<project\>/locations/\<location\>/reportConfigs/\<report-config-id\>.
     pub name: std::string::String,
@@ -1425,7 +1379,7 @@ pub struct ReportConfig {
     pub frequency_options: std::option::Option<crate::model::FrequencyOptions>,
 
     /// Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// User provided display name which can be empty and limited to 256 characters
     /// that is editable.
@@ -1453,8 +1407,7 @@ impl ReportConfig {
 
     /// Sets the value of [create_time][crate::model::ReportConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1462,8 +1415,7 @@ impl ReportConfig {
 
     /// Sets or clears the value of [create_time][crate::model::ReportConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1471,8 +1423,7 @@ impl ReportConfig {
 
     /// Sets the value of [update_time][crate::model::ReportConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1480,8 +1431,7 @@ impl ReportConfig {
 
     /// Sets or clears the value of [update_time][crate::model::ReportConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -1489,8 +1439,7 @@ impl ReportConfig {
 
     /// Sets the value of [frequency_options][crate::model::ReportConfig::frequency_options].
     pub fn set_frequency_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::FrequencyOptions>,
+    where T: std::convert::Into<crate::model::FrequencyOptions>
     {
         self.frequency_options = std::option::Option::Some(v.into());
         self
@@ -1498,8 +1447,7 @@ impl ReportConfig {
 
     /// Sets or clears the value of [frequency_options][crate::model::ReportConfig::frequency_options].
     pub fn set_or_clear_frequency_options<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::FrequencyOptions>,
+    where T: std::convert::Into<crate::model::FrequencyOptions>
     {
         self.frequency_options = v.map(|x| x.into());
         self
@@ -1527,12 +1475,8 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are mutually
     /// exclusive.
-    pub fn set_report_format<
-        T: std::convert::Into<std::option::Option<crate::model::report_config::ReportFormat>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_report_format<T: std::convert::Into<std::option::Option<crate::model::report_config::ReportFormat>>>(mut self, v: T) -> Self
+    {
         self.report_format = v.into();
         self
     }
@@ -1543,9 +1487,7 @@ impl ReportConfig {
     pub fn csv_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::CSVOptions>> {
         #[allow(unreachable_patterns)]
         self.report_format.as_ref().and_then(|v| match v {
-            crate::model::report_config::ReportFormat::CsvOptions(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::report_config::ReportFormat::CsvOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1555,12 +1497,11 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are
     /// mutually exclusive.
-    pub fn set_csv_options<T: std::convert::Into<std::boxed::Box<crate::model::CSVOptions>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_csv_options<T: std::convert::Into<std::boxed::Box<crate::model::CSVOptions>>>(mut self, v: T) -> Self {
         self.report_format = std::option::Option::Some(
-            crate::model::report_config::ReportFormat::CsvOptions(v.into()),
+            crate::model::report_config::ReportFormat::CsvOptions(
+                v.into()
+            )
         );
         self
     }
@@ -1568,14 +1509,10 @@ impl ReportConfig {
     /// The value of [report_format][crate::model::ReportConfig::report_format]
     /// if it holds a `ParquetOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn parquet_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ParquetOptions>> {
+    pub fn parquet_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::ParquetOptions>> {
         #[allow(unreachable_patterns)]
         self.report_format.as_ref().and_then(|v| match v {
-            crate::model::report_config::ReportFormat::ParquetOptions(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::report_config::ReportFormat::ParquetOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1585,14 +1522,11 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are
     /// mutually exclusive.
-    pub fn set_parquet_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::ParquetOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_parquet_options<T: std::convert::Into<std::boxed::Box<crate::model::ParquetOptions>>>(mut self, v: T) -> Self {
         self.report_format = std::option::Option::Some(
-            crate::model::report_config::ReportFormat::ParquetOptions(v.into()),
+            crate::model::report_config::ReportFormat::ParquetOptions(
+                v.into()
+            )
         );
         self
     }
@@ -1601,12 +1535,8 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_kind` are mutually
     /// exclusive.
-    pub fn set_report_kind<
-        T: std::convert::Into<std::option::Option<crate::model::report_config::ReportKind>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_report_kind<T: std::convert::Into<std::option::Option<crate::model::report_config::ReportKind>>>(mut self, v: T) -> Self
+    {
         self.report_kind = v.into();
         self
     }
@@ -1614,14 +1544,10 @@ impl ReportConfig {
     /// The value of [report_kind][crate::model::ReportConfig::report_kind]
     /// if it holds a `ObjectMetadataReportOptions`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn object_metadata_report_options(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::ObjectMetadataReportOptions>> {
+    pub fn object_metadata_report_options(&self) -> std::option::Option<&std::boxed::Box<crate::model::ObjectMetadataReportOptions>> {
         #[allow(unreachable_patterns)]
         self.report_kind.as_ref().and_then(|v| match v {
-            crate::model::report_config::ReportKind::ObjectMetadataReportOptions(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::report_config::ReportKind::ObjectMetadataReportOptions(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -1631,14 +1557,11 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_kind` are
     /// mutually exclusive.
-    pub fn set_object_metadata_report_options<
-        T: std::convert::Into<std::boxed::Box<crate::model::ObjectMetadataReportOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_object_metadata_report_options<T: std::convert::Into<std::boxed::Box<crate::model::ObjectMetadataReportOptions>>>(mut self, v: T) -> Self {
         self.report_kind = std::option::Option::Some(
-            crate::model::report_config::ReportKind::ObjectMetadataReportOptions(v.into()),
+            crate::model::report_config::ReportKind::ObjectMetadataReportOptions(
+                v.into()
+            )
         );
         self
     }
@@ -1654,6 +1577,7 @@ impl wkt::message::Message for ReportConfig {
 pub mod report_config {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Format in which report will be published.
     #[derive(Clone, Debug, PartialEq)]
@@ -1679,6 +1603,7 @@ pub mod report_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Identity {
+
     /// Output only. Name of the identity.
     pub name: std::string::String,
 
@@ -1700,10 +1625,7 @@ impl Identity {
     }
 
     /// Sets the value of [r#type][crate::model::Identity::type].
-    pub fn set_type<T: std::convert::Into<crate::model::identity::IdentityType>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_type<T: std::convert::Into<crate::model::identity::IdentityType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
@@ -1719,6 +1641,7 @@ impl wkt::message::Message for Identity {
 pub mod identity {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Type of service account to use for the dataset configuration.
     ///
@@ -1806,9 +1729,7 @@ pub mod identity {
                 0 => Self::Unspecified,
                 1 => Self::PerConfig,
                 2 => Self::PerProject,
-                _ => Self::UnknownValue(identity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(identity_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1820,9 +1741,7 @@ pub mod identity {
                 "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "IDENTITY_TYPE_PER_CONFIG" => Self::PerConfig,
                 "IDENTITY_TYPE_PER_PROJECT" => Self::PerProject,
-                _ => Self::UnknownValue(identity_type::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(identity_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1847,8 +1766,7 @@ pub mod identity {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
-                ".google.cloud.storageinsights.v1.Identity.IdentityType",
-            ))
+                ".google.cloud.storageinsights.v1.Identity.IdentityType"))
         }
     }
 }
@@ -1859,6 +1777,7 @@ pub mod identity {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DatasetConfig {
+
     /// Identifier. name of resource
     pub name: std::string::String,
 
@@ -1871,7 +1790,7 @@ pub struct DatasetConfig {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels as key value pairs
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Output only. System generated unique identifier for the resource.
     pub uid: std::string::String,
@@ -1916,12 +1835,10 @@ pub struct DatasetConfig {
     pub source_options: std::option::Option<crate::model::dataset_config::SourceOptions>,
 
     /// Cloud Storage locations to include or exclude.
-    pub cloud_storage_locations:
-        std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
+    pub cloud_storage_locations: std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
 
     /// Cloud Storage buckets to include or exclude.
-    pub cloud_storage_buckets:
-        std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
+    pub cloud_storage_buckets: std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1939,8 +1856,7 @@ impl DatasetConfig {
 
     /// Sets the value of [create_time][crate::model::DatasetConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -1948,8 +1864,7 @@ impl DatasetConfig {
 
     /// Sets or clears the value of [create_time][crate::model::DatasetConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -1957,8 +1872,7 @@ impl DatasetConfig {
 
     /// Sets the value of [update_time][crate::model::DatasetConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -1966,8 +1880,7 @@ impl DatasetConfig {
 
     /// Sets or clears the value of [update_time][crate::model::DatasetConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -2018,8 +1931,7 @@ impl DatasetConfig {
 
     /// Sets the value of [link][crate::model::DatasetConfig::link].
     pub fn set_link<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::dataset_config::Link>,
+    where T: std::convert::Into<crate::model::dataset_config::Link>
     {
         self.link = std::option::Option::Some(v.into());
         self
@@ -2027,8 +1939,7 @@ impl DatasetConfig {
 
     /// Sets or clears the value of [link][crate::model::DatasetConfig::link].
     pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::dataset_config::Link>,
+    where T: std::convert::Into<crate::model::dataset_config::Link>
     {
         self.link = v.map(|x| x.into());
         self
@@ -2036,8 +1947,7 @@ impl DatasetConfig {
 
     /// Sets the value of [identity][crate::model::DatasetConfig::identity].
     pub fn set_identity<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Identity>,
+    where T: std::convert::Into<crate::model::Identity>
     {
         self.identity = std::option::Option::Some(v.into());
         self
@@ -2045,8 +1955,7 @@ impl DatasetConfig {
 
     /// Sets or clears the value of [identity][crate::model::DatasetConfig::identity].
     pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Identity>,
+    where T: std::convert::Into<crate::model::Identity>
     {
         self.identity = v.map(|x| x.into());
         self
@@ -2054,8 +1963,7 @@ impl DatasetConfig {
 
     /// Sets the value of [status][crate::model::DatasetConfig::status].
     pub fn set_status<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = std::option::Option::Some(v.into());
         self
@@ -2063,20 +1971,14 @@ impl DatasetConfig {
 
     /// Sets or clears the value of [status][crate::model::DatasetConfig::status].
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<rpc::model::Status>,
+    where T: std::convert::Into<rpc::model::Status>
     {
         self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [dataset_config_state][crate::model::DatasetConfig::dataset_config_state].
-    pub fn set_dataset_config_state<
-        T: std::convert::Into<crate::model::dataset_config::ConfigState>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataset_config_state<T: std::convert::Into<crate::model::dataset_config::ConfigState>>(mut self, v: T) -> Self {
         self.dataset_config_state = v.into();
         self
     }
@@ -2091,12 +1993,8 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are mutually
     /// exclusive.
-    pub fn set_source_options<
-        T: std::convert::Into<std::option::Option<crate::model::dataset_config::SourceOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_options<T: std::convert::Into<std::option::Option<crate::model::dataset_config::SourceOptions>>>(mut self, v: T) -> Self
+    {
         self.source_options = v.into();
         self
     }
@@ -2104,14 +2002,10 @@ impl DatasetConfig {
     /// The value of [source_options][crate::model::DatasetConfig::source_options]
     /// if it holds a `SourceProjects`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_projects(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceProjects>> {
+    pub fn source_projects(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceProjects>> {
         #[allow(unreachable_patterns)]
         self.source_options.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::SourceOptions::SourceProjects(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dataset_config::SourceOptions::SourceProjects(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2121,14 +2015,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
-    pub fn set_source_projects<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceProjects>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_projects<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceProjects>>>(mut self, v: T) -> Self {
         self.source_options = std::option::Option::Some(
-            crate::model::dataset_config::SourceOptions::SourceProjects(v.into()),
+            crate::model::dataset_config::SourceOptions::SourceProjects(
+                v.into()
+            )
         );
         self
     }
@@ -2136,14 +2027,10 @@ impl DatasetConfig {
     /// The value of [source_options][crate::model::DatasetConfig::source_options]
     /// if it holds a `SourceFolders`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn source_folders(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceFolders>> {
+    pub fn source_folders(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::SourceFolders>> {
         #[allow(unreachable_patterns)]
         self.source_options.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::SourceOptions::SourceFolders(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dataset_config::SourceOptions::SourceFolders(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2153,14 +2040,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
-    pub fn set_source_folders<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceFolders>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source_folders<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceFolders>>>(mut self, v: T) -> Self {
         self.source_options = std::option::Option::Some(
-            crate::model::dataset_config::SourceOptions::SourceFolders(v.into()),
+            crate::model::dataset_config::SourceOptions::SourceFolders(
+                v.into()
+            )
         );
         self
     }
@@ -2171,9 +2055,7 @@ impl DatasetConfig {
     pub fn organization_scope(&self) -> std::option::Option<&bool> {
         #[allow(unreachable_patterns)]
         self.source_options.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::SourceOptions::OrganizationScope(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dataset_config::SourceOptions::OrganizationScope(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2185,7 +2067,9 @@ impl DatasetConfig {
     /// mutually exclusive.
     pub fn set_organization_scope<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.source_options = std::option::Option::Some(
-            crate::model::dataset_config::SourceOptions::OrganizationScope(v.into()),
+            crate::model::dataset_config::SourceOptions::OrganizationScope(
+                v.into()
+            )
         );
         self
     }
@@ -2196,9 +2080,7 @@ impl DatasetConfig {
     pub fn cloud_storage_object_path(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source_options.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2208,12 +2090,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
-    pub fn set_cloud_storage_object_path<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_storage_object_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_options = std::option::Option::Some(
-            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(v.into()),
+            crate::model::dataset_config::SourceOptions::CloudStorageObjectPath(
+                v.into()
+            )
         );
         self
     }
@@ -2222,14 +2103,8 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are mutually
     /// exclusive.
-    pub fn set_cloud_storage_locations<
-        T: std::convert::Into<
-                std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_storage_locations<T: std::convert::Into<std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>>>(mut self, v: T) -> Self
+    {
         self.cloud_storage_locations = v.into();
         self
     }
@@ -2237,10 +2112,7 @@ impl DatasetConfig {
     /// The value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
     /// if it holds a `IncludeCloudStorageLocations`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn include_cloud_storage_locations(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>
-    {
+    pub fn include_cloud_storage_locations(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>> {
         #[allow(unreachable_patterns)]
         self.cloud_storage_locations.as_ref().and_then(|v| match v {
             crate::model::dataset_config::CloudStorageLocationsOneOf::IncludeCloudStorageLocations(v) => std::option::Option::Some(v),
@@ -2253,16 +2125,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are
     /// mutually exclusive.
-    pub fn set_include_cloud_storage_locations<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_include_cloud_storage_locations<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>>(mut self, v: T) -> Self {
         self.cloud_storage_locations = std::option::Option::Some(
             crate::model::dataset_config::CloudStorageLocationsOneOf::IncludeCloudStorageLocations(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -2270,10 +2137,7 @@ impl DatasetConfig {
     /// The value of [cloud_storage_locations][crate::model::DatasetConfig::cloud_storage_locations]
     /// if it holds a `ExcludeCloudStorageLocations`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn exclude_cloud_storage_locations(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>
-    {
+    pub fn exclude_cloud_storage_locations(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>> {
         #[allow(unreachable_patterns)]
         self.cloud_storage_locations.as_ref().and_then(|v| match v {
             crate::model::dataset_config::CloudStorageLocationsOneOf::ExcludeCloudStorageLocations(v) => std::option::Option::Some(v),
@@ -2286,16 +2150,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are
     /// mutually exclusive.
-    pub fn set_exclude_cloud_storage_locations<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_exclude_cloud_storage_locations<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>>(mut self, v: T) -> Self {
         self.cloud_storage_locations = std::option::Option::Some(
             crate::model::dataset_config::CloudStorageLocationsOneOf::ExcludeCloudStorageLocations(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -2304,14 +2163,8 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are mutually
     /// exclusive.
-    pub fn set_cloud_storage_buckets<
-        T: std::convert::Into<
-                std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_cloud_storage_buckets<T: std::convert::Into<std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>>>(mut self, v: T) -> Self
+    {
         self.cloud_storage_buckets = v.into();
         self
     }
@@ -2319,15 +2172,10 @@ impl DatasetConfig {
     /// The value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
     /// if it holds a `IncludeCloudStorageBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn include_cloud_storage_buckets(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>
-    {
+    pub fn include_cloud_storage_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>> {
         #[allow(unreachable_patterns)]
         self.cloud_storage_buckets.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2337,16 +2185,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are
     /// mutually exclusive.
-    pub fn set_include_cloud_storage_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_include_cloud_storage_buckets<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>>(mut self, v: T) -> Self {
         self.cloud_storage_buckets = std::option::Option::Some(
             crate::model::dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -2354,15 +2197,10 @@ impl DatasetConfig {
     /// The value of [cloud_storage_buckets][crate::model::DatasetConfig::cloud_storage_buckets]
     /// if it holds a `ExcludeCloudStorageBuckets`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn exclude_cloud_storage_buckets(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>
-    {
+    pub fn exclude_cloud_storage_buckets(&self) -> std::option::Option<&std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>> {
         #[allow(unreachable_patterns)]
         self.cloud_storage_buckets.as_ref().and_then(|v| match v {
-            crate::model::dataset_config::CloudStorageBucketsOneOf::ExcludeCloudStorageBuckets(
-                v,
-            ) => std::option::Option::Some(v),
+            crate::model::dataset_config::CloudStorageBucketsOneOf::ExcludeCloudStorageBuckets(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -2372,16 +2210,11 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are
     /// mutually exclusive.
-    pub fn set_exclude_cloud_storage_buckets<
-        T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_exclude_cloud_storage_buckets<T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>>(mut self, v: T) -> Self {
         self.cloud_storage_buckets = std::option::Option::Some(
             crate::model::dataset_config::CloudStorageBucketsOneOf::ExcludeCloudStorageBuckets(
-                v.into(),
-            ),
+                v.into()
+            )
         );
         self
     }
@@ -2398,10 +2231,12 @@ pub mod dataset_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Collection of project numbers
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceProjects {
+
         pub project_numbers: std::vec::Vec<i64>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2416,7 +2251,7 @@ pub mod dataset_config {
         pub fn set_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i64>,
+            V: std::convert::Into<i64>
         {
             use std::iter::Iterator;
             self.project_numbers = v.into_iter().map(|i| i.into()).collect();
@@ -2434,6 +2269,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceFolders {
+
         /// Optional. The list of folder numbers to include in the dataset.
         pub folder_numbers: std::vec::Vec<i64>,
 
@@ -2449,7 +2285,7 @@ pub mod dataset_config {
         pub fn set_folder_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i64>,
+            V: std::convert::Into<i64>
         {
             use std::iter::Iterator;
             self.folder_numbers = v.into_iter().map(|i| i.into()).collect();
@@ -2467,6 +2303,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageLocations {
+
         pub locations: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2481,7 +2318,7 @@ pub mod dataset_config {
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.locations = v.into_iter().map(|i| i.into()).collect();
@@ -2499,8 +2336,8 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageBuckets {
-        pub cloud_storage_buckets:
-            std::vec::Vec<crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket>,
+
+        pub cloud_storage_buckets: std::vec::Vec<crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2514,9 +2351,7 @@ pub mod dataset_config {
         pub fn set_cloud_storage_buckets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<
-                    crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket,
-                >,
+            V: std::convert::Into<crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket>
         {
             use std::iter::Iterator;
             self.cloud_storage_buckets = v.into_iter().map(|i| i.into()).collect();
@@ -2534,6 +2369,7 @@ pub mod dataset_config {
     pub mod cloud_storage_buckets {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Defines the bucket by its name or a regex pattern to match buckets.
         #[derive(Clone, Default, PartialEq)]
@@ -2576,10 +2412,7 @@ pub mod dataset_config {
             ///
             /// Note that all the setters affecting `cloud_storage_bucket` are
             /// mutually exclusive.
-            pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.cloud_storage_bucket = std::option::Option::Some(
                     crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketName(
                         v.into()
@@ -2604,10 +2437,7 @@ pub mod dataset_config {
             ///
             /// Note that all the setters affecting `cloud_storage_bucket` are
             /// mutually exclusive.
-            pub fn set_bucket_prefix_regex<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_bucket_prefix_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.cloud_storage_bucket = std::option::Option::Some(
                     crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketPrefixRegex(
                         v.into()
@@ -2628,6 +2458,7 @@ pub mod dataset_config {
             #[allow(unused_imports)]
             use super::*;
 
+
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum CloudStorageBucket {
@@ -2644,6 +2475,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Link {
+
         /// Output only. Dataset name for linked dataset.
         pub dataset: std::string::String,
 
@@ -2681,6 +2513,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BucketErrors {
+
         /// Optional. Count of successfully validated buckets.
         pub validated_count: i64,
 
@@ -2732,7 +2565,7 @@ pub mod dataset_config {
         pub fn set_permission_denied_bucket_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.permission_denied_bucket_ids = v.into_iter().map(|i| i.into()).collect();
@@ -2741,10 +2574,7 @@ pub mod dataset_config {
 
         /// Sets the value of [non_management_hub_entitled_count][crate::model::dataset_config::BucketErrors::non_management_hub_entitled_count].
         #[deprecated]
-        pub fn set_non_management_hub_entitled_count<T: std::convert::Into<i64>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_non_management_hub_entitled_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.non_management_hub_entitled_count = v.into();
             self
         }
@@ -2756,10 +2586,7 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_count][crate::model::dataset_config::BucketErrors::non_storage_intelligence_entitled_count].
-        pub fn set_non_storage_intelligence_entitled_count<T: std::convert::Into<i64>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_non_storage_intelligence_entitled_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.non_storage_intelligence_entitled_count = v.into();
             self
         }
@@ -2768,11 +2595,10 @@ pub mod dataset_config {
         pub fn set_non_storage_intelligence_entitled_bucket_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
-            self.non_storage_intelligence_entitled_bucket_ids =
-                v.into_iter().map(|i| i.into()).collect();
+            self.non_storage_intelligence_entitled_bucket_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2787,6 +2613,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProjectErrors {
+
         /// Optional. Count of successfully validated projects.
         pub validated_count: std::option::Option<i64>,
 
@@ -2822,9 +2649,7 @@ pub mod dataset_config {
         /// The destination project check result. It indicates whether the project
         /// is in the correct organization or if an internal error occurred during
         /// the check.
-        pub destination_project_check_result: std::option::Option<
-            crate::model::dataset_config::project_errors::DestinationProjectCheckResult,
-        >,
+        pub destination_project_check_result: std::option::Option<crate::model::dataset_config::project_errors::DestinationProjectCheckResult>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2836,8 +2661,7 @@ pub mod dataset_config {
 
         /// Sets the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
         pub fn set_validated_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.validated_count = std::option::Option::Some(v.into());
             self
@@ -2845,8 +2669,7 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
         pub fn set_or_clear_validated_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.validated_count = v.map(|x| x.into());
             self
@@ -2854,8 +2677,7 @@ pub mod dataset_config {
 
         /// Sets the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
         pub fn set_outside_org_error_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.outside_org_error_count = std::option::Option::Some(v.into());
             self
@@ -2863,8 +2685,7 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
         pub fn set_or_clear_outside_org_error_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.outside_org_error_count = v.map(|x| x.into());
             self
@@ -2874,7 +2695,7 @@ pub mod dataset_config {
         pub fn set_outside_org_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i64>,
+            V: std::convert::Into<i64>
         {
             use std::iter::Iterator;
             self.outside_org_project_numbers = v.into_iter().map(|i| i.into()).collect();
@@ -2884,8 +2705,7 @@ pub mod dataset_config {
         /// Sets the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
         #[deprecated]
         pub fn set_non_management_hub_entitled_error_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.non_management_hub_entitled_error_count = std::option::Option::Some(v.into());
             self
@@ -2893,12 +2713,8 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
         #[deprecated]
-        pub fn set_or_clear_non_management_hub_entitled_error_count<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_non_management_hub_entitled_error_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.non_management_hub_entitled_error_count = v.map(|x| x.into());
             self
@@ -2909,31 +2725,24 @@ pub mod dataset_config {
         pub fn set_non_management_hub_entitled_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i64>,
+            V: std::convert::Into<i64>
         {
             use std::iter::Iterator;
-            self.non_management_hub_entitled_project_numbers =
-                v.into_iter().map(|i| i.into()).collect();
+            self.non_management_hub_entitled_project_numbers = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
         pub fn set_non_storage_intelligence_entitled_error_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
-            self.non_storage_intelligence_entitled_error_count =
-                std::option::Option::Some(v.into());
+            self.non_storage_intelligence_entitled_error_count = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
-        pub fn set_or_clear_non_storage_intelligence_entitled_error_count<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<i64>,
+        pub fn set_or_clear_non_storage_intelligence_entitled_error_count<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<i64>
         {
             self.non_storage_intelligence_entitled_error_count = v.map(|x| x.into());
             self
@@ -2943,18 +2752,16 @@ pub mod dataset_config {
         pub fn set_non_storage_intelligence_entitled_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<i64>,
+            V: std::convert::Into<i64>
         {
             use std::iter::Iterator;
-            self.non_storage_intelligence_entitled_project_numbers =
-                v.into_iter().map(|i| i.into()).collect();
+            self.non_storage_intelligence_entitled_project_numbers = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
         /// Sets the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
         pub fn set_internal_error_count<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.internal_error_count = std::option::Option::Some(v.into());
             self
@@ -2962,8 +2769,7 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
         pub fn set_or_clear_internal_error_count<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<i64>,
+        where T: std::convert::Into<i64>
         {
             self.internal_error_count = v.map(|x| x.into());
             self
@@ -2973,16 +2779,8 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are mutually
         /// exclusive.
-        pub fn set_destination_project_check_result<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::dataset_config::project_errors::DestinationProjectCheckResult,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_project_check_result<T: std::convert::Into<std::option::Option<crate::model::dataset_config::project_errors::DestinationProjectCheckResult>>>(mut self, v: T) -> Self
+        {
             self.destination_project_check_result = v.into();
             self
         }
@@ -3003,10 +2801,7 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are
         /// mutually exclusive.
-        pub fn set_destination_project_org_error<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_project_org_error<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.destination_project_check_result = std::option::Option::Some(
                 crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectOrgError(
                     v.into()
@@ -3031,10 +2826,7 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are
         /// mutually exclusive.
-        pub fn set_destination_project_check_has_internal_error<T: std::convert::Into<bool>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_destination_project_check_has_internal_error<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.destination_project_check_result = std::option::Option::Some(
                 crate::model::dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectCheckHasInternalError(
                     v.into()
@@ -3054,6 +2846,7 @@ pub mod dataset_config {
     pub mod project_errors {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The destination project check result. It indicates whether the project
         /// is in the correct organization or if an internal error occurred during
@@ -3075,6 +2868,7 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ValidationErrorsBeforeIngestion {
+
         /// Optional. Provides a summary of the bucket level error stats.
         pub bucket_errors: std::option::Option<crate::model::dataset_config::BucketErrors>,
 
@@ -3091,8 +2885,7 @@ pub mod dataset_config {
 
         /// Sets the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
         pub fn set_bucket_errors<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
+        where T: std::convert::Into<crate::model::dataset_config::BucketErrors>
         {
             self.bucket_errors = std::option::Option::Some(v.into());
             self
@@ -3100,8 +2893,7 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
         pub fn set_or_clear_bucket_errors<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
+        where T: std::convert::Into<crate::model::dataset_config::BucketErrors>
         {
             self.bucket_errors = v.map(|x| x.into());
             self
@@ -3109,8 +2901,7 @@ pub mod dataset_config {
 
         /// Sets the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
         pub fn set_project_errors<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
+        where T: std::convert::Into<crate::model::dataset_config::ProjectErrors>
         {
             self.project_errors = std::option::Option::Some(v.into());
             self
@@ -3118,8 +2909,7 @@ pub mod dataset_config {
 
         /// Sets or clears the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
         pub fn set_or_clear_project_errors<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
+        where T: std::convert::Into<crate::model::dataset_config::ProjectErrors>
         {
             self.project_errors = v.map(|x| x.into());
             self
@@ -3201,9 +2991,7 @@ pub mod dataset_config {
             match self {
                 Self::Unspecified => std::option::Option::Some("CONFIG_STATE_UNSPECIFIED"),
                 Self::Active => std::option::Option::Some("CONFIG_STATE_ACTIVE"),
-                Self::VerificationInProgress => {
-                    std::option::Option::Some("CONFIG_STATE_VERIFICATION_IN_PROGRESS")
-                }
+                Self::VerificationInProgress => std::option::Option::Some("CONFIG_STATE_VERIFICATION_IN_PROGRESS"),
                 Self::Created => std::option::Option::Some("CONFIG_STATE_CREATED"),
                 Self::Processing => std::option::Option::Some("CONFIG_STATE_PROCESSING"),
                 Self::UnknownValue(u) => u.0.name(),
@@ -3232,9 +3020,7 @@ pub mod dataset_config {
                 2 => Self::VerificationInProgress,
                 3 => Self::Created,
                 4 => Self::Processing,
-                _ => Self::UnknownValue(config_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(config_state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -3248,9 +3034,7 @@ pub mod dataset_config {
                 "CONFIG_STATE_VERIFICATION_IN_PROGRESS" => Self::VerificationInProgress,
                 "CONFIG_STATE_CREATED" => Self::Created,
                 "CONFIG_STATE_PROCESSING" => Self::Processing,
-                _ => Self::UnknownValue(config_state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(config_state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -3277,8 +3061,7 @@ pub mod dataset_config {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConfigState>::new(
-                ".google.cloud.storageinsights.v1.DatasetConfig.ConfigState",
-            ))
+                ".google.cloud.storageinsights.v1.DatasetConfig.ConfigState"))
         }
     }
 
@@ -3311,24 +3094,16 @@ pub mod dataset_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageLocationsOneOf {
-        IncludeCloudStorageLocations(
-            std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
-        ),
-        ExcludeCloudStorageLocations(
-            std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
-        ),
+        IncludeCloudStorageLocations(std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>),
+        ExcludeCloudStorageLocations(std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>),
     }
 
     /// Cloud Storage buckets to include or exclude.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageBucketsOneOf {
-        IncludeCloudStorageBuckets(
-            std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
-        ),
-        ExcludeCloudStorageBuckets(
-            std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
-        ),
+        IncludeCloudStorageBuckets(std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>),
+        ExcludeCloudStorageBuckets(std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>),
     }
 }
 
@@ -3339,6 +3114,7 @@ pub mod dataset_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetConfigsRequest {
+
     /// Required. Parent value for ListDatasetConfigsRequest
     pub parent: std::string::String,
 
@@ -3407,6 +3183,7 @@ impl wkt::message::Message for ListDatasetConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDatasetConfigsResponse {
+
     /// The list of `DatasetConfigs`
     pub dataset_configs: std::vec::Vec<crate::model::DatasetConfig>,
 
@@ -3428,7 +3205,7 @@ impl ListDatasetConfigsResponse {
     pub fn set_dataset_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DatasetConfig>,
+        V: std::convert::Into<crate::model::DatasetConfig>
     {
         use std::iter::Iterator;
         self.dataset_configs = v.into_iter().map(|i| i.into()).collect();
@@ -3445,7 +3222,7 @@ impl ListDatasetConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -3480,6 +3257,7 @@ impl gax::paginator::internal::PageableResponse for ListDatasetConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDatasetConfigRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3511,6 +3289,7 @@ impl wkt::message::Message for GetDatasetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDatasetConfigRequest {
+
     /// Required. Value for parent.
     pub parent: std::string::String,
 
@@ -3551,18 +3330,14 @@ impl CreateDatasetConfigRequest {
     }
 
     /// Sets the value of [dataset_config_id][crate::model::CreateDatasetConfigRequest::dataset_config_id].
-    pub fn set_dataset_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataset_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_config_id = v.into();
         self
     }
 
     /// Sets the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
     pub fn set_dataset_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetConfig>,
+    where T: std::convert::Into<crate::model::DatasetConfig>
     {
         self.dataset_config = std::option::Option::Some(v.into());
         self
@@ -3570,8 +3345,7 @@ impl CreateDatasetConfigRequest {
 
     /// Sets or clears the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
     pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetConfig>,
+    where T: std::convert::Into<crate::model::DatasetConfig>
     {
         self.dataset_config = v.map(|x| x.into());
         self
@@ -3597,6 +3371,7 @@ impl wkt::message::Message for CreateDatasetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDatasetConfigRequest {
+
     /// Required. Field mask is used to specify the fields to be overwritten in the
     /// `DatasetConfig` resource by the update.
     /// The fields specified in the `update_mask` are relative to the resource, not
@@ -3630,8 +3405,7 @@ impl UpdateDatasetConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -3639,8 +3413,7 @@ impl UpdateDatasetConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -3648,8 +3421,7 @@ impl UpdateDatasetConfigRequest {
 
     /// Sets the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
     pub fn set_dataset_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetConfig>,
+    where T: std::convert::Into<crate::model::DatasetConfig>
     {
         self.dataset_config = std::option::Option::Some(v.into());
         self
@@ -3657,8 +3429,7 @@ impl UpdateDatasetConfigRequest {
 
     /// Sets or clears the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
     pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DatasetConfig>,
+    where T: std::convert::Into<crate::model::DatasetConfig>
     {
         self.dataset_config = v.map(|x| x.into());
         self
@@ -3684,6 +3455,7 @@ impl wkt::message::Message for UpdateDatasetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDatasetConfigRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3734,6 +3506,7 @@ impl wkt::message::Message for DeleteDatasetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkDatasetRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3765,6 +3538,7 @@ impl wkt::message::Message for LinkDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkDatasetResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3787,6 +3561,7 @@ impl wkt::message::Message for LinkDatasetResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UnlinkDatasetRequest {
+
     /// Required. Name of the resource
     pub name: std::string::String,
 
@@ -3815,6 +3590,7 @@ impl wkt::message::Message for UnlinkDatasetRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocationMetadata {
+
     /// If true, `storageinsights.googleapis.com/ReportConfig` resource is
     /// available at the location.
     pub report_config_available: bool,

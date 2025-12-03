@@ -17,6 +17,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
+extern crate std;
 extern crate async_trait;
 extern crate bytes;
 extern crate gax;
@@ -30,7 +31,6 @@ extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
-extern crate std;
 extern crate tracing;
 extern crate wkt;
 
@@ -42,6 +42,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataEncryptionState {
+
     /// Required. The KMS key version name with which data of a resource is
     /// encrypted.
     pub kms_key_version_name: std::string::String,
@@ -55,10 +56,7 @@ impl DataEncryptionState {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::DataEncryptionState::kms_key_version_name].
-    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -74,6 +72,7 @@ impl wkt::message::Message for DataEncryptionState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
+
     /// Identifier. The repository's name.
     pub name: std::string::String,
 
@@ -96,11 +95,10 @@ pub struct Repository {
     /// default compilation settings that are specified in dataform.json when
     /// creating workspace-scoped compilation results. See documentation for
     /// `WorkspaceCompilationOverrides` for more information.
-    pub workspace_compilation_overrides:
-        std::option::Option<crate::model::repository::WorkspaceCompilationOverrides>,
+    pub workspace_compilation_overrides: std::option::Option<crate::model::repository::WorkspaceCompilationOverrides>,
 
     /// Optional. Repository user labels.
-    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Input only. If set to true, the authenticated user will be
     /// granted the roles/dataform.admin role on the created repository.
@@ -141,8 +139,7 @@ impl Repository {
 
     /// Sets the value of [create_time][crate::model::Repository::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -150,8 +147,7 @@ impl Repository {
 
     /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -165,8 +161,7 @@ impl Repository {
 
     /// Sets the value of [git_remote_settings][crate::model::Repository::git_remote_settings].
     pub fn set_git_remote_settings<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::GitRemoteSettings>,
+    where T: std::convert::Into<crate::model::repository::GitRemoteSettings>
     {
         self.git_remote_settings = std::option::Option::Some(v.into());
         self
@@ -174,40 +169,29 @@ impl Repository {
 
     /// Sets or clears the value of [git_remote_settings][crate::model::Repository::git_remote_settings].
     pub fn set_or_clear_git_remote_settings<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::GitRemoteSettings>,
+    where T: std::convert::Into<crate::model::repository::GitRemoteSettings>
     {
         self.git_remote_settings = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [npmrc_environment_variables_secret_version][crate::model::Repository::npmrc_environment_variables_secret_version].
-    pub fn set_npmrc_environment_variables_secret_version<
-        T: std::convert::Into<std::string::String>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_npmrc_environment_variables_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.npmrc_environment_variables_secret_version = v.into();
         self
     }
 
     /// Sets the value of [workspace_compilation_overrides][crate::model::Repository::workspace_compilation_overrides].
     pub fn set_workspace_compilation_overrides<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::WorkspaceCompilationOverrides>,
+    where T: std::convert::Into<crate::model::repository::WorkspaceCompilationOverrides>
     {
         self.workspace_compilation_overrides = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [workspace_compilation_overrides][crate::model::Repository::workspace_compilation_overrides].
-    pub fn set_or_clear_workspace_compilation_overrides<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::repository::WorkspaceCompilationOverrides>,
+    pub fn set_or_clear_workspace_compilation_overrides<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::repository::WorkspaceCompilationOverrides>
     {
         self.workspace_compilation_overrides = v.map(|x| x.into());
         self
@@ -245,8 +229,7 @@ impl Repository {
 
     /// Sets the value of [data_encryption_state][crate::model::Repository::data_encryption_state].
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = std::option::Option::Some(v.into());
         self
@@ -254,8 +237,7 @@ impl Repository {
 
     /// Sets or clears the value of [data_encryption_state][crate::model::Repository::data_encryption_state].
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = v.map(|x| x.into());
         self
@@ -263,8 +245,7 @@ impl Repository {
 
     /// Sets the value of [internal_metadata][crate::model::Repository::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -272,8 +253,7 @@ impl Repository {
 
     /// Sets or clears the value of [internal_metadata][crate::model::Repository::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -291,10 +271,12 @@ pub mod repository {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Controls Git remote configuration for a repository.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GitRemoteSettings {
+
         /// Required. The Git remote's URL.
         pub url: std::string::String,
 
@@ -307,9 +289,7 @@ pub mod repository {
         pub authentication_token_secret_version: std::string::String,
 
         /// Optional. Authentication fields for remote uris using SSH protocol.
-        pub ssh_authentication_config: std::option::Option<
-            crate::model::repository::git_remote_settings::SshAuthenticationConfig,
-        >,
+        pub ssh_authentication_config: std::option::Option<crate::model::repository::git_remote_settings::SshAuthenticationConfig>,
 
         /// Output only. Deprecated: The field does not contain any token status
         /// information.
@@ -331,45 +311,28 @@ pub mod repository {
         }
 
         /// Sets the value of [default_branch][crate::model::repository::GitRemoteSettings::default_branch].
-        pub fn set_default_branch<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_default_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.default_branch = v.into();
             self
         }
 
         /// Sets the value of [authentication_token_secret_version][crate::model::repository::GitRemoteSettings::authentication_token_secret_version].
-        pub fn set_authentication_token_secret_version<
-            T: std::convert::Into<std::string::String>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_authentication_token_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.authentication_token_secret_version = v.into();
             self
         }
 
         /// Sets the value of [ssh_authentication_config][crate::model::repository::GitRemoteSettings::ssh_authentication_config].
         pub fn set_ssh_authentication_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::repository::git_remote_settings::SshAuthenticationConfig,
-                >,
+        where T: std::convert::Into<crate::model::repository::git_remote_settings::SshAuthenticationConfig>
         {
             self.ssh_authentication_config = std::option::Option::Some(v.into());
             self
         }
 
         /// Sets or clears the value of [ssh_authentication_config][crate::model::repository::GitRemoteSettings::ssh_authentication_config].
-        pub fn set_or_clear_ssh_authentication_config<T>(
-            mut self,
-            v: std::option::Option<T>,
-        ) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::repository::git_remote_settings::SshAuthenticationConfig,
-                >,
+        pub fn set_or_clear_ssh_authentication_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::repository::git_remote_settings::SshAuthenticationConfig>
         {
             self.ssh_authentication_config = v.map(|x| x.into());
             self
@@ -377,12 +340,7 @@ pub mod repository {
 
         /// Sets the value of [token_status][crate::model::repository::GitRemoteSettings::token_status].
         #[deprecated]
-        pub fn set_token_status<
-            T: std::convert::Into<crate::model::repository::git_remote_settings::TokenStatus>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_token_status<T: std::convert::Into<crate::model::repository::git_remote_settings::TokenStatus>>(mut self, v: T) -> Self {
             self.token_status = v.into();
             self
         }
@@ -399,10 +357,12 @@ pub mod repository {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Configures fields for performing SSH authentication.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SshAuthenticationConfig {
+
             /// Required. The name of the Secret Manager secret version to use as a
             /// ssh private key for Git operations.
             /// Must be in the format `projects/*/secrets/*/versions/*`.
@@ -421,21 +381,13 @@ pub mod repository {
             }
 
             /// Sets the value of [user_private_key_secret_version][crate::model::repository::git_remote_settings::SshAuthenticationConfig::user_private_key_secret_version].
-            pub fn set_user_private_key_secret_version<
-                T: std::convert::Into<std::string::String>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_user_private_key_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.user_private_key_secret_version = v.into();
                 self
             }
 
             /// Sets the value of [host_public_key][crate::model::repository::git_remote_settings::SshAuthenticationConfig::host_public_key].
-            pub fn set_host_public_key<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_host_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.host_public_key = v.into();
                 self
             }
@@ -527,10 +479,7 @@ pub mod repository {
         }
 
         impl std::fmt::Display for TokenStatus {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -542,9 +491,7 @@ pub mod repository {
                     1 => Self::NotFound,
                     2 => Self::Invalid,
                     3 => Self::Valid,
-                    _ => Self::UnknownValue(token_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(token_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -557,9 +504,7 @@ pub mod repository {
                     "NOT_FOUND" => Self::NotFound,
                     "INVALID" => Self::Invalid,
                     "VALID" => Self::Valid,
-                    _ => Self::UnknownValue(token_status::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(token_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -585,8 +530,7 @@ pub mod repository {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<TokenStatus>::new(
-                    ".google.cloud.dataform.v1.Repository.GitRemoteSettings.TokenStatus",
-                ))
+                    ".google.cloud.dataform.v1.Repository.GitRemoteSettings.TokenStatus"))
             }
         }
     }
@@ -595,6 +539,7 @@ pub mod repository {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WorkspaceCompilationOverrides {
+
         /// Optional. The default database (Google Cloud project ID).
         pub default_database: std::string::String,
 
@@ -614,28 +559,19 @@ pub mod repository {
         }
 
         /// Sets the value of [default_database][crate::model::repository::WorkspaceCompilationOverrides::default_database].
-        pub fn set_default_database<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_default_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.default_database = v.into();
             self
         }
 
         /// Sets the value of [schema_suffix][crate::model::repository::WorkspaceCompilationOverrides::schema_suffix].
-        pub fn set_schema_suffix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_schema_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.schema_suffix = v.into();
             self
         }
 
         /// Sets the value of [table_prefix][crate::model::repository::WorkspaceCompilationOverrides::table_prefix].
-        pub fn set_table_prefix<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_table_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table_prefix = v.into();
             self
         }
@@ -652,6 +588,7 @@ pub mod repository {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesRequest {
+
     /// Required. The location in which to list repositories. Must be in the format
     /// `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -726,6 +663,7 @@ impl wkt::message::Message for ListRepositoriesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
+
     /// List of repositories.
     pub repositories: std::vec::Vec<crate::model::Repository>,
 
@@ -748,7 +686,7 @@ impl ListRepositoriesResponse {
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Repository>,
+        V: std::convert::Into<crate::model::Repository>
     {
         use std::iter::Iterator;
         self.repositories = v.into_iter().map(|i| i.into()).collect();
@@ -765,7 +703,7 @@ impl ListRepositoriesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -797,6 +735,7 @@ impl gax::paginator::internal::PageableResponse for ListRepositoriesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetRepositoryRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -825,6 +764,7 @@ impl wkt::message::Message for GetRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateRepositoryRequest {
+
     /// Required. The location in which to create the repository. Must be in the
     /// format `projects/*/locations/*`.
     pub parent: std::string::String,
@@ -852,8 +792,7 @@ impl CreateRepositoryRequest {
 
     /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -861,8 +800,7 @@ impl CreateRepositoryRequest {
 
     /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = v.map(|x| x.into());
         self
@@ -885,6 +823,7 @@ impl wkt::message::Message for CreateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateRepositoryRequest {
+
     /// Optional. Specifies the fields to be updated in the repository. If left
     /// unset, all fields will be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -902,8 +841,7 @@ impl UpdateRepositoryRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -911,8 +849,7 @@ impl UpdateRepositoryRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -920,8 +857,7 @@ impl UpdateRepositoryRequest {
 
     /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
     pub fn set_repository<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = std::option::Option::Some(v.into());
         self
@@ -929,8 +865,7 @@ impl UpdateRepositoryRequest {
 
     /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Repository>,
+    where T: std::convert::Into<crate::model::Repository>
     {
         self.repository = v.map(|x| x.into());
         self
@@ -947,6 +882,7 @@ impl wkt::message::Message for UpdateRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteRepositoryRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -986,6 +922,7 @@ impl wkt::message::Message for DeleteRepositoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitRepositoryChangesRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -999,10 +936,7 @@ pub struct CommitRepositoryChangesRequest {
 
     /// Optional. A map to the path of the file to the operation. The path is the
     /// full file path including filename, from repository root.
-    pub file_operations: std::collections::HashMap<
-        std::string::String,
-        crate::model::commit_repository_changes_request::FileOperation,
-    >,
+    pub file_operations: std::collections::HashMap<std::string::String,crate::model::commit_repository_changes_request::FileOperation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1020,8 +954,7 @@ impl CommitRepositoryChangesRequest {
 
     /// Sets the value of [commit_metadata][crate::model::CommitRepositoryChangesRequest::commit_metadata].
     pub fn set_commit_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitMetadata>,
+    where T: std::convert::Into<crate::model::CommitMetadata>
     {
         self.commit_metadata = std::option::Option::Some(v.into());
         self
@@ -1029,18 +962,14 @@ impl CommitRepositoryChangesRequest {
 
     /// Sets or clears the value of [commit_metadata][crate::model::CommitRepositoryChangesRequest::commit_metadata].
     pub fn set_or_clear_commit_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitMetadata>,
+    where T: std::convert::Into<crate::model::CommitMetadata>
     {
         self.commit_metadata = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [required_head_commit_sha][crate::model::CommitRepositoryChangesRequest::required_head_commit_sha].
-    pub fn set_required_head_commit_sha<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_required_head_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.required_head_commit_sha = v.into();
         self
     }
@@ -1069,14 +998,14 @@ pub mod commit_repository_changes_request {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a single file operation to the repository.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FileOperation {
+
         /// The operation to perform on the file.
-        pub operation: std::option::Option<
-            crate::model::commit_repository_changes_request::file_operation::Operation,
-        >,
+        pub operation: std::option::Option<crate::model::commit_repository_changes_request::file_operation::Operation>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1090,16 +1019,8 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are mutually
         /// exclusive.
-        pub fn set_operation<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::commit_repository_changes_request::file_operation::Operation,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_operation<T: std::convert::Into<std::option::Option<crate::model::commit_repository_changes_request::file_operation::Operation>>>(mut self, v: T) -> Self
+        {
             self.operation = v.into();
             self
         }
@@ -1107,13 +1028,7 @@ pub mod commit_repository_changes_request {
         /// The value of [operation][crate::model::commit_repository_changes_request::FileOperation::operation]
         /// if it holds a `WriteFile`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn write_file(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::commit_repository_changes_request::file_operation::WriteFile,
-            >,
-        > {
+        pub fn write_file(&self) -> std::option::Option<&std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::WriteFile>> {
             #[allow(unreachable_patterns)]
             self.operation.as_ref().and_then(|v| match v {
                 crate::model::commit_repository_changes_request::file_operation::Operation::WriteFile(v) => std::option::Option::Some(v),
@@ -1126,16 +1041,7 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are
         /// mutually exclusive.
-        pub fn set_write_file<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::commit_repository_changes_request::file_operation::WriteFile,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_write_file<T: std::convert::Into<std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::WriteFile>>>(mut self, v: T) -> Self {
             self.operation = std::option::Option::Some(
                 crate::model::commit_repository_changes_request::file_operation::Operation::WriteFile(
                     v.into()
@@ -1147,13 +1053,7 @@ pub mod commit_repository_changes_request {
         /// The value of [operation][crate::model::commit_repository_changes_request::FileOperation::operation]
         /// if it holds a `DeleteFile`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn delete_file(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::commit_repository_changes_request::file_operation::DeleteFile,
-            >,
-        > {
+        pub fn delete_file(&self) -> std::option::Option<&std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::DeleteFile>> {
             #[allow(unreachable_patterns)]
             self.operation.as_ref().and_then(|v| match v {
                 crate::model::commit_repository_changes_request::file_operation::Operation::DeleteFile(v) => std::option::Option::Some(v),
@@ -1166,16 +1066,7 @@ pub mod commit_repository_changes_request {
         ///
         /// Note that all the setters affecting `operation` are
         /// mutually exclusive.
-        pub fn set_delete_file<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::commit_repository_changes_request::file_operation::DeleteFile,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_delete_file<T: std::convert::Into<std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::DeleteFile>>>(mut self, v: T) -> Self {
             self.operation = std::option::Option::Some(
                 crate::model::commit_repository_changes_request::file_operation::Operation::DeleteFile(
                     v.into()
@@ -1196,10 +1087,12 @@ pub mod commit_repository_changes_request {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Represents the write file operation (for files added or modified).
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct WriteFile {
+
             /// The file's contents.
             pub contents: ::bytes::Bytes,
 
@@ -1228,6 +1121,7 @@ pub mod commit_repository_changes_request {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DeleteFile {
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -1248,17 +1142,9 @@ pub mod commit_repository_changes_request {
         #[non_exhaustive]
         pub enum Operation {
             /// Represents the write operation.
-            WriteFile(
-                std::boxed::Box<
-                    crate::model::commit_repository_changes_request::file_operation::WriteFile,
-                >,
-            ),
+            WriteFile(std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::WriteFile>),
             /// Represents the delete operation.
-            DeleteFile(
-                std::boxed::Box<
-                    crate::model::commit_repository_changes_request::file_operation::DeleteFile,
-                >,
-            ),
+            DeleteFile(std::boxed::Box<crate::model::commit_repository_changes_request::file_operation::DeleteFile>),
         }
     }
 }
@@ -1267,6 +1153,7 @@ pub mod commit_repository_changes_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitRepositoryChangesResponse {
+
     /// The commit SHA of the current commit.
     pub commit_sha: std::string::String,
 
@@ -1295,6 +1182,7 @@ impl wkt::message::Message for CommitRepositoryChangesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRepositoryFileRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -1342,6 +1230,7 @@ impl wkt::message::Message for ReadRepositoryFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadRepositoryFileResponse {
+
     /// The file's contents.
     pub contents: ::bytes::Bytes,
 
@@ -1370,6 +1259,7 @@ impl wkt::message::Message for ReadRepositoryFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryRepositoryDirectoryContentsRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -1444,6 +1334,7 @@ impl wkt::message::Message for QueryRepositoryDirectoryContentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryRepositoryDirectoryContentsResponse {
+
     /// List of entries in the directory.
     pub directory_entries: std::vec::Vec<crate::model::DirectoryEntry>,
 
@@ -1463,7 +1354,7 @@ impl QueryRepositoryDirectoryContentsResponse {
     pub fn set_directory_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DirectoryEntry>,
+        V: std::convert::Into<crate::model::DirectoryEntry>
     {
         use std::iter::Iterator;
         self.directory_entries = v.into_iter().map(|i| i.into()).collect();
@@ -1501,6 +1392,7 @@ impl gax::paginator::internal::PageableResponse for QueryRepositoryDirectoryCont
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRepositoryHistoryRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -1554,6 +1446,7 @@ impl wkt::message::Message for FetchRepositoryHistoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRepositoryHistoryResponse {
+
     /// A list of commit logs, ordered by 'git log' default order.
     pub commits: std::vec::Vec<crate::model::CommitLogEntry>,
 
@@ -1573,7 +1466,7 @@ impl FetchRepositoryHistoryResponse {
     pub fn set_commits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CommitLogEntry>,
+        V: std::convert::Into<crate::model::CommitLogEntry>
     {
         use std::iter::Iterator;
         self.commits = v.into_iter().map(|i| i.into()).collect();
@@ -1611,6 +1504,7 @@ impl gax::paginator::internal::PageableResponse for FetchRepositoryHistoryRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitLogEntry {
+
     /// Commit timestamp.
     pub commit_time: std::option::Option<wkt::Timestamp>,
 
@@ -1633,8 +1527,7 @@ impl CommitLogEntry {
 
     /// Sets the value of [commit_time][crate::model::CommitLogEntry::commit_time].
     pub fn set_commit_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commit_time = std::option::Option::Some(v.into());
         self
@@ -1642,8 +1535,7 @@ impl CommitLogEntry {
 
     /// Sets or clears the value of [commit_time][crate::model::CommitLogEntry::commit_time].
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.commit_time = v.map(|x| x.into());
         self
@@ -1657,8 +1549,7 @@ impl CommitLogEntry {
 
     /// Sets the value of [author][crate::model::CommitLogEntry::author].
     pub fn set_author<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = std::option::Option::Some(v.into());
         self
@@ -1666,8 +1557,7 @@ impl CommitLogEntry {
 
     /// Sets or clears the value of [author][crate::model::CommitLogEntry::author].
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = v.map(|x| x.into());
         self
@@ -1690,6 +1580,7 @@ impl wkt::message::Message for CommitLogEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitMetadata {
+
     /// Required. The commit's author.
     pub author: std::option::Option<crate::model::CommitAuthor>,
 
@@ -1706,8 +1597,7 @@ impl CommitMetadata {
 
     /// Sets the value of [author][crate::model::CommitMetadata::author].
     pub fn set_author<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = std::option::Option::Some(v.into());
         self
@@ -1715,8 +1605,7 @@ impl CommitMetadata {
 
     /// Sets or clears the value of [author][crate::model::CommitMetadata::author].
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = v.map(|x| x.into());
         self
@@ -1739,6 +1628,7 @@ impl wkt::message::Message for CommitMetadata {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeRepositoryAccessTokenStatusRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -1767,6 +1657,7 @@ impl wkt::message::Message for ComputeRepositoryAccessTokenStatusRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeRepositoryAccessTokenStatusResponse {
+
     /// Indicates the status of the Git access token.
     pub token_status: crate::model::compute_repository_access_token_status_response::TokenStatus,
 
@@ -1779,14 +1670,7 @@ impl ComputeRepositoryAccessTokenStatusResponse {
     }
 
     /// Sets the value of [token_status][crate::model::ComputeRepositoryAccessTokenStatusResponse::token_status].
-    pub fn set_token_status<
-        T: std::convert::Into<
-                crate::model::compute_repository_access_token_status_response::TokenStatus,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_token_status<T: std::convert::Into<crate::model::compute_repository_access_token_status_response::TokenStatus>>(mut self, v: T) -> Self {
         self.token_status = v.into();
         self
     }
@@ -1802,6 +1686,7 @@ impl wkt::message::Message for ComputeRepositoryAccessTokenStatusResponse {
 pub mod compute_repository_access_token_status_response {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Indicates the status of a Git authentication token.
     ///
@@ -1895,9 +1780,7 @@ pub mod compute_repository_access_token_status_response {
                 1 => Self::NotFound,
                 2 => Self::Invalid,
                 3 => Self::Valid,
-                _ => Self::UnknownValue(token_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(token_status::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -1910,9 +1793,7 @@ pub mod compute_repository_access_token_status_response {
                 "NOT_FOUND" => Self::NotFound,
                 "INVALID" => Self::Invalid,
                 "VALID" => Self::Valid,
-                _ => Self::UnknownValue(token_status::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(token_status::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -1938,8 +1819,7 @@ pub mod compute_repository_access_token_status_response {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<TokenStatus>::new(
-                ".google.cloud.dataform.v1.ComputeRepositoryAccessTokenStatusResponse.TokenStatus",
-            ))
+                ".google.cloud.dataform.v1.ComputeRepositoryAccessTokenStatusResponse.TokenStatus"))
         }
     }
 }
@@ -1948,6 +1828,7 @@ pub mod compute_repository_access_token_status_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRemoteBranchesRequest {
+
     /// Required. The repository's name.
     pub name: std::string::String,
 
@@ -1976,6 +1857,7 @@ impl wkt::message::Message for FetchRemoteBranchesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchRemoteBranchesResponse {
+
     /// The remote repository's branch names.
     pub branches: std::vec::Vec<std::string::String>,
 
@@ -1991,7 +1873,7 @@ impl FetchRemoteBranchesResponse {
     pub fn set_branches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.branches = v.into_iter().map(|i| i.into()).collect();
@@ -2009,6 +1891,7 @@ impl wkt::message::Message for FetchRemoteBranchesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Workspace {
+
     /// Identifier. The workspace's name.
     pub name: std::string::String,
 
@@ -2040,8 +1923,7 @@ impl Workspace {
 
     /// Sets the value of [create_time][crate::model::Workspace::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -2049,8 +1931,7 @@ impl Workspace {
 
     /// Sets or clears the value of [create_time][crate::model::Workspace::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -2058,8 +1939,7 @@ impl Workspace {
 
     /// Sets the value of [data_encryption_state][crate::model::Workspace::data_encryption_state].
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = std::option::Option::Some(v.into());
         self
@@ -2067,8 +1947,7 @@ impl Workspace {
 
     /// Sets or clears the value of [data_encryption_state][crate::model::Workspace::data_encryption_state].
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = v.map(|x| x.into());
         self
@@ -2076,8 +1955,7 @@ impl Workspace {
 
     /// Sets the value of [internal_metadata][crate::model::Workspace::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -2085,8 +1963,7 @@ impl Workspace {
 
     /// Sets or clears the value of [internal_metadata][crate::model::Workspace::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -2103,6 +1980,7 @@ impl wkt::message::Message for Workspace {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkspacesRequest {
+
     /// Required. The repository in which to list workspaces. Must be in the
     /// format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -2177,6 +2055,7 @@ impl wkt::message::Message for ListWorkspacesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkspacesResponse {
+
     /// List of workspaces.
     pub workspaces: std::vec::Vec<crate::model::Workspace>,
 
@@ -2199,7 +2078,7 @@ impl ListWorkspacesResponse {
     pub fn set_workspaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Workspace>,
+        V: std::convert::Into<crate::model::Workspace>
     {
         use std::iter::Iterator;
         self.workspaces = v.into_iter().map(|i| i.into()).collect();
@@ -2216,7 +2095,7 @@ impl ListWorkspacesResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -2248,6 +2127,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkspacesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkspaceRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2276,6 +2156,7 @@ impl wkt::message::Message for GetWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkspaceRequest {
+
     /// Required. The repository in which to create the workspace. Must be in the
     /// format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -2303,8 +2184,7 @@ impl CreateWorkspaceRequest {
 
     /// Sets the value of [workspace][crate::model::CreateWorkspaceRequest::workspace].
     pub fn set_workspace<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Workspace>,
+    where T: std::convert::Into<crate::model::Workspace>
     {
         self.workspace = std::option::Option::Some(v.into());
         self
@@ -2312,8 +2192,7 @@ impl CreateWorkspaceRequest {
 
     /// Sets or clears the value of [workspace][crate::model::CreateWorkspaceRequest::workspace].
     pub fn set_or_clear_workspace<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Workspace>,
+    where T: std::convert::Into<crate::model::Workspace>
     {
         self.workspace = v.map(|x| x.into());
         self
@@ -2336,6 +2215,7 @@ impl wkt::message::Message for CreateWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkspaceRequest {
+
     /// Required. The workspace resource's name.
     pub name: std::string::String,
 
@@ -2364,6 +2244,7 @@ impl wkt::message::Message for DeleteWorkspaceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitAuthor {
+
     /// Required. The commit author's name.
     pub name: std::string::String,
 
@@ -2401,6 +2282,7 @@ impl wkt::message::Message for CommitAuthor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullGitCommitsRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2434,8 +2316,7 @@ impl PullGitCommitsRequest {
 
     /// Sets the value of [author][crate::model::PullGitCommitsRequest::author].
     pub fn set_author<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = std::option::Option::Some(v.into());
         self
@@ -2443,8 +2324,7 @@ impl PullGitCommitsRequest {
 
     /// Sets or clears the value of [author][crate::model::PullGitCommitsRequest::author].
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = v.map(|x| x.into());
         self
@@ -2461,6 +2341,7 @@ impl wkt::message::Message for PullGitCommitsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullGitCommitsResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2480,6 +2361,7 @@ impl wkt::message::Message for PullGitCommitsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushGitCommitsRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2519,6 +2401,7 @@ impl wkt::message::Message for PushGitCommitsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PushGitCommitsResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2538,6 +2421,7 @@ impl wkt::message::Message for PushGitCommitsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileGitStatusesRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2566,10 +2450,10 @@ impl wkt::message::Message for FetchFileGitStatusesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileGitStatusesResponse {
+
     /// A list of all files which have uncommitted Git changes. There will only be
     /// a single entry for any given file.
-    pub uncommitted_file_changes:
-        std::vec::Vec<crate::model::fetch_file_git_statuses_response::UncommittedFileChange>,
+    pub uncommitted_file_changes: std::vec::Vec<crate::model::fetch_file_git_statuses_response::UncommittedFileChange>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2583,9 +2467,7 @@ impl FetchFileGitStatusesResponse {
     pub fn set_uncommitted_file_changes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<
-                crate::model::fetch_file_git_statuses_response::UncommittedFileChange,
-            >,
+        V: std::convert::Into<crate::model::fetch_file_git_statuses_response::UncommittedFileChange>
     {
         use std::iter::Iterator;
         self.uncommitted_file_changes = v.into_iter().map(|i| i.into()).collect();
@@ -2604,10 +2486,12 @@ pub mod fetch_file_git_statuses_response {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents the Git state of a file with uncommitted changes.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UncommittedFileChange {
+
         /// The file's full path including filename, relative to the workspace root.
         pub path: std::string::String,
 
@@ -2629,14 +2513,7 @@ pub mod fetch_file_git_statuses_response {
         }
 
         /// Sets the value of [state][crate::model::fetch_file_git_statuses_response::UncommittedFileChange::state].
-        pub fn set_state<
-            T: std::convert::Into<
-                    crate::model::fetch_file_git_statuses_response::uncommitted_file_change::State,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_state<T: std::convert::Into<crate::model::fetch_file_git_statuses_response::uncommitted_file_change::State>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
@@ -2652,6 +2529,7 @@ pub mod fetch_file_git_statuses_response {
     pub mod uncommitted_file_change {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Indicates the status of an uncommitted file change.
         ///
@@ -2736,10 +2614,7 @@ pub mod fetch_file_git_statuses_response {
         }
 
         impl std::fmt::Display for State {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -2752,9 +2627,7 @@ pub mod fetch_file_git_statuses_response {
                     2 => Self::Deleted,
                     3 => Self::Modified,
                     4 => Self::HasConflicts,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -2768,9 +2641,7 @@ pub mod fetch_file_git_statuses_response {
                     "DELETED" => Self::Deleted,
                     "MODIFIED" => Self::Modified,
                     "HAS_CONFLICTS" => Self::HasConflicts,
-                    _ => Self::UnknownValue(state::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -2807,6 +2678,7 @@ pub mod fetch_file_git_statuses_response {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchGitAheadBehindRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2846,6 +2718,7 @@ impl wkt::message::Message for FetchGitAheadBehindRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchGitAheadBehindResponse {
+
     /// The number of commits in the remote branch that are not in the workspace.
     pub commits_ahead: i32,
 
@@ -2883,6 +2756,7 @@ impl wkt::message::Message for FetchGitAheadBehindResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitWorkspaceChangesRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -2912,8 +2786,7 @@ impl CommitWorkspaceChangesRequest {
 
     /// Sets the value of [author][crate::model::CommitWorkspaceChangesRequest::author].
     pub fn set_author<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = std::option::Option::Some(v.into());
         self
@@ -2921,8 +2794,7 @@ impl CommitWorkspaceChangesRequest {
 
     /// Sets or clears the value of [author][crate::model::CommitWorkspaceChangesRequest::author].
     pub fn set_or_clear_author<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CommitAuthor>,
+    where T: std::convert::Into<crate::model::CommitAuthor>
     {
         self.author = v.map(|x| x.into());
         self
@@ -2938,7 +2810,7 @@ impl CommitWorkspaceChangesRequest {
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.paths = v.into_iter().map(|i| i.into()).collect();
@@ -2956,6 +2828,7 @@ impl wkt::message::Message for CommitWorkspaceChangesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitWorkspaceChangesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2975,6 +2848,7 @@ impl wkt::message::Message for CommitWorkspaceChangesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetWorkspaceChangesRequest {
+
     /// Required. The workspace's name.
     pub name: std::string::String,
 
@@ -3003,7 +2877,7 @@ impl ResetWorkspaceChangesRequest {
     pub fn set_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.paths = v.into_iter().map(|i| i.into()).collect();
@@ -3027,6 +2901,7 @@ impl wkt::message::Message for ResetWorkspaceChangesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResetWorkspaceChangesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3046,6 +2921,7 @@ impl wkt::message::Message for ResetWorkspaceChangesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileDiffRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3084,6 +2960,7 @@ impl wkt::message::Message for FetchFileDiffRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FetchFileDiffResponse {
+
     /// The raw formatted Git diff for the file.
     pub formatted_diff: std::string::String,
 
@@ -3112,6 +2989,7 @@ impl wkt::message::Message for FetchFileDiffResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDirectoryContentsRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3175,6 +3053,7 @@ impl wkt::message::Message for QueryDirectoryContentsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryDirectoryContentsResponse {
+
     /// List of entries in the directory.
     pub directory_entries: std::vec::Vec<crate::model::DirectoryEntry>,
 
@@ -3194,7 +3073,7 @@ impl QueryDirectoryContentsResponse {
     pub fn set_directory_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::DirectoryEntry>,
+        V: std::convert::Into<crate::model::DirectoryEntry>
     {
         use std::iter::Iterator;
         self.directory_entries = v.into_iter().map(|i| i.into()).collect();
@@ -3232,6 +3111,7 @@ impl gax::paginator::internal::PageableResponse for QueryDirectoryContentsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectoryEntry {
+
     /// The entry's contents.
     pub entry: std::option::Option<crate::model::directory_entry::Entry>,
 
@@ -3247,12 +3127,8 @@ impl DirectoryEntry {
     ///
     /// Note that all the setters affecting `entry` are mutually
     /// exclusive.
-    pub fn set_entry<
-        T: std::convert::Into<std::option::Option<crate::model::directory_entry::Entry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::directory_entry::Entry>>>(mut self, v: T) -> Self
+    {
         self.entry = v.into();
         self
     }
@@ -3274,8 +3150,11 @@ impl DirectoryEntry {
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
     pub fn set_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.entry =
-            std::option::Option::Some(crate::model::directory_entry::Entry::File(v.into()));
+        self.entry = std::option::Option::Some(
+            crate::model::directory_entry::Entry::File(
+                v.into()
+            )
+        );
         self
     }
 
@@ -3296,8 +3175,11 @@ impl DirectoryEntry {
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
     pub fn set_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.entry =
-            std::option::Option::Some(crate::model::directory_entry::Entry::Directory(v.into()));
+        self.entry = std::option::Option::Some(
+            crate::model::directory_entry::Entry::Directory(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3312,6 +3194,7 @@ impl wkt::message::Message for DirectoryEntry {
 pub mod directory_entry {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The entry's contents.
     #[derive(Clone, Debug, PartialEq)]
@@ -3328,6 +3211,7 @@ pub mod directory_entry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFilesRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3392,6 +3276,7 @@ impl wkt::message::Message for SearchFilesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchFilesResponse {
+
     /// List of matched results.
     pub search_results: std::vec::Vec<crate::model::SearchResult>,
 
@@ -3411,7 +3296,7 @@ impl SearchFilesResponse {
     pub fn set_search_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::SearchResult>,
+        V: std::convert::Into<crate::model::SearchResult>
     {
         use std::iter::Iterator;
         self.search_results = v.into_iter().map(|i| i.into()).collect();
@@ -3449,6 +3334,7 @@ impl gax::paginator::internal::PageableResponse for SearchFilesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchResult {
+
     /// The entry's contents.
     pub entry: std::option::Option<crate::model::search_result::Entry>,
 
@@ -3464,12 +3350,8 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are mutually
     /// exclusive.
-    pub fn set_entry<
-        T: std::convert::Into<std::option::Option<crate::model::search_result::Entry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::search_result::Entry>>>(mut self, v: T) -> Self
+    {
         self.entry = v.into();
         self
     }
@@ -3490,20 +3372,19 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
-    pub fn set_file<T: std::convert::Into<std::boxed::Box<crate::model::FileSearchResult>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entry = std::option::Option::Some(crate::model::search_result::Entry::File(v.into()));
+    pub fn set_file<T: std::convert::Into<std::boxed::Box<crate::model::FileSearchResult>>>(mut self, v: T) -> Self {
+        self.entry = std::option::Option::Some(
+            crate::model::search_result::Entry::File(
+                v.into()
+            )
+        );
         self
     }
 
     /// The value of [entry][crate::model::SearchResult::entry]
     /// if it holds a `Directory`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn directory(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::DirectorySearchResult>> {
+    pub fn directory(&self) -> std::option::Option<&std::boxed::Box<crate::model::DirectorySearchResult>> {
         #[allow(unreachable_patterns)]
         self.entry.as_ref().and_then(|v| match v {
             crate::model::search_result::Entry::Directory(v) => std::option::Option::Some(v),
@@ -3516,14 +3397,12 @@ impl SearchResult {
     ///
     /// Note that all the setters affecting `entry` are
     /// mutually exclusive.
-    pub fn set_directory<
-        T: std::convert::Into<std::boxed::Box<crate::model::DirectorySearchResult>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entry =
-            std::option::Option::Some(crate::model::search_result::Entry::Directory(v.into()));
+    pub fn set_directory<T: std::convert::Into<std::boxed::Box<crate::model::DirectorySearchResult>>>(mut self, v: T) -> Self {
+        self.entry = std::option::Option::Some(
+            crate::model::search_result::Entry::Directory(
+                v.into()
+            )
+        );
         self
     }
 }
@@ -3538,6 +3417,7 @@ impl wkt::message::Message for SearchResult {
 pub mod search_result {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// The entry's contents.
     #[derive(Clone, Debug, PartialEq)]
@@ -3554,6 +3434,7 @@ pub mod search_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileSearchResult {
+
     /// File system path relative to the workspace root.
     pub path: std::string::String,
 
@@ -3582,6 +3463,7 @@ impl wkt::message::Message for FileSearchResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectorySearchResult {
+
     /// File system path relative to the workspace root.
     pub path: std::string::String,
 
@@ -3610,6 +3492,7 @@ impl wkt::message::Message for DirectorySearchResult {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MakeDirectoryRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3648,6 +3531,7 @@ impl wkt::message::Message for MakeDirectoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MakeDirectoryResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3667,6 +3551,7 @@ impl wkt::message::Message for MakeDirectoryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveDirectoryRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3705,6 +3590,7 @@ impl wkt::message::Message for RemoveDirectoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveDirectoryResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3724,6 +3610,7 @@ impl wkt::message::Message for RemoveDirectoryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveDirectoryRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3772,6 +3659,7 @@ impl wkt::message::Message for MoveDirectoryRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveDirectoryResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3791,6 +3679,7 @@ impl wkt::message::Message for MoveDirectoryResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadFileRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3839,6 +3728,7 @@ impl wkt::message::Message for ReadFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReadFileResponse {
+
     /// The file's contents.
     pub file_contents: ::bytes::Bytes,
 
@@ -3867,6 +3757,7 @@ impl wkt::message::Message for ReadFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFileRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3905,6 +3796,7 @@ impl wkt::message::Message for RemoveFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RemoveFileResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3924,6 +3816,7 @@ impl wkt::message::Message for RemoveFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFileRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -3972,6 +3865,7 @@ impl wkt::message::Message for MoveFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MoveFileResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3991,6 +3885,7 @@ impl wkt::message::Message for MoveFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteFileRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -4037,6 +3932,7 @@ impl wkt::message::Message for WriteFileRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WriteFileResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4056,6 +3952,7 @@ impl wkt::message::Message for WriteFileResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallNpmPackagesRequest {
+
     /// Required. The workspace's name.
     pub workspace: std::string::String,
 
@@ -4084,6 +3981,7 @@ impl wkt::message::Message for InstallNpmPackagesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstallNpmPackagesResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4103,6 +4001,7 @@ impl wkt::message::Message for InstallNpmPackagesResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReleaseConfig {
+
     /// Identifier. The release config's name.
     pub name: std::string::String,
 
@@ -4131,8 +4030,7 @@ pub struct ReleaseConfig {
     /// Output only. Records of the 10 most recent scheduled release attempts,
     /// ordered in descending order of `release_time`. Updated whenever automatic
     /// creation of a compilation result is triggered by cron_schedule.
-    pub recent_scheduled_release_records:
-        std::vec::Vec<crate::model::release_config::ScheduledReleaseRecord>,
+    pub recent_scheduled_release_records: std::vec::Vec<crate::model::release_config::ScheduledReleaseRecord>,
 
     /// Optional. The name of the currently released compilation result for this
     /// release config. This value is updated when a compilation result is
@@ -4173,8 +4071,7 @@ impl ReleaseConfig {
 
     /// Sets the value of [code_compilation_config][crate::model::ReleaseConfig::code_compilation_config].
     pub fn set_code_compilation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CodeCompilationConfig>,
+    where T: std::convert::Into<crate::model::CodeCompilationConfig>
     {
         self.code_compilation_config = std::option::Option::Some(v.into());
         self
@@ -4182,8 +4079,7 @@ impl ReleaseConfig {
 
     /// Sets or clears the value of [code_compilation_config][crate::model::ReleaseConfig::code_compilation_config].
     pub fn set_or_clear_code_compilation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CodeCompilationConfig>,
+    where T: std::convert::Into<crate::model::CodeCompilationConfig>
     {
         self.code_compilation_config = v.map(|x| x.into());
         self
@@ -4205,7 +4101,7 @@ impl ReleaseConfig {
     pub fn set_recent_scheduled_release_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::release_config::ScheduledReleaseRecord>,
+        V: std::convert::Into<crate::model::release_config::ScheduledReleaseRecord>
     {
         use std::iter::Iterator;
         self.recent_scheduled_release_records = v.into_iter().map(|i| i.into()).collect();
@@ -4213,10 +4109,7 @@ impl ReleaseConfig {
     }
 
     /// Sets the value of [release_compilation_result][crate::model::ReleaseConfig::release_compilation_result].
-    pub fn set_release_compilation_result<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_release_compilation_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_compilation_result = v.into();
         self
     }
@@ -4229,8 +4122,7 @@ impl ReleaseConfig {
 
     /// Sets the value of [internal_metadata][crate::model::ReleaseConfig::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -4238,8 +4130,7 @@ impl ReleaseConfig {
 
     /// Sets or clears the value of [internal_metadata][crate::model::ReleaseConfig::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -4257,17 +4148,18 @@ pub mod release_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A record of an attempt to create a compilation result for this release
     /// config.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ScheduledReleaseRecord {
+
         /// Output only. The timestamp of this release attempt.
         pub release_time: std::option::Option<wkt::Timestamp>,
 
         /// The result of this release attempt.
-        pub result:
-            std::option::Option<crate::model::release_config::scheduled_release_record::Result>,
+        pub result: std::option::Option<crate::model::release_config::scheduled_release_record::Result>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4279,8 +4171,7 @@ pub mod release_config {
 
         /// Sets the value of [release_time][crate::model::release_config::ScheduledReleaseRecord::release_time].
         pub fn set_release_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.release_time = std::option::Option::Some(v.into());
             self
@@ -4288,8 +4179,7 @@ pub mod release_config {
 
         /// Sets or clears the value of [release_time][crate::model::release_config::ScheduledReleaseRecord::release_time].
         pub fn set_or_clear_release_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.release_time = v.map(|x| x.into());
             self
@@ -4299,16 +4189,8 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are mutually
         /// exclusive.
-        pub fn set_result<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::release_config::scheduled_release_record::Result,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::release_config::scheduled_release_record::Result>>>(mut self, v: T) -> Self
+        {
             self.result = v.into();
             self
         }
@@ -4329,14 +4211,11 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
-        pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.result = std::option::Option::Some(
                 crate::model::release_config::scheduled_release_record::Result::CompilationResult(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -4347,9 +4226,7 @@ pub mod release_config {
         pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
-                crate::model::release_config::scheduled_release_record::Result::ErrorStatus(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::release_config::scheduled_release_record::Result::ErrorStatus(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -4359,14 +4236,11 @@ pub mod release_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
             self.result = std::option::Option::Some(
                 crate::model::release_config::scheduled_release_record::Result::ErrorStatus(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -4382,6 +4256,7 @@ pub mod release_config {
     pub mod scheduled_release_record {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The result of this release attempt.
         #[derive(Clone, Debug, PartialEq)]
@@ -4402,6 +4277,7 @@ pub mod release_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleaseConfigsRequest {
+
     /// Required. The repository in which to list release configs. Must be in the
     /// format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -4456,6 +4332,7 @@ impl wkt::message::Message for ListReleaseConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListReleaseConfigsResponse {
+
     /// List of release configs.
     pub release_configs: std::vec::Vec<crate::model::ReleaseConfig>,
 
@@ -4478,7 +4355,7 @@ impl ListReleaseConfigsResponse {
     pub fn set_release_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::ReleaseConfig>,
+        V: std::convert::Into<crate::model::ReleaseConfig>
     {
         use std::iter::Iterator;
         self.release_configs = v.into_iter().map(|i| i.into()).collect();
@@ -4495,7 +4372,7 @@ impl ListReleaseConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -4527,6 +4404,7 @@ impl gax::paginator::internal::PageableResponse for ListReleaseConfigsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetReleaseConfigRequest {
+
     /// Required. The release config's name.
     pub name: std::string::String,
 
@@ -4555,6 +4433,7 @@ impl wkt::message::Message for GetReleaseConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateReleaseConfigRequest {
+
     /// Required. The repository in which to create the release config. Must be in
     /// the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -4582,8 +4461,7 @@ impl CreateReleaseConfigRequest {
 
     /// Sets the value of [release_config][crate::model::CreateReleaseConfigRequest::release_config].
     pub fn set_release_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseConfig>,
+    where T: std::convert::Into<crate::model::ReleaseConfig>
     {
         self.release_config = std::option::Option::Some(v.into());
         self
@@ -4591,18 +4469,14 @@ impl CreateReleaseConfigRequest {
 
     /// Sets or clears the value of [release_config][crate::model::CreateReleaseConfigRequest::release_config].
     pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseConfig>,
+    where T: std::convert::Into<crate::model::ReleaseConfig>
     {
         self.release_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [release_config_id][crate::model::CreateReleaseConfigRequest::release_config_id].
-    pub fn set_release_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_release_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_config_id = v.into();
         self
     }
@@ -4618,6 +4492,7 @@ impl wkt::message::Message for CreateReleaseConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateReleaseConfigRequest {
+
     /// Optional. Specifies the fields to be updated in the release config. If left
     /// unset, all fields will be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -4635,8 +4510,7 @@ impl UpdateReleaseConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -4644,8 +4518,7 @@ impl UpdateReleaseConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReleaseConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -4653,8 +4526,7 @@ impl UpdateReleaseConfigRequest {
 
     /// Sets the value of [release_config][crate::model::UpdateReleaseConfigRequest::release_config].
     pub fn set_release_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseConfig>,
+    where T: std::convert::Into<crate::model::ReleaseConfig>
     {
         self.release_config = std::option::Option::Some(v.into());
         self
@@ -4662,8 +4534,7 @@ impl UpdateReleaseConfigRequest {
 
     /// Sets or clears the value of [release_config][crate::model::UpdateReleaseConfigRequest::release_config].
     pub fn set_or_clear_release_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::ReleaseConfig>,
+    where T: std::convert::Into<crate::model::ReleaseConfig>
     {
         self.release_config = v.map(|x| x.into());
         self
@@ -4680,6 +4551,7 @@ impl wkt::message::Message for UpdateReleaseConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteReleaseConfigRequest {
+
     /// Required. The release config's name.
     pub name: std::string::String,
 
@@ -4708,6 +4580,7 @@ impl wkt::message::Message for DeleteReleaseConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationResult {
+
     /// Output only. The compilation result's name.
     pub name: std::string::String,
 
@@ -4755,8 +4628,7 @@ impl CompilationResult {
 
     /// Sets the value of [code_compilation_config][crate::model::CompilationResult::code_compilation_config].
     pub fn set_code_compilation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CodeCompilationConfig>,
+    where T: std::convert::Into<crate::model::CodeCompilationConfig>
     {
         self.code_compilation_config = std::option::Option::Some(v.into());
         self
@@ -4764,27 +4636,20 @@ impl CompilationResult {
 
     /// Sets or clears the value of [code_compilation_config][crate::model::CompilationResult::code_compilation_config].
     pub fn set_or_clear_code_compilation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CodeCompilationConfig>,
+    where T: std::convert::Into<crate::model::CodeCompilationConfig>
     {
         self.code_compilation_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resolved_git_commit_sha][crate::model::CompilationResult::resolved_git_commit_sha].
-    pub fn set_resolved_git_commit_sha<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resolved_git_commit_sha<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resolved_git_commit_sha = v.into();
         self
     }
 
     /// Sets the value of [dataform_core_version][crate::model::CompilationResult::dataform_core_version].
-    pub fn set_dataform_core_version<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_dataform_core_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataform_core_version = v.into();
         self
     }
@@ -4793,7 +4658,7 @@ impl CompilationResult {
     pub fn set_compilation_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::compilation_result::CompilationError>,
+        V: std::convert::Into<crate::model::compilation_result::CompilationError>
     {
         use std::iter::Iterator;
         self.compilation_errors = v.into_iter().map(|i| i.into()).collect();
@@ -4802,8 +4667,7 @@ impl CompilationResult {
 
     /// Sets the value of [data_encryption_state][crate::model::CompilationResult::data_encryption_state].
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = std::option::Option::Some(v.into());
         self
@@ -4811,8 +4675,7 @@ impl CompilationResult {
 
     /// Sets or clears the value of [data_encryption_state][crate::model::CompilationResult::data_encryption_state].
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = v.map(|x| x.into());
         self
@@ -4820,8 +4683,7 @@ impl CompilationResult {
 
     /// Sets the value of [create_time][crate::model::CompilationResult::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -4829,8 +4691,7 @@ impl CompilationResult {
 
     /// Sets or clears the value of [create_time][crate::model::CompilationResult::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -4838,8 +4699,7 @@ impl CompilationResult {
 
     /// Sets the value of [internal_metadata][crate::model::CompilationResult::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -4847,8 +4707,7 @@ impl CompilationResult {
 
     /// Sets or clears the value of [internal_metadata][crate::model::CompilationResult::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -4858,12 +4717,8 @@ impl CompilationResult {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    pub fn set_source<
-        T: std::convert::Into<std::option::Option<crate::model::compilation_result::Source>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::compilation_result::Source>>>(mut self, v: T) -> Self
+    {
         self.source = v.into();
         self
     }
@@ -4874,9 +4729,7 @@ impl CompilationResult {
     pub fn git_commitish(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::compilation_result::Source::GitCommitish(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result::Source::GitCommitish(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4888,7 +4741,9 @@ impl CompilationResult {
     /// mutually exclusive.
     pub fn set_git_commitish<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::compilation_result::Source::GitCommitish(v.into()),
+            crate::model::compilation_result::Source::GitCommitish(
+                v.into()
+            )
         );
         self
     }
@@ -4911,7 +4766,9 @@ impl CompilationResult {
     /// mutually exclusive.
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::compilation_result::Source::Workspace(v.into()),
+            crate::model::compilation_result::Source::Workspace(
+                v.into()
+            )
         );
         self
     }
@@ -4922,9 +4779,7 @@ impl CompilationResult {
     pub fn release_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.source.as_ref().and_then(|v| match v {
-            crate::model::compilation_result::Source::ReleaseConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result::Source::ReleaseConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -4936,7 +4791,9 @@ impl CompilationResult {
     /// mutually exclusive.
     pub fn set_release_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
-            crate::model::compilation_result::Source::ReleaseConfig(v.into()),
+            crate::model::compilation_result::Source::ReleaseConfig(
+                v.into()
+            )
         );
         self
     }
@@ -4953,10 +4810,12 @@ pub mod compilation_result {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// An error encountered when attempting to compile a Dataform project.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CompilationError {
+
         /// Output only. The error's top level message.
         pub message: std::string::String,
 
@@ -4999,8 +4858,7 @@ pub mod compilation_result {
 
         /// Sets the value of [action_target][crate::model::compilation_result::CompilationError::action_target].
         pub fn set_action_target<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Target>,
+        where T: std::convert::Into<crate::model::Target>
         {
             self.action_target = std::option::Option::Some(v.into());
             self
@@ -5008,8 +4866,7 @@ pub mod compilation_result {
 
         /// Sets or clears the value of [action_target][crate::model::compilation_result::CompilationError::action_target].
         pub fn set_or_clear_action_target<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Target>,
+        where T: std::convert::Into<crate::model::Target>
         {
             self.action_target = v.map(|x| x.into());
             self
@@ -5046,6 +4903,7 @@ pub mod compilation_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CodeCompilationConfig {
+
     /// Optional. The default database (Google Cloud project ID).
     pub default_database: std::string::String,
 
@@ -5062,7 +4920,7 @@ pub struct CodeCompilationConfig {
 
     /// Optional. User-defined variables that are made available to project code
     /// during compilation.
-    pub vars: std::collections::HashMap<std::string::String, std::string::String>,
+    pub vars: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. The suffix that should be appended to all database (Google Cloud
     /// project ID) names.
@@ -5090,10 +4948,7 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [default_database][crate::model::CodeCompilationConfig::default_database].
-    pub fn set_default_database<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_database = v.into();
         self
     }
@@ -5105,19 +4960,13 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [default_location][crate::model::CodeCompilationConfig::default_location].
-    pub fn set_default_location<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_location = v.into();
         self
     }
 
     /// Sets the value of [assertion_schema][crate::model::CodeCompilationConfig::assertion_schema].
-    pub fn set_assertion_schema<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assertion_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.assertion_schema = v.into();
         self
     }
@@ -5153,30 +5002,22 @@ impl CodeCompilationConfig {
     }
 
     /// Sets the value of [builtin_assertion_name_prefix][crate::model::CodeCompilationConfig::builtin_assertion_name_prefix].
-    pub fn set_builtin_assertion_name_prefix<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_builtin_assertion_name_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.builtin_assertion_name_prefix = v.into();
         self
     }
 
     /// Sets the value of [default_notebook_runtime_options][crate::model::CodeCompilationConfig::default_notebook_runtime_options].
     pub fn set_default_notebook_runtime_options<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::NotebookRuntimeOptions>,
+    where T: std::convert::Into<crate::model::NotebookRuntimeOptions>
     {
         self.default_notebook_runtime_options = std::option::Option::Some(v.into());
         self
     }
 
     /// Sets or clears the value of [default_notebook_runtime_options][crate::model::CodeCompilationConfig::default_notebook_runtime_options].
-    pub fn set_or_clear_default_notebook_runtime_options<T>(
-        mut self,
-        v: std::option::Option<T>,
-    ) -> Self
-    where
-        T: std::convert::Into<crate::model::NotebookRuntimeOptions>,
+    pub fn set_or_clear_default_notebook_runtime_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where T: std::convert::Into<crate::model::NotebookRuntimeOptions>
     {
         self.default_notebook_runtime_options = v.map(|x| x.into());
         self
@@ -5193,6 +5034,7 @@ impl wkt::message::Message for CodeCompilationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotebookRuntimeOptions {
+
     /// Optional. The resource name of the [Colab runtime template]
     /// (<https://cloud.google.com/colab/docs/runtimes>), from which a runtime is
     /// created for notebook executions. If not specified, a runtime is created
@@ -5211,10 +5053,7 @@ impl NotebookRuntimeOptions {
     }
 
     /// Sets the value of [ai_platform_notebook_runtime_template][crate::model::NotebookRuntimeOptions::ai_platform_notebook_runtime_template].
-    pub fn set_ai_platform_notebook_runtime_template<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_ai_platform_notebook_runtime_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ai_platform_notebook_runtime_template = v.into();
         self
     }
@@ -5223,14 +5062,8 @@ impl NotebookRuntimeOptions {
     ///
     /// Note that all the setters affecting `execution_sink` are mutually
     /// exclusive.
-    pub fn set_execution_sink<
-        T: std::convert::Into<
-                std::option::Option<crate::model::notebook_runtime_options::ExecutionSink>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_execution_sink<T: std::convert::Into<std::option::Option<crate::model::notebook_runtime_options::ExecutionSink>>>(mut self, v: T) -> Self
+    {
         self.execution_sink = v.into();
         self
     }
@@ -5241,9 +5074,7 @@ impl NotebookRuntimeOptions {
     pub fn gcs_output_bucket(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.execution_sink.as_ref().and_then(|v| match v {
-            crate::model::notebook_runtime_options::ExecutionSink::GcsOutputBucket(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::notebook_runtime_options::ExecutionSink::GcsOutputBucket(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5253,12 +5084,11 @@ impl NotebookRuntimeOptions {
     ///
     /// Note that all the setters affecting `execution_sink` are
     /// mutually exclusive.
-    pub fn set_gcs_output_bucket<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_gcs_output_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution_sink = std::option::Option::Some(
-            crate::model::notebook_runtime_options::ExecutionSink::GcsOutputBucket(v.into()),
+            crate::model::notebook_runtime_options::ExecutionSink::GcsOutputBucket(
+                v.into()
+            )
         );
         self
     }
@@ -5275,6 +5105,7 @@ pub mod notebook_runtime_options {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// The location to store the notebook execution result.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5289,6 +5120,7 @@ pub mod notebook_runtime_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompilationResultsRequest {
+
     /// Required. The repository in which to list compilation results. Must be in
     /// the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -5363,6 +5195,7 @@ impl wkt::message::Message for ListCompilationResultsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListCompilationResultsResponse {
+
     /// List of compilation results.
     pub compilation_results: std::vec::Vec<crate::model::CompilationResult>,
 
@@ -5385,7 +5218,7 @@ impl ListCompilationResultsResponse {
     pub fn set_compilation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CompilationResult>,
+        V: std::convert::Into<crate::model::CompilationResult>
     {
         use std::iter::Iterator;
         self.compilation_results = v.into_iter().map(|i| i.into()).collect();
@@ -5402,7 +5235,7 @@ impl ListCompilationResultsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -5434,6 +5267,7 @@ impl gax::paginator::internal::PageableResponse for ListCompilationResultsRespon
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetCompilationResultRequest {
+
     /// Required. The compilation result's name.
     pub name: std::string::String,
 
@@ -5462,6 +5296,7 @@ impl wkt::message::Message for GetCompilationResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateCompilationResultRequest {
+
     /// Required. The repository in which to create the compilation result. Must be
     /// in the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -5485,8 +5320,7 @@ impl CreateCompilationResultRequest {
 
     /// Sets the value of [compilation_result][crate::model::CreateCompilationResultRequest::compilation_result].
     pub fn set_compilation_result<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::CompilationResult>,
+    where T: std::convert::Into<crate::model::CompilationResult>
     {
         self.compilation_result = std::option::Option::Some(v.into());
         self
@@ -5494,8 +5328,7 @@ impl CreateCompilationResultRequest {
 
     /// Sets or clears the value of [compilation_result][crate::model::CreateCompilationResultRequest::compilation_result].
     pub fn set_or_clear_compilation_result<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::CompilationResult>,
+    where T: std::convert::Into<crate::model::CompilationResult>
     {
         self.compilation_result = v.map(|x| x.into());
         self
@@ -5513,6 +5346,7 @@ impl wkt::message::Message for CreateCompilationResultRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Target {
+
     /// Optional. The action's database (Google Cloud project ID) .
     pub database: std::string::String,
 
@@ -5559,6 +5393,7 @@ impl wkt::message::Message for Target {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RelationDescriptor {
+
     /// A text description of the relation.
     pub description: std::string::String,
 
@@ -5566,7 +5401,7 @@ pub struct RelationDescriptor {
     pub columns: std::vec::Vec<crate::model::relation_descriptor::ColumnDescriptor>,
 
     /// A set of BigQuery labels that should be applied to the relation.
-    pub bigquery_labels: std::collections::HashMap<std::string::String, std::string::String>,
+    pub bigquery_labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5586,7 +5421,7 @@ impl RelationDescriptor {
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::relation_descriptor::ColumnDescriptor>,
+        V: std::convert::Into<crate::model::relation_descriptor::ColumnDescriptor>
     {
         use std::iter::Iterator;
         self.columns = v.into_iter().map(|i| i.into()).collect();
@@ -5617,10 +5452,12 @@ pub mod relation_descriptor {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Describes a column.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ColumnDescriptor {
+
         /// The identifier for the column. Each entry in `path` represents one level
         /// of nesting.
         pub path: std::vec::Vec<std::string::String>,
@@ -5643,7 +5480,7 @@ pub mod relation_descriptor {
         pub fn set_path<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.path = v.into_iter().map(|i| i.into()).collect();
@@ -5660,7 +5497,7 @@ pub mod relation_descriptor {
         pub fn set_bigquery_policy_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.bigquery_policy_tags = v.into_iter().map(|i| i.into()).collect();
@@ -5679,6 +5516,7 @@ pub mod relation_descriptor {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CompilationResultAction {
+
     /// This action's identifier. Unique within the compilation result.
     pub target: std::option::Option<crate::model::Target>,
 
@@ -5696,8 +5534,7 @@ pub struct CompilationResultAction {
     pub internal_metadata: std::option::Option<std::string::String>,
 
     /// The compiled object.
-    pub compiled_object:
-        std::option::Option<crate::model::compilation_result_action::CompiledObject>,
+    pub compiled_object: std::option::Option<crate::model::compilation_result_action::CompiledObject>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5709,8 +5546,7 @@ impl CompilationResultAction {
 
     /// Sets the value of [target][crate::model::CompilationResultAction::target].
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -5718,8 +5554,7 @@ impl CompilationResultAction {
 
     /// Sets or clears the value of [target][crate::model::CompilationResultAction::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -5727,8 +5562,7 @@ impl CompilationResultAction {
 
     /// Sets the value of [canonical_target][crate::model::CompilationResultAction::canonical_target].
     pub fn set_canonical_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.canonical_target = std::option::Option::Some(v.into());
         self
@@ -5736,8 +5570,7 @@ impl CompilationResultAction {
 
     /// Sets or clears the value of [canonical_target][crate::model::CompilationResultAction::canonical_target].
     pub fn set_or_clear_canonical_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.canonical_target = v.map(|x| x.into());
         self
@@ -5751,8 +5584,7 @@ impl CompilationResultAction {
 
     /// Sets the value of [internal_metadata][crate::model::CompilationResultAction::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -5760,8 +5592,7 @@ impl CompilationResultAction {
 
     /// Sets or clears the value of [internal_metadata][crate::model::CompilationResultAction::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -5771,14 +5602,8 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are mutually
     /// exclusive.
-    pub fn set_compiled_object<
-        T: std::convert::Into<
-                std::option::Option<crate::model::compilation_result_action::CompiledObject>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compiled_object<T: std::convert::Into<std::option::Option<crate::model::compilation_result_action::CompiledObject>>>(mut self, v: T) -> Self
+    {
         self.compiled_object = v.into();
         self
     }
@@ -5786,15 +5611,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `Relation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn relation(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Relation>>
-    {
+    pub fn relation(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Relation>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::Relation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::Relation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5804,14 +5624,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_relation<
-        T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Relation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_relation<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Relation>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::Relation(v.into()),
+            crate::model::compilation_result_action::CompiledObject::Relation(
+                v.into()
+            )
         );
         self
     }
@@ -5819,15 +5636,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `Operations`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn operations(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Operations>>
-    {
+    pub fn operations(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Operations>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::Operations(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::Operations(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5837,14 +5649,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_operations<
-        T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Operations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_operations<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Operations>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::Operations(v.into()),
+            crate::model::compilation_result_action::CompiledObject::Operations(
+                v.into()
+            )
         );
         self
     }
@@ -5852,15 +5661,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `Assertion`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn assertion(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Assertion>>
-    {
+    pub fn assertion(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Assertion>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::Assertion(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::Assertion(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5870,14 +5674,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_assertion<
-        T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Assertion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_assertion<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Assertion>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::Assertion(v.into()),
+            crate::model::compilation_result_action::CompiledObject::Assertion(
+                v.into()
+            )
         );
         self
     }
@@ -5885,15 +5686,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `Declaration`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn declaration(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Declaration>>
-    {
+    pub fn declaration(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Declaration>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::Declaration(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::Declaration(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5903,14 +5699,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_declaration<
-        T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Declaration>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_declaration<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Declaration>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::Declaration(v.into()),
+            crate::model::compilation_result_action::CompiledObject::Declaration(
+                v.into()
+            )
         );
         self
     }
@@ -5918,15 +5711,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `Notebook`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn notebook(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Notebook>>
-    {
+    pub fn notebook(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::Notebook>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::Notebook(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::Notebook(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5936,14 +5724,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_notebook<
-        T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Notebook>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notebook<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Notebook>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::Notebook(v.into()),
+            crate::model::compilation_result_action::CompiledObject::Notebook(
+                v.into()
+            )
         );
         self
     }
@@ -5951,16 +5736,10 @@ impl CompilationResultAction {
     /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
     /// if it holds a `DataPreparation`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn data_preparation(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::compilation_result_action::DataPreparation>,
-    > {
+    pub fn data_preparation(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::DataPreparation>> {
         #[allow(unreachable_patterns)]
         self.compiled_object.as_ref().and_then(|v| match v {
-            crate::model::compilation_result_action::CompiledObject::DataPreparation(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::compilation_result_action::CompiledObject::DataPreparation(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -5970,16 +5749,11 @@ impl CompilationResultAction {
     ///
     /// Note that all the setters affecting `compiled_object` are
     /// mutually exclusive.
-    pub fn set_data_preparation<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::compilation_result_action::DataPreparation>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_preparation<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::DataPreparation>>>(mut self, v: T) -> Self {
         self.compiled_object = std::option::Option::Some(
-            crate::model::compilation_result_action::CompiledObject::DataPreparation(v.into()),
+            crate::model::compilation_result_action::CompiledObject::DataPreparation(
+                v.into()
+            )
         );
         self
     }
@@ -5996,10 +5770,12 @@ pub mod compilation_result_action {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a database relation.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Relation {
+
         /// A list of actions that this action depends on.
         pub dependency_targets: std::vec::Vec<crate::model::Target>,
 
@@ -6026,9 +5802,7 @@ pub mod compilation_result_action {
 
         /// Configures `INCREMENTAL_TABLE` settings for this relation. Only set if
         /// `relation_type` is `INCREMENTAL_TABLE`.
-        pub incremental_table_config: std::option::Option<
-            crate::model::compilation_result_action::relation::IncrementalTableConfig,
-        >,
+        pub incremental_table_config: std::option::Option<crate::model::compilation_result_action::relation::IncrementalTableConfig>,
 
         /// The SQL expression used to partition the relation.
         pub partition_expression: std::string::String,
@@ -6047,7 +5821,7 @@ pub mod compilation_result_action {
         /// options clause of a create table/view statement. See
         /// <https://cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language>
         /// for more information on which options are supported.
-        pub additional_options: std::collections::HashMap<std::string::String, std::string::String>,
+        pub additional_options: std::collections::HashMap<std::string::String,std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6061,7 +5835,7 @@ pub mod compilation_result_action {
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Target>,
+            V: std::convert::Into<crate::model::Target>
         {
             use std::iter::Iterator;
             self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
@@ -6078,7 +5852,7 @@ pub mod compilation_result_action {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -6087,8 +5861,7 @@ pub mod compilation_result_action {
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Relation::relation_descriptor].
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = std::option::Option::Some(v.into());
             self
@@ -6096,29 +5869,20 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Relation::relation_descriptor].
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [relation_type][crate::model::compilation_result_action::Relation::relation_type].
-        pub fn set_relation_type<
-            T: std::convert::Into<crate::model::compilation_result_action::relation::RelationType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_relation_type<T: std::convert::Into<crate::model::compilation_result_action::relation::RelationType>>(mut self, v: T) -> Self {
             self.relation_type = v.into();
             self
         }
 
         /// Sets the value of [select_query][crate::model::compilation_result_action::Relation::select_query].
-        pub fn set_select_query<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.select_query = v.into();
             self
         }
@@ -6127,7 +5891,7 @@ pub mod compilation_result_action {
         pub fn set_pre_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.pre_operations = v.into_iter().map(|i| i.into()).collect();
@@ -6138,7 +5902,7 @@ pub mod compilation_result_action {
         pub fn set_post_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.post_operations = v.into_iter().map(|i| i.into()).collect();
@@ -6147,10 +5911,7 @@ pub mod compilation_result_action {
 
         /// Sets the value of [incremental_table_config][crate::model::compilation_result_action::Relation::incremental_table_config].
         pub fn set_incremental_table_config<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::compilation_result_action::relation::IncrementalTableConfig,
-                >,
+        where T: std::convert::Into<crate::model::compilation_result_action::relation::IncrementalTableConfig>
         {
             self.incremental_table_config = std::option::Option::Some(v.into());
             self
@@ -6158,20 +5919,14 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [incremental_table_config][crate::model::compilation_result_action::Relation::incremental_table_config].
         pub fn set_or_clear_incremental_table_config<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<
-                    crate::model::compilation_result_action::relation::IncrementalTableConfig,
-                >,
+        where T: std::convert::Into<crate::model::compilation_result_action::relation::IncrementalTableConfig>
         {
             self.incremental_table_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [partition_expression][crate::model::compilation_result_action::Relation::partition_expression].
-        pub fn set_partition_expression<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_partition_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.partition_expression = v.into();
             self
         }
@@ -6180,7 +5935,7 @@ pub mod compilation_result_action {
         pub fn set_cluster_expressions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.cluster_expressions = v.into_iter().map(|i| i.into()).collect();
@@ -6223,10 +5978,12 @@ pub mod compilation_result_action {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Contains settings for relations of type `INCREMENTAL_TABLE`.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct IncrementalTableConfig {
+
             /// The SELECT query which returns rows which should be inserted into the
             /// relation if it already exists and is not being refreshed.
             pub incremental_select_query: std::string::String,
@@ -6262,10 +6019,7 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [incremental_select_query][crate::model::compilation_result_action::relation::IncrementalTableConfig::incremental_select_query].
-            pub fn set_incremental_select_query<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_incremental_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.incremental_select_query = v.into();
                 self
             }
@@ -6280,7 +6034,7 @@ pub mod compilation_result_action {
             pub fn set_unique_key_parts<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.unique_key_parts = v.into_iter().map(|i| i.into()).collect();
@@ -6288,10 +6042,7 @@ pub mod compilation_result_action {
             }
 
             /// Sets the value of [update_partition_filter][crate::model::compilation_result_action::relation::IncrementalTableConfig::update_partition_filter].
-            pub fn set_update_partition_filter<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_update_partition_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.update_partition_filter = v.into();
                 self
             }
@@ -6300,7 +6051,7 @@ pub mod compilation_result_action {
             pub fn set_incremental_pre_operations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.incremental_pre_operations = v.into_iter().map(|i| i.into()).collect();
@@ -6311,7 +6062,7 @@ pub mod compilation_result_action {
             pub fn set_incremental_post_operations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
-                V: std::convert::Into<std::string::String>,
+                V: std::convert::Into<std::string::String>
             {
                 use std::iter::Iterator;
                 self.incremental_post_operations = v.into_iter().map(|i| i.into()).collect();
@@ -6408,10 +6159,7 @@ pub mod compilation_result_action {
         }
 
         impl std::fmt::Display for RelationType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
                 wkt::internal::display_enum(f, self.name(), self.value())
             }
         }
@@ -6424,9 +6172,7 @@ pub mod compilation_result_action {
                     2 => Self::View,
                     3 => Self::IncrementalTable,
                     4 => Self::MaterializedView,
-                    _ => Self::UnknownValue(relation_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
+                    _ => Self::UnknownValue(relation_type::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
                 }
             }
         }
@@ -6440,9 +6186,7 @@ pub mod compilation_result_action {
                     "VIEW" => Self::View,
                     "INCREMENTAL_TABLE" => Self::IncrementalTable,
                     "MATERIALIZED_VIEW" => Self::MaterializedView,
-                    _ => Self::UnknownValue(relation_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
+                    _ => Self::UnknownValue(relation_type::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
                 }
             }
         }
@@ -6469,8 +6213,7 @@ pub mod compilation_result_action {
                 D: serde::Deserializer<'de>,
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<RelationType>::new(
-                    ".google.cloud.dataform.v1.CompilationResultAction.Relation.RelationType",
-                ))
+                    ".google.cloud.dataform.v1.CompilationResultAction.Relation.RelationType"))
             }
         }
     }
@@ -6479,6 +6222,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Operations {
+
         /// A list of actions that this action depends on.
         pub dependency_targets: std::vec::Vec<crate::model::Target>,
 
@@ -6511,7 +6255,7 @@ pub mod compilation_result_action {
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Target>,
+            V: std::convert::Into<crate::model::Target>
         {
             use std::iter::Iterator;
             self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
@@ -6528,7 +6272,7 @@ pub mod compilation_result_action {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -6537,8 +6281,7 @@ pub mod compilation_result_action {
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Operations::relation_descriptor].
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = std::option::Option::Some(v.into());
             self
@@ -6546,8 +6289,7 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Operations::relation_descriptor].
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = v.map(|x| x.into());
             self
@@ -6557,7 +6299,7 @@ pub mod compilation_result_action {
         pub fn set_queries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.queries = v.into_iter().map(|i| i.into()).collect();
@@ -6582,6 +6324,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Assertion {
+
         /// A list of actions that this action depends on.
         pub dependency_targets: std::vec::Vec<crate::model::Target>,
 
@@ -6615,7 +6358,7 @@ pub mod compilation_result_action {
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Target>,
+            V: std::convert::Into<crate::model::Target>
         {
             use std::iter::Iterator;
             self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
@@ -6624,8 +6367,7 @@ pub mod compilation_result_action {
 
         /// Sets the value of [parent_action][crate::model::compilation_result_action::Assertion::parent_action].
         pub fn set_parent_action<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Target>,
+        where T: std::convert::Into<crate::model::Target>
         {
             self.parent_action = std::option::Option::Some(v.into());
             self
@@ -6633,8 +6375,7 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [parent_action][crate::model::compilation_result_action::Assertion::parent_action].
         pub fn set_or_clear_parent_action<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Target>,
+        where T: std::convert::Into<crate::model::Target>
         {
             self.parent_action = v.map(|x| x.into());
             self
@@ -6650,7 +6391,7 @@ pub mod compilation_result_action {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -6658,18 +6399,14 @@ pub mod compilation_result_action {
         }
 
         /// Sets the value of [select_query][crate::model::compilation_result_action::Assertion::select_query].
-        pub fn set_select_query<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.select_query = v.into();
             self
         }
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Assertion::relation_descriptor].
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = std::option::Option::Some(v.into());
             self
@@ -6677,8 +6414,7 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Assertion::relation_descriptor].
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = v.map(|x| x.into());
             self
@@ -6696,6 +6432,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
+
         /// Descriptor for the relation and its columns. Used as documentation only,
         /// i.e. values here will result in no changes to the relation's metadata.
         pub relation_descriptor: std::option::Option<crate::model::RelationDescriptor>,
@@ -6710,8 +6447,7 @@ pub mod compilation_result_action {
 
         /// Sets the value of [relation_descriptor][crate::model::compilation_result_action::Declaration::relation_descriptor].
         pub fn set_relation_descriptor<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = std::option::Option::Some(v.into());
             self
@@ -6719,8 +6455,7 @@ pub mod compilation_result_action {
 
         /// Sets or clears the value of [relation_descriptor][crate::model::compilation_result_action::Declaration::relation_descriptor].
         pub fn set_or_clear_relation_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::RelationDescriptor>,
+        where T: std::convert::Into<crate::model::RelationDescriptor>
         {
             self.relation_descriptor = v.map(|x| x.into());
             self
@@ -6737,6 +6472,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Notebook {
+
         /// A list of actions that this action depends on.
         pub dependency_targets: std::vec::Vec<crate::model::Target>,
 
@@ -6761,7 +6497,7 @@ pub mod compilation_result_action {
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Target>,
+            V: std::convert::Into<crate::model::Target>
         {
             use std::iter::Iterator;
             self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
@@ -6784,7 +6520,7 @@ pub mod compilation_result_action {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -6802,6 +6538,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataPreparation {
+
         /// A list of actions that this action depends on.
         pub dependency_targets: std::vec::Vec<crate::model::Target>,
 
@@ -6812,9 +6549,7 @@ pub mod compilation_result_action {
         pub tags: std::vec::Vec<std::string::String>,
 
         /// The definition for the data preparation.
-        pub definition: std::option::Option<
-            crate::model::compilation_result_action::data_preparation::Definition,
-        >,
+        pub definition: std::option::Option<crate::model::compilation_result_action::data_preparation::Definition>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6828,7 +6563,7 @@ pub mod compilation_result_action {
         pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::Target>,
+            V: std::convert::Into<crate::model::Target>
         {
             use std::iter::Iterator;
             self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
@@ -6845,7 +6580,7 @@ pub mod compilation_result_action {
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>
         {
             use std::iter::Iterator;
             self.tags = v.into_iter().map(|i| i.into()).collect();
@@ -6856,16 +6591,8 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are mutually
         /// exclusive.
-        pub fn set_definition<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::compilation_result_action::data_preparation::Definition,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_definition<T: std::convert::Into<std::option::Option<crate::model::compilation_result_action::data_preparation::Definition>>>(mut self, v: T) -> Self
+        {
             self.definition = v.into();
             self
         }
@@ -6886,14 +6613,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
-        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.definition = std::option::Option::Some(
                 crate::model::compilation_result_action::data_preparation::Definition::ContentsYaml(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -6901,13 +6625,7 @@ pub mod compilation_result_action {
         /// The value of [definition][crate::model::compilation_result_action::DataPreparation::definition]
         /// if it holds a `ContentsSql`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn contents_sql(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<
-                crate::model::compilation_result_action::data_preparation::SqlDefinition,
-            >,
-        > {
+        pub fn contents_sql(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::data_preparation::SqlDefinition>> {
             #[allow(unreachable_patterns)]
             self.definition.as_ref().and_then(|v| match v {
                 crate::model::compilation_result_action::data_preparation::Definition::ContentsSql(v) => std::option::Option::Some(v),
@@ -6920,20 +6638,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
-        pub fn set_contents_sql<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::compilation_result_action::data_preparation::SqlDefinition,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_contents_sql<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::data_preparation::SqlDefinition>>>(mut self, v: T) -> Self {
             self.definition = std::option::Option::Some(
                 crate::model::compilation_result_action::data_preparation::Definition::ContentsSql(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -6950,18 +6659,18 @@ pub mod compilation_result_action {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Definition of a SQL Data Preparation
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SqlDefinition {
+
             /// The SQL query representing the data preparation steps. Formatted as a
             /// Pipe SQL query statement.
             pub query: std::string::String,
 
             /// Error table configuration,
-            pub error_table: std::option::Option<
-                crate::model::compilation_result_action::data_preparation::ErrorTable,
-            >,
+            pub error_table: std::option::Option<crate::model::compilation_result_action::data_preparation::ErrorTable>,
 
             /// Load configuration.
             pub load: std::option::Option<crate::model::compilation_result_action::LoadConfig>,
@@ -6982,10 +6691,7 @@ pub mod compilation_result_action {
 
             /// Sets the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
             pub fn set_error_table<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::compilation_result_action::data_preparation::ErrorTable,
-                    >,
+            where T: std::convert::Into<crate::model::compilation_result_action::data_preparation::ErrorTable>
             {
                 self.error_table = std::option::Option::Some(v.into());
                 self
@@ -6993,10 +6699,7 @@ pub mod compilation_result_action {
 
             /// Sets or clears the value of [error_table][crate::model::compilation_result_action::data_preparation::SqlDefinition::error_table].
             pub fn set_or_clear_error_table<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<
-                        crate::model::compilation_result_action::data_preparation::ErrorTable,
-                    >,
+            where T: std::convert::Into<crate::model::compilation_result_action::data_preparation::ErrorTable>
             {
                 self.error_table = v.map(|x| x.into());
                 self
@@ -7004,8 +6707,7 @@ pub mod compilation_result_action {
 
             /// Sets the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
             pub fn set_load<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
+            where T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>
             {
                 self.load = std::option::Option::Some(v.into());
                 self
@@ -7013,8 +6715,7 @@ pub mod compilation_result_action {
 
             /// Sets or clears the value of [load][crate::model::compilation_result_action::data_preparation::SqlDefinition::load].
             pub fn set_or_clear_load<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>,
+            where T: std::convert::Into<crate::model::compilation_result_action::LoadConfig>
             {
                 self.load = v.map(|x| x.into());
                 self
@@ -7032,6 +6733,7 @@ pub mod compilation_result_action {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ErrorTable {
+
             /// Error Table target.
             pub target: std::option::Option<crate::model::Target>,
 
@@ -7049,8 +6751,7 @@ pub mod compilation_result_action {
 
             /// Sets the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
             pub fn set_target<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::Target>,
+            where T: std::convert::Into<crate::model::Target>
             {
                 self.target = std::option::Option::Some(v.into());
                 self
@@ -7058,8 +6759,7 @@ pub mod compilation_result_action {
 
             /// Sets or clears the value of [target][crate::model::compilation_result_action::data_preparation::ErrorTable::target].
             pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::Target>,
+            where T: std::convert::Into<crate::model::Target>
             {
                 self.target = v.map(|x| x.into());
                 self
@@ -7086,11 +6786,7 @@ pub mod compilation_result_action {
             ContentsYaml(std::string::String),
             /// SQL definition for a Data Preparation. Contains a SQL query and
             /// additional context information.
-            ContentsSql(
-                std::boxed::Box<
-                    crate::model::compilation_result_action::data_preparation::SqlDefinition,
-                >,
-            ),
+            ContentsSql(std::boxed::Box<crate::model::compilation_result_action::data_preparation::SqlDefinition>),
         }
     }
 
@@ -7098,6 +6794,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoadConfig {
+
         /// Load mode
         pub mode: std::option::Option<crate::model::compilation_result_action::load_config::Mode>,
 
@@ -7113,14 +6810,8 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are mutually
         /// exclusive.
-        pub fn set_mode<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::compilation_result_action::load_config::Mode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::compilation_result_action::load_config::Mode>>>(mut self, v: T) -> Self
+        {
             self.mode = v.into();
             self
         }
@@ -7128,16 +6819,10 @@ pub mod compilation_result_action {
         /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
         /// if it holds a `Replace`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn replace(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
-        > {
+        pub fn replace(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::compilation_result_action::load_config::Mode::Replace(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::compilation_result_action::load_config::Mode::Replace(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -7147,16 +6832,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_replace<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_replace<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::compilation_result_action::load_config::Mode::Replace(v.into()),
+                crate::model::compilation_result_action::load_config::Mode::Replace(
+                    v.into()
+                )
             );
             self
         }
@@ -7164,16 +6844,10 @@ pub mod compilation_result_action {
         /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
         /// if it holds a `Append`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn append(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
-        > {
+        pub fn append(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::compilation_result_action::load_config::Mode::Append(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::compilation_result_action::load_config::Mode::Append(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -7183,16 +6857,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_append<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_append<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::SimpleLoadMode>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::compilation_result_action::load_config::Mode::Append(v.into()),
+                crate::model::compilation_result_action::load_config::Mode::Append(
+                    v.into()
+                )
             );
             self
         }
@@ -7200,16 +6869,10 @@ pub mod compilation_result_action {
         /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
         /// if it holds a `Maximum`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn maximum(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
-        > {
+        pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::compilation_result_action::load_config::Mode::Maximum(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::compilation_result_action::load_config::Mode::Maximum(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -7219,16 +6882,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_maximum<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::compilation_result_action::load_config::Mode::Maximum(v.into()),
+                crate::model::compilation_result_action::load_config::Mode::Maximum(
+                    v.into()
+                )
             );
             self
         }
@@ -7236,16 +6894,10 @@ pub mod compilation_result_action {
         /// The value of [mode][crate::model::compilation_result_action::LoadConfig::mode]
         /// if it holds a `Unique`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn unique(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
-        > {
+        pub fn unique(&self) -> std::option::Option<&std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>> {
             #[allow(unreachable_patterns)]
             self.mode.as_ref().and_then(|v| match v {
-                crate::model::compilation_result_action::load_config::Mode::Unique(v) => {
-                    std::option::Option::Some(v)
-                }
+                crate::model::compilation_result_action::load_config::Mode::Unique(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -7255,16 +6907,11 @@ pub mod compilation_result_action {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        pub fn set_unique<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_unique<T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::IncrementalLoadMode>>>(mut self, v: T) -> Self {
             self.mode = std::option::Option::Some(
-                crate::model::compilation_result_action::load_config::Mode::Unique(v.into()),
+                crate::model::compilation_result_action::load_config::Mode::Unique(
+                    v.into()
+                )
             );
             self
         }
@@ -7280,6 +6927,7 @@ pub mod compilation_result_action {
     pub mod load_config {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// Load mode
         #[derive(Clone, Debug, PartialEq)]
@@ -7302,6 +6950,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SimpleLoadMode {
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7321,6 +6970,7 @@ pub mod compilation_result_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IncrementalLoadMode {
+
         /// Column name for incremental load modes
         pub column: std::string::String,
 
@@ -7368,6 +7018,7 @@ pub mod compilation_result_action {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryCompilationResultActionsRequest {
+
     /// Required. The compilation result's name.
     pub name: std::string::String,
 
@@ -7432,6 +7083,7 @@ impl wkt::message::Message for QueryCompilationResultActionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryCompilationResultActionsResponse {
+
     /// List of compilation result actions.
     pub compilation_result_actions: std::vec::Vec<crate::model::CompilationResultAction>,
 
@@ -7451,7 +7103,7 @@ impl QueryCompilationResultActionsResponse {
     pub fn set_compilation_result_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::CompilationResultAction>,
+        V: std::convert::Into<crate::model::CompilationResultAction>
     {
         use std::iter::Iterator;
         self.compilation_result_actions = v.into_iter().map(|i| i.into()).collect();
@@ -7489,6 +7141,7 @@ impl gax::paginator::internal::PageableResponse for QueryCompilationResultAction
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowConfig {
+
     /// Identifier. The workflow config's name.
     pub name: std::string::String,
 
@@ -7513,8 +7166,7 @@ pub struct WorkflowConfig {
     /// Output only. Records of the 10 most recent scheduled execution attempts,
     /// ordered in descending order of `execution_time`. Updated whenever automatic
     /// creation of a workflow invocation is triggered by cron_schedule.
-    pub recent_scheduled_execution_records:
-        std::vec::Vec<crate::model::workflow_config::ScheduledExecutionRecord>,
+    pub recent_scheduled_execution_records: std::vec::Vec<crate::model::workflow_config::ScheduledExecutionRecord>,
 
     /// Optional. Disables automatic creation of workflow invocations.
     pub disabled: bool,
@@ -7552,8 +7204,7 @@ impl WorkflowConfig {
 
     /// Sets the value of [invocation_config][crate::model::WorkflowConfig::invocation_config].
     pub fn set_invocation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InvocationConfig>,
+    where T: std::convert::Into<crate::model::InvocationConfig>
     {
         self.invocation_config = std::option::Option::Some(v.into());
         self
@@ -7561,8 +7212,7 @@ impl WorkflowConfig {
 
     /// Sets or clears the value of [invocation_config][crate::model::WorkflowConfig::invocation_config].
     pub fn set_or_clear_invocation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InvocationConfig>,
+    where T: std::convert::Into<crate::model::InvocationConfig>
     {
         self.invocation_config = v.map(|x| x.into());
         self
@@ -7584,7 +7234,7 @@ impl WorkflowConfig {
     pub fn set_recent_scheduled_execution_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::workflow_config::ScheduledExecutionRecord>,
+        V: std::convert::Into<crate::model::workflow_config::ScheduledExecutionRecord>
     {
         use std::iter::Iterator;
         self.recent_scheduled_execution_records = v.into_iter().map(|i| i.into()).collect();
@@ -7599,8 +7249,7 @@ impl WorkflowConfig {
 
     /// Sets the value of [create_time][crate::model::WorkflowConfig::create_time].
     pub fn set_create_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = std::option::Option::Some(v.into());
         self
@@ -7608,8 +7257,7 @@ impl WorkflowConfig {
 
     /// Sets or clears the value of [create_time][crate::model::WorkflowConfig::create_time].
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.create_time = v.map(|x| x.into());
         self
@@ -7617,8 +7265,7 @@ impl WorkflowConfig {
 
     /// Sets the value of [update_time][crate::model::WorkflowConfig::update_time].
     pub fn set_update_time<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = std::option::Option::Some(v.into());
         self
@@ -7626,8 +7273,7 @@ impl WorkflowConfig {
 
     /// Sets or clears the value of [update_time][crate::model::WorkflowConfig::update_time].
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::Timestamp>,
+    where T: std::convert::Into<wkt::Timestamp>
     {
         self.update_time = v.map(|x| x.into());
         self
@@ -7635,8 +7281,7 @@ impl WorkflowConfig {
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowConfig::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -7644,8 +7289,7 @@ impl WorkflowConfig {
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowConfig::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -7663,17 +7307,18 @@ pub mod workflow_config {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// A record of an attempt to create a workflow invocation for this workflow
     /// config.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ScheduledExecutionRecord {
+
         /// Output only. The timestamp of this execution attempt.
         pub execution_time: std::option::Option<wkt::Timestamp>,
 
         /// The result of this execution attempt.
-        pub result:
-            std::option::Option<crate::model::workflow_config::scheduled_execution_record::Result>,
+        pub result: std::option::Option<crate::model::workflow_config::scheduled_execution_record::Result>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -7685,8 +7330,7 @@ pub mod workflow_config {
 
         /// Sets the value of [execution_time][crate::model::workflow_config::ScheduledExecutionRecord::execution_time].
         pub fn set_execution_time<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.execution_time = std::option::Option::Some(v.into());
             self
@@ -7694,8 +7338,7 @@ pub mod workflow_config {
 
         /// Sets or clears the value of [execution_time][crate::model::workflow_config::ScheduledExecutionRecord::execution_time].
         pub fn set_or_clear_execution_time<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::Timestamp>,
+        where T: std::convert::Into<wkt::Timestamp>
         {
             self.execution_time = v.map(|x| x.into());
             self
@@ -7705,16 +7348,8 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are mutually
         /// exclusive.
-        pub fn set_result<
-            T: std::convert::Into<
-                    std::option::Option<
-                        crate::model::workflow_config::scheduled_execution_record::Result,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::workflow_config::scheduled_execution_record::Result>>>(mut self, v: T) -> Self
+        {
             self.result = v.into();
             self
         }
@@ -7735,10 +7370,7 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
-        pub fn set_workflow_invocation<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_workflow_invocation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.result = std::option::Option::Some(
                 crate::model::workflow_config::scheduled_execution_record::Result::WorkflowInvocation(
                     v.into()
@@ -7753,9 +7385,7 @@ pub mod workflow_config {
         pub fn error_status(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
             #[allow(unreachable_patterns)]
             self.result.as_ref().and_then(|v| match v {
-                crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(
-                    v,
-                ) => std::option::Option::Some(v),
+                crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(v) => std::option::Option::Some(v),
                 _ => std::option::Option::None,
             })
         }
@@ -7765,14 +7395,11 @@ pub mod workflow_config {
         ///
         /// Note that all the setters affecting `result` are
         /// mutually exclusive.
-        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_error_status<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(mut self, v: T) -> Self {
             self.result = std::option::Option::Some(
                 crate::model::workflow_config::scheduled_execution_record::Result::ErrorStatus(
-                    v.into(),
-                ),
+                    v.into()
+                )
             );
             self
         }
@@ -7788,6 +7415,7 @@ pub mod workflow_config {
     pub mod scheduled_execution_record {
         #[allow(unused_imports)]
         use super::*;
+
 
         /// The result of this execution attempt.
         #[derive(Clone, Debug, PartialEq)]
@@ -7810,6 +7438,7 @@ pub mod workflow_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InvocationConfig {
+
     /// Optional. The set of action identifiers to include.
     pub included_targets: std::vec::Vec<crate::model::Target>,
 
@@ -7842,7 +7471,7 @@ impl InvocationConfig {
     pub fn set_included_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::Target>,
+        V: std::convert::Into<crate::model::Target>
     {
         use std::iter::Iterator;
         self.included_targets = v.into_iter().map(|i| i.into()).collect();
@@ -7853,7 +7482,7 @@ impl InvocationConfig {
     pub fn set_included_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.included_tags = v.into_iter().map(|i| i.into()).collect();
@@ -7861,10 +7490,7 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [transitive_dependencies_included][crate::model::InvocationConfig::transitive_dependencies_included].
-    pub fn set_transitive_dependencies_included<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_transitive_dependencies_included<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.transitive_dependencies_included = v.into();
         self
     }
@@ -7876,10 +7502,7 @@ impl InvocationConfig {
     }
 
     /// Sets the value of [fully_refresh_incremental_tables_enabled][crate::model::InvocationConfig::fully_refresh_incremental_tables_enabled].
-    pub fn set_fully_refresh_incremental_tables_enabled<T: std::convert::Into<bool>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_fully_refresh_incremental_tables_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fully_refresh_incremental_tables_enabled = v.into();
         self
     }
@@ -7901,6 +7524,7 @@ impl wkt::message::Message for InvocationConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowConfigsRequest {
+
     /// Required. The repository in which to list workflow configs. Must be in the
     /// format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -7955,6 +7579,7 @@ impl wkt::message::Message for ListWorkflowConfigsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowConfigsResponse {
+
     /// List of workflow configs.
     pub workflow_configs: std::vec::Vec<crate::model::WorkflowConfig>,
 
@@ -7977,7 +7602,7 @@ impl ListWorkflowConfigsResponse {
     pub fn set_workflow_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkflowConfig>,
+        V: std::convert::Into<crate::model::WorkflowConfig>
     {
         use std::iter::Iterator;
         self.workflow_configs = v.into_iter().map(|i| i.into()).collect();
@@ -7994,7 +7619,7 @@ impl ListWorkflowConfigsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -8026,6 +7651,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowConfigsResponse 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowConfigRequest {
+
     /// Required. The workflow config's name.
     pub name: std::string::String,
 
@@ -8054,6 +7680,7 @@ impl wkt::message::Message for GetWorkflowConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowConfigRequest {
+
     /// Required. The repository in which to create the workflow config. Must be in
     /// the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -8081,8 +7708,7 @@ impl CreateWorkflowConfigRequest {
 
     /// Sets the value of [workflow_config][crate::model::CreateWorkflowConfigRequest::workflow_config].
     pub fn set_workflow_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowConfig>,
+    where T: std::convert::Into<crate::model::WorkflowConfig>
     {
         self.workflow_config = std::option::Option::Some(v.into());
         self
@@ -8090,18 +7716,14 @@ impl CreateWorkflowConfigRequest {
 
     /// Sets or clears the value of [workflow_config][crate::model::CreateWorkflowConfigRequest::workflow_config].
     pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowConfig>,
+    where T: std::convert::Into<crate::model::WorkflowConfig>
     {
         self.workflow_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [workflow_config_id][crate::model::CreateWorkflowConfigRequest::workflow_config_id].
-    pub fn set_workflow_config_id<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_workflow_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workflow_config_id = v.into();
         self
     }
@@ -8117,6 +7739,7 @@ impl wkt::message::Message for CreateWorkflowConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateWorkflowConfigRequest {
+
     /// Optional. Specifies the fields to be updated in the workflow config. If
     /// left unset, all fields will be updated.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -8134,8 +7757,7 @@ impl UpdateWorkflowConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -8143,8 +7765,7 @@ impl UpdateWorkflowConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self
@@ -8152,8 +7773,7 @@ impl UpdateWorkflowConfigRequest {
 
     /// Sets the value of [workflow_config][crate::model::UpdateWorkflowConfigRequest::workflow_config].
     pub fn set_workflow_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowConfig>,
+    where T: std::convert::Into<crate::model::WorkflowConfig>
     {
         self.workflow_config = std::option::Option::Some(v.into());
         self
@@ -8161,8 +7781,7 @@ impl UpdateWorkflowConfigRequest {
 
     /// Sets or clears the value of [workflow_config][crate::model::UpdateWorkflowConfigRequest::workflow_config].
     pub fn set_or_clear_workflow_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowConfig>,
+    where T: std::convert::Into<crate::model::WorkflowConfig>
     {
         self.workflow_config = v.map(|x| x.into());
         self
@@ -8179,6 +7798,7 @@ impl wkt::message::Message for UpdateWorkflowConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowConfigRequest {
+
     /// Required. The workflow config's name.
     pub name: std::string::String,
 
@@ -8207,6 +7827,7 @@ impl wkt::message::Message for DeleteWorkflowConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowInvocation {
+
     /// Output only. The workflow invocation's name.
     pub name: std::string::String,
 
@@ -8233,8 +7854,7 @@ pub struct WorkflowInvocation {
     pub internal_metadata: std::option::Option<std::string::String>,
 
     /// The source of the compilation result to use for this invocation.
-    pub compilation_source:
-        std::option::Option<crate::model::workflow_invocation::CompilationSource>,
+    pub compilation_source: std::option::Option<crate::model::workflow_invocation::CompilationSource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8252,8 +7872,7 @@ impl WorkflowInvocation {
 
     /// Sets the value of [invocation_config][crate::model::WorkflowInvocation::invocation_config].
     pub fn set_invocation_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::InvocationConfig>,
+    where T: std::convert::Into<crate::model::InvocationConfig>
     {
         self.invocation_config = std::option::Option::Some(v.into());
         self
@@ -8261,26 +7880,21 @@ impl WorkflowInvocation {
 
     /// Sets or clears the value of [invocation_config][crate::model::WorkflowInvocation::invocation_config].
     pub fn set_or_clear_invocation_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::InvocationConfig>,
+    where T: std::convert::Into<crate::model::InvocationConfig>
     {
         self.invocation_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::WorkflowInvocation::state].
-    pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [invocation_timing][crate::model::WorkflowInvocation::invocation_timing].
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -8288,26 +7902,21 @@ impl WorkflowInvocation {
 
     /// Sets or clears the value of [invocation_timing][crate::model::WorkflowInvocation::invocation_timing].
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.invocation_timing = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [resolved_compilation_result][crate::model::WorkflowInvocation::resolved_compilation_result].
-    pub fn set_resolved_compilation_result<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_resolved_compilation_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resolved_compilation_result = v.into();
         self
     }
 
     /// Sets the value of [data_encryption_state][crate::model::WorkflowInvocation::data_encryption_state].
     pub fn set_data_encryption_state<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = std::option::Option::Some(v.into());
         self
@@ -8315,8 +7924,7 @@ impl WorkflowInvocation {
 
     /// Sets or clears the value of [data_encryption_state][crate::model::WorkflowInvocation::data_encryption_state].
     pub fn set_or_clear_data_encryption_state<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::DataEncryptionState>,
+    where T: std::convert::Into<crate::model::DataEncryptionState>
     {
         self.data_encryption_state = v.map(|x| x.into());
         self
@@ -8324,8 +7932,7 @@ impl WorkflowInvocation {
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowInvocation::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -8333,8 +7940,7 @@ impl WorkflowInvocation {
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowInvocation::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -8344,14 +7950,8 @@ impl WorkflowInvocation {
     ///
     /// Note that all the setters affecting `compilation_source` are mutually
     /// exclusive.
-    pub fn set_compilation_source<
-        T: std::convert::Into<
-                std::option::Option<crate::model::workflow_invocation::CompilationSource>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compilation_source<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation::CompilationSource>>>(mut self, v: T) -> Self
+    {
         self.compilation_source = v.into();
         self
     }
@@ -8362,9 +7962,7 @@ impl WorkflowInvocation {
     pub fn compilation_result(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.compilation_source.as_ref().and_then(|v| match v {
-            crate::model::workflow_invocation::CompilationSource::CompilationResult(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_invocation::CompilationSource::CompilationResult(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8374,12 +7972,11 @@ impl WorkflowInvocation {
     ///
     /// Note that all the setters affecting `compilation_source` are
     /// mutually exclusive.
-    pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_compilation_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compilation_source = std::option::Option::Some(
-            crate::model::workflow_invocation::CompilationSource::CompilationResult(v.into()),
+            crate::model::workflow_invocation::CompilationSource::CompilationResult(
+                v.into()
+            )
         );
         self
     }
@@ -8390,9 +7987,7 @@ impl WorkflowInvocation {
     pub fn workflow_config(&self) -> std::option::Option<&std::string::String> {
         #[allow(unreachable_patterns)]
         self.compilation_source.as_ref().and_then(|v| match v {
-            crate::model::workflow_invocation::CompilationSource::WorkflowConfig(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_invocation::CompilationSource::WorkflowConfig(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -8404,7 +7999,9 @@ impl WorkflowInvocation {
     /// mutually exclusive.
     pub fn set_workflow_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.compilation_source = std::option::Option::Some(
-            crate::model::workflow_invocation::CompilationSource::WorkflowConfig(v.into()),
+            crate::model::workflow_invocation::CompilationSource::WorkflowConfig(
+                v.into()
+            )
         );
         self
     }
@@ -8420,6 +8017,7 @@ impl wkt::message::Message for WorkflowInvocation {
 pub mod workflow_invocation {
     #[allow(unused_imports)]
     use super::*;
+
 
     /// Represents the current state of a workflow invocation.
     ///
@@ -8523,9 +8121,7 @@ pub mod workflow_invocation {
                 3 => Self::Cancelled,
                 4 => Self::Failed,
                 5 => Self::Canceling,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -8540,9 +8136,7 @@ pub mod workflow_invocation {
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
                 "CANCELING" => Self::Canceling,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -8570,8 +8164,7 @@ pub mod workflow_invocation {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataform.v1.WorkflowInvocation.State",
-            ))
+                ".google.cloud.dataform.v1.WorkflowInvocation.State"))
         }
     }
 
@@ -8593,6 +8186,7 @@ pub mod workflow_invocation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowInvocationsRequest {
+
     /// Required. The parent resource of the WorkflowInvocation type. Must be in
     /// the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -8667,6 +8261,7 @@ impl wkt::message::Message for ListWorkflowInvocationsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListWorkflowInvocationsResponse {
+
     /// List of workflow invocations.
     pub workflow_invocations: std::vec::Vec<crate::model::WorkflowInvocation>,
 
@@ -8689,7 +8284,7 @@ impl ListWorkflowInvocationsResponse {
     pub fn set_workflow_invocations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkflowInvocation>,
+        V: std::convert::Into<crate::model::WorkflowInvocation>
     {
         use std::iter::Iterator;
         self.workflow_invocations = v.into_iter().map(|i| i.into()).collect();
@@ -8706,7 +8301,7 @@ impl ListWorkflowInvocationsResponse {
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>
     {
         use std::iter::Iterator;
         self.unreachable = v.into_iter().map(|i| i.into()).collect();
@@ -8738,6 +8333,7 @@ impl gax::paginator::internal::PageableResponse for ListWorkflowInvocationsRespo
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetWorkflowInvocationRequest {
+
     /// Required. The workflow invocation resource's name.
     pub name: std::string::String,
 
@@ -8766,6 +8362,7 @@ impl wkt::message::Message for GetWorkflowInvocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateWorkflowInvocationRequest {
+
     /// Required. The repository in which to create the workflow invocation. Must
     /// be in the format `projects/*/locations/*/repositories/*`.
     pub parent: std::string::String,
@@ -8789,8 +8386,7 @@ impl CreateWorkflowInvocationRequest {
 
     /// Sets the value of [workflow_invocation][crate::model::CreateWorkflowInvocationRequest::workflow_invocation].
     pub fn set_workflow_invocation<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowInvocation>,
+    where T: std::convert::Into<crate::model::WorkflowInvocation>
     {
         self.workflow_invocation = std::option::Option::Some(v.into());
         self
@@ -8798,8 +8394,7 @@ impl CreateWorkflowInvocationRequest {
 
     /// Sets or clears the value of [workflow_invocation][crate::model::CreateWorkflowInvocationRequest::workflow_invocation].
     pub fn set_or_clear_workflow_invocation<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::WorkflowInvocation>,
+    where T: std::convert::Into<crate::model::WorkflowInvocation>
     {
         self.workflow_invocation = v.map(|x| x.into());
         self
@@ -8816,6 +8411,7 @@ impl wkt::message::Message for CreateWorkflowInvocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteWorkflowInvocationRequest {
+
     /// Required. The workflow invocation resource's name.
     pub name: std::string::String,
 
@@ -8844,6 +8440,7 @@ impl wkt::message::Message for DeleteWorkflowInvocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelWorkflowInvocationRequest {
+
     /// Required. The workflow invocation resource's name.
     pub name: std::string::String,
 
@@ -8872,6 +8469,7 @@ impl wkt::message::Message for CancelWorkflowInvocationRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CancelWorkflowInvocationResponse {
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8891,6 +8489,7 @@ impl wkt::message::Message for CancelWorkflowInvocationResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WorkflowInvocationAction {
+
     /// Output only. This action's identifier. Unique within the workflow
     /// invocation.
     pub target: std::option::Option<crate::model::Target>,
@@ -8931,8 +8530,7 @@ impl WorkflowInvocationAction {
 
     /// Sets the value of [target][crate::model::WorkflowInvocationAction::target].
     pub fn set_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = std::option::Option::Some(v.into());
         self
@@ -8940,8 +8538,7 @@ impl WorkflowInvocationAction {
 
     /// Sets or clears the value of [target][crate::model::WorkflowInvocationAction::target].
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.target = v.map(|x| x.into());
         self
@@ -8949,8 +8546,7 @@ impl WorkflowInvocationAction {
 
     /// Sets the value of [canonical_target][crate::model::WorkflowInvocationAction::canonical_target].
     pub fn set_canonical_target<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.canonical_target = std::option::Option::Some(v.into());
         self
@@ -8958,18 +8554,14 @@ impl WorkflowInvocationAction {
 
     /// Sets or clears the value of [canonical_target][crate::model::WorkflowInvocationAction::canonical_target].
     pub fn set_or_clear_canonical_target<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Target>,
+    where T: std::convert::Into<crate::model::Target>
     {
         self.canonical_target = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [state][crate::model::WorkflowInvocationAction::state].
-    pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation_action::State>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workflow_invocation_action::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
@@ -8982,8 +8574,7 @@ impl WorkflowInvocationAction {
 
     /// Sets the value of [invocation_timing][crate::model::WorkflowInvocationAction::invocation_timing].
     pub fn set_invocation_timing<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.invocation_timing = std::option::Option::Some(v.into());
         self
@@ -8991,8 +8582,7 @@ impl WorkflowInvocationAction {
 
     /// Sets or clears the value of [invocation_timing][crate::model::WorkflowInvocationAction::invocation_timing].
     pub fn set_or_clear_invocation_timing<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<gtype::model::Interval>,
+    where T: std::convert::Into<gtype::model::Interval>
     {
         self.invocation_timing = v.map(|x| x.into());
         self
@@ -9000,8 +8590,7 @@ impl WorkflowInvocationAction {
 
     /// Sets the value of [internal_metadata][crate::model::WorkflowInvocationAction::internal_metadata].
     pub fn set_internal_metadata<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = std::option::Option::Some(v.into());
         self
@@ -9009,8 +8598,7 @@ impl WorkflowInvocationAction {
 
     /// Sets or clears the value of [internal_metadata][crate::model::WorkflowInvocationAction::internal_metadata].
     pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<std::string::String>,
+    where T: std::convert::Into<std::string::String>
     {
         self.internal_metadata = v.map(|x| x.into());
         self
@@ -9020,12 +8608,8 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are mutually
     /// exclusive.
-    pub fn set_action<
-        T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::Action>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::workflow_invocation_action::Action>>>(mut self, v: T) -> Self
+    {
         self.action = v.into();
         self
     }
@@ -9033,16 +8617,10 @@ impl WorkflowInvocationAction {
     /// The value of [action][crate::model::WorkflowInvocationAction::action]
     /// if it holds a `BigqueryAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn bigquery_action(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>,
-    > {
+    pub fn bigquery_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::workflow_invocation_action::Action::BigqueryAction(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_invocation_action::Action::BigqueryAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9052,16 +8630,11 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
-    pub fn set_bigquery_action<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_bigquery_action<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::BigQueryAction>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::workflow_invocation_action::Action::BigqueryAction(v.into()),
+            crate::model::workflow_invocation_action::Action::BigqueryAction(
+                v.into()
+            )
         );
         self
     }
@@ -9069,16 +8642,10 @@ impl WorkflowInvocationAction {
     /// The value of [action][crate::model::WorkflowInvocationAction::action]
     /// if it holds a `NotebookAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn notebook_action(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>,
-    > {
+    pub fn notebook_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::workflow_invocation_action::Action::NotebookAction(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_invocation_action::Action::NotebookAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9088,16 +8655,11 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
-    pub fn set_notebook_action<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_notebook_action<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::workflow_invocation_action::Action::NotebookAction(v.into()),
+            crate::model::workflow_invocation_action::Action::NotebookAction(
+                v.into()
+            )
         );
         self
     }
@@ -9105,16 +8667,10 @@ impl WorkflowInvocationAction {
     /// The value of [action][crate::model::WorkflowInvocationAction::action]
     /// if it holds a `DataPreparationAction`, `None` if the field is not set or
     /// holds a different branch.
-    pub fn data_preparation_action(
-        &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
-    > {
+    pub fn data_preparation_action(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>> {
         #[allow(unreachable_patterns)]
         self.action.as_ref().and_then(|v| match v {
-            crate::model::workflow_invocation_action::Action::DataPreparationAction(v) => {
-                std::option::Option::Some(v)
-            }
+            crate::model::workflow_invocation_action::Action::DataPreparationAction(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
@@ -9124,16 +8680,11 @@ impl WorkflowInvocationAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
-    pub fn set_data_preparation_action<
-        T: std::convert::Into<
-                std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_data_preparation_action<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>>>(mut self, v: T) -> Self {
         self.action = std::option::Option::Some(
-            crate::model::workflow_invocation_action::Action::DataPreparationAction(v.into()),
+            crate::model::workflow_invocation_action::Action::DataPreparationAction(
+                v.into()
+            )
         );
         self
     }
@@ -9150,10 +8701,12 @@ pub mod workflow_invocation_action {
     #[allow(unused_imports)]
     use super::*;
 
+
     /// Represents a workflow action that will run against BigQuery.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BigQueryAction {
+
         /// Output only. The generated BigQuery SQL script that will be executed.
         pub sql_script: std::string::String,
 
@@ -9192,6 +8745,7 @@ pub mod workflow_invocation_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NotebookAction {
+
         /// Output only. The code contents of a Notebook to be run.
         pub contents: std::string::String,
 
@@ -9231,6 +8785,7 @@ pub mod workflow_invocation_action {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DataPreparationAction {
+
         /// Output only. The generated BigQuery SQL script that will be executed. For
         /// reference only.
         pub generated_sql: std::string::String,
@@ -9240,9 +8795,7 @@ pub mod workflow_invocation_action {
         pub job_id: std::string::String,
 
         /// The definition for the data preparation.
-        pub definition: std::option::Option<
-            crate::model::workflow_invocation_action::data_preparation_action::Definition,
-        >,
+        pub definition: std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::Definition>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -9253,10 +8806,7 @@ pub mod workflow_invocation_action {
         }
 
         /// Sets the value of [generated_sql][crate::model::workflow_invocation_action::DataPreparationAction::generated_sql].
-        pub fn set_generated_sql<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_generated_sql<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.generated_sql = v.into();
             self
         }
@@ -9293,10 +8843,7 @@ pub mod workflow_invocation_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
-        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_contents_yaml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.definition = std::option::Option::Some(
                 crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsYaml(
                     v.into()
@@ -9308,7 +8855,7 @@ pub mod workflow_invocation_action {
         /// The value of [definition][crate::model::workflow_invocation_action::DataPreparationAction::definition]
         /// if it holds a `ContentsSql`, `None` if the field is not set or
         /// holds a different branch.
-        pub fn contents_sql(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>{
+        pub fn contents_sql(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>> {
             #[allow(unreachable_patterns)]
             self.definition.as_ref().and_then(|v| match v {
                 crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsSql(v) => std::option::Option::Some(v),
@@ -9321,7 +8868,7 @@ pub mod workflow_invocation_action {
         ///
         /// Note that all the setters affecting `definition` are
         /// mutually exclusive.
-        pub fn set_contents_sql<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>>(mut self, v: T) -> Self{
+        pub fn set_contents_sql<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSqlDefinition>>>(mut self, v: T) -> Self {
             self.definition = std::option::Option::Some(
                 crate::model::workflow_invocation_action::data_preparation_action::Definition::ContentsSql(
                     v.into()
@@ -9342,23 +8889,21 @@ pub mod workflow_invocation_action {
         #[allow(unused_imports)]
         use super::*;
 
+
         /// Definition of a SQL Data Preparation
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionSqlDefinition {
+
             /// The SQL query representing the data preparation steps. Formatted as a
             /// Pipe SQL query statement.
             pub query: std::string::String,
 
             /// Error table configuration,
-            pub error_table: std::option::Option<
-                crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable,
-            >,
+            pub error_table: std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable>,
 
             /// Load configuration.
-            pub load_config: std::option::Option<
-                crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig,
-            >,
+            pub load_config: std::option::Option<crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -9418,6 +8963,7 @@ pub mod workflow_invocation_action {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionErrorTable {
+
             /// Error Table target.
             pub target: std::option::Option<crate::model::Target>,
 
@@ -9435,8 +8981,7 @@ pub mod workflow_invocation_action {
 
             /// Sets the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
             pub fn set_target<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<crate::model::Target>,
+            where T: std::convert::Into<crate::model::Target>
             {
                 self.target = std::option::Option::Some(v.into());
                 self
@@ -9444,8 +8989,7 @@ pub mod workflow_invocation_action {
 
             /// Sets or clears the value of [target][crate::model::workflow_invocation_action::data_preparation_action::ActionErrorTable::target].
             pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<crate::model::Target>,
+            where T: std::convert::Into<crate::model::Target>
             {
                 self.target = v.map(|x| x.into());
                 self
@@ -9493,7 +9037,7 @@ pub mod workflow_invocation_action {
             /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
             /// if it holds a `Replace`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn replace(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>{
+            pub fn replace(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>> {
                 #[allow(unreachable_patterns)]
                 self.mode.as_ref().and_then(|v| match v {
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(v) => std::option::Option::Some(v),
@@ -9506,7 +9050,7 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
-            pub fn set_replace<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
+            pub fn set_replace<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self {
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Replace(
                         v.into()
@@ -9518,7 +9062,7 @@ pub mod workflow_invocation_action {
             /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
             /// if it holds a `Append`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn append(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>{
+            pub fn append(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>> {
                 #[allow(unreachable_patterns)]
                 self.mode.as_ref().and_then(|v| match v {
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Append(v) => std::option::Option::Some(v),
@@ -9531,7 +9075,7 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
-            pub fn set_append<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self{
+            pub fn set_append<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionSimpleLoadMode>>>(mut self, v: T) -> Self {
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Append(
                         v.into()
@@ -9543,7 +9087,7 @@ pub mod workflow_invocation_action {
             /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
             /// if it holds a `Maximum`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>{
+            pub fn maximum(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>> {
                 #[allow(unreachable_patterns)]
                 self.mode.as_ref().and_then(|v| match v {
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Maximum(v) => std::option::Option::Some(v),
@@ -9556,7 +9100,7 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
-            pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
+            pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self {
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Maximum(
                         v.into()
@@ -9568,7 +9112,7 @@ pub mod workflow_invocation_action {
             /// The value of [mode][crate::model::workflow_invocation_action::data_preparation_action::ActionLoadConfig::mode]
             /// if it holds a `Unique`, `None` if the field is not set or
             /// holds a different branch.
-            pub fn unique(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>{
+            pub fn unique(&self) -> std::option::Option<&std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>> {
                 #[allow(unreachable_patterns)]
                 self.mode.as_ref().and_then(|v| match v {
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Unique(v) => std::option::Option::Some(v),
@@ -9581,7 +9125,7 @@ pub mod workflow_invocation_action {
             ///
             /// Note that all the setters affecting `mode` are
             /// mutually exclusive.
-            pub fn set_unique<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self{
+            pub fn set_unique<T: std::convert::Into<std::boxed::Box<crate::model::workflow_invocation_action::data_preparation_action::ActionIncrementalLoadMode>>>(mut self, v: T) -> Self {
                 self.mode = std::option::Option::Some(
                     crate::model::workflow_invocation_action::data_preparation_action::action_load_config::Mode::Unique(
                         v.into()
@@ -9601,6 +9145,7 @@ pub mod workflow_invocation_action {
         pub mod action_load_config {
             #[allow(unused_imports)]
             use super::*;
+
 
             /// Load mode
             #[derive(Clone, Debug, PartialEq)]
@@ -9623,6 +9168,7 @@ pub mod workflow_invocation_action {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionSimpleLoadMode {
+
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -9642,6 +9188,7 @@ pub mod workflow_invocation_action {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct ActionIncrementalLoadMode {
+
             /// Column name for incremental load modes
             pub column: std::string::String,
 
@@ -9787,9 +9334,7 @@ pub mod workflow_invocation_action {
                 4 => Self::Succeeded,
                 5 => Self::Cancelled,
                 6 => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::Integer(value))),
             }
         }
     }
@@ -9805,9 +9350,7 @@ pub mod workflow_invocation_action {
                 "SUCCEEDED" => Self::Succeeded,
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
-                _ => Self::UnknownValue(state::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
+                _ => Self::UnknownValue(state::UnknownValue(wkt::internal::UnknownEnumValue::String(value.to_string()))),
             }
         }
     }
@@ -9836,8 +9379,7 @@ pub mod workflow_invocation_action {
             D: serde::Deserializer<'de>,
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
-                ".google.cloud.dataform.v1.WorkflowInvocationAction.State",
-            ))
+                ".google.cloud.dataform.v1.WorkflowInvocationAction.State"))
         }
     }
 
@@ -9850,9 +9392,7 @@ pub mod workflow_invocation_action {
         /// Output only. The workflow action's notebook action details.
         NotebookAction(std::boxed::Box<crate::model::workflow_invocation_action::NotebookAction>),
         /// Output only. The workflow action's data preparation action details.
-        DataPreparationAction(
-            std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
-        ),
+        DataPreparationAction(std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>),
     }
 }
 
@@ -9860,6 +9400,7 @@ pub mod workflow_invocation_action {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryWorkflowInvocationActionsRequest {
+
     /// Required. The workflow invocation's name.
     pub name: std::string::String,
 
@@ -9914,6 +9455,7 @@ impl wkt::message::Message for QueryWorkflowInvocationActionsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct QueryWorkflowInvocationActionsResponse {
+
     /// List of workflow invocation actions.
     pub workflow_invocation_actions: std::vec::Vec<crate::model::WorkflowInvocationAction>,
 
@@ -9933,7 +9475,7 @@ impl QueryWorkflowInvocationActionsResponse {
     pub fn set_workflow_invocation_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<crate::model::WorkflowInvocationAction>,
+        V: std::convert::Into<crate::model::WorkflowInvocationAction>
     {
         use std::iter::Iterator;
         self.workflow_invocation_actions = v.into_iter().map(|i| i.into()).collect();
@@ -9971,6 +9513,7 @@ impl gax::paginator::internal::PageableResponse for QueryWorkflowInvocationActio
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Config {
+
     /// Identifier. The config name.
     pub name: std::string::String,
 
@@ -9993,10 +9536,7 @@ impl Config {
     }
 
     /// Sets the value of [default_kms_key_name][crate::model::Config::default_kms_key_name].
-    pub fn set_default_kms_key_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_default_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_kms_key_name = v.into();
         self
     }
@@ -10012,6 +9552,7 @@ impl wkt::message::Message for Config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetConfigRequest {
+
     /// Required. The config name.
     pub name: std::string::String,
 
@@ -10040,6 +9581,7 @@ impl wkt::message::Message for GetConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateConfigRequest {
+
     /// Required. The config to update.
     pub config: std::option::Option<crate::model::Config>,
 
@@ -10056,8 +9598,7 @@ impl UpdateConfigRequest {
 
     /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
     pub fn set_config<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<crate::model::Config>,
+    where T: std::convert::Into<crate::model::Config>
     {
         self.config = std::option::Option::Some(v.into());
         self
@@ -10065,8 +9606,7 @@ impl UpdateConfigRequest {
 
     /// Sets or clears the value of [config][crate::model::UpdateConfigRequest::config].
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<crate::model::Config>,
+    where T: std::convert::Into<crate::model::Config>
     {
         self.config = v.map(|x| x.into());
         self
@@ -10074,8 +9614,7 @@ impl UpdateConfigRequest {
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
     pub fn set_update_mask<T>(mut self, v: T) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = std::option::Option::Some(v.into());
         self
@@ -10083,8 +9622,7 @@ impl UpdateConfigRequest {
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-    where
-        T: std::convert::Into<wkt::FieldMask>,
+    where T: std::convert::Into<wkt::FieldMask>
     {
         self.update_mask = v.map(|x| x.into());
         self

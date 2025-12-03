@@ -239,10 +239,7 @@ impl std::fmt::Debug for super::PricingExpression {
         debug_struct.field("usage_unit_description", &self.usage_unit_description);
         debug_struct.field("base_unit", &self.base_unit);
         debug_struct.field("base_unit_description", &self.base_unit_description);
-        debug_struct.field(
-            "base_unit_conversion_factor",
-            &self.base_unit_conversion_factor,
-        );
+        debug_struct.field("base_unit_conversion_factor", &self.base_unit_conversion_factor);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

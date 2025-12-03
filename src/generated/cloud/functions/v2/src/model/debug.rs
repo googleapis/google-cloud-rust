@@ -41,6 +41,7 @@ impl std::fmt::Debug for super::Function {
     }
 }
 
+
 impl std::fmt::Debug for super::StateMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StateMessage");
@@ -128,6 +129,7 @@ impl std::fmt::Debug for super::BuildConfig {
     }
 }
 
+
 impl std::fmt::Debug for super::ServiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceConfig");
@@ -139,38 +141,24 @@ impl std::fmt::Debug for super::ServiceConfig {
         debug_struct.field("max_instance_count", &self.max_instance_count);
         debug_struct.field("min_instance_count", &self.min_instance_count);
         debug_struct.field("vpc_connector", &self.vpc_connector);
-        debug_struct.field(
-            "vpc_connector_egress_settings",
-            &self.vpc_connector_egress_settings,
-        );
+        debug_struct.field("vpc_connector_egress_settings", &self.vpc_connector_egress_settings);
         debug_struct.field("ingress_settings", &self.ingress_settings);
         debug_struct.field("uri", &self.uri);
         debug_struct.field("service_account_email", &self.service_account_email);
-        debug_struct.field(
-            "all_traffic_on_latest_revision",
-            &self.all_traffic_on_latest_revision,
-        );
-        debug_struct.field(
-            "secret_environment_variables",
-            &self.secret_environment_variables,
-        );
+        debug_struct.field("all_traffic_on_latest_revision", &self.all_traffic_on_latest_revision);
+        debug_struct.field("secret_environment_variables", &self.secret_environment_variables);
         debug_struct.field("secret_volumes", &self.secret_volumes);
         debug_struct.field("revision", &self.revision);
-        debug_struct.field(
-            "max_instance_request_concurrency",
-            &self.max_instance_request_concurrency,
-        );
+        debug_struct.field("max_instance_request_concurrency", &self.max_instance_request_concurrency);
         debug_struct.field("security_level", &self.security_level);
-        debug_struct.field(
-            "binary_authorization_policy",
-            &self.binary_authorization_policy,
-        );
+        debug_struct.field("binary_authorization_policy", &self.binary_authorization_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::SecretEnvVar {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

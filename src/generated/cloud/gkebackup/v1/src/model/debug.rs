@@ -69,6 +69,8 @@ impl std::fmt::Debug for super::backup::ClusterMetadata {
     }
 }
 
+
+
 impl std::fmt::Debug for super::BackupChannel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupChannel");
@@ -109,10 +111,7 @@ impl std::fmt::Debug for super::BackupPlan {
         debug_struct.field("rpo_risk_level", &self.rpo_risk_level);
         debug_struct.field("rpo_risk_reason", &self.rpo_risk_reason);
         debug_struct.field("backup_channel", &self.backup_channel);
-        debug_struct.field(
-            "last_successful_backup_time",
-            &self.last_successful_backup_time,
-        );
+        debug_struct.field("last_successful_backup_time", &self.last_successful_backup_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -139,10 +138,7 @@ impl std::fmt::Debug for super::backup_plan::Schedule {
         debug_struct.field("cron_schedule", &self.cron_schedule);
         debug_struct.field("paused", &self.paused);
         debug_struct.field("rpo_config", &self.rpo_config);
-        debug_struct.field(
-            "next_scheduled_backup_time",
-            &self.next_scheduled_backup_time,
-        );
+        debug_struct.field("next_scheduled_backup_time", &self.next_scheduled_backup_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -164,6 +160,7 @@ impl std::fmt::Debug for super::backup_plan::BackupConfig {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::RpoConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -224,14 +221,8 @@ impl std::fmt::Debug for super::backup_plan_binding::BackupPlanDetails {
         let mut debug_struct = f.debug_struct("BackupPlanDetails");
         debug_struct.field("protected_pod_count", &self.protected_pod_count);
         debug_struct.field("state", &self.state);
-        debug_struct.field(
-            "last_successful_backup_time",
-            &self.last_successful_backup_time,
-        );
-        debug_struct.field(
-            "next_scheduled_backup_time",
-            &self.next_scheduled_backup_time,
-        );
+        debug_struct.field("last_successful_backup_time", &self.last_successful_backup_time);
+        debug_struct.field("next_scheduled_backup_time", &self.next_scheduled_backup_time);
         debug_struct.field("rpo_risk_level", &self.rpo_risk_level);
         debug_struct.field("last_successful_backup", &self.last_successful_backup);
         debug_struct.field("backup_config_details", &self.backup_config_details);
@@ -999,10 +990,7 @@ impl std::fmt::Debug for super::Restore {
         debug_struct.field("volumes_restored_count", &self.volumes_restored_count);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("filter", &self.filter);
-        debug_struct.field(
-            "volume_data_restore_policy_overrides",
-            &self.volume_data_restore_policy_overrides,
-        );
+        debug_struct.field("volume_data_restore_policy_overrides", &self.volume_data_restore_policy_overrides);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1022,36 +1010,19 @@ impl std::fmt::Debug for super::restore::Filter {
     }
 }
 
+
 impl std::fmt::Debug for super::RestoreConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestoreConfig");
-        debug_struct.field(
-            "volume_data_restore_policy",
-            &self.volume_data_restore_policy,
-        );
-        debug_struct.field(
-            "cluster_resource_conflict_policy",
-            &self.cluster_resource_conflict_policy,
-        );
-        debug_struct.field(
-            "namespaced_resource_restore_mode",
-            &self.namespaced_resource_restore_mode,
-        );
-        debug_struct.field(
-            "cluster_resource_restore_scope",
-            &self.cluster_resource_restore_scope,
-        );
+        debug_struct.field("volume_data_restore_policy", &self.volume_data_restore_policy);
+        debug_struct.field("cluster_resource_conflict_policy", &self.cluster_resource_conflict_policy);
+        debug_struct.field("namespaced_resource_restore_mode", &self.namespaced_resource_restore_mode);
+        debug_struct.field("cluster_resource_restore_scope", &self.cluster_resource_restore_scope);
         debug_struct.field("substitution_rules", &self.substitution_rules);
         debug_struct.field("transformation_rules", &self.transformation_rules);
-        debug_struct.field(
-            "volume_data_restore_policy_bindings",
-            &self.volume_data_restore_policy_bindings,
-        );
+        debug_struct.field("volume_data_restore_policy_bindings", &self.volume_data_restore_policy_bindings);
         debug_struct.field("restore_order", &self.restore_order);
-        debug_struct.field(
-            "namespaced_resource_restore_scope",
-            &self.namespaced_resource_restore_scope,
-        );
+        debug_struct.field("namespaced_resource_restore_scope", &self.namespaced_resource_restore_scope);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1242,6 +1213,7 @@ impl std::fmt::Debug for super::RestorePlan {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::RestorePlanBinding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

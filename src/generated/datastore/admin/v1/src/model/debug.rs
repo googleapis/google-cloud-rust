@@ -32,6 +32,7 @@ impl std::fmt::Debug for super::CommonMetadata {
     }
 }
 
+
 impl std::fmt::Debug for super::Progress {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Progress");

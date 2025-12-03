@@ -44,14 +44,8 @@ impl std::fmt::Debug for super::ManagementURI {
 impl std::fmt::Debug for super::WorkforceIdentityBasedManagementURI {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkforceIdentityBasedManagementURI");
-        debug_struct.field(
-            "first_party_management_uri",
-            &self.first_party_management_uri,
-        );
-        debug_struct.field(
-            "third_party_management_uri",
-            &self.third_party_management_uri,
-        );
+        debug_struct.field("first_party_management_uri", &self.first_party_management_uri);
+        debug_struct.field("third_party_management_uri", &self.third_party_management_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -62,14 +56,8 @@ impl std::fmt::Debug for super::WorkforceIdentityBasedManagementURI {
 impl std::fmt::Debug for super::WorkforceIdentityBasedOAuth2ClientID {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("WorkforceIdentityBasedOAuth2ClientID");
-        debug_struct.field(
-            "first_party_oauth2_client_id",
-            &self.first_party_oauth2_client_id,
-        );
-        debug_struct.field(
-            "third_party_oauth2_client_id",
-            &self.third_party_oauth2_client_id,
-        );
+        debug_struct.field("first_party_oauth2_client_id", &self.first_party_oauth2_client_id);
+        debug_struct.field("third_party_oauth2_client_id", &self.third_party_oauth2_client_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -87,18 +75,12 @@ impl std::fmt::Debug for super::ManagementServer {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("management_uri", &self.management_uri);
-        debug_struct.field(
-            "workforce_identity_based_management_uri",
-            &self.workforce_identity_based_management_uri,
-        );
+        debug_struct.field("workforce_identity_based_management_uri", &self.workforce_identity_based_management_uri);
         debug_struct.field("state", &self.state);
         debug_struct.field("networks", &self.networks);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("oauth2_client_id", &self.oauth2_client_id);
-        debug_struct.field(
-            "workforce_identity_based_oauth2_client_id",
-            &self.workforce_identity_based_oauth2_client_id,
-        );
+        debug_struct.field("workforce_identity_based_oauth2_client_id", &self.workforce_identity_based_oauth2_client_id);
         debug_struct.field("ba_proxy_uri", &self.ba_proxy_uri);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
@@ -108,6 +90,7 @@ impl std::fmt::Debug for super::ManagementServer {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ListManagementServersRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -231,10 +214,7 @@ impl std::fmt::Debug for super::BackupPlan {
         debug_struct.field("resource_type", &self.resource_type);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("backup_vault", &self.backup_vault);
-        debug_struct.field(
-            "backup_vault_service_account",
-            &self.backup_vault_service_account,
-        );
+        debug_struct.field("backup_vault_service_account", &self.backup_vault_service_account);
         debug_struct.field("log_retention_days", &self.log_retention_days);
         debug_struct.field("supported_resource_types", &self.supported_resource_types);
         debug_struct.field("revision_id", &self.revision_id);
@@ -245,6 +225,7 @@ impl std::fmt::Debug for super::BackupPlan {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::BackupRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -459,10 +440,7 @@ impl std::fmt::Debug for super::RuleConfigInfo {
         debug_struct.field("rule_id", &self.rule_id);
         debug_struct.field("last_backup_state", &self.last_backup_state);
         debug_struct.field("last_backup_error", &self.last_backup_error);
-        debug_struct.field(
-            "last_successful_backup_consistency_time",
-            &self.last_successful_backup_consistency_time,
-        );
+        debug_struct.field("last_successful_backup_consistency_time", &self.last_successful_backup_consistency_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -474,10 +452,7 @@ impl std::fmt::Debug for super::CreateBackupPlanAssociationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateBackupPlanAssociationRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field(
-            "backup_plan_association_id",
-            &self.backup_plan_association_id,
-        );
+        debug_struct.field("backup_plan_association_id", &self.backup_plan_association_id);
         debug_struct.field("backup_plan_association", &self.backup_plan_association);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
@@ -599,14 +574,8 @@ impl std::fmt::Debug for super::BackupVault {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
-        debug_struct.field(
-            "backup_minimum_enforced_retention_duration",
-            &self.backup_minimum_enforced_retention_duration,
-        );
-        debug_struct.field(
-            "backup_retention_inheritance",
-            &self.backup_retention_inheritance,
-        );
+        debug_struct.field("backup_minimum_enforced_retention_duration", &self.backup_minimum_enforced_retention_duration);
+        debug_struct.field("backup_retention_inheritance", &self.backup_retention_inheritance);
         debug_struct.field("deletable", &self.deletable);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("state", &self.state);
@@ -636,6 +605,8 @@ impl std::fmt::Debug for super::backup_vault::EncryptionConfig {
     }
 }
 
+
+
 impl std::fmt::Debug for super::DataSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataSource");
@@ -649,10 +620,7 @@ impl std::fmt::Debug for super::DataSource {
         debug_struct.field("total_stored_bytes", &self.total_stored_bytes);
         debug_struct.field("config_state", &self.config_state);
         debug_struct.field("backup_config_info", &self.backup_config_info);
-        debug_struct.field(
-            "backup_blocked_by_vault_access_restriction",
-            &self.backup_blocked_by_vault_access_restriction,
-        );
+        debug_struct.field("backup_blocked_by_vault_access_restriction", &self.backup_blocked_by_vault_access_restriction);
         debug_struct.field("source_resource", &self.source_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -661,14 +629,12 @@ impl std::fmt::Debug for super::DataSource {
     }
 }
 
+
 impl std::fmt::Debug for super::BackupConfigInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupConfigInfo");
         debug_struct.field("last_backup_state", &self.last_backup_state);
-        debug_struct.field(
-            "last_successful_backup_consistency_time",
-            &self.last_successful_backup_consistency_time,
-        );
+        debug_struct.field("last_successful_backup_consistency_time", &self.last_successful_backup_consistency_time);
         debug_struct.field("last_backup_error", &self.last_backup_error);
         debug_struct.field("backup_config", &self.backup_config);
         if !self._unknown_fields.is_empty() {
@@ -787,14 +753,8 @@ impl std::fmt::Debug for super::Backup {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("labels", &self.labels);
-        debug_struct.field(
-            "enforced_retention_end_time",
-            &self.enforced_retention_end_time,
-        );
-        debug_struct.field(
-            "backup_retention_inheritance",
-            &self.backup_retention_inheritance,
-        );
+        debug_struct.field("enforced_retention_end_time", &self.enforced_retention_end_time);
+        debug_struct.field("backup_retention_inheritance", &self.backup_retention_inheritance);
         debug_struct.field("expire_time", &self.expire_time);
         debug_struct.field("consistency_time", &self.consistency_time);
         debug_struct.field("etag", &self.etag);
@@ -829,6 +789,7 @@ impl std::fmt::Debug for super::backup::GCPBackupPlanInfo {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateBackupVaultRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -951,10 +912,7 @@ impl std::fmt::Debug for super::UpdateBackupVaultRequest {
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("force", &self.force);
-        debug_struct.field(
-            "force_update_access_restriction",
-            &self.force_update_access_restriction,
-        );
+        debug_struct.field("force_update_access_restriction", &self.force_update_access_restriction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -971,10 +929,7 @@ impl std::fmt::Debug for super::DeleteBackupVaultRequest {
         debug_struct.field("etag", &self.etag);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
-        debug_struct.field(
-            "ignore_backup_plan_references",
-            &self.ignore_backup_plan_references,
-        );
+        debug_struct.field("ignore_backup_plan_references", &self.ignore_backup_plan_references);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1106,10 +1061,7 @@ impl std::fmt::Debug for super::RestoreBackupRequest {
         let mut debug_struct = f.debug_struct("RestoreBackupRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
-        debug_struct.field(
-            "clear_overrides_field_mask",
-            &self.clear_overrides_field_mask,
-        );
+        debug_struct.field("clear_overrides_field_mask", &self.clear_overrides_field_mask);
         debug_struct.field("target_environment", &self.target_environment);
         debug_struct.field("instance_properties", &self.instance_properties);
         if !self._unknown_fields.is_empty() {
@@ -1185,10 +1137,7 @@ impl std::fmt::Debug for super::CloudSqlInstanceDataSourceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlInstanceDataSourceProperties");
         debug_struct.field("name", &self.name);
-        debug_struct.field(
-            "database_installed_version",
-            &self.database_installed_version,
-        );
+        debug_struct.field("database_installed_version", &self.database_installed_version);
         debug_struct.field("instance_create_time", &self.instance_create_time);
         debug_struct.field("instance_tier", &self.instance_tier);
         if !self._unknown_fields.is_empty() {
@@ -1201,10 +1150,7 @@ impl std::fmt::Debug for super::CloudSqlInstanceDataSourceProperties {
 impl std::fmt::Debug for super::CloudSqlInstanceBackupProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlInstanceBackupProperties");
-        debug_struct.field(
-            "database_installed_version",
-            &self.database_installed_version,
-        );
+        debug_struct.field("database_installed_version", &self.database_installed_version);
         debug_struct.field("final_backup", &self.final_backup);
         debug_struct.field("source_instance", &self.source_instance);
         debug_struct.field("instance_create_time", &self.instance_create_time);
@@ -1221,10 +1167,7 @@ impl std::fmt::Debug for super::CloudSqlInstanceDataSourceReferenceProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSqlInstanceDataSourceReferenceProperties");
         debug_struct.field("name", &self.name);
-        debug_struct.field(
-            "database_installed_version",
-            &self.database_installed_version,
-        );
+        debug_struct.field("database_installed_version", &self.database_installed_version);
         debug_struct.field("instance_create_time", &self.instance_create_time);
         debug_struct.field("instance_tier", &self.instance_tier);
         if !self._unknown_fields.is_empty() {
@@ -1293,10 +1236,7 @@ impl std::fmt::Debug for super::DiskRestoreProperties {
         debug_struct.field("physical_block_size_bytes", &self.physical_block_size_bytes);
         debug_struct.field("provisioned_iops", &self.provisioned_iops);
         debug_struct.field("provisioned_throughput", &self.provisioned_throughput);
-        debug_struct.field(
-            "enable_confidential_compute",
-            &self.enable_confidential_compute,
-        );
+        debug_struct.field("enable_confidential_compute", &self.enable_confidential_compute);
         debug_struct.field("storage_pool", &self.storage_pool);
         debug_struct.field("access_mode", &self.access_mode);
         debug_struct.field("architecture", &self.architecture);
@@ -1310,6 +1250,8 @@ impl std::fmt::Debug for super::DiskRestoreProperties {
         debug_struct.finish()
     }
 }
+
+
 
 impl std::fmt::Debug for super::DiskBackupProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1359,10 +1301,7 @@ impl std::fmt::Debug for super::ComputeInstanceBackupProperties {
         debug_struct.field("scheduling", &self.scheduling);
         debug_struct.field("guest_accelerator", &self.guest_accelerator);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
-        debug_struct.field(
-            "key_revocation_action_type",
-            &self.key_revocation_action_type,
-        );
+        debug_struct.field("key_revocation_action_type", &self.key_revocation_action_type);
         debug_struct.field("source_instance", &self.source_instance);
         debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
@@ -1378,10 +1317,7 @@ impl std::fmt::Debug for super::ComputeInstanceRestoreProperties {
         debug_struct.field("name", &self.name);
         debug_struct.field("advanced_machine_features", &self.advanced_machine_features);
         debug_struct.field("can_ip_forward", &self.can_ip_forward);
-        debug_struct.field(
-            "confidential_instance_config",
-            &self.confidential_instance_config,
-        );
+        debug_struct.field("confidential_instance_config", &self.confidential_instance_config);
         debug_struct.field("deletion_protection", &self.deletion_protection);
         debug_struct.field("description", &self.description);
         debug_struct.field("disks", &self.disks);
@@ -1389,24 +1325,15 @@ impl std::fmt::Debug for super::ComputeInstanceRestoreProperties {
         debug_struct.field("guest_accelerators", &self.guest_accelerators);
         debug_struct.field("hostname", &self.hostname);
         debug_struct.field("instance_encryption_key", &self.instance_encryption_key);
-        debug_struct.field(
-            "key_revocation_action_type",
-            &self.key_revocation_action_type,
-        );
+        debug_struct.field("key_revocation_action_type", &self.key_revocation_action_type);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("machine_type", &self.machine_type);
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("network_interfaces", &self.network_interfaces);
-        debug_struct.field(
-            "network_performance_config",
-            &self.network_performance_config,
-        );
+        debug_struct.field("network_performance_config", &self.network_performance_config);
         debug_struct.field("params", &self.params);
-        debug_struct.field(
-            "private_ipv6_google_access",
-            &self.private_ipv6_google_access,
-        );
+        debug_struct.field("private_ipv6_google_access", &self.private_ipv6_google_access);
         debug_struct.field("allocation_affinity", &self.allocation_affinity);
         debug_struct.field("resource_policies", &self.resource_policies);
         debug_struct.field("scheduling", &self.scheduling);
@@ -1418,6 +1345,7 @@ impl std::fmt::Debug for super::ComputeInstanceRestoreProperties {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::ComputeInstanceTargetEnvironment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1449,10 +1377,7 @@ impl std::fmt::Debug for super::ComputeInstanceDataSourceProperties {
 impl std::fmt::Debug for super::AdvancedMachineFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AdvancedMachineFeatures");
-        debug_struct.field(
-            "enable_nested_virtualization",
-            &self.enable_nested_virtualization,
-        );
+        debug_struct.field("enable_nested_virtualization", &self.enable_nested_virtualization);
         debug_struct.field("threads_per_core", &self.threads_per_core);
         debug_struct.field("visible_core_count", &self.visible_core_count);
         debug_struct.field("enable_uefi_networking", &self.enable_uefi_networking);
@@ -1466,10 +1391,7 @@ impl std::fmt::Debug for super::AdvancedMachineFeatures {
 impl std::fmt::Debug for super::ConfidentialInstanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ConfidentialInstanceConfig");
-        debug_struct.field(
-            "enable_confidential_compute",
-            &self.enable_confidential_compute,
-        );
+        debug_struct.field("enable_confidential_compute", &self.enable_confidential_compute);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1542,10 +1464,7 @@ impl std::fmt::Debug for super::NetworkInterface {
         debug_struct.field("subnetwork", &self.subnetwork);
         debug_struct.field("ip_address", &self.ip_address);
         debug_struct.field("ipv6_address", &self.ipv6_address);
-        debug_struct.field(
-            "internal_ipv6_prefix_length",
-            &self.internal_ipv6_prefix_length,
-        );
+        debug_struct.field("internal_ipv6_prefix_length", &self.internal_ipv6_prefix_length);
         debug_struct.field("name", &self.name);
         debug_struct.field("access_configs", &self.access_configs);
         debug_struct.field("ipv6_access_configs", &self.ipv6_access_configs);
@@ -1565,10 +1484,7 @@ impl std::fmt::Debug for super::NetworkInterface {
 impl std::fmt::Debug for super::NetworkPerformanceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkPerformanceConfig");
-        debug_struct.field(
-            "total_egress_bandwidth_tier",
-            &self.total_egress_bandwidth_tier,
-        );
+        debug_struct.field("total_egress_bandwidth_tier", &self.total_egress_bandwidth_tier);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1583,10 +1499,7 @@ impl std::fmt::Debug for super::AccessConfig {
         debug_struct.field("name", &self.name);
         debug_struct.field("external_ip", &self.external_ip);
         debug_struct.field("external_ipv6", &self.external_ipv6);
-        debug_struct.field(
-            "external_ipv6_prefix_length",
-            &self.external_ipv6_prefix_length,
-        );
+        debug_struct.field("external_ipv6_prefix_length", &self.external_ipv6_prefix_length);
         debug_struct.field("set_public_ptr", &self.set_public_ptr);
         debug_struct.field("public_ptr_domain_name", &self.public_ptr_domain_name);
         debug_struct.field("network_tier", &self.network_tier);
@@ -1642,14 +1555,8 @@ impl std::fmt::Debug for super::Scheduling {
         debug_struct.field("node_affinities", &self.node_affinities);
         debug_struct.field("min_node_cpus", &self.min_node_cpus);
         debug_struct.field("provisioning_model", &self.provisioning_model);
-        debug_struct.field(
-            "instance_termination_action",
-            &self.instance_termination_action,
-        );
-        debug_struct.field(
-            "local_ssd_recovery_timeout",
-            &self.local_ssd_recovery_timeout,
-        );
+        debug_struct.field("instance_termination_action", &self.instance_termination_action);
+        debug_struct.field("local_ssd_recovery_timeout", &self.local_ssd_recovery_timeout);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1761,19 +1668,10 @@ impl std::fmt::Debug for super::DataSourceReference {
         debug_struct.field("name", &self.name);
         debug_struct.field("data_source", &self.data_source);
         debug_struct.field("create_time", &self.create_time);
-        debug_struct.field(
-            "data_source_backup_config_state",
-            &self.data_source_backup_config_state,
-        );
+        debug_struct.field("data_source_backup_config_state", &self.data_source_backup_config_state);
         debug_struct.field("data_source_backup_count", &self.data_source_backup_count);
-        debug_struct.field(
-            "data_source_backup_config_info",
-            &self.data_source_backup_config_info,
-        );
-        debug_struct.field(
-            "data_source_gcp_resource_info",
-            &self.data_source_gcp_resource_info,
-        );
+        debug_struct.field("data_source_backup_config_info", &self.data_source_backup_config_info);
+        debug_struct.field("data_source_gcp_resource_info", &self.data_source_gcp_resource_info);
         debug_struct.field("total_stored_bytes", &self.total_stored_bytes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1786,10 +1684,7 @@ impl std::fmt::Debug for super::DataSourceBackupConfigInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataSourceBackupConfigInfo");
         debug_struct.field("last_backup_state", &self.last_backup_state);
-        debug_struct.field(
-            "last_successful_backup_consistency_time",
-            &self.last_successful_backup_consistency_time,
-        );
+        debug_struct.field("last_successful_backup_consistency_time", &self.last_successful_backup_consistency_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

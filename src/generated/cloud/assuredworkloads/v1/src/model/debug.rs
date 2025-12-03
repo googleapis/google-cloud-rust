@@ -102,19 +102,13 @@ impl std::fmt::Debug for super::Workload {
         debug_struct.field("billing_account", &self.billing_account);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("labels", &self.labels);
-        debug_struct.field(
-            "provisioned_resources_parent",
-            &self.provisioned_resources_parent,
-        );
+        debug_struct.field("provisioned_resources_parent", &self.provisioned_resources_parent);
         debug_struct.field("kms_settings", &self.kms_settings);
         debug_struct.field("resource_settings", &self.resource_settings);
         debug_struct.field("kaj_enrollment_state", &self.kaj_enrollment_state);
         debug_struct.field("enable_sovereign_controls", &self.enable_sovereign_controls);
         debug_struct.field("saa_enrollment_response", &self.saa_enrollment_response);
-        debug_struct.field(
-            "compliant_but_disallowed_services",
-            &self.compliant_but_disallowed_services,
-        );
+        debug_struct.field("compliant_but_disallowed_services", &self.compliant_but_disallowed_services);
         debug_struct.field("partner", &self.partner);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -171,6 +165,7 @@ impl std::fmt::Debug for super::workload::SaaEnrollmentResponse {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::CreateWorkloadOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {

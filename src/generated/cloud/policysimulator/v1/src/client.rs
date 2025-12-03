@@ -84,9 +84,7 @@ impl OrgPolicyViolationsPreviewService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::org_policy_violations_preview_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::org_policy_violations_preview_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::org_policy_violations_preview_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -94,44 +92,28 @@ impl OrgPolicyViolationsPreviewService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::OrgPolicyViolationsPreviewService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::OrgPolicyViolationsPreviewService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<
-        std::sync::Arc<dyn super::stub::dynamic::OrgPolicyViolationsPreviewService>,
-    > {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OrgPolicyViolationsPreviewService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
         super::transport::OrgPolicyViolationsPreviewService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::OrgPolicyViolationsPreviewService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::OrgPolicyViolationsPreviewService> {
+        Self::build_transport(conf).await.map(super::tracing::OrgPolicyViolationsPreviewService::new)
     }
 
     /// ListOrgPolicyViolationsPreviews lists each
@@ -141,13 +123,9 @@ impl OrgPolicyViolationsPreviewService {
     /// is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
-    pub fn list_org_policy_violations_previews(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews
+    pub fn list_org_policy_violations_previews(&self) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews
     {
-        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews::new(
-            self.inner.clone(),
-        )
+        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews::new(self.inner.clone())
     }
 
     /// GetOrgPolicyViolationsPreview gets the specified
@@ -157,12 +135,9 @@ impl OrgPolicyViolationsPreviewService {
     /// is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
-    pub fn get_org_policy_violations_preview(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview {
-        super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview::new(
-            self.inner.clone(),
-        )
+    pub fn get_org_policy_violations_preview(&self) -> super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview
+    {
+        super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview::new(self.inner.clone())
     }
 
     /// CreateOrgPolicyViolationsPreview creates an
@@ -183,13 +158,9 @@ impl OrgPolicyViolationsPreviewService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_org_policy_violations_preview(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview
+    pub fn create_org_policy_violations_preview(&self) -> super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview
     {
-        super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview::new(
-            self.inner.clone(),
-        )
+        super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview::new(self.inner.clone())
     }
 
     /// ListOrgPolicyViolations lists the [OrgPolicyViolations][] that are present
@@ -197,31 +168,24 @@ impl OrgPolicyViolationsPreviewService {
     /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
-    pub fn list_org_policy_violations(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations {
-        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations::new(
-            self.inner.clone(),
-        )
+    pub fn list_org_policy_violations(&self) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations
+    {
+        super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::ListOperations {
-        super::builder::org_policy_violations_preview_service::ListOperations::new(
-            self.inner.clone(),
-        )
+    pub fn list_operations(&self) -> super::builder::org_policy_violations_preview_service::ListOperations
+    {
+        super::builder::org_policy_violations_preview_service::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-    ) -> super::builder::org_policy_violations_preview_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::org_policy_violations_preview_service::GetOperation
+    {
         super::builder::org_policy_violations_preview_service::GetOperation::new(self.inner.clone())
     }
 }
@@ -303,49 +267,36 @@ impl Simulator {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::Simulator + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::Simulator + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Simulator>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Simulator>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Simulator> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Simulator> {
         super::transport::Simulator::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::Simulator> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::Simulator::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::Simulator> {
+        Self::build_transport(conf).await.map(super::tracing::Simulator::new)
     }
 
     /// Gets the specified [Replay][google.cloud.policysimulator.v1.Replay]. Each
     /// `Replay` is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub fn get_replay(&self) -> super::builder::simulator::GetReplay {
+    pub fn get_replay(&self) -> super::builder::simulator::GetReplay
+    {
         super::builder::simulator::GetReplay::new(self.inner.clone())
     }
 
@@ -364,7 +315,8 @@ impl Simulator {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_replay(&self) -> super::builder::simulator::CreateReplay {
+    pub fn create_replay(&self) -> super::builder::simulator::CreateReplay
+    {
         super::builder::simulator::CreateReplay::new(self.inner.clone())
     }
 
@@ -372,21 +324,24 @@ impl Simulator {
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
-    pub fn list_replay_results(&self) -> super::builder::simulator::ListReplayResults {
+    pub fn list_replay_results(&self) -> super::builder::simulator::ListReplayResults
+    {
         super::builder::simulator::ListReplayResults::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(&self) -> super::builder::simulator::ListOperations {
+    pub fn list_operations(&self) -> super::builder::simulator::ListOperations
+    {
         super::builder::simulator::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::simulator::GetOperation {
+    pub fn get_operation(&self) -> super::builder::simulator::GetOperation
+    {
         super::builder::simulator::GetOperation::new(self.inner.clone())
     }
 }

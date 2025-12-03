@@ -82,46 +82,33 @@ impl ImageAnnotator {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ImageAnnotator + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ImageAnnotator + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
         super::transport::ImageAnnotator::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ImageAnnotator::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
+        Self::build_transport(conf).await.map(super::tracing::ImageAnnotator::new)
     }
 
     /// Run image detection and annotation for a batch of images.
-    pub fn batch_annotate_images(&self) -> super::builder::image_annotator::BatchAnnotateImages {
+    pub fn batch_annotate_images(&self) -> super::builder::image_annotator::BatchAnnotateImages
+    {
         super::builder::image_annotator::BatchAnnotateImages::new(self.inner.clone())
     }
 
@@ -132,7 +119,8 @@ impl ImageAnnotator {
     /// AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
     /// file provided and perform detection and annotation for each image
     /// extracted.
-    pub fn batch_annotate_files(&self) -> super::builder::image_annotator::BatchAnnotateFiles {
+    pub fn batch_annotate_files(&self) -> super::builder::image_annotator::BatchAnnotateFiles
+    {
         super::builder::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
     }
 
@@ -155,9 +143,8 @@ impl ImageAnnotator {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn async_batch_annotate_images(
-        &self,
-    ) -> super::builder::image_annotator::AsyncBatchAnnotateImages {
+    pub fn async_batch_annotate_images(&self) -> super::builder::image_annotator::AsyncBatchAnnotateImages
+    {
         super::builder::image_annotator::AsyncBatchAnnotateImages::new(self.inner.clone())
     }
 
@@ -177,16 +164,16 @@ impl ImageAnnotator {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn async_batch_annotate_files(
-        &self,
-    ) -> super::builder::image_annotator::AsyncBatchAnnotateFiles {
+    pub fn async_batch_annotate_files(&self) -> super::builder::image_annotator::AsyncBatchAnnotateFiles
+    {
         super::builder::image_annotator::AsyncBatchAnnotateFiles::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::image_annotator::GetOperation {
+    pub fn get_operation(&self) -> super::builder::image_annotator::GetOperation
+    {
         super::builder::image_annotator::GetOperation::new(self.inner.clone())
     }
 }
@@ -275,42 +262,28 @@ impl ProductSearch {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::ProductSearch + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::ProductSearch + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductSearch>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductSearch>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
         super::transport::ProductSearch::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::ProductSearch::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
+        Self::build_transport(conf).await.map(super::tracing::ProductSearch::new)
     }
 
     /// Creates and returns a new ProductSet resource.
@@ -319,7 +292,8 @@ impl ProductSearch {
     ///
     /// * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
     ///   4096 characters.
-    pub fn create_product_set(&self) -> super::builder::product_search::CreateProductSet {
+    pub fn create_product_set(&self) -> super::builder::product_search::CreateProductSet
+    {
         super::builder::product_search::CreateProductSet::new(self.inner.clone())
     }
 
@@ -329,7 +303,8 @@ impl ProductSearch {
     ///
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
     ///   than 1.
-    pub fn list_product_sets(&self) -> super::builder::product_search::ListProductSets {
+    pub fn list_product_sets(&self) -> super::builder::product_search::ListProductSets
+    {
         super::builder::product_search::ListProductSets::new(self.inner.clone())
     }
 
@@ -338,7 +313,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the ProductSet does not exist.
-    pub fn get_product_set(&self) -> super::builder::product_search::GetProductSet {
+    pub fn get_product_set(&self) -> super::builder::product_search::GetProductSet
+    {
         super::builder::product_search::GetProductSet::new(self.inner.clone())
     }
 
@@ -350,7 +326,8 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the ProductSet does not exist.
     /// * Returns INVALID_ARGUMENT if display_name is present in update_mask but
     ///   missing from the request or longer than 4096 characters.
-    pub fn update_product_set(&self) -> super::builder::product_search::UpdateProductSet {
+    pub fn update_product_set(&self) -> super::builder::product_search::UpdateProductSet
+    {
         super::builder::product_search::UpdateProductSet::new(self.inner.clone())
     }
 
@@ -358,7 +335,8 @@ impl ProductSearch {
     /// ProductSet are not deleted.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
-    pub fn delete_product_set(&self) -> super::builder::product_search::DeleteProductSet {
+    pub fn delete_product_set(&self) -> super::builder::product_search::DeleteProductSet
+    {
         super::builder::product_search::DeleteProductSet::new(self.inner.clone())
     }
 
@@ -370,7 +348,8 @@ impl ProductSearch {
     ///   characters.
     /// * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-    pub fn create_product(&self) -> super::builder::product_search::CreateProduct {
+    pub fn create_product(&self) -> super::builder::product_search::CreateProduct
+    {
         super::builder::product_search::CreateProduct::new(self.inner.clone())
     }
 
@@ -379,7 +358,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-    pub fn list_products(&self) -> super::builder::product_search::ListProducts {
+    pub fn list_products(&self) -> super::builder::product_search::ListProducts
+    {
         super::builder::product_search::ListProducts::new(self.inner.clone())
     }
 
@@ -388,7 +368,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the Product does not exist.
-    pub fn get_product(&self) -> super::builder::product_search::GetProduct {
+    pub fn get_product(&self) -> super::builder::product_search::GetProduct
+    {
         super::builder::product_search::GetProduct::new(self.inner.clone())
     }
 
@@ -407,7 +388,8 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if description is present in update_mask but is
     ///   longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-    pub fn update_product(&self) -> super::builder::product_search::UpdateProduct {
+    pub fn update_product(&self) -> super::builder::product_search::UpdateProduct
+    {
         super::builder::product_search::UpdateProduct::new(self.inner.clone())
     }
 
@@ -416,7 +398,8 @@ impl ProductSearch {
     /// Metadata of the product and all its images will be deleted right away, but
     /// search queries against ProductSets containing the product may still work
     /// until all related caches are refreshed.
-    pub fn delete_product(&self) -> super::builder::product_search::DeleteProduct {
+    pub fn delete_product(&self) -> super::builder::product_search::DeleteProduct
+    {
         super::builder::product_search::DeleteProduct::new(self.inner.clone())
     }
 
@@ -439,7 +422,8 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
     ///   compatible with the parent product's product_category is detected.
     /// * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-    pub fn create_reference_image(&self) -> super::builder::product_search::CreateReferenceImage {
+    pub fn create_reference_image(&self) -> super::builder::product_search::CreateReferenceImage
+    {
         super::builder::product_search::CreateReferenceImage::new(self.inner.clone())
     }
 
@@ -450,7 +434,8 @@ impl ProductSearch {
     /// caches are refreshed.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
-    pub fn delete_reference_image(&self) -> super::builder::product_search::DeleteReferenceImage {
+    pub fn delete_reference_image(&self) -> super::builder::product_search::DeleteReferenceImage
+    {
         super::builder::product_search::DeleteReferenceImage::new(self.inner.clone())
     }
 
@@ -461,7 +446,8 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the parent product does not exist.
     /// * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
     ///   than 1.
-    pub fn list_reference_images(&self) -> super::builder::product_search::ListReferenceImages {
+    pub fn list_reference_images(&self) -> super::builder::product_search::ListReferenceImages
+    {
         super::builder::product_search::ListReferenceImages::new(self.inner.clone())
     }
 
@@ -470,7 +456,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the specified image does not exist.
-    pub fn get_reference_image(&self) -> super::builder::product_search::GetReferenceImage {
+    pub fn get_reference_image(&self) -> super::builder::product_search::GetReferenceImage
+    {
         super::builder::product_search::GetReferenceImage::new(self.inner.clone())
     }
 
@@ -482,16 +469,14 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-    pub fn add_product_to_product_set(
-        &self,
-    ) -> super::builder::product_search::AddProductToProductSet {
+    pub fn add_product_to_product_set(&self) -> super::builder::product_search::AddProductToProductSet
+    {
         super::builder::product_search::AddProductToProductSet::new(self.inner.clone())
     }
 
     /// Removes a Product from the specified ProductSet.
-    pub fn remove_product_from_product_set(
-        &self,
-    ) -> super::builder::product_search::RemoveProductFromProductSet {
+    pub fn remove_product_from_product_set(&self) -> super::builder::product_search::RemoveProductFromProductSet
+    {
         super::builder::product_search::RemoveProductFromProductSet::new(self.inner.clone())
     }
 
@@ -502,9 +487,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-    pub fn list_products_in_product_set(
-        &self,
-    ) -> super::builder::product_search::ListProductsInProductSet {
+    pub fn list_products_in_product_set(&self) -> super::builder::product_search::ListProductsInProductSet
+    {
         super::builder::product_search::ListProductsInProductSet::new(self.inner.clone())
     }
 
@@ -532,7 +516,8 @@ impl ProductSearch {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_product_sets(&self) -> super::builder::product_search::ImportProductSets {
+    pub fn import_product_sets(&self) -> super::builder::product_search::ImportProductSets
+    {
         super::builder::product_search::ImportProductSets::new(self.inner.clone())
     }
 
@@ -572,14 +557,16 @@ impl ProductSearch {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_products(&self) -> super::builder::product_search::PurgeProducts {
+    pub fn purge_products(&self) -> super::builder::product_search::PurgeProducts
+    {
         super::builder::product_search::PurgeProducts::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::product_search::GetOperation {
+    pub fn get_operation(&self) -> super::builder::product_search::GetOperation
+    {
         super::builder::product_search::GetOperation::new(self.inner.clone())
     }
 }

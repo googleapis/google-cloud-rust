@@ -18,25 +18,19 @@ use crate::Result;
 /// Implements a [ImageAnnotator](super::stub::ImageAnnotator) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ImageAnnotator for ImageAnnotator<T>
-where
-    T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ImageAnnotator + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn batch_annotate_images(
         &self,
@@ -53,14 +47,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "batch_annotate_images",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .batch_annotate_images(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.batch_annotate_images(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -91,14 +82,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "batch_annotate_files",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .batch_annotate_files(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.batch_annotate_files(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -129,14 +117,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "async_batch_annotate_images",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .async_batch_annotate_images(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.async_batch_annotate_images(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -167,14 +152,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "async_batch_annotate_files",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .async_batch_annotate_files(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.async_batch_annotate_files(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -205,14 +187,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -246,25 +225,19 @@ where
 /// Implements a [ProductSearch](super::stub::ProductSearch) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
 impl<T> super::stub::ProductSearch for ProductSearch<T>
-where
-    T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync,
-{
+where T: super::stub::ProductSearch + std::fmt::Debug + Send + Sync {
     #[cfg(google_cloud_unstable_tracing)]
     async fn create_product_set(
         &self,
@@ -281,14 +254,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -319,14 +289,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_product_sets",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_product_sets(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_product_sets(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -357,14 +324,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -395,14 +359,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -433,14 +394,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -471,14 +429,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_product",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_product(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_product(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -509,14 +464,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_products",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_products(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_products(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -547,14 +499,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_product",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_product(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_product(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -585,14 +534,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_product",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .update_product(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.update_product(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -623,14 +569,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_product",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_product(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_product(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -661,14 +604,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_reference_image",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .create_reference_image(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.create_reference_image(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -699,14 +639,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_reference_image",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .delete_reference_image(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.delete_reference_image(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -737,14 +674,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_reference_images",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_reference_images(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_reference_images(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -775,14 +709,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_reference_image",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_reference_image(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_reference_image(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -813,14 +744,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "add_product_to_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .add_product_to_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.add_product_to_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -851,14 +779,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "remove_product_from_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .remove_product_from_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.remove_product_from_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -871,9 +796,7 @@ where
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        self.inner
-            .remove_product_from_product_set(req, options)
-            .await
+        self.inner.remove_product_from_product_set(req, options).await
     }
     #[cfg(google_cloud_unstable_tracing)]
     async fn list_products_in_product_set(
@@ -891,14 +814,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_products_in_product_set",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .list_products_in_product_set(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.list_products_in_product_set(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -929,14 +849,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "import_product_sets",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .import_product_sets(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.import_product_sets(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -967,14 +884,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "purge_products",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .purge_products(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.purge_products(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1005,14 +919,11 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &super::info::INSTRUMENTATION_CLIENT_INFO,
         );
 
-        let result = self
-            .inner
-            .get_operation(req, options)
-            .instrument(client_request_span.clone())
-            .await;
+        let result = self.inner.get_operation(req, options)
+            .instrument(client_request_span.clone()).await;
 
         gaxi::observability::record_client_request_span(&result, &client_request_span);
         result
@@ -1042,3 +953,4 @@ where
         self.inner.get_polling_backoff_policy(options)
     }
 }
+

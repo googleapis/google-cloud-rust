@@ -73,9 +73,7 @@ impl SecretManagerService {
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::secret_manager_service::ClientBuilder {
-        gax::client_builder::internal::new_builder(
-            super::builder::secret_manager_service::client::Factory,
-        )
+        gax::client_builder::internal::new_builder(super::builder::secret_manager_service::client::Factory)
     }
 
     /// Creates a new client from the provided stub.
@@ -83,165 +81,136 @@ impl SecretManagerService {
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: super::stub::SecretManagerService + 'static,
-    {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+    where T: super::stub::SecretManagerService + 'static {
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>>
-    {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SecretManagerService>> {
         if gaxi::options::tracing_enabled(&conf) {
             return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
         super::transport::SecretManagerService::new(conf).await
     }
 
-    async fn build_with_tracing(
-        conf: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
-        Self::build_transport(conf)
-            .await
-            .map(super::tracing::SecretManagerService::new)
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::SecretManagerService> {
+        Self::build_transport(conf).await.map(super::tracing::SecretManagerService::new)
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::secret_manager_service::ListLocations
+    {
         super::builder::secret_manager_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation
+    {
         super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
     }
 
     /// Lists Secrets.
-    pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets {
+    pub fn list_secrets(&self) -> super::builder::secret_manager_service::ListSecrets
+    {
         super::builder::secret_manager_service::ListSecrets::new(self.inner.clone())
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret {
+    pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret
+    {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
     }
 
     /// Lists Secrets.
-    pub fn list_secrets_by_project_and_location(
-        &self,
-    ) -> super::builder::secret_manager_service::ListSecretsByProjectAndLocation {
-        super::builder::secret_manager_service::ListSecretsByProjectAndLocation::new(
-            self.inner.clone(),
-        )
+    pub fn list_secrets_by_project_and_location(&self) -> super::builder::secret_manager_service::ListSecretsByProjectAndLocation
+    {
+        super::builder::secret_manager_service::ListSecretsByProjectAndLocation::new(self.inner.clone())
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub fn create_secret_by_project_and_location(
-        &self,
-    ) -> super::builder::secret_manager_service::CreateSecretByProjectAndLocation {
-        super::builder::secret_manager_service::CreateSecretByProjectAndLocation::new(
-            self.inner.clone(),
-        )
+    pub fn create_secret_by_project_and_location(&self) -> super::builder::secret_manager_service::CreateSecretByProjectAndLocation
+    {
+        super::builder::secret_manager_service::CreateSecretByProjectAndLocation::new(self.inner.clone())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion {
+    pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion
+    {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub fn add_secret_version_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn add_secret_version_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a given Secret.
-    pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret {
+    pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret
+    {
         super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
     }
 
     /// Deletes a Secret.
-    pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret {
+    pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret
+    {
         super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
     }
 
     /// Updates metadata of an existing Secret.
-    pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret {
+    pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret
+    {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a given Secret.
-    pub fn get_secret_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn get_secret_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Deletes a Secret.
-    pub fn delete_secret_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn delete_secret_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Updates metadata of an existing Secret.
-    pub fn update_secret_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn update_secret_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub fn list_secret_versions(
-        &self,
-    ) -> super::builder::secret_manager_service::ListSecretVersions {
+    pub fn list_secret_versions(&self) -> super::builder::secret_manager_service::ListSecretVersions
+    {
         super::builder::secret_manager_service::ListSecretVersions::new(self.inner.clone())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub fn list_secret_versions_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
+    pub fn list_secret_versions_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret
     {
-        super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+        super::builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion {
+    pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion
+    {
         super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
     }
 
@@ -258,9 +227,8 @@ impl SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn access_secret_version(
-        &self,
-    ) -> super::builder::secret_manager_service::AccessSecretVersion {
+    pub fn access_secret_version(&self) -> super::builder::secret_manager_service::AccessSecretVersion
+    {
         super::builder::secret_manager_service::AccessSecretVersion::new(self.inner.clone())
     }
 
@@ -277,9 +245,8 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub fn disable_secret_version(
-        &self,
-    ) -> super::builder::secret_manager_service::DisableSecretVersion {
+    pub fn disable_secret_version(&self) -> super::builder::secret_manager_service::DisableSecretVersion
+    {
         super::builder::secret_manager_service::DisableSecretVersion::new(self.inner.clone())
     }
 
@@ -296,9 +263,8 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub fn enable_secret_version(
-        &self,
-    ) -> super::builder::secret_manager_service::EnableSecretVersion {
+    pub fn enable_secret_version(&self) -> super::builder::secret_manager_service::EnableSecretVersion
+    {
         super::builder::secret_manager_service::EnableSecretVersion::new(self.inner.clone())
     }
 
@@ -316,9 +282,8 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub fn destroy_secret_version(
-        &self,
-    ) -> super::builder::secret_manager_service::DestroySecretVersion {
+    pub fn destroy_secret_version(&self) -> super::builder::secret_manager_service::DestroySecretVersion
+    {
         super::builder::secret_manager_service::DestroySecretVersion::new(self.inner.clone())
     }
 
@@ -337,7 +302,8 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy
+    {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
     }
 
@@ -346,28 +312,23 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub fn set_iam_policy_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn set_iam_policy_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy
+    {
         super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
-        super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+    pub fn get_iam_policy_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret
+    {
+        super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -377,9 +338,8 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-    ) -> super::builder::secret_manager_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::secret_manager_service::TestIamPermissions
+    {
         super::builder::secret_manager_service::TestIamPermissions::new(self.inner.clone())
     }
 
@@ -390,12 +350,8 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions_by_project_and_location_and_secret(
-        &self,
-    ) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
+    pub fn test_iam_permissions_by_project_and_location_and_secret(&self) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret
     {
-        super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(
-            self.inner.clone(),
-        )
+        super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 }

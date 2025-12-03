@@ -39,10 +39,7 @@ pub mod language_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LanguageService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(
-                self,
-                config: gaxi::options::ClientConfig,
-            ) -> gax::client_builder::Result<Self::Client> {
+            async fn build(self, config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
@@ -57,12 +54,8 @@ pub mod language_service {
     }
 
     impl<R> RequestBuilder<R>
-    where
-        R: std::default::Default,
-    {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
+    where R: std::default::Default {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -92,17 +85,14 @@ pub mod language_service {
     pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
     impl AnalyzeSentiment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::AnalyzeSentimentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
+        pub fn with_request<V: Into<crate::model::AnalyzeSentimentRequest>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -115,18 +105,14 @@ pub mod language_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeSentimentResponse> {
-            (*self.0.stub)
-                .analyze_sentiment(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_sentiment(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_document<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = std::option::Option::Some(v.into());
             self
@@ -136,8 +122,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = v.map(|x| x.into());
             self
@@ -178,10 +163,10 @@ pub mod language_service {
     pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
     impl AnalyzeEntities {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -198,18 +183,14 @@ pub mod language_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnalyzeEntitiesResponse> {
-            (*self.0.stub)
-                .analyze_entities(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).analyze_entities(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_document<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = std::option::Option::Some(v.into());
             self
@@ -219,8 +200,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = v.map(|x| x.into());
             self
@@ -261,10 +241,10 @@ pub mod language_service {
     pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
 
     impl ClassifyText {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -281,18 +261,14 @@ pub mod language_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ClassifyTextResponse> {
-            (*self.0.stub)
-                .classify_text(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).classify_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_document<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = std::option::Option::Some(v.into());
             self
@@ -302,8 +278,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = v.map(|x| x.into());
             self
@@ -338,10 +313,10 @@ pub mod language_service {
     pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
 
     impl ModerateText {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -358,18 +333,14 @@ pub mod language_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ModerateTextResponse> {
-            (*self.0.stub)
-                .moderate_text(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).moderate_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_document<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = std::option::Option::Some(v.into());
             self
@@ -379,18 +350,14 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [model_version][crate::model::ModerateTextRequest::model_version].
-        pub fn set_model_version<T: Into<crate::model::moderate_text_request::ModelVersion>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_model_version<T: Into<crate::model::moderate_text_request::ModelVersion>>(mut self, v: T) -> Self {
             self.0.request.model_version = v.into();
             self
         }
@@ -424,10 +391,10 @@ pub mod language_service {
     pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
 
     impl AnnotateText {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
         }
 
         /// Sets the full request, replacing any prior values.
@@ -444,18 +411,14 @@ pub mod language_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnnotateTextResponse> {
-            (*self.0.stub)
-                .annotate_text(self.0.request, self.0.options)
-                .await
-                .map(gax::response::Response::into_body)
+            (*self.0.stub).annotate_text(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
         ///
         /// This is a **required** field for requests.
         pub fn set_document<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = std::option::Option::Some(v.into());
             self
@@ -465,8 +428,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Document>,
+        where T: std::convert::Into<crate::model::Document>
         {
             self.0.request.document = v.map(|x| x.into());
             self
@@ -476,8 +438,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_features<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        where T: std::convert::Into<crate::model::annotate_text_request::Features>
         {
             self.0.request.features = std::option::Option::Some(v.into());
             self
@@ -487,8 +448,7 @@ pub mod language_service {
         ///
         /// This is a **required** field for requests.
         pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        where T: std::convert::Into<crate::model::annotate_text_request::Features>
         {
             self.0.request.features = v.map(|x| x.into());
             self
@@ -507,4 +467,5 @@ pub mod language_service {
             &mut self.0.options
         }
     }
+
 }
