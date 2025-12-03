@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,18 +58,17 @@ impl Signer {
 }
 
 /// A trait for types that can sign content.
-#[async_trait::async_trait]
-pub trait SigningProvider: Send + Sync + std::fmt::Debug {
+pub trait SigningProvider: std::fmt::Debug {
     /// Returns the email address of the authorizer.
     ///
     /// It is typically the Google service account client email address from the Google Developers Console
-    /// in the form of "xyz@developer.gserviceaccount.com". Required.
-    async fn client_email(&self) -> Result<String>;
+    /// in the form of "xxx@developer.gserviceaccount.com". Required.
+    fn client_email(&self) -> impl Future<Output = Result<String>> + Send;
 
     /// Signs the content.
     ///
-    /// Returns the signature in hex format.
-    async fn sign(&self, content: &[u8]) -> Result<String>;
+    /// Returns the signature.
+    fn sign(&self, content: &[u8]) -> impl Future<Output = Result<String>> + Send;
 }
 
 pub(crate) mod dynamic {
@@ -169,4 +168,56 @@ enum SigningErrorKind {
     Parsing(#[source] BoxError),
     #[error("failed to sign content: {0}")]
     Sign(#[source] BoxError),
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Signer{}
+
+        impl SigningProvider for Signer {
+            async fn client_email(&self) -> Result<String>;
+            async fn sign(&self, content: &[u8]) -> Result<String>;
+        }
+    }
+
+    #[tokio::test]
+    async fn test_signer_success() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .returning(|| Ok("test".to_string()));
+        mock.expect_sign().returning(|_| Ok("test".to_string()));
+        let signer = Signer::from(mock);
+
+        let result = signer.client_email().await?;
+        assert_eq!(result, "test");
+        let result = signer.sign("test").await?;
+        assert_eq!(result, "test");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signer_error() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .returning(|| Err(SigningError::transport("test")));
+        mock.expect_sign()
+            .returning(|_| Err(SigningError::sign("test")));
+        let signer = Signer::from(mock);
+
+        let result = signer.client_email().await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_transport());
+        let result = signer.sign("test").await;
+        assert!(result.is_err());
+        assert!(result.unwrap_err().is_sign());
+
+        Ok(())
+    }
 }
