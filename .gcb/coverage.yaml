@@ -30,6 +30,7 @@ options:
     - BAZEL_REMOTE_CACHE=https://storage.googleapis.com/${PROJECT_ID}-build-cache/bazel-cache/complex/${_SCRIPT}
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
+    - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
   workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:

@@ -80,7 +80,7 @@ http-body-util.workspace = true
 httptest.workspace       = true
 mockall.workspace        = true
 multer.workspace         = true
-paste.workspace          = true
+pastey.workspace         = true
 scoped-env.workspace     = true
 serial_test.workspace    = true
 static_assertions        = { workspace = true }
@@ -91,3 +91,4 @@ tokio.workspace          = true
 pretty_assertions        = { workspace = true }
 # The tests use `unstable-stream`, which is not enabled by default.
 google-cloud-storage = { path = ".", features = ["unstable-stream"] }
+storage-grpc-mock    = { path = "grpc-mock" }

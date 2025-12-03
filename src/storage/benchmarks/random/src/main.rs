@@ -15,6 +15,8 @@
 //! Benchmark random-reads using the Cloud Storage client library for Rust.
 
 mod args;
+#[cfg(google_cloud_unstable_storage_bidi)]
+mod bidi;
 mod dataset;
 mod experiment;
 mod json;
@@ -97,6 +99,8 @@ async fn runner(
     }
 
     let json = json::Runner::new(credentials.clone()).await?;
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    let bidi = bidi::Runner::new(&args, objects.clone(), credentials.clone()).await?;
 
     let generator = experiment::ExperimentGenerator::new(&args, objects)?;
     for iteration in 0..args.iterations {
@@ -107,6 +111,8 @@ async fn runner(
         let start = Instant::now();
         let attempts = match experiment.protocol {
             Protocol::Json => json.iteration(&experiment).await,
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            Protocol::Bidi => bidi.iteration(&experiment).await,
         };
         let elapsed = Instant::now() - start;
         let relative_start = start - test_start;
@@ -117,15 +123,16 @@ async fn runner(
                 .zip(experiment.ranges)
                 .enumerate()
                 .map(|(i, (result, range))| {
-                    let (ttfb, ttlb, details) = match result {
-                        Ok(a) => (a.ttfb, a.ttlb, "OK"),
+                    let (size, ttfb, ttlb, details) = match result {
+                        Ok(a) => (a.size, a.ttfb, a.ttlb, "OK"),
                         Err(e) => {
                             tracing::error!("error on range {i}: {e:?}");
-                            (elapsed, elapsed, "ERROR")
+                            (0, elapsed, elapsed, "ERROR")
                         }
                     };
                     Sample {
                         protocol,
+                        transfer_size: size,
                         ttfb,
                         ttlb,
                         details: details.to_string(),
@@ -134,6 +141,7 @@ async fn runner(
                         range_id: i,
                         range_count,
                         start: relative_start,
+                        range_offset: range.read_offset,
                         range_length: range.read_length,
                         object: range.object_name,
                     }

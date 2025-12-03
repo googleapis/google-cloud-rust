@@ -470,6 +470,7 @@ pub(crate) struct ServiceAccountTokenGenerator {
 }
 
 impl ServiceAccountTokenGenerator {
+    #[cfg(feature = "idtoken")]
     pub(crate) fn new_id_token_generator(
         target_audience: String,
         audience: String,

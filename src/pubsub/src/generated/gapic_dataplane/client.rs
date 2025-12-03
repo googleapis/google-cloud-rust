@@ -72,3 +72,74 @@ impl Publisher {
         super::builder::publisher::Publish::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Cloud Pub/Sub API.
+#[derive(Clone, Debug)]
+pub struct Subscriber {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Subscriber>,
+}
+
+impl Subscriber {
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Subscriber + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Subscriber>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
+        super::transport::Subscriber::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Subscriber> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Subscriber::new)
+    }
+
+    /// Modifies the ack deadline for a specific message. This method is useful
+    /// to indicate that more time is needed to process a message by the
+    /// subscriber, or to make the message available for redelivery if the
+    /// processing was interrupted. Note that this does not modify the
+    /// subscription-level `ackDeadlineSeconds` used for subsequent messages.
+    pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline {
+        super::builder::subscriber::ModifyAckDeadline::new(self.inner.clone())
+    }
+
+    /// Acknowledges the messages associated with the `ack_ids` in the
+    /// `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages
+    /// from the subscription.
+    ///
+    /// Acknowledging a message whose ack deadline has expired may succeed,
+    /// but such a message may be redelivered later. Acknowledging a message more
+    /// than once will not result in an error.
+    pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
+        super::builder::subscriber::Acknowledge::new(self.inner.clone())
+    }
+}

@@ -19,7 +19,8 @@ rustup component add clippy
 cargo version
 rustup show active-toolchain -v
 
-echo "RUSTFLAGS in test: $RUSTFLAGS"
+echo "RUSTFLAGS in test: ${RUSTFLAGS:-}"
+echo "RUSTDOCFLAGS in test: ${RUSTDOCFLAGS:-}"
 
 excluded=()
 if [[ "${GCB_TRIGGER_NAME:-}" == *"-test-msrv" ]]; then

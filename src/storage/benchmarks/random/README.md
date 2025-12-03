@@ -41,7 +41,7 @@ TS=$(date +%s); cargo run --release --package storage-random -- \
     --min-range-size 8KiB --max-range-size 8KiB \
     --min-batch-size 16 --max-batch-size 16 \
     --task-count=4 \
-    --min-sample-count=1000  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
+    --min-sample-count=1000 bidi  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
 ```
 
 Wait for the program to finish.
@@ -61,8 +61,8 @@ Then upload the results of the experiment:
 
 ```shell
 bq load --source_format CSV --skip_leading_rows 1 \
-    ${GOOGLE_CLOUD_PROJECT}:random.small001 bm-${TS}.txt \
-    Task:int64,Iteration:int64,IterationStart:int64,RangeId:int64,RangeCount:int64,RangeSize:int64,Protocol,TtfbMicroseconds:int64,TtlbMicroseconds:int64,Object,Details
+    ${GOOGLE_CLOUD_PROJECT}:random.bm-${TS} bm-${TS}.txt \
+    Task:int64,Iteration:int64,IterationStart:int64,RangeId:int64,RangeCount:int64,RangeOffset:int64,RangeSize:int64,Protocol,TransferSize:int64,TtfbMicroseconds:int64,TtlbMicroseconds:int64,Object,Details
 ```
 
 [compute-optimized]: https://cloud.google.com/compute/docs/compute-optimized-machines

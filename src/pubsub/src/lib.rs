@@ -41,9 +41,12 @@
 //! [pub/sub]: https://cloud.google.com/pubsub
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
 
+#[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
+#[allow(dead_code)]
+pub(crate) mod subscriber;
 
 pub use gax::Result;
 pub use gax::error::Error;
@@ -52,6 +55,7 @@ pub use gax::error::Error;
 pub mod builder {
     /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
+        // TODO(#3959) - remove internal types from the public API.
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::client::ClientBuilder;
@@ -63,13 +67,16 @@ pub mod builder {
     pub use crate::generated::gapic::builder::subscription_admin;
     /// Request and client builders for the [TopicAdmin][crate::client::TopicAdmin] client.
     pub use crate::generated::gapic::builder::topic_admin;
+    // TODO(#3959) - remove internal types from the public API.
+    #[doc(hidden)]
+    pub use crate::generated::gapic_dataplane::builder::subscriber;
 }
 
 /// The messages and enums that are part of this client library.
 pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::PubsubMessage;
-    pub(crate) use crate::generated::gapic_dataplane::model::{PublishRequest, PublishResponse};
+    pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
 /// Extends [model] with types that improve type safety and/or ergonomics.

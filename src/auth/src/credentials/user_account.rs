@@ -412,6 +412,7 @@ impl std::fmt::Debug for UserTokenProvider {
 }
 
 impl UserTokenProvider {
+    #[cfg(feature = "idtoken")]
     pub(crate) fn new_id_token_provider(
         authorized_user: AuthorizedUser,
         token_uri: Option<String>,

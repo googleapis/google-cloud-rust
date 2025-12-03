@@ -27,6 +27,7 @@ options:
     - SCCACHE_GCS_KEY_PREFIX=sccache/integration
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
+    - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - id: 'Set up build cache'

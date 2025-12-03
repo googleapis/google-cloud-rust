@@ -47,12 +47,15 @@ impl Runner {
         let mut reader = self
             .client
             .read_object(range.bucket_name.clone(), range.object_name.clone())
-            .set_read_range(ReadRange::segment(range.read_offset, range.read_offset))
+            .set_read_range(ReadRange::segment(range.read_offset, range.read_length))
             .send()
             .await?;
         let ttfb = Instant::now() - start;
-        while reader.next().await.transpose()?.is_some() {}
+        let mut size = 0;
+        while let Some(b) = reader.next().await.transpose()? {
+            size += b.len();
+        }
         let ttlb = Instant::now() - start;
-        Ok(Attempt { ttfb, ttlb })
+        Ok(Attempt { size, ttfb, ttlb })
     }
 }

@@ -36,3 +36,41 @@ impl<T: super::Publisher> Publisher for T {
         T::publish(self, req, options).await
     }
 }
+
+/// A dyn-compatible, crate-private version of [super::Subscriber].
+#[async_trait::async_trait]
+pub trait Subscriber: std::fmt::Debug + Send + Sync {
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+}
+
+/// All implementations of [super::Subscriber] also implement [Subscriber].
+#[async_trait::async_trait]
+impl<T: super::Subscriber> Subscriber for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::modify_ack_deadline(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::acknowledge(self, req, options).await
+    }
+}

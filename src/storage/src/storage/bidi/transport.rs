@@ -26,7 +26,7 @@ use tokio::sync::mpsc::Sender;
 type ReadResult<T> = std::result::Result<T, ReadError>;
 
 #[derive(Debug)]
-pub(super) struct ObjectDescriptorTransport {
+pub struct ObjectDescriptorTransport {
     object: Arc<Object>,
     tx: Sender<ActiveRead>,
 }

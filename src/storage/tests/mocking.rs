@@ -25,7 +25,7 @@ mod tests {
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     use google_cloud_storage as gcs;
-    use paste::paste;
+    use pastey::paste;
 
     mockall::mock! {
         #[derive(Debug)]

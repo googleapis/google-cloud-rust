@@ -29,7 +29,13 @@ pub mod google {
 }
 
 pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    start_echo_server_with_address("127.0.0.1:0").await
+}
+
+pub async fn start_echo_server_with_address(
+    address: &str,
+) -> anyhow::Result<(String, JoinHandle<()>)> {
+    let listener = tokio::net::TcpListener::bind(address).await?;
     let addr = listener.local_addr()?;
 
     let server = tokio::spawn(async {
@@ -42,7 +48,13 @@ pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
             .await;
     });
 
-    Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
+    let uri = if addr.is_ipv6() {
+        format!("http://[{}]:{}", addr.ip(), addr.port())
+    } else {
+        format!("http://{}:{}", addr.ip(), addr.port())
+    };
+
+    Ok((uri, server))
 }
 
 pub async fn start_fixed_responses<I, V>(responses: I) -> anyhow::Result<(String, JoinHandle<()>)>
@@ -67,9 +79,9 @@ where
 }
 
 pub fn builder(
-    endpoint: impl Into<String>,
+    default_endpoint: impl Into<String>,
 ) -> gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials> {
-    gax::client_builder::internal::new_builder(Factory(endpoint.into()))
+    gax::client_builder::internal::new_builder(Factory(default_endpoint.into()))
 }
 
 pub struct Factory(String);

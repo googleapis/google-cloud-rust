@@ -54,7 +54,11 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
-        let inner = reqwest::Client::new();
+        let mut builder = reqwest::Client::builder();
+        if config.disable_automatic_decompression {
+            builder = builder.no_gzip().no_brotli().no_deflate();
+        }
+        let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
             config.endpoint.as_deref(),
             default_endpoint,
@@ -110,6 +114,51 @@ impl ReqwestClient {
         body: Option<I>,
         options: gax::options::RequestOptions,
     ) -> Result<Response<O>> {
+        builder = self.configure_builder(builder, &options)?;
+        if let Some(body) = body {
+            builder = builder.json(&body);
+        }
+        self.retry_loop::<O>(builder, options).await
+    }
+
+    /// Executes a streaming request.
+    ///
+    /// The `builder` should be configured with the HTTP method, URL, and any
+    /// request body.
+    ///
+    /// This method does *not* handle retries. The caller is responsible for
+    /// handling retries if necessary.
+    pub async fn execute_streaming_once(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        options: gax::options::RequestOptions,
+        remaining_time: Option<std::time::Duration>,
+        attempt_count: u32,
+    ) -> Result<Response<impl futures::Stream<Item = Result<bytes::Bytes>>>> {
+        use futures::TryStreamExt;
+
+        builder = self.configure_builder(builder, &options)?;
+        let response = self
+            .request_attempt(builder, &options, remaining_time, attempt_count)
+            .await?;
+
+        let response = http::Response::from(response);
+        let (parts, body) = response.into_parts();
+        let stream = http_body_util::BodyStream::new(body)
+            .map_ok(|frame| frame.into_data().unwrap_or_default())
+            .map_err(Error::io);
+
+        Ok(Response::from_parts(
+            Parts::new().set_headers(parts.headers),
+            stream,
+        ))
+    }
+
+    fn configure_builder(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        options: &gax::options::RequestOptions,
+    ) -> Result<reqwest::RequestBuilder> {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -117,10 +166,7 @@ impl ReqwestClient {
             );
         }
         builder = builder.header(reqwest::header::HOST, &self.host);
-        if let Some(body) = body {
-            builder = builder.json(&body);
-        }
-        self.retry_loop::<O>(builder, options).await
+        Ok(builder)
     }
 
     async fn make_credentials(
@@ -155,24 +201,27 @@ impl ReqwestClient {
             let current_attempt = attempt_count;
             attempt_count += 1;
 
-            this.request_attempt(builder, &options, d, current_attempt)
-                .await
+            let response = this
+                .request_attempt(builder, &options, d, current_attempt)
+                .await?;
+            self::to_http_response(response).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
         gax::retry_loop_internal::retry_loop(inner, sleep, idempotent, throttler, retry, backoff)
             .await
     }
 
-    async fn request_attempt<O: serde::de::DeserializeOwned + Default>(
+    async fn request_attempt(
         &self,
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
         _attempt_count: u32,
-    ) -> Result<Response<O>> {
+    ) -> Result<reqwest::Response> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
+
         builder = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
@@ -219,7 +268,7 @@ impl ReqwestClient {
             );
         }
 
-        self::to_http_response(intermediate_result?).await
+        intermediate_result
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -577,8 +626,20 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
+    async fn reqwest_client_decompression_config() -> anyhow::Result<()> {
+        let mut config = ClientConfig::default();
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.disable_automatic_decompression = true;
+        let _client = ReqwestClient::new(config.clone(), "https://test.googleapis.com").await?;
+
+        config.disable_automatic_decompression = false;
+        let _client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_tracing)]
     async fn test_t3_span_enrichment() {
         let guard = TestLayer::initialize();
         let t3_span =
@@ -642,5 +703,63 @@ mod tests {
                 .attributes
                 .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
         );
+    }
+
+    #[tokio::test]
+    async fn execute_streaming_success() -> TestResult {
+        let server = httptest::Server::run();
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::request::method_path(
+                "GET", "/foo",
+            ))
+            .respond_with(httptest::responders::status_code(200).body("hello world")),
+        );
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let options = gax::options::RequestOptions::default();
+
+        let response = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await?;
+
+        use futures::TryStreamExt;
+        let body_bytes = response
+            .into_body()
+            .map_ok(|b| b.to_vec())
+            .try_concat()
+            .await?;
+        assert_eq!(body_bytes, b"hello world");
+        Ok(())
+    }
+
+    /// 308 (Permanent Redirect) is used in Resumable Uploads to indicate "Resume Incomplete".
+    /// We need to ensure that `execute_streaming_once` treats this as an error (and not a success)
+    /// so that the caller can handle the 308 status code appropriately (e.g., to query the upload status).
+    #[tokio::test]
+    async fn execute_streaming_308() -> TestResult {
+        let server = httptest::Server::run();
+        server.expect(
+            httptest::Expectation::matching(httptest::matchers::request::method_path(
+                "PUT", "/upload",
+            ))
+            .respond_with(httptest::responders::status_code(308).body("Resume Incomplete")),
+        );
+
+        let mut config = ClientConfig::default();
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
+        let builder = client.builder(Method::PUT, "upload".to_string());
+        let options = gax::options::RequestOptions::default();
+
+        let result = client
+            .execute_streaming_once(builder, options, None, 0)
+            .await;
+        assert!(result.is_err());
+        let err = result.err().unwrap();
+        assert_eq!(err.http_status_code(), Some(308));
+        Ok(())
     }
 }

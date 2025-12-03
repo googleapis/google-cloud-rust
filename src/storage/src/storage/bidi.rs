@@ -13,23 +13,23 @@
 // limitations under the License.
 
 mod active_read;
-mod builder;
-mod connector;
+pub(crate) mod connector;
 mod normalized_range;
-mod object_descriptor;
 mod range_reader;
 mod redirect;
 mod remaining_range;
 mod requested_range;
 mod resume_redirect;
 mod retry_redirect;
-mod stub;
-mod transport;
+pub(crate) mod stub;
+pub(crate) mod transport;
 mod worker;
 
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse};
 use crate::request_options::RequestOptions;
 use tokio::sync::mpsc::Receiver;
+
+pub use super::open_object::OpenObject;
 
 /// A trait to mock `tonic::Streaming<T>` in the unit tests.
 ///
