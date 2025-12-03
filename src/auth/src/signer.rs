@@ -145,9 +145,9 @@ impl dynamic::SigningProvider for CredentialsSigner {
 pub trait SigningProvider: std::fmt::Debug {
     /// Returns the email address of the authorizer.
     ///
-    /// It is typically the Google service account client email address 
-    /// from the Google Developers Console in the form of 
-    /// "xxx@developer.gserviceaccount.com". 
+    /// It is typically the Google service account client email address
+    /// from the Google Developers Console in the form of
+    /// "xxx@developer.gserviceaccount.com".
     fn client_email(&self) -> impl Future<Output = Result<String>> + Send;
 
     /// Signs the content.

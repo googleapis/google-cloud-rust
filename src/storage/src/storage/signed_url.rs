@@ -56,17 +56,12 @@ pub struct SignedUrlBuilder {
     url_style: UrlStyle,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub enum UrlStyle {
+    #[default]
     PathStyle,
     BucketBoundHostname,
     VirtualHostedStyle,
-}
-
-impl Default for UrlStyle {
-    fn default() -> Self {
-        UrlStyle::PathStyle
-    }
 }
 
 #[derive(Debug)]
@@ -112,7 +107,7 @@ impl SigningScope {
         let bucket_name = self.bucket_name();
         match self {
             SigningScope::Object(_, object) => {
-                let encoded_object = utf8_percent_encode(&object, &PATH_ENCODE_SET).to_string();
+                let encoded_object = utf8_percent_encode(object, &PATH_ENCODE_SET).to_string();
                 match url_style {
                     UrlStyle::PathStyle => {
                         format!("/{bucket_name}/{encoded_object}")
@@ -333,7 +328,7 @@ impl SignedUrlBuilder {
             if header_value.is_none() {
                 return acc;
             }
-            let header_value = Self::canonicalize_header_value(&header_value.unwrap());
+            let header_value = Self::canonicalize_header_value(header_value.unwrap());
             format!("{acc}{}:{}\n", k.to_lowercase(), header_value)
         });
 
