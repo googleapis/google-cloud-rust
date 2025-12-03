@@ -137,6 +137,14 @@ impl SigningScope {
     }
 }
 
+struct SigningComponents {
+    #[allow(dead_code)]
+    canonical_request: String,
+    #[allow(dead_code)]
+    string_to_sign: String,
+    signed_url: String,
+}
+
 impl SignedUrlBuilder {
     fn new(scope: SigningScope) -> Self {
         Self {
@@ -233,8 +241,8 @@ impl SignedUrlBuilder {
             return endpoint;
         }
 
-        let emulator_host = std::env::var("STORAGE_EMULATOR_HOST");
-        if let Ok(host) = emulator_host
+        let emulator_host = std::env::var("STORAGE_EMULATOR_HOST").ok();
+        if let Some(host) = emulator_host
             && !host.is_empty()
         {
             if host.starts_with("http") {
@@ -248,8 +256,8 @@ impl SignedUrlBuilder {
 
     /// Generates the signed URL using the provided signer.
     pub async fn sign_with(self, signer: &Signer) -> std::result::Result<String, SigningError> {
-        let (url, _, _) = self.sign_internal(signer).await?;
-        Ok(url)
+        let components = self.sign_internal(signer).await?;
+        Ok(components.signed_url)
     }
 
     fn canonicalize_header_value(value: &str) -> String {
@@ -263,7 +271,7 @@ impl SignedUrlBuilder {
     async fn sign_internal(
         self,
         signer: &Signer,
-    ) -> std::result::Result<(String, String, String), SigningError> {
+    ) -> std::result::Result<SigningComponents, SigningError> {
         let now = self.timestamp;
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
         let datestamp = now.format("%Y%m%d");
@@ -374,7 +382,11 @@ impl SignedUrlBuilder {
             canonical_url, canonical_query, signature
         );
 
-        Ok((signed_url, string_to_sign, canonical_request))
+        Ok(SigningComponents {
+            canonical_request,
+            string_to_sign,
+            signed_url,
+        })
     }
 }
 
@@ -610,8 +622,10 @@ mod tests {
                     })
                 });
 
-            let (signed_url, string_to_sign, canonical_request) =
-                builder.sign_internal(&signer).await?;
+            let components = builder.sign_internal(&signer).await?;
+            let canonical_request = components.canonical_request;
+            let string_to_sign = components.string_to_sign;
+            let signed_url = components.signed_url;
 
             if canonical_request != test.expected_canonical_request
                 || string_to_sign != test.expected_string_to_sign
