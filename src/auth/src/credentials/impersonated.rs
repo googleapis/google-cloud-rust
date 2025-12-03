@@ -490,7 +490,7 @@ impl Builder {
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
                 Ok(crate::signer::Signer {
-                    inner: Arc::new(crate::signer::CredentialsSigner {
+                    inner: Arc::new(crate::signer::iam::IamSigner {
                         client_email,
                         inner: self.build()?,
                     }),
@@ -504,7 +504,7 @@ impl Builder {
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
                 Ok(crate::signer::Signer {
-                    inner: Arc::new(crate::signer::CredentialsSigner {
+                    inner: Arc::new(crate::signer::iam::IamSigner {
                         client_email,
                         inner: self.build()?,
                     }),

@@ -20,16 +20,16 @@ use reqwest::Client;
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
-// Implements Signer for MDS that extends the existing CredentialsSigner by fetching
+// Implements Signer for MDS that extends the existing IamSigner by fetching
 // email via MDS email endpoint.
 #[derive(Clone, Debug)]
-pub(crate) struct MDSCredentialsSigner {
+pub(crate) struct MDSSigner {
     endpoint: String,
     client_email: Arc<RwLock<String>>,
     inner: Credentials,
 }
 
-impl MDSCredentialsSigner {
+impl MDSSigner {
     pub(crate) fn new(endpoint: String, inner: Credentials) -> Self {
         Self {
             endpoint,
@@ -40,7 +40,7 @@ impl MDSCredentialsSigner {
 }
 
 #[async_trait::async_trait]
-impl SigningProvider for MDSCredentialsSigner {
+impl SigningProvider for MDSSigner {
     async fn client_email(&self) -> Result<String> {
         let mut client_email = self
             .client_email
@@ -48,18 +48,7 @@ impl SigningProvider for MDSCredentialsSigner {
             .map_err(|_e| SigningError::transport("failed to obtain lock to read client email"))?;
 
         if client_email.is_empty() {
-            let client = Client::new();
-
-            let request = client
-                .get(format!("{}{}/email", self.endpoint, MDS_DEFAULT_URI))
-                .header(
-                    METADATA_FLAVOR,
-                    HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-                );
-
-            let response = request.send().await.map_err(SigningError::transport)?;
-            let email = response.text().await.map_err(SigningError::transport)?;
-
+            let email = self.fetch_client_email().await?;
             *client_email = email.clone();
         }
 
@@ -69,12 +58,30 @@ impl SigningProvider for MDSCredentialsSigner {
     async fn sign(&self, content: &[u8]) -> Result<String> {
         let client_email = self.client_email().await?;
 
-        let signer = crate::signer::CredentialsSigner {
+        let signer = crate::signer::iam::IamSigner {
             client_email,
             inner: self.inner.clone(),
         };
 
         signer.sign(content).await
+    }
+}
+
+impl MDSSigner {
+    async fn fetch_client_email(&self) -> Result<String> {
+        let client = Client::new();
+
+        let request = client
+            .get(format!("{}{}/email", self.endpoint, MDS_DEFAULT_URI))
+            .header(
+                METADATA_FLAVOR,
+                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+            );
+
+        let response = request.send().await.map_err(SigningError::transport)?;
+        let email = response.text().await.map_err(SigningError::transport)?;
+
+        Ok(email)
     }
 }
 

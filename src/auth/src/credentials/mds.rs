@@ -326,7 +326,7 @@ impl Builder {
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let (endpoint, _) = self.resolve_endpoint();
         let credentials = self.build()?;
-        let signing_provider = crate::signer::mds::MDSCredentialsSigner::new(endpoint, credentials);
+        let signing_provider = crate::signer::mds::MDSSigner::new(endpoint, credentials);
         Ok(crate::signer::Signer {
             inner: Arc::new(signing_provider),
         })

@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::{CacheableResource, Credentials};
-use http::Extensions;
-use reqwest::Client;
 use std::sync::Arc;
 
+pub(crate) mod iam;
 pub(crate) mod mds;
 pub(crate) mod service_account;
 
@@ -59,85 +57,6 @@ impl Signer {
         T: AsRef<[u8]> + Send + Sync,
     {
         self.inner.sign(content.as_ref()).await
-    }
-}
-
-// Implements Signer using IAM signBlob API and reusing using existing [Credentials] to
-// authenticate to it.
-#[derive(Clone, Debug)]
-pub(crate) struct CredentialsSigner {
-    pub(crate) client_email: String,
-    pub(crate) inner: Credentials,
-}
-
-#[derive(serde::Serialize)]
-struct SignBlobRequest {
-    payload: String,
-}
-
-#[derive(Debug, serde::Deserialize)]
-struct SignBlobResponse {
-    #[serde(rename = "signedBlob")]
-    signed_blob: String,
-}
-
-#[async_trait::async_trait]
-impl dynamic::SigningProvider for CredentialsSigner {
-    async fn client_email(&self) -> Result<String> {
-        Ok(self.client_email.clone())
-    }
-
-    async fn sign(&self, content: &[u8]) -> Result<String> {
-        use base64::{Engine, prelude::BASE64_STANDARD};
-
-        let source_headers = self
-            .inner
-            .headers(Extensions::new())
-            .await
-            .map_err(SigningError::transport)?;
-        let source_headers = match source_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => {
-                unreachable!("requested source credentials without a caching etag")
-            }
-        };
-
-        let client_email = self.client_email.clone();
-        let url = format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:signBlob",
-            client_email
-        );
-
-        let client = Client::new();
-        let payload = BASE64_STANDARD.encode(content);
-        let body = SignBlobRequest { payload };
-
-        let response = client
-            .post(url)
-            .header("Content-Type", "application/json")
-            .headers(source_headers)
-            .json(&body)
-            .send()
-            .await
-            .map_err(SigningError::transport)?;
-
-        if !response.status().is_success() {
-            let err_text = response.text().await.map_err(SigningError::transport)?;
-            return Err(SigningError::transport(format!("err status: {err_text:?}")));
-        }
-
-        let res = response
-            .json::<SignBlobResponse>()
-            .await
-            .map_err(SigningError::transport)?;
-
-        let signature = BASE64_STANDARD
-            .decode(res.signed_blob)
-            .map_err(SigningError::transport)?;
-
-        let signature = hex::encode(signature);
-
-        Ok(signature)
     }
 }
 
