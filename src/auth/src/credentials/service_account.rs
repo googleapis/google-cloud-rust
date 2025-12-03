@@ -356,6 +356,38 @@ pub(crate) struct ServiceAccountKey {
     universe_domain: Option<String>,
 }
 
+impl ServiceAccountKey {
+    // Creates a signer using the private key stored in the service account file.
+    pub(crate) fn signer(&self) -> Result<Box<dyn Signer>> {
+        let private_key = self.private_key.clone();
+        let key_provider = CryptoProvider::get_default().map_or_else(
+            || rustls::crypto::ring::default_provider().key_provider,
+            |p| p.key_provider,
+        );
+
+        let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
+            .map_err(errors::non_retryable)?
+            .ok_or_else(|| {
+                errors::non_retryable_from_str("missing PEM section in service account key")
+            })?;
+        let pk = match private_key {
+            Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
+            other => {
+                return Err(Self::unexpected_private_key_error(other));
+            }
+        };
+        let sk = pk.map_err(errors::non_retryable)?;
+        sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
+            .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
+    }
+
+    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
+        errors::non_retryable_from_str(format!(
+            "expected key to be in form of PKCS8, found {private_key_format:?}",
+        ))
+    }
+}
+
 impl std::fmt::Debug for ServiceAccountKey {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ServiceAccountKey")
@@ -441,7 +473,7 @@ impl ServiceAccountTokenGenerator {
     }
 
     pub(crate) fn generate(&self) -> Result<String> {
-        let signer = self.signer(&self.service_account_key.private_key)?;
+        let signer = self.service_account_key.signer()?;
 
         // The claims encode a unix timestamp. `std::time::Instant` has no
         // epoch, so we use `time::OffsetDateTime`, which reads system time, in
@@ -476,35 +508,6 @@ impl ServiceAccountTokenGenerator {
         );
 
         Ok(token)
-    }
-
-    // Creates a signer using the private key stored in the service account file.
-    fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
-        let key_provider = CryptoProvider::get_default().map_or_else(
-            || rustls::crypto::ring::default_provider().key_provider,
-            |p| p.key_provider,
-        );
-
-        let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
-            .map_err(errors::non_retryable)?
-            .ok_or_else(|| {
-                errors::non_retryable_from_str("missing PEM section in service account key")
-            })?;
-        let pk = match private_key {
-            Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
-            other => {
-                return Err(Self::unexpected_private_key_error(other));
-            }
-        };
-        let sk = pk.map_err(errors::non_retryable)?;
-        sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
-    }
-
-    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
-        errors::non_retryable_from_str(format!(
-            "expected key to be in form of PKCS8, found {private_key_format:?}",
-        ))
     }
 }
 
@@ -805,7 +808,7 @@ mod tests {
             ..Default::default()
         };
 
-        let signer = tg.signer(&tg.service_account_key.private_key);
+        let signer = tg.service_account_key.signer();
         let expected_error_message = "missing PEM section in service account key";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
@@ -818,9 +821,7 @@ mod tests {
             Item::Crl(Vec::new().into()) // Example unsupported key type
         );
 
-        let error = ServiceAccountTokenGenerator::unexpected_private_key_error(Item::Crl(
-            Vec::new().into(),
-        ));
+        let error = ServiceAccountKey::unexpected_private_key_error(Item::Crl(Vec::new().into()));
         assert!(error.to_string().contains(&expected_message));
         Ok(())
     }
