@@ -24,6 +24,7 @@ pub(crate) struct IamSigner {
     client_email: String,
     inner: Credentials,
     endpoint: String,
+    client: Client,
 }
 
 #[derive(Debug, serde::Serialize)]
@@ -43,6 +44,7 @@ impl IamSigner {
             client_email,
             inner,
             endpoint: "https://iamcredentials.googleapis.com".to_string(),
+            client: Client::new(),
         }
     }
 }
@@ -74,11 +76,11 @@ impl SigningProvider for IamSigner {
             self.endpoint, client_email
         );
 
-        let client = Client::new();
         let payload = BASE64_STANDARD.encode(content);
         let body = SignBlobRequest { payload };
 
-        let response = client
+        let response = self
+            .client
             .post(url)
             .header("Content-Type", "application/json")
             .headers(source_headers)
@@ -116,7 +118,7 @@ mod tests {
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::matchers::{all_of, contains, eq, json_decoded, request};
-    use httptest::responders::json_encoded;
+    use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use serde_json::json;
 
@@ -178,10 +180,10 @@ mod tests {
 
     #[tokio::test]
     async fn test_iam_client_email() -> TestResult {
-        let mut mock = MockCredentials::new();
+        let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
 
-        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
+        let signer = IamSigner::new("test@example.com".to_string(), creds);
         let client_email = signer.client_email().await.unwrap();
         assert_eq!(client_email, "test@example.com");
 
@@ -196,12 +198,7 @@ mod tests {
                 "POST",
                 "/v1/projects/-/serviceAccounts/test@example.com:signBlob"
             ),])
-            .respond_with(json_encoded(json!({
-                "error": {
-                    "code": 400,
-                    "message": "test-error",
-                },
-            }))),
+            .respond_with(status_code(500)),
         );
         let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
 
