@@ -99,6 +99,9 @@ impl serde::ser::Serialize for super::AttachedCluster {
         if !self.tags.is_empty() {
             state.serialize_entry("tags", &self.tags)?;
         }
+        if self.system_components_config.is_some() {
+            state.serialize_entry("systemComponentsConfig", &self.system_components_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -249,6 +252,18 @@ impl serde::ser::Serialize for super::AttachedPlatformVersionInfo {
         if !self.version.is_empty() {
             state.serialize_entry("version", &self.version)?;
         }
+        if !wkt::internal::is_default(&self.enabled) {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !wkt::internal::is_default(&self.end_of_life) {
+            state.serialize_entry("endOfLife", &self.end_of_life)?;
+        }
+        if self.end_of_life_date.is_some() {
+            state.serialize_entry("endOfLifeDate", &self.end_of_life_date)?;
+        }
+        if self.release_date.is_some() {
+            state.serialize_entry("releaseDate", &self.release_date)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -317,6 +332,87 @@ impl serde::ser::Serialize for super::KubernetesSecret {
         }
         if !self.namespace.is_empty() {
             state.serialize_entry("namespace", &self.namespace)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SystemComponentsConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tolerations.is_empty() {
+            state.serialize_entry("tolerations", &self.tolerations)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Toleration {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !wkt::internal::is_default(&self.key_operator) {
+            state.serialize_entry("keyOperator", &self.key_operator)?;
+        }
+        if !wkt::internal::is_default(&self.effect) {
+            state.serialize_entry("effect", &self.effect)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Label {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -673,7 +769,7 @@ impl serde::ser::Serialize for super::GenerateAttachedClusterAgentTokenResponse 
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.access_token.is_empty() {
-            state.serialize_entry("accessToken", &self.access_token)?;
+            state.serialize_entry("access_token", &self.access_token)?;
         }
         if !wkt::internal::is_default(&self.expires_in) {
             struct __With<'a>(&'a i32);
@@ -685,10 +781,10 @@ impl serde::ser::Serialize for super::GenerateAttachedClusterAgentTokenResponse 
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("expiresIn", &__With(&self.expires_in))?;
+            state.serialize_entry("expires_in", &__With(&self.expires_in))?;
         }
         if !self.token_type.is_empty() {
-            state.serialize_entry("tokenType", &self.token_type)?;
+            state.serialize_entry("token_type", &self.token_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1337,25 +1433,25 @@ impl serde::ser::Serialize for super::AwsOpenIdConfig {
             state.serialize_entry("issuer", &self.issuer)?;
         }
         if !self.jwks_uri.is_empty() {
-            state.serialize_entry("jwksUri", &self.jwks_uri)?;
+            state.serialize_entry("jwks_uri", &self.jwks_uri)?;
         }
         if !self.response_types_supported.is_empty() {
-            state.serialize_entry("responseTypesSupported", &self.response_types_supported)?;
+            state.serialize_entry("response_types_supported", &self.response_types_supported)?;
         }
         if !self.subject_types_supported.is_empty() {
-            state.serialize_entry("subjectTypesSupported", &self.subject_types_supported)?;
+            state.serialize_entry("subject_types_supported", &self.subject_types_supported)?;
         }
         if !self.id_token_signing_alg_values_supported.is_empty() {
             state.serialize_entry(
-                "idTokenSigningAlgValuesSupported",
+                "id_token_signing_alg_values_supported",
                 &self.id_token_signing_alg_values_supported,
             )?;
         }
         if !self.claims_supported.is_empty() {
-            state.serialize_entry("claimsSupported", &self.claims_supported)?;
+            state.serialize_entry("claims_supported", &self.claims_supported)?;
         }
         if !self.grant_types.is_empty() {
-            state.serialize_entry("grantTypes", &self.grant_types)?;
+            state.serialize_entry("grant_types", &self.grant_types)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2184,7 +2280,7 @@ impl serde::ser::Serialize for super::GenerateAwsClusterAgentTokenResponse {
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.access_token.is_empty() {
-            state.serialize_entry("accessToken", &self.access_token)?;
+            state.serialize_entry("access_token", &self.access_token)?;
         }
         if !wkt::internal::is_default(&self.expires_in) {
             struct __With<'a>(&'a i32);
@@ -2196,10 +2292,10 @@ impl serde::ser::Serialize for super::GenerateAwsClusterAgentTokenResponse {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("expiresIn", &__With(&self.expires_in))?;
+            state.serialize_entry("expires_in", &__With(&self.expires_in))?;
         }
         if !self.token_type.is_empty() {
-            state.serialize_entry("tokenType", &self.token_type)?;
+            state.serialize_entry("token_type", &self.token_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2856,25 +2952,25 @@ impl serde::ser::Serialize for super::AzureOpenIdConfig {
             state.serialize_entry("issuer", &self.issuer)?;
         }
         if !self.jwks_uri.is_empty() {
-            state.serialize_entry("jwksUri", &self.jwks_uri)?;
+            state.serialize_entry("jwks_uri", &self.jwks_uri)?;
         }
         if !self.response_types_supported.is_empty() {
-            state.serialize_entry("responseTypesSupported", &self.response_types_supported)?;
+            state.serialize_entry("response_types_supported", &self.response_types_supported)?;
         }
         if !self.subject_types_supported.is_empty() {
-            state.serialize_entry("subjectTypesSupported", &self.subject_types_supported)?;
+            state.serialize_entry("subject_types_supported", &self.subject_types_supported)?;
         }
         if !self.id_token_signing_alg_values_supported.is_empty() {
             state.serialize_entry(
-                "idTokenSigningAlgValuesSupported",
+                "id_token_signing_alg_values_supported",
                 &self.id_token_signing_alg_values_supported,
             )?;
         }
         if !self.claims_supported.is_empty() {
-            state.serialize_entry("claimsSupported", &self.claims_supported)?;
+            state.serialize_entry("claims_supported", &self.claims_supported)?;
         }
         if !self.grant_types.is_empty() {
-            state.serialize_entry("grantTypes", &self.grant_types)?;
+            state.serialize_entry("grant_types", &self.grant_types)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3733,7 +3829,7 @@ impl serde::ser::Serialize for super::GenerateAzureClusterAgentTokenResponse {
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.access_token.is_empty() {
-            state.serialize_entry("accessToken", &self.access_token)?;
+            state.serialize_entry("access_token", &self.access_token)?;
         }
         if !wkt::internal::is_default(&self.expires_in) {
             struct __With<'a>(&'a i32);
@@ -3745,10 +3841,10 @@ impl serde::ser::Serialize for super::GenerateAzureClusterAgentTokenResponse {
                     serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
                 }
             }
-            state.serialize_entry("expiresIn", &__With(&self.expires_in))?;
+            state.serialize_entry("expires_in", &__With(&self.expires_in))?;
         }
         if !self.token_type.is_empty() {
-            state.serialize_entry("tokenType", &self.token_type)?;
+            state.serialize_entry("token_type", &self.token_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

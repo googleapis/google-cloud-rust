@@ -17,6 +17,29 @@
 #[allow(unused_imports)]
 use super::*;
 
+impl std::fmt::Debug for super::GetDefaultServiceAccountRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDefaultServiceAccountRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DefaultServiceAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DefaultServiceAccount");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::RetryBuildRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RetryBuildRequest");
@@ -100,6 +123,19 @@ impl std::fmt::Debug for super::StorageSourceManifest {
     }
 }
 
+impl std::fmt::Debug for super::ConnectedRepository {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConnectedRepository");
+        debug_struct.field("repository", &self.repository);
+        debug_struct.field("dir", &self.dir);
+        debug_struct.field("revision", &self.revision);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Source {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Source");
@@ -117,6 +153,7 @@ impl std::fmt::Debug for super::BuiltImage {
         debug_struct.field("name", &self.name);
         debug_struct.field("digest", &self.digest);
         debug_struct.field("push_timing", &self.push_timing);
+        debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -130,6 +167,7 @@ impl std::fmt::Debug for super::UploadedPythonPackage {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("file_hashes", &self.file_hashes);
         debug_struct.field("push_timing", &self.push_timing);
+        debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -143,6 +181,7 @@ impl std::fmt::Debug for super::UploadedMavenArtifact {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("file_hashes", &self.file_hashes);
         debug_struct.field("push_timing", &self.push_timing);
+        debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -156,6 +195,7 @@ impl std::fmt::Debug for super::UploadedGoModule {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("file_hashes", &self.file_hashes);
         debug_struct.field("push_timing", &self.push_timing);
+        debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -169,6 +209,7 @@ impl std::fmt::Debug for super::UploadedNpmPackage {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("file_hashes", &self.file_hashes);
         debug_struct.field("push_timing", &self.push_timing);
+        debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -488,6 +529,11 @@ impl std::fmt::Debug for super::SourceProvenance {
             "resolved_storage_source_manifest",
             &self.resolved_storage_source_manifest,
         );
+        debug_struct.field(
+            "resolved_connected_repository",
+            &self.resolved_connected_repository,
+        );
+        debug_struct.field("resolved_git_source", &self.resolved_git_source);
         debug_struct.field("file_hashes", &self.file_hashes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

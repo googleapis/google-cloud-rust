@@ -2097,6 +2097,364 @@ impl wkt::message::Message for DeleteAttachmentRequest {
     }
 }
 
+/// The request for exporting an artifact to a destination.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportArtifactRequest {
+    /// Required. The repository of the artifact to export.
+    /// Format: projects/{project}/locations/{location}/repositories/{repository}
+    pub repository: std::string::String,
+
+    /// The artifact to be exported.
+    pub source_artifact: std::option::Option<crate::model::export_artifact_request::SourceArtifact>,
+
+    /// The destination to export the artifact to.
+    pub destination: std::option::Option<crate::model::export_artifact_request::Destination>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportArtifactRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [repository][crate::model::ExportArtifactRequest::repository].
+    pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.repository = v.into();
+        self
+    }
+
+    /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact].
+    ///
+    /// Note that all the setters affecting `source_artifact` are mutually
+    /// exclusive.
+    pub fn set_source_artifact<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_artifact_request::SourceArtifact>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_artifact = v.into();
+        self
+    }
+
+    /// The value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+    /// if it holds a `SourceVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source_artifact.as_ref().and_then(|v| match v {
+            crate::model::export_artifact_request::SourceArtifact::SourceVersion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+    /// to hold a `SourceVersion`.
+    ///
+    /// Note that all the setters affecting `source_artifact` are
+    /// mutually exclusive.
+    pub fn set_source_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_artifact = std::option::Option::Some(
+            crate::model::export_artifact_request::SourceArtifact::SourceVersion(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+    /// if it holds a `SourceTag`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn source_tag(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source_artifact.as_ref().and_then(|v| match v {
+            crate::model::export_artifact_request::SourceArtifact::SourceTag(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+    /// to hold a `SourceTag`.
+    ///
+    /// Note that all the setters affecting `source_artifact` are
+    /// mutually exclusive.
+    pub fn set_source_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_artifact = std::option::Option::Some(
+            crate::model::export_artifact_request::SourceArtifact::SourceTag(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::ExportArtifactRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    pub fn set_destination<
+        T: std::convert::Into<std::option::Option<crate::model::export_artifact_request::Destination>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportArtifactRequest::destination]
+    /// if it holds a `GcsPath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_path(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_artifact_request::Destination::GcsPath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportArtifactRequest::destination]
+    /// to hold a `GcsPath`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    pub fn set_gcs_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_artifact_request::Destination::GcsPath(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportArtifactRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.ExportArtifactRequest"
+    }
+}
+
+/// Defines additional types related to [ExportArtifactRequest].
+pub mod export_artifact_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The artifact to be exported.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceArtifact {
+        /// The artifact version to export.
+        /// Format:
+        /// projects/{project}/locations/{location}/repositories/{repository}/packages/{package}/versions/{version}
+        SourceVersion(std::string::String),
+        /// The artifact tag to export.
+        /// Format:projects/{project}/locations/{location}/repositories/{repository}/packages/{package}/tags/{tag}
+        SourceTag(std::string::String),
+    }
+
+    /// The destination to export the artifact to.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// The Cloud Storage path to export the artifact to. Should start with the
+        /// bucket name, and optionally have a directory path. Examples:
+        /// `dst_bucket`, `dst_bucket/sub_dir`.
+        /// Existing objects with the same path will be overwritten.
+        GcsPath(std::string::String),
+    }
+}
+
+/// The response for exporting an artifact to a destination.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportArtifactResponse {
+    /// The exported version. Should be the same as the request version with
+    /// fingerprint resource name.
+    pub exported_version: std::option::Option<crate::model::Version>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportArtifactResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [exported_version][crate::model::ExportArtifactResponse::exported_version].
+    pub fn set_exported_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Version>,
+    {
+        self.exported_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exported_version][crate::model::ExportArtifactResponse::exported_version].
+    pub fn set_or_clear_exported_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Version>,
+    {
+        self.exported_version = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExportArtifactResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.ExportArtifactResponse"
+    }
+}
+
+/// The LRO metadata for exporting an artifact.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportArtifactMetadata {
+    /// The exported artifact files.
+    pub exported_files: std::vec::Vec<crate::model::export_artifact_metadata::ExportedFile>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportArtifactMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [exported_files][crate::model::ExportArtifactMetadata::exported_files].
+    pub fn set_exported_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::export_artifact_metadata::ExportedFile>,
+    {
+        use std::iter::Iterator;
+        self.exported_files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExportArtifactMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.ExportArtifactMetadata"
+    }
+}
+
+/// Defines additional types related to [ExportArtifactMetadata].
+pub mod export_artifact_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The exported artifact file.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ExportedFile {
+        /// Name of the exported artifact file.
+        /// Format: `projects/p1/locations/us/repositories/repo1/files/file1`
+        pub name: std::string::String,
+
+        /// The hashes of the file content.
+        pub hashes: std::vec::Vec<crate::model::Hash>,
+
+        /// The destination the file was exported to.
+        pub destination:
+            std::option::Option<crate::model::export_artifact_metadata::exported_file::Destination>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ExportedFile {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::export_artifact_metadata::ExportedFile::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [hashes][crate::model::export_artifact_metadata::ExportedFile::hashes].
+        pub fn set_hashes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Hash>,
+        {
+            use std::iter::Iterator;
+            self.hashes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::export_artifact_metadata::ExportedFile::destination].
+        ///
+        /// Note that all the setters affecting `destination` are mutually
+        /// exclusive.
+        pub fn set_destination<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::export_artifact_metadata::exported_file::Destination,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination = v.into();
+            self
+        }
+
+        /// The value of [destination][crate::model::export_artifact_metadata::ExportedFile::destination]
+        /// if it holds a `GcsObjectPath`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn gcs_object_path(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.destination.as_ref().and_then(|v| match v {
+                crate::model::export_artifact_metadata::exported_file::Destination::GcsObjectPath(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [destination][crate::model::export_artifact_metadata::ExportedFile::destination]
+        /// to hold a `GcsObjectPath`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_gcs_object_path<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.destination = std::option::Option::Some(
+                crate::model::export_artifact_metadata::exported_file::Destination::GcsObjectPath(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ExportedFile {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.devtools.artifactregistry.v1.ExportArtifactMetadata.ExportedFile"
+        }
+    }
+
+    /// Defines additional types related to [ExportedFile].
+    pub mod exported_file {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The destination the file was exported to.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Destination {
+            /// Cloud Storage Object path of the exported file. Examples:
+            /// `dst_bucket/file1`, `dst_bucket/sub_dir/file1`
+            GcsObjectPath(std::string::String),
+        }
+    }
+}
+
 /// A hash of file content.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]

@@ -69,8 +69,8 @@ pub struct Instance {
     /// 12000, 16000, 20000, ...
     pub capacity_gib: i64,
 
-    /// Output only. Deprecated 'daos_version' field.
-    /// Output only. The version of DAOS software running in the instance.
+    /// Output only. Deprecated: The version of DAOS software running in the
+    /// instance.
     #[deprecated]
     pub daos_version: std::string::String,
 
@@ -442,6 +442,463 @@ pub mod instance {
     }
 }
 
+/// Transfer metadata options for the instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TransferMetadataOptions {
+    /// Optional. The UID preservation behavior.
+    pub uid: crate::model::transfer_metadata_options::Uid,
+
+    /// Optional. The GID preservation behavior.
+    pub gid: crate::model::transfer_metadata_options::Gid,
+
+    /// Optional. The mode preservation behavior.
+    pub mode: crate::model::transfer_metadata_options::Mode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TransferMetadataOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [uid][crate::model::TransferMetadataOptions::uid].
+    pub fn set_uid<T: std::convert::Into<crate::model::transfer_metadata_options::Uid>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [gid][crate::model::TransferMetadataOptions::gid].
+    pub fn set_gid<T: std::convert::Into<crate::model::transfer_metadata_options::Gid>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gid = v.into();
+        self
+    }
+
+    /// Sets the value of [mode][crate::model::TransferMetadataOptions::mode].
+    pub fn set_mode<T: std::convert::Into<crate::model::transfer_metadata_options::Mode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TransferMetadataOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.parallelstore.v1.TransferMetadataOptions"
+    }
+}
+
+/// Defines additional types related to [TransferMetadataOptions].
+pub mod transfer_metadata_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The UID preservation behavior.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Uid {
+        /// default is UID_NUMBER_PRESERVE.
+        Unspecified,
+        /// Do not preserve UID during a transfer job.
+        Skip,
+        /// Preserve UID that is in number format during a transfer job.
+        NumberPreserve,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Uid::value] or
+        /// [Uid::name].
+        UnknownValue(uid::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod uid {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Uid {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Skip => std::option::Option::Some(1),
+                Self::NumberPreserve => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("UID_UNSPECIFIED"),
+                Self::Skip => std::option::Option::Some("UID_SKIP"),
+                Self::NumberPreserve => std::option::Option::Some("UID_NUMBER_PRESERVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Uid {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Uid {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Uid {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Skip,
+                2 => Self::NumberPreserve,
+                _ => Self::UnknownValue(uid::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Uid {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UID_UNSPECIFIED" => Self::Unspecified,
+                "UID_SKIP" => Self::Skip,
+                "UID_NUMBER_PRESERVE" => Self::NumberPreserve,
+                _ => Self::UnknownValue(uid::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Uid {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Skip => serializer.serialize_i32(1),
+                Self::NumberPreserve => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Uid {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Uid>::new(
+                ".google.cloud.parallelstore.v1.TransferMetadataOptions.Uid",
+            ))
+        }
+    }
+
+    /// The GID preservation behavior.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Gid {
+        /// default is GID_NUMBER_PRESERVE.
+        Unspecified,
+        /// Do not preserve GID during a transfer job.
+        Skip,
+        /// Preserve GID that is in number format during a transfer job.
+        NumberPreserve,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Gid::value] or
+        /// [Gid::name].
+        UnknownValue(gid::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod gid {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Gid {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Skip => std::option::Option::Some(1),
+                Self::NumberPreserve => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GID_UNSPECIFIED"),
+                Self::Skip => std::option::Option::Some("GID_SKIP"),
+                Self::NumberPreserve => std::option::Option::Some("GID_NUMBER_PRESERVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Gid {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Gid {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Gid {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Skip,
+                2 => Self::NumberPreserve,
+                _ => Self::UnknownValue(gid::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Gid {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GID_UNSPECIFIED" => Self::Unspecified,
+                "GID_SKIP" => Self::Skip,
+                "GID_NUMBER_PRESERVE" => Self::NumberPreserve,
+                _ => Self::UnknownValue(gid::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Gid {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Skip => serializer.serialize_i32(1),
+                Self::NumberPreserve => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Gid {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Gid>::new(
+                ".google.cloud.parallelstore.v1.TransferMetadataOptions.Gid",
+            ))
+        }
+    }
+
+    /// The mode preservation behavior.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// default is MODE_PRESERVE.
+        Unspecified,
+        /// Do not preserve mode during a transfer job.
+        Skip,
+        /// Preserve mode during a transfer job.
+        Preserve,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Skip => std::option::Option::Some(1),
+                Self::Preserve => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Skip => std::option::Option::Some("MODE_SKIP"),
+                Self::Preserve => std::option::Option::Some("MODE_PRESERVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Skip,
+                2 => Self::Preserve,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "MODE_SKIP" => Self::Skip,
+                "MODE_PRESERVE" => Self::Preserve,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Skip => serializer.serialize_i32(1),
+                Self::Preserve => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.parallelstore.v1.TransferMetadataOptions.Mode",
+            ))
+        }
+    }
+}
+
 /// List instances request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -639,8 +1096,8 @@ pub struct CreateInstanceRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -718,8 +1175,8 @@ pub struct UpdateInstanceRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -797,8 +1254,8 @@ pub struct DeleteInstanceRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes after the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -1077,8 +1534,8 @@ pub struct ImportDataRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -1099,6 +1556,9 @@ pub struct ImportDataRequest {
     /// If unspecified, the Parallelstore service agent is used:
     /// `service-<PROJECT_NUMBER>@gcp-sa-parallelstore.iam.gserviceaccount.com`
     pub service_account: std::string::String,
+
+    /// Optional. The transfer metadata options for the import data.
+    pub metadata_options: std::option::Option<crate::model::TransferMetadataOptions>,
 
     /// The source of the data being imported into the Parallelstore instance.
     pub source: std::option::Option<crate::model::import_data_request::Source>,
@@ -1129,6 +1589,24 @@ impl ImportDataRequest {
     /// Sets the value of [service_account][crate::model::ImportDataRequest::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+    pub fn set_metadata_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferMetadataOptions>,
+    {
+        self.metadata_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+    pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferMetadataOptions>,
+    {
+        self.metadata_options = v.map(|x| x.into());
         self
     }
 
@@ -1265,8 +1743,8 @@ pub struct ExportDataRequest {
     /// ignore the request if it has already been completed. The server will
     /// guarantee that for at least 60 minutes since the first request.
     ///
-    /// For example, consider a situation where you make an initial request and t
-    /// he request times out. If you make the request again with the same request
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
     /// ID, the server can check if original operation with the same request ID
     /// was received, and if so, will ignore the second request. This prevents
     /// clients from accidentally creating duplicate commitments.
@@ -1286,6 +1764,9 @@ pub struct ExportDataRequest {
     /// If unspecified, the Parallelstore service agent is used:
     /// `service-<PROJECT_NUMBER>@gcp-sa-parallelstore.iam.gserviceaccount.com`
     pub service_account: std::string::String,
+
+    /// Optional. The metadata options for the export data.
+    pub metadata_options: std::option::Option<crate::model::TransferMetadataOptions>,
 
     /// The Parallelstore instance to export from.
     pub source: std::option::Option<crate::model::export_data_request::Source>,
@@ -1316,6 +1797,24 @@ impl ExportDataRequest {
     /// Sets the value of [service_account][crate::model::ExportDataRequest::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+    pub fn set_metadata_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferMetadataOptions>,
+    {
+        self.metadata_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+    pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TransferMetadataOptions>,
+    {
+        self.metadata_options = v.map(|x| x.into());
         self
     }
 
@@ -2128,10 +2627,10 @@ pub struct TransferCounters {
     /// Bytes that are copied to the data destination.
     pub bytes_copied: i64,
 
-    /// Objects that are failed to write to the data destination.
+    /// Objects that failed to be written to the data destination.
     pub objects_failed: i64,
 
-    /// Bytes that are failed to write to the data destination.
+    /// Bytes that failed to be written to the data destination.
     pub bytes_failed: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
