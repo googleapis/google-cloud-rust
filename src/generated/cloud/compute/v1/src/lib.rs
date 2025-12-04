@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20251031" revision of the API.
+//! This client library was generated from the "20251202" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -31,6 +31,7 @@
 //!
 //! * [AcceleratorTypes](client/struct.AcceleratorTypes.html)
 //! * [Addresses](client/struct.Addresses.html)
+//! * [Advice](client/struct.Advice.html)
 //! * [Autoscalers](client/struct.Autoscalers.html)
 //! * [BackendBuckets](client/struct.BackendBuckets.html)
 //! * [BackendServices](client/struct.BackendServices.html)
@@ -170,6 +171,7 @@ pub(crate) mod transport;
 #[cfg(any(
     feature = "accelerator-types",
     feature = "addresses",
+    feature = "advice",
     feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
@@ -284,6 +286,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
 #[cfg(any(
     feature = "accelerator-types",
     feature = "addresses",
+    feature = "advice",
     feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
