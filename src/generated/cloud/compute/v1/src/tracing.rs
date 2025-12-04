@@ -16,6 +16,7 @@
 #[cfg(any(
     feature = "accelerator-types",
     feature = "addresses",
+    feature = "advice",
     feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
@@ -298,6 +299,41 @@ where
         options: &gax::options::RequestOptions,
     ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [Advice](super::stub::Advice) decorator for logging and tracing.
+#[cfg(feature = "advice")]
+#[derive(Clone, Debug)]
+pub struct Advice<T>
+where
+    T: super::stub::Advice + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "advice")]
+impl<T> Advice<T>
+where
+    T: super::stub::Advice + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "advice")]
+impl<T> super::stub::Advice for Advice<T>
+where
+    T: super::stub::Advice + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn calendar_mode(
+        &self,
+        req: crate::model::advice::CalendarModeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::CalendarModeAdviceResponse>> {
+        self.inner.calendar_mode(req, options).await
     }
 }
 

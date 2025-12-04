@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20251031" revision of the API.
+This client library was generated from the "20251202" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -18,6 +18,7 @@ The main types to work with this crate are the clients:
 
 - [AcceleratorTypes]: enabled by the `accelerator-types` feature.
 - [Addresses]: enabled by the `addresses` feature.
+- [Advice]: enabled by the `advice` feature.
 - [Autoscalers]: enabled by the `autoscalers` feature.
 - [BackendBuckets]: enabled by the `backend-buckets` feature.
 - [BackendServices]: enabled by the `backend-services` feature.
@@ -133,6 +134,7 @@ The main types to work with this crate are the clients:
 
 [AcceleratorTypes]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.AcceleratorTypes.html
 [Addresses]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.Addresses.html
+[Advice]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.Advice.html
 [Autoscalers]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.Autoscalers.html
 [BackendBuckets]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.BackendBuckets.html
 [BackendServices]: https://docs.rs/google-cloud-compute-v1/0.2.1/google_cloud_compute_v1/client/struct.BackendServices.html
