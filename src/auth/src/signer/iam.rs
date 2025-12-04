@@ -179,7 +179,6 @@ mod tests {
     #[tokio::test]
     async fn test_iam_sign_api_error() -> TestResult {
         let server = Server::run();
-        let payload = BASE64_STANDARD.encode("test");
         server.expect(
             Expectation::matching(all_of![request::method_path(
                 "POST",
