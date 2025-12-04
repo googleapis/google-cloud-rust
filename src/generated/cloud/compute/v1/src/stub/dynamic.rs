@@ -238,6 +238,31 @@ impl<T: super::Addresses> Addresses for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Advice].
+#[cfg(feature = "advice")]
+#[async_trait::async_trait]
+pub trait Advice: std::fmt::Debug + Send + Sync {
+    async fn calendar_mode(
+        &self,
+        req: crate::model::advice::CalendarModeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::CalendarModeAdviceResponse>>;
+}
+
+/// All implementations of [super::Advice] also implement [Advice].
+#[cfg(feature = "advice")]
+#[async_trait::async_trait]
+impl<T: super::Advice> Advice for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn calendar_mode(
+        &self,
+        req: crate::model::advice::CalendarModeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::CalendarModeAdviceResponse>> {
+        T::calendar_mode(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::Autoscalers].
 #[cfg(feature = "autoscalers")]
 #[async_trait::async_trait]
