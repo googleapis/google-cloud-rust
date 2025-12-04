@@ -141,7 +141,7 @@ mod tests {
             Expectation::matching(all_of![
                 request::method_path(
                     "POST",
-                    format!("/v1/projects/-/serviceAccounts/test@example.com:signBlob")
+                    "/v1/projects/-/serviceAccounts/test@example.com:signBlob"
                 ),
                 request::headers(contains(("authorization", "Bearer test-value"))),
                 request::body(json_decoded(eq(json!({
@@ -177,12 +177,24 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn test_iam_client_email() -> TestResult {
+        let mut mock = MockCredentials::new();
+        let creds = Credentials::from(mock);
+
+        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
+        let client_email = signer.client_email().await.unwrap();
+        assert_eq!(client_email, "test@example.com");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_iam_sign_api_error() -> TestResult {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![request::method_path(
                 "POST",
-                format!("/v1/projects/-/serviceAccounts/test@example.com:signBlob")
+                "/v1/projects/-/serviceAccounts/test@example.com:signBlob"
             ),])
             .respond_with(json_encoded(json!({
                 "error": {
