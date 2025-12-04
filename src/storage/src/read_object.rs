@@ -37,11 +37,6 @@ impl ReadObjectResponse {
         Self { inner }
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    pub(crate) fn from_dyn(inner: Box<dyn dynamic::ReadObjectResponse + Send>) -> Self {
-        Self { inner }
-    }
-
     /// Create a ReadObjectResponse, given a data source.
     ///
     /// Use this method to mock the return type of

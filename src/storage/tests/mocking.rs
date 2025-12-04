@@ -20,10 +20,12 @@ mod tests {
     };
     use gcs::Result;
     use gcs::model::{Object, ReadObjectRequest};
-    use gcs::model_ext::{ObjectHighlights, WriteObjectRequest};
+    use gcs::model_ext::{ObjectHighlights, ReadRange, WriteObjectRequest};
     use gcs::read_object::ReadObjectResponse;
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    use gcs::{model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor};
     use google_cloud_storage as gcs;
     use pastey::paste;
 
@@ -44,6 +46,21 @@ mod tests {
                 _req: WriteObjectRequest,
                 _options: RequestOptions,
             ) -> Result<Object>;
+            #[cfg(google_cloud_unstable_storage_bidi)]
+            async fn open_object(
+                &self,
+                _request: OpenObjectRequest,
+                _options: RequestOptions,
+            ) -> Result<ObjectDescriptor>;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Descriptor {}
+        impl gcs::stub::ObjectDescriptor for Descriptor {
+            fn object(&self) -> &Object;
+            async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
         }
     }
 
@@ -120,6 +137,66 @@ mod tests {
             .send_unbuffered()
             .await
             .unwrap_err();
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn mock_open_object_fail() {
+        let status = Status::default().set_code(Code::Aborted);
+        let want = status.clone();
+        let mut mock = MockStorage::new();
+        mock.expect_open_object()
+            .return_once(move |_, _| Err(Error::service(status)));
+        let client = gcs::client::Storage::from_stub(mock);
+        let err = client
+            .open_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await
+            .unwrap_err();
+        assert_eq!(err.status(), Some(&want), "{err:?}");
+    }
+
+    #[tokio::test]
+    async fn mock_open_object_success() -> anyhow::Result<()> {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let object = Object::new().set_etag("custom-etag");
+        let highlights = {
+            let mut h = ObjectHighlights::default();
+            h.etag = object.etag.clone();
+            h
+        };
+
+        let mut mock_descriptor = MockDescriptor::new();
+        mock_descriptor
+            .expect_object()
+            .times(1)
+            .return_const(object.clone());
+        mock_descriptor.expect_read_range().times(1).return_once({
+            let h = highlights.clone();
+            move |_| ReadObjectResponse::from_source(h, LAZY)
+        });
+
+        let mut mock = MockStorage::new();
+        mock.expect_open_object()
+            .return_once(move |_, _| Ok(ObjectDescriptor::new(mock_descriptor)));
+
+        let client = gcs::client::Storage::from_stub(mock);
+        let descriptor = client
+            .open_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await?;
+        assert_eq!(&object, descriptor.object());
+
+        let mut reader = descriptor.read_range(ReadRange::offset(123)).await;
+        assert_eq!(&highlights, &reader.object());
+
+        let mut contents = Vec::new();
+        while let Some(chunk) = reader.next().await.transpose()? {
+            contents.extend_from_slice(&chunk);
+        }
+        let contents = bytes::Bytes::from_owner(contents);
+        assert_eq!(contents, LAZY);
+        Ok(())
     }
 
     #[derive(Debug)]
