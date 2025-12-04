@@ -3908,6 +3908,13 @@ pub struct GoogleApiSource {
     /// Optional. Config to control Platform logging for the GoogleApiSource.
     pub logging_config: std::option::Option<crate::model::LoggingConfig>,
 
+    /// Config to enabled subscribing to events from other projects in the org.
+    ///
+    /// Users need the eventarc.googleApiSource.create permission on the entire org
+    /// in order to create a resource with these settings.
+    pub wide_scope_subscription:
+        std::option::Option<crate::model::google_api_source::WideScopeSubscription>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4029,11 +4036,191 @@ impl GoogleApiSource {
         self.logging_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [wide_scope_subscription][crate::model::GoogleApiSource::wide_scope_subscription].
+    ///
+    /// Note that all the setters affecting `wide_scope_subscription` are mutually
+    /// exclusive.
+    pub fn set_wide_scope_subscription<
+        T: std::convert::Into<
+                std::option::Option<crate::model::google_api_source::WideScopeSubscription>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wide_scope_subscription = v.into();
+        self
+    }
+
+    /// The value of [wide_scope_subscription][crate::model::GoogleApiSource::wide_scope_subscription]
+    /// if it holds a `OrganizationSubscription`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn organization_subscription(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::google_api_source::OrganizationSubscription>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.wide_scope_subscription.as_ref().and_then(|v| match v {
+            crate::model::google_api_source::WideScopeSubscription::OrganizationSubscription(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [wide_scope_subscription][crate::model::GoogleApiSource::wide_scope_subscription]
+    /// to hold a `OrganizationSubscription`.
+    ///
+    /// Note that all the setters affecting `wide_scope_subscription` are
+    /// mutually exclusive.
+    pub fn set_organization_subscription<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::google_api_source::OrganizationSubscription>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wide_scope_subscription = std::option::Option::Some(
+            crate::model::google_api_source::WideScopeSubscription::OrganizationSubscription(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [wide_scope_subscription][crate::model::GoogleApiSource::wide_scope_subscription]
+    /// if it holds a `ProjectSubscriptions`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn project_subscriptions(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::google_api_source::ProjectSubscriptions>>
+    {
+        #[allow(unreachable_patterns)]
+        self.wide_scope_subscription.as_ref().and_then(|v| match v {
+            crate::model::google_api_source::WideScopeSubscription::ProjectSubscriptions(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [wide_scope_subscription][crate::model::GoogleApiSource::wide_scope_subscription]
+    /// to hold a `ProjectSubscriptions`.
+    ///
+    /// Note that all the setters affecting `wide_scope_subscription` are
+    /// mutually exclusive.
+    pub fn set_project_subscriptions<
+        T: std::convert::Into<std::boxed::Box<crate::model::google_api_source::ProjectSubscriptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wide_scope_subscription = std::option::Option::Some(
+            crate::model::google_api_source::WideScopeSubscription::ProjectSubscriptions(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for GoogleApiSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.eventarc.v1.GoogleApiSource"
+    }
+}
+
+/// Defines additional types related to [GoogleApiSource].
+pub mod google_api_source {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Config to enable subscribing to all events from a list of projects.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ProjectSubscriptions {
+        /// Required. A list of projects to receive events from.
+        ///
+        /// All the projects must be in the same org. The listed projects should have
+        /// the format project/{identifier} where identifier can be either the
+        /// project id for project number. A single list may contain both formats. At
+        /// most 100 projects can be listed.
+        pub list: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ProjectSubscriptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [list][crate::model::google_api_source::ProjectSubscriptions::list].
+        pub fn set_list<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.list = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ProjectSubscriptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.eventarc.v1.GoogleApiSource.ProjectSubscriptions"
+        }
+    }
+
+    /// Config to enabled subscribing to events from other projects in the org.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct OrganizationSubscription {
+        /// Required. Enable org level subscription.
+        pub enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl OrganizationSubscription {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::google_api_source::OrganizationSubscription::enabled].
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for OrganizationSubscription {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.eventarc.v1.GoogleApiSource.OrganizationSubscription"
+        }
+    }
+
+    /// Config to enabled subscribing to events from other projects in the org.
+    ///
+    /// Users need the eventarc.googleApiSource.create permission on the entire org
+    /// in order to create a resource with these settings.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WideScopeSubscription {
+        /// Optional. Config to enable subscribing to events from all projects in the
+        /// GoogleApiSource's org.
+        OrganizationSubscription(
+            std::boxed::Box<crate::model::google_api_source::OrganizationSubscription>,
+        ),
+        /// Optional. Config to enable subscribing to all events from a list of
+        /// projects.
+        ///
+        /// All the projects must be in the same org as the GoogleApiSource.
+        ProjectSubscriptions(
+            std::boxed::Box<crate::model::google_api_source::ProjectSubscriptions>,
+        ),
     }
 }
 
@@ -6169,6 +6356,12 @@ pub struct Trigger {
     /// physical zone separation
     pub satisfies_pzs: bool,
 
+    /// Optional. The retry policy to use in the Trigger.
+    ///
+    /// If unset, event delivery will be retried for up to 24 hours by default:
+    /// <https://cloud.google.com/eventarc/docs/retry-events>
+    pub retry_policy: std::option::Option<crate::model::trigger::RetryPolicy>,
+
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields, and might be sent only on create requests to ensure that the
     /// client has an up-to-date value before proceeding.
@@ -6328,6 +6521,24 @@ impl Trigger {
         self
     }
 
+    /// Sets the value of [retry_policy][crate::model::Trigger::retry_policy].
+    pub fn set_retry_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::trigger::RetryPolicy>,
+    {
+        self.retry_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retry_policy][crate::model::Trigger::retry_policy].
+    pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::trigger::RetryPolicy>,
+    {
+        self.retry_policy = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Trigger::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -6338,6 +6549,43 @@ impl Trigger {
 impl wkt::message::Message for Trigger {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.eventarc.v1.Trigger"
+    }
+}
+
+/// Defines additional types related to [Trigger].
+pub mod trigger {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The retry policy configuration for the Trigger.
+    ///
+    /// Can only be set with Cloud Run destinations.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RetryPolicy {
+        /// Optional. The maximum number of delivery attempts for any message. The
+        /// only valid value is 1.
+        pub max_attempts: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RetryPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [max_attempts][crate::model::trigger::RetryPolicy::max_attempts].
+        pub fn set_max_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_attempts = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RetryPolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.eventarc.v1.Trigger.RetryPolicy"
+        }
     }
 }
 

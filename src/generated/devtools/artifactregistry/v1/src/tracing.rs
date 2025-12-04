@@ -479,6 +479,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn export_artifact(
+        &self,
+        req: crate::model::ExportArtifactRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.export_artifact(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

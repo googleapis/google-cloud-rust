@@ -288,6 +288,116 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TransferMetadataOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uid,
+            __gid,
+            __mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TransferMetadataOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uid" => Ok(__FieldTag::__uid),
+                            "gid" => Ok(__FieldTag::__gid),
+                            "mode" => Ok(__FieldTag::__mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TransferMetadataOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TransferMetadataOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid =
+                                map.next_value::<std::option::Option<
+                                    crate::model::transfer_metadata_options::Uid,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gid => {
+                            if !fields.insert(__FieldTag::__gid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gid",
+                                ));
+                            }
+                            result.gid =
+                                map.next_value::<std::option::Option<
+                                    crate::model::transfer_metadata_options::Gid,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__mode => {
+                            if !fields.insert(__FieldTag::__mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mode",
+                                ));
+                            }
+                            result.mode =
+                                map.next_value::<std::option::Option<
+                                    crate::model::transfer_metadata_options::Mode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ListInstancesRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1412,6 +1522,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDataRequest {
             __name,
             __request_id,
             __service_account,
+            __metadata_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1445,6 +1556,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDataRequest {
                             "request_id" => Ok(__FieldTag::__request_id),
                             "serviceAccount" => Ok(__FieldTag::__service_account),
                             "service_account" => Ok(__FieldTag::__service_account),
+                            "metadataOptions" => Ok(__FieldTag::__metadata_options),
+                            "metadata_options" => Ok(__FieldTag::__metadata_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1537,6 +1650,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ImportDataRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__metadata_options => {
+                            if !fields.insert(__FieldTag::__metadata_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata_options",
+                                ));
+                            }
+                            result.metadata_options = map.next_value::<std::option::Option<crate::model::TransferMetadataOptions>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1565,6 +1687,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataRequest {
             __name,
             __request_id,
             __service_account,
+            __metadata_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1594,6 +1717,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataRequest {
                             "request_id" => Ok(__FieldTag::__request_id),
                             "serviceAccount" => Ok(__FieldTag::__service_account),
                             "service_account" => Ok(__FieldTag::__service_account),
+                            "metadataOptions" => Ok(__FieldTag::__metadata_options),
+                            "metadata_options" => Ok(__FieldTag::__metadata_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1685,6 +1810,15 @@ impl<'de> serde::de::Deserialize<'de> for super::ExportDataRequest {
                             result.service_account = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__metadata_options => {
+                            if !fields.insert(__FieldTag::__metadata_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata_options",
+                                ));
+                            }
+                            result.metadata_options = map.next_value::<std::option::Option<crate::model::TransferMetadataOptions>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -4621,6 +4621,172 @@ pub mod artifact_registry {
         }
     }
 
+    /// The request builder for [ArtifactRegistry::export_artifact][crate::client::ArtifactRegistry::export_artifact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ExportArtifact;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportArtifact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExportArtifact(RequestBuilder<crate::model::ExportArtifactRequest>);
+
+    impl ExportArtifact {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExportArtifactRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [export_artifact][crate::client::ArtifactRegistry::export_artifact].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .export_artifact(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `export_artifact`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::ExportArtifactResponse, crate::model::ExportArtifactMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::ExportArtifactResponse,
+                crate::model::ExportArtifactMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [repository][crate::model::ExportArtifactRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.repository = v.into();
+            self
+        }
+
+        /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact].
+        ///
+        /// Note that all the setters affecting `source_artifact` are
+        /// mutually exclusive.
+        pub fn set_source_artifact<
+            T: Into<Option<crate::model::export_artifact_request::SourceArtifact>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.source_artifact = v.into();
+            self
+        }
+
+        /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+        /// to hold a `SourceVersion`.
+        ///
+        /// Note that all the setters affecting `source_artifact` are
+        /// mutually exclusive.
+        pub fn set_source_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_source_version(v);
+            self
+        }
+
+        /// Sets the value of [source_artifact][crate::model::ExportArtifactRequest::source_artifact]
+        /// to hold a `SourceTag`.
+        ///
+        /// Note that all the setters affecting `source_artifact` are
+        /// mutually exclusive.
+        pub fn set_source_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_source_tag(v);
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportArtifactRequest::destination].
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_destination<
+            T: Into<Option<crate::model::export_artifact_request::Destination>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [destination][crate::model::ExportArtifactRequest::destination]
+        /// to hold a `GcsPath`.
+        ///
+        /// Note that all the setters affecting `destination` are
+        /// mutually exclusive.
+        pub fn set_gcs_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_gcs_path(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExportArtifact {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [ArtifactRegistry::list_locations][crate::client::ArtifactRegistry::list_locations] calls.
     ///
     /// # Example

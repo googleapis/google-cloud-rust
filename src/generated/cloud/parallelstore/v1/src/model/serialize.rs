@@ -94,6 +94,34 @@ impl serde::ser::Serialize for super::Instance {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::TransferMetadataOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.uid) {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !wkt::internal::is_default(&self.gid) {
+            state.serialize_entry("gid", &self.gid)?;
+        }
+        if !wkt::internal::is_default(&self.mode) {
+            state.serialize_entry("mode", &self.mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListInstancesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -423,6 +451,9 @@ impl serde::ser::Serialize for super::ImportDataRequest {
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
+        if self.metadata_options.is_some() {
+            state.serialize_entry("metadataOptions", &self.metadata_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -456,6 +487,9 @@ impl serde::ser::Serialize for super::ExportDataRequest {
         }
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
+        }
+        if self.metadata_options.is_some() {
+            state.serialize_entry("metadataOptions", &self.metadata_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

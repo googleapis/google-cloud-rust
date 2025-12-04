@@ -750,6 +750,24 @@ pub mod parallelstore {
             self
         }
 
+        /// Sets the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+        pub fn set_metadata_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferMetadataOptions>,
+        {
+            self.0.request.metadata_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+        pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferMetadataOptions>,
+        {
+            self.0.request.metadata_options = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [source][crate::model::ImportDataRequest::source].
         ///
         /// Note that all the setters affecting `source` are
@@ -918,6 +936,24 @@ pub mod parallelstore {
         /// Sets the value of [service_account][crate::model::ExportDataRequest::service_account].
         pub fn set_service_account<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_account = v.into();
+            self
+        }
+
+        /// Sets the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+        pub fn set_metadata_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferMetadataOptions>,
+        {
+            self.0.request.metadata_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+        pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferMetadataOptions>,
+        {
+            self.0.request.metadata_options = v.map(|x| x.into());
             self
         }
 

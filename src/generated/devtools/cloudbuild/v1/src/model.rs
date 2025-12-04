@@ -37,6 +37,86 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// Returns the default service account that will be used for `Builds`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDefaultServiceAccountRequest {
+    /// Required. The name of the `DefaultServiceAccount` to retrieve.
+    /// Format:
+    /// `projects/{project}/locations/{location}/defaultServiceAccount`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDefaultServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDefaultServiceAccountRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDefaultServiceAccountRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.cloudbuild.v1.GetDefaultServiceAccountRequest"
+    }
+}
+
+/// The default service account used for `Builds`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DefaultServiceAccount {
+    /// Identifier. Format:
+    /// `projects/{project}/locations/{location}/defaultServiceAccount
+    pub name: std::string::String,
+
+    /// Output only. The email address of the service account identity that will be
+    /// used for a build by default.
+    ///
+    /// This is returned in the format
+    /// `projects/{project}/serviceAccounts/{service_account}` where
+    /// `{service_account}` could be the legacy Cloud Build SA, in the format
+    /// [PROJECT_NUMBER]@cloudbuild.gserviceaccount.com or the Compute SA, in the
+    /// format [PROJECT_NUMBER]-compute@developer.gserviceaccount.com.
+    ///
+    /// If no service account will be used by default, this will be empty.
+    pub service_account_email: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DefaultServiceAccount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DefaultServiceAccount::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account_email][crate::model::DefaultServiceAccount::service_account_email].
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_account_email = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DefaultServiceAccount {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.cloudbuild.v1.DefaultServiceAccount"
+    }
+}
+
 /// Specifies a build to retry.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -162,17 +242,18 @@ pub struct StorageSource {
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     pub bucket: std::string::String,
 
-    /// Cloud Storage object containing the source.
+    /// Required. Cloud Storage object containing the source.
     ///
     /// This object must be a zipped (`.zip`) or gzipped archive file (`.tar.gz`)
     /// containing source to build.
     pub object: std::string::String,
 
-    /// Cloud Storage generation for the object. If the generation is
+    /// Optional. Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     pub generation: i64,
 
-    /// Option to specify the tool to fetch the source file for the build.
+    /// Optional. Option to specify the tool to fetch the source file for the
+    /// build.
     pub source_fetcher: crate::model::storage_source::SourceFetcher,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -242,7 +323,7 @@ pub mod storage_source {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SourceFetcher {
-        /// Unspecified. Defaults to GSUTIL.
+        /// Unspecified defaults to GSUTIL.
         Unspecified,
         /// Use the "gsutil" tool to download the source file.
         Gsutil,
@@ -361,20 +442,21 @@ pub mod storage_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitSource {
-    /// Location of the Git repo to build.
+    /// Required. Location of the Git repo to build.
     ///
     /// This will be used as a `git remote`, see
     /// <https://git-scm.com/docs/git-remote>.
     pub url: std::string::String,
 
-    /// Directory, relative to the source root, in which to run the build.
+    /// Optional. Directory, relative to the source root, in which to run the
+    /// build.
     ///
     /// This must be a relative path. If a step's `dir` is specified and is an
     /// absolute path, this value is ignored for that step's execution.
     pub dir: std::string::String,
 
-    /// The revision to fetch from the Git repository such as a branch, a tag, a
-    /// commit SHA, or any Git ref.
+    /// Optional. The revision to fetch from the Git repository such as a branch, a
+    /// tag, a commit SHA, or any Git ref.
     ///
     /// Cloud Build uses `git fetch` to fetch the revision from the Git
     /// repository; therefore make sure that the string you provide for `revision`
@@ -421,24 +503,25 @@ impl wkt::message::Message for GitSource {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepoSource {
-    /// ID of the project that owns the Cloud Source Repository. If omitted, the
-    /// project ID requesting the build is assumed.
+    /// Optional. ID of the project that owns the Cloud Source Repository. If
+    /// omitted, the project ID requesting the build is assumed.
     pub project_id: std::string::String,
 
-    /// Name of the Cloud Source Repository.
+    /// Required. Name of the Cloud Source Repository.
     pub repo_name: std::string::String,
 
-    /// Directory, relative to the source root, in which to run the build.
+    /// Optional. Directory, relative to the source root, in which to run the
+    /// build.
     ///
     /// This must be a relative path. If a step's `dir` is specified and is an
     /// absolute path, this value is ignored for that step's execution.
     pub dir: std::string::String,
 
-    /// Only trigger a build if the revision regex does NOT match the revision
-    /// regex.
+    /// Optional. Only trigger a build if the revision regex does NOT match the
+    /// revision regex.
     pub invert_regex: bool,
 
-    /// Substitutions to use in a triggered build.
+    /// Optional. Substitutions to use in a triggered build.
     /// Should only be used with RunBuildTrigger
     pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
 
@@ -608,12 +691,12 @@ pub mod repo_source {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StorageSourceManifest {
-    /// Cloud Storage bucket containing the source manifest (see [Bucket
+    /// Required. Cloud Storage bucket containing the source manifest (see [Bucket
     /// Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     pub bucket: std::string::String,
 
-    /// Cloud Storage object containing the source manifest.
+    /// Required. Cloud Storage object containing the source manifest.
     ///
     /// This object must be a JSON file.
     pub object: std::string::String,
@@ -652,6 +735,55 @@ impl StorageSourceManifest {
 impl wkt::message::Message for StorageSourceManifest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.devtools.cloudbuild.v1.StorageSourceManifest"
+    }
+}
+
+/// Location of the source in a 2nd-gen Google Cloud Build repository resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConnectedRepository {
+    /// Required. Name of the Google Cloud Build repository, formatted as
+    /// `projects/*/locations/*/connections/*/repositories/*`.
+    pub repository: std::string::String,
+
+    /// Optional. Directory, relative to the source root, in which to run the
+    /// build.
+    pub dir: std::string::String,
+
+    /// Required. The revision to fetch from the Git repository such as a branch, a
+    /// tag, a commit SHA, or any Git ref.
+    pub revision: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ConnectedRepository {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [repository][crate::model::ConnectedRepository::repository].
+    pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.repository = v.into();
+        self
+    }
+
+    /// Sets the value of [dir][crate::model::ConnectedRepository::dir].
+    pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dir = v.into();
+        self
+    }
+
+    /// Sets the value of [revision][crate::model::ConnectedRepository::revision].
+    pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.revision = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ConnectedRepository {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.cloudbuild.v1.ConnectedRepository"
     }
 }
 
@@ -788,6 +920,35 @@ impl Source {
         );
         self
     }
+
+    /// The value of [source][crate::model::Source::source]
+    /// if it holds a `ConnectedRepository`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn connected_repository(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ConnectedRepository>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::source::Source::ConnectedRepository(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::Source::source]
+    /// to hold a `ConnectedRepository`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_connected_repository<
+        T: std::convert::Into<std::boxed::Box<crate::model::ConnectedRepository>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source =
+            std::option::Option::Some(crate::model::source::Source::ConnectedRepository(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Source {
@@ -816,6 +977,9 @@ pub mod source {
         /// This feature is in Preview; see description
         /// [here](https://github.com/GoogleCloudPlatform/cloud-builders/tree/master/gcs-fetcher).
         StorageSourceManifest(std::boxed::Box<crate::model::StorageSourceManifest>),
+        /// Optional. If provided, get the source from this 2nd-gen Google Cloud
+        /// Build repository resource.
+        ConnectedRepository(std::boxed::Box<crate::model::ConnectedRepository>),
     }
 }
 
@@ -832,6 +996,9 @@ pub struct BuiltImage {
 
     /// Output only. Stores timing information for pushing the specified image.
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    /// Output only. Path to the artifact in Artifact Registry.
+    pub artifact_registry_package: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -870,6 +1037,15 @@ impl BuiltImage {
         self.push_timing = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [artifact_registry_package][crate::model::BuiltImage::artifact_registry_package].
+    pub fn set_artifact_registry_package<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_registry_package = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for BuiltImage {
@@ -890,6 +1066,9 @@ pub struct UploadedPythonPackage {
 
     /// Output only. Stores timing information for pushing the specified artifact.
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    /// Output only. Path to the artifact in Artifact Registry.
+    pub artifact_registry_package: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -940,6 +1119,15 @@ impl UploadedPythonPackage {
         self.push_timing = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [artifact_registry_package][crate::model::UploadedPythonPackage::artifact_registry_package].
+    pub fn set_artifact_registry_package<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_registry_package = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UploadedPythonPackage {
@@ -960,6 +1148,9 @@ pub struct UploadedMavenArtifact {
 
     /// Output only. Stores timing information for pushing the specified artifact.
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    /// Output only. Path to the artifact in Artifact Registry.
+    pub artifact_registry_package: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1010,6 +1201,15 @@ impl UploadedMavenArtifact {
         self.push_timing = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [artifact_registry_package][crate::model::UploadedMavenArtifact::artifact_registry_package].
+    pub fn set_artifact_registry_package<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_registry_package = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UploadedMavenArtifact {
@@ -1031,6 +1231,9 @@ pub struct UploadedGoModule {
 
     /// Output only. Stores timing information for pushing the specified artifact.
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    /// Output only. Path to the artifact in Artifact Registry.
+    pub artifact_registry_package: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1081,6 +1284,15 @@ impl UploadedGoModule {
         self.push_timing = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [artifact_registry_package][crate::model::UploadedGoModule::artifact_registry_package].
+    pub fn set_artifact_registry_package<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_registry_package = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for UploadedGoModule {
@@ -1102,6 +1314,9 @@ pub struct UploadedNpmPackage {
 
     /// Output only. Stores timing information for pushing the specified artifact.
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    /// Output only. Path to the artifact in Artifact Registry.
+    pub artifact_registry_package: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1150,6 +1365,15 @@ impl UploadedNpmPackage {
         T: std::convert::Into<crate::model::TimeSpan>,
     {
         self.push_timing = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [artifact_registry_package][crate::model::UploadedNpmPackage::artifact_registry_package].
+    pub fn set_artifact_registry_package<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_registry_package = v.into();
         self
     }
 }
@@ -1779,7 +2003,7 @@ pub struct Build {
     /// Output only. Customer-readable message about the current status.
     pub status_detail: std::string::String,
 
-    /// The location of the source files to build.
+    /// Optional. The location of the source files to build.
     pub source: std::option::Option<crate::model::Source>,
 
     /// Required. The operations to be performed on the workspace.
@@ -3174,8 +3398,7 @@ pub mod dependency {
         pub enum Repotype {
             /// Location of the Git repository.
             Url(std::string::String),
-            /// The Developer Connect Git repository link or the url that matches a
-            /// repository link in the current project, formatted as
+            /// The Developer Connect Git repository link formatted as
             /// `projects/*/locations/*/connections/*/gitRepositoryLink/*`
             DeveloperConnect(std::string::String),
         }
@@ -3511,7 +3734,7 @@ pub mod artifacts {
         /// Artifact Registry with this location as a prefix.
         pub repository: std::string::String,
 
-        /// Path to an artifact in the build's workspace to be uploaded to
+        /// Optional. Path to an artifact in the build's workspace to be uploaded to
         /// Artifact Registry.
         /// This can be either an absolute path,
         /// e.g. /workspace/my-app/target/my-app-1.0.SNAPSHOT.jar
@@ -3736,8 +3959,10 @@ pub mod artifacts {
         /// uploaded to Artifact Registry with this location as a prefix.
         pub repository: std::string::String,
 
-        /// Path to the package.json.
+        /// Optional. Path to the package.json.
         /// e.g. workspace/path/to/package
+        ///
+        /// Only one of `archive` or `package_path` can be specified.
         pub package_path: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3890,6 +4115,14 @@ pub struct SourceProvenance {
     /// This feature is in Preview.
     pub resolved_storage_source_manifest: std::option::Option<crate::model::StorageSourceManifest>,
 
+    /// Output only. A copy of the build's `source.connected_repository`, if
+    /// exists, with any revisions resolved.
+    pub resolved_connected_repository: std::option::Option<crate::model::ConnectedRepository>,
+
+    /// Output only. A copy of the build's `source.git_source`, if exists, with any
+    /// revisions resolved.
+    pub resolved_git_source: std::option::Option<crate::model::GitSource>,
+
     /// Output only. Hash(es) of the build source, which can be used to verify that
     /// the original source integrity was maintained in the build. Note that
     /// `FileHashes` will only be populated if `BuildOptions` has requested a
@@ -3964,6 +4197,45 @@ impl SourceProvenance {
         T: std::convert::Into<crate::model::StorageSourceManifest>,
     {
         self.resolved_storage_source_manifest = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resolved_connected_repository][crate::model::SourceProvenance::resolved_connected_repository].
+    pub fn set_resolved_connected_repository<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConnectedRepository>,
+    {
+        self.resolved_connected_repository = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resolved_connected_repository][crate::model::SourceProvenance::resolved_connected_repository].
+    pub fn set_or_clear_resolved_connected_repository<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ConnectedRepository>,
+    {
+        self.resolved_connected_repository = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resolved_git_source][crate::model::SourceProvenance::resolved_git_source].
+    pub fn set_resolved_git_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GitSource>,
+    {
+        self.resolved_git_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [resolved_git_source][crate::model::SourceProvenance::resolved_git_source].
+    pub fn set_or_clear_resolved_git_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GitSource>,
+    {
+        self.resolved_git_source = v.map(|x| x.into());
         self
     }
 
@@ -6619,8 +6891,8 @@ pub struct PubsubConfig {
     /// `projects/{project}/subscriptions/{subscription}`.
     pub subscription: std::string::String,
 
-    /// The name of the topic from which this subscription is receiving messages.
-    /// Format is `projects/{project}/topics/{topic}`.
+    /// Optional. The name of the topic from which this subscription is receiving
+    /// messages. Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
     /// Service account that will make the push request.
@@ -9023,7 +9295,7 @@ impl wkt::message::Message for ReceiveTriggerWebhookResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GitHubEnterpriseConfig {
-    /// Optional. The full resource name for the GitHubEnterpriseConfig
+    /// The full resource name for the GitHubEnterpriseConfig
     /// For example:
     /// "projects/{$project_id}/locations/{$location_id}/githubEnterpriseConfigs/{$config_id}"
     pub name: std::string::String,
@@ -9054,10 +9326,10 @@ pub struct GitHubEnterpriseConfig {
     /// VPC network in the project.
     pub peered_network: std::string::String,
 
-    /// Names of secrets in Secret Manager.
+    /// Optional. Names of secrets in Secret Manager.
     pub secrets: std::option::Option<crate::model::GitHubEnterpriseSecrets>,
 
-    /// Name to display for this config.
+    /// Optional. Name to display for this config.
     pub display_name: std::string::String,
 
     /// Optional. SSL certificate to use for requests to GitHub Enterprise.
@@ -9604,7 +9876,7 @@ pub mod worker_pool {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Config {
-        /// Legacy Private Pool configuration.
+        /// Private Pool configuration.
         PrivatePoolV1Config(std::boxed::Box<crate::model::PrivatePoolV1Config>),
     }
 }
@@ -10224,7 +10496,7 @@ pub struct UpdateWorkerPoolRequest {
     /// Format: `projects/{project}/locations/{location}/workerPools/{workerPool}`.
     pub worker_pool: std::option::Option<crate::model::WorkerPool>,
 
-    /// A mask specifying which fields in `worker_pool` to update.
+    /// Optional. A mask specifying which fields in `worker_pool` to update.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// If set, validate the request and preview the response, but do not actually

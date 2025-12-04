@@ -4693,6 +4693,7 @@ impl std::fmt::Debug for super::feature_online_store::Bigtable {
             &self.enable_direct_bigtable_access,
         );
         debug_struct.field("bigtable_metadata", &self.bigtable_metadata);
+        debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
