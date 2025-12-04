@@ -69,7 +69,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, Duration::from_secs(30));
+        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD);
 
         // Wait for the second keepalive
         let r = request_rx.recv().await.unwrap();
@@ -77,7 +77,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, Duration::from_secs(60));
+        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD * 2);
 
         // Wait for the third keepalive
         let r = request_rx.recv().await.unwrap();
@@ -85,7 +85,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, Duration::from_secs(90));
+        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD * 3);
     }
 
     #[tokio::test(start_paused = true)]
@@ -98,17 +98,18 @@ mod tests {
 
         // Wait for the first keepalive
         let _ = request_rx.recv().await.unwrap();
-        assert_eq!(Instant::now() - start, Duration::from_secs(30));
+        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD);
 
         // Simulate the loop running for a bit.
-        tokio::time::advance(Duration::from_secs(10)).await;
+        const DELTA: Duration = Duration::from_secs(10);
+        tokio::time::advance(DELTA).await;
 
         // Shutdown the task
         shutdown.cancel();
         handle.await?;
 
         // Verify that we did not wait for the full keepalive interval.
-        assert_eq!(Instant::now() - start, Duration::from_secs(40));
+        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD + DELTA);
         Ok(())
     }
 }
