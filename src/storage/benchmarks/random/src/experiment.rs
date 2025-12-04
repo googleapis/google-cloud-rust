@@ -51,7 +51,7 @@ impl ExperimentGenerator {
     pub fn new(args: &Args, objects: Vec<String>) -> Result<Self> {
         let read_count =
             Uniform::new_inclusive(args.min_concurrent_reads, args.max_concurrent_reads)?;
-        let max_offset = args.min_range_count * args.max_range_size;
+        let max_offset = (args.min_range_count - 1) * args.max_range_size;
         let read_offset = Uniform::new_inclusive(0, max_offset)?;
         let read_length = Uniform::new_inclusive(args.min_range_size, args.max_range_size)?;
         Ok(Self {
