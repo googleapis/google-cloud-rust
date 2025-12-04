@@ -38,8 +38,8 @@ fn spawn(
         let mut keepalive = interval_at(Instant::now() + KEEPALIVE_PERIOD, KEEPALIVE_PERIOD);
         loop {
             tokio::select! {
-                    _ = shutdown.cancelled() => break,
-                    _ = keepalive.tick() => {
+                _ = shutdown.cancelled() => break,
+                _ = keepalive.tick() => {
                     let _ = request_tx.send(request.clone()).await;
                 }
             }
@@ -69,7 +69,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD);
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD);
 
         // Wait for the second keepalive
         let r = request_rx.recv().await.unwrap();
@@ -77,7 +77,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD * 2);
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 2);
 
         // Wait for the third keepalive
         let r = request_rx.recv().await.unwrap();
@@ -85,7 +85,7 @@ mod tests {
             r.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD * 3);
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 3);
     }
 
     #[tokio::test(start_paused = true)]
@@ -98,7 +98,7 @@ mod tests {
 
         // Wait for the first keepalive
         let _ = request_rx.recv().await.unwrap();
-        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD);
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD);
 
         // Simulate the loop running for a bit.
         const DELTA: Duration = Duration::from_secs(10);
@@ -109,7 +109,7 @@ mod tests {
         handle.await?;
 
         // Verify that we did not wait for the full keepalive interval.
-        assert_eq!(Instant::now() - start, KEEPALIVE_PERIOD + DELTA);
+        assert_eq!(start.elapsed(), KEEPALIVE_PERIOD + DELTA);
         Ok(())
     }
 }
