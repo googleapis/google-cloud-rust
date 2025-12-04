@@ -55,14 +55,13 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn keepalive_interval() {
         let start = Instant::now();
-        let request = {
-            let mut r = StreamingPullRequest::default();
-            r.subscription = "projects/my-project/subscriptions/my-subscription".to_string();
-            r
+        let request = StreamingPullRequest {
+            subscription: "projects/my-project/subscriptions/my-subscription".to_string(),
+            ..Default::default()
         };
         let (request_tx, mut request_rx) = channel(1);
         let shutdown = CancellationToken::new();
-        let _ = spawn(request, request_tx, shutdown);
+        let _handle = spawn(request, request_tx, shutdown);
 
         // Wait for the first keepalive
         let r = request_rx.recv().await.unwrap();
