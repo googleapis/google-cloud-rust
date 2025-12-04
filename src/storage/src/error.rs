@@ -300,6 +300,23 @@ pub enum WriteError {
     },
 }
 
+#[cfg(google_cloud_unstable_signed_url)]
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
+/// Represents an error that can occur when signing a URL.
+#[cfg(google_cloud_unstable_signed_url)]
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum SigningError {
+    /// The signing operation failed.
+    #[error("signing failed: {0}")]
+    Signing(#[source] auth::signer::SigningError),
+
+    /// The endpoint URL is invalid.
+    #[error("invalid GCS endpoint: {0}")]
+    InvalidEndpoint(#[source] BoxError),
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -353,6 +370,23 @@ mod tests {
         );
         assert!(
             fmt.contains(r#"want.md5=b"\x02\x03\x04\x05""#),
+            "{value:?} => {fmt}"
+        );
+    }
+
+    #[test]
+    fn signing_errors() {
+        let value = SigningError::Signing(auth::signer::SigningError::from_msg("test"));
+        let fmt = value.to_string();
+        assert!(
+            fmt.contains("signing failed: failed to sign content: test"),
+            "{value:?} => {fmt}"
+        );
+
+        let value = SigningError::InvalidEndpoint("test".into());
+        let fmt = value.to_string();
+        assert!(
+            fmt.contains("invalid GCS endpoint: test"),
             "{value:?} => {fmt}"
         );
     }
