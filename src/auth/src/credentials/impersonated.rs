@@ -489,11 +489,10 @@ impl Builder {
                 let components = build_components_from_json(json)?;
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
+                let creds = self.build()?;
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
                 Ok(crate::signer::Signer {
-                    inner: Arc::new(crate::signer::iam::IamSigner {
-                        client_email,
-                        inner: self.build()?,
-                    }),
+                    inner: Arc::new(signer),
                 })
             }
             BuilderSource::FromCredentials(source_credentials) => {
@@ -503,11 +502,10 @@ impl Builder {
                 )?;
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
+                let creds = self.build()?;
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
                 Ok(crate::signer::Signer {
-                    inner: Arc::new(crate::signer::iam::IamSigner {
-                        client_email,
-                        inner: self.build()?,
-                    }),
+                    inner: Arc::new(signer),
                 })
             }
         }

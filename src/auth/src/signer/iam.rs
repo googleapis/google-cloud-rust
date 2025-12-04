@@ -21,11 +21,12 @@ use reqwest::Client;
 // authenticate to it.
 #[derive(Clone, Debug)]
 pub(crate) struct IamSigner {
-    pub(crate) client_email: String,
-    pub(crate) inner: Credentials,
+    client_email: String,
+    inner: Credentials,
+    endpoint: String,
 }
 
-#[derive(serde::Serialize)]
+#[derive(Debug, serde::Serialize)]
 struct SignBlobRequest {
     payload: String,
 }
@@ -34,6 +35,16 @@ struct SignBlobRequest {
 struct SignBlobResponse {
     #[serde(rename = "signedBlob")]
     signed_blob: String,
+}
+
+impl IamSigner {
+    pub(crate) fn new(client_email: String, inner: Credentials) -> Self {
+        Self {
+            client_email,
+            inner,
+            endpoint: "https://iamcredentials.googleapis.com".to_string(),
+        }
+    }
 }
 
 #[async_trait::async_trait]
@@ -59,8 +70,8 @@ impl SigningProvider for IamSigner {
 
         let client_email = self.client_email.clone();
         let url = format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:signBlob",
-            client_email
+            "{}/v1/projects/-/serviceAccounts/{}:signBlob",
+            self.endpoint, client_email
         );
 
         let client = Client::new();
@@ -93,5 +104,111 @@ impl SigningProvider for IamSigner {
         let signature = hex::encode(signature);
 
         Ok(signature)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::credentials::{Credentials, CredentialsProvider, EntityTag};
+    use crate::errors::CredentialsError;
+    use base64::{Engine, prelude::BASE64_STANDARD};
+    use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
+    use httptest::matchers::{all_of, contains, eq, json_decoded, request};
+    use httptest::responders::json_encoded;
+    use httptest::{Expectation, Server};
+    use serde_json::json;
+
+    type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> std::result::Result<CacheableResource<HeaderMap>, CredentialsError>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
+
+    #[tokio::test]
+    async fn test_iam_sign() -> TestResult {
+        let server = Server::run();
+        let payload = BASE64_STANDARD.encode("test");
+        let signed_blob = BASE64_STANDARD.encode("signed_blob");
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    format!("/v1/projects/-/serviceAccounts/test@example.com:signBlob")
+                ),
+                request::headers(contains(("authorization", "Bearer test-value"))),
+                request::body(json_decoded(eq(json!({
+                    "payload": payload,
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "signedBlob": signed_blob,
+            }))),
+        );
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                HeaderName::from_static("authorization"),
+                HeaderValue::from_static("Bearer test-value"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
+        });
+        let creds = Credentials::from(mock);
+
+        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
+        signer.endpoint = endpoint;
+        let signature = signer.sign(b"test").await.unwrap();
+
+        assert_eq!(signature, hex::encode("signed_blob"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_iam_sign_api_error() -> TestResult {
+        let server = Server::run();
+        let payload = BASE64_STANDARD.encode("test");
+        server.expect(
+            Expectation::matching(all_of![request::method_path(
+                "POST",
+                format!("/v1/projects/-/serviceAccounts/test@example.com:signBlob")
+            ),])
+            .respond_with(json_encoded(json!({
+                "error": {
+                    "code": 400,
+                    "message": "test-error",
+                },
+            }))),
+        );
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
+            })
+        });
+        let creds = Credentials::from(mock);
+
+        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
+        signer.endpoint = endpoint;
+        let err = signer.sign(b"test").await.unwrap_err();
+
+        assert!(err.is_transport());
+
+        Ok(())
     }
 }
