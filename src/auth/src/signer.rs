@@ -14,6 +14,7 @@
 
 use std::sync::Arc;
 
+pub(crate) mod iam;
 pub(crate) mod service_account;
 
 pub type Result<T> = std::result::Result<T, SigningError>;
