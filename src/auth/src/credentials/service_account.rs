@@ -939,6 +939,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[cfg(google_cloud_unstable_signed_url)]
     async fn get_service_account_signer() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
