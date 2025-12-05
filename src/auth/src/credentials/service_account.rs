@@ -335,6 +335,18 @@ impl Builder {
             }),
         })
     }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
+                .map_err(BuilderError::parsing)?;
+        let signing_provider =
+            crate::signer::service_account::ServiceAccountSigner::new(service_account_key);
+        Ok(crate::signer::Signer {
+            inner: Arc::new(signing_provider),
+        })
+    }
 }
 
 /// A representation of a [service account key].
@@ -344,7 +356,7 @@ impl Builder {
 pub(crate) struct ServiceAccountKey {
     /// The client email address of the service account.
     /// (e.g., "my-sa@my-project.iam.gserviceaccount.com").
-    client_email: String,
+    pub(crate) client_email: String,
     /// ID of the service account's private key.
     private_key_id: String,
     /// The PEM-encoded PKCS#8 private key string associated with the service account.
@@ -922,6 +934,22 @@ mod tests {
         assert_eq!(token_header["alg"], "RS256");
         assert_eq!(token_header["typ"], "JWT");
         assert_eq!(token_header["kid"], service_account_key["private_key_id"]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_signer() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let signer = Builder::new(service_account_key.clone()).build_signer()?;
+
+        let client_email = signer.client_email().await?;
+        assert_eq!(client_email, service_account_key["client_email"]);
+
+        let result = signer.sign(b"test").await;
+
+        assert!(result.is_ok());
 
         Ok(())
     }
