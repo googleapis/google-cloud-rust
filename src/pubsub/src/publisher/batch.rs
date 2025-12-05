@@ -94,6 +94,8 @@ impl Batch {
         // Handle the response by extracting the message ID on success.
         match request.send().await {
             Err(e) => {
+                // TODO(#4013): To support message ordering retry, we need to correctly handle
+                // the send error here with either retry or propagate to the user.
                 let e = Arc::new(e);
                 for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
