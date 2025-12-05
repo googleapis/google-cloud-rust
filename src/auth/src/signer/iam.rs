@@ -109,7 +109,7 @@ async fn sign_blob_call_with_retry(
     let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
     let retry_throttler: SharedRetryThrottler = retry_throttler.into();
 
-    let response = retry_loop(
+    retry_loop(
         async move |_| {
             let source_headers = credentials
                 .headers(Extensions::new())
@@ -125,9 +125,7 @@ async fn sign_blob_call_with_retry(
         backoff_policy,
     )
     .await
-    .map_err(SigningError::transport)?;
-
-    Ok(response)
+    .map_err(SigningError::transport)
 }
 
 async fn sign_blob_call(
