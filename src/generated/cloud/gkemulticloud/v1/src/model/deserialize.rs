@@ -51,6 +51,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedCluster {
             __binary_authorization,
             __security_posture_config,
             __tags,
+            __system_components_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -109,6 +110,10 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedCluster {
                             "securityPostureConfig" => Ok(__FieldTag::__security_posture_config),
                             "security_posture_config" => Ok(__FieldTag::__security_posture_config),
                             "tags" => Ok(__FieldTag::__tags),
+                            "systemComponentsConfig" => Ok(__FieldTag::__system_components_config),
+                            "system_components_config" => {
+                                Ok(__FieldTag::__system_components_config)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -375,6 +380,15 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedCluster {
                                     >,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__system_components_config => {
+                            if !fields.insert(__FieldTag::__system_components_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for system_components_config",
+                                ));
+                            }
+                            result.system_components_config = map.next_value::<std::option::Option<crate::model::SystemComponentsConfig>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -855,6 +869,10 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedPlatformVersionInfo {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __version,
+            __enabled,
+            __end_of_life,
+            __end_of_life_date,
+            __release_date,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -876,6 +894,13 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedPlatformVersionInfo {
                         use std::string::ToString;
                         match value {
                             "version" => Ok(__FieldTag::__version),
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "endOfLife" => Ok(__FieldTag::__end_of_life),
+                            "end_of_life" => Ok(__FieldTag::__end_of_life),
+                            "endOfLifeDate" => Ok(__FieldTag::__end_of_life_date),
+                            "end_of_life_date" => Ok(__FieldTag::__end_of_life_date),
+                            "releaseDate" => Ok(__FieldTag::__release_date),
+                            "release_date" => Ok(__FieldTag::__release_date),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -910,6 +935,44 @@ impl<'de> serde::de::Deserialize<'de> for super::AttachedPlatformVersionInfo {
                             result.version = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__end_of_life => {
+                            if !fields.insert(__FieldTag::__end_of_life) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_of_life",
+                                ));
+                            }
+                            result.end_of_life = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__end_of_life_date => {
+                            if !fields.insert(__FieldTag::__end_of_life_date) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_of_life_date",
+                                ));
+                            }
+                            result.end_of_life_date =
+                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                        }
+                        __FieldTag::__release_date => {
+                            if !fields.insert(__FieldTag::__release_date) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for release_date",
+                                ));
+                            }
+                            result.release_date =
+                                map.next_value::<std::option::Option<gtype::model::Date>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1161,6 +1224,299 @@ impl<'de> serde::de::Deserialize<'de> for super::KubernetesSecret {
                                 ));
                             }
                             result.namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SystemComponentsConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __tolerations,
+            __labels,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SystemComponentsConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tolerations" => Ok(__FieldTag::__tolerations),
+                            "labels" => Ok(__FieldTag::__labels),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SystemComponentsConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SystemComponentsConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__tolerations => {
+                            if !fields.insert(__FieldTag::__tolerations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tolerations",
+                                ));
+                            }
+                            result.tolerations = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Toleration>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Label>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Toleration {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __key,
+            __value,
+            __key_operator,
+            __effect,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Toleration")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "key" => Ok(__FieldTag::__key),
+                            "value" => Ok(__FieldTag::__value),
+                            "keyOperator" => Ok(__FieldTag::__key_operator),
+                            "key_operator" => Ok(__FieldTag::__key_operator),
+                            "effect" => Ok(__FieldTag::__effect),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Toleration;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Toleration")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__key => {
+                            if !fields.insert(__FieldTag::__key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key",
+                                ));
+                            }
+                            result.key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_operator => {
+                            if !fields.insert(__FieldTag::__key_operator) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_operator",
+                                ));
+                            }
+                            result.key_operator = map.next_value::<std::option::Option<crate::model::toleration::KeyOperator>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__effect => {
+                            if !fields.insert(__FieldTag::__effect) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effect",
+                                ));
+                            }
+                            result.effect = map.next_value::<std::option::Option<crate::model::toleration::Effect>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Label {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __key,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Label")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "key" => Ok(__FieldTag::__key),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Label;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Label")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__key => {
+                            if !fields.insert(__FieldTag::__key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key",
+                                ));
+                            }
+                            result.key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -2465,11 +2821,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAttachedClusterAgentTok
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
-                            "accessToken" => Ok(__FieldTag::__access_token),
                             "access_token" => Ok(__FieldTag::__access_token),
-                            "expiresIn" => Ok(__FieldTag::__expires_in),
                             "expires_in" => Ok(__FieldTag::__expires_in),
-                            "tokenType" => Ok(__FieldTag::__token_type),
                             "token_type" => Ok(__FieldTag::__token_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -4801,23 +5154,15 @@ impl<'de> serde::de::Deserialize<'de> for super::AwsOpenIdConfig {
                         use std::string::ToString;
                         match value {
                             "issuer" => Ok(__FieldTag::__issuer),
-                            "jwksUri" => Ok(__FieldTag::__jwks_uri),
                             "jwks_uri" => Ok(__FieldTag::__jwks_uri),
-                            "responseTypesSupported" => Ok(__FieldTag::__response_types_supported),
                             "response_types_supported" => {
                                 Ok(__FieldTag::__response_types_supported)
                             }
-                            "subjectTypesSupported" => Ok(__FieldTag::__subject_types_supported),
                             "subject_types_supported" => Ok(__FieldTag::__subject_types_supported),
-                            "idTokenSigningAlgValuesSupported" => {
-                                Ok(__FieldTag::__id_token_signing_alg_values_supported)
-                            }
                             "id_token_signing_alg_values_supported" => {
                                 Ok(__FieldTag::__id_token_signing_alg_values_supported)
                             }
-                            "claimsSupported" => Ok(__FieldTag::__claims_supported),
                             "claims_supported" => Ok(__FieldTag::__claims_supported),
-                            "grantTypes" => Ok(__FieldTag::__grant_types),
                             "grant_types" => Ok(__FieldTag::__grant_types),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -7915,11 +8260,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAwsClusterAgentTokenRes
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
-                            "accessToken" => Ok(__FieldTag::__access_token),
                             "access_token" => Ok(__FieldTag::__access_token),
-                            "expiresIn" => Ok(__FieldTag::__expires_in),
                             "expires_in" => Ok(__FieldTag::__expires_in),
-                            "tokenType" => Ok(__FieldTag::__token_type),
                             "token_type" => Ok(__FieldTag::__token_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -10396,23 +10738,15 @@ impl<'de> serde::de::Deserialize<'de> for super::AzureOpenIdConfig {
                         use std::string::ToString;
                         match value {
                             "issuer" => Ok(__FieldTag::__issuer),
-                            "jwksUri" => Ok(__FieldTag::__jwks_uri),
                             "jwks_uri" => Ok(__FieldTag::__jwks_uri),
-                            "responseTypesSupported" => Ok(__FieldTag::__response_types_supported),
                             "response_types_supported" => {
                                 Ok(__FieldTag::__response_types_supported)
                             }
-                            "subjectTypesSupported" => Ok(__FieldTag::__subject_types_supported),
                             "subject_types_supported" => Ok(__FieldTag::__subject_types_supported),
-                            "idTokenSigningAlgValuesSupported" => {
-                                Ok(__FieldTag::__id_token_signing_alg_values_supported)
-                            }
                             "id_token_signing_alg_values_supported" => {
                                 Ok(__FieldTag::__id_token_signing_alg_values_supported)
                             }
-                            "claimsSupported" => Ok(__FieldTag::__claims_supported),
                             "claims_supported" => Ok(__FieldTag::__claims_supported),
-                            "grantTypes" => Ok(__FieldTag::__grant_types),
                             "grant_types" => Ok(__FieldTag::__grant_types),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
@@ -13606,11 +13940,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAzureClusterAgentTokenR
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
-                            "accessToken" => Ok(__FieldTag::__access_token),
                             "access_token" => Ok(__FieldTag::__access_token),
-                            "expiresIn" => Ok(__FieldTag::__expires_in),
                             "expires_in" => Ok(__FieldTag::__expires_in),
-                            "tokenType" => Ok(__FieldTag::__token_type),
                             "token_type" => Ok(__FieldTag::__token_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }

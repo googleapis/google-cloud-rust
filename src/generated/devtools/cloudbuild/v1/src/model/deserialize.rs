@@ -18,6 +18,179 @@
 use super::*;
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetDefaultServiceAccountRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetDefaultServiceAccountRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetDefaultServiceAccountRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetDefaultServiceAccountRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::DefaultServiceAccount {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __service_account_email,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DefaultServiceAccount")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "serviceAccountEmail" => Ok(__FieldTag::__service_account_email),
+                            "service_account_email" => Ok(__FieldTag::__service_account_email),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::DefaultServiceAccount;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DefaultServiceAccount")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_email => {
+                            if !fields.insert(__FieldTag::__service_account_email) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_email",
+                                ));
+                            }
+                            result.service_account_email = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::RetryBuildRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -784,6 +957,110 @@ impl<'de> serde::de::Deserialize<'de> for super::StorageSourceManifest {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ConnectedRepository {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __repository,
+            __dir,
+            __revision,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConnectedRepository")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "repository" => Ok(__FieldTag::__repository),
+                            "dir" => Ok(__FieldTag::__dir),
+                            "revision" => Ok(__FieldTag::__revision),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ConnectedRepository;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConnectedRepository")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__repository => {
+                            if !fields.insert(__FieldTag::__repository) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repository",
+                                ));
+                            }
+                            result.repository = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dir => {
+                            if !fields.insert(__FieldTag::__dir) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dir",
+                                ));
+                            }
+                            result.dir = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__revision => {
+                            if !fields.insert(__FieldTag::__revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision",
+                                ));
+                            }
+                            result.revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::Source {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -797,6 +1074,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Source {
             __repo_source,
             __git_source,
             __storage_source_manifest,
+            __connected_repository,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -825,6 +1103,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Source {
                             "git_source" => Ok(__FieldTag::__git_source),
                             "storageSourceManifest" => Ok(__FieldTag::__storage_source_manifest),
                             "storage_source_manifest" => Ok(__FieldTag::__storage_source_manifest),
+                            "connectedRepository" => Ok(__FieldTag::__connected_repository),
+                            "connected_repository" => Ok(__FieldTag::__connected_repository),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -929,6 +1209,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Source {
                                 ),
                             );
                         }
+                        __FieldTag::__connected_repository => {
+                            if !fields.insert(__FieldTag::__connected_repository) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for connected_repository",
+                                ));
+                            }
+                            if result.source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `source`, a oneof with full ID .google.devtools.cloudbuild.v1.Source.connected_repository, latest field was connectedRepository",
+                                ));
+                            }
+                            result.source = std::option::Option::Some(
+                                crate::model::source::Source::ConnectedRepository(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::ConnectedRepository>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -955,6 +1255,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BuiltImage {
             __name,
             __digest,
             __push_timing,
+            __artifact_registry_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -979,6 +1280,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BuiltImage {
                             "digest" => Ok(__FieldTag::__digest),
                             "pushTiming" => Ok(__FieldTag::__push_timing),
                             "push_timing" => Ok(__FieldTag::__push_timing),
+                            "artifactRegistryPackage" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
+                            "artifact_registry_package" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1033,6 +1340,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BuiltImage {
                             result.push_timing =
                                 map.next_value::<std::option::Option<crate::model::TimeSpan>>()?;
                         }
+                        __FieldTag::__artifact_registry_package => {
+                            if !fields.insert(__FieldTag::__artifact_registry_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_registry_package",
+                                ));
+                            }
+                            result.artifact_registry_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1059,6 +1376,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedPythonPackage {
             __uri,
             __file_hashes,
             __push_timing,
+            __artifact_registry_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1084,6 +1402,12 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedPythonPackage {
                             "file_hashes" => Ok(__FieldTag::__file_hashes),
                             "pushTiming" => Ok(__FieldTag::__push_timing),
                             "push_timing" => Ok(__FieldTag::__push_timing),
+                            "artifactRegistryPackage" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
+                            "artifact_registry_package" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1137,6 +1461,16 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedPythonPackage {
                             result.push_timing =
                                 map.next_value::<std::option::Option<crate::model::TimeSpan>>()?;
                         }
+                        __FieldTag::__artifact_registry_package => {
+                            if !fields.insert(__FieldTag::__artifact_registry_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_registry_package",
+                                ));
+                            }
+                            result.artifact_registry_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1163,6 +1497,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedMavenArtifact {
             __uri,
             __file_hashes,
             __push_timing,
+            __artifact_registry_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1188,6 +1523,12 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedMavenArtifact {
                             "file_hashes" => Ok(__FieldTag::__file_hashes),
                             "pushTiming" => Ok(__FieldTag::__push_timing),
                             "push_timing" => Ok(__FieldTag::__push_timing),
+                            "artifactRegistryPackage" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
+                            "artifact_registry_package" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1241,6 +1582,16 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedMavenArtifact {
                             result.push_timing =
                                 map.next_value::<std::option::Option<crate::model::TimeSpan>>()?;
                         }
+                        __FieldTag::__artifact_registry_package => {
+                            if !fields.insert(__FieldTag::__artifact_registry_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_registry_package",
+                                ));
+                            }
+                            result.artifact_registry_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1267,6 +1618,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedGoModule {
             __uri,
             __file_hashes,
             __push_timing,
+            __artifact_registry_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1292,6 +1644,12 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedGoModule {
                             "file_hashes" => Ok(__FieldTag::__file_hashes),
                             "pushTiming" => Ok(__FieldTag::__push_timing),
                             "push_timing" => Ok(__FieldTag::__push_timing),
+                            "artifactRegistryPackage" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
+                            "artifact_registry_package" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1345,6 +1703,16 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedGoModule {
                             result.push_timing =
                                 map.next_value::<std::option::Option<crate::model::TimeSpan>>()?;
                         }
+                        __FieldTag::__artifact_registry_package => {
+                            if !fields.insert(__FieldTag::__artifact_registry_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_registry_package",
+                                ));
+                            }
+                            result.artifact_registry_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1371,6 +1739,7 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedNpmPackage {
             __uri,
             __file_hashes,
             __push_timing,
+            __artifact_registry_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1396,6 +1765,12 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedNpmPackage {
                             "file_hashes" => Ok(__FieldTag::__file_hashes),
                             "pushTiming" => Ok(__FieldTag::__push_timing),
                             "push_timing" => Ok(__FieldTag::__push_timing),
+                            "artifactRegistryPackage" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
+                            "artifact_registry_package" => {
+                                Ok(__FieldTag::__artifact_registry_package)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1448,6 +1823,16 @@ impl<'de> serde::de::Deserialize<'de> for super::UploadedNpmPackage {
                             }
                             result.push_timing =
                                 map.next_value::<std::option::Option<crate::model::TimeSpan>>()?;
+                        }
+                        __FieldTag::__artifact_registry_package => {
+                            if !fields.insert(__FieldTag::__artifact_registry_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for artifact_registry_package",
+                                ));
+                            }
+                            result.artifact_registry_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4210,6 +4595,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SourceProvenance {
             __resolved_storage_source,
             __resolved_repo_source,
             __resolved_storage_source_manifest,
+            __resolved_connected_repository,
+            __resolved_git_source,
             __file_hashes,
             Unknown(std::string::String),
         }
@@ -4241,6 +4628,14 @@ impl<'de> serde::de::Deserialize<'de> for super::SourceProvenance {
                             "resolved_storage_source_manifest" => {
                                 Ok(__FieldTag::__resolved_storage_source_manifest)
                             }
+                            "resolvedConnectedRepository" => {
+                                Ok(__FieldTag::__resolved_connected_repository)
+                            }
+                            "resolved_connected_repository" => {
+                                Ok(__FieldTag::__resolved_connected_repository)
+                            }
+                            "resolvedGitSource" => Ok(__FieldTag::__resolved_git_source),
+                            "resolved_git_source" => Ok(__FieldTag::__resolved_git_source),
                             "fileHashes" => Ok(__FieldTag::__file_hashes),
                             "file_hashes" => Ok(__FieldTag::__file_hashes),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -4294,6 +4689,24 @@ impl<'de> serde::de::Deserialize<'de> for super::SourceProvenance {
                             }
                             result.resolved_storage_source_manifest = map.next_value::<std::option::Option<crate::model::StorageSourceManifest>>()?
                                 ;
+                        }
+                        __FieldTag::__resolved_connected_repository => {
+                            if !fields.insert(__FieldTag::__resolved_connected_repository) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resolved_connected_repository",
+                                ));
+                            }
+                            result.resolved_connected_repository = map.next_value::<std::option::Option<crate::model::ConnectedRepository>>()?
+                                ;
+                        }
+                        __FieldTag::__resolved_git_source => {
+                            if !fields.insert(__FieldTag::__resolved_git_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resolved_git_source",
+                                ));
+                            }
+                            result.resolved_git_source =
+                                map.next_value::<std::option::Option<crate::model::GitSource>>()?;
                         }
                         __FieldTag::__file_hashes => {
                             if !fields.insert(__FieldTag::__file_hashes) {

@@ -200,6 +200,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_default_service_account(
+        &self,
+        req: crate::model::GetDefaultServiceAccountRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::DefaultServiceAccount>> {
+        self.inner.get_default_service_account(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,

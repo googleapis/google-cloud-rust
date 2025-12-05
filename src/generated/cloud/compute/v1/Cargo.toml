@@ -35,6 +35,8 @@ default = [
 accelerator-types = []
 # Enables `client::Addresses` and all the types it depends on.
 addresses = []
+# Enables `client::Advice` and all the types it depends on.
+advice = []
 # Enables `client::Autoscalers` and all the types it depends on.
 autoscalers = []
 # Enables `client::BackendBuckets` and all the types it depends on.

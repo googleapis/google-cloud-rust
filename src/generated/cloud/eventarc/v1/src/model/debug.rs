@@ -779,6 +779,29 @@ impl std::fmt::Debug for super::GoogleApiSource {
         debug_struct.field("destination", &self.destination);
         debug_struct.field("crypto_key_name", &self.crypto_key_name);
         debug_struct.field("logging_config", &self.logging_config);
+        debug_struct.field("wide_scope_subscription", &self.wide_scope_subscription);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::google_api_source::ProjectSubscriptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ProjectSubscriptions");
+        debug_struct.field("list", &self.list);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::google_api_source::OrganizationSubscription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrganizationSubscription");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1036,7 +1059,19 @@ impl std::fmt::Debug for super::Trigger {
         debug_struct.field("conditions", &self.conditions);
         debug_struct.field("event_data_content_type", &self.event_data_content_type);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("retry_policy", &self.retry_policy);
         debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::trigger::RetryPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetryPolicy");
+        debug_struct.field("max_attempts", &self.max_attempts);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

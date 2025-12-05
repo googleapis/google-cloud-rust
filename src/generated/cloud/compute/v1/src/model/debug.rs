@@ -291,6 +291,7 @@ impl std::fmt::Debug for super::Address {
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
         debug_struct.field("id", &self.id);
+        debug_struct.field("ip_collection", &self.ip_collection);
         debug_struct.field("ip_version", &self.ip_version);
         debug_struct.field("ipv_6_endpoint_type", &self.ipv_6_endpoint_type);
         debug_struct.field("kind", &self.kind);
@@ -2231,6 +2232,42 @@ impl std::fmt::Debug for super::CacheKeyPolicy {
     }
 }
 
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CalendarModeAdviceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarModeAdviceRequest");
+        debug_struct.field("future_resources_specs", &self.future_resources_specs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CalendarModeAdviceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarModeAdviceResponse");
+        debug_struct.field("recommendations", &self.recommendations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::CalendarModeRecommendation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarModeRecommendation");
+        debug_struct.field("recommendations_per_spec", &self.recommendations_per_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
 impl std::fmt::Debug for super::CircuitBreakers {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4023,6 +4060,24 @@ impl std::fmt::Debug for super::FixedOrPercent {
     }
 }
 
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FlexibleTimeRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlexibleTimeRange");
+        debug_struct.field("max_duration", &self.max_duration);
+        debug_struct.field("min_duration", &self.min_duration);
+        debug_struct.field(
+            "start_time_not_earlier_than",
+            &self.start_time_not_earlier_than,
+        );
+        debug_struct.field("start_time_not_later_than", &self.start_time_not_later_than);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
 impl std::fmt::Debug for super::ForwardingRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4543,6 +4598,129 @@ impl std::fmt::Debug for super::future_reservations_scoped_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesRecommendation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesRecommendation");
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("other_locations", &self.other_locations);
+        debug_struct.field("recommendation_id", &self.recommendation_id);
+        debug_struct.field("recommendation_type", &self.recommendation_type);
+        debug_struct.field("start_time", &self.start_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesRecommendationOtherLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesRecommendationOtherLocation");
+        debug_struct.field("details", &self.details);
+        debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpec");
+        debug_struct.field("deployment_type", &self.deployment_type);
+        debug_struct.field("location_policy", &self.location_policy);
+        debug_struct.field("target_resources", &self.target_resources);
+        debug_struct.field("time_range_spec", &self.time_range_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecAggregateResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecAggregateResources");
+        debug_struct.field("accelerator_count", &self.accelerator_count);
+        debug_struct.field("vm_family", &self.vm_family);
+        debug_struct.field("workload_type", &self.workload_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecLocalSsdPartition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecLocalSsdPartition");
+        debug_struct.field("disk_interface", &self.disk_interface);
+        debug_struct.field("disk_size_gb", &self.disk_size_gb);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecLocationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecLocationPolicy");
+        debug_struct.field("locations", &self.locations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecLocationPolicyLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecLocationPolicyLocation");
+        debug_struct.field("preference", &self.preference);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecSpecificSKUResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecSpecificSKUResources");
+        debug_struct.field("instance_count", &self.instance_count);
+        debug_struct.field("local_ssd_partitions", &self.local_ssd_partitions);
+        debug_struct.field("machine_type", &self.machine_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::FutureResourcesSpecTargetResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FutureResourcesSpecTargetResources");
+        debug_struct.field("aggregate_resources", &self.aggregate_resources);
+        debug_struct.field("specific_sku_resources", &self.specific_sku_resources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8225,6 +8403,22 @@ impl std::fmt::Debug for super::InterconnectAttachment {
         debug_struct.field("admin_enabled", &self.admin_enabled);
         debug_struct.field("attachment_group", &self.attachment_group);
         debug_struct.field("bandwidth", &self.bandwidth);
+        debug_struct.field(
+            "candidate_cloud_router_ip_address",
+            &self.candidate_cloud_router_ip_address,
+        );
+        debug_struct.field(
+            "candidate_cloud_router_ipv_6_address",
+            &self.candidate_cloud_router_ipv_6_address,
+        );
+        debug_struct.field(
+            "candidate_customer_router_ip_address",
+            &self.candidate_customer_router_ip_address,
+        );
+        debug_struct.field(
+            "candidate_customer_router_ipv_6_address",
+            &self.candidate_customer_router_ipv_6_address,
+        );
         debug_struct.field("candidate_ipv_6_subnets", &self.candidate_ipv_6_subnets);
         debug_struct.field("candidate_subnets", &self.candidate_subnets);
         debug_struct.field("cloud_router_ip_address", &self.cloud_router_ip_address);
@@ -13982,6 +14176,10 @@ impl std::fmt::Debug for super::PublicDelegatedPrefix {
         debug_struct.field("byoip_api_version", &self.byoip_api_version);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "enable_enhanced_ipv_4_allocation",
+            &self.enable_enhanced_ipv_4_allocation,
+        );
         debug_struct.field("fingerprint", &self.fingerprint);
         debug_struct.field("id", &self.id);
         debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
@@ -14113,6 +14311,10 @@ impl std::fmt::Debug for super::PublicDelegatedPrefixPublicDelegatedSubPrefix {
         debug_struct.field("allocatable_prefix_length", &self.allocatable_prefix_length);
         debug_struct.field("delegatee_project", &self.delegatee_project);
         debug_struct.field("description", &self.description);
+        debug_struct.field(
+            "enable_enhanced_ipv_4_allocation",
+            &self.enable_enhanced_ipv_4_allocation,
+        );
         debug_struct.field("ip_cidr_range", &self.ip_cidr_range);
         debug_struct.field("ipv_6_access_type", &self.ipv_6_access_type);
         debug_struct.field("is_address", &self.is_address);
@@ -16157,6 +16359,10 @@ impl std::fmt::Debug for super::Route {
             "next_hop_inter_region_cost",
             &self.next_hop_inter_region_cost,
         );
+        debug_struct.field(
+            "next_hop_interconnect_attachment",
+            &self.next_hop_interconnect_attachment,
+        );
         debug_struct.field("next_hop_ip", &self.next_hop_ip);
         debug_struct.field("next_hop_med", &self.next_hop_med);
         debug_struct.field("next_hop_network", &self.next_hop_network);
@@ -17406,6 +17612,10 @@ impl std::fmt::Debug for super::SecurityPolicyAdvancedOptionsConfig {
         debug_struct.field("json_custom_config", &self.json_custom_config);
         debug_struct.field("json_parsing", &self.json_parsing);
         debug_struct.field("log_level", &self.log_level);
+        debug_struct.field(
+            "request_body_inspection_size",
+            &self.request_body_inspection_size,
+        );
         debug_struct.field("user_ip_request_headers", &self.user_ip_request_headers);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -19702,6 +19912,10 @@ impl std::fmt::Debug for super::storage_pools_scoped_list::warning::Data {
 impl std::fmt::Debug for super::Subnetwork {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Subnetwork");
+        debug_struct.field(
+            "allow_subnet_cidr_routes_overlap",
+            &self.allow_subnet_cidr_routes_overlap,
+        );
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("description", &self.description);
         debug_struct.field("enable_flow_logs", &self.enable_flow_logs);
@@ -22932,6 +23146,20 @@ impl std::fmt::Debug for super::addresses::TestIamPermissionsRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "advice")]
+impl std::fmt::Debug for super::advice::CalendarModeRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CalendarModeRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

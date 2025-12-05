@@ -125,6 +125,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>>;
 
+    async fn get_default_service_account(
+        &self,
+        req: crate::model::GetDefaultServiceAccountRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DefaultServiceAccount>>;
+
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
@@ -311,6 +317,15 @@ impl<T: super::CloudBuild> CloudBuild for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         T::list_worker_pools(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_default_service_account(
+        &self,
+        req: crate::model::GetDefaultServiceAccountRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DefaultServiceAccount>> {
+        T::get_default_service_account(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

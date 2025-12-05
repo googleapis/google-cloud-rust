@@ -18,6 +18,53 @@
 use super::*;
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GetDefaultServiceAccountRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DefaultServiceAccount {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.service_account_email.is_empty() {
+            state.serialize_entry("serviceAccountEmail", &self.service_account_email)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::RetryBuildRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -225,6 +272,34 @@ impl serde::ser::Serialize for super::StorageSourceManifest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ConnectedRepository {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.repository.is_empty() {
+            state.serialize_entry("repository", &self.repository)?;
+        }
+        if !self.dir.is_empty() {
+            state.serialize_entry("dir", &self.dir)?;
+        }
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Source {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -245,6 +320,9 @@ impl serde::ser::Serialize for super::Source {
         }
         if let Some(value) = self.storage_source_manifest() {
             state.serialize_entry("storageSourceManifest", value)?;
+        }
+        if let Some(value) = self.connected_repository() {
+            state.serialize_entry("connectedRepository", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -274,6 +352,9 @@ impl serde::ser::Serialize for super::BuiltImage {
         if self.push_timing.is_some() {
             state.serialize_entry("pushTiming", &self.push_timing)?;
         }
+        if !self.artifact_registry_package.is_empty() {
+            state.serialize_entry("artifactRegistryPackage", &self.artifact_registry_package)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -301,6 +382,9 @@ impl serde::ser::Serialize for super::UploadedPythonPackage {
         }
         if self.push_timing.is_some() {
             state.serialize_entry("pushTiming", &self.push_timing)?;
+        }
+        if !self.artifact_registry_package.is_empty() {
+            state.serialize_entry("artifactRegistryPackage", &self.artifact_registry_package)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -330,6 +414,9 @@ impl serde::ser::Serialize for super::UploadedMavenArtifact {
         if self.push_timing.is_some() {
             state.serialize_entry("pushTiming", &self.push_timing)?;
         }
+        if !self.artifact_registry_package.is_empty() {
+            state.serialize_entry("artifactRegistryPackage", &self.artifact_registry_package)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -358,6 +445,9 @@ impl serde::ser::Serialize for super::UploadedGoModule {
         if self.push_timing.is_some() {
             state.serialize_entry("pushTiming", &self.push_timing)?;
         }
+        if !self.artifact_registry_package.is_empty() {
+            state.serialize_entry("artifactRegistryPackage", &self.artifact_registry_package)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -385,6 +475,9 @@ impl serde::ser::Serialize for super::UploadedNpmPackage {
         }
         if self.push_timing.is_some() {
             state.serialize_entry("pushTiming", &self.push_timing)?;
+        }
+        if !self.artifact_registry_package.is_empty() {
+            state.serialize_entry("artifactRegistryPackage", &self.artifact_registry_package)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1160,6 +1253,15 @@ impl serde::ser::Serialize for super::SourceProvenance {
                 "resolvedStorageSourceManifest",
                 &self.resolved_storage_source_manifest,
             )?;
+        }
+        if self.resolved_connected_repository.is_some() {
+            state.serialize_entry(
+                "resolvedConnectedRepository",
+                &self.resolved_connected_repository,
+            )?;
+        }
+        if self.resolved_git_source.is_some() {
+            state.serialize_entry("resolvedGitSource", &self.resolved_git_source)?;
         }
         if !self.file_hashes.is_empty() {
             state.serialize_entry("fileHashes", &self.file_hashes)?;

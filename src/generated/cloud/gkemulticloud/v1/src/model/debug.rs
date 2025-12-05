@@ -44,6 +44,7 @@ impl std::fmt::Debug for super::AttachedCluster {
         debug_struct.field("binary_authorization", &self.binary_authorization);
         debug_struct.field("security_posture_config", &self.security_posture_config);
         debug_struct.field("tags", &self.tags);
+        debug_struct.field("system_components_config", &self.system_components_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -113,6 +114,10 @@ impl std::fmt::Debug for super::AttachedPlatformVersionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AttachedPlatformVersionInfo");
         debug_struct.field("version", &self.version);
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("end_of_life", &self.end_of_life);
+        debug_struct.field("end_of_life_date", &self.end_of_life_date);
+        debug_struct.field("release_date", &self.release_date);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -147,6 +152,44 @@ impl std::fmt::Debug for super::KubernetesSecret {
         let mut debug_struct = f.debug_struct("KubernetesSecret");
         debug_struct.field("name", &self.name);
         debug_struct.field("namespace", &self.namespace);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SystemComponentsConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SystemComponentsConfig");
+        debug_struct.field("tolerations", &self.tolerations);
+        debug_struct.field("labels", &self.labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Toleration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Toleration");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("key_operator", &self.key_operator);
+        debug_struct.field("effect", &self.effect);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Label {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Label");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
