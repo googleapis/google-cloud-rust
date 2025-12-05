@@ -24,6 +24,7 @@ use gaxi::prost::ToProto;
 // Implementation note: this type exclude some fields from the proto, such as
 // the read handle and routing token, as these cannot be set by the application.
 #[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
 pub struct OpenObjectRequest {
     /// The bucket containing the target object.
     pub bucket: String,
