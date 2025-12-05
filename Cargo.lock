@@ -1471,6 +1471,7 @@ dependencies = [
  "async-trait",
  "base64",
  "bon",
+ "bytes",
  "google-cloud-gax",
  "hex",
  "http",

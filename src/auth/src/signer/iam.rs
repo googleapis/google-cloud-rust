@@ -61,7 +61,7 @@ impl SigningProvider for IamSigner {
         Ok(self.client_email.clone())
     }
 
-    async fn sign(&self, content: &[u8]) -> Result<String> {
+    async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
         use base64::{Engine, prelude::BASE64_STANDARD};
 
         let payload = BASE64_STANDARD.encode(content);
@@ -89,9 +89,7 @@ impl SigningProvider for IamSigner {
             .decode(res.signed_blob)
             .map_err(SigningError::transport)?;
 
-        let signature = hex::encode(signature);
-
-        Ok(signature)
+        Ok(bytes::Bytes::from(signature))
     }
 }
 
@@ -141,14 +139,30 @@ async fn sign_blob_call(
         }
     };
 
-    client
+    let response = client
         .post(url)
         .header("Content-Type", "application/json")
         .headers(source_headers.clone())
         .json(&body)
         .send()
         .await
-        .map_err(|e| gax::error::Error::transport(source_headers, e))
+        .map_err(gax::error::Error::io)?;
+
+    let status = response.status();
+    if !status.is_success() {
+        let err_headers = response.headers().clone();
+        let err_payload = response
+            .bytes()
+            .await
+            .map_err(|e| gax::error::Error::transport(err_headers.clone(), e))?;
+        return Err(gax::error::Error::http(
+            status.as_u16(),
+            err_headers,
+            err_payload,
+        ));
+    }
+
+    Ok(response)
 }
 
 #[cfg(test)]
@@ -216,7 +230,7 @@ mod tests {
         signer.endpoint = endpoint;
         let signature = signer.sign(b"test").await.unwrap();
 
-        assert_eq!(signature, hex::encode("signed_blob"));
+        assert_eq!(signature.as_ref(), b"signed_blob");
 
         Ok(())
     }
@@ -263,6 +277,7 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
     async fn test_iam_sign_retry() -> TestResult {
         let server = Server::run();
         let signed_blob = BASE64_STANDARD.encode("signed_blob");
@@ -283,7 +298,7 @@ mod tests {
         let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|_extensions| {
+        mock.expect_headers().returning(|_extensions| {
             Ok(CacheableResource::New {
                 entity_tag: EntityTag::default(),
                 data: HeaderMap::new(),
@@ -295,7 +310,7 @@ mod tests {
         signer.endpoint = endpoint;
         let signature = signer.sign(b"test").await.unwrap();
 
-        assert_eq!(signature, hex::encode("signed_blob"));
+        assert_eq!(signature.as_ref(), b"signed_blob");
 
         Ok(())
     }
