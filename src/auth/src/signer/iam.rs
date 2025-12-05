@@ -61,7 +61,7 @@ impl SigningProvider for IamSigner {
         Ok(self.client_email.clone())
     }
 
-    async fn sign(&self, content: &[u8]) -> Result<String> {
+    async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
         use base64::{Engine, prelude::BASE64_STANDARD};
 
         let payload = BASE64_STANDARD.encode(content);
@@ -89,9 +89,7 @@ impl SigningProvider for IamSigner {
             .decode(res.signed_blob)
             .map_err(SigningError::transport)?;
 
-        let signature = hex::encode(signature);
-
-        Ok(signature)
+        Ok(bytes::Bytes::from(signature))
     }
 }
 
@@ -231,7 +229,7 @@ mod tests {
         signer.endpoint = endpoint;
         let signature = signer.sign(b"test").await.unwrap();
 
-        assert_eq!(signature, hex::encode("signed_blob"));
+        assert_eq!(signature.as_ref(), b"signed_blob");
 
         Ok(())
     }
@@ -311,7 +309,7 @@ mod tests {
         signer.endpoint = endpoint;
         let signature = signer.sign(b"test").await.unwrap();
 
-        assert_eq!(signature, hex::encode("signed_blob"));
+        assert_eq!(signature.as_ref(), b"signed_blob");
 
         Ok(())
     }

@@ -46,7 +46,7 @@ impl SigningProvider for ServiceAccountSigner {
         Ok(self.client_email.clone())
     }
 
-    async fn sign(&self, content: &[u8]) -> Result<String> {
+    async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
         let signer = self
             .service_account_key
             .signer()
@@ -54,9 +54,7 @@ impl SigningProvider for ServiceAccountSigner {
 
         let signature = signer.sign(content).map_err(SigningError::sign)?;
 
-        let signature = hex::encode(signature);
-
-        Ok(signature)
+        Ok(bytes::Bytes::from(signature))
     }
 }
 
@@ -93,7 +91,7 @@ mod tests {
 
         let inner_signer = service_account_key.signer().unwrap();
         let inner_result = inner_signer.sign(b"test")?;
-        assert_eq!(result, hex::encode(inner_result));
+        assert_eq!(result.as_ref(), inner_result);
         Ok(())
     }
 }

@@ -377,6 +377,8 @@ impl SignedUrlBuilder {
             .await
             .map_err(SigningError::Signing)?;
 
+        let signature = hex::encode(signature);
+
         let signed_url = format!(
             "{}?{}&X-Goog-Signature={}",
             canonical_url, canonical_query, signature
@@ -409,7 +411,7 @@ mod tests {
 
         impl SigningProvider for Signer {
             async fn client_email(&self) -> auth::signer::Result<String>;
-            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String>;
+            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<bytes::Bytes>;
         }
     }
 
@@ -419,7 +421,7 @@ mod tests {
         mock.expect_client_email()
             .return_once(|| Ok("test@example.com".to_string()));
         mock.expect_sign()
-            .return_once(|_content| Ok("test-signature".to_string()));
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
         let url = SignedUrlBuilder::for_object("test-bucket", "test-object")
@@ -430,8 +432,11 @@ mod tests {
             .await
             .unwrap();
 
+        let signature = hex::encode(b"test-signature");
+        let x_goog_signature = format!("X-Goog-Signature={signature}");
+
         assert!(url.starts_with("https://storage.googleapis.com/test-bucket/test-object"));
-        assert!(url.contains("X-Goog-Signature=test-signature"));
+        assert!(url.contains(&x_goog_signature));
         assert!(url.contains("X-Goog-Algorithm=GOOG4-RSA-SHA256"));
         assert!(url.contains("X-Goog-Credential=test%40example.com"));
 
@@ -444,7 +449,7 @@ mod tests {
         mock.expect_client_email()
             .return_once(|| Ok("test@example.com".to_string()));
         mock.expect_sign()
-            .return_once(|_content| Ok("test-signature".to_string()));
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
         let url = SignedUrlBuilder::for_object("test-bucket", "folder/test object.txt")
@@ -490,7 +495,7 @@ mod tests {
         mock.expect_client_email()
             .return_once(|| Ok("test@example.com".to_string()));
         mock.expect_sign()
-            .return_once(|_content| Ok("test-signature".to_string()));
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
         let err = SignedUrlBuilder::for_object("b", "o")

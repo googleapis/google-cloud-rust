@@ -55,7 +55,7 @@ impl SigningProvider for MDSSigner {
         Ok(client_email.clone())
     }
 
-    async fn sign(&self, content: &[u8]) -> Result<String> {
+    async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
         let client_email = self.client_email().await?;
 
         let signer = crate::signer::iam::IamSigner::new(client_email, self.inner.clone());
