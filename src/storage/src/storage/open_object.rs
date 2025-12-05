@@ -16,7 +16,7 @@ use super::bidi::connector::Connector;
 use super::bidi::transport::ObjectDescriptorTransport;
 use crate::Result;
 use crate::google::storage::v2::BidiReadObjectSpec;
-use crate::model_ext::KeyAes256;
+use crate::model_ext::{KeyAes256, OpenObjectRequest};
 use crate::object_descriptor::ObjectDescriptor;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
@@ -43,7 +43,7 @@ use gaxi::prost::ToProto;
 /// ```
 #[derive(Clone, Debug)]
 pub struct OpenObject {
-    spec: BidiReadObjectSpec,
+    request: OpenObjectRequest,
     options: RequestOptions,
     client: GrpcClient,
     reconnect_attempts: u32,
