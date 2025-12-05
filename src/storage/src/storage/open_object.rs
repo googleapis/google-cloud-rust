@@ -16,12 +16,11 @@ use super::bidi::connector::Connector;
 use super::bidi::transport::ObjectDescriptorTransport;
 use crate::Result;
 use crate::google::storage::v2::BidiReadObjectSpec;
-use crate::model_ext::KeyAes256;
+use crate::model_ext::{KeyAes256, OpenObjectRequest};
 use crate::object_descriptor::ObjectDescriptor;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
 use gaxi::grpc::Client as GrpcClient;
-use gaxi::prost::ToProto;
 
 /// A request builder for [Storage::open_object][crate::client::Storage::open_object].
 ///
@@ -43,7 +42,7 @@ use gaxi::prost::ToProto;
 /// ```
 #[derive(Clone, Debug)]
 pub struct OpenObject {
-    spec: BidiReadObjectSpec,
+    request: OpenObjectRequest,
     options: RequestOptions,
     client: GrpcClient,
     reconnect_attempts: u32,
@@ -56,13 +55,11 @@ impl OpenObject {
         client: GrpcClient,
         options: RequestOptions,
     ) -> Self {
-        let spec = BidiReadObjectSpec {
-            bucket,
-            object,
-            ..BidiReadObjectSpec::default()
-        };
+        let request = OpenObjectRequest::default()
+            .set_bucket(bucket)
+            .set_object(object);
         Self {
-            spec,
+            request,
             options,
             client,
             reconnect_attempts: 0_u32,
@@ -83,7 +80,8 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> Result<ObjectDescriptor> {
-        let connector = Connector::new(self.spec, self.options, self.client);
+        let spec = BidiReadObjectSpec::from(self.request);
+        let connector = Connector::new(spec, self.options, self.client);
         let transport = ObjectDescriptorTransport::new(connector).await?;
 
         Ok(ObjectDescriptor::new(transport))
@@ -105,7 +103,7 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
-        self.spec.generation = v.into();
+        self.request = self.request.set_generation(v.into());
         self
     }
 
@@ -128,7 +126,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_generation_match = Some(v.into());
+        self.request = self.request.set_if_generation_match(v.into());
         self
     }
 
@@ -152,7 +150,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_generation_not_match = Some(v.into());
+        self.request = self.request.set_if_generation_not_match(v.into());
         self
     }
 
@@ -175,7 +173,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_metageneration_match = Some(v.into());
+        self.request = self.request.set_if_metageneration_match(v.into());
         self
     }
 
@@ -198,7 +196,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_metageneration_not_match = Some(v.into());
+        self.request = self.request.set_if_metageneration_not_match(v.into());
         self
     }
 
@@ -219,10 +217,9 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub fn set_key(mut self, v: KeyAes256) -> Self {
-        let proto = crate::model::CommonObjectRequestParams::from(v)
-            .to_proto()
-            .expect("conversion from AesKey256 never fails");
-        self.spec.common_object_request_params = Some(proto);
+        self.request = self
+            .request
+            .set_common_object_request_params(crate::model::CommonObjectRequestParams::from(v));
         self
     }
 
@@ -338,8 +335,7 @@ impl OpenObject {
 mod tests {
     use super::*;
     use crate::client::Storage;
-    use crate::google::storage::v2::CommonObjectRequestParams;
-    use crate::model::Object;
+    use crate::model::{CommonObjectRequestParams, Object};
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
@@ -424,17 +420,15 @@ mod tests {
             .set_if_generation_not_match(345)
             .set_if_metageneration_match(456)
             .set_if_metageneration_not_match(567);
-        let want = BidiReadObjectSpec {
-            bucket: "bucket".into(),
-            object: "object".into(),
-            generation: 123,
-            if_generation_match: Some(234),
-            if_generation_not_match: Some(345),
-            if_metageneration_match: Some(456),
-            if_metageneration_not_match: Some(567),
-            ..BidiReadObjectSpec::default()
-        };
-        assert_eq!(builder.spec, want);
+        let want = OpenObjectRequest::default()
+            .set_bucket("bucket")
+            .set_object("object")
+            .set_generation(123)
+            .set_if_generation_match(234)
+            .set_if_generation_not_match(345)
+            .set_if_metageneration_match(456)
+            .set_if_metageneration_not_match(567);
+        assert_eq!(builder.request, want);
         Ok(())
     }
 
@@ -444,20 +438,14 @@ mod tests {
         let options = RequestOptions::new();
         let builder = OpenObject::new("bucket".to_string(), "object".to_string(), client, options);
 
-        let (key, _, key_sha256, _) = create_key_helper();
-        let builder = builder.set_key(KeyAes256::new(&key)?);
-        let params = CommonObjectRequestParams {
-            encryption_algorithm: "AES256".into(),
-            encryption_key_bytes: bytes::Bytes::from_owner(key),
-            encryption_key_sha256_bytes: bytes::Bytes::from_owner(key_sha256),
-        };
-        let want = BidiReadObjectSpec {
-            bucket: "bucket".into(),
-            object: "object".into(),
-            common_object_request_params: Some(params),
-            ..BidiReadObjectSpec::default()
-        };
-        assert_eq!(builder.spec, want);
+        let (raw_key, _, _, _) = create_key_helper();
+        let key = KeyAes256::new(&raw_key)?;
+        let builder = builder.set_key(key.clone());
+        let want = OpenObjectRequest::default()
+            .set_bucket("bucket")
+            .set_object("object")
+            .set_common_object_request_params(CommonObjectRequestParams::from(key));
+        assert_eq!(builder.request, want);
         Ok(())
     }
 
