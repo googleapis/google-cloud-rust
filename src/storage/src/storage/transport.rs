@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
-use super::bidi::OpenObject;
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
@@ -23,6 +21,12 @@ use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::{
+    google::storage::v2::BidiReadObjectSpec, model_ext::OpenObjectRequest,
+    object_descriptor::ObjectDescriptor, storage::bidi::connector::Connector,
+    storage::bidi::transport::ObjectDescriptorTransport,
+};
 use std::sync::Arc;
 
 /// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
@@ -97,7 +101,15 @@ impl super::stub::Storage for Storage {
     }
 
     #[cfg(google_cloud_unstable_storage_bidi)]
-    fn open_object(&self, bucket: String, object: String, options: RequestOptions) -> OpenObject {
-        OpenObject::new(bucket, object, self.inner.grpc.clone(), options)
+    async fn open_object(
+        &self,
+        request: OpenObjectRequest,
+        options: RequestOptions,
+    ) -> Result<ObjectDescriptor> {
+        let spec = BidiReadObjectSpec::from(request);
+        let connector = Connector::new(spec, options, self.inner.grpc.clone());
+        let transport = ObjectDescriptorTransport::new(connector).await?;
+
+        Ok(ObjectDescriptor::new(transport))
     }
 }

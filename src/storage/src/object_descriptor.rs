@@ -108,11 +108,11 @@ impl ObjectDescriptor {
     /// # Ok(()) }
     /// ```
     pub async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let inner = self.inner.read_range(range).await;
-        ReadObjectResponse::from_dyn(inner)
+        self.inner.read_range(range).await
     }
 
-    pub(crate) fn new<T>(inner: T) -> Self
+    /// Create a new instance.
+    pub fn new<T>(inner: T) -> Self
     where
         T: ObjectDescriptorStub + 'static,
     {
@@ -126,7 +126,7 @@ impl ObjectDescriptor {
 mod tests {
     use super::*;
     use crate::model_ext::ObjectHighlights;
-    use crate::read_object::dynamic::ReadObjectResponse;
+    use crate::read_object::ReadObjectResponse;
     use mockall::mock;
 
     // Verify this can be mocked inside the crate.
@@ -139,7 +139,7 @@ mod tests {
         mock.expect_read_range()
             .times(1)
             .withf(|range| range.0 == ReadRange::segment(100, 200).0)
-            .returning(|_| Box::new(MockResponse::new()));
+            .returning(|_| ReadObjectResponse::new(Box::new(MockResponse::new())));
 
         let descriptor = ObjectDescriptor::new(mock);
         assert_eq!(descriptor.object(), &object);
@@ -152,9 +152,9 @@ mod tests {
         #[derive(Debug)]
         Descriptor {}
 
-        impl crate::storage::bidi::stub::ObjectDescriptor for Descriptor {
+        impl crate::stub::ObjectDescriptor for Descriptor {
             fn object(&self) -> &Object;
-            async fn read_range(&self, range: ReadRange) -> Box<dyn ReadObjectResponse + Send>;
+            async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
         }
     }
 

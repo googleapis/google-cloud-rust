@@ -12,14 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_storage_bidi)]
-use super::bidi::OpenObject;
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
 use crate::streaming_source::{Seek, StreamingSource};
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::{
+    model_ext::{OpenObjectRequest, ReadRange},
+    object_descriptor::ObjectDescriptor as Descriptor,
+};
 use gaxi::unimplemented::UNIMPLEMENTED;
 
 /// Defines the trait used to implement [crate::client::Storage].
@@ -70,14 +73,32 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     }
 
     #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Implements [crate::client::Storage::open_object].
     fn open_object(
         &self,
-        _bucket: String,
-        _object: String,
+        _request: OpenObjectRequest,
         _options: RequestOptions,
-    ) -> OpenObject {
-        unimplemented!("{UNIMPLEMENTED}");
+    ) -> impl std::future::Future<Output = Result<Descriptor>> + Send {
+        unimplemented_stub::<Descriptor>()
     }
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+/// Defines the trait used to implement [crate::object_descriptor::ObjectDescriptor].
+///
+/// Application developers may need to implement this trait to mock
+/// `ObjectDescriptor`. In other use-cases, application developers
+/// should use `ObjectDescriptor` directly, and need not be concerned
+/// with this trait or its implementations.
+pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
+    /// The implementation for [ObjectDescriptor::object][Descriptor::object].
+    fn object(&self) -> &Object;
+
+    /// The implementation for [ObjectDescriptor::read_range][Descriptor::read_range].
+    fn read_range(
+        &self,
+        range: ReadRange,
+    ) -> impl Future<Output = ReadObjectResponse> + Send + Sync;
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {

@@ -14,11 +14,11 @@
 
 use super::active_read::ActiveRead;
 use super::range_reader::RangeReader;
-use super::stub::ObjectDescriptor;
 use crate::error::ReadError;
 use crate::model::Object;
 use crate::model_ext::ReadRange;
-use crate::read_object::dynamic::ReadObjectResponse;
+use crate::read_object::ReadObjectResponse;
+use crate::stub::ObjectDescriptor;
 use crate::{Error, Result};
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
@@ -57,11 +57,15 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
         self.object.as_ref()
     }
 
-    async fn read_range(&self, range: ReadRange) -> Box<dyn ReadObjectResponse + Send> {
+    async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         let range = ActiveRead::new(tx, range.0);
         let _error = self.tx.send(range).await;
-        Box::new(RangeReader::new(rx, self.object.clone(), self.tx.clone()))
+        ReadObjectResponse::new(Box::new(RangeReader::new(
+            rx,
+            self.object.clone(),
+            self.tx.clone(),
+        )))
     }
 }
 
@@ -147,10 +151,10 @@ mod tests {
         };
         connect_tx.send(Ok(response)).await?;
 
-        let got = reader.as_mut().next().await.transpose()?;
+        let got = reader.next().await.transpose()?;
         assert_eq!(got, Some(content));
         // Because `range_end` is true, the reader should be closed.
-        let got = reader.as_mut().next().await.transpose()?;
+        let got = reader.next().await.transpose()?;
         assert!(got.is_none(), "{got:?}");
 
         Ok(())
