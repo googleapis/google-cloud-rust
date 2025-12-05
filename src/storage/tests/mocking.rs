@@ -55,6 +55,7 @@ mod tests {
         }
     }
 
+    #[cfg(google_cloud_unstable_storage_bidi)]
     mockall::mock! {
         #[derive(Debug)]
         Descriptor {}
@@ -157,6 +158,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn mock_open_object_success() -> anyhow::Result<()> {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let object = Object::new().set_etag("custom-etag");
