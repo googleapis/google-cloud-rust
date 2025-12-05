@@ -75,60 +75,122 @@ impl PosixAccount {
     }
 
     /// Sets the value of [primary][crate::model::PosixAccount::primary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_primary(true);
+    /// ```
     pub fn set_primary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.primary = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::PosixAccount::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::PosixAccount::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_uid(42);
+    /// ```
     pub fn set_uid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [gid][crate::model::PosixAccount::gid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_gid(42);
+    /// ```
     pub fn set_gid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.gid = v.into();
         self
     }
 
     /// Sets the value of [home_directory][crate::model::PosixAccount::home_directory].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_home_directory("example");
+    /// ```
     pub fn set_home_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.home_directory = v.into();
         self
     }
 
     /// Sets the value of [shell][crate::model::PosixAccount::shell].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_shell("example");
+    /// ```
     pub fn set_shell<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.shell = v.into();
         self
     }
 
     /// Sets the value of [gecos][crate::model::PosixAccount::gecos].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_gecos("example");
+    /// ```
     pub fn set_gecos<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gecos = v.into();
         self
     }
 
     /// Sets the value of [system_id][crate::model::PosixAccount::system_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_system_id("example");
+    /// ```
     pub fn set_system_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.system_id = v.into();
         self
     }
 
     /// Sets the value of [account_id][crate::model::PosixAccount::account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
     }
 
     /// Sets the value of [operating_system_type][crate::model::PosixAccount::operating_system_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// use google_cloud_oslogin_common::model::OperatingSystemType;
+    /// let x0 = PosixAccount::new().set_operating_system_type(OperatingSystemType::Linux);
+    /// let x1 = PosixAccount::new().set_operating_system_type(OperatingSystemType::Windows);
+    /// ```
     pub fn set_operating_system_type<T: std::convert::Into<crate::model::OperatingSystemType>>(
         mut self,
         v: T,
@@ -138,6 +200,12 @@ impl PosixAccount {
     }
 
     /// Sets the value of [name][crate::model::PosixAccount::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::PosixAccount;
+    /// let x = PosixAccount::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -176,24 +244,48 @@ impl SshPublicKey {
     }
 
     /// Sets the value of [key][crate::model::SshPublicKey::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::SshPublicKey;
+    /// let x = SshPublicKey::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [expiration_time_usec][crate::model::SshPublicKey::expiration_time_usec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::SshPublicKey;
+    /// let x = SshPublicKey::new().set_expiration_time_usec(42);
+    /// ```
     pub fn set_expiration_time_usec<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.expiration_time_usec = v.into();
         self
     }
 
     /// Sets the value of [fingerprint][crate::model::SshPublicKey::fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::SshPublicKey;
+    /// let x = SshPublicKey::new().set_fingerprint("example");
+    /// ```
     pub fn set_fingerprint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fingerprint = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SshPublicKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_common::model::SshPublicKey;
+    /// let x = SshPublicKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

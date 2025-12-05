@@ -58,12 +58,24 @@ impl CalculateStatsRequest {
     }
 
     /// Sets the value of [location][crate::model::CalculateStatsRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsRequest;
+    /// let x = CalculateStatsRequest::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::CalculateStatsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsRequest;
+    /// let x = CalculateStatsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -127,6 +139,13 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [average_duration][crate::model::CalculateStatsResponse::average_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// use wkt::Duration;
+    /// let x = CalculateStatsResponse::new().set_average_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_average_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -136,6 +155,14 @@ impl CalculateStatsResponse {
     }
 
     /// Sets or clears the value of [average_duration][crate::model::CalculateStatsResponse::average_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// use wkt::Duration;
+    /// let x = CalculateStatsResponse::new().set_or_clear_average_duration(Some(Duration::default()/* use setters */));
+    /// let x = CalculateStatsResponse::new().set_or_clear_average_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_average_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -145,18 +172,39 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [average_turn_count][crate::model::CalculateStatsResponse::average_turn_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// let x = CalculateStatsResponse::new().set_average_turn_count(42);
+    /// ```
     pub fn set_average_turn_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.average_turn_count = v.into();
         self
     }
 
     /// Sets the value of [conversation_count][crate::model::CalculateStatsResponse::conversation_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// let x = CalculateStatsResponse::new().set_conversation_count(42);
+    /// ```
     pub fn set_conversation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.conversation_count = v.into();
         self
     }
 
     /// Sets the value of [smart_highlighter_matches][crate::model::CalculateStatsResponse::smart_highlighter_matches].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// let x = CalculateStatsResponse::new().set_smart_highlighter_matches([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_smart_highlighter_matches<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -169,6 +217,15 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [custom_highlighter_matches][crate::model::CalculateStatsResponse::custom_highlighter_matches].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// let x = CalculateStatsResponse::new().set_custom_highlighter_matches([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_custom_highlighter_matches<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -182,6 +239,15 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [issue_matches][crate::model::CalculateStatsResponse::issue_matches].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// let x = CalculateStatsResponse::new().set_issue_matches([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     #[deprecated]
     pub fn set_issue_matches<T, K, V>(mut self, v: T) -> Self
     where
@@ -195,6 +261,16 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [issue_matches_stats][crate::model::CalculateStatsResponse::issue_matches_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model_label_stats::IssueStats;
+    /// let x = CalculateStatsResponse::new().set_issue_matches_stats([
+    ///     ("key0", IssueStats::default()/* use setters */),
+    ///     ("key1", IssueStats::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_issue_matches_stats<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -207,6 +283,13 @@ impl CalculateStatsResponse {
     }
 
     /// Sets the value of [conversation_count_time_series][crate::model::CalculateStatsResponse::conversation_count_time_series].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::TimeSeries;
+    /// let x = CalculateStatsResponse::new().set_conversation_count_time_series(TimeSeries::default()/* use setters */);
+    /// ```
     pub fn set_conversation_count_time_series<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::calculate_stats_response::TimeSeries>,
@@ -216,6 +299,14 @@ impl CalculateStatsResponse {
     }
 
     /// Sets or clears the value of [conversation_count_time_series][crate::model::CalculateStatsResponse::conversation_count_time_series].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateStatsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::TimeSeries;
+    /// let x = CalculateStatsResponse::new().set_or_clear_conversation_count_time_series(Some(TimeSeries::default()/* use setters */));
+    /// let x = CalculateStatsResponse::new().set_or_clear_conversation_count_time_series(None::<TimeSeries>);
+    /// ```
     pub fn set_or_clear_conversation_count_time_series<T>(
         mut self,
         v: std::option::Option<T>,
@@ -260,6 +351,13 @@ pub mod calculate_stats_response {
         }
 
         /// Sets the value of [interval_duration][crate::model::calculate_stats_response::TimeSeries::interval_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::TimeSeries;
+        /// use wkt::Duration;
+        /// let x = TimeSeries::new().set_interval_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_interval_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -269,6 +367,14 @@ pub mod calculate_stats_response {
         }
 
         /// Sets or clears the value of [interval_duration][crate::model::calculate_stats_response::TimeSeries::interval_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::TimeSeries;
+        /// use wkt::Duration;
+        /// let x = TimeSeries::new().set_or_clear_interval_duration(Some(Duration::default()/* use setters */));
+        /// let x = TimeSeries::new().set_or_clear_interval_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_interval_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -278,6 +384,17 @@ pub mod calculate_stats_response {
         }
 
         /// Sets the value of [points][crate::model::calculate_stats_response::TimeSeries::points].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::TimeSeries;
+        /// use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::time_series::Interval;
+        /// let x = TimeSeries::new()
+        ///     .set_points([
+        ///         Interval::default()/* use setters */,
+        ///         Interval::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_points<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -319,6 +436,13 @@ pub mod calculate_stats_response {
             }
 
             /// Sets the value of [start_time][crate::model::calculate_stats_response::time_series::Interval::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::time_series::Interval;
+            /// use wkt::Timestamp;
+            /// let x = Interval::new().set_start_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -328,6 +452,14 @@ pub mod calculate_stats_response {
             }
 
             /// Sets or clears the value of [start_time][crate::model::calculate_stats_response::time_series::Interval::start_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::time_series::Interval;
+            /// use wkt::Timestamp;
+            /// let x = Interval::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = Interval::new().set_or_clear_start_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -337,6 +469,12 @@ pub mod calculate_stats_response {
             }
 
             /// Sets the value of [conversation_count][crate::model::calculate_stats_response::time_series::Interval::conversation_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::calculate_stats_response::time_series::Interval;
+            /// let x = Interval::new().set_conversation_count(42);
+            /// ```
             pub fn set_conversation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.conversation_count = v.into();
                 self
@@ -376,6 +514,13 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateAnalysisOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateAnalysisOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -385,6 +530,14 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateAnalysisOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -394,6 +547,13 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateAnalysisOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateAnalysisOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -403,6 +563,14 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateAnalysisOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -412,12 +580,25 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets the value of [conversation][crate::model::CreateAnalysisOperationMetadata::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// let x = CreateAnalysisOperationMetadata::new().set_conversation("example");
+    /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();
         self
     }
 
     /// Sets the value of [annotator_selector][crate::model::CreateAnalysisOperationMetadata::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = CreateAnalysisOperationMetadata::new().set_annotator_selector(AnnotatorSelector::default()/* use setters */);
+    /// ```
     pub fn set_annotator_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -427,6 +608,14 @@ impl CreateAnalysisOperationMetadata {
     }
 
     /// Sets or clears the value of [annotator_selector][crate::model::CreateAnalysisOperationMetadata::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisOperationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_annotator_selector(Some(AnnotatorSelector::default()/* use setters */));
+    /// let x = CreateAnalysisOperationMetadata::new().set_or_clear_annotator_selector(None::<AnnotatorSelector>);
+    /// ```
     pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -469,12 +658,25 @@ impl CreateConversationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConversationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateConversationRequest;
+    /// let x = CreateConversationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [conversation][crate::model::CreateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = CreateConversationRequest::new().set_conversation(Conversation::default()/* use setters */);
+    /// ```
     pub fn set_conversation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -484,6 +686,14 @@ impl CreateConversationRequest {
     }
 
     /// Sets or clears the value of [conversation][crate::model::CreateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = CreateConversationRequest::new().set_or_clear_conversation(Some(Conversation::default()/* use setters */));
+    /// let x = CreateConversationRequest::new().set_or_clear_conversation(None::<Conversation>);
+    /// ```
     pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -493,6 +703,12 @@ impl CreateConversationRequest {
     }
 
     /// Sets the value of [conversation_id][crate::model::CreateConversationRequest::conversation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateConversationRequest;
+    /// let x = CreateConversationRequest::new().set_conversation_id("example");
+    /// ```
     pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation_id = v.into();
         self
@@ -540,12 +756,25 @@ impl UploadConversationRequest {
     }
 
     /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// let x = UploadConversationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [conversation][crate::model::UploadConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = UploadConversationRequest::new().set_conversation(Conversation::default()/* use setters */);
+    /// ```
     pub fn set_conversation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -555,6 +784,14 @@ impl UploadConversationRequest {
     }
 
     /// Sets or clears the value of [conversation][crate::model::UploadConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = UploadConversationRequest::new().set_or_clear_conversation(Some(Conversation::default()/* use setters */));
+    /// let x = UploadConversationRequest::new().set_or_clear_conversation(None::<Conversation>);
+    /// ```
     pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -564,12 +801,25 @@ impl UploadConversationRequest {
     }
 
     /// Sets the value of [conversation_id][crate::model::UploadConversationRequest::conversation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// let x = UploadConversationRequest::new().set_conversation_id("example");
+    /// ```
     pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation_id = v.into();
         self
     }
 
     /// Sets the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = UploadConversationRequest::new().set_redaction_config(RedactionConfig::default()/* use setters */);
+    /// ```
     pub fn set_redaction_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -579,6 +829,14 @@ impl UploadConversationRequest {
     }
 
     /// Sets or clears the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = UploadConversationRequest::new().set_or_clear_redaction_config(Some(RedactionConfig::default()/* use setters */));
+    /// let x = UploadConversationRequest::new().set_or_clear_redaction_config(None::<RedactionConfig>);
+    /// ```
     pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -588,6 +846,13 @@ impl UploadConversationRequest {
     }
 
     /// Sets the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = UploadConversationRequest::new().set_speech_config(SpeechConfig::default()/* use setters */);
+    /// ```
     pub fn set_speech_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -597,6 +862,14 @@ impl UploadConversationRequest {
     }
 
     /// Sets or clears the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = UploadConversationRequest::new().set_or_clear_speech_config(Some(SpeechConfig::default()/* use setters */));
+    /// let x = UploadConversationRequest::new().set_or_clear_speech_config(None::<SpeechConfig>);
+    /// ```
     pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -641,6 +914,13 @@ impl UploadConversationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::UploadConversationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UploadConversationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -650,6 +930,14 @@ impl UploadConversationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::UploadConversationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UploadConversationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UploadConversationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -659,6 +947,13 @@ impl UploadConversationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UploadConversationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UploadConversationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -668,6 +963,14 @@ impl UploadConversationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UploadConversationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UploadConversationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UploadConversationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -677,6 +980,13 @@ impl UploadConversationMetadata {
     }
 
     /// Sets the value of [request][crate::model::UploadConversationMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// let x = UploadConversationMetadata::new().set_request(UploadConversationRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UploadConversationRequest>,
@@ -686,6 +996,14 @@ impl UploadConversationMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::UploadConversationMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::UploadConversationRequest;
+    /// let x = UploadConversationMetadata::new().set_or_clear_request(Some(UploadConversationRequest::default()/* use setters */));
+    /// let x = UploadConversationMetadata::new().set_or_clear_request(None::<UploadConversationRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UploadConversationRequest>,
@@ -695,6 +1013,12 @@ impl UploadConversationMetadata {
     }
 
     /// Sets the value of [analysis_operation][crate::model::UploadConversationMetadata::analysis_operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// let x = UploadConversationMetadata::new().set_analysis_operation("example");
+    /// ```
     pub fn set_analysis_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -704,6 +1028,13 @@ impl UploadConversationMetadata {
     }
 
     /// Sets the value of [applied_redaction_config][crate::model::UploadConversationMetadata::applied_redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = UploadConversationMetadata::new().set_applied_redaction_config(RedactionConfig::default()/* use setters */);
+    /// ```
     pub fn set_applied_redaction_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -713,6 +1044,14 @@ impl UploadConversationMetadata {
     }
 
     /// Sets or clears the value of [applied_redaction_config][crate::model::UploadConversationMetadata::applied_redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UploadConversationMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = UploadConversationMetadata::new().set_or_clear_applied_redaction_config(Some(RedactionConfig::default()/* use setters */));
+    /// let x = UploadConversationMetadata::new().set_or_clear_applied_redaction_config(None::<RedactionConfig>);
+    /// ```
     pub fn set_or_clear_applied_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -779,36 +1118,74 @@ impl ListConversationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConversationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// let x = ListConversationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConversationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// let x = ListConversationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConversationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// let x = ListConversationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConversationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// let x = ListConversationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListConversationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// let x = ListConversationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListConversationsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationView;
+    /// let x0 = ListConversationsRequest::new().set_view(ConversationView::Full);
+    /// let x1 = ListConversationsRequest::new().set_view(ConversationView::Basic);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConversationView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -842,6 +1219,17 @@ impl ListConversationsResponse {
     }
 
     /// Sets the value of [conversations][crate::model::ListConversationsResponse::conversations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = ListConversationsResponse::new()
+    ///     .set_conversations([
+    ///         Conversation::default()/* use setters */,
+    ///         Conversation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conversations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -853,6 +1241,12 @@ impl ListConversationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConversationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListConversationsResponse;
+    /// let x = ListConversationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -898,12 +1292,26 @@ impl GetConversationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConversationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetConversationRequest;
+    /// let x = GetConversationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetConversationRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationView;
+    /// let x0 = GetConversationRequest::new().set_view(ConversationView::Full);
+    /// let x1 = GetConversationRequest::new().set_view(ConversationView::Basic);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConversationView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -948,6 +1356,13 @@ impl UpdateConversationRequest {
     }
 
     /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = UpdateConversationRequest::new().set_conversation(Conversation::default()/* use setters */);
+    /// ```
     pub fn set_conversation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -957,6 +1372,14 @@ impl UpdateConversationRequest {
     }
 
     /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateConversationRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = UpdateConversationRequest::new().set_or_clear_conversation(Some(Conversation::default()/* use setters */));
+    /// let x = UpdateConversationRequest::new().set_or_clear_conversation(None::<Conversation>);
+    /// ```
     pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Conversation>,
@@ -966,6 +1389,13 @@ impl UpdateConversationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateConversationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConversationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -975,6 +1405,14 @@ impl UpdateConversationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateConversationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConversationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConversationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1011,12 +1449,24 @@ impl DeleteConversationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConversationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteConversationRequest;
+    /// let x = DeleteConversationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteConversationRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteConversationRequest;
+    /// let x = DeleteConversationRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1071,12 +1521,25 @@ impl IngestConversationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// let x = IngestConversationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ConversationConfig;
+    /// let x = IngestConversationsRequest::new().set_conversation_config(ConversationConfig::default()/* use setters */);
+    /// ```
     pub fn set_conversation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
@@ -1086,6 +1549,14 @@ impl IngestConversationsRequest {
     }
 
     /// Sets or clears the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ConversationConfig;
+    /// let x = IngestConversationsRequest::new().set_or_clear_conversation_config(Some(ConversationConfig::default()/* use setters */));
+    /// let x = IngestConversationsRequest::new().set_or_clear_conversation_config(None::<ConversationConfig>);
+    /// ```
     pub fn set_or_clear_conversation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
@@ -1095,6 +1566,13 @@ impl IngestConversationsRequest {
     }
 
     /// Sets the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = IngestConversationsRequest::new().set_redaction_config(RedactionConfig::default()/* use setters */);
+    /// ```
     pub fn set_redaction_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -1104,6 +1582,14 @@ impl IngestConversationsRequest {
     }
 
     /// Sets or clears the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = IngestConversationsRequest::new().set_or_clear_redaction_config(Some(RedactionConfig::default()/* use setters */));
+    /// let x = IngestConversationsRequest::new().set_or_clear_redaction_config(None::<RedactionConfig>);
+    /// ```
     pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -1113,6 +1599,13 @@ impl IngestConversationsRequest {
     }
 
     /// Sets the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = IngestConversationsRequest::new().set_speech_config(SpeechConfig::default()/* use setters */);
+    /// ```
     pub fn set_speech_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -1122,6 +1615,14 @@ impl IngestConversationsRequest {
     }
 
     /// Sets or clears the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = IngestConversationsRequest::new().set_or_clear_speech_config(Some(SpeechConfig::default()/* use setters */));
+    /// let x = IngestConversationsRequest::new().set_or_clear_speech_config(None::<SpeechConfig>);
+    /// ```
     pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -1131,6 +1632,12 @@ impl IngestConversationsRequest {
     }
 
     /// Sets the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// let x = IngestConversationsRequest::new().set_sample_size(42);
+    /// ```
     pub fn set_sample_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1140,6 +1647,13 @@ impl IngestConversationsRequest {
     }
 
     /// Sets or clears the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// let x = IngestConversationsRequest::new().set_or_clear_sample_size(Some(42));
+    /// let x = IngestConversationsRequest::new().set_or_clear_sample_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_sample_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1152,6 +1666,14 @@ impl IngestConversationsRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+    /// let x = IngestConversationsRequest::new().set_source(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::ingest_conversations_request::Source>>,
     >(
@@ -1183,6 +1705,14 @@ impl IngestConversationsRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+    /// let x = IngestConversationsRequest::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ingest_conversations_request::GcsSource>>,
     >(
@@ -1199,6 +1729,14 @@ impl IngestConversationsRequest {
     ///
     /// Note that all the setters affecting `object_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::TranscriptObjectConfig;
+    /// let x = IngestConversationsRequest::new().set_object_config(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ObjectConfig::TranscriptObjectConfig(TranscriptObjectConfig::default().into())));
+    /// ```
     pub fn set_object_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::ingest_conversations_request::ObjectConfig>,
@@ -1233,6 +1771,14 @@ impl IngestConversationsRequest {
     ///
     /// Note that all the setters affecting `object_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::TranscriptObjectConfig;
+    /// let x = IngestConversationsRequest::new().set_transcript_object_config(TranscriptObjectConfig::default()/* use setters */);
+    /// assert!(x.transcript_object_config().is_some());
+    /// ```
     pub fn set_transcript_object_config<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::ingest_conversations_request::TranscriptObjectConfig>,
@@ -1296,12 +1842,26 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets the value of [bucket_uri][crate::model::ingest_conversations_request::GcsSource::bucket_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+        /// let x = GcsSource::new().set_bucket_uri("example");
+        /// ```
         pub fn set_bucket_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.bucket_uri = v.into();
             self
         }
 
         /// Sets the value of [bucket_object_type][crate::model::ingest_conversations_request::GcsSource::bucket_object_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+        /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::gcs_source::BucketObjectType;
+        /// let x0 = GcsSource::new().set_bucket_object_type(BucketObjectType::Transcript);
+        /// let x1 = GcsSource::new().set_bucket_object_type(BucketObjectType::Audio);
+        /// ```
         pub fn set_bucket_object_type<
             T: std::convert::Into<
                     crate::model::ingest_conversations_request::gcs_source::BucketObjectType,
@@ -1315,6 +1875,12 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets the value of [metadata_bucket_uri][crate::model::ingest_conversations_request::GcsSource::metadata_bucket_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+        /// let x = GcsSource::new().set_metadata_bucket_uri("example");
+        /// ```
         pub fn set_metadata_bucket_uri<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1324,6 +1890,13 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets or clears the value of [metadata_bucket_uri][crate::model::ingest_conversations_request::GcsSource::metadata_bucket_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+        /// let x = GcsSource::new().set_or_clear_metadata_bucket_uri(Some("example"));
+        /// let x = GcsSource::new().set_or_clear_metadata_bucket_uri(None::<String>);
+        /// ```
         pub fn set_or_clear_metadata_bucket_uri<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -1333,6 +1906,12 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets the value of [custom_metadata_keys][crate::model::ingest_conversations_request::GcsSource::custom_metadata_keys].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::GcsSource;
+        /// let x = GcsSource::new().set_custom_metadata_keys(["a", "b", "c"]);
+        /// ```
         pub fn set_custom_metadata_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1507,6 +2086,14 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets the value of [medium][crate::model::ingest_conversations_request::TranscriptObjectConfig::medium].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::TranscriptObjectConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::conversation::Medium;
+        /// let x0 = TranscriptObjectConfig::new().set_medium(Medium::PhoneCall);
+        /// let x1 = TranscriptObjectConfig::new().set_medium(Medium::Chat);
+        /// ```
         pub fn set_medium<T: std::convert::Into<crate::model::conversation::Medium>>(
             mut self,
             v: T,
@@ -1551,18 +2138,36 @@ pub mod ingest_conversations_request {
         }
 
         /// Sets the value of [agent_id][crate::model::ingest_conversations_request::ConversationConfig::agent_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ConversationConfig;
+        /// let x = ConversationConfig::new().set_agent_id("example");
+        /// ```
         pub fn set_agent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent_id = v.into();
             self
         }
 
         /// Sets the value of [agent_channel][crate::model::ingest_conversations_request::ConversationConfig::agent_channel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ConversationConfig;
+        /// let x = ConversationConfig::new().set_agent_channel(42);
+        /// ```
         pub fn set_agent_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.agent_channel = v.into();
             self
         }
 
         /// Sets the value of [customer_channel][crate::model::ingest_conversations_request::ConversationConfig::customer_channel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_request::ConversationConfig;
+        /// let x = ConversationConfig::new().set_customer_channel(42);
+        /// ```
         pub fn set_customer_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.customer_channel = v.into();
             self
@@ -1626,6 +2231,13 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::IngestConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IngestConversationsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1635,6 +2247,14 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::IngestConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IngestConversationsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IngestConversationsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1644,6 +2264,13 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::IngestConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IngestConversationsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1653,6 +2280,14 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::IngestConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IngestConversationsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IngestConversationsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1662,6 +2297,13 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets the value of [request][crate::model::IngestConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// let x = IngestConversationsMetadata::new().set_request(IngestConversationsRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IngestConversationsRequest>,
@@ -1671,6 +2313,14 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::IngestConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::IngestConversationsRequest;
+    /// let x = IngestConversationsMetadata::new().set_or_clear_request(Some(IngestConversationsRequest::default()/* use setters */));
+    /// let x = IngestConversationsMetadata::new().set_or_clear_request(None::<IngestConversationsRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IngestConversationsRequest>,
@@ -1680,6 +2330,17 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::IngestConversationsMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use rpc::model::Status;
+    /// let x = IngestConversationsMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1691,6 +2352,13 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets the value of [ingest_conversations_stats][crate::model::IngestConversationsMetadata::ingest_conversations_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+    /// let x = IngestConversationsMetadata::new().set_ingest_conversations_stats(IngestConversationsStats::default()/* use setters */);
+    /// ```
     pub fn set_ingest_conversations_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -1702,6 +2370,14 @@ impl IngestConversationsMetadata {
     }
 
     /// Sets or clears the value of [ingest_conversations_stats][crate::model::IngestConversationsMetadata::ingest_conversations_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IngestConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+    /// let x = IngestConversationsMetadata::new().set_or_clear_ingest_conversations_stats(Some(IngestConversationsStats::default()/* use setters */));
+    /// let x = IngestConversationsMetadata::new().set_or_clear_ingest_conversations_stats(None::<IngestConversationsStats>);
+    /// ```
     pub fn set_or_clear_ingest_conversations_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -1752,24 +2428,48 @@ pub mod ingest_conversations_metadata {
         }
 
         /// Sets the value of [processed_object_count][crate::model::ingest_conversations_metadata::IngestConversationsStats::processed_object_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+        /// let x = IngestConversationsStats::new().set_processed_object_count(42);
+        /// ```
         pub fn set_processed_object_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.processed_object_count = v.into();
             self
         }
 
         /// Sets the value of [duplicates_skipped_count][crate::model::ingest_conversations_metadata::IngestConversationsStats::duplicates_skipped_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+        /// let x = IngestConversationsStats::new().set_duplicates_skipped_count(42);
+        /// ```
         pub fn set_duplicates_skipped_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.duplicates_skipped_count = v.into();
             self
         }
 
         /// Sets the value of [successful_ingest_count][crate::model::ingest_conversations_metadata::IngestConversationsStats::successful_ingest_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+        /// let x = IngestConversationsStats::new().set_successful_ingest_count(42);
+        /// ```
         pub fn set_successful_ingest_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.successful_ingest_count = v.into();
             self
         }
 
         /// Sets the value of [failed_ingest_count][crate::model::ingest_conversations_metadata::IngestConversationsStats::failed_ingest_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::ingest_conversations_metadata::IngestConversationsStats;
+        /// let x = IngestConversationsStats::new().set_failed_ingest_count(42);
+        /// ```
         pub fn set_failed_ingest_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.failed_ingest_count = v.into();
             self
@@ -1821,12 +2521,25 @@ impl CreateAnalysisRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRequest;
+    /// let x = CreateAnalysisRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = CreateAnalysisRequest::new().set_analysis(Analysis::default()/* use setters */);
+    /// ```
     pub fn set_analysis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Analysis>,
@@ -1836,6 +2549,14 @@ impl CreateAnalysisRequest {
     }
 
     /// Sets or clears the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = CreateAnalysisRequest::new().set_or_clear_analysis(Some(Analysis::default()/* use setters */));
+    /// let x = CreateAnalysisRequest::new().set_or_clear_analysis(None::<Analysis>);
+    /// ```
     pub fn set_or_clear_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Analysis>,
@@ -1882,24 +2603,48 @@ impl ListAnalysesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAnalysesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesRequest;
+    /// let x = ListAnalysesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAnalysesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesRequest;
+    /// let x = ListAnalysesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAnalysesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesRequest;
+    /// let x = ListAnalysesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAnalysesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesRequest;
+    /// let x = ListAnalysesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1932,6 +2677,17 @@ impl ListAnalysesResponse {
     }
 
     /// Sets the value of [analyses][crate::model::ListAnalysesResponse::analyses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = ListAnalysesResponse::new()
+    ///     .set_analyses([
+    ///         Analysis::default()/* use setters */,
+    ///         Analysis::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_analyses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1943,6 +2699,12 @@ impl ListAnalysesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAnalysesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysesResponse;
+    /// let x = ListAnalysesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1985,6 +2747,12 @@ impl GetAnalysisRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAnalysisRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetAnalysisRequest;
+    /// let x = GetAnalysisRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2013,6 +2781,12 @@ impl DeleteAnalysisRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAnalysisRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteAnalysisRequest;
+    /// let x = DeleteAnalysisRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2052,24 +2826,49 @@ impl BulkAnalyzeConversationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// let x = BulkAnalyzeConversationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::BulkAnalyzeConversationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// let x = BulkAnalyzeConversationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [analysis_percentage][crate::model::BulkAnalyzeConversationsRequest::analysis_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// let x = BulkAnalyzeConversationsRequest::new().set_analysis_percentage(42.0);
+    /// ```
     pub fn set_analysis_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.analysis_percentage = v.into();
         self
     }
 
     /// Sets the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = BulkAnalyzeConversationsRequest::new().set_annotator_selector(AnnotatorSelector::default()/* use setters */);
+    /// ```
     pub fn set_annotator_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -2079,6 +2878,14 @@ impl BulkAnalyzeConversationsRequest {
     }
 
     /// Sets or clears the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = BulkAnalyzeConversationsRequest::new().set_or_clear_annotator_selector(Some(AnnotatorSelector::default()/* use setters */));
+    /// let x = BulkAnalyzeConversationsRequest::new().set_or_clear_annotator_selector(None::<AnnotatorSelector>);
+    /// ```
     pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -2130,6 +2937,13 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::BulkAnalyzeConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2139,6 +2953,14 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BulkAnalyzeConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2148,6 +2970,13 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BulkAnalyzeConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2157,6 +2986,14 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BulkAnalyzeConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2166,6 +3003,13 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets the value of [request][crate::model::BulkAnalyzeConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_request(BulkAnalyzeConversationsRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BulkAnalyzeConversationsRequest>,
@@ -2175,6 +3019,14 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::BulkAnalyzeConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsRequest;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_request(Some(BulkAnalyzeConversationsRequest::default()/* use setters */));
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_or_clear_request(None::<BulkAnalyzeConversationsRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BulkAnalyzeConversationsRequest>,
@@ -2184,24 +3036,53 @@ impl BulkAnalyzeConversationsMetadata {
     }
 
     /// Sets the value of [completed_analyses_count][crate::model::BulkAnalyzeConversationsMetadata::completed_analyses_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_completed_analyses_count(42);
+    /// ```
     pub fn set_completed_analyses_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.completed_analyses_count = v.into();
         self
     }
 
     /// Sets the value of [failed_analyses_count][crate::model::BulkAnalyzeConversationsMetadata::failed_analyses_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_failed_analyses_count(42);
+    /// ```
     pub fn set_failed_analyses_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failed_analyses_count = v.into();
         self
     }
 
     /// Sets the value of [total_requested_analyses_count][crate::model::BulkAnalyzeConversationsMetadata::total_requested_analyses_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// let x = BulkAnalyzeConversationsMetadata::new().set_total_requested_analyses_count(42);
+    /// ```
     pub fn set_total_requested_analyses_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_requested_analyses_count = v.into();
         self
     }
 
     /// Sets the value of [partial_errors][crate::model::BulkAnalyzeConversationsMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsMetadata;
+    /// use rpc::model::Status;
+    /// let x = BulkAnalyzeConversationsMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2238,12 +3119,24 @@ impl BulkAnalyzeConversationsResponse {
     }
 
     /// Sets the value of [successful_analysis_count][crate::model::BulkAnalyzeConversationsResponse::successful_analysis_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsResponse;
+    /// let x = BulkAnalyzeConversationsResponse::new().set_successful_analysis_count(42);
+    /// ```
     pub fn set_successful_analysis_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.successful_analysis_count = v.into();
         self
     }
 
     /// Sets the value of [failed_analysis_count][crate::model::BulkAnalyzeConversationsResponse::failed_analysis_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkAnalyzeConversationsResponse;
+    /// let x = BulkAnalyzeConversationsResponse::new().set_failed_analysis_count(42);
+    /// ```
     pub fn set_failed_analysis_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failed_analysis_count = v.into();
         self
@@ -2285,24 +3178,48 @@ impl BulkDeleteConversationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::BulkDeleteConversationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [max_delete_count][crate::model::BulkDeleteConversationsRequest::max_delete_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsRequest::new().set_max_delete_count(42);
+    /// ```
     pub fn set_max_delete_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_delete_count = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::BulkDeleteConversationsRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2341,6 +3258,13 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::BulkDeleteConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteConversationsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2350,6 +3274,14 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BulkDeleteConversationsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2359,6 +3291,13 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BulkDeleteConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteConversationsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2368,6 +3307,14 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BulkDeleteConversationsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2377,6 +3324,13 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets the value of [request][crate::model::BulkDeleteConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsMetadata::new().set_request(BulkDeleteConversationsRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BulkDeleteConversationsRequest>,
@@ -2386,6 +3340,14 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::BulkDeleteConversationsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsRequest;
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_request(Some(BulkDeleteConversationsRequest::default()/* use setters */));
+    /// let x = BulkDeleteConversationsMetadata::new().set_or_clear_request(None::<BulkDeleteConversationsRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BulkDeleteConversationsRequest>,
@@ -2395,6 +3357,17 @@ impl BulkDeleteConversationsMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::BulkDeleteConversationsMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDeleteConversationsMetadata;
+    /// use rpc::model::Status;
+    /// let x = BulkDeleteConversationsMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2462,24 +3435,50 @@ impl ExportInsightsDataRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// let x = ExportInsightsDataRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ExportInsightsDataRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// let x = ExportInsightsDataRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::ExportInsightsDataRequest::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// let x = ExportInsightsDataRequest::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [write_disposition][crate::model::ExportInsightsDataRequest::write_disposition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::WriteDisposition;
+    /// let x0 = ExportInsightsDataRequest::new().set_write_disposition(WriteDisposition::WriteTruncate);
+    /// let x1 = ExportInsightsDataRequest::new().set_write_disposition(WriteDisposition::WriteAppend);
+    /// ```
     pub fn set_write_disposition<
         T: std::convert::Into<crate::model::export_insights_data_request::WriteDisposition>,
     >(
@@ -2494,6 +3493,14 @@ impl ExportInsightsDataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::BigQueryDestination;
+    /// let x = ExportInsightsDataRequest::new().set_destination(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::export_insights_data_request::Destination::BigQueryDestination(BigQueryDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_insights_data_request::Destination>,
@@ -2528,6 +3535,14 @@ impl ExportInsightsDataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::BigQueryDestination;
+    /// let x = ExportInsightsDataRequest::new().set_big_query_destination(BigQueryDestination::default()/* use setters */);
+    /// assert!(x.big_query_destination().is_some());
+    /// ```
     pub fn set_big_query_destination<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::export_insights_data_request::BigQueryDestination>,
@@ -2582,18 +3597,36 @@ pub mod export_insights_data_request {
         }
 
         /// Sets the value of [project_id][crate::model::export_insights_data_request::BigQueryDestination::project_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_project_id("example");
+        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
         }
 
         /// Sets the value of [dataset][crate::model::export_insights_data_request::BigQueryDestination::dataset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_dataset("example");
+        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::export_insights_data_request::BigQueryDestination::table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::export_insights_data_request::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_table("example");
+        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
@@ -2776,6 +3809,13 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ExportInsightsDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportInsightsDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2785,6 +3825,14 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExportInsightsDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2794,6 +3842,13 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ExportInsightsDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportInsightsDataMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2803,6 +3858,14 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ExportInsightsDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2812,6 +3875,13 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets the value of [request][crate::model::ExportInsightsDataMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// let x = ExportInsightsDataMetadata::new().set_request(ExportInsightsDataRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportInsightsDataRequest>,
@@ -2821,6 +3891,14 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::ExportInsightsDataMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataRequest;
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_request(Some(ExportInsightsDataRequest::default()/* use setters */));
+    /// let x = ExportInsightsDataMetadata::new().set_or_clear_request(None::<ExportInsightsDataRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportInsightsDataRequest>,
@@ -2830,6 +3908,17 @@ impl ExportInsightsDataMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::ExportInsightsDataMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportInsightsDataMetadata;
+    /// use rpc::model::Status;
+    /// let x = ExportInsightsDataMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2885,12 +3974,25 @@ impl CreateIssueModelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelRequest;
+    /// let x = CreateIssueModelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = CreateIssueModelRequest::new().set_issue_model(IssueModel::default()/* use setters */);
+    /// ```
     pub fn set_issue_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueModel>,
@@ -2900,6 +4002,14 @@ impl CreateIssueModelRequest {
     }
 
     /// Sets or clears the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = CreateIssueModelRequest::new().set_or_clear_issue_model(Some(IssueModel::default()/* use setters */));
+    /// let x = CreateIssueModelRequest::new().set_or_clear_issue_model(None::<IssueModel>);
+    /// ```
     pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueModel>,
@@ -2937,6 +4047,13 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2946,6 +4063,14 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2955,6 +4080,13 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2964,6 +4096,14 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2973,6 +4113,13 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::CreateIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::CreateIssueModelRequest;
+    /// let x = CreateIssueModelMetadata::new().set_request(CreateIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateIssueModelRequest>,
@@ -2982,6 +4129,14 @@ impl CreateIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::CreateIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::CreateIssueModelRequest;
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_request(Some(CreateIssueModelRequest::default()/* use setters */));
+    /// let x = CreateIssueModelMetadata::new().set_or_clear_request(None::<CreateIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateIssueModelRequest>,
@@ -3016,6 +4171,13 @@ impl UpdateIssueModelRequest {
     }
 
     /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = UpdateIssueModelRequest::new().set_issue_model(IssueModel::default()/* use setters */);
+    /// ```
     pub fn set_issue_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueModel>,
@@ -3025,6 +4187,14 @@ impl UpdateIssueModelRequest {
     }
 
     /// Sets or clears the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = UpdateIssueModelRequest::new().set_or_clear_issue_model(Some(IssueModel::default()/* use setters */));
+    /// let x = UpdateIssueModelRequest::new().set_or_clear_issue_model(None::<IssueModel>);
+    /// ```
     pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueModel>,
@@ -3034,6 +4204,13 @@ impl UpdateIssueModelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueModelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueModelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3043,6 +4220,14 @@ impl UpdateIssueModelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueModelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueModelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIssueModelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3074,6 +4259,12 @@ impl ListIssueModelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIssueModelsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListIssueModelsRequest;
+    /// let x = ListIssueModelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -3102,6 +4293,17 @@ impl ListIssueModelsResponse {
     }
 
     /// Sets the value of [issue_models][crate::model::ListIssueModelsResponse::issue_models].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListIssueModelsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = ListIssueModelsResponse::new()
+    ///     .set_issue_models([
+    ///         IssueModel::default()/* use setters */,
+    ///         IssueModel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issue_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3135,6 +4337,12 @@ impl GetIssueModelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIssueModelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetIssueModelRequest;
+    /// let x = GetIssueModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3163,6 +4371,12 @@ impl DeleteIssueModelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelRequest;
+    /// let x = DeleteIssueModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3197,6 +4411,13 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::DeleteIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3206,6 +4427,14 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeleteIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3215,6 +4444,13 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::DeleteIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3224,6 +4460,14 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DeleteIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3233,6 +4477,13 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::DeleteIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelRequest;
+    /// let x = DeleteIssueModelMetadata::new().set_request(DeleteIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeleteIssueModelRequest>,
@@ -3242,6 +4493,14 @@ impl DeleteIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::DeleteIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::DeleteIssueModelRequest;
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_request(Some(DeleteIssueModelRequest::default()/* use setters */));
+    /// let x = DeleteIssueModelMetadata::new().set_or_clear_request(None::<DeleteIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeleteIssueModelRequest>,
@@ -3273,6 +4532,12 @@ impl DeployIssueModelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelRequest;
+    /// let x = DeployIssueModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3326,6 +4591,13 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::DeployIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3335,6 +4607,14 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeployIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3344,6 +4624,13 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::DeployIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3353,6 +4640,14 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DeployIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3362,6 +4657,13 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::DeployIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::DeployIssueModelRequest;
+    /// let x = DeployIssueModelMetadata::new().set_request(DeployIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeployIssueModelRequest>,
@@ -3371,6 +4673,14 @@ impl DeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::DeployIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::DeployIssueModelRequest;
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_request(Some(DeployIssueModelRequest::default()/* use setters */));
+    /// let x = DeployIssueModelMetadata::new().set_or_clear_request(None::<DeployIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeployIssueModelRequest>,
@@ -3402,6 +4712,12 @@ impl UndeployIssueModelRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelRequest;
+    /// let x = UndeployIssueModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3455,6 +4771,13 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::UndeployIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3464,6 +4787,14 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::UndeployIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3473,6 +4804,13 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UndeployIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3482,6 +4820,14 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UndeployIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3491,6 +4837,13 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::UndeployIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelRequest;
+    /// let x = UndeployIssueModelMetadata::new().set_request(UndeployIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UndeployIssueModelRequest>,
@@ -3500,6 +4853,14 @@ impl UndeployIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::UndeployIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::UndeployIssueModelRequest;
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_request(Some(UndeployIssueModelRequest::default()/* use setters */));
+    /// let x = UndeployIssueModelMetadata::new().set_or_clear_request(None::<UndeployIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UndeployIssueModelRequest>,
@@ -3533,6 +4894,12 @@ impl ExportIssueModelRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
+    /// let x = ExportIssueModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3542,6 +4909,14 @@ impl ExportIssueModelRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::export_issue_model_request::GcsDestination;
+    /// let x = ExportIssueModelRequest::new().set_destination(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::export_issue_model_request::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::export_issue_model_request::Destination>,
@@ -3576,6 +4951,14 @@ impl ExportIssueModelRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::export_issue_model_request::GcsDestination;
+    /// let x = ExportIssueModelRequest::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::export_issue_model_request::GcsDestination>,
@@ -3618,6 +5001,12 @@ pub mod export_issue_model_request {
         }
 
         /// Sets the value of [object_uri][crate::model::export_issue_model_request::GcsDestination::object_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::export_issue_model_request::GcsDestination;
+        /// let x = GcsDestination::new().set_object_uri("example");
+        /// ```
         pub fn set_object_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_uri = v.into();
             self
@@ -3679,6 +5068,13 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ExportIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3688,6 +5084,14 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExportIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3697,6 +5101,13 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ExportIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3706,6 +5117,14 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ExportIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3715,6 +5134,13 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::ExportIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
+    /// let x = ExportIssueModelMetadata::new().set_request(ExportIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportIssueModelRequest>,
@@ -3724,6 +5150,14 @@ impl ExportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::ExportIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExportIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ExportIssueModelRequest;
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_request(Some(ExportIssueModelRequest::default()/* use setters */));
+    /// let x = ExportIssueModelMetadata::new().set_or_clear_request(None::<ExportIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportIssueModelRequest>,
@@ -3762,12 +5196,24 @@ impl ImportIssueModelRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// let x = ImportIssueModelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [create_new_model][crate::model::ImportIssueModelRequest::create_new_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// let x = ImportIssueModelRequest::new().set_create_new_model(true);
+    /// ```
     pub fn set_create_new_model<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.create_new_model = v.into();
         self
@@ -3777,6 +5223,14 @@ impl ImportIssueModelRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::import_issue_model_request::GcsSource;
+    /// let x = ImportIssueModelRequest::new().set_source(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::import_issue_model_request::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_issue_model_request::Source>>,
     >(
@@ -3808,6 +5262,14 @@ impl ImportIssueModelRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::import_issue_model_request::GcsSource;
+    /// let x = ImportIssueModelRequest::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::import_issue_model_request::GcsSource>>,
     >(
@@ -3848,6 +5310,12 @@ pub mod import_issue_model_request {
         }
 
         /// Sets the value of [object_uri][crate::model::import_issue_model_request::GcsSource::object_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::import_issue_model_request::GcsSource;
+        /// let x = GcsSource::new().set_object_uri("example");
+        /// ```
         pub fn set_object_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_uri = v.into();
             self
@@ -3909,6 +5377,13 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ImportIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportIssueModelMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3918,6 +5393,14 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImportIssueModelMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3927,6 +5410,13 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ImportIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportIssueModelMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3936,6 +5426,14 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ImportIssueModelMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3945,6 +5443,13 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets the value of [request][crate::model::ImportIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// let x = ImportIssueModelMetadata::new().set_request(ImportIssueModelRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportIssueModelRequest>,
@@ -3954,6 +5459,14 @@ impl ImportIssueModelMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::ImportIssueModelMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ImportIssueModelMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::ImportIssueModelRequest;
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_request(Some(ImportIssueModelRequest::default()/* use setters */));
+    /// let x = ImportIssueModelMetadata::new().set_or_clear_request(None::<ImportIssueModelRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportIssueModelRequest>,
@@ -3985,6 +5498,12 @@ impl GetIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIssueRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetIssueRequest;
+    /// let x = GetIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4013,6 +5532,12 @@ impl ListIssuesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListIssuesRequest;
+    /// let x = ListIssuesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -4041,6 +5566,17 @@ impl ListIssuesResponse {
     }
 
     /// Sets the value of [issues][crate::model::ListIssuesResponse::issues].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListIssuesResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = ListIssuesResponse::new()
+    ///     .set_issues([
+    ///         Issue::default()/* use setters */,
+    ///         Issue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4077,6 +5613,13 @@ impl UpdateIssueRequest {
     }
 
     /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = UpdateIssueRequest::new().set_issue(Issue::default()/* use setters */);
+    /// ```
     pub fn set_issue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -4086,6 +5629,14 @@ impl UpdateIssueRequest {
     }
 
     /// Sets or clears the value of [issue][crate::model::UpdateIssueRequest::issue].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = UpdateIssueRequest::new().set_or_clear_issue(Some(Issue::default()/* use setters */));
+    /// let x = UpdateIssueRequest::new().set_or_clear_issue(None::<Issue>);
+    /// ```
     pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Issue>,
@@ -4095,6 +5646,13 @@ impl UpdateIssueRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4104,6 +5662,14 @@ impl UpdateIssueRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateIssueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIssueRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIssueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4135,6 +5701,12 @@ impl DeleteIssueRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteIssueRequest;
+    /// let x = DeleteIssueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4163,6 +5735,12 @@ impl CalculateIssueModelStatsRequest {
     }
 
     /// Sets the value of [issue_model][crate::model::CalculateIssueModelStatsRequest::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateIssueModelStatsRequest;
+    /// let x = CalculateIssueModelStatsRequest::new().set_issue_model("example");
+    /// ```
     pub fn set_issue_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue_model = v.into();
         self
@@ -4192,6 +5770,13 @@ impl CalculateIssueModelStatsResponse {
     }
 
     /// Sets the value of [current_stats][crate::model::CalculateIssueModelStatsResponse::current_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateIssueModelStatsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = CalculateIssueModelStatsResponse::new().set_current_stats(IssueModelLabelStats::default()/* use setters */);
+    /// ```
     pub fn set_current_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueModelLabelStats>,
@@ -4201,6 +5786,14 @@ impl CalculateIssueModelStatsResponse {
     }
 
     /// Sets or clears the value of [current_stats][crate::model::CalculateIssueModelStatsResponse::current_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CalculateIssueModelStatsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = CalculateIssueModelStatsResponse::new().set_or_clear_current_stats(Some(IssueModelLabelStats::default()/* use setters */));
+    /// let x = CalculateIssueModelStatsResponse::new().set_or_clear_current_stats(None::<IssueModelLabelStats>);
+    /// ```
     pub fn set_or_clear_current_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueModelLabelStats>,
@@ -4238,12 +5831,25 @@ impl CreatePhraseMatcherRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePhraseMatcherRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreatePhraseMatcherRequest;
+    /// let x = CreatePhraseMatcherRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreatePhraseMatcherRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = CreatePhraseMatcherRequest::new().set_phrase_matcher(PhraseMatcher::default()/* use setters */);
+    /// ```
     pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatcher>,
@@ -4253,6 +5859,14 @@ impl CreatePhraseMatcherRequest {
     }
 
     /// Sets or clears the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreatePhraseMatcherRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = CreatePhraseMatcherRequest::new().set_or_clear_phrase_matcher(Some(PhraseMatcher::default()/* use setters */));
+    /// let x = CreatePhraseMatcherRequest::new().set_or_clear_phrase_matcher(None::<PhraseMatcher>);
+    /// ```
     pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatcher>,
@@ -4299,24 +5913,48 @@ impl ListPhraseMatchersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPhraseMatchersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersRequest;
+    /// let x = ListPhraseMatchersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPhraseMatchersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersRequest;
+    /// let x = ListPhraseMatchersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPhraseMatchersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersRequest;
+    /// let x = ListPhraseMatchersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPhraseMatchersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersRequest;
+    /// let x = ListPhraseMatchersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4349,6 +5987,17 @@ impl ListPhraseMatchersResponse {
     }
 
     /// Sets the value of [phrase_matchers][crate::model::ListPhraseMatchersResponse::phrase_matchers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = ListPhraseMatchersResponse::new()
+    ///     .set_phrase_matchers([
+    ///         PhraseMatcher::default()/* use setters */,
+    ///         PhraseMatcher::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrase_matchers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4360,6 +6009,12 @@ impl ListPhraseMatchersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPhraseMatchersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListPhraseMatchersResponse;
+    /// let x = ListPhraseMatchersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4402,6 +6057,12 @@ impl GetPhraseMatcherRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPhraseMatcherRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetPhraseMatcherRequest;
+    /// let x = GetPhraseMatcherRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4430,6 +6091,12 @@ impl DeletePhraseMatcherRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePhraseMatcherRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeletePhraseMatcherRequest;
+    /// let x = DeletePhraseMatcherRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4461,6 +6128,13 @@ impl UpdatePhraseMatcherRequest {
     }
 
     /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdatePhraseMatcherRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = UpdatePhraseMatcherRequest::new().set_phrase_matcher(PhraseMatcher::default()/* use setters */);
+    /// ```
     pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatcher>,
@@ -4470,6 +6144,14 @@ impl UpdatePhraseMatcherRequest {
     }
 
     /// Sets or clears the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdatePhraseMatcherRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = UpdatePhraseMatcherRequest::new().set_or_clear_phrase_matcher(Some(PhraseMatcher::default()/* use setters */));
+    /// let x = UpdatePhraseMatcherRequest::new().set_or_clear_phrase_matcher(None::<PhraseMatcher>);
+    /// ```
     pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatcher>,
@@ -4479,6 +6161,13 @@ impl UpdatePhraseMatcherRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdatePhraseMatcherRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePhraseMatcherRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4488,6 +6177,14 @@ impl UpdatePhraseMatcherRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdatePhraseMatcherRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePhraseMatcherRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePhraseMatcherRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4519,6 +6216,12 @@ impl GetSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetSettingsRequest;
+    /// let x = GetSettingsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4550,6 +6253,13 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateSettingsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// let x = UpdateSettingsRequest::new().set_settings(Settings::default()/* use setters */);
+    /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -4559,6 +6269,14 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateSettingsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(Some(Settings::default()/* use setters */));
+    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(None::<Settings>);
+    /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -4568,6 +6286,13 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateSettingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4577,6 +6302,14 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateSettingsRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4615,12 +6348,25 @@ impl CreateAnalysisRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAnalysisRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRuleRequest;
+    /// let x = CreateAnalysisRuleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRuleRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = CreateAnalysisRuleRequest::new().set_analysis_rule(AnalysisRule::default()/* use setters */);
+    /// ```
     pub fn set_analysis_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisRule>,
@@ -4630,6 +6376,14 @@ impl CreateAnalysisRuleRequest {
     }
 
     /// Sets or clears the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateAnalysisRuleRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = CreateAnalysisRuleRequest::new().set_or_clear_analysis_rule(Some(AnalysisRule::default()/* use setters */));
+    /// let x = CreateAnalysisRuleRequest::new().set_or_clear_analysis_rule(None::<AnalysisRule>);
+    /// ```
     pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisRule>,
@@ -4661,6 +6415,12 @@ impl GetAnalysisRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAnalysisRuleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetAnalysisRuleRequest;
+    /// let x = GetAnalysisRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4694,6 +6454,13 @@ impl UpdateAnalysisRuleRequest {
     }
 
     /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateAnalysisRuleRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = UpdateAnalysisRuleRequest::new().set_analysis_rule(AnalysisRule::default()/* use setters */);
+    /// ```
     pub fn set_analysis_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisRule>,
@@ -4703,6 +6470,14 @@ impl UpdateAnalysisRuleRequest {
     }
 
     /// Sets or clears the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateAnalysisRuleRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = UpdateAnalysisRuleRequest::new().set_or_clear_analysis_rule(Some(AnalysisRule::default()/* use setters */));
+    /// let x = UpdateAnalysisRuleRequest::new().set_or_clear_analysis_rule(None::<AnalysisRule>);
+    /// ```
     pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisRule>,
@@ -4712,6 +6487,13 @@ impl UpdateAnalysisRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateAnalysisRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAnalysisRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4721,6 +6503,14 @@ impl UpdateAnalysisRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateAnalysisRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAnalysisRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAnalysisRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4752,6 +6542,12 @@ impl DeleteAnalysisRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAnalysisRuleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteAnalysisRuleRequest;
+    /// let x = DeleteAnalysisRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4791,18 +6587,36 @@ impl ListAnalysisRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAnalysisRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysisRulesRequest;
+    /// let x = ListAnalysisRulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAnalysisRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysisRulesRequest;
+    /// let x = ListAnalysisRulesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAnalysisRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysisRulesRequest;
+    /// let x = ListAnalysisRulesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4835,6 +6649,17 @@ impl ListAnalysisRulesResponse {
     }
 
     /// Sets the value of [analysis_rules][crate::model::ListAnalysisRulesResponse::analysis_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysisRulesResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = ListAnalysisRulesResponse::new()
+    ///     .set_analysis_rules([
+    ///         AnalysisRule::default()/* use setters */,
+    ///         AnalysisRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_analysis_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4846,6 +6671,12 @@ impl ListAnalysisRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAnalysisRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAnalysisRulesResponse;
+    /// let x = ListAnalysisRulesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4888,6 +6719,12 @@ impl GetEncryptionSpecRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEncryptionSpecRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetEncryptionSpecRequest;
+    /// let x = GetEncryptionSpecRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4919,6 +6756,13 @@ impl InitializeEncryptionSpecRequest {
     }
 
     /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::EncryptionSpec;
+    /// let x = InitializeEncryptionSpecRequest::new().set_encryption_spec(EncryptionSpec::default()/* use setters */);
+    /// ```
     pub fn set_encryption_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionSpec>,
@@ -4928,6 +6772,14 @@ impl InitializeEncryptionSpecRequest {
     }
 
     /// Sets or clears the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::EncryptionSpec;
+    /// let x = InitializeEncryptionSpecRequest::new().set_or_clear_encryption_spec(Some(EncryptionSpec::default()/* use setters */));
+    /// let x = InitializeEncryptionSpecRequest::new().set_or_clear_encryption_spec(None::<EncryptionSpec>);
+    /// ```
     pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionSpec>,
@@ -4988,6 +6840,13 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::InitializeEncryptionSpecMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use wkt::Timestamp;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4997,6 +6856,14 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::InitializeEncryptionSpecMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use wkt::Timestamp;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5006,6 +6873,13 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::InitializeEncryptionSpecMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use wkt::Timestamp;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5015,6 +6889,14 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::InitializeEncryptionSpecMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use wkt::Timestamp;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5024,6 +6906,13 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets the value of [request][crate::model::InitializeEncryptionSpecMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecRequest;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_request(InitializeEncryptionSpecRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InitializeEncryptionSpecRequest>,
@@ -5033,6 +6922,14 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::InitializeEncryptionSpecMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecRequest;
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_request(Some(InitializeEncryptionSpecRequest::default()/* use setters */));
+    /// let x = InitializeEncryptionSpecMetadata::new().set_or_clear_request(None::<InitializeEncryptionSpecRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InitializeEncryptionSpecRequest>,
@@ -5042,6 +6939,17 @@ impl InitializeEncryptionSpecMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::InitializeEncryptionSpecMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::InitializeEncryptionSpecMetadata;
+    /// use rpc::model::Status;
+    /// let x = InitializeEncryptionSpecMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5081,12 +6989,25 @@ impl CreateViewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateViewRequest;
+    /// let x = CreateViewRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::CreateViewRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateViewRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = CreateViewRequest::new().set_view(View::default()/* use setters */);
+    /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::View>,
@@ -5096,6 +7017,14 @@ impl CreateViewRequest {
     }
 
     /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateViewRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = CreateViewRequest::new().set_or_clear_view(Some(View::default()/* use setters */));
+    /// let x = CreateViewRequest::new().set_or_clear_view(None::<View>);
+    /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::View>,
@@ -5127,6 +7056,12 @@ impl GetViewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetViewRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetViewRequest;
+    /// let x = GetViewRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5166,18 +7101,36 @@ impl ListViewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListViewsRequest;
+    /// let x = ListViewsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListViewsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListViewsRequest;
+    /// let x = ListViewsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListViewsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListViewsRequest;
+    /// let x = ListViewsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5210,6 +7163,17 @@ impl ListViewsResponse {
     }
 
     /// Sets the value of [views][crate::model::ListViewsResponse::views].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListViewsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = ListViewsResponse::new()
+    ///     .set_views([
+    ///         View::default()/* use setters */,
+    ///         View::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_views<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5221,6 +7185,12 @@ impl ListViewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListViewsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListViewsResponse;
+    /// let x = ListViewsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5266,6 +7236,13 @@ impl UpdateViewRequest {
     }
 
     /// Sets the value of [view][crate::model::UpdateViewRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateViewRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = UpdateViewRequest::new().set_view(View::default()/* use setters */);
+    /// ```
     pub fn set_view<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::View>,
@@ -5275,6 +7252,14 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateViewRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = UpdateViewRequest::new().set_or_clear_view(Some(View::default()/* use setters */));
+    /// let x = UpdateViewRequest::new().set_or_clear_view(None::<View>);
+    /// ```
     pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::View>,
@@ -5284,6 +7269,13 @@ impl UpdateViewRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateViewRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateViewRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5293,6 +7285,14 @@ impl UpdateViewRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateViewRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateViewRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateViewRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5324,6 +7324,12 @@ impl DeleteViewRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteViewRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteViewRequest;
+    /// let x = DeleteViewRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5356,6 +7362,15 @@ impl Dimension {
     }
 
     /// Sets the value of [dimension_key][crate::model::Dimension::dimension_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::DimensionKey;
+    /// let x0 = Dimension::new().set_dimension_key(DimensionKey::Issue);
+    /// let x1 = Dimension::new().set_dimension_key(DimensionKey::Agent);
+    /// let x2 = Dimension::new().set_dimension_key(DimensionKey::AgentTeam);
+    /// ```
     pub fn set_dimension_key<T: std::convert::Into<crate::model::dimension::DimensionKey>>(
         mut self,
         v: T,
@@ -5368,6 +7383,14 @@ impl Dimension {
     ///
     /// Note that all the setters affecting `dimension_metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
+    /// let x = Dimension::new().set_dimension_metadata(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::dimension::DimensionMetadata::IssueDimensionMetadata(IssueDimensionMetadata::default().into())));
+    /// ```
     pub fn set_dimension_metadata<
         T: std::convert::Into<std::option::Option<crate::model::dimension::DimensionMetadata>>,
     >(
@@ -5399,6 +7422,17 @@ impl Dimension {
     ///
     /// Note that all the setters affecting `dimension_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
+    /// let x = Dimension::new().set_issue_dimension_metadata(IssueDimensionMetadata::default()/* use setters */);
+    /// assert!(x.issue_dimension_metadata().is_some());
+    /// assert!(x.agent_dimension_metadata().is_none());
+    /// assert!(x.qa_question_dimension_metadata().is_none());
+    /// assert!(x.qa_question_answer_dimension_metadata().is_none());
+    /// ```
     pub fn set_issue_dimension_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::dimension::IssueDimensionMetadata>>,
     >(
@@ -5432,6 +7466,17 @@ impl Dimension {
     ///
     /// Note that all the setters affecting `dimension_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::AgentDimensionMetadata;
+    /// let x = Dimension::new().set_agent_dimension_metadata(AgentDimensionMetadata::default()/* use setters */);
+    /// assert!(x.agent_dimension_metadata().is_some());
+    /// assert!(x.issue_dimension_metadata().is_none());
+    /// assert!(x.qa_question_dimension_metadata().is_none());
+    /// assert!(x.qa_question_answer_dimension_metadata().is_none());
+    /// ```
     pub fn set_agent_dimension_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::dimension::AgentDimensionMetadata>>,
     >(
@@ -5465,6 +7510,17 @@ impl Dimension {
     ///
     /// Note that all the setters affecting `dimension_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionDimensionMetadata;
+    /// let x = Dimension::new().set_qa_question_dimension_metadata(QaQuestionDimensionMetadata::default()/* use setters */);
+    /// assert!(x.qa_question_dimension_metadata().is_some());
+    /// assert!(x.issue_dimension_metadata().is_none());
+    /// assert!(x.agent_dimension_metadata().is_none());
+    /// assert!(x.qa_question_answer_dimension_metadata().is_none());
+    /// ```
     pub fn set_qa_question_dimension_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::dimension::QaQuestionDimensionMetadata>>,
     >(
@@ -5499,6 +7555,17 @@ impl Dimension {
     ///
     /// Note that all the setters affecting `dimension_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionAnswerDimensionMetadata;
+    /// let x = Dimension::new().set_qa_question_answer_dimension_metadata(QaQuestionAnswerDimensionMetadata::default()/* use setters */);
+    /// assert!(x.qa_question_answer_dimension_metadata().is_some());
+    /// assert!(x.issue_dimension_metadata().is_none());
+    /// assert!(x.agent_dimension_metadata().is_none());
+    /// assert!(x.qa_question_dimension_metadata().is_none());
+    /// ```
     pub fn set_qa_question_answer_dimension_metadata<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::dimension::QaQuestionAnswerDimensionMetadata>,
@@ -5547,12 +7614,24 @@ pub mod dimension {
         }
 
         /// Sets the value of [issue_id][crate::model::dimension::IssueDimensionMetadata::issue_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
+        /// let x = IssueDimensionMetadata::new().set_issue_id("example");
+        /// ```
         pub fn set_issue_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.issue_id = v.into();
             self
         }
 
         /// Sets the value of [issue_display_name][crate::model::dimension::IssueDimensionMetadata::issue_display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
+        /// let x = IssueDimensionMetadata::new().set_issue_display_name("example");
+        /// ```
         pub fn set_issue_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5562,6 +7641,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [issue_model_id][crate::model::dimension::IssueDimensionMetadata::issue_model_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::IssueDimensionMetadata;
+        /// let x = IssueDimensionMetadata::new().set_issue_model_id("example");
+        /// ```
         pub fn set_issue_model_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5599,12 +7684,24 @@ pub mod dimension {
         }
 
         /// Sets the value of [agent_id][crate::model::dimension::AgentDimensionMetadata::agent_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::AgentDimensionMetadata;
+        /// let x = AgentDimensionMetadata::new().set_agent_id("example");
+        /// ```
         pub fn set_agent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent_id = v.into();
             self
         }
 
         /// Sets the value of [agent_display_name][crate::model::dimension::AgentDimensionMetadata::agent_display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::AgentDimensionMetadata;
+        /// let x = AgentDimensionMetadata::new().set_agent_display_name("example");
+        /// ```
         pub fn set_agent_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5614,6 +7711,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [agent_team][crate::model::dimension::AgentDimensionMetadata::agent_team].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::AgentDimensionMetadata;
+        /// let x = AgentDimensionMetadata::new().set_agent_team("example");
+        /// ```
         pub fn set_agent_team<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.agent_team = v.into();
             self
@@ -5648,6 +7751,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [qa_scorecard_id][crate::model::dimension::QaQuestionDimensionMetadata::qa_scorecard_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionDimensionMetadata;
+        /// let x = QaQuestionDimensionMetadata::new().set_qa_scorecard_id("example");
+        /// ```
         pub fn set_qa_scorecard_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5657,6 +7766,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [qa_question_id][crate::model::dimension::QaQuestionDimensionMetadata::qa_question_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionDimensionMetadata;
+        /// let x = QaQuestionDimensionMetadata::new().set_qa_question_id("example");
+        /// ```
         pub fn set_qa_question_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5666,6 +7781,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [question_body][crate::model::dimension::QaQuestionDimensionMetadata::question_body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionDimensionMetadata;
+        /// let x = QaQuestionDimensionMetadata::new().set_question_body("example");
+        /// ```
         pub fn set_question_body<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5708,6 +7829,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [qa_scorecard_id][crate::model::dimension::QaQuestionAnswerDimensionMetadata::qa_scorecard_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionAnswerDimensionMetadata;
+        /// let x = QaQuestionAnswerDimensionMetadata::new().set_qa_scorecard_id("example");
+        /// ```
         pub fn set_qa_scorecard_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5717,6 +7844,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [qa_question_id][crate::model::dimension::QaQuestionAnswerDimensionMetadata::qa_question_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionAnswerDimensionMetadata;
+        /// let x = QaQuestionAnswerDimensionMetadata::new().set_qa_question_id("example");
+        /// ```
         pub fn set_qa_question_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5726,6 +7859,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [question_body][crate::model::dimension::QaQuestionAnswerDimensionMetadata::question_body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionAnswerDimensionMetadata;
+        /// let x = QaQuestionAnswerDimensionMetadata::new().set_question_body("example");
+        /// ```
         pub fn set_question_body<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5735,6 +7874,12 @@ pub mod dimension {
         }
 
         /// Sets the value of [answer_value][crate::model::dimension::QaQuestionAnswerDimensionMetadata::answer_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::dimension::QaQuestionAnswerDimensionMetadata;
+        /// let x = QaQuestionAnswerDimensionMetadata::new().set_answer_value("example");
+        /// ```
         pub fn set_answer_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5981,18 +8126,39 @@ impl QueryMetricsRequest {
     }
 
     /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// let x = QueryMetricsRequest::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::QueryMetricsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// let x = QueryMetricsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [time_granularity][crate::model::QueryMetricsRequest::time_granularity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::query_metrics_request::TimeGranularity;
+    /// let x0 = QueryMetricsRequest::new().set_time_granularity(TimeGranularity::None);
+    /// let x1 = QueryMetricsRequest::new().set_time_granularity(TimeGranularity::Daily);
+    /// let x2 = QueryMetricsRequest::new().set_time_granularity(TimeGranularity::Hourly);
+    /// ```
     pub fn set_time_granularity<
         T: std::convert::Into<crate::model::query_metrics_request::TimeGranularity>,
     >(
@@ -6004,6 +8170,17 @@ impl QueryMetricsRequest {
     }
 
     /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::Dimension;
+    /// let x = QueryMetricsRequest::new()
+    ///     .set_dimensions([
+    ///         Dimension::default()/* use setters */,
+    ///         Dimension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6015,6 +8192,13 @@ impl QueryMetricsRequest {
     }
 
     /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// use wkt::FieldMask;
+    /// let x = QueryMetricsRequest::new().set_measure_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_measure_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6024,6 +8208,14 @@ impl QueryMetricsRequest {
     }
 
     /// Sets or clears the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsRequest;
+    /// use wkt::FieldMask;
+    /// let x = QueryMetricsRequest::new().set_or_clear_measure_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = QueryMetricsRequest::new().set_or_clear_measure_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_measure_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6244,12 +8436,25 @@ impl QueryMetricsResponse {
     }
 
     /// Sets the value of [location][crate::model::QueryMetricsResponse::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// let x = QueryMetricsResponse::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::QueryMetricsResponse::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// use wkt::Timestamp;
+    /// let x = QueryMetricsResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6259,6 +8464,14 @@ impl QueryMetricsResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::QueryMetricsResponse::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// use wkt::Timestamp;
+    /// let x = QueryMetricsResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QueryMetricsResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6268,6 +8481,17 @@ impl QueryMetricsResponse {
     }
 
     /// Sets the value of [slices][crate::model::QueryMetricsResponse::slices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+    /// let x = QueryMetricsResponse::new()
+    ///     .set_slices([
+    ///         Slice::default()/* use setters */,
+    ///         Slice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_slices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6279,6 +8503,13 @@ impl QueryMetricsResponse {
     }
 
     /// Sets the value of [macro_average_slice][crate::model::QueryMetricsResponse::macro_average_slice].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+    /// let x = QueryMetricsResponse::new().set_macro_average_slice(Slice::default()/* use setters */);
+    /// ```
     pub fn set_macro_average_slice<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::query_metrics_response::Slice>,
@@ -6288,6 +8519,14 @@ impl QueryMetricsResponse {
     }
 
     /// Sets or clears the value of [macro_average_slice][crate::model::QueryMetricsResponse::macro_average_slice].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QueryMetricsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+    /// let x = QueryMetricsResponse::new().set_or_clear_macro_average_slice(Some(Slice::default()/* use setters */));
+    /// let x = QueryMetricsResponse::new().set_or_clear_macro_average_slice(None::<Slice>);
+    /// ```
     pub fn set_or_clear_macro_average_slice<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::query_metrics_response::Slice>,
@@ -6342,6 +8581,17 @@ pub mod query_metrics_response {
         }
 
         /// Sets the value of [dimensions][crate::model::query_metrics_response::Slice::dimensions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+        /// use google_cloud_contactcenterinsights_v1::model::Dimension;
+        /// let x = Slice::new()
+        ///     .set_dimensions([
+        ///         Dimension::default()/* use setters */,
+        ///         Dimension::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6353,6 +8603,13 @@ pub mod query_metrics_response {
         }
 
         /// Sets the value of [total][crate::model::query_metrics_response::Slice::total].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+        /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+        /// let x = Slice::new().set_total(DataPoint::default()/* use setters */);
+        /// ```
         pub fn set_total<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::query_metrics_response::slice::DataPoint>,
@@ -6362,6 +8619,14 @@ pub mod query_metrics_response {
         }
 
         /// Sets or clears the value of [total][crate::model::query_metrics_response::Slice::total].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+        /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+        /// let x = Slice::new().set_or_clear_total(Some(DataPoint::default()/* use setters */));
+        /// let x = Slice::new().set_or_clear_total(None::<DataPoint>);
+        /// ```
         pub fn set_or_clear_total<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::query_metrics_response::slice::DataPoint>,
@@ -6371,6 +8636,13 @@ pub mod query_metrics_response {
         }
 
         /// Sets the value of [time_series][crate::model::query_metrics_response::Slice::time_series].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+        /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::TimeSeries;
+        /// let x = Slice::new().set_time_series(TimeSeries::default()/* use setters */);
+        /// ```
         pub fn set_time_series<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::query_metrics_response::slice::TimeSeries>,
@@ -6380,6 +8652,14 @@ pub mod query_metrics_response {
         }
 
         /// Sets or clears the value of [time_series][crate::model::query_metrics_response::Slice::time_series].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::Slice;
+        /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::TimeSeries;
+        /// let x = Slice::new().set_or_clear_time_series(Some(TimeSeries::default()/* use setters */));
+        /// let x = Slice::new().set_or_clear_time_series(None::<TimeSeries>);
+        /// ```
         pub fn set_or_clear_time_series<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::query_metrics_response::slice::TimeSeries>,
@@ -6426,6 +8706,13 @@ pub mod query_metrics_response {
             }
 
             /// Sets the value of [interval][crate::model::query_metrics_response::slice::DataPoint::interval].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+            /// use gtype::model::Interval;
+            /// let x = DataPoint::new().set_interval(Interval::default()/* use setters */);
+            /// ```
             pub fn set_interval<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<gtype::model::Interval>,
@@ -6435,6 +8722,14 @@ pub mod query_metrics_response {
             }
 
             /// Sets or clears the value of [interval][crate::model::query_metrics_response::slice::DataPoint::interval].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+            /// use gtype::model::Interval;
+            /// let x = DataPoint::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+            /// let x = DataPoint::new().set_or_clear_interval(None::<Interval>);
+            /// ```
             pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<gtype::model::Interval>,
@@ -6447,6 +8742,14 @@ pub mod query_metrics_response {
             ///
             /// Note that all the setters affecting `measure` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+            /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+            /// let x = DataPoint::new().set_measure(Some(
+            ///     google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::Measure::ConversationMeasure(ConversationMeasure::default().into())));
+            /// ```
             pub fn set_measure<
                 T: std::convert::Into<
                         std::option::Option<
@@ -6483,6 +8786,14 @@ pub mod query_metrics_response {
             ///
             /// Note that all the setters affecting `measure` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+            /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+            /// let x = DataPoint::new().set_conversation_measure(ConversationMeasure::default()/* use setters */);
+            /// assert!(x.conversation_measure().is_some());
+            /// ```
             pub fn set_conversation_measure<T: std::convert::Into<std::boxed::Box<crate::model::query_metrics_response::slice::data_point::ConversationMeasure>>>(mut self, v: T) -> Self{
                 self.measure = std::option::Option::Some(
                     crate::model::query_metrics_response::slice::data_point::Measure::ConversationMeasure(
@@ -6552,6 +8863,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [conversation_count][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::conversation_count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_conversation_count(42);
+                /// ```
                 pub fn set_conversation_count<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<i32>,
@@ -6561,6 +8878,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [conversation_count][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::conversation_count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_conversation_count(Some(42));
+                /// let x = ConversationMeasure::new().set_or_clear_conversation_count(None::<i32>);
+                /// ```
                 pub fn set_or_clear_conversation_count<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6573,6 +8897,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_silence_percentage][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_silence_percentage].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_silence_percentage(42.0);
+                /// ```
                 pub fn set_average_silence_percentage<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f32>,
@@ -6582,6 +8912,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_silence_percentage][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_silence_percentage].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_silence_percentage(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_silence_percentage(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_silence_percentage<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6594,6 +8931,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_duration][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_duration].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// use wkt::Duration;
+                /// let x = ConversationMeasure::new().set_average_duration(Duration::default()/* use setters */);
+                /// ```
                 pub fn set_average_duration<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -6603,6 +8947,14 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_duration][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_duration].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// use wkt::Duration;
+                /// let x = ConversationMeasure::new().set_or_clear_average_duration(Some(Duration::default()/* use setters */));
+                /// let x = ConversationMeasure::new().set_or_clear_average_duration(None::<Duration>);
+                /// ```
                 pub fn set_or_clear_average_duration<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -6612,6 +8964,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_turn_count][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_turn_count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_turn_count(42.0);
+                /// ```
                 pub fn set_average_turn_count<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f32>,
@@ -6621,6 +8979,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_turn_count][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_turn_count].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_turn_count(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_turn_count(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_turn_count<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6633,6 +8998,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_agent_sentiment_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_agent_sentiment_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_agent_sentiment_score(42.0);
+                /// ```
                 pub fn set_average_agent_sentiment_score<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f32>,
@@ -6642,6 +9013,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_agent_sentiment_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_agent_sentiment_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_agent_sentiment_score(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_agent_sentiment_score(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_agent_sentiment_score<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6654,6 +9032,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_client_sentiment_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_client_sentiment_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_client_sentiment_score(42.0);
+                /// ```
                 pub fn set_average_client_sentiment_score<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f32>,
@@ -6663,6 +9047,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_client_sentiment_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_client_sentiment_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_client_sentiment_score(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_client_sentiment_score(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_client_sentiment_score<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6675,6 +9066,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_customer_satisfaction_rating][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_customer_satisfaction_rating].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_customer_satisfaction_rating(42.0);
+                /// ```
                 pub fn set_average_customer_satisfaction_rating<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f64>,
@@ -6684,6 +9081,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_customer_satisfaction_rating][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_customer_satisfaction_rating].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_customer_satisfaction_rating(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_customer_satisfaction_rating(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_customer_satisfaction_rating<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6696,6 +9100,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_qa_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_normalized_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_qa_normalized_score(42.0);
+                /// ```
                 pub fn set_average_qa_normalized_score<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f64>,
@@ -6705,6 +9115,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_qa_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_normalized_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_qa_normalized_score(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_qa_normalized_score(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_qa_normalized_score<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6717,6 +9134,17 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [qa_tag_scores][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::qa_tag_scores].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore;
+                /// let x = ConversationMeasure::new()
+                ///     .set_qa_tag_scores([
+                ///         QaTagScore::default()/* use setters */,
+                ///         QaTagScore::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 pub fn set_qa_tag_scores<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -6728,6 +9156,12 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets the value of [average_qa_question_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_question_normalized_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_average_qa_question_normalized_score(42.0);
+                /// ```
                 pub fn set_average_qa_question_normalized_score<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<f64>,
@@ -6737,6 +9171,13 @@ pub mod query_metrics_response {
                 }
 
                 /// Sets or clears the value of [average_qa_question_normalized_score][crate::model::query_metrics_response::slice::data_point::ConversationMeasure::average_qa_question_normalized_score].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::ConversationMeasure;
+                /// let x = ConversationMeasure::new().set_or_clear_average_qa_question_normalized_score(Some(42.0));
+                /// let x = ConversationMeasure::new().set_or_clear_average_qa_question_normalized_score(None::<f32>);
+                /// ```
                 pub fn set_or_clear_average_qa_question_normalized_score<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -6780,6 +9221,12 @@ pub mod query_metrics_response {
                     }
 
                     /// Sets the value of [tag][crate::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore::tag].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore;
+                    /// let x = QaTagScore::new().set_tag("example");
+                    /// ```
                     pub fn set_tag<T: std::convert::Into<std::string::String>>(
                         mut self,
                         v: T,
@@ -6789,6 +9236,12 @@ pub mod query_metrics_response {
                     }
 
                     /// Sets the value of [average_tag_normalized_score][crate::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore::average_tag_normalized_score].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::data_point::conversation_measure::QaTagScore;
+                    /// let x = QaTagScore::new().set_average_tag_normalized_score(42.0);
+                    /// ```
                     pub fn set_average_tag_normalized_score<T: std::convert::Into<f64>>(
                         mut self,
                         v: T,
@@ -6830,6 +9283,17 @@ pub mod query_metrics_response {
             }
 
             /// Sets the value of [data_points][crate::model::query_metrics_response::slice::TimeSeries::data_points].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::TimeSeries;
+            /// use google_cloud_contactcenterinsights_v1::model::query_metrics_response::slice::DataPoint;
+            /// let x = TimeSeries::new()
+            ///     .set_data_points([
+            ///         DataPoint::default()/* use setters */,
+            ///         DataPoint::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_data_points<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6895,12 +9359,25 @@ impl CreateQaQuestionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQaQuestionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaQuestionRequest;
+    /// let x = CreateQaQuestionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaQuestionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = CreateQaQuestionRequest::new().set_qa_question(QaQuestion::default()/* use setters */);
+    /// ```
     pub fn set_qa_question<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaQuestion>,
@@ -6910,6 +9387,14 @@ impl CreateQaQuestionRequest {
     }
 
     /// Sets or clears the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaQuestionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = CreateQaQuestionRequest::new().set_or_clear_qa_question(Some(QaQuestion::default()/* use setters */));
+    /// let x = CreateQaQuestionRequest::new().set_or_clear_qa_question(None::<QaQuestion>);
+    /// ```
     pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaQuestion>,
@@ -6919,6 +9404,12 @@ impl CreateQaQuestionRequest {
     }
 
     /// Sets the value of [qa_question_id][crate::model::CreateQaQuestionRequest::qa_question_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaQuestionRequest;
+    /// let x = CreateQaQuestionRequest::new().set_qa_question_id("example");
+    /// ```
     pub fn set_qa_question_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.qa_question_id = v.into();
         self
@@ -6947,6 +9438,12 @@ impl GetQaQuestionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQaQuestionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetQaQuestionRequest;
+    /// let x = GetQaQuestionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6986,18 +9483,36 @@ impl ListQaQuestionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQaQuestionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsRequest;
+    /// let x = ListQaQuestionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQaQuestionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsRequest;
+    /// let x = ListQaQuestionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQaQuestionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsRequest;
+    /// let x = ListQaQuestionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7030,6 +9545,17 @@ impl ListQaQuestionsResponse {
     }
 
     /// Sets the value of [qa_questions][crate::model::ListQaQuestionsResponse::qa_questions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = ListQaQuestionsResponse::new()
+    ///     .set_qa_questions([
+    ///         QaQuestion::default()/* use setters */,
+    ///         QaQuestion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_questions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7041,6 +9567,12 @@ impl ListQaQuestionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQaQuestionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaQuestionsResponse;
+    /// let x = ListQaQuestionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7095,6 +9627,13 @@ impl UpdateQaQuestionRequest {
     }
 
     /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaQuestionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = UpdateQaQuestionRequest::new().set_qa_question(QaQuestion::default()/* use setters */);
+    /// ```
     pub fn set_qa_question<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaQuestion>,
@@ -7104,6 +9643,14 @@ impl UpdateQaQuestionRequest {
     }
 
     /// Sets or clears the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaQuestionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = UpdateQaQuestionRequest::new().set_or_clear_qa_question(Some(QaQuestion::default()/* use setters */));
+    /// let x = UpdateQaQuestionRequest::new().set_or_clear_qa_question(None::<QaQuestion>);
+    /// ```
     pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaQuestion>,
@@ -7113,6 +9660,13 @@ impl UpdateQaQuestionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaQuestionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQaQuestionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7122,6 +9676,14 @@ impl UpdateQaQuestionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaQuestionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQaQuestionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateQaQuestionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7153,6 +9715,12 @@ impl DeleteQaQuestionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQaQuestionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaQuestionRequest;
+    /// let x = DeleteQaQuestionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7192,12 +9760,25 @@ impl CreateQaScorecardRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQaScorecardRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRequest;
+    /// let x = CreateQaScorecardRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = CreateQaScorecardRequest::new().set_qa_scorecard(QaScorecard::default()/* use setters */);
+    /// ```
     pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -7207,6 +9788,14 @@ impl CreateQaScorecardRequest {
     }
 
     /// Sets or clears the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = CreateQaScorecardRequest::new().set_or_clear_qa_scorecard(Some(QaScorecard::default()/* use setters */));
+    /// let x = CreateQaScorecardRequest::new().set_or_clear_qa_scorecard(None::<QaScorecard>);
+    /// ```
     pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -7216,6 +9805,12 @@ impl CreateQaScorecardRequest {
     }
 
     /// Sets the value of [qa_scorecard_id][crate::model::CreateQaScorecardRequest::qa_scorecard_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRequest;
+    /// let x = CreateQaScorecardRequest::new().set_qa_scorecard_id("example");
+    /// ```
     pub fn set_qa_scorecard_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.qa_scorecard_id = v.into();
         self
@@ -7244,6 +9839,12 @@ impl GetQaScorecardRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQaScorecardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetQaScorecardRequest;
+    /// let x = GetQaScorecardRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7280,6 +9881,13 @@ impl UpdateQaScorecardRequest {
     }
 
     /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaScorecardRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = UpdateQaScorecardRequest::new().set_qa_scorecard(QaScorecard::default()/* use setters */);
+    /// ```
     pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -7289,6 +9897,14 @@ impl UpdateQaScorecardRequest {
     }
 
     /// Sets or clears the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaScorecardRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = UpdateQaScorecardRequest::new().set_or_clear_qa_scorecard(Some(QaScorecard::default()/* use setters */));
+    /// let x = UpdateQaScorecardRequest::new().set_or_clear_qa_scorecard(None::<QaScorecard>);
+    /// ```
     pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -7298,6 +9914,13 @@ impl UpdateQaScorecardRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaScorecardRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQaScorecardRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7307,6 +9930,14 @@ impl UpdateQaScorecardRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateQaScorecardRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQaScorecardRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateQaScorecardRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7342,12 +9973,24 @@ impl DeleteQaScorecardRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQaScorecardRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRequest;
+    /// let x = DeleteQaScorecardRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteQaScorecardRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRequest;
+    /// let x = DeleteQaScorecardRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -7387,12 +10030,25 @@ impl CreateQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQaScorecardRevisionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRevisionRequest;
+    /// let x = CreateQaScorecardRevisionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRevisionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// let x = CreateQaScorecardRevisionRequest::new().set_qa_scorecard_revision(QaScorecardRevision::default()/* use setters */);
+    /// ```
     pub fn set_qa_scorecard_revision<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecardRevision>,
@@ -7402,6 +10058,14 @@ impl CreateQaScorecardRevisionRequest {
     }
 
     /// Sets or clears the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRevisionRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// let x = CreateQaScorecardRevisionRequest::new().set_or_clear_qa_scorecard_revision(Some(QaScorecardRevision::default()/* use setters */));
+    /// let x = CreateQaScorecardRevisionRequest::new().set_or_clear_qa_scorecard_revision(None::<QaScorecardRevision>);
+    /// ```
     pub fn set_or_clear_qa_scorecard_revision<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecardRevision>,
@@ -7411,6 +10075,12 @@ impl CreateQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [qa_scorecard_revision_id][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateQaScorecardRevisionRequest;
+    /// let x = CreateQaScorecardRevisionRequest::new().set_qa_scorecard_revision_id("example");
+    /// ```
     pub fn set_qa_scorecard_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7442,6 +10112,12 @@ impl GetQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQaScorecardRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetQaScorecardRevisionRequest;
+    /// let x = GetQaScorecardRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7483,18 +10159,36 @@ impl TuneQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
+    /// let x = TuneQaScorecardRevisionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::TuneQaScorecardRevisionRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
+    /// let x = TuneQaScorecardRevisionRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::TuneQaScorecardRevisionRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
+    /// let x = TuneQaScorecardRevisionRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -7564,6 +10258,13 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::TuneQaScorecardRevisionMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7573,6 +10274,14 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TuneQaScorecardRevisionMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7582,6 +10291,13 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::TuneQaScorecardRevisionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7591,6 +10307,14 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TuneQaScorecardRevisionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7600,6 +10324,13 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [request][crate::model::TuneQaScorecardRevisionMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_request(TuneQaScorecardRevisionRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TuneQaScorecardRevisionRequest>,
@@ -7609,6 +10340,14 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::TuneQaScorecardRevisionMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionRequest;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_request(Some(TuneQaScorecardRevisionRequest::default()/* use setters */));
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_or_clear_request(None::<TuneQaScorecardRevisionRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TuneQaScorecardRevisionRequest>,
@@ -7618,6 +10357,17 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [qa_question_dataset_validation_results][crate::model::TuneQaScorecardRevisionMetadata::qa_question_dataset_validation_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult;
+    /// let x = TuneQaScorecardRevisionMetadata::new()
+    ///     .set_qa_question_dataset_validation_results([
+    ///         QaQuestionDatasetValidationResult::default()/* use setters */,
+    ///         QaQuestionDatasetValidationResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_question_dataset_validation_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7629,6 +10379,17 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [qa_question_dataset_tuning_metrics][crate::model::TuneQaScorecardRevisionMetadata::qa_question_dataset_tuning_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics;
+    /// let x = TuneQaScorecardRevisionMetadata::new()
+    ///     .set_qa_question_dataset_tuning_metrics([
+    ///         QaQuestionDatasetTuningMetrics::default()/* use setters */,
+    ///         QaQuestionDatasetTuningMetrics::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_question_dataset_tuning_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7642,6 +10403,12 @@ impl TuneQaScorecardRevisionMetadata {
     }
 
     /// Sets the value of [tuning_completion_ratio][crate::model::TuneQaScorecardRevisionMetadata::tuning_completion_ratio].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::TuneQaScorecardRevisionMetadata;
+    /// let x = TuneQaScorecardRevisionMetadata::new().set_tuning_completion_ratio(42.0);
+    /// ```
     pub fn set_tuning_completion_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.tuning_completion_ratio = v.into();
         self
@@ -7683,12 +10450,29 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
 
         /// Sets the value of [question][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::question].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult;
+        /// let x = QaQuestionDatasetValidationResult::new().set_question("example");
+        /// ```
         pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.question = v.into();
             self
         }
 
         /// Sets the value of [dataset_validation_warnings][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::dataset_validation_warnings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult;
+        /// use google_cloud_contactcenterinsights_v1::model::DatasetValidationWarning;
+        /// let x = QaQuestionDatasetValidationResult::new().set_dataset_validation_warnings([
+        ///     DatasetValidationWarning::TooManyInvalidFeedbackLabels,
+        ///     DatasetValidationWarning::InsufficientFeedbackLabels,
+        ///     DatasetValidationWarning::InsufficientFeedbackLabelsPerAnswer,
+        /// ]);
+        /// ```
         pub fn set_dataset_validation_warnings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7700,6 +10484,12 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
 
         /// Sets the value of [valid_feedback_labels_count][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult::valid_feedback_labels_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetValidationResult;
+        /// let x = QaQuestionDatasetValidationResult::new().set_valid_feedback_labels_count(42);
+        /// ```
         pub fn set_valid_feedback_labels_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.valid_feedback_labels_count = v.into();
             self
@@ -7734,12 +10524,25 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
 
         /// Sets the value of [question][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics::question].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics;
+        /// let x = QaQuestionDatasetTuningMetrics::new().set_question("example");
+        /// ```
         pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.question = v.into();
             self
         }
 
         /// Sets the value of [metrics][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics::metrics].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics;
+        /// use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics;
+        /// let x = QaQuestionDatasetTuningMetrics::new().set_metrics(Metrics::default()/* use setters */);
+        /// ```
         pub fn set_metrics<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics>
         {
@@ -7748,6 +10551,14 @@ pub mod tune_qa_scorecard_revision_metadata {
         }
 
         /// Sets or clears the value of [metrics][crate::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics::metrics].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::QaQuestionDatasetTuningMetrics;
+        /// use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics;
+        /// let x = QaQuestionDatasetTuningMetrics::new().set_or_clear_metrics(Some(Metrics::default()/* use setters */));
+        /// let x = QaQuestionDatasetTuningMetrics::new().set_or_clear_metrics(None::<Metrics>);
+        /// ```
         pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics>
         {
@@ -7784,6 +10595,12 @@ pub mod tune_qa_scorecard_revision_metadata {
             }
 
             /// Sets the value of [accuracy][crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics::accuracy].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics;
+            /// let x = Metrics::new().set_accuracy(42.0);
+            /// ```
             pub fn set_accuracy<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.accuracy = v.into();
                 self
@@ -7814,6 +10631,12 @@ impl DeployQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeployQaScorecardRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeployQaScorecardRevisionRequest;
+    /// let x = DeployQaScorecardRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7842,6 +10665,12 @@ impl UndeployQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeployQaScorecardRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UndeployQaScorecardRevisionRequest;
+    /// let x = UndeployQaScorecardRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7875,12 +10704,24 @@ impl DeleteQaScorecardRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQaScorecardRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRevisionRequest;
+    /// let x = DeleteQaScorecardRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteQaScorecardRevisionRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteQaScorecardRevisionRequest;
+    /// let x = DeleteQaScorecardRevisionRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -7920,18 +10761,36 @@ impl ListQaScorecardsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQaScorecardsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardsRequest;
+    /// let x = ListQaScorecardsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQaScorecardsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardsRequest;
+    /// let x = ListQaScorecardsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQaScorecardsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardsRequest;
+    /// let x = ListQaScorecardsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7964,6 +10823,17 @@ impl ListQaScorecardsResponse {
     }
 
     /// Sets the value of [qa_scorecards][crate::model::ListQaScorecardsResponse::qa_scorecards].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = ListQaScorecardsResponse::new()
+    ///     .set_qa_scorecards([
+    ///         QaScorecard::default()/* use setters */,
+    ///         QaScorecard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_scorecards<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7975,6 +10845,12 @@ impl ListQaScorecardsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQaScorecardsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardsResponse;
+    /// let x = ListQaScorecardsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8035,24 +10911,48 @@ impl ListQaScorecardRevisionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQaScorecardRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsRequest;
+    /// let x = ListQaScorecardRevisionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQaScorecardRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsRequest;
+    /// let x = ListQaScorecardRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQaScorecardRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsRequest;
+    /// let x = ListQaScorecardRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListQaScorecardRevisionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsRequest;
+    /// let x = ListQaScorecardRevisionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -8085,6 +10985,17 @@ impl ListQaScorecardRevisionsResponse {
     }
 
     /// Sets the value of [qa_scorecard_revisions][crate::model::ListQaScorecardRevisionsResponse::qa_scorecard_revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// let x = ListQaScorecardRevisionsResponse::new()
+    ///     .set_qa_scorecard_revisions([
+    ///         QaScorecardRevision::default()/* use setters */,
+    ///         QaScorecardRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_scorecard_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8096,6 +11007,12 @@ impl ListQaScorecardRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQaScorecardRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListQaScorecardRevisionsResponse;
+    /// let x = ListQaScorecardRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8145,12 +11062,24 @@ impl CreateFeedbackLabelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFeedbackLabelRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateFeedbackLabelRequest;
+    /// let x = CreateFeedbackLabelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [feedback_label_id][crate::model::CreateFeedbackLabelRequest::feedback_label_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateFeedbackLabelRequest;
+    /// let x = CreateFeedbackLabelRequest::new().set_feedback_label_id("example");
+    /// ```
     pub fn set_feedback_label_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8160,6 +11089,13 @@ impl CreateFeedbackLabelRequest {
     }
 
     /// Sets the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateFeedbackLabelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = CreateFeedbackLabelRequest::new().set_feedback_label(FeedbackLabel::default()/* use setters */);
+    /// ```
     pub fn set_feedback_label<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeedbackLabel>,
@@ -8169,6 +11105,14 @@ impl CreateFeedbackLabelRequest {
     }
 
     /// Sets or clears the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CreateFeedbackLabelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = CreateFeedbackLabelRequest::new().set_or_clear_feedback_label(Some(FeedbackLabel::default()/* use setters */));
+    /// let x = CreateFeedbackLabelRequest::new().set_or_clear_feedback_label(None::<FeedbackLabel>);
+    /// ```
     pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeedbackLabel>,
@@ -8228,24 +11172,48 @@ impl ListFeedbackLabelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFeedbackLabelsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsRequest;
+    /// let x = ListFeedbackLabelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFeedbackLabelsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsRequest;
+    /// let x = ListFeedbackLabelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFeedbackLabelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsRequest;
+    /// let x = ListFeedbackLabelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFeedbackLabelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsRequest;
+    /// let x = ListFeedbackLabelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8277,6 +11245,17 @@ impl ListFeedbackLabelsResponse {
     }
 
     /// Sets the value of [feedback_labels][crate::model::ListFeedbackLabelsResponse::feedback_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = ListFeedbackLabelsResponse::new()
+    ///     .set_feedback_labels([
+    ///         FeedbackLabel::default()/* use setters */,
+    ///         FeedbackLabel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_feedback_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8288,6 +11267,12 @@ impl ListFeedbackLabelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFeedbackLabelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListFeedbackLabelsResponse;
+    /// let x = ListFeedbackLabelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8330,6 +11315,12 @@ impl GetFeedbackLabelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFeedbackLabelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GetFeedbackLabelRequest;
+    /// let x = GetFeedbackLabelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8361,6 +11352,13 @@ impl UpdateFeedbackLabelRequest {
     }
 
     /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateFeedbackLabelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = UpdateFeedbackLabelRequest::new().set_feedback_label(FeedbackLabel::default()/* use setters */);
+    /// ```
     pub fn set_feedback_label<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeedbackLabel>,
@@ -8370,6 +11368,14 @@ impl UpdateFeedbackLabelRequest {
     }
 
     /// Sets or clears the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateFeedbackLabelRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = UpdateFeedbackLabelRequest::new().set_or_clear_feedback_label(Some(FeedbackLabel::default()/* use setters */));
+    /// let x = UpdateFeedbackLabelRequest::new().set_or_clear_feedback_label(None::<FeedbackLabel>);
+    /// ```
     pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeedbackLabel>,
@@ -8379,6 +11385,13 @@ impl UpdateFeedbackLabelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateFeedbackLabelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeedbackLabelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8388,6 +11401,14 @@ impl UpdateFeedbackLabelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::UpdateFeedbackLabelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeedbackLabelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFeedbackLabelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8419,6 +11440,12 @@ impl DeleteFeedbackLabelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFeedbackLabelRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DeleteFeedbackLabelRequest;
+    /// let x = DeleteFeedbackLabelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8473,24 +11500,48 @@ impl ListAllFeedbackLabelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAllFeedbackLabelsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsRequest;
+    /// let x = ListAllFeedbackLabelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAllFeedbackLabelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsRequest;
+    /// let x = ListAllFeedbackLabelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAllFeedbackLabelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsRequest;
+    /// let x = ListAllFeedbackLabelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAllFeedbackLabelsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsRequest;
+    /// let x = ListAllFeedbackLabelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -8523,6 +11574,17 @@ impl ListAllFeedbackLabelsResponse {
     }
 
     /// Sets the value of [feedback_labels][crate::model::ListAllFeedbackLabelsResponse::feedback_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsResponse;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = ListAllFeedbackLabelsResponse::new()
+    ///     .set_feedback_labels([
+    ///         FeedbackLabel::default()/* use setters */,
+    ///         FeedbackLabel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_feedback_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8534,6 +11596,12 @@ impl ListAllFeedbackLabelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAllFeedbackLabelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ListAllFeedbackLabelsResponse;
+    /// let x = ListAllFeedbackLabelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8585,12 +11653,24 @@ impl BulkUploadFeedbackLabelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// let x = BulkUploadFeedbackLabelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::BulkUploadFeedbackLabelsRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// let x = BulkUploadFeedbackLabelsRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -8600,6 +11680,14 @@ impl BulkUploadFeedbackLabelsRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::GcsSource;
+    /// let x = BulkUploadFeedbackLabelsRequest::new().set_source(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::bulk_upload_feedback_labels_request::Source>,
@@ -8634,6 +11722,14 @@ impl BulkUploadFeedbackLabelsRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::GcsSource;
+    /// let x = BulkUploadFeedbackLabelsRequest::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::bulk_upload_feedback_labels_request::GcsSource>,
@@ -8680,6 +11776,14 @@ pub mod bulk_upload_feedback_labels_request {
         }
 
         /// Sets the value of [format][crate::model::bulk_upload_feedback_labels_request::GcsSource::format].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::GcsSource;
+        /// use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::gcs_source::Format;
+        /// let x0 = GcsSource::new().set_format(Format::Csv);
+        /// let x1 = GcsSource::new().set_format(Format::Json);
+        /// ```
         pub fn set_format<
             T: std::convert::Into<
                     crate::model::bulk_upload_feedback_labels_request::gcs_source::Format,
@@ -8693,6 +11797,12 @@ pub mod bulk_upload_feedback_labels_request {
         }
 
         /// Sets the value of [object_uri][crate::model::bulk_upload_feedback_labels_request::GcsSource::object_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_request::GcsSource;
+        /// let x = GcsSource::new().set_object_uri("example");
+        /// ```
         pub fn set_object_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_uri = v.into();
             self
@@ -8904,6 +12014,13 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::BulkUploadFeedbackLabelsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8913,6 +12030,14 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BulkUploadFeedbackLabelsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8922,6 +12047,13 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BulkUploadFeedbackLabelsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8931,6 +12063,14 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BulkUploadFeedbackLabelsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8940,6 +12080,13 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [request][crate::model::BulkUploadFeedbackLabelsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_request(BulkUploadFeedbackLabelsRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BulkUploadFeedbackLabelsRequest>,
@@ -8949,6 +12096,14 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::BulkUploadFeedbackLabelsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsRequest;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_request(Some(BulkUploadFeedbackLabelsRequest::default()/* use setters */));
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_request(None::<BulkUploadFeedbackLabelsRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BulkUploadFeedbackLabelsRequest>,
@@ -8958,6 +12113,17 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::BulkUploadFeedbackLabelsMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use rpc::model::Status;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8969,6 +12135,13 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [upload_stats][crate::model::BulkUploadFeedbackLabelsMetadata::upload_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_metadata::UploadStats;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_upload_stats(UploadStats::default()/* use setters */);
+    /// ```
     pub fn set_upload_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bulk_upload_feedback_labels_metadata::UploadStats>,
@@ -8978,6 +12151,14 @@ impl BulkUploadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [upload_stats][crate::model::BulkUploadFeedbackLabelsMetadata::upload_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkUploadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_metadata::UploadStats;
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_upload_stats(Some(UploadStats::default()/* use setters */));
+    /// let x = BulkUploadFeedbackLabelsMetadata::new().set_or_clear_upload_stats(None::<UploadStats>);
+    /// ```
     pub fn set_or_clear_upload_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bulk_upload_feedback_labels_metadata::UploadStats>,
@@ -9020,18 +12201,36 @@ pub mod bulk_upload_feedback_labels_metadata {
         }
 
         /// Sets the value of [processed_object_count][crate::model::bulk_upload_feedback_labels_metadata::UploadStats::processed_object_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_metadata::UploadStats;
+        /// let x = UploadStats::new().set_processed_object_count(42);
+        /// ```
         pub fn set_processed_object_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.processed_object_count = v.into();
             self
         }
 
         /// Sets the value of [failed_validation_count][crate::model::bulk_upload_feedback_labels_metadata::UploadStats::failed_validation_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_metadata::UploadStats;
+        /// let x = UploadStats::new().set_failed_validation_count(42);
+        /// ```
         pub fn set_failed_validation_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.failed_validation_count = v.into();
             self
         }
 
         /// Sets the value of [successful_upload_count][crate::model::bulk_upload_feedback_labels_metadata::UploadStats::successful_upload_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_upload_feedback_labels_metadata::UploadStats;
+        /// let x = UploadStats::new().set_successful_upload_count(42);
+        /// ```
         pub fn set_successful_upload_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.successful_upload_count = v.into();
             self
@@ -9100,24 +12299,50 @@ impl BulkDownloadFeedbackLabelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::BulkDownloadFeedbackLabelsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [max_download_count][crate::model::BulkDownloadFeedbackLabelsRequest::max_download_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_max_download_count(42);
+    /// ```
     pub fn set_max_download_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_download_count = v.into();
         self
     }
 
     /// Sets the value of [feedback_label_type][crate::model::BulkDownloadFeedbackLabelsRequest::feedback_label_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::FeedbackLabelType;
+    /// let x0 = BulkDownloadFeedbackLabelsRequest::new().set_feedback_label_type(FeedbackLabelType::QualityAi);
+    /// let x1 = BulkDownloadFeedbackLabelsRequest::new().set_feedback_label_type(FeedbackLabelType::TopicModeling);
+    /// ```
     pub fn set_feedback_label_type<
         T: std::convert::Into<crate::model::bulk_download_feedback_labels_request::FeedbackLabelType>,
     >(
@@ -9129,6 +12354,12 @@ impl BulkDownloadFeedbackLabelsRequest {
     }
 
     /// Sets the value of [conversation_filter][crate::model::BulkDownloadFeedbackLabelsRequest::conversation_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_conversation_filter("example");
+    /// ```
     pub fn set_conversation_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9138,6 +12369,12 @@ impl BulkDownloadFeedbackLabelsRequest {
     }
 
     /// Sets the value of [template_qa_scorecard_id][crate::model::BulkDownloadFeedbackLabelsRequest::template_qa_scorecard_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_template_qa_scorecard_id(["a", "b", "c"]);
+    /// ```
     pub fn set_template_qa_scorecard_id<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9152,6 +12389,14 @@ impl BulkDownloadFeedbackLabelsRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_destination(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<
@@ -9188,6 +12433,14 @@ impl BulkDownloadFeedbackLabelsRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+    /// let x = BulkDownloadFeedbackLabelsRequest::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -9254,6 +12507,14 @@ pub mod bulk_download_feedback_labels_request {
         }
 
         /// Sets the value of [format][crate::model::bulk_download_feedback_labels_request::GcsDestination::format].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+        /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::gcs_destination::Format;
+        /// let x0 = GcsDestination::new().set_format(Format::Csv);
+        /// let x1 = GcsDestination::new().set_format(Format::Json);
+        /// ```
         pub fn set_format<
             T: std::convert::Into<
                     crate::model::bulk_download_feedback_labels_request::gcs_destination::Format,
@@ -9267,24 +12528,48 @@ pub mod bulk_download_feedback_labels_request {
         }
 
         /// Sets the value of [object_uri][crate::model::bulk_download_feedback_labels_request::GcsDestination::object_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+        /// let x = GcsDestination::new().set_object_uri("example");
+        /// ```
         pub fn set_object_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.object_uri = v.into();
             self
         }
 
         /// Sets the value of [add_whitespace][crate::model::bulk_download_feedback_labels_request::GcsDestination::add_whitespace].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+        /// let x = GcsDestination::new().set_add_whitespace(true);
+        /// ```
         pub fn set_add_whitespace<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.add_whitespace = v.into();
             self
         }
 
         /// Sets the value of [always_print_empty_fields][crate::model::bulk_download_feedback_labels_request::GcsDestination::always_print_empty_fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+        /// let x = GcsDestination::new().set_always_print_empty_fields(true);
+        /// ```
         pub fn set_always_print_empty_fields<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.always_print_empty_fields = v.into();
             self
         }
 
         /// Sets the value of [records_per_file_count][crate::model::bulk_download_feedback_labels_request::GcsDestination::records_per_file_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_request::GcsDestination;
+        /// let x = GcsDestination::new().set_records_per_file_count(42);
+        /// ```
         pub fn set_records_per_file_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.records_per_file_count = v.into();
             self
@@ -9634,6 +12919,13 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::BulkDownloadFeedbackLabelsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9643,6 +12935,14 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BulkDownloadFeedbackLabelsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9652,6 +12952,13 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BulkDownloadFeedbackLabelsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9661,6 +12968,14 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BulkDownloadFeedbackLabelsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9670,6 +12985,13 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [request][crate::model::BulkDownloadFeedbackLabelsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_request(BulkDownloadFeedbackLabelsRequest::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BulkDownloadFeedbackLabelsRequest>,
@@ -9679,6 +13001,14 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::BulkDownloadFeedbackLabelsMetadata::request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsRequest;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_request(Some(BulkDownloadFeedbackLabelsRequest::default()/* use setters */));
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_request(None::<BulkDownloadFeedbackLabelsRequest>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BulkDownloadFeedbackLabelsRequest>,
@@ -9688,6 +13018,17 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [partial_errors][crate::model::BulkDownloadFeedbackLabelsMetadata::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use rpc::model::Status;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9699,6 +13040,13 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets the value of [download_stats][crate::model::BulkDownloadFeedbackLabelsMetadata::download_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_download_stats(DownloadStats::default()/* use setters */);
+    /// ```
     pub fn set_download_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::bulk_download_feedback_labels_metadata::DownloadStats>,
@@ -9708,6 +13056,14 @@ impl BulkDownloadFeedbackLabelsMetadata {
     }
 
     /// Sets or clears the value of [download_stats][crate::model::BulkDownloadFeedbackLabelsMetadata::download_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::BulkDownloadFeedbackLabelsMetadata;
+    /// use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_download_stats(Some(DownloadStats::default()/* use setters */));
+    /// let x = BulkDownloadFeedbackLabelsMetadata::new().set_or_clear_download_stats(None::<DownloadStats>);
+    /// ```
     pub fn set_or_clear_download_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::bulk_download_feedback_labels_metadata::DownloadStats>,
@@ -9755,24 +13111,48 @@ pub mod bulk_download_feedback_labels_metadata {
         }
 
         /// Sets the value of [processed_object_count][crate::model::bulk_download_feedback_labels_metadata::DownloadStats::processed_object_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+        /// let x = DownloadStats::new().set_processed_object_count(42);
+        /// ```
         pub fn set_processed_object_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.processed_object_count = v.into();
             self
         }
 
         /// Sets the value of [successful_download_count][crate::model::bulk_download_feedback_labels_metadata::DownloadStats::successful_download_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+        /// let x = DownloadStats::new().set_successful_download_count(42);
+        /// ```
         pub fn set_successful_download_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.successful_download_count = v.into();
             self
         }
 
         /// Sets the value of [total_files_written][crate::model::bulk_download_feedback_labels_metadata::DownloadStats::total_files_written].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+        /// let x = DownloadStats::new().set_total_files_written(42);
+        /// ```
         pub fn set_total_files_written<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.total_files_written = v.into();
             self
         }
 
         /// Sets the value of [file_names][crate::model::bulk_download_feedback_labels_metadata::DownloadStats::file_names].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::bulk_download_feedback_labels_metadata::DownloadStats;
+        /// let x = DownloadStats::new().set_file_names(["a", "b", "c"]);
+        /// ```
         pub fn set_file_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9881,12 +13261,25 @@ impl Conversation {
     }
 
     /// Sets the value of [name][crate::model::Conversation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source][crate::model::Conversation::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationDataSource;
+    /// let x = Conversation::new().set_data_source(ConversationDataSource::default()/* use setters */);
+    /// ```
     pub fn set_data_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConversationDataSource>,
@@ -9896,6 +13289,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [data_source][crate::model::Conversation::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationDataSource;
+    /// let x = Conversation::new().set_or_clear_data_source(Some(ConversationDataSource::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_data_source(None::<ConversationDataSource>);
+    /// ```
     pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConversationDataSource>,
@@ -9905,6 +13306,13 @@ impl Conversation {
     }
 
     /// Sets the value of [create_time][crate::model::Conversation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9914,6 +13322,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Conversation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9923,6 +13339,13 @@ impl Conversation {
     }
 
     /// Sets the value of [update_time][crate::model::Conversation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9932,6 +13355,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Conversation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9941,6 +13372,13 @@ impl Conversation {
     }
 
     /// Sets the value of [start_time][crate::model::Conversation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9950,6 +13388,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Conversation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9959,18 +13405,39 @@ impl Conversation {
     }
 
     /// Sets the value of [language_code][crate::model::Conversation::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [agent_id][crate::model::Conversation::agent_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_agent_id("example");
+    /// ```
     pub fn set_agent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Conversation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9983,6 +13450,13 @@ impl Conversation {
     }
 
     /// Sets the value of [quality_metadata][crate::model::Conversation::quality_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+    /// let x = Conversation::new().set_quality_metadata(QualityMetadata::default()/* use setters */);
+    /// ```
     pub fn set_quality_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversation::QualityMetadata>,
@@ -9992,6 +13466,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [quality_metadata][crate::model::Conversation::quality_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+    /// let x = Conversation::new().set_or_clear_quality_metadata(Some(QualityMetadata::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_quality_metadata(None::<QualityMetadata>);
+    /// ```
     pub fn set_or_clear_quality_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversation::QualityMetadata>,
@@ -10001,12 +13483,25 @@ impl Conversation {
     }
 
     /// Sets the value of [metadata_json][crate::model::Conversation::metadata_json].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_metadata_json("example");
+    /// ```
     pub fn set_metadata_json<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata_json = v.into();
         self
     }
 
     /// Sets the value of [transcript][crate::model::Conversation::transcript].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::Transcript;
+    /// let x = Conversation::new().set_transcript(Transcript::default()/* use setters */);
+    /// ```
     pub fn set_transcript<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversation::Transcript>,
@@ -10016,6 +13511,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [transcript][crate::model::Conversation::transcript].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::Transcript;
+    /// let x = Conversation::new().set_or_clear_transcript(Some(Transcript::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_transcript(None::<Transcript>);
+    /// ```
     pub fn set_or_clear_transcript<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversation::Transcript>,
@@ -10025,6 +13528,14 @@ impl Conversation {
     }
 
     /// Sets the value of [medium][crate::model::Conversation::medium].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::Medium;
+    /// let x0 = Conversation::new().set_medium(Medium::PhoneCall);
+    /// let x1 = Conversation::new().set_medium(Medium::Chat);
+    /// ```
     pub fn set_medium<T: std::convert::Into<crate::model::conversation::Medium>>(
         mut self,
         v: T,
@@ -10034,6 +13545,13 @@ impl Conversation {
     }
 
     /// Sets the value of [duration][crate::model::Conversation::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Duration;
+    /// let x = Conversation::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10043,6 +13561,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [duration][crate::model::Conversation::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Duration;
+    /// let x = Conversation::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10052,12 +13578,25 @@ impl Conversation {
     }
 
     /// Sets the value of [turn_count][crate::model::Conversation::turn_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_turn_count(42);
+    /// ```
     pub fn set_turn_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.turn_count = v.into();
         self
     }
 
     /// Sets the value of [latest_analysis][crate::model::Conversation::latest_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = Conversation::new().set_latest_analysis(Analysis::default()/* use setters */);
+    /// ```
     pub fn set_latest_analysis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Analysis>,
@@ -10067,6 +13606,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [latest_analysis][crate::model::Conversation::latest_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = Conversation::new().set_or_clear_latest_analysis(Some(Analysis::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_latest_analysis(None::<Analysis>);
+    /// ```
     pub fn set_or_clear_latest_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Analysis>,
@@ -10076,6 +13623,13 @@ impl Conversation {
     }
 
     /// Sets the value of [latest_summary][crate::model::Conversation::latest_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = Conversation::new().set_latest_summary(ConversationSummarizationSuggestionData::default()/* use setters */);
+    /// ```
     pub fn set_latest_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConversationSummarizationSuggestionData>,
@@ -10085,6 +13639,14 @@ impl Conversation {
     }
 
     /// Sets or clears the value of [latest_summary][crate::model::Conversation::latest_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = Conversation::new().set_or_clear_latest_summary(Some(ConversationSummarizationSuggestionData::default()/* use setters */));
+    /// let x = Conversation::new().set_or_clear_latest_summary(None::<ConversationSummarizationSuggestionData>);
+    /// ```
     pub fn set_or_clear_latest_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConversationSummarizationSuggestionData>,
@@ -10094,6 +13656,17 @@ impl Conversation {
     }
 
     /// Sets the value of [runtime_annotations][crate::model::Conversation::runtime_annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// let x = Conversation::new()
+    ///     .set_runtime_annotations([
+    ///         RuntimeAnnotation::default()/* use setters */,
+    ///         RuntimeAnnotation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_runtime_annotations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10105,6 +13678,16 @@ impl Conversation {
     }
 
     /// Sets the value of [dialogflow_intents][crate::model::Conversation::dialogflow_intents].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::DialogflowIntent;
+    /// let x = Conversation::new().set_dialogflow_intents([
+    ///     ("key0", DialogflowIntent::default()/* use setters */),
+    ///     ("key1", DialogflowIntent::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_dialogflow_intents<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10117,6 +13700,12 @@ impl Conversation {
     }
 
     /// Sets the value of [obfuscated_user_id][crate::model::Conversation::obfuscated_user_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// let x = Conversation::new().set_obfuscated_user_id("example");
+    /// ```
     pub fn set_obfuscated_user_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10129,6 +13718,14 @@ impl Conversation {
     ///
     /// Note that all the setters affecting `metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::CallMetadata;
+    /// let x = Conversation::new().set_metadata(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::conversation::Metadata::CallMetadata(CallMetadata::default().into())));
+    /// ```
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::conversation::Metadata>>,
     >(
@@ -10157,6 +13754,14 @@ impl Conversation {
     ///
     /// Note that all the setters affecting `metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation::CallMetadata;
+    /// let x = Conversation::new().set_call_metadata(CallMetadata::default()/* use setters */);
+    /// assert!(x.call_metadata().is_some());
+    /// ```
     pub fn set_call_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::conversation::CallMetadata>>,
     >(
@@ -10172,6 +13777,14 @@ impl Conversation {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_expiration(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::conversation::Expiration::ExpireTime(Timestamp::default().into())));
+    /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::conversation::Expiration>>,
     >(
@@ -10198,6 +13811,15 @@ impl Conversation {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Timestamp;
+    /// let x = Conversation::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -10223,6 +13845,15 @@ impl Conversation {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use wkt::Duration;
+    /// let x = Conversation::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration =
             std::option::Option::Some(crate::model::conversation::Expiration::Ttl(v.into()));
@@ -10260,12 +13891,24 @@ pub mod conversation {
         }
 
         /// Sets the value of [customer_channel][crate::model::conversation::CallMetadata::customer_channel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::CallMetadata;
+        /// let x = CallMetadata::new().set_customer_channel(42);
+        /// ```
         pub fn set_customer_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.customer_channel = v.into();
             self
         }
 
         /// Sets the value of [agent_channel][crate::model::conversation::CallMetadata::agent_channel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::CallMetadata;
+        /// let x = CallMetadata::new().set_agent_channel(42);
+        /// ```
         pub fn set_agent_channel<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.agent_channel = v.into();
             self
@@ -10303,6 +13946,12 @@ pub mod conversation {
         }
 
         /// Sets the value of [customer_satisfaction_rating][crate::model::conversation::QualityMetadata::customer_satisfaction_rating].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+        /// let x = QualityMetadata::new().set_customer_satisfaction_rating(42);
+        /// ```
         pub fn set_customer_satisfaction_rating<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -10312,6 +13961,13 @@ pub mod conversation {
         }
 
         /// Sets the value of [wait_duration][crate::model::conversation::QualityMetadata::wait_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+        /// use wkt::Duration;
+        /// let x = QualityMetadata::new().set_wait_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_wait_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10321,6 +13977,14 @@ pub mod conversation {
         }
 
         /// Sets or clears the value of [wait_duration][crate::model::conversation::QualityMetadata::wait_duration].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+        /// use wkt::Duration;
+        /// let x = QualityMetadata::new().set_or_clear_wait_duration(Some(Duration::default()/* use setters */));
+        /// let x = QualityMetadata::new().set_or_clear_wait_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -10330,12 +13994,29 @@ pub mod conversation {
         }
 
         /// Sets the value of [menu_path][crate::model::conversation::QualityMetadata::menu_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+        /// let x = QualityMetadata::new().set_menu_path("example");
+        /// ```
         pub fn set_menu_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.menu_path = v.into();
             self
         }
 
         /// Sets the value of [agent_info][crate::model::conversation::QualityMetadata::agent_info].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::QualityMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+        /// let x = QualityMetadata::new()
+        ///     .set_agent_info([
+        ///         AgentInfo::default()/* use setters */,
+        ///         AgentInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_agent_info<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10387,6 +14068,12 @@ pub mod conversation {
             }
 
             /// Sets the value of [agent_id][crate::model::conversation::quality_metadata::AgentInfo::agent_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_agent_id("example");
+            /// ```
             pub fn set_agent_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10396,6 +14083,12 @@ pub mod conversation {
             }
 
             /// Sets the value of [display_name][crate::model::conversation::quality_metadata::AgentInfo::display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_display_name("example");
+            /// ```
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10405,12 +14098,24 @@ pub mod conversation {
             }
 
             /// Sets the value of [team][crate::model::conversation::quality_metadata::AgentInfo::team].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_team("example");
+            /// ```
             pub fn set_team<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.team = v.into();
                 self
             }
 
             /// Sets the value of [disposition_code][crate::model::conversation::quality_metadata::AgentInfo::disposition_code].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// let x = AgentInfo::new().set_disposition_code("example");
+            /// ```
             pub fn set_disposition_code<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10420,6 +14125,15 @@ pub mod conversation {
             }
 
             /// Sets the value of [agent_type][crate::model::conversation::quality_metadata::AgentInfo::agent_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::quality_metadata::AgentInfo;
+            /// use google_cloud_contactcenterinsights_v1::model::conversation_participant::Role;
+            /// let x0 = AgentInfo::new().set_agent_type(Role::HumanAgent);
+            /// let x1 = AgentInfo::new().set_agent_type(Role::AutomatedAgent);
+            /// let x2 = AgentInfo::new().set_agent_type(Role::EndUser);
+            /// ```
             pub fn set_agent_type<
                 T: std::convert::Into<crate::model::conversation_participant::Role>,
             >(
@@ -10455,6 +14169,17 @@ pub mod conversation {
         }
 
         /// Sets the value of [transcript_segments][crate::model::conversation::Transcript::transcript_segments].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::conversation::Transcript;
+        /// use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+        /// let x = Transcript::new()
+        ///     .set_transcript_segments([
+        ///         TranscriptSegment::default()/* use setters */,
+        ///         TranscriptSegment::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_transcript_segments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10524,6 +14249,13 @@ pub mod conversation {
             }
 
             /// Sets the value of [message_time][crate::model::conversation::transcript::TranscriptSegment::message_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use wkt::Timestamp;
+            /// let x = TranscriptSegment::new().set_message_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_message_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -10533,6 +14265,14 @@ pub mod conversation {
             }
 
             /// Sets or clears the value of [message_time][crate::model::conversation::transcript::TranscriptSegment::message_time].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use wkt::Timestamp;
+            /// let x = TranscriptSegment::new().set_or_clear_message_time(Some(Timestamp::default()/* use setters */));
+            /// let x = TranscriptSegment::new().set_or_clear_message_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_message_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -10542,18 +14282,41 @@ pub mod conversation {
             }
 
             /// Sets the value of [text][crate::model::conversation::transcript::TranscriptSegment::text].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// let x = TranscriptSegment::new().set_text("example");
+            /// ```
             pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.text = v.into();
                 self
             }
 
             /// Sets the value of [confidence][crate::model::conversation::transcript::TranscriptSegment::confidence].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// let x = TranscriptSegment::new().set_confidence(42.0);
+            /// ```
             pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.confidence = v.into();
                 self
             }
 
             /// Sets the value of [words][crate::model::conversation::transcript::TranscriptSegment::words].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+            /// let x = TranscriptSegment::new()
+            ///     .set_words([
+            ///         WordInfo::default()/* use setters */,
+            ///         WordInfo::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_words<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -10567,6 +14330,12 @@ pub mod conversation {
             }
 
             /// Sets the value of [language_code][crate::model::conversation::transcript::TranscriptSegment::language_code].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// let x = TranscriptSegment::new().set_language_code("example");
+            /// ```
             pub fn set_language_code<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -10576,12 +14345,25 @@ pub mod conversation {
             }
 
             /// Sets the value of [channel_tag][crate::model::conversation::transcript::TranscriptSegment::channel_tag].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// let x = TranscriptSegment::new().set_channel_tag(42);
+            /// ```
             pub fn set_channel_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.channel_tag = v.into();
                 self
             }
 
             /// Sets the value of [segment_participant][crate::model::conversation::transcript::TranscriptSegment::segment_participant].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+            /// let x = TranscriptSegment::new().set_segment_participant(ConversationParticipant::default()/* use setters */);
+            /// ```
             pub fn set_segment_participant<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ConversationParticipant>,
@@ -10591,6 +14373,14 @@ pub mod conversation {
             }
 
             /// Sets or clears the value of [segment_participant][crate::model::conversation::transcript::TranscriptSegment::segment_participant].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+            /// let x = TranscriptSegment::new().set_or_clear_segment_participant(Some(ConversationParticipant::default()/* use setters */));
+            /// let x = TranscriptSegment::new().set_or_clear_segment_participant(None::<ConversationParticipant>);
+            /// ```
             pub fn set_or_clear_segment_participant<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::ConversationParticipant>,
@@ -10600,6 +14390,13 @@ pub mod conversation {
             }
 
             /// Sets the value of [dialogflow_segment_metadata][crate::model::conversation::transcript::TranscriptSegment::dialogflow_segment_metadata].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata;
+            /// let x = TranscriptSegment::new().set_dialogflow_segment_metadata(DialogflowSegmentMetadata::default()/* use setters */);
+            /// ```
             pub fn set_dialogflow_segment_metadata<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata>
             {
@@ -10608,6 +14405,14 @@ pub mod conversation {
             }
 
             /// Sets or clears the value of [dialogflow_segment_metadata][crate::model::conversation::transcript::TranscriptSegment::dialogflow_segment_metadata].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata;
+            /// let x = TranscriptSegment::new().set_or_clear_dialogflow_segment_metadata(Some(DialogflowSegmentMetadata::default()/* use setters */));
+            /// let x = TranscriptSegment::new().set_or_clear_dialogflow_segment_metadata(None::<DialogflowSegmentMetadata>);
+            /// ```
             pub fn set_or_clear_dialogflow_segment_metadata<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata>
             {
@@ -10616,6 +14421,13 @@ pub mod conversation {
             }
 
             /// Sets the value of [sentiment][crate::model::conversation::transcript::TranscriptSegment::sentiment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+            /// let x = TranscriptSegment::new().set_sentiment(SentimentData::default()/* use setters */);
+            /// ```
             pub fn set_sentiment<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::SentimentData>,
@@ -10625,6 +14437,14 @@ pub mod conversation {
             }
 
             /// Sets or clears the value of [sentiment][crate::model::conversation::transcript::TranscriptSegment::sentiment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::TranscriptSegment;
+            /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+            /// let x = TranscriptSegment::new().set_or_clear_sentiment(Some(SentimentData::default()/* use setters */));
+            /// let x = TranscriptSegment::new().set_or_clear_sentiment(None::<SentimentData>);
+            /// ```
             pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::SentimentData>,
@@ -10673,6 +14493,13 @@ pub mod conversation {
                 }
 
                 /// Sets the value of [start_offset][crate::model::conversation::transcript::transcript_segment::WordInfo::start_offset].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// use wkt::Duration;
+                /// let x = WordInfo::new().set_start_offset(Duration::default()/* use setters */);
+                /// ```
                 pub fn set_start_offset<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -10682,6 +14509,14 @@ pub mod conversation {
                 }
 
                 /// Sets or clears the value of [start_offset][crate::model::conversation::transcript::transcript_segment::WordInfo::start_offset].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// use wkt::Duration;
+                /// let x = WordInfo::new().set_or_clear_start_offset(Some(Duration::default()/* use setters */));
+                /// let x = WordInfo::new().set_or_clear_start_offset(None::<Duration>);
+                /// ```
                 pub fn set_or_clear_start_offset<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -10691,6 +14526,13 @@ pub mod conversation {
                 }
 
                 /// Sets the value of [end_offset][crate::model::conversation::transcript::transcript_segment::WordInfo::end_offset].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// use wkt::Duration;
+                /// let x = WordInfo::new().set_end_offset(Duration::default()/* use setters */);
+                /// ```
                 pub fn set_end_offset<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -10700,6 +14542,14 @@ pub mod conversation {
                 }
 
                 /// Sets or clears the value of [end_offset][crate::model::conversation::transcript::transcript_segment::WordInfo::end_offset].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// use wkt::Duration;
+                /// let x = WordInfo::new().set_or_clear_end_offset(Some(Duration::default()/* use setters */));
+                /// let x = WordInfo::new().set_or_clear_end_offset(None::<Duration>);
+                /// ```
                 pub fn set_or_clear_end_offset<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<wkt::Duration>,
@@ -10709,6 +14559,12 @@ pub mod conversation {
                 }
 
                 /// Sets the value of [word][crate::model::conversation::transcript::transcript_segment::WordInfo::word].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// let x = WordInfo::new().set_word("example");
+                /// ```
                 pub fn set_word<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -10718,6 +14574,12 @@ pub mod conversation {
                 }
 
                 /// Sets the value of [confidence][crate::model::conversation::transcript::transcript_segment::WordInfo::confidence].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::WordInfo;
+                /// let x = WordInfo::new().set_confidence(42.0);
+                /// ```
                 pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                     self.confidence = v.into();
                     self
@@ -10747,6 +14609,12 @@ pub mod conversation {
                 }
 
                 /// Sets the value of [smart_reply_allowlist_covered][crate::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata::smart_reply_allowlist_covered].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_contactcenterinsights_v1::model::conversation::transcript::transcript_segment::DialogflowSegmentMetadata;
+                /// let x = DialogflowSegmentMetadata::new().set_smart_reply_allowlist_covered(true);
+                /// ```
                 pub fn set_smart_reply_allowlist_covered<T: std::convert::Into<bool>>(
                     mut self,
                     v: T,
@@ -10953,12 +14821,25 @@ impl Analysis {
     }
 
     /// Sets the value of [name][crate::model::Analysis::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// let x = Analysis::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_time][crate::model::Analysis::request_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use wkt::Timestamp;
+    /// let x = Analysis::new().set_request_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10968,6 +14849,14 @@ impl Analysis {
     }
 
     /// Sets or clears the value of [request_time][crate::model::Analysis::request_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use wkt::Timestamp;
+    /// let x = Analysis::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Analysis::new().set_or_clear_request_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10977,6 +14866,13 @@ impl Analysis {
     }
 
     /// Sets the value of [create_time][crate::model::Analysis::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use wkt::Timestamp;
+    /// let x = Analysis::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10986,6 +14882,14 @@ impl Analysis {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Analysis::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use wkt::Timestamp;
+    /// let x = Analysis::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Analysis::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10995,6 +14899,13 @@ impl Analysis {
     }
 
     /// Sets the value of [analysis_result][crate::model::Analysis::analysis_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// let x = Analysis::new().set_analysis_result(AnalysisResult::default()/* use setters */);
+    /// ```
     pub fn set_analysis_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisResult>,
@@ -11004,6 +14915,14 @@ impl Analysis {
     }
 
     /// Sets or clears the value of [analysis_result][crate::model::Analysis::analysis_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// let x = Analysis::new().set_or_clear_analysis_result(Some(AnalysisResult::default()/* use setters */));
+    /// let x = Analysis::new().set_or_clear_analysis_result(None::<AnalysisResult>);
+    /// ```
     pub fn set_or_clear_analysis_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalysisResult>,
@@ -11013,6 +14932,13 @@ impl Analysis {
     }
 
     /// Sets the value of [annotator_selector][crate::model::Analysis::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = Analysis::new().set_annotator_selector(AnnotatorSelector::default()/* use setters */);
+    /// ```
     pub fn set_annotator_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -11022,6 +14948,14 @@ impl Analysis {
     }
 
     /// Sets or clears the value of [annotator_selector][crate::model::Analysis::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = Analysis::new().set_or_clear_annotator_selector(Some(AnnotatorSelector::default()/* use setters */));
+    /// let x = Analysis::new().set_or_clear_annotator_selector(None::<AnnotatorSelector>);
+    /// ```
     pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -11056,6 +14990,14 @@ impl ConversationDataSource {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationDataSource;
+    /// use google_cloud_contactcenterinsights_v1::model::GcsSource;
+    /// let x = ConversationDataSource::new().set_source(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::conversation_data_source::Source::GcsSource(GcsSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::conversation_data_source::Source>>,
     >(
@@ -11084,6 +15026,15 @@ impl ConversationDataSource {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationDataSource;
+    /// use google_cloud_contactcenterinsights_v1::model::GcsSource;
+    /// let x = ConversationDataSource::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// assert!(x.dialogflow_source().is_none());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -11114,6 +15065,15 @@ impl ConversationDataSource {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationDataSource;
+    /// use google_cloud_contactcenterinsights_v1::model::DialogflowSource;
+    /// let x = ConversationDataSource::new().set_dialogflow_source(DialogflowSource::default()/* use setters */);
+    /// assert!(x.dialogflow_source().is_some());
+    /// assert!(x.gcs_source().is_none());
+    /// ```
     pub fn set_dialogflow_source<
         T: std::convert::Into<std::boxed::Box<crate::model::DialogflowSource>>,
     >(
@@ -11170,12 +15130,24 @@ impl GcsSource {
     }
 
     /// Sets the value of [audio_uri][crate::model::GcsSource::audio_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GcsSource;
+    /// let x = GcsSource::new().set_audio_uri("example");
+    /// ```
     pub fn set_audio_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audio_uri = v.into();
         self
     }
 
     /// Sets the value of [transcript_uri][crate::model::GcsSource::transcript_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::GcsSource;
+    /// let x = GcsSource::new().set_transcript_uri("example");
+    /// ```
     pub fn set_transcript_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transcript_uri = v.into();
         self
@@ -11210,6 +15182,12 @@ impl DialogflowSource {
     }
 
     /// Sets the value of [dialogflow_conversation][crate::model::DialogflowSource::dialogflow_conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DialogflowSource;
+    /// let x = DialogflowSource::new().set_dialogflow_conversation("example");
+    /// ```
     pub fn set_dialogflow_conversation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11219,6 +15197,12 @@ impl DialogflowSource {
     }
 
     /// Sets the value of [audio_uri][crate::model::DialogflowSource::audio_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DialogflowSource;
+    /// let x = DialogflowSource::new().set_audio_uri("example");
+    /// ```
     pub fn set_audio_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audio_uri = v.into();
         self
@@ -11250,6 +15234,13 @@ impl AnalysisResult {
     }
 
     /// Sets the value of [end_time][crate::model::AnalysisResult::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisResult::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11259,6 +15250,14 @@ impl AnalysisResult {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AnalysisResult::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisResult::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AnalysisResult::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11271,6 +15270,14 @@ impl AnalysisResult {
     ///
     /// Note that all the setters affecting `metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+    /// let x = AnalysisResult::new().set_metadata(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::analysis_result::Metadata::CallAnalysisMetadata(CallAnalysisMetadata::default().into())));
+    /// ```
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::analysis_result::Metadata>>,
     >(
@@ -11302,6 +15309,14 @@ impl AnalysisResult {
     ///
     /// Note that all the setters affecting `metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisResult;
+    /// use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+    /// let x = AnalysisResult::new().set_call_analysis_metadata(CallAnalysisMetadata::default()/* use setters */);
+    /// assert!(x.call_analysis_metadata().is_some());
+    /// ```
     pub fn set_call_analysis_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::analysis_result::CallAnalysisMetadata>>,
     >(
@@ -11364,6 +15379,17 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [annotations][crate::model::analysis_result::CallAnalysisMetadata::annotations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+        /// let x = CallAnalysisMetadata::new()
+        ///     .set_annotations([
+        ///         CallAnnotation::default()/* use setters */,
+        ///         CallAnnotation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_annotations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11375,6 +15401,16 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [entities][crate::model::analysis_result::CallAnalysisMetadata::entities].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::Entity;
+        /// let x = CallAnalysisMetadata::new().set_entities([
+        ///     ("key0", Entity::default()/* use setters */),
+        ///     ("key1", Entity::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_entities<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11387,6 +15423,17 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [sentiments][crate::model::analysis_result::CallAnalysisMetadata::sentiments].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::ConversationLevelSentiment;
+        /// let x = CallAnalysisMetadata::new()
+        ///     .set_sentiments([
+        ///         ConversationLevelSentiment::default()/* use setters */,
+        ///         ConversationLevelSentiment::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_sentiments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11398,6 +15445,13 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [silence][crate::model::analysis_result::CallAnalysisMetadata::silence].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::ConversationLevelSilence;
+        /// let x = CallAnalysisMetadata::new().set_silence(ConversationLevelSilence::default()/* use setters */);
+        /// ```
         pub fn set_silence<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ConversationLevelSilence>,
@@ -11407,6 +15461,14 @@ pub mod analysis_result {
         }
 
         /// Sets or clears the value of [silence][crate::model::analysis_result::CallAnalysisMetadata::silence].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::ConversationLevelSilence;
+        /// let x = CallAnalysisMetadata::new().set_or_clear_silence(Some(ConversationLevelSilence::default()/* use setters */));
+        /// let x = CallAnalysisMetadata::new().set_or_clear_silence(None::<ConversationLevelSilence>);
+        /// ```
         pub fn set_or_clear_silence<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConversationLevelSilence>,
@@ -11416,6 +15478,16 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [intents][crate::model::analysis_result::CallAnalysisMetadata::intents].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::Intent;
+        /// let x = CallAnalysisMetadata::new().set_intents([
+        ///     ("key0", Intent::default()/* use setters */),
+        ///     ("key1", Intent::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_intents<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11428,6 +15500,16 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [phrase_matchers][crate::model::analysis_result::CallAnalysisMetadata::phrase_matchers].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchData;
+        /// let x = CallAnalysisMetadata::new().set_phrase_matchers([
+        ///     ("key0", PhraseMatchData::default()/* use setters */),
+        ///     ("key1", PhraseMatchData::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_phrase_matchers<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11440,6 +15522,13 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [issue_model_result][crate::model::analysis_result::CallAnalysisMetadata::issue_model_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::IssueModelResult;
+        /// let x = CallAnalysisMetadata::new().set_issue_model_result(IssueModelResult::default()/* use setters */);
+        /// ```
         pub fn set_issue_model_result<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::IssueModelResult>,
@@ -11449,6 +15538,14 @@ pub mod analysis_result {
         }
 
         /// Sets or clears the value of [issue_model_result][crate::model::analysis_result::CallAnalysisMetadata::issue_model_result].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::IssueModelResult;
+        /// let x = CallAnalysisMetadata::new().set_or_clear_issue_model_result(Some(IssueModelResult::default()/* use setters */));
+        /// let x = CallAnalysisMetadata::new().set_or_clear_issue_model_result(None::<IssueModelResult>);
+        /// ```
         pub fn set_or_clear_issue_model_result<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IssueModelResult>,
@@ -11458,6 +15555,17 @@ pub mod analysis_result {
         }
 
         /// Sets the value of [qa_scorecard_results][crate::model::analysis_result::CallAnalysisMetadata::qa_scorecard_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::analysis_result::CallAnalysisMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+        /// let x = CallAnalysisMetadata::new()
+        ///     .set_qa_scorecard_results([
+        ///         QaScorecardResult::default()/* use setters */,
+        ///         QaScorecardResult::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_qa_scorecard_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11504,12 +15612,29 @@ impl IssueModelResult {
     }
 
     /// Sets the value of [issue_model][crate::model::IssueModelResult::issue_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModelResult;
+    /// let x = IssueModelResult::new().set_issue_model("example");
+    /// ```
     pub fn set_issue_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue_model = v.into();
         self
     }
 
     /// Sets the value of [issues][crate::model::IssueModelResult::issues].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModelResult;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueModelResult::new()
+    ///     .set_issues([
+    ///         IssueAssignment::default()/* use setters */,
+    ///         IssueAssignment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11557,12 +15682,24 @@ impl FeedbackLabel {
     }
 
     /// Sets the value of [name][crate::model::FeedbackLabel::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = FeedbackLabel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labeled_resource][crate::model::FeedbackLabel::labeled_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = FeedbackLabel::new().set_labeled_resource("example");
+    /// ```
     pub fn set_labeled_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11572,6 +15709,13 @@ impl FeedbackLabel {
     }
 
     /// Sets the value of [create_time][crate::model::FeedbackLabel::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use wkt::Timestamp;
+    /// let x = FeedbackLabel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11581,6 +15725,14 @@ impl FeedbackLabel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::FeedbackLabel::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use wkt::Timestamp;
+    /// let x = FeedbackLabel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FeedbackLabel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11590,6 +15742,13 @@ impl FeedbackLabel {
     }
 
     /// Sets the value of [update_time][crate::model::FeedbackLabel::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use wkt::Timestamp;
+    /// let x = FeedbackLabel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11599,6 +15758,14 @@ impl FeedbackLabel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FeedbackLabel::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use wkt::Timestamp;
+    /// let x = FeedbackLabel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FeedbackLabel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11611,6 +15778,13 @@ impl FeedbackLabel {
     ///
     /// Note that all the setters affecting `label_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use google_cloud_contactcenterinsights_v1::model::feedback_label::LabelType;
+    /// let x = FeedbackLabel::new().set_label_type(Some(LabelType::Label("example".to_string())));
+    /// ```
     pub fn set_label_type<
         T: std::convert::Into<std::option::Option<crate::model::feedback_label::LabelType>>,
     >(
@@ -11637,6 +15811,14 @@ impl FeedbackLabel {
     ///
     /// Note that all the setters affecting `label_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// let x = FeedbackLabel::new().set_label("example");
+    /// assert!(x.label().is_some());
+    /// assert!(x.qa_answer_label().is_none());
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label_type =
             std::option::Option::Some(crate::model::feedback_label::LabelType::Label(v.into()));
@@ -11663,6 +15845,15 @@ impl FeedbackLabel {
     ///
     /// Note that all the setters affecting `label_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+    /// let x = FeedbackLabel::new().set_qa_answer_label(AnswerValue::default()/* use setters */);
+    /// assert!(x.qa_answer_label().is_some());
+    /// assert!(x.label().is_none());
+    /// ```
     pub fn set_qa_answer_label<
         T: std::convert::Into<std::boxed::Box<crate::model::qa_answer::AnswerValue>>,
     >(
@@ -11717,12 +15908,25 @@ impl ConversationLevelSentiment {
     }
 
     /// Sets the value of [channel_tag][crate::model::ConversationLevelSentiment::channel_tag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSentiment;
+    /// let x = ConversationLevelSentiment::new().set_channel_tag(42);
+    /// ```
     pub fn set_channel_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_tag = v.into();
         self
     }
 
     /// Sets the value of [sentiment_data][crate::model::ConversationLevelSentiment::sentiment_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSentiment;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = ConversationLevelSentiment::new().set_sentiment_data(SentimentData::default()/* use setters */);
+    /// ```
     pub fn set_sentiment_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -11732,6 +15936,14 @@ impl ConversationLevelSentiment {
     }
 
     /// Sets or clears the value of [sentiment_data][crate::model::ConversationLevelSentiment::sentiment_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSentiment;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = ConversationLevelSentiment::new().set_or_clear_sentiment_data(Some(SentimentData::default()/* use setters */));
+    /// let x = ConversationLevelSentiment::new().set_or_clear_sentiment_data(None::<SentimentData>);
+    /// ```
     pub fn set_or_clear_sentiment_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -11766,6 +15978,13 @@ impl ConversationLevelSilence {
     }
 
     /// Sets the value of [silence_duration][crate::model::ConversationLevelSilence::silence_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSilence;
+    /// use wkt::Duration;
+    /// let x = ConversationLevelSilence::new().set_silence_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_silence_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11775,6 +15994,14 @@ impl ConversationLevelSilence {
     }
 
     /// Sets or clears the value of [silence_duration][crate::model::ConversationLevelSilence::silence_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSilence;
+    /// use wkt::Duration;
+    /// let x = ConversationLevelSilence::new().set_or_clear_silence_duration(Some(Duration::default()/* use setters */));
+    /// let x = ConversationLevelSilence::new().set_or_clear_silence_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_silence_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11784,6 +16011,12 @@ impl ConversationLevelSilence {
     }
 
     /// Sets the value of [silence_percentage][crate::model::ConversationLevelSilence::silence_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationLevelSilence;
+    /// let x = ConversationLevelSilence::new().set_silence_percentage(42.0);
+    /// ```
     pub fn set_silence_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.silence_percentage = v.into();
         self
@@ -11820,18 +16053,36 @@ impl IssueAssignment {
     }
 
     /// Sets the value of [issue][crate::model::IssueAssignment::issue].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueAssignment::new().set_issue("example");
+    /// ```
     pub fn set_issue<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issue = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::IssueAssignment::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueAssignment::new().set_score(42.0);
+    /// ```
     pub fn set_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::IssueAssignment::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueAssignment::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -11870,12 +16121,25 @@ impl CallAnnotation {
     }
 
     /// Sets the value of [channel_tag][crate::model::CallAnnotation::channel_tag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// let x = CallAnnotation::new().set_channel_tag(42);
+    /// ```
     pub fn set_channel_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.channel_tag = v.into();
         self
     }
 
     /// Sets the value of [annotation_start_boundary][crate::model::CallAnnotation::annotation_start_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = CallAnnotation::new().set_annotation_start_boundary(AnnotationBoundary::default()/* use setters */);
+    /// ```
     pub fn set_annotation_start_boundary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -11885,6 +16149,14 @@ impl CallAnnotation {
     }
 
     /// Sets or clears the value of [annotation_start_boundary][crate::model::CallAnnotation::annotation_start_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = CallAnnotation::new().set_or_clear_annotation_start_boundary(Some(AnnotationBoundary::default()/* use setters */));
+    /// let x = CallAnnotation::new().set_or_clear_annotation_start_boundary(None::<AnnotationBoundary>);
+    /// ```
     pub fn set_or_clear_annotation_start_boundary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -11894,6 +16166,13 @@ impl CallAnnotation {
     }
 
     /// Sets the value of [annotation_end_boundary][crate::model::CallAnnotation::annotation_end_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = CallAnnotation::new().set_annotation_end_boundary(AnnotationBoundary::default()/* use setters */);
+    /// ```
     pub fn set_annotation_end_boundary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -11903,6 +16182,14 @@ impl CallAnnotation {
     }
 
     /// Sets or clears the value of [annotation_end_boundary][crate::model::CallAnnotation::annotation_end_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = CallAnnotation::new().set_or_clear_annotation_end_boundary(Some(AnnotationBoundary::default()/* use setters */));
+    /// let x = CallAnnotation::new().set_or_clear_annotation_end_boundary(None::<AnnotationBoundary>);
+    /// ```
     pub fn set_or_clear_annotation_end_boundary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -11915,6 +16202,14 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::InterruptionData;
+    /// let x = CallAnnotation::new().set_data(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::call_annotation::Data::InterruptionData(InterruptionData::default().into())));
+    /// ```
     pub fn set_data<
         T: std::convert::Into<std::option::Option<crate::model::call_annotation::Data>>,
     >(
@@ -11945,6 +16240,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::InterruptionData;
+    /// let x = CallAnnotation::new().set_interruption_data(InterruptionData::default()/* use setters */);
+    /// assert!(x.interruption_data().is_some());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_interruption_data<
         T: std::convert::Into<std::boxed::Box<crate::model::InterruptionData>>,
     >(
@@ -11975,6 +16285,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = CallAnnotation::new().set_sentiment_data(SentimentData::default()/* use setters */);
+    /// assert!(x.sentiment_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_sentiment_data<
         T: std::convert::Into<std::boxed::Box<crate::model::SentimentData>>,
     >(
@@ -12002,6 +16327,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::SilenceData;
+    /// let x = CallAnnotation::new().set_silence_data(SilenceData::default()/* use setters */);
+    /// assert!(x.silence_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_silence_data<T: std::convert::Into<std::boxed::Box<crate::model::SilenceData>>>(
         mut self,
         v: T,
@@ -12027,6 +16367,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::HoldData;
+    /// let x = CallAnnotation::new().set_hold_data(HoldData::default()/* use setters */);
+    /// assert!(x.hold_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_hold_data<T: std::convert::Into<std::boxed::Box<crate::model::HoldData>>>(
         mut self,
         v: T,
@@ -12056,6 +16411,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::EntityMentionData;
+    /// let x = CallAnnotation::new().set_entity_mention_data(EntityMentionData::default()/* use setters */);
+    /// assert!(x.entity_mention_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_entity_mention_data<
         T: std::convert::Into<std::boxed::Box<crate::model::EntityMentionData>>,
     >(
@@ -12086,6 +16456,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::IntentMatchData;
+    /// let x = CallAnnotation::new().set_intent_match_data(IntentMatchData::default()/* use setters */);
+    /// assert!(x.intent_match_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_intent_match_data<
         T: std::convert::Into<std::boxed::Box<crate::model::IntentMatchData>>,
     >(
@@ -12116,6 +16501,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchData;
+    /// let x = CallAnnotation::new().set_phrase_match_data(PhraseMatchData::default()/* use setters */);
+    /// assert!(x.phrase_match_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.issue_match_data().is_none());
+    /// ```
     pub fn set_phrase_match_data<
         T: std::convert::Into<std::boxed::Box<crate::model::PhraseMatchData>>,
     >(
@@ -12146,6 +16546,21 @@ impl CallAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::CallAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueMatchData;
+    /// let x = CallAnnotation::new().set_issue_match_data(IssueMatchData::default()/* use setters */);
+    /// assert!(x.issue_match_data().is_some());
+    /// assert!(x.interruption_data().is_none());
+    /// assert!(x.sentiment_data().is_none());
+    /// assert!(x.silence_data().is_none());
+    /// assert!(x.hold_data().is_none());
+    /// assert!(x.entity_mention_data().is_none());
+    /// assert!(x.intent_match_data().is_none());
+    /// assert!(x.phrase_match_data().is_none());
+    /// ```
     pub fn set_issue_match_data<
         T: std::convert::Into<std::boxed::Box<crate::model::IssueMatchData>>,
     >(
@@ -12213,6 +16628,12 @@ impl AnnotationBoundary {
     }
 
     /// Sets the value of [transcript_index][crate::model::AnnotationBoundary::transcript_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = AnnotationBoundary::new().set_transcript_index(42);
+    /// ```
     pub fn set_transcript_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.transcript_index = v.into();
         self
@@ -12222,6 +16643,13 @@ impl AnnotationBoundary {
     ///
     /// Note that all the setters affecting `detailed_boundary` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// use google_cloud_contactcenterinsights_v1::model::annotation_boundary::DetailedBoundary;
+    /// let x = AnnotationBoundary::new().set_detailed_boundary(Some(DetailedBoundary::WordIndex(42)));
+    /// ```
     pub fn set_detailed_boundary<
         T: std::convert::Into<
                 std::option::Option<crate::model::annotation_boundary::DetailedBoundary>,
@@ -12252,6 +16680,13 @@ impl AnnotationBoundary {
     ///
     /// Note that all the setters affecting `detailed_boundary` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = AnnotationBoundary::new().set_word_index(42);
+    /// assert!(x.word_index().is_some());
+    /// ```
     pub fn set_word_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.detailed_boundary = std::option::Option::Some(
             crate::model::annotation_boundary::DetailedBoundary::WordIndex(v.into()),
@@ -12320,18 +16755,42 @@ impl Entity {
     }
 
     /// Sets the value of [display_name][crate::model::Entity::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// let x = Entity::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Entity::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// use google_cloud_contactcenterinsights_v1::model::entity::Type;
+    /// let x0 = Entity::new().set_type(Type::Person);
+    /// let x1 = Entity::new().set_type(Type::Location);
+    /// let x2 = Entity::new().set_type(Type::Organization);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::entity::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::Entity::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// let x = Entity::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12344,12 +16803,25 @@ impl Entity {
     }
 
     /// Sets the value of [salience][crate::model::Entity::salience].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// let x = Entity::new().set_salience(42.0);
+    /// ```
     pub fn set_salience<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.salience = v.into();
         self
     }
 
     /// Sets the value of [sentiment][crate::model::Entity::sentiment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = Entity::new().set_sentiment(SentimentData::default()/* use setters */);
+    /// ```
     pub fn set_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -12359,6 +16831,14 @@ impl Entity {
     }
 
     /// Sets or clears the value of [sentiment][crate::model::Entity::sentiment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Entity;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = Entity::new().set_or_clear_sentiment(Some(SentimentData::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_sentiment(None::<SentimentData>);
+    /// ```
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -12639,12 +17119,24 @@ impl Intent {
     }
 
     /// Sets the value of [id][crate::model::Intent::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Intent;
+    /// let x = Intent::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Intent::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Intent;
+    /// let x = Intent::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -12677,12 +17169,24 @@ impl PhraseMatchData {
     }
 
     /// Sets the value of [phrase_matcher][crate::model::PhraseMatchData::phrase_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchData;
+    /// let x = PhraseMatchData::new().set_phrase_matcher("example");
+    /// ```
     pub fn set_phrase_matcher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phrase_matcher = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PhraseMatchData::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchData;
+    /// let x = PhraseMatchData::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -12712,6 +17216,12 @@ impl DialogflowIntent {
     }
 
     /// Sets the value of [display_name][crate::model::DialogflowIntent::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DialogflowIntent;
+    /// let x = DialogflowIntent::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -12805,6 +17315,12 @@ impl EntityMentionData {
     }
 
     /// Sets the value of [entity_unique_id][crate::model::EntityMentionData::entity_unique_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EntityMentionData;
+    /// let x = EntityMentionData::new().set_entity_unique_id("example");
+    /// ```
     pub fn set_entity_unique_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12814,6 +17330,14 @@ impl EntityMentionData {
     }
 
     /// Sets the value of [r#type][crate::model::EntityMentionData::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EntityMentionData;
+    /// use google_cloud_contactcenterinsights_v1::model::entity_mention_data::MentionType;
+    /// let x0 = EntityMentionData::new().set_type(MentionType::Proper);
+    /// let x1 = EntityMentionData::new().set_type(MentionType::Common);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::entity_mention_data::MentionType>>(
         mut self,
         v: T,
@@ -12823,6 +17347,13 @@ impl EntityMentionData {
     }
 
     /// Sets the value of [sentiment][crate::model::EntityMentionData::sentiment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EntityMentionData;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = EntityMentionData::new().set_sentiment(SentimentData::default()/* use setters */);
+    /// ```
     pub fn set_sentiment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -12832,6 +17363,14 @@ impl EntityMentionData {
     }
 
     /// Sets or clears the value of [sentiment][crate::model::EntityMentionData::sentiment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EntityMentionData;
+    /// use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = EntityMentionData::new().set_or_clear_sentiment(Some(SentimentData::default()/* use setters */));
+    /// let x = EntityMentionData::new().set_or_clear_sentiment(None::<SentimentData>);
+    /// ```
     pub fn set_or_clear_sentiment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SentimentData>,
@@ -13005,6 +17544,12 @@ impl IntentMatchData {
     }
 
     /// Sets the value of [intent_unique_id][crate::model::IntentMatchData::intent_unique_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IntentMatchData;
+    /// let x = IntentMatchData::new().set_intent_unique_id("example");
+    /// ```
     pub fn set_intent_unique_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13040,12 +17585,24 @@ impl SentimentData {
     }
 
     /// Sets the value of [magnitude][crate::model::SentimentData::magnitude].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = SentimentData::new().set_magnitude(42.0);
+    /// ```
     pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.magnitude = v.into();
         self
     }
 
     /// Sets the value of [score][crate::model::SentimentData::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SentimentData;
+    /// let x = SentimentData::new().set_score(42.0);
+    /// ```
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
         self
@@ -13074,6 +17631,13 @@ impl IssueMatchData {
     }
 
     /// Sets the value of [issue_assignment][crate::model::IssueMatchData::issue_assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueMatchData;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueMatchData::new().set_issue_assignment(IssueAssignment::default()/* use setters */);
+    /// ```
     pub fn set_issue_assignment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueAssignment>,
@@ -13083,6 +17647,14 @@ impl IssueMatchData {
     }
 
     /// Sets or clears the value of [issue_assignment][crate::model::IssueMatchData::issue_assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueMatchData;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueAssignment;
+    /// let x = IssueMatchData::new().set_or_clear_issue_assignment(Some(IssueAssignment::default()/* use setters */));
+    /// let x = IssueMatchData::new().set_or_clear_issue_assignment(None::<IssueAssignment>);
+    /// ```
     pub fn set_or_clear_issue_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueAssignment>,
@@ -13144,18 +17716,37 @@ impl IssueModel {
     }
 
     /// Sets the value of [name][crate::model::IssueModel::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = IssueModel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::IssueModel::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = IssueModel::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::IssueModel::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use wkt::Timestamp;
+    /// let x = IssueModel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13165,6 +17756,14 @@ impl IssueModel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::IssueModel::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use wkt::Timestamp;
+    /// let x = IssueModel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IssueModel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13174,6 +17773,13 @@ impl IssueModel {
     }
 
     /// Sets the value of [update_time][crate::model::IssueModel::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use wkt::Timestamp;
+    /// let x = IssueModel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13183,6 +17789,14 @@ impl IssueModel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::IssueModel::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use wkt::Timestamp;
+    /// let x = IssueModel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IssueModel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13192,12 +17806,27 @@ impl IssueModel {
     }
 
     /// Sets the value of [issue_count][crate::model::IssueModel::issue_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = IssueModel::new().set_issue_count(42);
+    /// ```
     pub fn set_issue_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.issue_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::IssueModel::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model::State;
+    /// let x0 = IssueModel::new().set_state(State::Undeployed);
+    /// let x1 = IssueModel::new().set_state(State::Deploying);
+    /// let x2 = IssueModel::new().set_state(State::Deployed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::issue_model::State>>(
         mut self,
         v: T,
@@ -13207,6 +17836,13 @@ impl IssueModel {
     }
 
     /// Sets the value of [input_data_config][crate::model::IssueModel::input_data_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model::InputDataConfig;
+    /// let x = IssueModel::new().set_input_data_config(InputDataConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_data_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::issue_model::InputDataConfig>,
@@ -13216,6 +17852,14 @@ impl IssueModel {
     }
 
     /// Sets or clears the value of [input_data_config][crate::model::IssueModel::input_data_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model::InputDataConfig;
+    /// let x = IssueModel::new().set_or_clear_input_data_config(Some(InputDataConfig::default()/* use setters */));
+    /// let x = IssueModel::new().set_or_clear_input_data_config(None::<InputDataConfig>);
+    /// ```
     pub fn set_or_clear_input_data_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::issue_model::InputDataConfig>,
@@ -13225,6 +17869,13 @@ impl IssueModel {
     }
 
     /// Sets the value of [training_stats][crate::model::IssueModel::training_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = IssueModel::new().set_training_stats(IssueModelLabelStats::default()/* use setters */);
+    /// ```
     pub fn set_training_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IssueModelLabelStats>,
@@ -13234,6 +17885,14 @@ impl IssueModel {
     }
 
     /// Sets or clears the value of [training_stats][crate::model::IssueModel::training_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = IssueModel::new().set_or_clear_training_stats(Some(IssueModelLabelStats::default()/* use setters */));
+    /// let x = IssueModel::new().set_or_clear_training_stats(None::<IssueModelLabelStats>);
+    /// ```
     pub fn set_or_clear_training_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IssueModelLabelStats>,
@@ -13243,6 +17902,14 @@ impl IssueModel {
     }
 
     /// Sets the value of [model_type][crate::model::IssueModel::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model::ModelType;
+    /// let x0 = IssueModel::new().set_model_type(ModelType::TypeV1);
+    /// let x1 = IssueModel::new().set_model_type(ModelType::TypeV2);
+    /// ```
     pub fn set_model_type<T: std::convert::Into<crate::model::issue_model::ModelType>>(
         mut self,
         v: T,
@@ -13252,6 +17919,12 @@ impl IssueModel {
     }
 
     /// Sets the value of [language_code][crate::model::IssueModel::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// let x = IssueModel::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -13295,6 +17968,14 @@ pub mod issue_model {
         }
 
         /// Sets the value of [medium][crate::model::issue_model::InputDataConfig::medium].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model::InputDataConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::conversation::Medium;
+        /// let x0 = InputDataConfig::new().set_medium(Medium::PhoneCall);
+        /// let x1 = InputDataConfig::new().set_medium(Medium::Chat);
+        /// ```
         #[deprecated]
         pub fn set_medium<T: std::convert::Into<crate::model::conversation::Medium>>(
             mut self,
@@ -13305,6 +17986,12 @@ pub mod issue_model {
         }
 
         /// Sets the value of [training_conversations_count][crate::model::issue_model::InputDataConfig::training_conversations_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model::InputDataConfig;
+        /// let x = InputDataConfig::new().set_training_conversations_count(42);
+        /// ```
         pub fn set_training_conversations_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -13314,6 +18001,12 @@ pub mod issue_model {
         }
 
         /// Sets the value of [filter][crate::model::issue_model::InputDataConfig::filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model::InputDataConfig;
+        /// let x = InputDataConfig::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
@@ -13647,18 +18340,37 @@ impl Issue {
     }
 
     /// Sets the value of [name][crate::model::Issue::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = Issue::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Issue::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = Issue::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Issue::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13668,6 +18380,14 @@ impl Issue {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Issue::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Issue::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13677,6 +18397,13 @@ impl Issue {
     }
 
     /// Sets the value of [update_time][crate::model::Issue::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13686,6 +18413,14 @@ impl Issue {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Issue::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// use wkt::Timestamp;
+    /// let x = Issue::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Issue::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13695,6 +18430,12 @@ impl Issue {
     }
 
     /// Sets the value of [sample_utterances][crate::model::Issue::sample_utterances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = Issue::new().set_sample_utterances(["a", "b", "c"]);
+    /// ```
     pub fn set_sample_utterances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13706,6 +18447,12 @@ impl Issue {
     }
 
     /// Sets the value of [display_description][crate::model::Issue::display_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// let x = Issue::new().set_display_description("example");
+    /// ```
     pub fn set_display_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13747,12 +18494,24 @@ impl IssueModelLabelStats {
     }
 
     /// Sets the value of [analyzed_conversations_count][crate::model::IssueModelLabelStats::analyzed_conversations_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = IssueModelLabelStats::new().set_analyzed_conversations_count(42);
+    /// ```
     pub fn set_analyzed_conversations_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.analyzed_conversations_count = v.into();
         self
     }
 
     /// Sets the value of [unclassified_conversations_count][crate::model::IssueModelLabelStats::unclassified_conversations_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// let x = IssueModelLabelStats::new().set_unclassified_conversations_count(42);
+    /// ```
     pub fn set_unclassified_conversations_count<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -13762,6 +18521,16 @@ impl IssueModelLabelStats {
     }
 
     /// Sets the value of [issue_stats][crate::model::IssueModelLabelStats::issue_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::IssueModelLabelStats;
+    /// use google_cloud_contactcenterinsights_v1::model::issue_model_label_stats::IssueStats;
+    /// let x = IssueModelLabelStats::new().set_issue_stats([
+    ///     ("key0", IssueStats::default()/* use setters */),
+    ///     ("key1", IssueStats::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_issue_stats<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13809,18 +18578,36 @@ pub mod issue_model_label_stats {
         }
 
         /// Sets the value of [issue][crate::model::issue_model_label_stats::IssueStats::issue].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model_label_stats::IssueStats;
+        /// let x = IssueStats::new().set_issue("example");
+        /// ```
         pub fn set_issue<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.issue = v.into();
             self
         }
 
         /// Sets the value of [labeled_conversations_count][crate::model::issue_model_label_stats::IssueStats::labeled_conversations_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model_label_stats::IssueStats;
+        /// let x = IssueStats::new().set_labeled_conversations_count(42);
+        /// ```
         pub fn set_labeled_conversations_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.labeled_conversations_count = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::issue_model_label_stats::IssueStats::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::issue_model_label_stats::IssueStats;
+        /// let x = IssueStats::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13893,24 +18680,49 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [name][crate::model::PhraseMatcher::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = PhraseMatcher::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::PhraseMatcher::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = PhraseMatcher::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [version_tag][crate::model::PhraseMatcher::version_tag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = PhraseMatcher::new().set_version_tag("example");
+    /// ```
     pub fn set_version_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_tag = v.into();
         self
     }
 
     /// Sets the value of [revision_create_time][crate::model::PhraseMatcher::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13920,6 +18732,14 @@ impl PhraseMatcher {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::PhraseMatcher::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseMatcher::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13929,12 +18749,26 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [display_name][crate::model::PhraseMatcher::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = PhraseMatcher::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::PhraseMatcher::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use google_cloud_contactcenterinsights_v1::model::phrase_matcher::PhraseMatcherType;
+    /// let x0 = PhraseMatcher::new().set_type(PhraseMatcherType::AllOf);
+    /// let x1 = PhraseMatcher::new().set_type(PhraseMatcherType::AnyOf);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::phrase_matcher::PhraseMatcherType>>(
         mut self,
         v: T,
@@ -13944,12 +18778,29 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [active][crate::model::PhraseMatcher::active].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// let x = PhraseMatcher::new().set_active(true);
+    /// ```
     pub fn set_active<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.active = v.into();
         self
     }
 
     /// Sets the value of [phrase_match_rule_groups][crate::model::PhraseMatcher::phrase_match_rule_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleGroup;
+    /// let x = PhraseMatcher::new()
+    ///     .set_phrase_match_rule_groups([
+    ///         PhraseMatchRuleGroup::default()/* use setters */,
+    ///         PhraseMatchRuleGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrase_match_rule_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13961,6 +18812,13 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [activation_update_time][crate::model::PhraseMatcher::activation_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_activation_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_activation_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13970,6 +18828,14 @@ impl PhraseMatcher {
     }
 
     /// Sets or clears the value of [activation_update_time][crate::model::PhraseMatcher::activation_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_or_clear_activation_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseMatcher::new().set_or_clear_activation_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_activation_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13979,6 +18845,15 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [role_match][crate::model::PhraseMatcher::role_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation_participant::Role;
+    /// let x0 = PhraseMatcher::new().set_role_match(Role::HumanAgent);
+    /// let x1 = PhraseMatcher::new().set_role_match(Role::AutomatedAgent);
+    /// let x2 = PhraseMatcher::new().set_role_match(Role::EndUser);
+    /// ```
     pub fn set_role_match<T: std::convert::Into<crate::model::conversation_participant::Role>>(
         mut self,
         v: T,
@@ -13988,6 +18863,13 @@ impl PhraseMatcher {
     }
 
     /// Sets the value of [update_time][crate::model::PhraseMatcher::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13997,6 +18879,14 @@ impl PhraseMatcher {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PhraseMatcher::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use wkt::Timestamp;
+    /// let x = PhraseMatcher::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PhraseMatcher::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14170,6 +19060,14 @@ impl PhraseMatchRuleGroup {
     }
 
     /// Sets the value of [r#type][crate::model::PhraseMatchRuleGroup::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleGroup;
+    /// use google_cloud_contactcenterinsights_v1::model::phrase_match_rule_group::PhraseMatchRuleGroupType;
+    /// let x0 = PhraseMatchRuleGroup::new().set_type(PhraseMatchRuleGroupType::AllOf);
+    /// let x1 = PhraseMatchRuleGroup::new().set_type(PhraseMatchRuleGroupType::AnyOf);
+    /// ```
     pub fn set_type<
         T: std::convert::Into<crate::model::phrase_match_rule_group::PhraseMatchRuleGroupType>,
     >(
@@ -14181,6 +19079,17 @@ impl PhraseMatchRuleGroup {
     }
 
     /// Sets the value of [phrase_match_rules][crate::model::PhraseMatchRuleGroup::phrase_match_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleGroup;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchRule;
+    /// let x = PhraseMatchRuleGroup::new()
+    ///     .set_phrase_match_rules([
+    ///         PhraseMatchRule::default()/* use setters */,
+    ///         PhraseMatchRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phrase_match_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14362,18 +19271,37 @@ impl PhraseMatchRule {
     }
 
     /// Sets the value of [query][crate::model::PhraseMatchRule::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRule;
+    /// let x = PhraseMatchRule::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [negated][crate::model::PhraseMatchRule::negated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRule;
+    /// let x = PhraseMatchRule::new().set_negated(true);
+    /// ```
     pub fn set_negated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.negated = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::PhraseMatchRule::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRule;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleConfig;
+    /// let x = PhraseMatchRule::new().set_config(PhraseMatchRuleConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatchRuleConfig>,
@@ -14383,6 +19311,14 @@ impl PhraseMatchRule {
     }
 
     /// Sets or clears the value of [config][crate::model::PhraseMatchRule::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRule;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleConfig;
+    /// let x = PhraseMatchRule::new().set_or_clear_config(Some(PhraseMatchRuleConfig::default()/* use setters */));
+    /// let x = PhraseMatchRule::new().set_or_clear_config(None::<PhraseMatchRuleConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhraseMatchRuleConfig>,
@@ -14417,6 +19353,14 @@ impl PhraseMatchRuleConfig {
     ///
     /// Note that all the setters affecting `config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleConfig;
+    /// use google_cloud_contactcenterinsights_v1::model::ExactMatchConfig;
+    /// let x = PhraseMatchRuleConfig::new().set_config(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::phrase_match_rule_config::Config::ExactMatchConfig(ExactMatchConfig::default().into())));
+    /// ```
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::phrase_match_rule_config::Config>>,
     >(
@@ -14447,6 +19391,14 @@ impl PhraseMatchRuleConfig {
     ///
     /// Note that all the setters affecting `config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::PhraseMatchRuleConfig;
+    /// use google_cloud_contactcenterinsights_v1::model::ExactMatchConfig;
+    /// let x = PhraseMatchRuleConfig::new().set_exact_match_config(ExactMatchConfig::default()/* use setters */);
+    /// assert!(x.exact_match_config().is_some());
+    /// ```
     pub fn set_exact_match_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ExactMatchConfig>>,
     >(
@@ -14496,6 +19448,12 @@ impl ExactMatchConfig {
     }
 
     /// Sets the value of [case_sensitive][crate::model::ExactMatchConfig::case_sensitive].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ExactMatchConfig;
+    /// let x = ExactMatchConfig::new().set_case_sensitive(true);
+    /// ```
     pub fn set_case_sensitive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.case_sensitive = v.into();
         self
@@ -14585,12 +19543,25 @@ impl Settings {
     }
 
     /// Sets the value of [name][crate::model::Settings::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// let x = Settings::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Settings::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Timestamp;
+    /// let x = Settings::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14600,6 +19571,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Settings::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Timestamp;
+    /// let x = Settings::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14609,6 +19588,13 @@ impl Settings {
     }
 
     /// Sets the value of [update_time][crate::model::Settings::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Timestamp;
+    /// let x = Settings::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14618,6 +19604,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Settings::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Timestamp;
+    /// let x = Settings::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14627,12 +19621,25 @@ impl Settings {
     }
 
     /// Sets the value of [language_code][crate::model::Settings::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// let x = Settings::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [conversation_ttl][crate::model::Settings::conversation_ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Duration;
+    /// let x = Settings::new().set_conversation_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_conversation_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14642,6 +19649,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [conversation_ttl][crate::model::Settings::conversation_ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use wkt::Duration;
+    /// let x = Settings::new().set_or_clear_conversation_ttl(Some(Duration::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_conversation_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_conversation_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14651,6 +19666,15 @@ impl Settings {
     }
 
     /// Sets the value of [pubsub_notification_settings][crate::model::Settings::pubsub_notification_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// let x = Settings::new().set_pubsub_notification_settings([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_pubsub_notification_settings<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14664,6 +19688,13 @@ impl Settings {
     }
 
     /// Sets the value of [analysis_config][crate::model::Settings::analysis_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+    /// let x = Settings::new().set_analysis_config(AnalysisConfig::default()/* use setters */);
+    /// ```
     pub fn set_analysis_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::settings::AnalysisConfig>,
@@ -14673,6 +19704,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [analysis_config][crate::model::Settings::analysis_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+    /// let x = Settings::new().set_or_clear_analysis_config(Some(AnalysisConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_analysis_config(None::<AnalysisConfig>);
+    /// ```
     pub fn set_or_clear_analysis_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::settings::AnalysisConfig>,
@@ -14682,6 +19721,13 @@ impl Settings {
     }
 
     /// Sets the value of [redaction_config][crate::model::Settings::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = Settings::new().set_redaction_config(RedactionConfig::default()/* use setters */);
+    /// ```
     pub fn set_redaction_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -14691,6 +19737,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [redaction_config][crate::model::Settings::redaction_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = Settings::new().set_or_clear_redaction_config(Some(RedactionConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_redaction_config(None::<RedactionConfig>);
+    /// ```
     pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RedactionConfig>,
@@ -14700,6 +19754,13 @@ impl Settings {
     }
 
     /// Sets the value of [speech_config][crate::model::Settings::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = Settings::new().set_speech_config(SpeechConfig::default()/* use setters */);
+    /// ```
     pub fn set_speech_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -14709,6 +19770,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [speech_config][crate::model::Settings::speech_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = Settings::new().set_or_clear_speech_config(Some(SpeechConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_speech_config(None::<SpeechConfig>);
+    /// ```
     pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SpeechConfig>,
@@ -14754,6 +19823,12 @@ pub mod settings {
         }
 
         /// Sets the value of [runtime_integration_analysis_percentage][crate::model::settings::AnalysisConfig::runtime_integration_analysis_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+        /// let x = AnalysisConfig::new().set_runtime_integration_analysis_percentage(42.0);
+        /// ```
         pub fn set_runtime_integration_analysis_percentage<T: std::convert::Into<f64>>(
             mut self,
             v: T,
@@ -14763,6 +19838,12 @@ pub mod settings {
         }
 
         /// Sets the value of [upload_conversation_analysis_percentage][crate::model::settings::AnalysisConfig::upload_conversation_analysis_percentage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+        /// let x = AnalysisConfig::new().set_upload_conversation_analysis_percentage(42.0);
+        /// ```
         pub fn set_upload_conversation_analysis_percentage<T: std::convert::Into<f64>>(
             mut self,
             v: T,
@@ -14772,6 +19853,13 @@ pub mod settings {
         }
 
         /// Sets the value of [annotator_selector][crate::model::settings::AnalysisConfig::annotator_selector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+        /// let x = AnalysisConfig::new().set_annotator_selector(AnnotatorSelector::default()/* use setters */);
+        /// ```
         pub fn set_annotator_selector<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -14781,6 +19869,14 @@ pub mod settings {
         }
 
         /// Sets or clears the value of [annotator_selector][crate::model::settings::AnalysisConfig::annotator_selector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::settings::AnalysisConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+        /// let x = AnalysisConfig::new().set_or_clear_annotator_selector(Some(AnnotatorSelector::default()/* use setters */));
+        /// let x = AnalysisConfig::new().set_or_clear_annotator_selector(None::<AnnotatorSelector>);
+        /// ```
         pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -14848,12 +19944,25 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [name][crate::model::AnalysisRule::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AnalysisRule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisRule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14863,6 +19972,14 @@ impl AnalysisRule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AnalysisRule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisRule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AnalysisRule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14872,6 +19989,13 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [update_time][crate::model::AnalysisRule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisRule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14881,6 +20005,14 @@ impl AnalysisRule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AnalysisRule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use wkt::Timestamp;
+    /// let x = AnalysisRule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AnalysisRule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14890,6 +20022,12 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [display_name][crate::model::AnalysisRule::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14899,6 +20037,13 @@ impl AnalysisRule {
     }
 
     /// Sets or clears the value of [display_name][crate::model::AnalysisRule::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_or_clear_display_name(Some("example"));
+    /// let x = AnalysisRule::new().set_or_clear_display_name(None::<String>);
+    /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -14908,6 +20053,12 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [conversation_filter][crate::model::AnalysisRule::conversation_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_conversation_filter("example");
+    /// ```
     pub fn set_conversation_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14917,6 +20068,13 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [annotator_selector][crate::model::AnalysisRule::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnalysisRule::new().set_annotator_selector(AnnotatorSelector::default()/* use setters */);
+    /// ```
     pub fn set_annotator_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -14926,6 +20084,14 @@ impl AnalysisRule {
     }
 
     /// Sets or clears the value of [annotator_selector][crate::model::AnalysisRule::annotator_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnalysisRule::new().set_or_clear_annotator_selector(Some(AnnotatorSelector::default()/* use setters */));
+    /// let x = AnalysisRule::new().set_or_clear_annotator_selector(None::<AnnotatorSelector>);
+    /// ```
     pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotatorSelector>,
@@ -14935,12 +20101,24 @@ impl AnalysisRule {
     }
 
     /// Sets the value of [analysis_percentage][crate::model::AnalysisRule::analysis_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_analysis_percentage(42.0);
+    /// ```
     pub fn set_analysis_percentage<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.analysis_percentage = v.into();
         self
     }
 
     /// Sets the value of [active][crate::model::AnalysisRule::active].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// let x = AnalysisRule::new().set_active(true);
+    /// ```
     pub fn set_active<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.active = v.into();
         self
@@ -14979,12 +20157,24 @@ impl EncryptionSpec {
     }
 
     /// Sets the value of [name][crate::model::EncryptionSpec::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EncryptionSpec;
+    /// let x = EncryptionSpec::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::EncryptionSpec::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::EncryptionSpec;
+    /// let x = EncryptionSpec::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -15026,6 +20216,12 @@ impl RedactionConfig {
     }
 
     /// Sets the value of [deidentify_template][crate::model::RedactionConfig::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = RedactionConfig::new().set_deidentify_template("example");
+    /// ```
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15035,6 +20231,12 @@ impl RedactionConfig {
     }
 
     /// Sets the value of [inspect_template][crate::model::RedactionConfig::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RedactionConfig;
+    /// let x = RedactionConfig::new().set_inspect_template("example");
+    /// ```
     pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15072,6 +20274,12 @@ impl SpeechConfig {
     }
 
     /// Sets the value of [speech_recognizer][crate::model::SpeechConfig::speech_recognizer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SpeechConfig;
+    /// let x = SpeechConfig::new().set_speech_recognizer("example");
+    /// ```
     pub fn set_speech_recognizer<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15123,12 +20331,25 @@ impl RuntimeAnnotation {
     }
 
     /// Sets the value of [annotation_id][crate::model::RuntimeAnnotation::annotation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// let x = RuntimeAnnotation::new().set_annotation_id("example");
+    /// ```
     pub fn set_annotation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.annotation_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::RuntimeAnnotation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use wkt::Timestamp;
+    /// let x = RuntimeAnnotation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15138,6 +20359,14 @@ impl RuntimeAnnotation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::RuntimeAnnotation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use wkt::Timestamp;
+    /// let x = RuntimeAnnotation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RuntimeAnnotation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15147,6 +20376,13 @@ impl RuntimeAnnotation {
     }
 
     /// Sets the value of [start_boundary][crate::model::RuntimeAnnotation::start_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = RuntimeAnnotation::new().set_start_boundary(AnnotationBoundary::default()/* use setters */);
+    /// ```
     pub fn set_start_boundary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -15156,6 +20392,14 @@ impl RuntimeAnnotation {
     }
 
     /// Sets or clears the value of [start_boundary][crate::model::RuntimeAnnotation::start_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = RuntimeAnnotation::new().set_or_clear_start_boundary(Some(AnnotationBoundary::default()/* use setters */));
+    /// let x = RuntimeAnnotation::new().set_or_clear_start_boundary(None::<AnnotationBoundary>);
+    /// ```
     pub fn set_or_clear_start_boundary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -15165,6 +20409,13 @@ impl RuntimeAnnotation {
     }
 
     /// Sets the value of [end_boundary][crate::model::RuntimeAnnotation::end_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = RuntimeAnnotation::new().set_end_boundary(AnnotationBoundary::default()/* use setters */);
+    /// ```
     pub fn set_end_boundary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -15174,6 +20425,14 @@ impl RuntimeAnnotation {
     }
 
     /// Sets or clears the value of [end_boundary][crate::model::RuntimeAnnotation::end_boundary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnnotationBoundary;
+    /// let x = RuntimeAnnotation::new().set_or_clear_end_boundary(Some(AnnotationBoundary::default()/* use setters */));
+    /// let x = RuntimeAnnotation::new().set_or_clear_end_boundary(None::<AnnotationBoundary>);
+    /// ```
     pub fn set_or_clear_end_boundary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnnotationBoundary>,
@@ -15183,6 +20442,13 @@ impl RuntimeAnnotation {
     }
 
     /// Sets the value of [answer_feedback][crate::model::RuntimeAnnotation::answer_feedback].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnswerFeedback;
+    /// let x = RuntimeAnnotation::new().set_answer_feedback(AnswerFeedback::default()/* use setters */);
+    /// ```
     pub fn set_answer_feedback<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnswerFeedback>,
@@ -15192,6 +20458,14 @@ impl RuntimeAnnotation {
     }
 
     /// Sets or clears the value of [answer_feedback][crate::model::RuntimeAnnotation::answer_feedback].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::AnswerFeedback;
+    /// let x = RuntimeAnnotation::new().set_or_clear_answer_feedback(Some(AnswerFeedback::default()/* use setters */));
+    /// let x = RuntimeAnnotation::new().set_or_clear_answer_feedback(None::<AnswerFeedback>);
+    /// ```
     pub fn set_or_clear_answer_feedback<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnswerFeedback>,
@@ -15201,6 +20475,13 @@ impl RuntimeAnnotation {
     }
 
     /// Sets the value of [user_input][crate::model::RuntimeAnnotation::user_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::runtime_annotation::UserInput;
+    /// let x = RuntimeAnnotation::new().set_user_input(UserInput::default()/* use setters */);
+    /// ```
     pub fn set_user_input<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::runtime_annotation::UserInput>,
@@ -15210,6 +20491,14 @@ impl RuntimeAnnotation {
     }
 
     /// Sets or clears the value of [user_input][crate::model::RuntimeAnnotation::user_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::runtime_annotation::UserInput;
+    /// let x = RuntimeAnnotation::new().set_or_clear_user_input(Some(UserInput::default()/* use setters */));
+    /// let x = RuntimeAnnotation::new().set_or_clear_user_input(None::<UserInput>);
+    /// ```
     pub fn set_or_clear_user_input<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::runtime_annotation::UserInput>,
@@ -15222,6 +20511,14 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = RuntimeAnnotation::new().set_data(Some(
+    ///     google_cloud_contactcenterinsights_v1::model::runtime_annotation::Data::ArticleSuggestion(ArticleSuggestionData::default().into())));
+    /// ```
     pub fn set_data<
         T: std::convert::Into<std::option::Option<crate::model::runtime_annotation::Data>>,
     >(
@@ -15252,6 +20549,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = RuntimeAnnotation::new().set_article_suggestion(ArticleSuggestionData::default()/* use setters */);
+    /// assert!(x.article_suggestion().is_some());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.smart_reply().is_none());
+    /// assert!(x.smart_compose_suggestion().is_none());
+    /// assert!(x.dialogflow_interaction().is_none());
+    /// assert!(x.conversation_summarization_suggestion().is_none());
+    /// ```
     pub fn set_article_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::ArticleSuggestionData>>,
     >(
@@ -15280,6 +20590,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = RuntimeAnnotation::new().set_faq_answer(FaqAnswerData::default()/* use setters */);
+    /// assert!(x.faq_answer().is_some());
+    /// assert!(x.article_suggestion().is_none());
+    /// assert!(x.smart_reply().is_none());
+    /// assert!(x.smart_compose_suggestion().is_none());
+    /// assert!(x.dialogflow_interaction().is_none());
+    /// assert!(x.conversation_summarization_suggestion().is_none());
+    /// ```
     pub fn set_faq_answer<T: std::convert::Into<std::boxed::Box<crate::model::FaqAnswerData>>>(
         mut self,
         v: T,
@@ -15307,6 +20630,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::SmartReplyData;
+    /// let x = RuntimeAnnotation::new().set_smart_reply(SmartReplyData::default()/* use setters */);
+    /// assert!(x.smart_reply().is_some());
+    /// assert!(x.article_suggestion().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.smart_compose_suggestion().is_none());
+    /// assert!(x.dialogflow_interaction().is_none());
+    /// assert!(x.conversation_summarization_suggestion().is_none());
+    /// ```
     pub fn set_smart_reply<T: std::convert::Into<std::boxed::Box<crate::model::SmartReplyData>>>(
         mut self,
         v: T,
@@ -15336,6 +20672,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::SmartComposeSuggestionData;
+    /// let x = RuntimeAnnotation::new().set_smart_compose_suggestion(SmartComposeSuggestionData::default()/* use setters */);
+    /// assert!(x.smart_compose_suggestion().is_some());
+    /// assert!(x.article_suggestion().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.smart_reply().is_none());
+    /// assert!(x.dialogflow_interaction().is_none());
+    /// assert!(x.conversation_summarization_suggestion().is_none());
+    /// ```
     pub fn set_smart_compose_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::SmartComposeSuggestionData>>,
     >(
@@ -15368,6 +20717,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::DialogflowInteractionData;
+    /// let x = RuntimeAnnotation::new().set_dialogflow_interaction(DialogflowInteractionData::default()/* use setters */);
+    /// assert!(x.dialogflow_interaction().is_some());
+    /// assert!(x.article_suggestion().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.smart_reply().is_none());
+    /// assert!(x.smart_compose_suggestion().is_none());
+    /// assert!(x.conversation_summarization_suggestion().is_none());
+    /// ```
     pub fn set_dialogflow_interaction<
         T: std::convert::Into<std::boxed::Box<crate::model::DialogflowInteractionData>>,
     >(
@@ -15401,6 +20763,19 @@ impl RuntimeAnnotation {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::RuntimeAnnotation;
+    /// use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = RuntimeAnnotation::new().set_conversation_summarization_suggestion(ConversationSummarizationSuggestionData::default()/* use setters */);
+    /// assert!(x.conversation_summarization_suggestion().is_some());
+    /// assert!(x.article_suggestion().is_none());
+    /// assert!(x.faq_answer().is_none());
+    /// assert!(x.smart_reply().is_none());
+    /// assert!(x.smart_compose_suggestion().is_none());
+    /// assert!(x.dialogflow_interaction().is_none());
+    /// ```
     pub fn set_conversation_summarization_suggestion<
         T: std::convert::Into<std::boxed::Box<crate::model::ConversationSummarizationSuggestionData>>,
     >(
@@ -15449,12 +20824,24 @@ pub mod runtime_annotation {
         }
 
         /// Sets the value of [query][crate::model::runtime_annotation::UserInput::query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::runtime_annotation::UserInput;
+        /// let x = UserInput::new().set_query("example");
+        /// ```
         pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query = v.into();
             self
         }
 
         /// Sets the value of [generator_name][crate::model::runtime_annotation::UserInput::generator_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::runtime_annotation::UserInput;
+        /// let x = UserInput::new().set_generator_name("example");
+        /// ```
         pub fn set_generator_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -15464,6 +20851,14 @@ pub mod runtime_annotation {
         }
 
         /// Sets the value of [query_source][crate::model::runtime_annotation::UserInput::query_source].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::runtime_annotation::UserInput;
+        /// use google_cloud_contactcenterinsights_v1::model::runtime_annotation::user_input::QuerySource;
+        /// let x0 = UserInput::new().set_query_source(QuerySource::AgentQuery);
+        /// let x1 = UserInput::new().set_query_source(QuerySource::SuggestedQuery);
+        /// ```
         pub fn set_query_source<
             T: std::convert::Into<crate::model::runtime_annotation::user_input::QuerySource>,
         >(
@@ -15667,6 +21062,15 @@ impl AnswerFeedback {
     }
 
     /// Sets the value of [correctness_level][crate::model::AnswerFeedback::correctness_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnswerFeedback;
+    /// use google_cloud_contactcenterinsights_v1::model::answer_feedback::CorrectnessLevel;
+    /// let x0 = AnswerFeedback::new().set_correctness_level(CorrectnessLevel::NotCorrect);
+    /// let x1 = AnswerFeedback::new().set_correctness_level(CorrectnessLevel::PartiallyCorrect);
+    /// let x2 = AnswerFeedback::new().set_correctness_level(CorrectnessLevel::FullyCorrect);
+    /// ```
     pub fn set_correctness_level<
         T: std::convert::Into<crate::model::answer_feedback::CorrectnessLevel>,
     >(
@@ -15678,12 +21082,24 @@ impl AnswerFeedback {
     }
 
     /// Sets the value of [clicked][crate::model::AnswerFeedback::clicked].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnswerFeedback;
+    /// let x = AnswerFeedback::new().set_clicked(true);
+    /// ```
     pub fn set_clicked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.clicked = v.into();
         self
     }
 
     /// Sets the value of [displayed][crate::model::AnswerFeedback::displayed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnswerFeedback;
+    /// let x = AnswerFeedback::new().set_displayed(true);
+    /// ```
     pub fn set_displayed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.displayed = v.into();
         self
@@ -15879,24 +21295,51 @@ impl ArticleSuggestionData {
     }
 
     /// Sets the value of [title][crate::model::ArticleSuggestionData::title].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::ArticleSuggestionData::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [confidence_score][crate::model::ArticleSuggestionData::confidence_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_confidence_score(42.0);
+    /// ```
     pub fn set_confidence_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_score = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ArticleSuggestionData::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -15909,12 +21352,24 @@ impl ArticleSuggestionData {
     }
 
     /// Sets the value of [query_record][crate::model::ArticleSuggestionData::query_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_query_record("example");
+    /// ```
     pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_record = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::ArticleSuggestionData::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ArticleSuggestionData;
+    /// let x = ArticleSuggestionData::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
@@ -15965,24 +21420,51 @@ impl FaqAnswerData {
     }
 
     /// Sets the value of [answer][crate::model::FaqAnswerData::answer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_answer("example");
+    /// ```
     pub fn set_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.answer = v.into();
         self
     }
 
     /// Sets the value of [confidence_score][crate::model::FaqAnswerData::confidence_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_confidence_score(42.0);
+    /// ```
     pub fn set_confidence_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_score = v.into();
         self
     }
 
     /// Sets the value of [question][crate::model::FaqAnswerData::question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_question("example");
+    /// ```
     pub fn set_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.question = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::FaqAnswerData::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -15995,12 +21477,24 @@ impl FaqAnswerData {
     }
 
     /// Sets the value of [query_record][crate::model::FaqAnswerData::query_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_query_record("example");
+    /// ```
     pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_record = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::FaqAnswerData::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::FaqAnswerData;
+    /// let x = FaqAnswerData::new().set_source("example");
+    /// ```
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
         self
@@ -16043,18 +21537,39 @@ impl SmartReplyData {
     }
 
     /// Sets the value of [reply][crate::model::SmartReplyData::reply].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartReplyData;
+    /// let x = SmartReplyData::new().set_reply("example");
+    /// ```
     pub fn set_reply<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reply = v.into();
         self
     }
 
     /// Sets the value of [confidence_score][crate::model::SmartReplyData::confidence_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartReplyData;
+    /// let x = SmartReplyData::new().set_confidence_score(42.0);
+    /// ```
     pub fn set_confidence_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.confidence_score = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::SmartReplyData::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartReplyData;
+    /// let x = SmartReplyData::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16067,6 +21582,12 @@ impl SmartReplyData {
     }
 
     /// Sets the value of [query_record][crate::model::SmartReplyData::query_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartReplyData;
+    /// let x = SmartReplyData::new().set_query_record("example");
+    /// ```
     pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_record = v.into();
         self
@@ -16109,18 +21630,39 @@ impl SmartComposeSuggestionData {
     }
 
     /// Sets the value of [suggestion][crate::model::SmartComposeSuggestionData::suggestion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartComposeSuggestionData;
+    /// let x = SmartComposeSuggestionData::new().set_suggestion("example");
+    /// ```
     pub fn set_suggestion<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.suggestion = v.into();
         self
     }
 
     /// Sets the value of [confidence_score][crate::model::SmartComposeSuggestionData::confidence_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartComposeSuggestionData;
+    /// let x = SmartComposeSuggestionData::new().set_confidence_score(42.0);
+    /// ```
     pub fn set_confidence_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.confidence_score = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::SmartComposeSuggestionData::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartComposeSuggestionData;
+    /// let x = SmartComposeSuggestionData::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16133,6 +21675,12 @@ impl SmartComposeSuggestionData {
     }
 
     /// Sets the value of [query_record][crate::model::SmartComposeSuggestionData::query_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::SmartComposeSuggestionData;
+    /// let x = SmartComposeSuggestionData::new().set_query_record("example");
+    /// ```
     pub fn set_query_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query_record = v.into();
         self
@@ -16166,6 +21714,12 @@ impl DialogflowInteractionData {
     }
 
     /// Sets the value of [dialogflow_intent_id][crate::model::DialogflowInteractionData::dialogflow_intent_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DialogflowInteractionData;
+    /// let x = DialogflowInteractionData::new().set_dialogflow_intent_id("example");
+    /// ```
     pub fn set_dialogflow_intent_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16175,6 +21729,12 @@ impl DialogflowInteractionData {
     }
 
     /// Sets the value of [confidence][crate::model::DialogflowInteractionData::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::DialogflowInteractionData;
+    /// let x = DialogflowInteractionData::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -16225,12 +21785,27 @@ impl ConversationSummarizationSuggestionData {
     }
 
     /// Sets the value of [text][crate::model::ConversationSummarizationSuggestionData::text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_text("example");
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [text_sections][crate::model::ConversationSummarizationSuggestionData::text_sections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_text_sections([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_text_sections<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16243,12 +21818,27 @@ impl ConversationSummarizationSuggestionData {
     }
 
     /// Sets the value of [confidence][crate::model::ConversationSummarizationSuggestionData::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_confidence(42.0);
+    /// ```
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ConversationSummarizationSuggestionData::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16261,12 +21851,24 @@ impl ConversationSummarizationSuggestionData {
     }
 
     /// Sets the value of [answer_record][crate::model::ConversationSummarizationSuggestionData::answer_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_answer_record("example");
+    /// ```
     pub fn set_answer_record<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.answer_record = v.into();
         self
     }
 
     /// Sets the value of [conversation_model][crate::model::ConversationSummarizationSuggestionData::conversation_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationSummarizationSuggestionData;
+    /// let x = ConversationSummarizationSuggestionData::new().set_conversation_model("example");
+    /// ```
     pub fn set_conversation_model<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16309,6 +21911,12 @@ impl ConversationParticipant {
     }
 
     /// Sets the value of [dialogflow_participant][crate::model::ConversationParticipant::dialogflow_participant].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// let x = ConversationParticipant::new().set_dialogflow_participant("example");
+    /// ```
     #[deprecated]
     pub fn set_dialogflow_participant<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16319,6 +21927,12 @@ impl ConversationParticipant {
     }
 
     /// Sets the value of [obfuscated_external_user_id][crate::model::ConversationParticipant::obfuscated_external_user_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// let x = ConversationParticipant::new().set_obfuscated_external_user_id("example");
+    /// ```
     pub fn set_obfuscated_external_user_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16328,6 +21942,15 @@ impl ConversationParticipant {
     }
 
     /// Sets the value of [role][crate::model::ConversationParticipant::role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation_participant::Role;
+    /// let x0 = ConversationParticipant::new().set_role(Role::HumanAgent);
+    /// let x1 = ConversationParticipant::new().set_role(Role::AutomatedAgent);
+    /// let x2 = ConversationParticipant::new().set_role(Role::EndUser);
+    /// ```
     pub fn set_role<T: std::convert::Into<crate::model::conversation_participant::Role>>(
         mut self,
         v: T,
@@ -16340,6 +21963,13 @@ impl ConversationParticipant {
     ///
     /// Note that all the setters affecting `participant` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// use google_cloud_contactcenterinsights_v1::model::conversation_participant::Participant;
+    /// let x = ConversationParticipant::new().set_participant(Some(Participant::DialogflowParticipantName("example".to_string())));
+    /// ```
     pub fn set_participant<
         T: std::convert::Into<
                 std::option::Option<crate::model::conversation_participant::Participant>,
@@ -16370,6 +22000,14 @@ impl ConversationParticipant {
     ///
     /// Note that all the setters affecting `participant` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// let x = ConversationParticipant::new().set_dialogflow_participant_name("example");
+    /// assert!(x.dialogflow_participant_name().is_some());
+    /// assert!(x.user_id().is_none());
+    /// ```
     pub fn set_dialogflow_participant_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16400,6 +22038,14 @@ impl ConversationParticipant {
     ///
     /// Note that all the setters affecting `participant` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::ConversationParticipant;
+    /// let x = ConversationParticipant::new().set_user_id("example");
+    /// assert!(x.user_id().is_some());
+    /// assert!(x.dialogflow_participant_name().is_none());
+    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.participant = std::option::Option::Some(
             crate::model::conversation_participant::Participant::UserId(v.into()),
@@ -16606,18 +22252,37 @@ impl View {
     }
 
     /// Sets the value of [name][crate::model::View::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = View::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::View::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = View::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::View::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// use wkt::Timestamp;
+    /// let x = View::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16627,6 +22292,14 @@ impl View {
     }
 
     /// Sets or clears the value of [create_time][crate::model::View::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// use wkt::Timestamp;
+    /// let x = View::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = View::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16636,6 +22309,13 @@ impl View {
     }
 
     /// Sets the value of [update_time][crate::model::View::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// use wkt::Timestamp;
+    /// let x = View::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16645,6 +22325,14 @@ impl View {
     }
 
     /// Sets or clears the value of [update_time][crate::model::View::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// use wkt::Timestamp;
+    /// let x = View::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = View::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16654,6 +22342,12 @@ impl View {
     }
 
     /// Sets the value of [value][crate::model::View::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::View;
+    /// let x = View::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -16728,24 +22422,48 @@ impl AnnotatorSelector {
     }
 
     /// Sets the value of [run_interruption_annotator][crate::model::AnnotatorSelector::run_interruption_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_interruption_annotator(true);
+    /// ```
     pub fn set_run_interruption_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_interruption_annotator = v.into();
         self
     }
 
     /// Sets the value of [run_silence_annotator][crate::model::AnnotatorSelector::run_silence_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_silence_annotator(true);
+    /// ```
     pub fn set_run_silence_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_silence_annotator = v.into();
         self
     }
 
     /// Sets the value of [run_phrase_matcher_annotator][crate::model::AnnotatorSelector::run_phrase_matcher_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_phrase_matcher_annotator(true);
+    /// ```
     pub fn set_run_phrase_matcher_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_phrase_matcher_annotator = v.into();
         self
     }
 
     /// Sets the value of [phrase_matchers][crate::model::AnnotatorSelector::phrase_matchers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_phrase_matchers(["a", "b", "c"]);
+    /// ```
     pub fn set_phrase_matchers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16757,30 +22475,60 @@ impl AnnotatorSelector {
     }
 
     /// Sets the value of [run_sentiment_annotator][crate::model::AnnotatorSelector::run_sentiment_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_sentiment_annotator(true);
+    /// ```
     pub fn set_run_sentiment_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_sentiment_annotator = v.into();
         self
     }
 
     /// Sets the value of [run_entity_annotator][crate::model::AnnotatorSelector::run_entity_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_entity_annotator(true);
+    /// ```
     pub fn set_run_entity_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_entity_annotator = v.into();
         self
     }
 
     /// Sets the value of [run_intent_annotator][crate::model::AnnotatorSelector::run_intent_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_intent_annotator(true);
+    /// ```
     pub fn set_run_intent_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_intent_annotator = v.into();
         self
     }
 
     /// Sets the value of [run_issue_model_annotator][crate::model::AnnotatorSelector::run_issue_model_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_issue_model_annotator(true);
+    /// ```
     pub fn set_run_issue_model_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_issue_model_annotator = v.into();
         self
     }
 
     /// Sets the value of [issue_models][crate::model::AnnotatorSelector::issue_models].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_issue_models(["a", "b", "c"]);
+    /// ```
     pub fn set_issue_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16792,12 +22540,25 @@ impl AnnotatorSelector {
     }
 
     /// Sets the value of [run_summarization_annotator][crate::model::AnnotatorSelector::run_summarization_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_summarization_annotator(true);
+    /// ```
     pub fn set_run_summarization_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_summarization_annotator = v.into();
         self
     }
 
     /// Sets the value of [summarization_config][crate::model::AnnotatorSelector::summarization_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::SummarizationConfig;
+    /// let x = AnnotatorSelector::new().set_summarization_config(SummarizationConfig::default()/* use setters */);
+    /// ```
     pub fn set_summarization_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::annotator_selector::SummarizationConfig>,
@@ -16807,6 +22568,14 @@ impl AnnotatorSelector {
     }
 
     /// Sets or clears the value of [summarization_config][crate::model::AnnotatorSelector::summarization_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::SummarizationConfig;
+    /// let x = AnnotatorSelector::new().set_or_clear_summarization_config(Some(SummarizationConfig::default()/* use setters */));
+    /// let x = AnnotatorSelector::new().set_or_clear_summarization_config(None::<SummarizationConfig>);
+    /// ```
     pub fn set_or_clear_summarization_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::annotator_selector::SummarizationConfig>,
@@ -16816,12 +22585,25 @@ impl AnnotatorSelector {
     }
 
     /// Sets the value of [run_qa_annotator][crate::model::AnnotatorSelector::run_qa_annotator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// let x = AnnotatorSelector::new().set_run_qa_annotator(true);
+    /// ```
     pub fn set_run_qa_annotator<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.run_qa_annotator = v.into();
         self
     }
 
     /// Sets the value of [qa_config][crate::model::AnnotatorSelector::qa_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::QaConfig;
+    /// let x = AnnotatorSelector::new().set_qa_config(QaConfig::default()/* use setters */);
+    /// ```
     pub fn set_qa_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::annotator_selector::QaConfig>,
@@ -16831,6 +22613,14 @@ impl AnnotatorSelector {
     }
 
     /// Sets or clears the value of [qa_config][crate::model::AnnotatorSelector::qa_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::AnnotatorSelector;
+    /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::QaConfig;
+    /// let x = AnnotatorSelector::new().set_or_clear_qa_config(Some(QaConfig::default()/* use setters */));
+    /// let x = AnnotatorSelector::new().set_or_clear_qa_config(None::<QaConfig>);
+    /// ```
     pub fn set_or_clear_qa_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::annotator_selector::QaConfig>,
@@ -16873,6 +22663,13 @@ pub mod annotator_selector {
         ///
         /// Note that all the setters affecting `model_source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::SummarizationConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::summarization_config::ModelSource;
+        /// let x = SummarizationConfig::new().set_model_source(Some(ModelSource::ConversationProfile("example".to_string())));
+        /// ```
         pub fn set_model_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -16903,6 +22700,14 @@ pub mod annotator_selector {
         ///
         /// Note that all the setters affecting `model_source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::SummarizationConfig;
+        /// let x = SummarizationConfig::new().set_conversation_profile("example");
+        /// assert!(x.conversation_profile().is_some());
+        /// assert!(x.summarization_model().is_none());
+        /// ```
         pub fn set_conversation_profile<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -16935,6 +22740,18 @@ pub mod annotator_selector {
         ///
         /// Note that all the setters affecting `model_source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::SummarizationConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::summarization_config::SummarizationModel;
+        /// let x0 = SummarizationConfig::new().set_summarization_model(SummarizationModel::BaselineModel);
+        /// let x1 = SummarizationConfig::new().set_summarization_model(SummarizationModel::BaselineModelV20);
+        /// assert!(x0.summarization_model().is_some());
+        /// assert!(x0.conversation_profile().is_none());
+        /// assert!(x1.summarization_model().is_some());
+        /// assert!(x1.conversation_profile().is_none());
+        /// ```
         pub fn set_summarization_model<
             T: std::convert::Into<
                     crate::model::annotator_selector::summarization_config::SummarizationModel,
@@ -17135,6 +22952,14 @@ pub mod annotator_selector {
         ///
         /// Note that all the setters affecting `scorecard_source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::QaConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::qa_config::ScorecardList;
+        /// let x = QaConfig::new().set_scorecard_source(Some(
+        ///     google_cloud_contactcenterinsights_v1::model::annotator_selector::qa_config::ScorecardSource::ScorecardList(ScorecardList::default().into())));
+        /// ```
         pub fn set_scorecard_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -17171,6 +22996,14 @@ pub mod annotator_selector {
         ///
         /// Note that all the setters affecting `scorecard_source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::QaConfig;
+        /// use google_cloud_contactcenterinsights_v1::model::annotator_selector::qa_config::ScorecardList;
+        /// let x = QaConfig::new().set_scorecard_list(ScorecardList::default()/* use setters */);
+        /// assert!(x.scorecard_list().is_some());
+        /// ```
         pub fn set_scorecard_list<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::annotator_selector::qa_config::ScorecardList>,
@@ -17215,6 +23048,12 @@ pub mod annotator_selector {
             }
 
             /// Sets the value of [qa_scorecard_revisions][crate::model::annotator_selector::qa_config::ScorecardList::qa_scorecard_revisions].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_contactcenterinsights_v1::model::annotator_selector::qa_config::ScorecardList;
+            /// let x = ScorecardList::new().set_qa_scorecard_revisions(["a", "b", "c"]);
+            /// ```
             pub fn set_qa_scorecard_revisions<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -17299,18 +23138,37 @@ impl QaQuestion {
     }
 
     /// Sets the value of [name][crate::model::QaQuestion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [abbreviation][crate::model::QaQuestion::abbreviation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_abbreviation("example");
+    /// ```
     pub fn set_abbreviation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.abbreviation = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QaQuestion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use wkt::Timestamp;
+    /// let x = QaQuestion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17320,6 +23178,14 @@ impl QaQuestion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QaQuestion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use wkt::Timestamp;
+    /// let x = QaQuestion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaQuestion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17329,6 +23195,13 @@ impl QaQuestion {
     }
 
     /// Sets the value of [update_time][crate::model::QaQuestion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use wkt::Timestamp;
+    /// let x = QaQuestion::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17338,6 +23211,14 @@ impl QaQuestion {
     }
 
     /// Sets or clears the value of [update_time][crate::model::QaQuestion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use wkt::Timestamp;
+    /// let x = QaQuestion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaQuestion::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17347,12 +23228,24 @@ impl QaQuestion {
     }
 
     /// Sets the value of [question_body][crate::model::QaQuestion::question_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_question_body("example");
+    /// ```
     pub fn set_question_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.question_body = v.into();
         self
     }
 
     /// Sets the value of [answer_instructions][crate::model::QaQuestion::answer_instructions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_answer_instructions("example");
+    /// ```
     pub fn set_answer_instructions<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17362,6 +23255,17 @@ impl QaQuestion {
     }
 
     /// Sets the value of [answer_choices][crate::model::QaQuestion::answer_choices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+    /// let x = QaQuestion::new()
+    ///     .set_answer_choices([
+    ///         AnswerChoice::default()/* use setters */,
+    ///         AnswerChoice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_answer_choices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17373,6 +23277,12 @@ impl QaQuestion {
     }
 
     /// Sets the value of [tags][crate::model::QaQuestion::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17384,12 +23294,25 @@ impl QaQuestion {
     }
 
     /// Sets the value of [order][crate::model::QaQuestion::order].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// let x = QaQuestion::new().set_order(42);
+    /// ```
     pub fn set_order<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.order = v.into();
         self
     }
 
     /// Sets the value of [metrics][crate::model::QaQuestion::metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_question::Metrics;
+    /// let x = QaQuestion::new().set_metrics(Metrics::default()/* use setters */);
+    /// ```
     pub fn set_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::qa_question::Metrics>,
@@ -17399,6 +23322,14 @@ impl QaQuestion {
     }
 
     /// Sets or clears the value of [metrics][crate::model::QaQuestion::metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_question::Metrics;
+    /// let x = QaQuestion::new().set_or_clear_metrics(Some(Metrics::default()/* use setters */));
+    /// let x = QaQuestion::new().set_or_clear_metrics(None::<Metrics>);
+    /// ```
     pub fn set_or_clear_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::qa_question::Metrics>,
@@ -17408,6 +23339,13 @@ impl QaQuestion {
     }
 
     /// Sets the value of [tuning_metadata][crate::model::QaQuestion::tuning_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_question::TuningMetadata;
+    /// let x = QaQuestion::new().set_tuning_metadata(TuningMetadata::default()/* use setters */);
+    /// ```
     pub fn set_tuning_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::qa_question::TuningMetadata>,
@@ -17417,6 +23355,14 @@ impl QaQuestion {
     }
 
     /// Sets or clears the value of [tuning_metadata][crate::model::QaQuestion::tuning_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_question::TuningMetadata;
+    /// let x = QaQuestion::new().set_or_clear_tuning_metadata(Some(TuningMetadata::default()/* use setters */));
+    /// let x = QaQuestion::new().set_or_clear_tuning_metadata(None::<TuningMetadata>);
+    /// ```
     pub fn set_or_clear_tuning_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::qa_question::TuningMetadata>,
@@ -17460,12 +23406,24 @@ pub mod qa_question {
         }
 
         /// Sets the value of [key][crate::model::qa_question::AnswerChoice::key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::qa_question::AnswerChoice::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_score(42.0);
+        /// ```
         pub fn set_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -17475,6 +23433,13 @@ pub mod qa_question {
         }
 
         /// Sets or clears the value of [score][crate::model::qa_question::AnswerChoice::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_or_clear_score(Some(42.0));
+        /// let x = AnswerChoice::new().set_or_clear_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -17487,6 +23452,13 @@ pub mod qa_question {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_question::answer_choice::Value;
+        /// let x = AnswerChoice::new().set_value(Some(Value::StrValue("example".to_string())));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<crate::model::qa_question::answer_choice::Value>,
@@ -17517,6 +23489,16 @@ pub mod qa_question {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_str_value("example");
+        /// assert!(x.str_value().is_some());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_question::answer_choice::Value::StrValue(v.into()),
@@ -17542,6 +23524,16 @@ pub mod qa_question {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_num_value(42.0);
+        /// assert!(x.num_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_question::answer_choice::Value::NumValue(v.into()),
@@ -17567,6 +23559,16 @@ pub mod qa_question {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_bool_value(true);
+        /// assert!(x.bool_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_question::answer_choice::Value::BoolValue(v.into()),
@@ -17592,6 +23594,16 @@ pub mod qa_question {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::AnswerChoice;
+        /// let x = AnswerChoice::new().set_na_value(true);
+        /// assert!(x.na_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// ```
         pub fn set_na_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_question::answer_choice::Value::NaValue(v.into()),
@@ -17646,6 +23658,12 @@ pub mod qa_question {
         }
 
         /// Sets the value of [accuracy][crate::model::qa_question::Metrics::accuracy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::Metrics;
+        /// let x = Metrics::new().set_accuracy(42.0);
+        /// ```
         pub fn set_accuracy<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.accuracy = v.into();
             self
@@ -17684,12 +23702,29 @@ pub mod qa_question {
         }
 
         /// Sets the value of [total_valid_label_count][crate::model::qa_question::TuningMetadata::total_valid_label_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::TuningMetadata;
+        /// let x = TuningMetadata::new().set_total_valid_label_count(42);
+        /// ```
         pub fn set_total_valid_label_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.total_valid_label_count = v.into();
             self
         }
 
         /// Sets the value of [dataset_validation_warnings][crate::model::qa_question::TuningMetadata::dataset_validation_warnings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::TuningMetadata;
+        /// use google_cloud_contactcenterinsights_v1::model::DatasetValidationWarning;
+        /// let x = TuningMetadata::new().set_dataset_validation_warnings([
+        ///     DatasetValidationWarning::TooManyInvalidFeedbackLabels,
+        ///     DatasetValidationWarning::InsufficientFeedbackLabels,
+        ///     DatasetValidationWarning::InsufficientFeedbackLabelsPerAnswer,
+        /// ]);
+        /// ```
         pub fn set_dataset_validation_warnings<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17701,6 +23736,12 @@ pub mod qa_question {
         }
 
         /// Sets the value of [tuning_error][crate::model::qa_question::TuningMetadata::tuning_error].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_question::TuningMetadata;
+        /// let x = TuningMetadata::new().set_tuning_error("example");
+        /// ```
         pub fn set_tuning_error<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17748,24 +23789,49 @@ impl QaScorecard {
     }
 
     /// Sets the value of [name][crate::model::QaScorecard::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = QaScorecard::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::QaScorecard::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = QaScorecard::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::QaScorecard::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = QaScorecard::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QaScorecard::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecard::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17775,6 +23841,14 @@ impl QaScorecard {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QaScorecard::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecard::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaScorecard::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17784,6 +23858,13 @@ impl QaScorecard {
     }
 
     /// Sets the value of [update_time][crate::model::QaScorecard::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecard::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17793,6 +23874,14 @@ impl QaScorecard {
     }
 
     /// Sets or clears the value of [update_time][crate::model::QaScorecard::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecard::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaScorecard::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17845,12 +23934,25 @@ impl QaScorecardRevision {
     }
 
     /// Sets the value of [name][crate::model::QaScorecardRevision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// let x = QaScorecardRevision::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [snapshot][crate::model::QaScorecardRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = QaScorecardRevision::new().set_snapshot(QaScorecard::default()/* use setters */);
+    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -17860,6 +23962,14 @@ impl QaScorecardRevision {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::QaScorecardRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// let x = QaScorecardRevision::new().set_or_clear_snapshot(Some(QaScorecard::default()/* use setters */));
+    /// let x = QaScorecardRevision::new().set_or_clear_snapshot(None::<QaScorecard>);
+    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QaScorecard>,
@@ -17869,6 +23979,13 @@ impl QaScorecardRevision {
     }
 
     /// Sets the value of [create_time][crate::model::QaScorecardRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecardRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17878,6 +23995,14 @@ impl QaScorecardRevision {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QaScorecardRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecardRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaScorecardRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17887,6 +24012,12 @@ impl QaScorecardRevision {
     }
 
     /// Sets the value of [alternate_ids][crate::model::QaScorecardRevision::alternate_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// let x = QaScorecardRevision::new().set_alternate_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_alternate_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17898,6 +24029,15 @@ impl QaScorecardRevision {
     }
 
     /// Sets the value of [state][crate::model::QaScorecardRevision::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_scorecard_revision::State;
+    /// let x0 = QaScorecardRevision::new().set_state(State::Editable);
+    /// let x1 = QaScorecardRevision::new().set_state(State::Training);
+    /// let x2 = QaScorecardRevision::new().set_state(State::TrainingFailed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::qa_scorecard_revision::State>>(
         mut self,
         v: T,
@@ -18112,24 +24252,49 @@ impl QaAnswer {
     }
 
     /// Sets the value of [qa_question][crate::model::QaAnswer::qa_question].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// let x = QaAnswer::new().set_qa_question("example");
+    /// ```
     pub fn set_qa_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.qa_question = v.into();
         self
     }
 
     /// Sets the value of [conversation][crate::model::QaAnswer::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// let x = QaAnswer::new().set_conversation("example");
+    /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();
         self
     }
 
     /// Sets the value of [question_body][crate::model::QaAnswer::question_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// let x = QaAnswer::new().set_question_body("example");
+    /// ```
     pub fn set_question_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.question_body = v.into();
         self
     }
 
     /// Sets the value of [answer_value][crate::model::QaAnswer::answer_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+    /// let x = QaAnswer::new().set_answer_value(AnswerValue::default()/* use setters */);
+    /// ```
     pub fn set_answer_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::qa_answer::AnswerValue>,
@@ -18139,6 +24304,14 @@ impl QaAnswer {
     }
 
     /// Sets or clears the value of [answer_value][crate::model::QaAnswer::answer_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+    /// let x = QaAnswer::new().set_or_clear_answer_value(Some(AnswerValue::default()/* use setters */));
+    /// let x = QaAnswer::new().set_or_clear_answer_value(None::<AnswerValue>);
+    /// ```
     pub fn set_or_clear_answer_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::qa_answer::AnswerValue>,
@@ -18148,6 +24321,12 @@ impl QaAnswer {
     }
 
     /// Sets the value of [tags][crate::model::QaAnswer::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// let x = QaAnswer::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18159,6 +24338,17 @@ impl QaAnswer {
     }
 
     /// Sets the value of [answer_sources][crate::model::QaAnswer::answer_sources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerSource;
+    /// let x = QaAnswer::new()
+    ///     .set_answer_sources([
+    ///         AnswerSource::default()/* use setters */,
+    ///         AnswerSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_answer_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18217,12 +24407,24 @@ pub mod qa_answer {
         }
 
         /// Sets the value of [key][crate::model::qa_answer::AnswerValue::key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::qa_answer::AnswerValue::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_score(42.0);
+        /// ```
         pub fn set_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18232,6 +24434,13 @@ pub mod qa_answer {
         }
 
         /// Sets or clears the value of [score][crate::model::qa_answer::AnswerValue::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_or_clear_score(Some(42.0));
+        /// let x = AnswerValue::new().set_or_clear_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18241,6 +24450,12 @@ pub mod qa_answer {
         }
 
         /// Sets the value of [potential_score][crate::model::qa_answer::AnswerValue::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_potential_score(42.0);
+        /// ```
         pub fn set_potential_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18250,6 +24465,13 @@ pub mod qa_answer {
         }
 
         /// Sets or clears the value of [potential_score][crate::model::qa_answer::AnswerValue::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_or_clear_potential_score(Some(42.0));
+        /// let x = AnswerValue::new().set_or_clear_potential_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_potential_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18259,6 +24481,12 @@ pub mod qa_answer {
         }
 
         /// Sets the value of [normalized_score][crate::model::qa_answer::AnswerValue::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_normalized_score(42.0);
+        /// ```
         pub fn set_normalized_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18268,6 +24496,13 @@ pub mod qa_answer {
         }
 
         /// Sets or clears the value of [normalized_score][crate::model::qa_answer::AnswerValue::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_or_clear_normalized_score(Some(42.0));
+        /// let x = AnswerValue::new().set_or_clear_normalized_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_normalized_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18280,6 +24515,13 @@ pub mod qa_answer {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_answer::answer_value::Value;
+        /// let x = AnswerValue::new().set_value(Some(Value::StrValue("example".to_string())));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::qa_answer::answer_value::Value>>,
         >(
@@ -18308,6 +24550,16 @@ pub mod qa_answer {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_str_value("example");
+        /// assert!(x.str_value().is_some());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_str_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_answer::answer_value::Value::StrValue(v.into()),
@@ -18333,6 +24585,16 @@ pub mod qa_answer {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_num_value(42.0);
+        /// assert!(x.num_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_num_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_answer::answer_value::Value::NumValue(v.into()),
@@ -18358,6 +24620,16 @@ pub mod qa_answer {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_bool_value(true);
+        /// assert!(x.bool_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.na_value().is_none());
+        /// ```
         pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_answer::answer_value::Value::BoolValue(v.into()),
@@ -18383,6 +24655,16 @@ pub mod qa_answer {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerValue::new().set_na_value(true);
+        /// assert!(x.na_value().is_some());
+        /// assert!(x.str_value().is_none());
+        /// assert!(x.num_value().is_none());
+        /// assert!(x.bool_value().is_none());
+        /// ```
         pub fn set_na_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::qa_answer::answer_value::Value::NaValue(v.into()),
@@ -18438,6 +24720,14 @@ pub mod qa_answer {
         }
 
         /// Sets the value of [source_type][crate::model::qa_answer::AnswerSource::source_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerSource;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_answer::answer_source::SourceType;
+        /// let x0 = AnswerSource::new().set_source_type(SourceType::SystemGenerated);
+        /// let x1 = AnswerSource::new().set_source_type(SourceType::ManualEdit);
+        /// ```
         pub fn set_source_type<
             T: std::convert::Into<crate::model::qa_answer::answer_source::SourceType>,
         >(
@@ -18449,6 +24739,13 @@ pub mod qa_answer {
         }
 
         /// Sets the value of [answer_value][crate::model::qa_answer::AnswerSource::answer_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerSource;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerSource::new().set_answer_value(AnswerValue::default()/* use setters */);
+        /// ```
         pub fn set_answer_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::qa_answer::AnswerValue>,
@@ -18458,6 +24755,14 @@ pub mod qa_answer {
         }
 
         /// Sets or clears the value of [answer_value][crate::model::qa_answer::AnswerSource::answer_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerSource;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_answer::AnswerValue;
+        /// let x = AnswerSource::new().set_or_clear_answer_value(Some(AnswerValue::default()/* use setters */));
+        /// let x = AnswerSource::new().set_or_clear_answer_value(None::<AnswerValue>);
+        /// ```
         pub fn set_or_clear_answer_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::qa_answer::AnswerValue>,
@@ -18667,12 +24972,24 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [name][crate::model::QaScorecardResult::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [qa_scorecard_revision][crate::model::QaScorecardResult::qa_scorecard_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_qa_scorecard_revision("example");
+    /// ```
     pub fn set_qa_scorecard_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18682,12 +24999,25 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [conversation][crate::model::QaScorecardResult::conversation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_conversation("example");
+    /// ```
     pub fn set_conversation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QaScorecardResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecardResult::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18697,6 +25027,14 @@ impl QaScorecardResult {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QaScorecardResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// use wkt::Timestamp;
+    /// let x = QaScorecardResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QaScorecardResult::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18706,12 +25044,29 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [agent_id][crate::model::QaScorecardResult::agent_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_agent_id("example");
+    /// ```
     pub fn set_agent_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.agent_id = v.into();
         self
     }
 
     /// Sets the value of [qa_answers][crate::model::QaScorecardResult::qa_answers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// use google_cloud_contactcenterinsights_v1::model::QaAnswer;
+    /// let x = QaScorecardResult::new()
+    ///     .set_qa_answers([
+    ///         QaAnswer::default()/* use setters */,
+    ///         QaAnswer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_answers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18723,6 +25078,12 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [score][crate::model::QaScorecardResult::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_score(42.0);
+    /// ```
     pub fn set_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18732,6 +25093,13 @@ impl QaScorecardResult {
     }
 
     /// Sets or clears the value of [score][crate::model::QaScorecardResult::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_or_clear_score(Some(42.0));
+    /// let x = QaScorecardResult::new().set_or_clear_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18741,6 +25109,12 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [potential_score][crate::model::QaScorecardResult::potential_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_potential_score(42.0);
+    /// ```
     pub fn set_potential_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18750,6 +25124,13 @@ impl QaScorecardResult {
     }
 
     /// Sets or clears the value of [potential_score][crate::model::QaScorecardResult::potential_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_or_clear_potential_score(Some(42.0));
+    /// let x = QaScorecardResult::new().set_or_clear_potential_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_potential_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18759,6 +25140,12 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [normalized_score][crate::model::QaScorecardResult::normalized_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_normalized_score(42.0);
+    /// ```
     pub fn set_normalized_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18768,6 +25155,13 @@ impl QaScorecardResult {
     }
 
     /// Sets or clears the value of [normalized_score][crate::model::QaScorecardResult::normalized_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// let x = QaScorecardResult::new().set_or_clear_normalized_score(Some(42.0));
+    /// let x = QaScorecardResult::new().set_or_clear_normalized_score(None::<f32>);
+    /// ```
     pub fn set_or_clear_normalized_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -18777,6 +25171,17 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [qa_tag_results][crate::model::QaScorecardResult::qa_tag_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+    /// let x = QaScorecardResult::new()
+    ///     .set_qa_tag_results([
+    ///         QaTagResult::default()/* use setters */,
+    ///         QaTagResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_qa_tag_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18788,6 +25193,17 @@ impl QaScorecardResult {
     }
 
     /// Sets the value of [score_sources][crate::model::QaScorecardResult::score_sources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_contactcenterinsights_v1::model::QaScorecardResult;
+    /// use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+    /// let x = QaScorecardResult::new()
+    ///     .set_score_sources([
+    ///         ScoreSource::default()/* use setters */,
+    ///         ScoreSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_score_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18835,12 +25251,24 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [tag][crate::model::qa_scorecard_result::QaTagResult::tag].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_tag("example");
+        /// ```
         pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tag = v.into();
             self
         }
 
         /// Sets the value of [score][crate::model::qa_scorecard_result::QaTagResult::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_score(42.0);
+        /// ```
         pub fn set_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18850,6 +25278,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [score][crate::model::qa_scorecard_result::QaTagResult::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_or_clear_score(Some(42.0));
+        /// let x = QaTagResult::new().set_or_clear_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18859,6 +25294,12 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [potential_score][crate::model::qa_scorecard_result::QaTagResult::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_potential_score(42.0);
+        /// ```
         pub fn set_potential_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18868,6 +25309,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [potential_score][crate::model::qa_scorecard_result::QaTagResult::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_or_clear_potential_score(Some(42.0));
+        /// let x = QaTagResult::new().set_or_clear_potential_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_potential_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18877,6 +25325,12 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [normalized_score][crate::model::qa_scorecard_result::QaTagResult::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_normalized_score(42.0);
+        /// ```
         pub fn set_normalized_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18886,6 +25340,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [normalized_score][crate::model::qa_scorecard_result::QaTagResult::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = QaTagResult::new().set_or_clear_normalized_score(Some(42.0));
+        /// let x = QaTagResult::new().set_or_clear_normalized_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_normalized_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18932,6 +25393,14 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [source_type][crate::model::qa_scorecard_result::ScoreSource::source_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::score_source::SourceType;
+        /// let x0 = ScoreSource::new().set_source_type(SourceType::SystemGeneratedOnly);
+        /// let x1 = ScoreSource::new().set_source_type(SourceType::IncludesManualEdits);
+        /// ```
         pub fn set_source_type<
             T: std::convert::Into<crate::model::qa_scorecard_result::score_source::SourceType>,
         >(
@@ -18943,6 +25412,12 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [score][crate::model::qa_scorecard_result::ScoreSource::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_score(42.0);
+        /// ```
         pub fn set_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18952,6 +25427,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [score][crate::model::qa_scorecard_result::ScoreSource::score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_or_clear_score(Some(42.0));
+        /// let x = ScoreSource::new().set_or_clear_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18961,6 +25443,12 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [potential_score][crate::model::qa_scorecard_result::ScoreSource::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_potential_score(42.0);
+        /// ```
         pub fn set_potential_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18970,6 +25458,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [potential_score][crate::model::qa_scorecard_result::ScoreSource::potential_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_or_clear_potential_score(Some(42.0));
+        /// let x = ScoreSource::new().set_or_clear_potential_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_potential_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18979,6 +25474,12 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [normalized_score][crate::model::qa_scorecard_result::ScoreSource::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_normalized_score(42.0);
+        /// ```
         pub fn set_normalized_score<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18988,6 +25489,13 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets or clears the value of [normalized_score][crate::model::qa_scorecard_result::ScoreSource::normalized_score].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// let x = ScoreSource::new().set_or_clear_normalized_score(Some(42.0));
+        /// let x = ScoreSource::new().set_or_clear_normalized_score(None::<f32>);
+        /// ```
         pub fn set_or_clear_normalized_score<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<f64>,
@@ -18997,6 +25505,17 @@ pub mod qa_scorecard_result {
         }
 
         /// Sets the value of [qa_tag_results][crate::model::qa_scorecard_result::ScoreSource::qa_tag_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::ScoreSource;
+        /// use google_cloud_contactcenterinsights_v1::model::qa_scorecard_result::QaTagResult;
+        /// let x = ScoreSource::new()
+        ///     .set_qa_tag_results([
+        ///         QaTagResult::default()/* use setters */,
+        ///         QaTagResult::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_qa_tag_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

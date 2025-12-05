@@ -80,24 +80,50 @@ impl Configuration {
     }
 
     /// Sets the value of [name][crate::model::Configuration::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = Configuration::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Configuration::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = Configuration::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [product][crate::model::Configuration::product].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = Configuration::new().set_product("example");
+    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
     }
 
     /// Sets the value of [license_type][crate::model::Configuration::license_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::LicenseType;
+    /// let x0 = Configuration::new().set_license_type(LicenseType::PerMonthPerUser);
+    /// let x1 = Configuration::new().set_license_type(LicenseType::BringYourOwnLicense);
+    /// ```
     pub fn set_license_type<T: std::convert::Into<crate::model::LicenseType>>(
         mut self,
         v: T,
@@ -107,6 +133,13 @@ impl Configuration {
     }
 
     /// Sets the value of [current_billing_info][crate::model::Configuration::current_billing_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// let x = Configuration::new().set_current_billing_info(BillingInfo::default()/* use setters */);
+    /// ```
     pub fn set_current_billing_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -116,6 +149,14 @@ impl Configuration {
     }
 
     /// Sets or clears the value of [current_billing_info][crate::model::Configuration::current_billing_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// let x = Configuration::new().set_or_clear_current_billing_info(Some(BillingInfo::default()/* use setters */));
+    /// let x = Configuration::new().set_or_clear_current_billing_info(None::<BillingInfo>);
+    /// ```
     pub fn set_or_clear_current_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -125,6 +166,13 @@ impl Configuration {
     }
 
     /// Sets the value of [next_billing_info][crate::model::Configuration::next_billing_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// let x = Configuration::new().set_next_billing_info(BillingInfo::default()/* use setters */);
+    /// ```
     pub fn set_next_billing_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -134,6 +182,14 @@ impl Configuration {
     }
 
     /// Sets or clears the value of [next_billing_info][crate::model::Configuration::next_billing_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// let x = Configuration::new().set_or_clear_next_billing_info(Some(BillingInfo::default()/* use setters */));
+    /// let x = Configuration::new().set_or_clear_next_billing_info(None::<BillingInfo>);
+    /// ```
     pub fn set_or_clear_next_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BillingInfo>,
@@ -143,6 +199,13 @@ impl Configuration {
     }
 
     /// Sets the value of [create_time][crate::model::Configuration::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use wkt::Timestamp;
+    /// let x = Configuration::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -152,6 +215,14 @@ impl Configuration {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Configuration::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use wkt::Timestamp;
+    /// let x = Configuration::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Configuration::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -161,6 +232,13 @@ impl Configuration {
     }
 
     /// Sets the value of [update_time][crate::model::Configuration::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use wkt::Timestamp;
+    /// let x = Configuration::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -170,6 +248,14 @@ impl Configuration {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Configuration::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use wkt::Timestamp;
+    /// let x = Configuration::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Configuration::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -179,6 +265,15 @@ impl Configuration {
     }
 
     /// Sets the value of [labels][crate::model::Configuration::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = Configuration::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -191,6 +286,15 @@ impl Configuration {
     }
 
     /// Sets the value of [state][crate::model::Configuration::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Configuration;
+    /// use google_cloud_licensemanager_v1::model::configuration::State;
+    /// let x0 = Configuration::new().set_state(State::Active);
+    /// let x1 = Configuration::new().set_state(State::Suspended);
+    /// let x2 = Configuration::new().set_state(State::Deleted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::configuration::State>>(
         mut self,
         v: T,
@@ -372,6 +476,13 @@ impl BillingInfo {
     }
 
     /// Sets the value of [start_time][crate::model::BillingInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use wkt::Timestamp;
+    /// let x = BillingInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -381,6 +492,14 @@ impl BillingInfo {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BillingInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use wkt::Timestamp;
+    /// let x = BillingInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BillingInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -390,6 +509,13 @@ impl BillingInfo {
     }
 
     /// Sets the value of [end_time][crate::model::BillingInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use wkt::Timestamp;
+    /// let x = BillingInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -399,6 +525,14 @@ impl BillingInfo {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BillingInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use wkt::Timestamp;
+    /// let x = BillingInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BillingInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -411,6 +545,14 @@ impl BillingInfo {
     ///
     /// Note that all the setters affecting `current_billing_info` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use google_cloud_licensemanager_v1::model::UserCountBillingInfo;
+    /// let x = BillingInfo::new().set_current_billing_info(Some(
+    ///     google_cloud_licensemanager_v1::model::billing_info::CurrentBillingInfo::UserCountBilling(UserCountBillingInfo::default().into())));
+    /// ```
     pub fn set_current_billing_info<
         T: std::convert::Into<std::option::Option<crate::model::billing_info::CurrentBillingInfo>>,
     >(
@@ -441,6 +583,14 @@ impl BillingInfo {
     ///
     /// Note that all the setters affecting `current_billing_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::BillingInfo;
+    /// use google_cloud_licensemanager_v1::model::UserCountBillingInfo;
+    /// let x = BillingInfo::new().set_user_count_billing(UserCountBillingInfo::default()/* use setters */);
+    /// assert!(x.user_count_billing().is_some());
+    /// ```
     pub fn set_user_count_billing<
         T: std::convert::Into<std::boxed::Box<crate::model::UserCountBillingInfo>>,
     >(
@@ -490,6 +640,12 @@ impl UserCountBillingInfo {
     }
 
     /// Sets the value of [user_count][crate::model::UserCountBillingInfo::user_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UserCountBillingInfo;
+    /// let x = UserCountBillingInfo::new().set_user_count(42);
+    /// ```
     pub fn set_user_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.user_count = v.into();
         self
@@ -519,6 +675,12 @@ impl UserCountUsage {
     }
 
     /// Sets the value of [unique_user_count][crate::model::UserCountUsage::unique_user_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UserCountUsage;
+    /// let x = UserCountUsage::new().set_unique_user_count(42);
+    /// ```
     pub fn set_unique_user_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.unique_user_count = v.into();
         self
@@ -566,42 +728,87 @@ impl Product {
     }
 
     /// Sets the value of [name][crate::model::Product::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Product::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [product_company][crate::model::Product::product_company].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_product_company("example");
+    /// ```
     pub fn set_product_company<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_company = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Product::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// use google_cloud_licensemanager_v1::model::product::State;
+    /// let x0 = Product::new().set_state(State::Provisioning);
+    /// let x1 = Product::new().set_state(State::Running);
+    /// let x2 = Product::new().set_state(State::Terminating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::product::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [sku][crate::model::Product::sku].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_sku("example");
+    /// ```
     pub fn set_sku<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sku = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Product::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Product::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Product;
+    /// let x = Product::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -808,12 +1015,25 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -823,6 +1043,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -832,6 +1060,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -841,6 +1076,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -850,6 +1093,15 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -862,18 +1114,44 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use google_cloud_licensemanager_v1::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Provisioning);
+    /// let x1 = Instance::new().set_state(State::Staging);
+    /// let x2 = Instance::new().set_state(State::Running);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::Instance::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = Instance::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
     }
 
     /// Sets the value of [product_activation][crate::model::Instance::product_activation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// use google_cloud_licensemanager_v1::model::ActivationState;
+    /// let x = Instance::new().set_product_activation([
+    ///     ("key0", ActivationState::KeyRequested),
+    ///     ("key1", ActivationState::Activating),
+    ///     ("key2", ActivationState::Activated),
+    /// ]);
+    /// ```
     pub fn set_product_activation<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -886,6 +1164,12 @@ impl Instance {
     }
 
     /// Sets the value of [license_version_id][crate::model::Instance::license_version_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = Instance::new().set_license_version_id("example");
+    /// ```
     pub fn set_license_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -895,6 +1179,12 @@ impl Instance {
     }
 
     /// Sets the value of [compute_instance][crate::model::Instance::compute_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = Instance::new().set_compute_instance("example");
+    /// ```
     pub fn set_compute_instance<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1105,12 +1395,24 @@ impl Usage {
     }
 
     /// Sets the value of [lima_instance][crate::model::Usage::lima_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Usage;
+    /// let x = Usage::new().set_lima_instance("example");
+    /// ```
     pub fn set_lima_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lima_instance = v.into();
         self
     }
 
     /// Sets the value of [users][crate::model::Usage::users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::Usage;
+    /// let x = Usage::new().set_users(42);
+    /// ```
     pub fn set_users<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.users = v.into();
         self
@@ -1152,30 +1454,60 @@ impl ListConfigurationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConfigurationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
+    /// let x = ListConfigurationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConfigurationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
+    /// let x = ListConfigurationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConfigurationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
+    /// let x = ListConfigurationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConfigurationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
+    /// let x = ListConfigurationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListConfigurationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsRequest;
+    /// let x = ListConfigurationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1210,6 +1542,17 @@ impl ListConfigurationsResponse {
     }
 
     /// Sets the value of [configurations][crate::model::ListConfigurationsResponse::configurations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsResponse;
+    /// use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = ListConfigurationsResponse::new()
+    ///     .set_configurations([
+    ///         Configuration::default()/* use setters */,
+    ///         Configuration::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_configurations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1221,12 +1564,24 @@ impl ListConfigurationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConfigurationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsResponse;
+    /// let x = ListConfigurationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConfigurationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListConfigurationsResponse;
+    /// let x = ListConfigurationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1274,6 +1629,12 @@ impl GetConfigurationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConfigurationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::GetConfigurationRequest;
+    /// let x = GetConfigurationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1323,12 +1684,24 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConfigurationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
+    /// let x = CreateConfigurationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [configuration_id][crate::model::CreateConfigurationRequest::configuration_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
+    /// let x = CreateConfigurationRequest::new().set_configuration_id("example");
+    /// ```
     pub fn set_configuration_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1338,6 +1711,13 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
+    /// use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = CreateConfigurationRequest::new().set_configuration(Configuration::default()/* use setters */);
+    /// ```
     pub fn set_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1347,6 +1727,14 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets or clears the value of [configuration][crate::model::CreateConfigurationRequest::configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
+    /// use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = CreateConfigurationRequest::new().set_or_clear_configuration(Some(Configuration::default()/* use setters */));
+    /// let x = CreateConfigurationRequest::new().set_or_clear_configuration(None::<Configuration>);
+    /// ```
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1356,6 +1744,12 @@ impl CreateConfigurationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateConfigurationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::CreateConfigurationRequest;
+    /// let x = CreateConfigurationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1406,6 +1800,13 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UpdateConfigurationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigurationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1415,6 +1816,14 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConfigurationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UpdateConfigurationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConfigurationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConfigurationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1424,6 +1833,13 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UpdateConfigurationRequest;
+    /// use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = UpdateConfigurationRequest::new().set_configuration(Configuration::default()/* use setters */);
+    /// ```
     pub fn set_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1433,6 +1849,14 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets or clears the value of [configuration][crate::model::UpdateConfigurationRequest::configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UpdateConfigurationRequest;
+    /// use google_cloud_licensemanager_v1::model::Configuration;
+    /// let x = UpdateConfigurationRequest::new().set_or_clear_configuration(Some(Configuration::default()/* use setters */));
+    /// let x = UpdateConfigurationRequest::new().set_or_clear_configuration(None::<Configuration>);
+    /// ```
     pub fn set_or_clear_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Configuration>,
@@ -1442,6 +1866,12 @@ impl UpdateConfigurationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateConfigurationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::UpdateConfigurationRequest;
+    /// let x = UpdateConfigurationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1485,12 +1915,24 @@ impl DeleteConfigurationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConfigurationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::DeleteConfigurationRequest;
+    /// let x = DeleteConfigurationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteConfigurationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::DeleteConfigurationRequest;
+    /// let x = DeleteConfigurationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1532,30 +1974,60 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1590,6 +2062,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesResponse;
+    /// use google_cloud_licensemanager_v1::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1601,12 +2084,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1654,6 +2149,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1690,12 +2191,25 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets the value of [name][crate::model::QueryConfigurationLicenseUsageRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1705,6 +2219,14 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::QueryConfigurationLicenseUsageRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1714,6 +2236,13 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1723,6 +2252,14 @@ impl QueryConfigurationLicenseUsageRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::QueryConfigurationLicenseUsageRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = QueryConfigurationLicenseUsageRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1759,6 +2296,14 @@ impl QueryConfigurationLicenseUsageResponse {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageResponse;
+    /// use google_cloud_licensemanager_v1::model::UserCountUsage;
+    /// let x = QueryConfigurationLicenseUsageResponse::new().set_details(Some(
+    ///     google_cloud_licensemanager_v1::model::query_configuration_license_usage_response::Details::UserCountUsage(UserCountUsage::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<
                 std::option::Option<
@@ -1793,6 +2338,14 @@ impl QueryConfigurationLicenseUsageResponse {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::QueryConfigurationLicenseUsageResponse;
+    /// use google_cloud_licensemanager_v1::model::UserCountUsage;
+    /// let x = QueryConfigurationLicenseUsageResponse::new().set_user_count_usage(UserCountUsage::default()/* use setters */);
+    /// assert!(x.user_count_usage().is_some());
+    /// ```
     pub fn set_user_count_usage<
         T: std::convert::Into<std::boxed::Box<crate::model::UserCountUsage>>,
     >(
@@ -1860,12 +2413,24 @@ impl DeactivateConfigurationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeactivateConfigurationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::DeactivateConfigurationRequest;
+    /// let x = DeactivateConfigurationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeactivateConfigurationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::DeactivateConfigurationRequest;
+    /// let x = DeactivateConfigurationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1909,12 +2474,24 @@ impl ReactivateConfigurationRequest {
     }
 
     /// Sets the value of [name][crate::model::ReactivateConfigurationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ReactivateConfigurationRequest;
+    /// let x = ReactivateConfigurationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ReactivateConfigurationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ReactivateConfigurationRequest;
+    /// let x = ReactivateConfigurationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1964,36 +2541,73 @@ impl AggregateUsageRequest {
     }
 
     /// Sets the value of [name][crate::model::AggregateUsageRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// let x = AggregateUsageRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::AggregateUsageRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// let x = AggregateUsageRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::AggregateUsageRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// let x = AggregateUsageRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::AggregateUsageRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// let x = AggregateUsageRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::AggregateUsageRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// let x = AggregateUsageRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::AggregateUsageRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = AggregateUsageRequest::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2003,6 +2617,14 @@ impl AggregateUsageRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::AggregateUsageRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = AggregateUsageRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AggregateUsageRequest::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2012,6 +2634,13 @@ impl AggregateUsageRequest {
     }
 
     /// Sets the value of [end_time][crate::model::AggregateUsageRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = AggregateUsageRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2021,6 +2650,14 @@ impl AggregateUsageRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AggregateUsageRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageRequest;
+    /// use wkt::Timestamp;
+    /// let x = AggregateUsageRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AggregateUsageRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2058,6 +2695,17 @@ impl AggregateUsageResponse {
     }
 
     /// Sets the value of [usages][crate::model::AggregateUsageResponse::usages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageResponse;
+    /// use google_cloud_licensemanager_v1::model::Usage;
+    /// let x = AggregateUsageResponse::new()
+    ///     .set_usages([
+    ///         Usage::default()/* use setters */,
+    ///         Usage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_usages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2069,12 +2717,24 @@ impl AggregateUsageResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::AggregateUsageResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageResponse;
+    /// let x = AggregateUsageResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::AggregateUsageResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::AggregateUsageResponse;
+    /// let x = AggregateUsageResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2135,30 +2795,60 @@ impl ListProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProductsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProductsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListProductsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListProductsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2193,6 +2883,17 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsResponse;
+    /// use google_cloud_licensemanager_v1::model::Product;
+    /// let x = ListProductsResponse::new()
+    ///     .set_products([
+    ///         Product::default()/* use setters */,
+    ///         Product::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2204,12 +2905,24 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsResponse;
+    /// let x = ListProductsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListProductsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::ListProductsResponse;
+    /// let x = ListProductsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2257,6 +2970,12 @@ impl GetProductRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProductRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::GetProductRequest;
+    /// let x = GetProductRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2311,6 +3030,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2320,6 +3046,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2329,6 +3063,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2338,6 +3079,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2347,30 +3096,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_licensemanager_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

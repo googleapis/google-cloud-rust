@@ -47,6 +47,13 @@ impl AutoMlImageClassification {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlImageClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassification::new().set_inputs(AutoMlImageClassificationInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>,
@@ -56,6 +63,14 @@ impl AutoMlImageClassification {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassification::new().set_or_clear_inputs(Some(AutoMlImageClassificationInputs::default()/* use setters */));
+    /// let x = AutoMlImageClassification::new().set_or_clear_inputs(None::<AutoMlImageClassificationInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageClassificationInputs>,
@@ -65,6 +80,13 @@ impl AutoMlImageClassification {
     }
 
     /// Sets the value of [metadata][crate::model::AutoMlImageClassification::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationMetadata;
+    /// let x = AutoMlImageClassification::new().set_metadata(AutoMlImageClassificationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>,
@@ -74,6 +96,14 @@ impl AutoMlImageClassification {
     }
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageClassification::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationMetadata;
+    /// let x = AutoMlImageClassification::new().set_or_clear_metadata(Some(AutoMlImageClassificationMetadata::default()/* use setters */));
+    /// let x = AutoMlImageClassification::new().set_or_clear_metadata(None::<AutoMlImageClassificationMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageClassificationMetadata>,
@@ -139,6 +169,15 @@ impl AutoMlImageClassificationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageClassificationInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_classification_inputs::ModelType;
+    /// let x0 = AutoMlImageClassificationInputs::new().set_model_type(ModelType::Cloud);
+    /// let x1 = AutoMlImageClassificationInputs::new().set_model_type(ModelType::MobileTfLowLatency1);
+    /// let x2 = AutoMlImageClassificationInputs::new().set_model_type(ModelType::MobileTfVersatile1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_image_classification_inputs::ModelType>,
     >(
@@ -150,24 +189,48 @@ impl AutoMlImageClassificationInputs {
     }
 
     /// Sets the value of [base_model_id][crate::model::AutoMlImageClassificationInputs::base_model_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassificationInputs::new().set_base_model_id("example");
+    /// ```
     pub fn set_base_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_model_id = v.into();
         self
     }
 
     /// Sets the value of [budget_milli_node_hours][crate::model::AutoMlImageClassificationInputs::budget_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassificationInputs::new().set_budget_milli_node_hours(42);
+    /// ```
     pub fn set_budget_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.budget_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [disable_early_stopping][crate::model::AutoMlImageClassificationInputs::disable_early_stopping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassificationInputs::new().set_disable_early_stopping(true);
+    /// ```
     pub fn set_disable_early_stopping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_early_stopping = v.into();
         self
     }
 
     /// Sets the value of [multi_label][crate::model::AutoMlImageClassificationInputs::multi_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationInputs;
+    /// let x = AutoMlImageClassificationInputs::new().set_multi_label(true);
+    /// ```
     pub fn set_multi_label<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_label = v.into();
         self
@@ -366,12 +429,26 @@ impl AutoMlImageClassificationMetadata {
     }
 
     /// Sets the value of [cost_milli_node_hours][crate::model::AutoMlImageClassificationMetadata::cost_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationMetadata;
+    /// let x = AutoMlImageClassificationMetadata::new().set_cost_milli_node_hours(42);
+    /// ```
     pub fn set_cost_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cost_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageClassificationMetadata::successful_stop_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageClassificationMetadata;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_classification_metadata::SuccessfulStopReason;
+    /// let x0 = AutoMlImageClassificationMetadata::new().set_successful_stop_reason(SuccessfulStopReason::BudgetReached);
+    /// let x1 = AutoMlImageClassificationMetadata::new().set_successful_stop_reason(SuccessfulStopReason::ModelConverged);
+    /// ```
     pub fn set_successful_stop_reason<
         T: std::convert::Into<
                 crate::model::auto_ml_image_classification_metadata::SuccessfulStopReason,
@@ -549,6 +626,13 @@ impl AutoMlImageObjectDetection {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlImageObjectDetection::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetection;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionInputs;
+    /// let x = AutoMlImageObjectDetection::new().set_inputs(AutoMlImageObjectDetectionInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>,
@@ -558,6 +642,14 @@ impl AutoMlImageObjectDetection {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageObjectDetection::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetection;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionInputs;
+    /// let x = AutoMlImageObjectDetection::new().set_or_clear_inputs(Some(AutoMlImageObjectDetectionInputs::default()/* use setters */));
+    /// let x = AutoMlImageObjectDetection::new().set_or_clear_inputs(None::<AutoMlImageObjectDetectionInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageObjectDetectionInputs>,
@@ -567,6 +659,13 @@ impl AutoMlImageObjectDetection {
     }
 
     /// Sets the value of [metadata][crate::model::AutoMlImageObjectDetection::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetection;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionMetadata;
+    /// let x = AutoMlImageObjectDetection::new().set_metadata(AutoMlImageObjectDetectionMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>,
@@ -576,6 +675,14 @@ impl AutoMlImageObjectDetection {
     }
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageObjectDetection::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetection;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionMetadata;
+    /// let x = AutoMlImageObjectDetection::new().set_or_clear_metadata(Some(AutoMlImageObjectDetectionMetadata::default()/* use setters */));
+    /// let x = AutoMlImageObjectDetection::new().set_or_clear_metadata(None::<AutoMlImageObjectDetectionMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageObjectDetectionMetadata>,
@@ -628,6 +735,15 @@ impl AutoMlImageObjectDetectionInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageObjectDetectionInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_object_detection_inputs::ModelType;
+    /// let x0 = AutoMlImageObjectDetectionInputs::new().set_model_type(ModelType::CloudHighAccuracy1);
+    /// let x1 = AutoMlImageObjectDetectionInputs::new().set_model_type(ModelType::CloudLowLatency1);
+    /// let x2 = AutoMlImageObjectDetectionInputs::new().set_model_type(ModelType::MobileTfLowLatency1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_image_object_detection_inputs::ModelType>,
     >(
@@ -639,12 +755,24 @@ impl AutoMlImageObjectDetectionInputs {
     }
 
     /// Sets the value of [budget_milli_node_hours][crate::model::AutoMlImageObjectDetectionInputs::budget_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionInputs;
+    /// let x = AutoMlImageObjectDetectionInputs::new().set_budget_milli_node_hours(42);
+    /// ```
     pub fn set_budget_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.budget_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [disable_early_stopping][crate::model::AutoMlImageObjectDetectionInputs::disable_early_stopping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionInputs;
+    /// let x = AutoMlImageObjectDetectionInputs::new().set_disable_early_stopping(true);
+    /// ```
     pub fn set_disable_early_stopping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_early_stopping = v.into();
         self
@@ -852,12 +980,26 @@ impl AutoMlImageObjectDetectionMetadata {
     }
 
     /// Sets the value of [cost_milli_node_hours][crate::model::AutoMlImageObjectDetectionMetadata::cost_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionMetadata;
+    /// let x = AutoMlImageObjectDetectionMetadata::new().set_cost_milli_node_hours(42);
+    /// ```
     pub fn set_cost_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cost_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageObjectDetectionMetadata::successful_stop_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageObjectDetectionMetadata;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason;
+    /// let x0 = AutoMlImageObjectDetectionMetadata::new().set_successful_stop_reason(SuccessfulStopReason::BudgetReached);
+    /// let x1 = AutoMlImageObjectDetectionMetadata::new().set_successful_stop_reason(SuccessfulStopReason::ModelConverged);
+    /// ```
     pub fn set_successful_stop_reason<
         T: std::convert::Into<
                 crate::model::auto_ml_image_object_detection_metadata::SuccessfulStopReason,
@@ -1035,6 +1177,13 @@ impl AutoMlImageSegmentation {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlImageSegmentation::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentation;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationInputs;
+    /// let x = AutoMlImageSegmentation::new().set_inputs(AutoMlImageSegmentationInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>,
@@ -1044,6 +1193,14 @@ impl AutoMlImageSegmentation {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlImageSegmentation::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentation;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationInputs;
+    /// let x = AutoMlImageSegmentation::new().set_or_clear_inputs(Some(AutoMlImageSegmentationInputs::default()/* use setters */));
+    /// let x = AutoMlImageSegmentation::new().set_or_clear_inputs(None::<AutoMlImageSegmentationInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageSegmentationInputs>,
@@ -1053,6 +1210,13 @@ impl AutoMlImageSegmentation {
     }
 
     /// Sets the value of [metadata][crate::model::AutoMlImageSegmentation::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentation;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationMetadata;
+    /// let x = AutoMlImageSegmentation::new().set_metadata(AutoMlImageSegmentationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>,
@@ -1062,6 +1226,14 @@ impl AutoMlImageSegmentation {
     }
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlImageSegmentation::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentation;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationMetadata;
+    /// let x = AutoMlImageSegmentation::new().set_or_clear_metadata(Some(AutoMlImageSegmentationMetadata::default()/* use setters */));
+    /// let x = AutoMlImageSegmentation::new().set_or_clear_metadata(None::<AutoMlImageSegmentationMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlImageSegmentationMetadata>,
@@ -1113,6 +1285,15 @@ impl AutoMlImageSegmentationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlImageSegmentationInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_segmentation_inputs::ModelType;
+    /// let x0 = AutoMlImageSegmentationInputs::new().set_model_type(ModelType::CloudHighAccuracy1);
+    /// let x1 = AutoMlImageSegmentationInputs::new().set_model_type(ModelType::CloudLowAccuracy1);
+    /// let x2 = AutoMlImageSegmentationInputs::new().set_model_type(ModelType::MobileTfLowLatency1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_image_segmentation_inputs::ModelType>,
     >(
@@ -1124,12 +1305,24 @@ impl AutoMlImageSegmentationInputs {
     }
 
     /// Sets the value of [budget_milli_node_hours][crate::model::AutoMlImageSegmentationInputs::budget_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationInputs;
+    /// let x = AutoMlImageSegmentationInputs::new().set_budget_milli_node_hours(42);
+    /// ```
     pub fn set_budget_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.budget_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [base_model_id][crate::model::AutoMlImageSegmentationInputs::base_model_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationInputs;
+    /// let x = AutoMlImageSegmentationInputs::new().set_base_model_id("example");
+    /// ```
     pub fn set_base_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_model_id = v.into();
         self
@@ -1314,12 +1507,26 @@ impl AutoMlImageSegmentationMetadata {
     }
 
     /// Sets the value of [cost_milli_node_hours][crate::model::AutoMlImageSegmentationMetadata::cost_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationMetadata;
+    /// let x = AutoMlImageSegmentationMetadata::new().set_cost_milli_node_hours(42);
+    /// ```
     pub fn set_cost_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cost_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [successful_stop_reason][crate::model::AutoMlImageSegmentationMetadata::successful_stop_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlImageSegmentationMetadata;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason;
+    /// let x0 = AutoMlImageSegmentationMetadata::new().set_successful_stop_reason(SuccessfulStopReason::BudgetReached);
+    /// let x1 = AutoMlImageSegmentationMetadata::new().set_successful_stop_reason(SuccessfulStopReason::ModelConverged);
+    /// ```
     pub fn set_successful_stop_reason<
         T: std::convert::Into<crate::model::auto_ml_image_segmentation_metadata::SuccessfulStopReason>,
     >(
@@ -1495,6 +1702,13 @@ impl AutoMlTables {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlTables::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTables;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTables::new().set_inputs(AutoMlTablesInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTablesInputs>,
@@ -1504,6 +1718,14 @@ impl AutoMlTables {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTables::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTables;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTables::new().set_or_clear_inputs(Some(AutoMlTablesInputs::default()/* use setters */));
+    /// let x = AutoMlTables::new().set_or_clear_inputs(None::<AutoMlTablesInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTablesInputs>,
@@ -1513,6 +1735,13 @@ impl AutoMlTables {
     }
 
     /// Sets the value of [metadata][crate::model::AutoMlTables::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTables;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesMetadata;
+    /// let x = AutoMlTables::new().set_metadata(AutoMlTablesMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTablesMetadata>,
@@ -1522,6 +1751,14 @@ impl AutoMlTables {
     }
 
     /// Sets or clears the value of [metadata][crate::model::AutoMlTables::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTables;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesMetadata;
+    /// let x = AutoMlTables::new().set_or_clear_metadata(Some(AutoMlTablesMetadata::default()/* use setters */));
+    /// let x = AutoMlTables::new().set_or_clear_metadata(None::<AutoMlTablesMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTablesMetadata>,
@@ -1637,18 +1874,41 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [prediction_type][crate::model::AutoMlTablesInputs::prediction_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_prediction_type("example");
+    /// ```
     pub fn set_prediction_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prediction_type = v.into();
         self
     }
 
     /// Sets the value of [target_column][crate::model::AutoMlTablesInputs::target_column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_target_column("example");
+    /// ```
     pub fn set_target_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_column = v.into();
         self
     }
 
     /// Sets the value of [transformations][crate::model::AutoMlTablesInputs::transformations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+    /// let x = AutoMlTablesInputs::new()
+    ///     .set_transformations([
+    ///         Transformation::default()/* use setters */,
+    ///         Transformation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transformations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1660,6 +1920,12 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [optimization_objective][crate::model::AutoMlTablesInputs::optimization_objective].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_optimization_objective("example");
+    /// ```
     pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1669,18 +1935,36 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [train_budget_milli_node_hours][crate::model::AutoMlTablesInputs::train_budget_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_train_budget_milli_node_hours(42);
+    /// ```
     pub fn set_train_budget_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.train_budget_milli_node_hours = v.into();
         self
     }
 
     /// Sets the value of [disable_early_stopping][crate::model::AutoMlTablesInputs::disable_early_stopping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_disable_early_stopping(true);
+    /// ```
     pub fn set_disable_early_stopping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_early_stopping = v.into();
         self
     }
 
     /// Sets the value of [weight_column_name][crate::model::AutoMlTablesInputs::weight_column_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_weight_column_name("example");
+    /// ```
     pub fn set_weight_column_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1690,6 +1974,13 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [export_evaluated_data_items_config][crate::model::AutoMlTablesInputs::export_evaluated_data_items_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::ExportEvaluatedDataItemsConfig;
+    /// let x = AutoMlTablesInputs::new().set_export_evaluated_data_items_config(ExportEvaluatedDataItemsConfig::default()/* use setters */);
+    /// ```
     pub fn set_export_evaluated_data_items_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportEvaluatedDataItemsConfig>,
@@ -1699,6 +1990,14 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets or clears the value of [export_evaluated_data_items_config][crate::model::AutoMlTablesInputs::export_evaluated_data_items_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::ExportEvaluatedDataItemsConfig;
+    /// let x = AutoMlTablesInputs::new().set_or_clear_export_evaluated_data_items_config(Some(ExportEvaluatedDataItemsConfig::default()/* use setters */));
+    /// let x = AutoMlTablesInputs::new().set_or_clear_export_evaluated_data_items_config(None::<ExportEvaluatedDataItemsConfig>);
+    /// ```
     pub fn set_or_clear_export_evaluated_data_items_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1711,6 +2010,12 @@ impl AutoMlTablesInputs {
     }
 
     /// Sets the value of [additional_experiments][crate::model::AutoMlTablesInputs::additional_experiments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_additional_experiments(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_experiments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1725,6 +2030,13 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig;
+    /// let x = AutoMlTablesInputs::new().set_additional_optimization_objective_config(Some(AdditionalOptimizationObjectiveConfig::OptimizationObjectiveRecallValue(42.0)));
+    /// ```
     pub fn set_additional_optimization_objective_config<
         T: std::convert::Into<
                 std::option::Option<
@@ -1755,6 +2067,14 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_optimization_objective_recall_value(42.0);
+    /// assert!(x.optimization_objective_recall_value().is_some());
+    /// assert!(x.optimization_objective_precision_value().is_none());
+    /// ```
     pub fn set_optimization_objective_recall_value<T: std::convert::Into<f32>>(
         mut self,
         v: T,
@@ -1783,6 +2103,14 @@ impl AutoMlTablesInputs {
     ///
     /// Note that all the setters affecting `additional_optimization_objective_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesInputs;
+    /// let x = AutoMlTablesInputs::new().set_optimization_objective_precision_value(42.0);
+    /// assert!(x.optimization_objective_precision_value().is_some());
+    /// assert!(x.optimization_objective_recall_value().is_none());
+    /// ```
     pub fn set_optimization_objective_precision_value<T: std::convert::Into<f32>>(
         mut self,
         v: T,
@@ -1828,6 +2156,14 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::AutoTransformation;
+        /// let x = Transformation::new().set_transformation_detail(Some(
+        ///     google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TransformationDetail::Auto(AutoTransformation::default().into())));
+        /// ```
         pub fn set_transformation_detail<
             T: std::convert::Into<
                     std::option::Option<
@@ -1866,6 +2202,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::AutoTransformation;
+        /// let x = Transformation::new().set_auto(AutoTransformation::default()/* use setters */);
+        /// assert!(x.auto().is_some());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_auto<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1906,6 +2257,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericTransformation;
+        /// let x = Transformation::new().set_numeric(NumericTransformation::default()/* use setters */);
+        /// assert!(x.numeric().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_numeric<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1946,6 +2312,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::CategoricalTransformation;
+        /// let x = Transformation::new().set_categorical(CategoricalTransformation::default()/* use setters */);
+        /// assert!(x.categorical().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation>>>(mut self, v: T) -> Self{
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Categorical(
@@ -1977,6 +2358,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TimestampTransformation;
+        /// let x = Transformation::new().set_timestamp(TimestampTransformation::default()/* use setters */);
+        /// assert!(x.timestamp().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_timestamp<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation>>>(mut self, v: T) -> Self{
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::Timestamp(
@@ -2010,6 +2406,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TextTransformation;
+        /// let x = Transformation::new().set_text(TextTransformation::default()/* use setters */);
+        /// assert!(x.text().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_text<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -2050,6 +2461,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation;
+        /// let x = Transformation::new().set_repeated_numeric(NumericArrayTransformation::default()/* use setters */);
+        /// assert!(x.repeated_numeric().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_repeated_numeric<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation>>>(mut self, v: T) -> Self{
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedNumeric(
@@ -2081,6 +2507,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation;
+        /// let x = Transformation::new().set_repeated_categorical(CategoricalArrayTransformation::default()/* use setters */);
+        /// assert!(x.repeated_categorical().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_text().is_none());
+        /// ```
         pub fn set_repeated_categorical<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation>>>(mut self, v: T) -> Self{
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedCategorical(
@@ -2112,6 +2553,21 @@ pub mod auto_ml_tables_inputs {
         ///
         /// Note that all the setters affecting `transformation_detail` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::Transformation;
+        /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TextArrayTransformation;
+        /// let x = Transformation::new().set_repeated_text(TextArrayTransformation::default()/* use setters */);
+        /// assert!(x.repeated_text().is_some());
+        /// assert!(x.auto().is_none());
+        /// assert!(x.numeric().is_none());
+        /// assert!(x.categorical().is_none());
+        /// assert!(x.timestamp().is_none());
+        /// assert!(x.text().is_none());
+        /// assert!(x.repeated_numeric().is_none());
+        /// assert!(x.repeated_categorical().is_none());
+        /// ```
         pub fn set_repeated_text<T: std::convert::Into<std::boxed::Box<crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation>>>(mut self, v: T) -> Self{
             self.transformation_detail = std::option::Option::Some(
                 crate::model::auto_ml_tables_inputs::transformation::TransformationDetail::RepeatedText(
@@ -2149,6 +2605,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::AutoTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::AutoTransformation;
+            /// let x = AutoTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2195,6 +2657,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::NumericTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericTransformation;
+            /// let x = NumericTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2204,6 +2672,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [invalid_values_allowed][crate::model::auto_ml_tables_inputs::transformation::NumericTransformation::invalid_values_allowed].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericTransformation;
+            /// let x = NumericTransformation::new().set_invalid_values_allowed(true);
+            /// ```
             pub fn set_invalid_values_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.invalid_values_allowed = v.into();
                 self
@@ -2240,6 +2714,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::CategoricalTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::CategoricalTransformation;
+            /// let x = CategoricalTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2297,6 +2777,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TimestampTransformation;
+            /// let x = TimestampTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2306,6 +2792,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [time_format][crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation::time_format].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TimestampTransformation;
+            /// let x = TimestampTransformation::new().set_time_format("example");
+            /// ```
             pub fn set_time_format<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2315,6 +2807,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [invalid_values_allowed][crate::model::auto_ml_tables_inputs::transformation::TimestampTransformation::invalid_values_allowed].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TimestampTransformation;
+            /// let x = TimestampTransformation::new().set_invalid_values_allowed(true);
+            /// ```
             pub fn set_invalid_values_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.invalid_values_allowed = v.into();
                 self
@@ -2353,6 +2851,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TextTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TextTransformation;
+            /// let x = TextTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2394,6 +2898,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation;
+            /// let x = NumericArrayTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2403,6 +2913,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [invalid_values_allowed][crate::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation::invalid_values_allowed].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::NumericArrayTransformation;
+            /// let x = NumericArrayTransformation::new().set_invalid_values_allowed(true);
+            /// ```
             pub fn set_invalid_values_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.invalid_values_allowed = v.into();
                 self
@@ -2438,6 +2954,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::CategoricalArrayTransformation;
+            /// let x = CategoricalArrayTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2475,6 +2997,12 @@ pub mod auto_ml_tables_inputs {
             }
 
             /// Sets the value of [column_name][crate::model::auto_ml_tables_inputs::transformation::TextArrayTransformation::column_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_tables_inputs::transformation::TextArrayTransformation;
+            /// let x = TextArrayTransformation::new().set_column_name("example");
+            /// ```
             pub fn set_column_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2539,6 +3067,12 @@ impl AutoMlTablesMetadata {
     }
 
     /// Sets the value of [train_cost_milli_node_hours][crate::model::AutoMlTablesMetadata::train_cost_milli_node_hours].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTablesMetadata;
+    /// let x = AutoMlTablesMetadata::new().set_train_cost_milli_node_hours(42);
+    /// ```
     pub fn set_train_cost_milli_node_hours<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.train_cost_milli_node_hours = v.into();
         self
@@ -2567,6 +3101,13 @@ impl AutoMlTextClassification {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlTextClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextClassificationInputs;
+    /// let x = AutoMlTextClassification::new().set_inputs(AutoMlTextClassificationInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>,
@@ -2576,6 +3117,14 @@ impl AutoMlTextClassification {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextClassificationInputs;
+    /// let x = AutoMlTextClassification::new().set_or_clear_inputs(Some(AutoMlTextClassificationInputs::default()/* use setters */));
+    /// let x = AutoMlTextClassification::new().set_or_clear_inputs(None::<AutoMlTextClassificationInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextClassificationInputs>,
@@ -2605,6 +3154,12 @@ impl AutoMlTextClassificationInputs {
     }
 
     /// Sets the value of [multi_label][crate::model::AutoMlTextClassificationInputs::multi_label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextClassificationInputs;
+    /// let x = AutoMlTextClassificationInputs::new().set_multi_label(true);
+    /// ```
     pub fn set_multi_label<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_label = v.into();
         self
@@ -2633,6 +3188,13 @@ impl AutoMlTextExtraction {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlTextExtraction::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextExtraction;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextExtractionInputs;
+    /// let x = AutoMlTextExtraction::new().set_inputs(AutoMlTextExtractionInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>,
@@ -2642,6 +3204,14 @@ impl AutoMlTextExtraction {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextExtraction::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextExtraction;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextExtractionInputs;
+    /// let x = AutoMlTextExtraction::new().set_or_clear_inputs(Some(AutoMlTextExtractionInputs::default()/* use setters */));
+    /// let x = AutoMlTextExtraction::new().set_or_clear_inputs(None::<AutoMlTextExtractionInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextExtractionInputs>,
@@ -2691,6 +3261,13 @@ impl AutoMlTextSentiment {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlTextSentiment::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextSentiment;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextSentimentInputs;
+    /// let x = AutoMlTextSentiment::new().set_inputs(AutoMlTextSentimentInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>,
@@ -2700,6 +3277,14 @@ impl AutoMlTextSentiment {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlTextSentiment::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextSentiment;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextSentimentInputs;
+    /// let x = AutoMlTextSentiment::new().set_or_clear_inputs(Some(AutoMlTextSentimentInputs::default()/* use setters */));
+    /// let x = AutoMlTextSentiment::new().set_or_clear_inputs(None::<AutoMlTextSentimentInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlTextSentimentInputs>,
@@ -2736,6 +3321,12 @@ impl AutoMlTextSentimentInputs {
     }
 
     /// Sets the value of [sentiment_max][crate::model::AutoMlTextSentimentInputs::sentiment_max].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlTextSentimentInputs;
+    /// let x = AutoMlTextSentimentInputs::new().set_sentiment_max(42);
+    /// ```
     pub fn set_sentiment_max<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sentiment_max = v.into();
         self
@@ -2765,6 +3356,13 @@ impl AutoMlVideoActionRecognition {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoActionRecognition::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoActionRecognition;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoActionRecognitionInputs;
+    /// let x = AutoMlVideoActionRecognition::new().set_inputs(AutoMlVideoActionRecognitionInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>,
@@ -2774,6 +3372,14 @@ impl AutoMlVideoActionRecognition {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoActionRecognition::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoActionRecognition;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoActionRecognitionInputs;
+    /// let x = AutoMlVideoActionRecognition::new().set_or_clear_inputs(Some(AutoMlVideoActionRecognitionInputs::default()/* use setters */));
+    /// let x = AutoMlVideoActionRecognition::new().set_or_clear_inputs(None::<AutoMlVideoActionRecognitionInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoActionRecognitionInputs>,
@@ -2803,6 +3409,15 @@ impl AutoMlVideoActionRecognitionInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoActionRecognitionInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoActionRecognitionInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_video_action_recognition_inputs::ModelType;
+    /// let x0 = AutoMlVideoActionRecognitionInputs::new().set_model_type(ModelType::Cloud);
+    /// let x1 = AutoMlVideoActionRecognitionInputs::new().set_model_type(ModelType::MobileVersatile1);
+    /// let x2 = AutoMlVideoActionRecognitionInputs::new().set_model_type(ModelType::MobileJetsonVersatile1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_video_action_recognition_inputs::ModelType>,
     >(
@@ -2997,6 +3612,13 @@ impl AutoMlVideoClassification {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoClassificationInputs;
+    /// let x = AutoMlVideoClassification::new().set_inputs(AutoMlVideoClassificationInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>,
@@ -3006,6 +3628,14 @@ impl AutoMlVideoClassification {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoClassification::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoClassification;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoClassificationInputs;
+    /// let x = AutoMlVideoClassification::new().set_or_clear_inputs(Some(AutoMlVideoClassificationInputs::default()/* use setters */));
+    /// let x = AutoMlVideoClassification::new().set_or_clear_inputs(None::<AutoMlVideoClassificationInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoClassificationInputs>,
@@ -3035,6 +3665,15 @@ impl AutoMlVideoClassificationInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoClassificationInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoClassificationInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_video_classification_inputs::ModelType;
+    /// let x0 = AutoMlVideoClassificationInputs::new().set_model_type(ModelType::Cloud);
+    /// let x1 = AutoMlVideoClassificationInputs::new().set_model_type(ModelType::MobileVersatile1);
+    /// let x2 = AutoMlVideoClassificationInputs::new().set_model_type(ModelType::MobileJetsonVersatile1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_video_classification_inputs::ModelType>,
     >(
@@ -3218,6 +3857,13 @@ impl AutoMlVideoObjectTracking {
     }
 
     /// Sets the value of [inputs][crate::model::AutoMlVideoObjectTracking::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoObjectTracking;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoObjectTrackingInputs;
+    /// let x = AutoMlVideoObjectTracking::new().set_inputs(AutoMlVideoObjectTrackingInputs::default()/* use setters */);
+    /// ```
     pub fn set_inputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>,
@@ -3227,6 +3873,14 @@ impl AutoMlVideoObjectTracking {
     }
 
     /// Sets or clears the value of [inputs][crate::model::AutoMlVideoObjectTracking::inputs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoObjectTracking;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoObjectTrackingInputs;
+    /// let x = AutoMlVideoObjectTracking::new().set_or_clear_inputs(Some(AutoMlVideoObjectTrackingInputs::default()/* use setters */));
+    /// let x = AutoMlVideoObjectTracking::new().set_or_clear_inputs(None::<AutoMlVideoObjectTrackingInputs>);
+    /// ```
     pub fn set_or_clear_inputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMlVideoObjectTrackingInputs>,
@@ -3256,6 +3910,15 @@ impl AutoMlVideoObjectTrackingInputs {
     }
 
     /// Sets the value of [model_type][crate::model::AutoMlVideoObjectTrackingInputs::model_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::AutoMlVideoObjectTrackingInputs;
+    /// use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::auto_ml_video_object_tracking_inputs::ModelType;
+    /// let x0 = AutoMlVideoObjectTrackingInputs::new().set_model_type(ModelType::Cloud);
+    /// let x1 = AutoMlVideoObjectTrackingInputs::new().set_model_type(ModelType::MobileVersatile1);
+    /// let x2 = AutoMlVideoObjectTrackingInputs::new().set_model_type(ModelType::MobileCoralVersatile1);
+    /// ```
     pub fn set_model_type<
         T: std::convert::Into<crate::model::auto_ml_video_object_tracking_inputs::ModelType>,
     >(
@@ -3478,6 +4141,12 @@ impl ExportEvaluatedDataItemsConfig {
     }
 
     /// Sets the value of [destination_bigquery_uri][crate::model::ExportEvaluatedDataItemsConfig::destination_bigquery_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::ExportEvaluatedDataItemsConfig;
+    /// let x = ExportEvaluatedDataItemsConfig::new().set_destination_bigquery_uri("example");
+    /// ```
     pub fn set_destination_bigquery_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3487,6 +4156,12 @@ impl ExportEvaluatedDataItemsConfig {
     }
 
     /// Sets the value of [override_existing_table][crate::model::ExportEvaluatedDataItemsConfig::override_existing_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_trainingjob_definition::model::ExportEvaluatedDataItemsConfig;
+    /// let x = ExportEvaluatedDataItemsConfig::new().set_override_existing_table(true);
+    /// ```
     pub fn set_override_existing_table<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.override_existing_table = v.into();
         self
