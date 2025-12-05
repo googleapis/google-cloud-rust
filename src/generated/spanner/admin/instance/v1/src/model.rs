@@ -62,12 +62,25 @@ impl OperationProgress {
     }
 
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = OperationProgress::new().set_progress_percent(42);
+    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// use wkt::Timestamp;
+    /// let x = OperationProgress::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -77,6 +90,14 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OperationProgress::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// use wkt::Timestamp;
+    /// let x = OperationProgress::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationProgress::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -86,6 +107,13 @@ impl OperationProgress {
     }
 
     /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// use wkt::Timestamp;
+    /// let x = OperationProgress::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -95,6 +123,14 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationProgress::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// use wkt::Timestamp;
+    /// let x = OperationProgress::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationProgress::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -126,6 +162,12 @@ impl ReplicaSelection {
     }
 
     /// Sets the value of [location][crate::model::ReplicaSelection::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaSelection;
+    /// let x = ReplicaSelection::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -162,12 +204,27 @@ impl ReplicaInfo {
     }
 
     /// Sets the value of [location][crate::model::ReplicaInfo::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaInfo;
+    /// let x = ReplicaInfo::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ReplicaInfo::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaInfo;
+    /// use google_cloud_spanner_admin_instance_v1::model::replica_info::ReplicaType;
+    /// let x0 = ReplicaInfo::new().set_type(ReplicaType::ReadWrite);
+    /// let x1 = ReplicaInfo::new().set_type(ReplicaType::ReadOnly);
+    /// let x2 = ReplicaInfo::new().set_type(ReplicaType::Witness);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::replica_info::ReplicaType>>(
         mut self,
         v: T,
@@ -177,6 +234,12 @@ impl ReplicaInfo {
     }
 
     /// Sets the value of [default_leader_location][crate::model::ReplicaInfo::default_leader_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaInfo;
+    /// let x = ReplicaInfo::new().set_default_leader_location(true);
+    /// ```
     pub fn set_default_leader_location<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_leader_location = v.into();
         self
@@ -459,18 +522,38 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [name][crate::model::InstanceConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::InstanceConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [config_type][crate::model::InstanceConfig::config_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_config::Type;
+    /// let x0 = InstanceConfig::new().set_config_type(Type::GoogleManaged);
+    /// let x1 = InstanceConfig::new().set_config_type(Type::UserManaged);
+    /// ```
     pub fn set_config_type<T: std::convert::Into<crate::model::instance_config::Type>>(
         mut self,
         v: T,
@@ -480,6 +563,17 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [replicas][crate::model::InstanceConfig::replicas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::ReplicaInfo;
+    /// let x = InstanceConfig::new()
+    ///     .set_replicas([
+    ///         ReplicaInfo::default()/* use setters */,
+    ///         ReplicaInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -491,6 +585,17 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [optional_replicas][crate::model::InstanceConfig::optional_replicas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::ReplicaInfo;
+    /// let x = InstanceConfig::new()
+    ///     .set_optional_replicas([
+    ///         ReplicaInfo::default()/* use setters */,
+    ///         ReplicaInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_optional_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -502,12 +607,27 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [base_config][crate::model::InstanceConfig::base_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_base_config("example");
+    /// ```
     pub fn set_base_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_config = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::InstanceConfig::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -520,12 +640,24 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [etag][crate::model::InstanceConfig::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [leader_options][crate::model::InstanceConfig::leader_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_leader_options(["a", "b", "c"]);
+    /// ```
     pub fn set_leader_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -537,12 +669,26 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [reconciling][crate::model::InstanceConfig::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::InstanceConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_config::State;
+    /// let x0 = InstanceConfig::new().set_state(State::Creating);
+    /// let x1 = InstanceConfig::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance_config::State>>(
         mut self,
         v: T,
@@ -552,6 +698,15 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [free_instance_availability][crate::model::InstanceConfig::free_instance_availability].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_config::FreeInstanceAvailability;
+    /// let x0 = InstanceConfig::new().set_free_instance_availability(FreeInstanceAvailability::Available);
+    /// let x1 = InstanceConfig::new().set_free_instance_availability(FreeInstanceAvailability::Unsupported);
+    /// let x2 = InstanceConfig::new().set_free_instance_availability(FreeInstanceAvailability::Disabled);
+    /// ```
     pub fn set_free_instance_availability<
         T: std::convert::Into<crate::model::instance_config::FreeInstanceAvailability>,
     >(
@@ -563,6 +718,15 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [quorum_type][crate::model::InstanceConfig::quorum_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_config::QuorumType;
+    /// let x0 = InstanceConfig::new().set_quorum_type(QuorumType::Region);
+    /// let x1 = InstanceConfig::new().set_quorum_type(QuorumType::DualRegion);
+    /// let x2 = InstanceConfig::new().set_quorum_type(QuorumType::MultiRegion);
+    /// ```
     pub fn set_quorum_type<T: std::convert::Into<crate::model::instance_config::QuorumType>>(
         mut self,
         v: T,
@@ -572,6 +736,12 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [storage_limit_per_processing_unit][crate::model::InstanceConfig::storage_limit_per_processing_unit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_storage_limit_per_processing_unit(42);
+    /// ```
     pub fn set_storage_limit_per_processing_unit<T: std::convert::Into<i64>>(
         mut self,
         v: T,
@@ -1187,6 +1357,13 @@ impl ReplicaComputeCapacity {
     }
 
     /// Sets the value of [replica_selection][crate::model::ReplicaComputeCapacity::replica_selection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// use google_cloud_spanner_admin_instance_v1::model::ReplicaSelection;
+    /// let x = ReplicaComputeCapacity::new().set_replica_selection(ReplicaSelection::default()/* use setters */);
+    /// ```
     pub fn set_replica_selection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1196,6 +1373,14 @@ impl ReplicaComputeCapacity {
     }
 
     /// Sets or clears the value of [replica_selection][crate::model::ReplicaComputeCapacity::replica_selection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// use google_cloud_spanner_admin_instance_v1::model::ReplicaSelection;
+    /// let x = ReplicaComputeCapacity::new().set_or_clear_replica_selection(Some(ReplicaSelection::default()/* use setters */));
+    /// let x = ReplicaComputeCapacity::new().set_or_clear_replica_selection(None::<ReplicaSelection>);
+    /// ```
     pub fn set_or_clear_replica_selection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1208,6 +1393,13 @@ impl ReplicaComputeCapacity {
     ///
     /// Note that all the setters affecting `compute_capacity` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// use google_cloud_spanner_admin_instance_v1::model::replica_compute_capacity::ComputeCapacity;
+    /// let x = ReplicaComputeCapacity::new().set_compute_capacity(Some(ComputeCapacity::NodeCount(42)));
+    /// ```
     pub fn set_compute_capacity<
         T: std::convert::Into<
                 std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
@@ -1238,6 +1430,14 @@ impl ReplicaComputeCapacity {
     ///
     /// Note that all the setters affecting `compute_capacity` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// let x = ReplicaComputeCapacity::new().set_node_count(42);
+    /// assert!(x.node_count().is_some());
+    /// assert!(x.processing_units().is_none());
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_capacity = std::option::Option::Some(
             crate::model::replica_compute_capacity::ComputeCapacity::NodeCount(v.into()),
@@ -1263,6 +1463,14 @@ impl ReplicaComputeCapacity {
     ///
     /// Note that all the setters affecting `compute_capacity` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// let x = ReplicaComputeCapacity::new().set_processing_units(42);
+    /// assert!(x.processing_units().is_some());
+    /// assert!(x.node_count().is_none());
+    /// ```
     pub fn set_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_capacity = std::option::Option::Some(
             crate::model::replica_compute_capacity::ComputeCapacity::ProcessingUnits(v.into()),
@@ -1336,6 +1544,13 @@ impl AutoscalingConfig {
     }
 
     /// Sets the value of [autoscaling_limits][crate::model::AutoscalingConfig::autoscaling_limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+    /// let x = AutoscalingConfig::new().set_autoscaling_limits(AutoscalingLimits::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling_limits<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -1345,6 +1560,14 @@ impl AutoscalingConfig {
     }
 
     /// Sets or clears the value of [autoscaling_limits][crate::model::AutoscalingConfig::autoscaling_limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+    /// let x = AutoscalingConfig::new().set_or_clear_autoscaling_limits(Some(AutoscalingLimits::default()/* use setters */));
+    /// let x = AutoscalingConfig::new().set_or_clear_autoscaling_limits(None::<AutoscalingLimits>);
+    /// ```
     pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -1354,6 +1577,13 @@ impl AutoscalingConfig {
     }
 
     /// Sets the value of [autoscaling_targets][crate::model::AutoscalingConfig::autoscaling_targets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingTargets;
+    /// let x = AutoscalingConfig::new().set_autoscaling_targets(AutoscalingTargets::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling_targets<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingTargets>,
@@ -1363,6 +1593,14 @@ impl AutoscalingConfig {
     }
 
     /// Sets or clears the value of [autoscaling_targets][crate::model::AutoscalingConfig::autoscaling_targets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingTargets;
+    /// let x = AutoscalingConfig::new().set_or_clear_autoscaling_targets(Some(AutoscalingTargets::default()/* use setters */));
+    /// let x = AutoscalingConfig::new().set_or_clear_autoscaling_targets(None::<AutoscalingTargets>);
+    /// ```
     pub fn set_or_clear_autoscaling_targets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::autoscaling_config::AutoscalingTargets>,
@@ -1372,6 +1610,17 @@ impl AutoscalingConfig {
     }
 
     /// Sets the value of [asymmetric_autoscaling_options][crate::model::AutoscalingConfig::asymmetric_autoscaling_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AsymmetricAutoscalingOption;
+    /// let x = AutoscalingConfig::new()
+    ///     .set_asymmetric_autoscaling_options([
+    ///         AsymmetricAutoscalingOption::default()/* use setters */,
+    ///         AsymmetricAutoscalingOption::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_asymmetric_autoscaling_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1424,6 +1673,13 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `min_limit` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::autoscaling_limits::MinLimit;
+        /// let x = AutoscalingLimits::new().set_min_limit(Some(MinLimit::MinNodes(42)));
+        /// ```
         pub fn set_min_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -1456,6 +1712,14 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `min_limit` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// let x = AutoscalingLimits::new().set_min_nodes(42);
+        /// assert!(x.min_nodes().is_some());
+        /// assert!(x.min_processing_units().is_none());
+        /// ```
         pub fn set_min_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.min_limit = std::option::Option::Some(
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinNodes(v.into()),
@@ -1479,6 +1743,14 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `min_limit` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// let x = AutoscalingLimits::new().set_min_processing_units(42);
+        /// assert!(x.min_processing_units().is_some());
+        /// assert!(x.min_nodes().is_none());
+        /// ```
         pub fn set_min_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.min_limit = std::option::Option::Some(
                 crate::model::autoscaling_config::autoscaling_limits::MinLimit::MinProcessingUnits(
@@ -1492,6 +1764,13 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `max_limit` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::autoscaling_limits::MaxLimit;
+        /// let x = AutoscalingLimits::new().set_max_limit(Some(MaxLimit::MaxNodes(42)));
+        /// ```
         pub fn set_max_limit<
             T: std::convert::Into<
                     std::option::Option<
@@ -1524,6 +1803,14 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `max_limit` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// let x = AutoscalingLimits::new().set_max_nodes(42);
+        /// assert!(x.max_nodes().is_some());
+        /// assert!(x.max_processing_units().is_none());
+        /// ```
         pub fn set_max_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_limit = std::option::Option::Some(
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxNodes(v.into()),
@@ -1547,6 +1834,14 @@ pub mod autoscaling_config {
         ///
         /// Note that all the setters affecting `max_limit` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+        /// let x = AutoscalingLimits::new().set_max_processing_units(42);
+        /// assert!(x.max_processing_units().is_some());
+        /// assert!(x.max_nodes().is_none());
+        /// ```
         pub fn set_max_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_limit = std::option::Option::Some(
                 crate::model::autoscaling_config::autoscaling_limits::MaxLimit::MaxProcessingUnits(
@@ -1621,6 +1916,12 @@ pub mod autoscaling_config {
         }
 
         /// Sets the value of [high_priority_cpu_utilization_percent][crate::model::autoscaling_config::AutoscalingTargets::high_priority_cpu_utilization_percent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingTargets;
+        /// let x = AutoscalingTargets::new().set_high_priority_cpu_utilization_percent(42);
+        /// ```
         pub fn set_high_priority_cpu_utilization_percent<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -1630,6 +1931,12 @@ pub mod autoscaling_config {
         }
 
         /// Sets the value of [storage_utilization_percent][crate::model::autoscaling_config::AutoscalingTargets::storage_utilization_percent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingTargets;
+        /// let x = AutoscalingTargets::new().set_storage_utilization_percent(42);
+        /// ```
         pub fn set_storage_utilization_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.storage_utilization_percent = v.into();
             self
@@ -1647,15 +1954,15 @@ pub mod autoscaling_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AsymmetricAutoscalingOption {
-
+    
         /// Required. Selects the replicas to which this AsymmetricAutoscalingOption
         /// applies. Only read-only replicas are supported.
         pub replica_selection: std::option::Option<crate::model::ReplicaSelection>,
-
+    
         /// Optional. Overrides applied to the top-level autoscaling configuration
         /// for the selected replicas.
         pub overrides: std::option::Option<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1665,6 +1972,13 @@ pub mod autoscaling_config {
         }
 
         /// Sets the value of [replica_selection][crate::model::autoscaling_config::AsymmetricAutoscalingOption::replica_selection].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AsymmetricAutoscalingOption;
+        /// use google_cloud_spanner_admin_instance_v1::model::ReplicaSelection;
+        /// let x = AsymmetricAutoscalingOption::new().set_replica_selection(ReplicaSelection::default()/* use setters */);
+        /// ```
         pub fn set_replica_selection<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1674,6 +1988,14 @@ pub mod autoscaling_config {
         }
 
         /// Sets or clears the value of [replica_selection][crate::model::autoscaling_config::AsymmetricAutoscalingOption::replica_selection].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AsymmetricAutoscalingOption;
+        /// use google_cloud_spanner_admin_instance_v1::model::ReplicaSelection;
+        /// let x = AsymmetricAutoscalingOption::new().set_or_clear_replica_selection(Some(ReplicaSelection::default()/* use setters */));
+        /// let x = AsymmetricAutoscalingOption::new().set_or_clear_replica_selection(None::<ReplicaSelection>);
+        /// ```
         pub fn set_or_clear_replica_selection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ReplicaSelection>,
@@ -1683,6 +2005,13 @@ pub mod autoscaling_config {
         }
 
         /// Sets the value of [overrides][crate::model::autoscaling_config::AsymmetricAutoscalingOption::overrides].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AsymmetricAutoscalingOption;
+        /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+        /// let x = AsymmetricAutoscalingOption::new().set_overrides(AutoscalingConfigOverrides::default()/* use setters */);
+        /// ```
         pub fn set_overrides<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>
         {
@@ -1691,6 +2020,14 @@ pub mod autoscaling_config {
         }
 
         /// Sets or clears the value of [overrides][crate::model::autoscaling_config::AsymmetricAutoscalingOption::overrides].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AsymmetricAutoscalingOption;
+        /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+        /// let x = AsymmetricAutoscalingOption::new().set_or_clear_overrides(Some(AutoscalingConfigOverrides::default()/* use setters */));
+        /// let x = AsymmetricAutoscalingOption::new().set_or_clear_overrides(None::<AutoscalingConfigOverrides>);
+        /// ```
         pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>
         {
@@ -1736,6 +2073,13 @@ pub mod autoscaling_config {
             }
 
             /// Sets the value of [autoscaling_limits][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_limits].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+            /// let x = AutoscalingConfigOverrides::new().set_autoscaling_limits(AutoscalingLimits::default()/* use setters */);
+            /// ```
             pub fn set_autoscaling_limits<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -1745,6 +2089,14 @@ pub mod autoscaling_config {
             }
 
             /// Sets or clears the value of [autoscaling_limits][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_limits].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::AutoscalingLimits;
+            /// let x = AutoscalingConfigOverrides::new().set_or_clear_autoscaling_limits(Some(AutoscalingLimits::default()/* use setters */));
+            /// let x = AutoscalingConfigOverrides::new().set_or_clear_autoscaling_limits(None::<AutoscalingLimits>);
+            /// ```
             pub fn set_or_clear_autoscaling_limits<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::autoscaling_config::AutoscalingLimits>,
@@ -1754,6 +2106,12 @@ pub mod autoscaling_config {
             }
 
             /// Sets the value of [autoscaling_target_high_priority_cpu_utilization_percent][crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides::autoscaling_target_high_priority_cpu_utilization_percent].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_spanner_admin_instance_v1::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides;
+            /// let x = AutoscalingConfigOverrides::new().set_autoscaling_target_high_priority_cpu_utilization_percent(42);
+            /// ```
             pub fn set_autoscaling_target_high_priority_cpu_utilization_percent<
                 T: std::convert::Into<i32>,
             >(
@@ -1914,36 +2272,77 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::Instance::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_config("example");
+    /// ```
     pub fn set_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Instance::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [node_count][crate::model::Instance::node_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_node_count(42);
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [processing_units][crate::model::Instance::processing_units].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_processing_units(42);
+    /// ```
     pub fn set_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.processing_units = v.into();
         self
     }
 
     /// Sets the value of [replica_compute_capacity][crate::model::Instance::replica_compute_capacity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::ReplicaComputeCapacity;
+    /// let x = Instance::new()
+    ///     .set_replica_compute_capacity([
+    ///         ReplicaComputeCapacity::default()/* use setters */,
+    ///         ReplicaComputeCapacity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_replica_compute_capacity<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1955,6 +2354,13 @@ impl Instance {
     }
 
     /// Sets the value of [autoscaling_config][crate::model::Instance::autoscaling_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// let x = Instance::new().set_autoscaling_config(AutoscalingConfig::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingConfig>,
@@ -1964,6 +2370,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [autoscaling_config][crate::model::Instance::autoscaling_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// let x = Instance::new().set_or_clear_autoscaling_config(Some(AutoscalingConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_autoscaling_config(None::<AutoscalingConfig>);
+    /// ```
     pub fn set_or_clear_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingConfig>,
@@ -1973,12 +2387,29 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Creating);
+    /// let x1 = Instance::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1991,6 +2422,14 @@ impl Instance {
     }
 
     /// Sets the value of [instance_type][crate::model::Instance::instance_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance::InstanceType;
+    /// let x0 = Instance::new().set_instance_type(InstanceType::Provisioned);
+    /// let x1 = Instance::new().set_instance_type(InstanceType::FreeInstance);
+    /// ```
     pub fn set_instance_type<T: std::convert::Into<crate::model::instance::InstanceType>>(
         mut self,
         v: T,
@@ -2000,6 +2439,12 @@ impl Instance {
     }
 
     /// Sets the value of [endpoint_uris][crate::model::Instance::endpoint_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = Instance::new().set_endpoint_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_endpoint_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2011,6 +2456,13 @@ impl Instance {
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2020,6 +2472,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2029,6 +2489,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2038,6 +2505,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2047,6 +2522,13 @@ impl Instance {
     }
 
     /// Sets the value of [free_instance_metadata][crate::model::Instance::free_instance_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// let x = Instance::new().set_free_instance_metadata(FreeInstanceMetadata::default()/* use setters */);
+    /// ```
     pub fn set_free_instance_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FreeInstanceMetadata>,
@@ -2056,6 +2538,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [free_instance_metadata][crate::model::Instance::free_instance_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// let x = Instance::new().set_or_clear_free_instance_metadata(Some(FreeInstanceMetadata::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_free_instance_metadata(None::<FreeInstanceMetadata>);
+    /// ```
     pub fn set_or_clear_free_instance_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FreeInstanceMetadata>,
@@ -2065,6 +2555,15 @@ impl Instance {
     }
 
     /// Sets the value of [edition][crate::model::Instance::edition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance::Edition;
+    /// let x0 = Instance::new().set_edition(Edition::Standard);
+    /// let x1 = Instance::new().set_edition(Edition::Enterprise);
+    /// let x2 = Instance::new().set_edition(Edition::EnterprisePlus);
+    /// ```
     pub fn set_edition<T: std::convert::Into<crate::model::instance::Edition>>(
         mut self,
         v: T,
@@ -2074,6 +2573,14 @@ impl Instance {
     }
 
     /// Sets the value of [default_backup_schedule_type][crate::model::Instance::default_backup_schedule_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance::DefaultBackupScheduleType;
+    /// let x0 = Instance::new().set_default_backup_schedule_type(DefaultBackupScheduleType::None);
+    /// let x1 = Instance::new().set_default_backup_schedule_type(DefaultBackupScheduleType::Automatic);
+    /// ```
     pub fn set_default_backup_schedule_type<
         T: std::convert::Into<crate::model::instance::DefaultBackupScheduleType>,
     >(
@@ -2687,18 +3194,36 @@ impl ListInstanceConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstanceConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigsRequest;
+    /// let x = ListInstanceConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstanceConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigsRequest;
+    /// let x = ListInstanceConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstanceConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigsRequest;
+    /// let x = ListInstanceConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2737,6 +3262,17 @@ impl ListInstanceConfigsResponse {
     }
 
     /// Sets the value of [instance_configs][crate::model::ListInstanceConfigsResponse::instance_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigsResponse;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = ListInstanceConfigsResponse::new()
+    ///     .set_instance_configs([
+    ///         InstanceConfig::default()/* use setters */,
+    ///         InstanceConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instance_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2748,6 +3284,12 @@ impl ListInstanceConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstanceConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigsResponse;
+    /// let x = ListInstanceConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2794,6 +3336,12 @@ impl GetInstanceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceConfigRequest;
+    /// let x = GetInstanceConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2843,12 +3391,24 @@ impl CreateInstanceConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigRequest;
+    /// let x = CreateInstanceConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_config_id][crate::model::CreateInstanceConfigRequest::instance_config_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigRequest;
+    /// let x = CreateInstanceConfigRequest::new().set_instance_config_id("example");
+    /// ```
     pub fn set_instance_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2858,6 +3418,13 @@ impl CreateInstanceConfigRequest {
     }
 
     /// Sets the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = CreateInstanceConfigRequest::new().set_instance_config(InstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -2867,6 +3434,14 @@ impl CreateInstanceConfigRequest {
     }
 
     /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = CreateInstanceConfigRequest::new().set_or_clear_instance_config(Some(InstanceConfig::default()/* use setters */));
+    /// let x = CreateInstanceConfigRequest::new().set_or_clear_instance_config(None::<InstanceConfig>);
+    /// ```
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -2876,6 +3451,12 @@ impl CreateInstanceConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateInstanceConfigRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigRequest;
+    /// let x = CreateInstanceConfigRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2930,6 +3511,13 @@ impl UpdateInstanceConfigRequest {
     }
 
     /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = UpdateInstanceConfigRequest::new().set_instance_config(InstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -2939,6 +3527,14 @@ impl UpdateInstanceConfigRequest {
     }
 
     /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = UpdateInstanceConfigRequest::new().set_or_clear_instance_config(Some(InstanceConfig::default()/* use setters */));
+    /// let x = UpdateInstanceConfigRequest::new().set_or_clear_instance_config(None::<InstanceConfig>);
+    /// ```
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -2948,6 +3544,13 @@ impl UpdateInstanceConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2957,6 +3560,14 @@ impl UpdateInstanceConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2966,6 +3577,12 @@ impl UpdateInstanceConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateInstanceConfigRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigRequest;
+    /// let x = UpdateInstanceConfigRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3012,18 +3629,36 @@ impl DeleteInstanceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceConfigRequest;
+    /// let x = DeleteInstanceConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteInstanceConfigRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceConfigRequest;
+    /// let x = DeleteInstanceConfigRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteInstanceConfigRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceConfigRequest;
+    /// let x = DeleteInstanceConfigRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3116,24 +3751,48 @@ impl ListInstanceConfigOperationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstanceConfigOperationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsRequest;
+    /// let x = ListInstanceConfigOperationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstanceConfigOperationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsRequest;
+    /// let x = ListInstanceConfigOperationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstanceConfigOperationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsRequest;
+    /// let x = ListInstanceConfigOperationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstanceConfigOperationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsRequest;
+    /// let x = ListInstanceConfigOperationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3176,6 +3835,17 @@ impl ListInstanceConfigOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListInstanceConfigOperationsResponse::operations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsResponse;
+    /// use longrunning::model::Operation;
+    /// let x = ListInstanceConfigOperationsResponse::new()
+    ///     .set_operations([
+    ///         Operation::default()/* use setters */,
+    ///         Operation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3187,6 +3857,12 @@ impl ListInstanceConfigOperationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstanceConfigOperationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstanceConfigOperationsResponse;
+    /// let x = ListInstanceConfigOperationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3241,12 +3917,25 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetInstanceRequest::new().set_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3256,6 +3945,14 @@ impl GetInstanceRequest {
     }
 
     /// Sets or clears the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::GetInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = GetInstanceRequest::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = GetInstanceRequest::new().set_or_clear_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3300,18 +3997,37 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3321,6 +4037,14 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3401,30 +4125,61 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancesRequest::new().set_instance_deadline(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_deadline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3434,6 +4189,14 @@ impl ListInstancesRequest {
     }
 
     /// Sets or clears the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancesRequest::new().set_or_clear_instance_deadline(Some(Timestamp::default()/* use setters */));
+    /// let x = ListInstancesRequest::new().set_or_clear_instance_deadline(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3483,6 +4246,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesResponse;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3494,12 +4268,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3564,6 +4350,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3573,6 +4366,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3582,6 +4383,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3591,6 +4399,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3626,6 +4442,12 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3675,6 +4497,13 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceMetadata::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = CreateInstanceMetadata::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3684,6 +4513,14 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceMetadata::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = CreateInstanceMetadata::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceMetadata::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3693,6 +4530,13 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CreateInstanceMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3702,6 +4546,14 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateInstanceMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstanceMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3711,6 +4563,13 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::CreateInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3720,6 +4579,14 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::CreateInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstanceMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3729,6 +4596,13 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateInstanceMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3738,6 +4612,14 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateInstanceMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstanceMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3747,6 +4629,14 @@ impl CreateInstanceMetadata {
     }
 
     /// Sets the value of [expected_fulfillment_period][crate::model::CreateInstanceMetadata::expected_fulfillment_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::FulfillmentPeriod;
+    /// let x0 = CreateInstanceMetadata::new().set_expected_fulfillment_period(FulfillmentPeriod::Normal);
+    /// let x1 = CreateInstanceMetadata::new().set_expected_fulfillment_period(FulfillmentPeriod::Extended);
+    /// ```
     pub fn set_expected_fulfillment_period<
         T: std::convert::Into<crate::model::FulfillmentPeriod>,
     >(
@@ -3801,6 +4691,13 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceMetadata::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = UpdateInstanceMetadata::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3810,6 +4707,14 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceMetadata::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::Instance;
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3819,6 +4724,13 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::UpdateInstanceMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3828,6 +4740,14 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateInstanceMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3837,6 +4757,13 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::UpdateInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3846,6 +4773,14 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::UpdateInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3855,6 +4790,13 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateInstanceMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3864,6 +4806,14 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateInstanceMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstanceMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3873,6 +4823,14 @@ impl UpdateInstanceMetadata {
     }
 
     /// Sets the value of [expected_fulfillment_period][crate::model::UpdateInstanceMetadata::expected_fulfillment_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::FulfillmentPeriod;
+    /// let x0 = UpdateInstanceMetadata::new().set_expected_fulfillment_period(FulfillmentPeriod::Normal);
+    /// let x1 = UpdateInstanceMetadata::new().set_expected_fulfillment_period(FulfillmentPeriod::Extended);
+    /// ```
     pub fn set_expected_fulfillment_period<
         T: std::convert::Into<crate::model::FulfillmentPeriod>,
     >(
@@ -3919,6 +4877,13 @@ impl FreeInstanceMetadata {
     }
 
     /// Sets the value of [expire_time][crate::model::FreeInstanceMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FreeInstanceMetadata::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3928,6 +4893,14 @@ impl FreeInstanceMetadata {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::FreeInstanceMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FreeInstanceMetadata::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FreeInstanceMetadata::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3937,6 +4910,13 @@ impl FreeInstanceMetadata {
     }
 
     /// Sets the value of [upgrade_time][crate::model::FreeInstanceMetadata::upgrade_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FreeInstanceMetadata::new().set_upgrade_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3946,6 +4926,14 @@ impl FreeInstanceMetadata {
     }
 
     /// Sets or clears the value of [upgrade_time][crate::model::FreeInstanceMetadata::upgrade_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FreeInstanceMetadata::new().set_or_clear_upgrade_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FreeInstanceMetadata::new().set_or_clear_upgrade_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_upgrade_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3955,6 +4943,14 @@ impl FreeInstanceMetadata {
     }
 
     /// Sets the value of [expire_behavior][crate::model::FreeInstanceMetadata::expire_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::FreeInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::free_instance_metadata::ExpireBehavior;
+    /// let x0 = FreeInstanceMetadata::new().set_expire_behavior(ExpireBehavior::FreeToProvisioned);
+    /// let x1 = FreeInstanceMetadata::new().set_expire_behavior(ExpireBehavior::RemoveAfterGracePeriod);
+    /// ```
     pub fn set_expire_behavior<
         T: std::convert::Into<crate::model::free_instance_metadata::ExpireBehavior>,
     >(
@@ -4143,6 +5139,13 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets the value of [instance_config][crate::model::CreateInstanceConfigMetadata::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = CreateInstanceConfigMetadata::new().set_instance_config(InstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4152,6 +5155,14 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigMetadata::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_instance_config(Some(InstanceConfig::default()/* use setters */));
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_instance_config(None::<InstanceConfig>);
+    /// ```
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4161,6 +5172,13 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets the value of [progress][crate::model::CreateInstanceConfigMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = CreateInstanceConfigMetadata::new().set_progress(OperationProgress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4170,6 +5188,14 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::CreateInstanceConfigMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_progress(None::<OperationProgress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4179,6 +5205,13 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::CreateInstanceConfigMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceConfigMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4188,6 +5221,14 @@ impl CreateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::CreateInstanceConfigMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstanceConfigMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstanceConfigMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4232,6 +5273,13 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigMetadata::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = UpdateInstanceConfigMetadata::new().set_instance_config(InstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4241,6 +5289,14 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigMetadata::instance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstanceConfig;
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_instance_config(Some(InstanceConfig::default()/* use setters */));
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_instance_config(None::<InstanceConfig>);
+    /// ```
     pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceConfig>,
@@ -4250,6 +5306,13 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets the value of [progress][crate::model::UpdateInstanceConfigMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = UpdateInstanceConfigMetadata::new().set_progress(OperationProgress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4259,6 +5322,14 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::UpdateInstanceConfigMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_progress(None::<OperationProgress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -4268,6 +5339,13 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::UpdateInstanceConfigMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceConfigMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4277,6 +5355,14 @@ impl UpdateInstanceConfigMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::UpdateInstanceConfigMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstanceConfigMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstanceConfigMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4377,24 +5463,49 @@ impl InstancePartition {
     }
 
     /// Sets the value of [name][crate::model::InstancePartition::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::InstancePartition::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_config("example");
+    /// ```
     pub fn set_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::InstancePartition::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [autoscaling_config][crate::model::InstancePartition::autoscaling_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// let x = InstancePartition::new().set_autoscaling_config(AutoscalingConfig::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingConfig>,
@@ -4404,6 +5515,14 @@ impl InstancePartition {
     }
 
     /// Sets or clears the value of [autoscaling_config][crate::model::InstancePartition::autoscaling_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use google_cloud_spanner_admin_instance_v1::model::AutoscalingConfig;
+    /// let x = InstancePartition::new().set_or_clear_autoscaling_config(Some(AutoscalingConfig::default()/* use setters */));
+    /// let x = InstancePartition::new().set_or_clear_autoscaling_config(None::<AutoscalingConfig>);
+    /// ```
     pub fn set_or_clear_autoscaling_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingConfig>,
@@ -4413,6 +5532,14 @@ impl InstancePartition {
     }
 
     /// Sets the value of [state][crate::model::InstancePartition::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_partition::State;
+    /// let x0 = InstancePartition::new().set_state(State::Creating);
+    /// let x1 = InstancePartition::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance_partition::State>>(
         mut self,
         v: T,
@@ -4422,6 +5549,13 @@ impl InstancePartition {
     }
 
     /// Sets the value of [create_time][crate::model::InstancePartition::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use wkt::Timestamp;
+    /// let x = InstancePartition::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4431,6 +5565,14 @@ impl InstancePartition {
     }
 
     /// Sets or clears the value of [create_time][crate::model::InstancePartition::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use wkt::Timestamp;
+    /// let x = InstancePartition::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InstancePartition::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4440,6 +5582,13 @@ impl InstancePartition {
     }
 
     /// Sets the value of [update_time][crate::model::InstancePartition::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use wkt::Timestamp;
+    /// let x = InstancePartition::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4449,6 +5598,14 @@ impl InstancePartition {
     }
 
     /// Sets or clears the value of [update_time][crate::model::InstancePartition::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use wkt::Timestamp;
+    /// let x = InstancePartition::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InstancePartition::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4458,6 +5615,12 @@ impl InstancePartition {
     }
 
     /// Sets the value of [referencing_databases][crate::model::InstancePartition::referencing_databases].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_referencing_databases(["a", "b", "c"]);
+    /// ```
     pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4469,6 +5632,12 @@ impl InstancePartition {
     }
 
     /// Sets the value of [referencing_backups][crate::model::InstancePartition::referencing_backups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_referencing_backups(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
     where
@@ -4481,6 +5650,12 @@ impl InstancePartition {
     }
 
     /// Sets the value of [etag][crate::model::InstancePartition::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4490,6 +5665,13 @@ impl InstancePartition {
     ///
     /// Note that all the setters affecting `compute_capacity` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// use google_cloud_spanner_admin_instance_v1::model::instance_partition::ComputeCapacity;
+    /// let x = InstancePartition::new().set_compute_capacity(Some(ComputeCapacity::NodeCount(42)));
+    /// ```
     pub fn set_compute_capacity<
         T: std::convert::Into<std::option::Option<crate::model::instance_partition::ComputeCapacity>>,
     >(
@@ -4518,6 +5700,14 @@ impl InstancePartition {
     ///
     /// Note that all the setters affecting `compute_capacity` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_node_count(42);
+    /// assert!(x.node_count().is_some());
+    /// assert!(x.processing_units().is_none());
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_capacity = std::option::Option::Some(
             crate::model::instance_partition::ComputeCapacity::NodeCount(v.into()),
@@ -4543,6 +5733,14 @@ impl InstancePartition {
     ///
     /// Note that all the setters affecting `compute_capacity` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = InstancePartition::new().set_processing_units(42);
+    /// assert!(x.processing_units().is_some());
+    /// assert!(x.node_count().is_none());
+    /// ```
     pub fn set_processing_units<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compute_capacity = std::option::Option::Some(
             crate::model::instance_partition::ComputeCapacity::ProcessingUnits(v.into()),
@@ -4759,6 +5957,13 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionMetadata::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = CreateInstancePartitionMetadata::new().set_instance_partition(InstancePartition::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -4768,6 +5973,14 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionMetadata::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_instance_partition(Some(InstancePartition::default()/* use setters */));
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_instance_partition(None::<InstancePartition>);
+    /// ```
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -4777,6 +5990,13 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CreateInstancePartitionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4786,6 +6006,14 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateInstancePartitionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4795,6 +6023,13 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::CreateInstancePartitionMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4804,6 +6039,14 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::CreateInstancePartitionMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4813,6 +6056,13 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CreateInstancePartitionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4822,6 +6072,14 @@ impl CreateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CreateInstancePartitionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateInstancePartitionMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4868,12 +6126,24 @@ impl CreateInstancePartitionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionRequest;
+    /// let x = CreateInstancePartitionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_partition_id][crate::model::CreateInstancePartitionRequest::instance_partition_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionRequest;
+    /// let x = CreateInstancePartitionRequest::new().set_instance_partition_id("example");
+    /// ```
     pub fn set_instance_partition_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4883,6 +6153,13 @@ impl CreateInstancePartitionRequest {
     }
 
     /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = CreateInstancePartitionRequest::new().set_instance_partition(InstancePartition::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -4892,6 +6169,14 @@ impl CreateInstancePartitionRequest {
     }
 
     /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::CreateInstancePartitionRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = CreateInstancePartitionRequest::new().set_or_clear_instance_partition(Some(InstancePartition::default()/* use setters */));
+    /// let x = CreateInstancePartitionRequest::new().set_or_clear_instance_partition(None::<InstancePartition>);
+    /// ```
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -4934,12 +6219,24 @@ impl DeleteInstancePartitionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstancePartitionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstancePartitionRequest;
+    /// let x = DeleteInstancePartitionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteInstancePartitionRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::DeleteInstancePartitionRequest;
+    /// let x = DeleteInstancePartitionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4973,6 +6270,12 @@ impl GetInstancePartitionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstancePartitionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::GetInstancePartitionRequest;
+    /// let x = GetInstancePartitionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5019,6 +6322,13 @@ impl UpdateInstancePartitionRequest {
     }
 
     /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = UpdateInstancePartitionRequest::new().set_instance_partition(InstancePartition::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5028,6 +6338,14 @@ impl UpdateInstancePartitionRequest {
     }
 
     /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionRequest;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = UpdateInstancePartitionRequest::new().set_or_clear_instance_partition(Some(InstancePartition::default()/* use setters */));
+    /// let x = UpdateInstancePartitionRequest::new().set_or_clear_instance_partition(None::<InstancePartition>);
+    /// ```
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5037,6 +6355,13 @@ impl UpdateInstancePartitionRequest {
     }
 
     /// Sets the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstancePartitionRequest::new().set_field_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_field_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5046,6 +6371,14 @@ impl UpdateInstancePartitionRequest {
     }
 
     /// Sets or clears the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstancePartitionRequest::new().set_or_clear_field_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstancePartitionRequest::new().set_or_clear_field_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5095,6 +6428,13 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionMetadata::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = UpdateInstancePartitionMetadata::new().set_instance_partition(InstancePartition::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5104,6 +6444,14 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionMetadata::instance_partition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_instance_partition(Some(InstancePartition::default()/* use setters */));
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_instance_partition(None::<InstancePartition>);
+    /// ```
     pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancePartition>,
@@ -5113,6 +6461,13 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::UpdateInstancePartitionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5122,6 +6477,14 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpdateInstancePartitionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5131,6 +6494,13 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::UpdateInstancePartitionMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5140,6 +6510,14 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::UpdateInstancePartitionMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5149,6 +6527,13 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::UpdateInstancePartitionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5158,6 +6543,14 @@ impl UpdateInstancePartitionMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpdateInstancePartitionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::UpdateInstancePartitionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpdateInstancePartitionMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5219,24 +6612,49 @@ impl ListInstancePartitionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancePartitionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
+    /// let x = ListInstancePartitionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancePartitionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
+    /// let x = ListInstancePartitionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancePartitionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
+    /// let x = ListInstancePartitionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancePartitionsRequest::new().set_instance_partition_deadline(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5246,6 +6664,14 @@ impl ListInstancePartitionsRequest {
     }
 
     /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancePartitionsRequest::new().set_or_clear_instance_partition_deadline(Some(Timestamp::default()/* use setters */));
+    /// let x = ListInstancePartitionsRequest::new().set_or_clear_instance_partition_deadline(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_partition_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5295,6 +6721,17 @@ impl ListInstancePartitionsResponse {
     }
 
     /// Sets the value of [instance_partitions][crate::model::ListInstancePartitionsResponse::instance_partitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsResponse;
+    /// use google_cloud_spanner_admin_instance_v1::model::InstancePartition;
+    /// let x = ListInstancePartitionsResponse::new()
+    ///     .set_instance_partitions([
+    ///         InstancePartition::default()/* use setters */,
+    ///         InstancePartition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instance_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5306,12 +6743,24 @@ impl ListInstancePartitionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancePartitionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsResponse;
+    /// let x = ListInstancePartitionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancePartitionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionsResponse;
+    /// let x = ListInstancePartitionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5434,30 +6883,61 @@ impl ListInstancePartitionOperationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancePartitionOperationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancePartitionOperationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancePartitionOperationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancePartitionOperationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_instance_partition_deadline(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5467,6 +6947,14 @@ impl ListInstancePartitionOperationsRequest {
     }
 
     /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListInstancePartitionOperationsRequest::new().set_or_clear_instance_partition_deadline(Some(Timestamp::default()/* use setters */));
+    /// let x = ListInstancePartitionOperationsRequest::new().set_or_clear_instance_partition_deadline(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_instance_partition_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5520,6 +7008,17 @@ impl ListInstancePartitionOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListInstancePartitionOperationsResponse::operations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsResponse;
+    /// use longrunning::model::Operation;
+    /// let x = ListInstancePartitionOperationsResponse::new()
+    ///     .set_operations([
+    ///         Operation::default()/* use setters */,
+    ///         Operation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5531,12 +7030,24 @@ impl ListInstancePartitionOperationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancePartitionOperationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsResponse;
+    /// let x = ListInstancePartitionOperationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_instance_partitions][crate::model::ListInstancePartitionOperationsResponse::unreachable_instance_partitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::ListInstancePartitionOperationsResponse;
+    /// let x = ListInstancePartitionOperationsResponse::new().set_unreachable_instance_partitions(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable_instance_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5592,12 +7103,24 @@ impl MoveInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::MoveInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceRequest;
+    /// let x = MoveInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_config][crate::model::MoveInstanceRequest::target_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceRequest;
+    /// let x = MoveInstanceRequest::new().set_target_config("example");
+    /// ```
     pub fn set_target_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_config = v.into();
         self
@@ -5665,12 +7188,25 @@ impl MoveInstanceMetadata {
     }
 
     /// Sets the value of [target_config][crate::model::MoveInstanceMetadata::target_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceMetadata;
+    /// let x = MoveInstanceMetadata::new().set_target_config("example");
+    /// ```
     pub fn set_target_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_config = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::MoveInstanceMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = MoveInstanceMetadata::new().set_progress(OperationProgress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -5680,6 +7216,14 @@ impl MoveInstanceMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::MoveInstanceMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceMetadata;
+    /// use google_cloud_spanner_admin_instance_v1::model::OperationProgress;
+    /// let x = MoveInstanceMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
+    /// let x = MoveInstanceMetadata::new().set_or_clear_progress(None::<OperationProgress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -5689,6 +7233,13 @@ impl MoveInstanceMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::MoveInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveInstanceMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5698,6 +7249,14 @@ impl MoveInstanceMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::MoveInstanceMetadata::cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_spanner_admin_instance_v1::model::MoveInstanceMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveInstanceMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MoveInstanceMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

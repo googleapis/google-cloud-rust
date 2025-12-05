@@ -59,12 +59,29 @@ impl LoginProfile {
     }
 
     /// Sets the value of [name][crate::model::LoginProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::LoginProfile;
+    /// let x = LoginProfile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [posix_accounts][crate::model::LoginProfile::posix_accounts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::LoginProfile;
+    /// use oslogin_common::model::PosixAccount;
+    /// let x = LoginProfile::new()
+    ///     .set_posix_accounts([
+    ///         PosixAccount::default()/* use setters */,
+    ///         PosixAccount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_posix_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -76,6 +93,16 @@ impl LoginProfile {
     }
 
     /// Sets the value of [ssh_public_keys][crate::model::LoginProfile::ssh_public_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::LoginProfile;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = LoginProfile::new().set_ssh_public_keys([
+    ///     ("key0", SshPublicKey::default()/* use setters */),
+    ///     ("key1", SshPublicKey::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_ssh_public_keys<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -113,12 +140,25 @@ impl CreateSshPublicKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
+    /// let x = CreateSshPublicKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = CreateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
+    /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -128,6 +168,14 @@ impl CreateSshPublicKeyRequest {
     }
 
     /// Sets or clears the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::CreateSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = CreateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
+    /// let x = CreateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
+    /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -161,6 +209,12 @@ impl DeletePosixAccountRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::DeletePosixAccountRequest;
+    /// let x = DeletePosixAccountRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -191,6 +245,12 @@ impl DeleteSshPublicKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::DeleteSshPublicKeyRequest;
+    /// let x = DeleteSshPublicKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -225,18 +285,36 @@ impl GetLoginProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::GetLoginProfileRequest;
+    /// let x = GetLoginProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::GetLoginProfileRequest::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::GetLoginProfileRequest;
+    /// let x = GetLoginProfileRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [system_id][crate::model::GetLoginProfileRequest::system_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::GetLoginProfileRequest;
+    /// let x = GetLoginProfileRequest::new().set_system_id("example");
+    /// ```
     pub fn set_system_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.system_id = v.into();
         self
@@ -267,6 +345,12 @@ impl GetSshPublicKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::GetSshPublicKeyRequest;
+    /// let x = GetSshPublicKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -306,12 +390,25 @@ impl ImportSshPublicKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
+    /// let x = ImportSshPublicKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = ImportSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
+    /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -321,6 +418,14 @@ impl ImportSshPublicKeyRequest {
     }
 
     /// Sets or clears the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = ImportSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
+    /// let x = ImportSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
+    /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -330,12 +435,24 @@ impl ImportSshPublicKeyRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ImportSshPublicKeyRequest::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
+    /// let x = ImportSshPublicKeyRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [regions][crate::model::ImportSshPublicKeyRequest::regions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyRequest;
+    /// let x = ImportSshPublicKeyRequest::new().set_regions(["a", "b", "c"]);
+    /// ```
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -372,6 +489,13 @@ impl ImportSshPublicKeyResponse {
     }
 
     /// Sets the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyResponse;
+    /// use google_cloud_oslogin_v1::model::LoginProfile;
+    /// let x = ImportSshPublicKeyResponse::new().set_login_profile(LoginProfile::default()/* use setters */);
+    /// ```
     pub fn set_login_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoginProfile>,
@@ -381,6 +505,14 @@ impl ImportSshPublicKeyResponse {
     }
 
     /// Sets or clears the value of [login_profile][crate::model::ImportSshPublicKeyResponse::login_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyResponse;
+    /// use google_cloud_oslogin_v1::model::LoginProfile;
+    /// let x = ImportSshPublicKeyResponse::new().set_or_clear_login_profile(Some(LoginProfile::default()/* use setters */));
+    /// let x = ImportSshPublicKeyResponse::new().set_or_clear_login_profile(None::<LoginProfile>);
+    /// ```
     pub fn set_or_clear_login_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoginProfile>,
@@ -390,6 +522,12 @@ impl ImportSshPublicKeyResponse {
     }
 
     /// Sets the value of [details][crate::model::ImportSshPublicKeyResponse::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::ImportSshPublicKeyResponse;
+    /// let x = ImportSshPublicKeyResponse::new().set_details("example");
+    /// ```
     pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.details = v.into();
         self
@@ -426,12 +564,25 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
+    /// let x = UpdateSshPublicKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = UpdateSshPublicKeyRequest::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
+    /// ```
     pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -441,6 +592,14 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets or clears the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
+    /// use oslogin_common::model::SshPublicKey;
+    /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(Some(SshPublicKey::default()/* use setters */));
+    /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_ssh_public_key(None::<SshPublicKey>);
+    /// ```
     pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<oslogin_common::model::SshPublicKey>,
@@ -450,6 +609,13 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSshPublicKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -459,6 +625,14 @@ impl UpdateSshPublicKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oslogin_v1::model::UpdateSshPublicKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSshPublicKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

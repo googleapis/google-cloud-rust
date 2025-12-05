@@ -59,6 +59,17 @@ impl ExcludeInfoTypes {
     }
 
     /// Sets the value of [info_types][crate::model::ExcludeInfoTypes::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeInfoTypes;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = ExcludeInfoTypes::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -101,6 +112,13 @@ impl ExcludeByHotword {
     }
 
     /// Sets the value of [hotword_regex][crate::model::ExcludeByHotword::hotword_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByHotword;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+    /// let x = ExcludeByHotword::new().set_hotword_regex(Regex::default()/* use setters */);
+    /// ```
     pub fn set_hotword_regex<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::custom_info_type::Regex>,
@@ -110,6 +128,14 @@ impl ExcludeByHotword {
     }
 
     /// Sets or clears the value of [hotword_regex][crate::model::ExcludeByHotword::hotword_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByHotword;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+    /// let x = ExcludeByHotword::new().set_or_clear_hotword_regex(Some(Regex::default()/* use setters */));
+    /// let x = ExcludeByHotword::new().set_or_clear_hotword_regex(None::<Regex>);
+    /// ```
     pub fn set_or_clear_hotword_regex<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_info_type::Regex>,
@@ -119,6 +145,13 @@ impl ExcludeByHotword {
     }
 
     /// Sets the value of [proximity][crate::model::ExcludeByHotword::proximity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByHotword;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+    /// let x = ExcludeByHotword::new().set_proximity(Proximity::default()/* use setters */);
+    /// ```
     pub fn set_proximity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::custom_info_type::detection_rule::Proximity>,
@@ -128,6 +161,14 @@ impl ExcludeByHotword {
     }
 
     /// Sets or clears the value of [proximity][crate::model::ExcludeByHotword::proximity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByHotword;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+    /// let x = ExcludeByHotword::new().set_or_clear_proximity(Some(Proximity::default()/* use setters */));
+    /// let x = ExcludeByHotword::new().set_or_clear_proximity(None::<Proximity>);
+    /// ```
     pub fn set_or_clear_proximity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_info_type::detection_rule::Proximity>,
@@ -163,6 +204,15 @@ impl ExclusionRule {
     }
 
     /// Sets the value of [matching_type][crate::model::ExclusionRule::matching_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::MatchingType;
+    /// let x0 = ExclusionRule::new().set_matching_type(MatchingType::FullMatch);
+    /// let x1 = ExclusionRule::new().set_matching_type(MatchingType::PartialMatch);
+    /// let x2 = ExclusionRule::new().set_matching_type(MatchingType::InverseMatch);
+    /// ```
     pub fn set_matching_type<T: std::convert::Into<crate::model::MatchingType>>(
         mut self,
         v: T,
@@ -175,6 +225,14 @@ impl ExclusionRule {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+    /// let x = ExclusionRule::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::exclusion_rule::Type::Dictionary(Dictionary::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::exclusion_rule::Type>>,
     >(
@@ -203,6 +261,17 @@ impl ExclusionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+    /// let x = ExclusionRule::new().set_dictionary(Dictionary::default()/* use setters */);
+    /// assert!(x.dictionary().is_some());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.exclude_info_types().is_none());
+    /// assert!(x.exclude_by_hotword().is_none());
+    /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
     >(
@@ -232,6 +301,17 @@ impl ExclusionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+    /// let x = ExclusionRule::new().set_regex(Regex::default()/* use setters */);
+    /// assert!(x.regex().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.exclude_info_types().is_none());
+    /// assert!(x.exclude_by_hotword().is_none());
+    /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
     >(
@@ -261,6 +341,17 @@ impl ExclusionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::ExcludeInfoTypes;
+    /// let x = ExclusionRule::new().set_exclude_info_types(ExcludeInfoTypes::default()/* use setters */);
+    /// assert!(x.exclude_info_types().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.exclude_by_hotword().is_none());
+    /// ```
     pub fn set_exclude_info_types<
         T: std::convert::Into<std::boxed::Box<crate::model::ExcludeInfoTypes>>,
     >(
@@ -291,6 +382,17 @@ impl ExclusionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::ExcludeByHotword;
+    /// let x = ExclusionRule::new().set_exclude_by_hotword(ExcludeByHotword::default()/* use setters */);
+    /// assert!(x.exclude_by_hotword().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.exclude_info_types().is_none());
+    /// ```
     pub fn set_exclude_by_hotword<
         T: std::convert::Into<std::boxed::Box<crate::model::ExcludeByHotword>>,
     >(
@@ -351,6 +453,14 @@ impl InspectionRule {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+    /// let x = InspectionRule::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::inspection_rule::Type::HotwordRule(HotwordRule::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::inspection_rule::Type>>,
     >(
@@ -381,6 +491,15 @@ impl InspectionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+    /// let x = InspectionRule::new().set_hotword_rule(HotwordRule::default()/* use setters */);
+    /// assert!(x.hotword_rule().is_some());
+    /// assert!(x.exclusion_rule().is_none());
+    /// ```
     pub fn set_hotword_rule<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
@@ -412,6 +531,15 @@ impl InspectionRule {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRule;
+    /// use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// let x = InspectionRule::new().set_exclusion_rule(ExclusionRule::default()/* use setters */);
+    /// assert!(x.exclusion_rule().is_some());
+    /// assert!(x.hotword_rule().is_none());
+    /// ```
     pub fn set_exclusion_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ExclusionRule>>,
     >(
@@ -466,6 +594,17 @@ impl InspectionRuleSet {
     }
 
     /// Sets the value of [info_types][crate::model::InspectionRuleSet::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRuleSet;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InspectionRuleSet::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -477,6 +616,17 @@ impl InspectionRuleSet {
     }
 
     /// Sets the value of [rules][crate::model::InspectionRuleSet::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRuleSet;
+    /// use google_cloud_privacy_dlp_v2::model::InspectionRule;
+    /// let x = InspectionRuleSet::new()
+    ///     .set_rules([
+    ///         InspectionRule::default()/* use setters */,
+    ///         InspectionRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -583,6 +733,17 @@ impl InspectConfig {
     }
 
     /// Sets the value of [info_types][crate::model::InspectConfig::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InspectConfig::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -594,6 +755,15 @@ impl InspectConfig {
     }
 
     /// Sets the value of [min_likelihood][crate::model::InspectConfig::min_likelihood].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+    /// let x0 = InspectConfig::new().set_min_likelihood(Likelihood::VeryUnlikely);
+    /// let x1 = InspectConfig::new().set_min_likelihood(Likelihood::Unlikely);
+    /// let x2 = InspectConfig::new().set_min_likelihood(Likelihood::Possible);
+    /// ```
     pub fn set_min_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
         v: T,
@@ -603,6 +773,17 @@ impl InspectConfig {
     }
 
     /// Sets the value of [min_likelihood_per_info_type][crate::model::InspectConfig::min_likelihood_per_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_config::InfoTypeLikelihood;
+    /// let x = InspectConfig::new()
+    ///     .set_min_likelihood_per_info_type([
+    ///         InfoTypeLikelihood::default()/* use setters */,
+    ///         InfoTypeLikelihood::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_min_likelihood_per_info_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -614,6 +795,13 @@ impl InspectConfig {
     }
 
     /// Sets the value of [limits][crate::model::InspectConfig::limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_config::FindingLimits;
+    /// let x = InspectConfig::new().set_limits(FindingLimits::default()/* use setters */);
+    /// ```
     pub fn set_limits<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::inspect_config::FindingLimits>,
@@ -623,6 +811,14 @@ impl InspectConfig {
     }
 
     /// Sets or clears the value of [limits][crate::model::InspectConfig::limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_config::FindingLimits;
+    /// let x = InspectConfig::new().set_or_clear_limits(Some(FindingLimits::default()/* use setters */));
+    /// let x = InspectConfig::new().set_or_clear_limits(None::<FindingLimits>);
+    /// ```
     pub fn set_or_clear_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::inspect_config::FindingLimits>,
@@ -632,18 +828,41 @@ impl InspectConfig {
     }
 
     /// Sets the value of [include_quote][crate::model::InspectConfig::include_quote].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectConfig::new().set_include_quote(true);
+    /// ```
     pub fn set_include_quote<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_quote = v.into();
         self
     }
 
     /// Sets the value of [exclude_info_types][crate::model::InspectConfig::exclude_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectConfig::new().set_exclude_info_types(true);
+    /// ```
     pub fn set_exclude_info_types<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.exclude_info_types = v.into();
         self
     }
 
     /// Sets the value of [custom_info_types][crate::model::InspectConfig::custom_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// let x = InspectConfig::new()
+    ///     .set_custom_info_types([
+    ///         CustomInfoType::default()/* use setters */,
+    ///         CustomInfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -655,6 +874,16 @@ impl InspectConfig {
     }
 
     /// Sets the value of [content_options][crate::model::InspectConfig::content_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::ContentOption;
+    /// let x = InspectConfig::new().set_content_options([
+    ///     ContentOption::ContentText,
+    ///     ContentOption::ContentImage,
+    /// ]);
+    /// ```
     pub fn set_content_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -666,6 +895,17 @@ impl InspectConfig {
     }
 
     /// Sets the value of [rule_set][crate::model::InspectConfig::rule_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InspectionRuleSet;
+    /// let x = InspectConfig::new()
+    ///     .set_rule_set([
+    ///         InspectionRuleSet::default()/* use setters */,
+    ///         InspectionRuleSet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rule_set<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -714,6 +954,13 @@ pub mod inspect_config {
         }
 
         /// Sets the value of [info_type][crate::model::inspect_config::InfoTypeLikelihood::info_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::InfoTypeLikelihood;
+        /// use google_cloud_privacy_dlp_v2::model::InfoType;
+        /// let x = InfoTypeLikelihood::new().set_info_type(InfoType::default()/* use setters */);
+        /// ```
         pub fn set_info_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::InfoType>,
@@ -723,6 +970,14 @@ pub mod inspect_config {
         }
 
         /// Sets or clears the value of [info_type][crate::model::inspect_config::InfoTypeLikelihood::info_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::InfoTypeLikelihood;
+        /// use google_cloud_privacy_dlp_v2::model::InfoType;
+        /// let x = InfoTypeLikelihood::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+        /// let x = InfoTypeLikelihood::new().set_or_clear_info_type(None::<InfoType>);
+        /// ```
         pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InfoType>,
@@ -732,6 +987,15 @@ pub mod inspect_config {
         }
 
         /// Sets the value of [min_likelihood][crate::model::inspect_config::InfoTypeLikelihood::min_likelihood].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::InfoTypeLikelihood;
+        /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+        /// let x0 = InfoTypeLikelihood::new().set_min_likelihood(Likelihood::VeryUnlikely);
+        /// let x1 = InfoTypeLikelihood::new().set_min_likelihood(Likelihood::Unlikely);
+        /// let x2 = InfoTypeLikelihood::new().set_min_likelihood(Likelihood::Possible);
+        /// ```
         pub fn set_min_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
             mut self,
             v: T,
@@ -802,18 +1066,41 @@ pub mod inspect_config {
         }
 
         /// Sets the value of [max_findings_per_item][crate::model::inspect_config::FindingLimits::max_findings_per_item].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::FindingLimits;
+        /// let x = FindingLimits::new().set_max_findings_per_item(42);
+        /// ```
         pub fn set_max_findings_per_item<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_findings_per_item = v.into();
             self
         }
 
         /// Sets the value of [max_findings_per_request][crate::model::inspect_config::FindingLimits::max_findings_per_request].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::FindingLimits;
+        /// let x = FindingLimits::new().set_max_findings_per_request(42);
+        /// ```
         pub fn set_max_findings_per_request<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_findings_per_request = v.into();
             self
         }
 
         /// Sets the value of [max_findings_per_info_type][crate::model::inspect_config::FindingLimits::max_findings_per_info_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_config::FindingLimits;
+        /// use google_cloud_privacy_dlp_v2::model::inspect_config::finding_limits::InfoTypeLimit;
+        /// let x = FindingLimits::new()
+        ///     .set_max_findings_per_info_type([
+        ///         InfoTypeLimit::default()/* use setters */,
+        ///         InfoTypeLimit::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_max_findings_per_info_type<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -859,6 +1146,13 @@ pub mod inspect_config {
             }
 
             /// Sets the value of [info_type][crate::model::inspect_config::finding_limits::InfoTypeLimit::info_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::inspect_config::finding_limits::InfoTypeLimit;
+            /// use google_cloud_privacy_dlp_v2::model::InfoType;
+            /// let x = InfoTypeLimit::new().set_info_type(InfoType::default()/* use setters */);
+            /// ```
             pub fn set_info_type<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::InfoType>,
@@ -868,6 +1162,14 @@ pub mod inspect_config {
             }
 
             /// Sets or clears the value of [info_type][crate::model::inspect_config::finding_limits::InfoTypeLimit::info_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::inspect_config::finding_limits::InfoTypeLimit;
+            /// use google_cloud_privacy_dlp_v2::model::InfoType;
+            /// let x = InfoTypeLimit::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+            /// let x = InfoTypeLimit::new().set_or_clear_info_type(None::<InfoType>);
+            /// ```
             pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::InfoType>,
@@ -877,6 +1179,12 @@ pub mod inspect_config {
             }
 
             /// Sets the value of [max_findings][crate::model::inspect_config::finding_limits::InfoTypeLimit::max_findings].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::inspect_config::finding_limits::InfoTypeLimit;
+            /// let x = InfoTypeLimit::new().set_max_findings(42);
+            /// ```
             pub fn set_max_findings<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.max_findings = v.into();
                 self
@@ -910,6 +1218,15 @@ impl ByteContentItem {
     }
 
     /// Sets the value of [r#type][crate::model::ByteContentItem::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ByteContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::byte_content_item::BytesType;
+    /// let x0 = ByteContentItem::new().set_type(BytesType::Image);
+    /// let x1 = ByteContentItem::new().set_type(BytesType::ImageJpeg);
+    /// let x2 = ByteContentItem::new().set_type(BytesType::ImageBmp);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::byte_content_item::BytesType>>(
         mut self,
         v: T,
@@ -919,6 +1236,12 @@ impl ByteContentItem {
     }
 
     /// Sets the value of [data][crate::model::ByteContentItem::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ByteContentItem;
+    /// let x = ByteContentItem::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
@@ -1198,6 +1521,13 @@ impl ContentItem {
     ///
     /// Note that all the setters affecting `data_item` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::content_item::DataItem;
+    /// let x = ContentItem::new().set_data_item(Some(DataItem::Value("example".to_string())));
+    /// ```
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::content_item::DataItem>>,
     >(
@@ -1224,6 +1554,15 @@ impl ContentItem {
     ///
     /// Note that all the setters affecting `data_item` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = ContentItem::new().set_value("example");
+    /// assert!(x.value().is_some());
+    /// assert!(x.table().is_none());
+    /// assert!(x.byte_item().is_none());
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_item =
             std::option::Option::Some(crate::model::content_item::DataItem::Value(v.into()));
@@ -1246,6 +1585,16 @@ impl ContentItem {
     ///
     /// Note that all the setters affecting `data_item` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::Table;
+    /// let x = ContentItem::new().set_table(Table::default()/* use setters */);
+    /// assert!(x.table().is_some());
+    /// assert!(x.value().is_none());
+    /// assert!(x.byte_item().is_none());
+    /// ```
     pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::Table>>>(
         mut self,
         v: T,
@@ -1273,6 +1622,16 @@ impl ContentItem {
     ///
     /// Note that all the setters affecting `data_item` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ByteContentItem;
+    /// let x = ContentItem::new().set_byte_item(ByteContentItem::default()/* use setters */);
+    /// assert!(x.byte_item().is_some());
+    /// assert!(x.value().is_none());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteContentItem>>>(
         mut self,
         v: T,
@@ -1330,6 +1689,17 @@ impl Table {
     }
 
     /// Sets the value of [headers][crate::model::Table::headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Table;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = Table::new()
+    ///     .set_headers([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1341,6 +1711,17 @@ impl Table {
     }
 
     /// Sets the value of [rows][crate::model::Table::rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Table;
+    /// use google_cloud_privacy_dlp_v2::model::table::Row;
+    /// let x = Table::new()
+    ///     .set_rows([
+    ///         Row::default()/* use setters */,
+    ///         Row::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1379,6 +1760,17 @@ pub mod table {
         }
 
         /// Sets the value of [values][crate::model::table::Row::values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::table::Row;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Row::new()
+        ///     .set_values([
+        ///         Value::default()/* use setters */,
+        ///         Value::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1421,6 +1813,17 @@ impl InspectResult {
     }
 
     /// Sets the value of [findings][crate::model::InspectResult::findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = InspectResult::new()
+    ///     .set_findings([
+    ///         Finding::default()/* use setters */,
+    ///         Finding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1432,6 +1835,12 @@ impl InspectResult {
     }
 
     /// Sets the value of [findings_truncated][crate::model::InspectResult::findings_truncated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// let x = InspectResult::new().set_findings_truncated(true);
+    /// ```
     pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.findings_truncated = v.into();
         self
@@ -1518,18 +1927,37 @@ impl Finding {
     }
 
     /// Sets the value of [name][crate::model::Finding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [quote][crate::model::Finding::quote].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_quote("example");
+    /// ```
     pub fn set_quote<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quote = v.into();
         self
     }
 
     /// Sets the value of [info_type][crate::model::Finding::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = Finding::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -1539,6 +1967,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [info_type][crate::model::Finding::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = Finding::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -1548,12 +1984,28 @@ impl Finding {
     }
 
     /// Sets the value of [likelihood][crate::model::Finding::likelihood].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+    /// let x0 = Finding::new().set_likelihood(Likelihood::VeryUnlikely);
+    /// let x1 = Finding::new().set_likelihood(Likelihood::Unlikely);
+    /// let x2 = Finding::new().set_likelihood(Likelihood::Possible);
+    /// ```
     pub fn set_likelihood<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.likelihood = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Finding::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::Location;
+    /// let x = Finding::new().set_location(Location::default()/* use setters */);
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Location>,
@@ -1563,6 +2015,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [location][crate::model::Finding::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::Location;
+    /// let x = Finding::new().set_or_clear_location(Some(Location::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_location(None::<Location>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Location>,
@@ -1572,6 +2032,13 @@ impl Finding {
     }
 
     /// Sets the value of [create_time][crate::model::Finding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1581,6 +2048,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Finding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1590,6 +2065,13 @@ impl Finding {
     }
 
     /// Sets the value of [quote_info][crate::model::Finding::quote_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// let x = Finding::new().set_quote_info(QuoteInfo::default()/* use setters */);
+    /// ```
     pub fn set_quote_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuoteInfo>,
@@ -1599,6 +2081,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [quote_info][crate::model::Finding::quote_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// let x = Finding::new().set_or_clear_quote_info(Some(QuoteInfo::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_quote_info(None::<QuoteInfo>);
+    /// ```
     pub fn set_or_clear_quote_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuoteInfo>,
@@ -1608,18 +2098,39 @@ impl Finding {
     }
 
     /// Sets the value of [resource_name][crate::model::Finding::resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [trigger_name][crate::model::Finding::trigger_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_trigger_name("example");
+    /// ```
     pub fn set_trigger_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Finding::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1632,6 +2143,13 @@ impl Finding {
     }
 
     /// Sets the value of [job_create_time][crate::model::Finding::job_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_job_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_job_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1641,6 +2159,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [job_create_time][crate::model::Finding::job_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// use wkt::Timestamp;
+    /// let x = Finding::new().set_or_clear_job_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_job_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_job_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1650,12 +2176,24 @@ impl Finding {
     }
 
     /// Sets the value of [job_name][crate::model::Finding::job_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_job_name("example");
+    /// ```
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
         self
     }
 
     /// Sets the value of [finding_id][crate::model::Finding::finding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = Finding::new().set_finding_id("example");
+    /// ```
     pub fn set_finding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_id = v.into();
         self
@@ -1700,6 +2238,13 @@ impl Location {
     }
 
     /// Sets the value of [byte_range][crate::model::Location::byte_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Location::new().set_byte_range(Range::default()/* use setters */);
+    /// ```
     pub fn set_byte_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -1709,6 +2254,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [byte_range][crate::model::Location::byte_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Location::new().set_or_clear_byte_range(Some(Range::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_byte_range(None::<Range>);
+    /// ```
     pub fn set_or_clear_byte_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -1718,6 +2271,13 @@ impl Location {
     }
 
     /// Sets the value of [codepoint_range][crate::model::Location::codepoint_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Location::new().set_codepoint_range(Range::default()/* use setters */);
+    /// ```
     pub fn set_codepoint_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -1727,6 +2287,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [codepoint_range][crate::model::Location::codepoint_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Location::new().set_or_clear_codepoint_range(Some(Range::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_codepoint_range(None::<Range>);
+    /// ```
     pub fn set_or_clear_codepoint_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Range>,
@@ -1736,6 +2304,17 @@ impl Location {
     }
 
     /// Sets the value of [content_locations][crate::model::Location::content_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// let x = Location::new()
+    ///     .set_content_locations([
+    ///         ContentLocation::default()/* use setters */,
+    ///         ContentLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_content_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1747,6 +2326,13 @@ impl Location {
     }
 
     /// Sets the value of [container][crate::model::Location::container].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Location::new().set_container(Container::default()/* use setters */);
+    /// ```
     pub fn set_container<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Container>,
@@ -1756,6 +2342,14 @@ impl Location {
     }
 
     /// Sets or clears the value of [container][crate::model::Location::container].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Location;
+    /// use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Location::new().set_or_clear_container(Some(Container::default()/* use setters */));
+    /// let x = Location::new().set_or_clear_container(None::<Container>);
+    /// ```
     pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Container>,
@@ -1810,12 +2404,25 @@ impl ContentLocation {
     }
 
     /// Sets the value of [container_name][crate::model::ContentLocation::container_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// let x = ContentLocation::new().set_container_name("example");
+    /// ```
     pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container_name = v.into();
         self
     }
 
     /// Sets the value of [container_timestamp][crate::model::ContentLocation::container_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use wkt::Timestamp;
+    /// let x = ContentLocation::new().set_container_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_container_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1825,6 +2432,14 @@ impl ContentLocation {
     }
 
     /// Sets or clears the value of [container_timestamp][crate::model::ContentLocation::container_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use wkt::Timestamp;
+    /// let x = ContentLocation::new().set_or_clear_container_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = ContentLocation::new().set_or_clear_container_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_container_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1834,6 +2449,12 @@ impl ContentLocation {
     }
 
     /// Sets the value of [container_version][crate::model::ContentLocation::container_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// let x = ContentLocation::new().set_container_version("example");
+    /// ```
     pub fn set_container_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1846,6 +2467,14 @@ impl ContentLocation {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// let x = ContentLocation::new().set_location(Some(
+    ///     google_cloud_privacy_dlp_v2::model::content_location::Location::RecordLocation(RecordLocation::default().into())));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::content_location::Location>>,
     >(
@@ -1876,6 +2505,17 @@ impl ContentLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// let x = ContentLocation::new().set_record_location(RecordLocation::default()/* use setters */);
+    /// assert!(x.record_location().is_some());
+    /// assert!(x.image_location().is_none());
+    /// assert!(x.document_location().is_none());
+    /// assert!(x.metadata_location().is_none());
+    /// ```
     pub fn set_record_location<
         T: std::convert::Into<std::boxed::Box<crate::model::RecordLocation>>,
     >(
@@ -1908,6 +2548,17 @@ impl ContentLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::ImageLocation;
+    /// let x = ContentLocation::new().set_image_location(ImageLocation::default()/* use setters */);
+    /// assert!(x.image_location().is_some());
+    /// assert!(x.record_location().is_none());
+    /// assert!(x.document_location().is_none());
+    /// assert!(x.metadata_location().is_none());
+    /// ```
     pub fn set_image_location<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageLocation>>,
     >(
@@ -1940,6 +2591,17 @@ impl ContentLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::DocumentLocation;
+    /// let x = ContentLocation::new().set_document_location(DocumentLocation::default()/* use setters */);
+    /// assert!(x.document_location().is_some());
+    /// assert!(x.record_location().is_none());
+    /// assert!(x.image_location().is_none());
+    /// assert!(x.metadata_location().is_none());
+    /// ```
     pub fn set_document_location<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentLocation>>,
     >(
@@ -1972,6 +2634,17 @@ impl ContentLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentLocation;
+    /// use google_cloud_privacy_dlp_v2::model::MetadataLocation;
+    /// let x = ContentLocation::new().set_metadata_location(MetadataLocation::default()/* use setters */);
+    /// assert!(x.metadata_location().is_some());
+    /// assert!(x.record_location().is_none());
+    /// assert!(x.image_location().is_none());
+    /// assert!(x.document_location().is_none());
+    /// ```
     pub fn set_metadata_location<
         T: std::convert::Into<std::boxed::Box<crate::model::MetadataLocation>>,
     >(
@@ -2031,6 +2704,13 @@ impl MetadataLocation {
     }
 
     /// Sets the value of [r#type][crate::model::MetadataLocation::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::MetadataLocation;
+    /// use google_cloud_privacy_dlp_v2::model::MetadataType;
+    /// let x0 = MetadataLocation::new().set_type(MetadataType::StorageMetadata);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::MetadataType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -2040,6 +2720,14 @@ impl MetadataLocation {
     ///
     /// Note that all the setters affecting `label` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::MetadataLocation;
+    /// use google_cloud_privacy_dlp_v2::model::StorageMetadataLabel;
+    /// let x = MetadataLocation::new().set_label(Some(
+    ///     google_cloud_privacy_dlp_v2::model::metadata_location::Label::StorageLabel(StorageMetadataLabel::default().into())));
+    /// ```
     pub fn set_label<
         T: std::convert::Into<std::option::Option<crate::model::metadata_location::Label>>,
     >(
@@ -2068,6 +2756,14 @@ impl MetadataLocation {
     ///
     /// Note that all the setters affecting `label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::MetadataLocation;
+    /// use google_cloud_privacy_dlp_v2::model::StorageMetadataLabel;
+    /// let x = MetadataLocation::new().set_storage_label(StorageMetadataLabel::default()/* use setters */);
+    /// assert!(x.storage_label().is_some());
+    /// ```
     pub fn set_storage_label<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageMetadataLabel>>,
     >(
@@ -2118,6 +2814,12 @@ impl StorageMetadataLabel {
     }
 
     /// Sets the value of [key][crate::model::StorageMetadataLabel::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageMetadataLabel;
+    /// let x = StorageMetadataLabel::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -2147,6 +2849,12 @@ impl DocumentLocation {
     }
 
     /// Sets the value of [file_offset][crate::model::DocumentLocation::file_offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DocumentLocation;
+    /// let x = DocumentLocation::new().set_file_offset(42);
+    /// ```
     pub fn set_file_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.file_offset = v.into();
         self
@@ -2181,6 +2889,13 @@ impl RecordLocation {
     }
 
     /// Sets the value of [record_key][crate::model::RecordLocation::record_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// let x = RecordLocation::new().set_record_key(RecordKey::default()/* use setters */);
+    /// ```
     pub fn set_record_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecordKey>,
@@ -2190,6 +2905,14 @@ impl RecordLocation {
     }
 
     /// Sets or clears the value of [record_key][crate::model::RecordLocation::record_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// let x = RecordLocation::new().set_or_clear_record_key(Some(RecordKey::default()/* use setters */));
+    /// let x = RecordLocation::new().set_or_clear_record_key(None::<RecordKey>);
+    /// ```
     pub fn set_or_clear_record_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecordKey>,
@@ -2199,6 +2922,13 @@ impl RecordLocation {
     }
 
     /// Sets the value of [field_id][crate::model::RecordLocation::field_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = RecordLocation::new().set_field_id(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -2208,6 +2938,14 @@ impl RecordLocation {
     }
 
     /// Sets or clears the value of [field_id][crate::model::RecordLocation::field_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = RecordLocation::new().set_or_clear_field_id(Some(FieldId::default()/* use setters */));
+    /// let x = RecordLocation::new().set_or_clear_field_id(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -2217,6 +2955,13 @@ impl RecordLocation {
     }
 
     /// Sets the value of [table_location][crate::model::RecordLocation::table_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::TableLocation;
+    /// let x = RecordLocation::new().set_table_location(TableLocation::default()/* use setters */);
+    /// ```
     pub fn set_table_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableLocation>,
@@ -2226,6 +2971,14 @@ impl RecordLocation {
     }
 
     /// Sets or clears the value of [table_location][crate::model::RecordLocation::table_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::TableLocation;
+    /// let x = RecordLocation::new().set_or_clear_table_location(Some(TableLocation::default()/* use setters */));
+    /// let x = RecordLocation::new().set_or_clear_table_location(None::<TableLocation>);
+    /// ```
     pub fn set_or_clear_table_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableLocation>,
@@ -2262,6 +3015,12 @@ impl TableLocation {
     }
 
     /// Sets the value of [row_index][crate::model::TableLocation::row_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableLocation;
+    /// let x = TableLocation::new().set_row_index(42);
+    /// ```
     pub fn set_row_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_index = v.into();
         self
@@ -2330,36 +3089,73 @@ impl Container {
     }
 
     /// Sets the value of [r#type][crate::model::Container::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::Container::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [full_path][crate::model::Container::full_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_full_path("example");
+    /// ```
     pub fn set_full_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_path = v.into();
         self
     }
 
     /// Sets the value of [root_path][crate::model::Container::root_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_root_path("example");
+    /// ```
     pub fn set_root_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_path = v.into();
         self
     }
 
     /// Sets the value of [relative_path][crate::model::Container::relative_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_relative_path("example");
+    /// ```
     pub fn set_relative_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_path = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Container::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// use wkt::Timestamp;
+    /// let x = Container::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2369,6 +3165,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Container::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// use wkt::Timestamp;
+    /// let x = Container::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2378,6 +3182,12 @@ impl Container {
     }
 
     /// Sets the value of [version][crate::model::Container::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = Container::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -2409,12 +3219,24 @@ impl Range {
     }
 
     /// Sets the value of [start][crate::model::Range::start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Range::new().set_start(42);
+    /// ```
     pub fn set_start<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.start = v.into();
         self
     }
 
     /// Sets the value of [end][crate::model::Range::end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Range;
+    /// let x = Range::new().set_end(42);
+    /// ```
     pub fn set_end<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.end = v.into();
         self
@@ -2443,6 +3265,17 @@ impl ImageLocation {
     }
 
     /// Sets the value of [bounding_boxes][crate::model::ImageLocation::bounding_boxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageLocation;
+    /// use google_cloud_privacy_dlp_v2::model::BoundingBox;
+    /// let x = ImageLocation::new()
+    ///     .set_bounding_boxes([
+    ///         BoundingBox::default()/* use setters */,
+    ///         BoundingBox::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2485,24 +3318,48 @@ impl BoundingBox {
     }
 
     /// Sets the value of [top][crate::model::BoundingBox::top].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BoundingBox;
+    /// let x = BoundingBox::new().set_top(42);
+    /// ```
     pub fn set_top<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.top = v.into();
         self
     }
 
     /// Sets the value of [left][crate::model::BoundingBox::left].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BoundingBox;
+    /// let x = BoundingBox::new().set_left(42);
+    /// ```
     pub fn set_left<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.left = v.into();
         self
     }
 
     /// Sets the value of [width][crate::model::BoundingBox::width].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BoundingBox;
+    /// let x = BoundingBox::new().set_width(42);
+    /// ```
     pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.width = v.into();
         self
     }
 
     /// Sets the value of [height][crate::model::BoundingBox::height].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BoundingBox;
+    /// let x = BoundingBox::new().set_height(42);
+    /// ```
     pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.height = v.into();
         self
@@ -2585,18 +3442,37 @@ impl RedactImageRequest {
     }
 
     /// Sets the value of [parent][crate::model::RedactImageRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// let x = RedactImageRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::RedactImageRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// let x = RedactImageRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = RedactImageRequest::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -2606,6 +3482,14 @@ impl RedactImageRequest {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = RedactImageRequest::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = RedactImageRequest::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -2615,6 +3499,17 @@ impl RedactImageRequest {
     }
 
     /// Sets the value of [image_redaction_configs][crate::model::RedactImageRequest::image_redaction_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+    /// let x = RedactImageRequest::new()
+    ///     .set_image_redaction_configs([
+    ///         ImageRedactionConfig::default()/* use setters */,
+    ///         ImageRedactionConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_image_redaction_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2626,12 +3521,25 @@ impl RedactImageRequest {
     }
 
     /// Sets the value of [include_findings][crate::model::RedactImageRequest::include_findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// let x = RedactImageRequest::new().set_include_findings(true);
+    /// ```
     pub fn set_include_findings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_findings = v.into();
         self
     }
 
     /// Sets the value of [byte_item][crate::model::RedactImageRequest::byte_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ByteContentItem;
+    /// let x = RedactImageRequest::new().set_byte_item(ByteContentItem::default()/* use setters */);
+    /// ```
     pub fn set_byte_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ByteContentItem>,
@@ -2641,6 +3549,14 @@ impl RedactImageRequest {
     }
 
     /// Sets or clears the value of [byte_item][crate::model::RedactImageRequest::byte_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ByteContentItem;
+    /// let x = RedactImageRequest::new().set_or_clear_byte_item(Some(ByteContentItem::default()/* use setters */));
+    /// let x = RedactImageRequest::new().set_or_clear_byte_item(None::<ByteContentItem>);
+    /// ```
     pub fn set_or_clear_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ByteContentItem>,
@@ -2650,6 +3566,12 @@ impl RedactImageRequest {
     }
 
     /// Sets the value of [inspect_template][crate::model::RedactImageRequest::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// let x = RedactImageRequest::new().set_inspect_template("example");
+    /// ```
     pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2659,6 +3581,12 @@ impl RedactImageRequest {
     }
 
     /// Sets the value of [deidentify_template][crate::model::RedactImageRequest::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageRequest;
+    /// let x = RedactImageRequest::new().set_deidentify_template("example");
+    /// ```
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2700,6 +3628,13 @@ pub mod redact_image_request {
         }
 
         /// Sets the value of [redaction_color][crate::model::redact_image_request::ImageRedactionConfig::redaction_color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+        /// use google_cloud_privacy_dlp_v2::model::Color;
+        /// let x = ImageRedactionConfig::new().set_redaction_color(Color::default()/* use setters */);
+        /// ```
         pub fn set_redaction_color<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Color>,
@@ -2709,6 +3644,14 @@ pub mod redact_image_request {
         }
 
         /// Sets or clears the value of [redaction_color][crate::model::redact_image_request::ImageRedactionConfig::redaction_color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+        /// use google_cloud_privacy_dlp_v2::model::Color;
+        /// let x = ImageRedactionConfig::new().set_or_clear_redaction_color(Some(Color::default()/* use setters */));
+        /// let x = ImageRedactionConfig::new().set_or_clear_redaction_color(None::<Color>);
+        /// ```
         pub fn set_or_clear_redaction_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Color>,
@@ -2721,6 +3664,13 @@ pub mod redact_image_request {
         ///
         /// Note that all the setters affecting `target` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+        /// use google_cloud_privacy_dlp_v2::model::redact_image_request::image_redaction_config::Target;
+        /// let x = ImageRedactionConfig::new().set_target(Some(Target::RedactAllText(true)));
+        /// ```
         pub fn set_target<
             T: std::convert::Into<
                     std::option::Option<
@@ -2753,6 +3703,15 @@ pub mod redact_image_request {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+        /// use google_cloud_privacy_dlp_v2::model::InfoType;
+        /// let x = ImageRedactionConfig::new().set_info_type(InfoType::default()/* use setters */);
+        /// assert!(x.info_type().is_some());
+        /// assert!(x.redact_all_text().is_none());
+        /// ```
         pub fn set_info_type<T: std::convert::Into<std::boxed::Box<crate::model::InfoType>>>(
             mut self,
             v: T,
@@ -2781,6 +3740,14 @@ pub mod redact_image_request {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::redact_image_request::ImageRedactionConfig;
+        /// let x = ImageRedactionConfig::new().set_redact_all_text(true);
+        /// assert!(x.redact_all_text().is_some());
+        /// assert!(x.info_type().is_none());
+        /// ```
         pub fn set_redact_all_text<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.target = std::option::Option::Some(
                 crate::model::redact_image_request::image_redaction_config::Target::RedactAllText(
@@ -2840,18 +3807,36 @@ impl Color {
     }
 
     /// Sets the value of [red][crate::model::Color::red].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Color;
+    /// let x = Color::new().set_red(42.0);
+    /// ```
     pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
         self
     }
 
     /// Sets the value of [green][crate::model::Color::green].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Color;
+    /// let x = Color::new().set_green(42.0);
+    /// ```
     pub fn set_green<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.green = v.into();
         self
     }
 
     /// Sets the value of [blue][crate::model::Color::blue].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Color;
+    /// let x = Color::new().set_blue(42.0);
+    /// ```
     pub fn set_blue<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.blue = v.into();
         self
@@ -2888,18 +3873,37 @@ impl RedactImageResponse {
     }
 
     /// Sets the value of [redacted_image][crate::model::RedactImageResponse::redacted_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageResponse;
+    /// let x = RedactImageResponse::new().set_redacted_image(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_redacted_image<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.redacted_image = v.into();
         self
     }
 
     /// Sets the value of [extracted_text][crate::model::RedactImageResponse::extracted_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageResponse;
+    /// let x = RedactImageResponse::new().set_extracted_text("example");
+    /// ```
     pub fn set_extracted_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extracted_text = v.into();
         self
     }
 
     /// Sets the value of [inspect_result][crate::model::RedactImageResponse::inspect_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// let x = RedactImageResponse::new().set_inspect_result(InspectResult::default()/* use setters */);
+    /// ```
     pub fn set_inspect_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectResult>,
@@ -2909,6 +3913,14 @@ impl RedactImageResponse {
     }
 
     /// Sets or clears the value of [inspect_result][crate::model::RedactImageResponse::inspect_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RedactImageResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// let x = RedactImageResponse::new().set_or_clear_inspect_result(Some(InspectResult::default()/* use setters */));
+    /// let x = RedactImageResponse::new().set_or_clear_inspect_result(None::<InspectResult>);
+    /// ```
     pub fn set_or_clear_inspect_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectResult>,
@@ -2998,12 +4010,25 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [parent][crate::model::DeidentifyContentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// let x = DeidentifyContentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = DeidentifyContentRequest::new().set_deidentify_config(DeidentifyConfig::default()/* use setters */);
+    /// ```
     pub fn set_deidentify_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -3013,6 +4038,14 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets or clears the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = DeidentifyContentRequest::new().set_or_clear_deidentify_config(Some(DeidentifyConfig::default()/* use setters */));
+    /// let x = DeidentifyContentRequest::new().set_or_clear_deidentify_config(None::<DeidentifyConfig>);
+    /// ```
     pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -3022,6 +4055,13 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = DeidentifyContentRequest::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3031,6 +4071,14 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = DeidentifyContentRequest::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = DeidentifyContentRequest::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3040,6 +4088,13 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [item][crate::model::DeidentifyContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = DeidentifyContentRequest::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3049,6 +4104,14 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets or clears the value of [item][crate::model::DeidentifyContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = DeidentifyContentRequest::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = DeidentifyContentRequest::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3058,6 +4121,12 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [inspect_template_name][crate::model::DeidentifyContentRequest::inspect_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// let x = DeidentifyContentRequest::new().set_inspect_template_name("example");
+    /// ```
     pub fn set_inspect_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3067,6 +4136,12 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [deidentify_template_name][crate::model::DeidentifyContentRequest::deidentify_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// let x = DeidentifyContentRequest::new().set_deidentify_template_name("example");
+    /// ```
     pub fn set_deidentify_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3076,6 +4151,12 @@ impl DeidentifyContentRequest {
     }
 
     /// Sets the value of [location_id][crate::model::DeidentifyContentRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentRequest;
+    /// let x = DeidentifyContentRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -3107,6 +4188,13 @@ impl DeidentifyContentResponse {
     }
 
     /// Sets the value of [item][crate::model::DeidentifyContentResponse::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = DeidentifyContentResponse::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3116,6 +4204,14 @@ impl DeidentifyContentResponse {
     }
 
     /// Sets or clears the value of [item][crate::model::DeidentifyContentResponse::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = DeidentifyContentResponse::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = DeidentifyContentResponse::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3125,6 +4221,13 @@ impl DeidentifyContentResponse {
     }
 
     /// Sets the value of [overview][crate::model::DeidentifyContentResponse::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// let x = DeidentifyContentResponse::new().set_overview(TransformationOverview::default()/* use setters */);
+    /// ```
     pub fn set_overview<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransformationOverview>,
@@ -3134,6 +4237,14 @@ impl DeidentifyContentResponse {
     }
 
     /// Sets or clears the value of [overview][crate::model::DeidentifyContentResponse::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// let x = DeidentifyContentResponse::new().set_or_clear_overview(Some(TransformationOverview::default()/* use setters */));
+    /// let x = DeidentifyContentResponse::new().set_or_clear_overview(None::<TransformationOverview>);
+    /// ```
     pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransformationOverview>,
@@ -3219,12 +4330,25 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [parent][crate::model::ReidentifyContentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// let x = ReidentifyContentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = ReidentifyContentRequest::new().set_reidentify_config(DeidentifyConfig::default()/* use setters */);
+    /// ```
     pub fn set_reidentify_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -3234,6 +4358,14 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets or clears the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = ReidentifyContentRequest::new().set_or_clear_reidentify_config(Some(DeidentifyConfig::default()/* use setters */));
+    /// let x = ReidentifyContentRequest::new().set_or_clear_reidentify_config(None::<DeidentifyConfig>);
+    /// ```
     pub fn set_or_clear_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -3243,6 +4375,13 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = ReidentifyContentRequest::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3252,6 +4391,14 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = ReidentifyContentRequest::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = ReidentifyContentRequest::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3261,6 +4408,13 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [item][crate::model::ReidentifyContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = ReidentifyContentRequest::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3270,6 +4424,14 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets or clears the value of [item][crate::model::ReidentifyContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = ReidentifyContentRequest::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = ReidentifyContentRequest::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3279,6 +4441,12 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [inspect_template_name][crate::model::ReidentifyContentRequest::inspect_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// let x = ReidentifyContentRequest::new().set_inspect_template_name("example");
+    /// ```
     pub fn set_inspect_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3288,6 +4456,12 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [reidentify_template_name][crate::model::ReidentifyContentRequest::reidentify_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// let x = ReidentifyContentRequest::new().set_reidentify_template_name("example");
+    /// ```
     pub fn set_reidentify_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3297,6 +4471,12 @@ impl ReidentifyContentRequest {
     }
 
     /// Sets the value of [location_id][crate::model::ReidentifyContentRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentRequest;
+    /// let x = ReidentifyContentRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -3328,6 +4508,13 @@ impl ReidentifyContentResponse {
     }
 
     /// Sets the value of [item][crate::model::ReidentifyContentResponse::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = ReidentifyContentResponse::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3337,6 +4524,14 @@ impl ReidentifyContentResponse {
     }
 
     /// Sets or clears the value of [item][crate::model::ReidentifyContentResponse::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = ReidentifyContentResponse::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = ReidentifyContentResponse::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3346,6 +4541,13 @@ impl ReidentifyContentResponse {
     }
 
     /// Sets the value of [overview][crate::model::ReidentifyContentResponse::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// let x = ReidentifyContentResponse::new().set_overview(TransformationOverview::default()/* use setters */);
+    /// ```
     pub fn set_overview<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransformationOverview>,
@@ -3355,6 +4557,14 @@ impl ReidentifyContentResponse {
     }
 
     /// Sets or clears the value of [overview][crate::model::ReidentifyContentResponse::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReidentifyContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// let x = ReidentifyContentResponse::new().set_or_clear_overview(Some(TransformationOverview::default()/* use setters */));
+    /// let x = ReidentifyContentResponse::new().set_or_clear_overview(None::<TransformationOverview>);
+    /// ```
     pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransformationOverview>,
@@ -3420,12 +4630,25 @@ impl InspectContentRequest {
     }
 
     /// Sets the value of [parent][crate::model::InspectContentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// let x = InspectContentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectContentRequest::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3435,6 +4658,14 @@ impl InspectContentRequest {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectContentRequest::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = InspectContentRequest::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -3444,6 +4675,13 @@ impl InspectContentRequest {
     }
 
     /// Sets the value of [item][crate::model::InspectContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = InspectContentRequest::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3453,6 +4691,14 @@ impl InspectContentRequest {
     }
 
     /// Sets or clears the value of [item][crate::model::InspectContentRequest::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = InspectContentRequest::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = InspectContentRequest::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -3462,6 +4708,12 @@ impl InspectContentRequest {
     }
 
     /// Sets the value of [inspect_template_name][crate::model::InspectContentRequest::inspect_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// let x = InspectContentRequest::new().set_inspect_template_name("example");
+    /// ```
     pub fn set_inspect_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3471,6 +4723,12 @@ impl InspectContentRequest {
     }
 
     /// Sets the value of [location_id][crate::model::InspectContentRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentRequest;
+    /// let x = InspectContentRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -3499,6 +4757,13 @@ impl InspectContentResponse {
     }
 
     /// Sets the value of [result][crate::model::InspectContentResponse::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// let x = InspectContentResponse::new().set_result(InspectResult::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectResult>,
@@ -3508,6 +4773,14 @@ impl InspectContentResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::InspectContentResponse::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectContentResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InspectResult;
+    /// let x = InspectContentResponse::new().set_or_clear_result(Some(InspectResult::default()/* use setters */));
+    /// let x = InspectContentResponse::new().set_or_clear_result(None::<InspectResult>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectResult>,
@@ -3551,6 +4824,15 @@ impl OutputStorageConfig {
     }
 
     /// Sets the value of [output_schema][crate::model::OutputStorageConfig::output_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::output_storage_config::OutputSchema;
+    /// let x0 = OutputStorageConfig::new().set_output_schema(OutputSchema::BasicColumns);
+    /// let x1 = OutputStorageConfig::new().set_output_schema(OutputSchema::GcsColumns);
+    /// let x2 = OutputStorageConfig::new().set_output_schema(OutputSchema::DatastoreColumns);
+    /// ```
     pub fn set_output_schema<
         T: std::convert::Into<crate::model::output_storage_config::OutputSchema>,
     >(
@@ -3565,6 +4847,14 @@ impl OutputStorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = OutputStorageConfig::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::output_storage_config::Type::Table(BigQueryTable::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::output_storage_config::Type>>,
     >(
@@ -3591,6 +4881,15 @@ impl OutputStorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = OutputStorageConfig::new().set_table(BigQueryTable::default()/* use setters */);
+    /// assert!(x.table().is_some());
+    /// assert!(x.storage_path().is_none());
+    /// ```
     pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryTable>>>(
         mut self,
         v: T,
@@ -3620,6 +4919,15 @@ impl OutputStorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStoragePath;
+    /// let x = OutputStorageConfig::new().set_storage_path(CloudStoragePath::default()/* use setters */);
+    /// assert!(x.storage_path().is_some());
+    /// assert!(x.table().is_none());
+    /// ```
     pub fn set_storage_path<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStoragePath>>,
     >(
@@ -3855,6 +5163,13 @@ impl InfoTypeStats {
     }
 
     /// Sets the value of [info_type][crate::model::InfoTypeStats::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeStats;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoTypeStats::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -3864,6 +5179,14 @@ impl InfoTypeStats {
     }
 
     /// Sets or clears the value of [info_type][crate::model::InfoTypeStats::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeStats;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoTypeStats::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = InfoTypeStats::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -3873,6 +5196,12 @@ impl InfoTypeStats {
     }
 
     /// Sets the value of [count][crate::model::InfoTypeStats::count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeStats;
+    /// let x = InfoTypeStats::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
@@ -3905,6 +5234,13 @@ impl InspectDataSourceDetails {
     }
 
     /// Sets the value of [requested_options][crate::model::InspectDataSourceDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+    /// let x = InspectDataSourceDetails::new().set_requested_options(RequestedOptions::default()/* use setters */);
+    /// ```
     pub fn set_requested_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::inspect_data_source_details::RequestedOptions>,
@@ -3914,6 +5250,14 @@ impl InspectDataSourceDetails {
     }
 
     /// Sets or clears the value of [requested_options][crate::model::InspectDataSourceDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+    /// let x = InspectDataSourceDetails::new().set_or_clear_requested_options(Some(RequestedOptions::default()/* use setters */));
+    /// let x = InspectDataSourceDetails::new().set_or_clear_requested_options(None::<RequestedOptions>);
+    /// ```
     pub fn set_or_clear_requested_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::inspect_data_source_details::RequestedOptions>,
@@ -3923,6 +5267,13 @@ impl InspectDataSourceDetails {
     }
 
     /// Sets the value of [result][crate::model::InspectDataSourceDetails::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+    /// let x = InspectDataSourceDetails::new().set_result(Result::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::inspect_data_source_details::Result>,
@@ -3932,6 +5283,14 @@ impl InspectDataSourceDetails {
     }
 
     /// Sets or clears the value of [result][crate::model::InspectDataSourceDetails::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+    /// let x = InspectDataSourceDetails::new().set_or_clear_result(Some(Result::default()/* use setters */));
+    /// let x = InspectDataSourceDetails::new().set_or_clear_result(None::<Result>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::inspect_data_source_details::Result>,
@@ -3972,6 +5331,13 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets the value of [snapshot_inspect_template][crate::model::inspect_data_source_details::RequestedOptions::snapshot_inspect_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+        /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+        /// let x = RequestedOptions::new().set_snapshot_inspect_template(InspectTemplate::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_inspect_template<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::InspectTemplate>,
@@ -3981,6 +5347,14 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets or clears the value of [snapshot_inspect_template][crate::model::inspect_data_source_details::RequestedOptions::snapshot_inspect_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+        /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+        /// let x = RequestedOptions::new().set_or_clear_snapshot_inspect_template(Some(InspectTemplate::default()/* use setters */));
+        /// let x = RequestedOptions::new().set_or_clear_snapshot_inspect_template(None::<InspectTemplate>);
+        /// ```
         pub fn set_or_clear_snapshot_inspect_template<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3993,6 +5367,13 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets the value of [job_config][crate::model::inspect_data_source_details::RequestedOptions::job_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+        /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+        /// let x = RequestedOptions::new().set_job_config(InspectJobConfig::default()/* use setters */);
+        /// ```
         pub fn set_job_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::InspectJobConfig>,
@@ -4002,6 +5383,14 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets or clears the value of [job_config][crate::model::inspect_data_source_details::RequestedOptions::job_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::RequestedOptions;
+        /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+        /// let x = RequestedOptions::new().set_or_clear_job_config(Some(InspectJobConfig::default()/* use setters */));
+        /// let x = RequestedOptions::new().set_or_clear_job_config(None::<InspectJobConfig>);
+        /// ```
         pub fn set_or_clear_job_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InspectJobConfig>,
@@ -4047,18 +5436,41 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets the value of [processed_bytes][crate::model::inspect_data_source_details::Result::processed_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// let x = Result::new().set_processed_bytes(42);
+        /// ```
         pub fn set_processed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.processed_bytes = v.into();
             self
         }
 
         /// Sets the value of [total_estimated_bytes][crate::model::inspect_data_source_details::Result::total_estimated_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// let x = Result::new().set_total_estimated_bytes(42);
+        /// ```
         pub fn set_total_estimated_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.total_estimated_bytes = v.into();
             self
         }
 
         /// Sets the value of [info_type_stats][crate::model::inspect_data_source_details::Result::info_type_stats].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// use google_cloud_privacy_dlp_v2::model::InfoTypeStats;
+        /// let x = Result::new()
+        ///     .set_info_type_stats([
+        ///         InfoTypeStats::default()/* use setters */,
+        ///         InfoTypeStats::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_info_type_stats<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4070,12 +5482,25 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets the value of [num_rows_processed][crate::model::inspect_data_source_details::Result::num_rows_processed].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// let x = Result::new().set_num_rows_processed(42);
+        /// ```
         pub fn set_num_rows_processed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.num_rows_processed = v.into();
             self
         }
 
         /// Sets the value of [hybrid_stats][crate::model::inspect_data_source_details::Result::hybrid_stats].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// use google_cloud_privacy_dlp_v2::model::HybridInspectStatistics;
+        /// let x = Result::new().set_hybrid_stats(HybridInspectStatistics::default()/* use setters */);
+        /// ```
         pub fn set_hybrid_stats<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::HybridInspectStatistics>,
@@ -4085,6 +5510,14 @@ pub mod inspect_data_source_details {
         }
 
         /// Sets or clears the value of [hybrid_stats][crate::model::inspect_data_source_details::Result::hybrid_stats].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::inspect_data_source_details::Result;
+        /// use google_cloud_privacy_dlp_v2::model::HybridInspectStatistics;
+        /// let x = Result::new().set_or_clear_hybrid_stats(Some(HybridInspectStatistics::default()/* use setters */));
+        /// let x = Result::new().set_or_clear_hybrid_stats(None::<HybridInspectStatistics>);
+        /// ```
         pub fn set_or_clear_hybrid_stats<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::HybridInspectStatistics>,
@@ -4122,6 +5555,14 @@ impl DataProfileBigQueryRowSchema {
     ///
     /// Note that all the setters affecting `data_profile` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileBigQueryRowSchema;
+    /// use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = DataProfileBigQueryRowSchema::new().set_data_profile(Some(
+    ///     google_cloud_privacy_dlp_v2::model::data_profile_big_query_row_schema::DataProfile::TableProfile(TableDataProfile::default().into())));
+    /// ```
     pub fn set_data_profile<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_profile_big_query_row_schema::DataProfile>,
@@ -4154,6 +5595,16 @@ impl DataProfileBigQueryRowSchema {
     ///
     /// Note that all the setters affecting `data_profile` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileBigQueryRowSchema;
+    /// use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = DataProfileBigQueryRowSchema::new().set_table_profile(TableDataProfile::default()/* use setters */);
+    /// assert!(x.table_profile().is_some());
+    /// assert!(x.column_profile().is_none());
+    /// assert!(x.file_store_profile().is_none());
+    /// ```
     pub fn set_table_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::TableDataProfile>>,
     >(
@@ -4186,6 +5637,16 @@ impl DataProfileBigQueryRowSchema {
     ///
     /// Note that all the setters affecting `data_profile` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileBigQueryRowSchema;
+    /// use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = DataProfileBigQueryRowSchema::new().set_column_profile(ColumnDataProfile::default()/* use setters */);
+    /// assert!(x.column_profile().is_some());
+    /// assert!(x.table_profile().is_none());
+    /// assert!(x.file_store_profile().is_none());
+    /// ```
     pub fn set_column_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::ColumnDataProfile>>,
     >(
@@ -4218,6 +5679,16 @@ impl DataProfileBigQueryRowSchema {
     ///
     /// Note that all the setters affecting `data_profile` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileBigQueryRowSchema;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = DataProfileBigQueryRowSchema::new().set_file_store_profile(FileStoreDataProfile::default()/* use setters */);
+    /// assert!(x.file_store_profile().is_some());
+    /// assert!(x.table_profile().is_none());
+    /// assert!(x.column_profile().is_none());
+    /// ```
     pub fn set_file_store_profile<
         T: std::convert::Into<std::boxed::Box<crate::model::FileStoreDataProfile>>,
     >(
@@ -4284,18 +5755,36 @@ impl HybridInspectStatistics {
     }
 
     /// Sets the value of [processed_count][crate::model::HybridInspectStatistics::processed_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectStatistics;
+    /// let x = HybridInspectStatistics::new().set_processed_count(42);
+    /// ```
     pub fn set_processed_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.processed_count = v.into();
         self
     }
 
     /// Sets the value of [aborted_count][crate::model::HybridInspectStatistics::aborted_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectStatistics;
+    /// let x = HybridInspectStatistics::new().set_aborted_count(42);
+    /// ```
     pub fn set_aborted_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.aborted_count = v.into();
         self
     }
 
     /// Sets the value of [pending_count][crate::model::HybridInspectStatistics::pending_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectStatistics;
+    /// let x = HybridInspectStatistics::new().set_pending_count(42);
+    /// ```
     pub fn set_pending_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pending_count = v.into();
         self
@@ -4329,6 +5818,14 @@ impl ActionDetails {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ActionDetails;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// let x = ActionDetails::new().set_details(Some(
+    ///     google_cloud_privacy_dlp_v2::model::action_details::Details::DeidentifyDetails(DeidentifyDataSourceDetails::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::action_details::Details>>,
     >(
@@ -4359,6 +5856,14 @@ impl ActionDetails {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ActionDetails;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// let x = ActionDetails::new().set_deidentify_details(DeidentifyDataSourceDetails::default()/* use setters */);
+    /// assert!(x.deidentify_details().is_some());
+    /// ```
     pub fn set_deidentify_details<
         T: std::convert::Into<std::boxed::Box<crate::model::DeidentifyDataSourceDetails>>,
     >(
@@ -4414,18 +5919,36 @@ impl DeidentifyDataSourceStats {
     }
 
     /// Sets the value of [transformed_bytes][crate::model::DeidentifyDataSourceStats::transformed_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceStats;
+    /// let x = DeidentifyDataSourceStats::new().set_transformed_bytes(42);
+    /// ```
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
         self
     }
 
     /// Sets the value of [transformation_count][crate::model::DeidentifyDataSourceStats::transformation_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceStats;
+    /// let x = DeidentifyDataSourceStats::new().set_transformation_count(42);
+    /// ```
     pub fn set_transformation_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformation_count = v.into();
         self
     }
 
     /// Sets the value of [transformation_error_count][crate::model::DeidentifyDataSourceStats::transformation_error_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceStats;
+    /// let x = DeidentifyDataSourceStats::new().set_transformation_error_count(42);
+    /// ```
     pub fn set_transformation_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformation_error_count = v.into();
         self
@@ -4462,6 +5985,13 @@ impl DeidentifyDataSourceDetails {
     }
 
     /// Sets the value of [requested_options][crate::model::DeidentifyDataSourceDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+    /// let x = DeidentifyDataSourceDetails::new().set_requested_options(RequestedDeidentifyOptions::default()/* use setters */);
+    /// ```
     pub fn set_requested_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -4473,6 +6003,14 @@ impl DeidentifyDataSourceDetails {
     }
 
     /// Sets or clears the value of [requested_options][crate::model::DeidentifyDataSourceDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+    /// let x = DeidentifyDataSourceDetails::new().set_or_clear_requested_options(Some(RequestedDeidentifyOptions::default()/* use setters */));
+    /// let x = DeidentifyDataSourceDetails::new().set_or_clear_requested_options(None::<RequestedDeidentifyOptions>);
+    /// ```
     pub fn set_or_clear_requested_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -4484,6 +6022,13 @@ impl DeidentifyDataSourceDetails {
     }
 
     /// Sets the value of [deidentify_stats][crate::model::DeidentifyDataSourceDetails::deidentify_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceStats;
+    /// let x = DeidentifyDataSourceDetails::new().set_deidentify_stats(DeidentifyDataSourceStats::default()/* use setters */);
+    /// ```
     pub fn set_deidentify_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyDataSourceStats>,
@@ -4493,6 +6038,14 @@ impl DeidentifyDataSourceDetails {
     }
 
     /// Sets or clears the value of [deidentify_stats][crate::model::DeidentifyDataSourceDetails::deidentify_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceDetails;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyDataSourceStats;
+    /// let x = DeidentifyDataSourceDetails::new().set_or_clear_deidentify_stats(Some(DeidentifyDataSourceStats::default()/* use setters */));
+    /// let x = DeidentifyDataSourceDetails::new().set_or_clear_deidentify_stats(None::<DeidentifyDataSourceStats>);
+    /// ```
     pub fn set_or_clear_deidentify_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyDataSourceStats>,
@@ -4542,6 +6095,13 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets the value of [snapshot_deidentify_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_deidentify_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_snapshot_deidentify_template(DeidentifyTemplate::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_deidentify_template<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -4551,6 +6111,14 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets or clears the value of [snapshot_deidentify_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_deidentify_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_deidentify_template(Some(DeidentifyTemplate::default()/* use setters */));
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_deidentify_template(None::<DeidentifyTemplate>);
+        /// ```
         pub fn set_or_clear_snapshot_deidentify_template<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4563,6 +6131,13 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets the value of [snapshot_structured_deidentify_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_structured_deidentify_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_snapshot_structured_deidentify_template(DeidentifyTemplate::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_structured_deidentify_template<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -4572,6 +6147,14 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets or clears the value of [snapshot_structured_deidentify_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_structured_deidentify_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_structured_deidentify_template(Some(DeidentifyTemplate::default()/* use setters */));
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_structured_deidentify_template(None::<DeidentifyTemplate>);
+        /// ```
         pub fn set_or_clear_snapshot_structured_deidentify_template<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4584,6 +6167,13 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets the value of [snapshot_image_redact_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_image_redact_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_snapshot_image_redact_template(DeidentifyTemplate::default()/* use setters */);
+        /// ```
         pub fn set_snapshot_image_redact_template<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -4593,6 +6183,14 @@ pub mod deidentify_data_source_details {
         }
 
         /// Sets or clears the value of [snapshot_image_redact_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_image_redact_template].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::deidentify_data_source_details::RequestedDeidentifyOptions;
+        /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_image_redact_template(Some(DeidentifyTemplate::default()/* use setters */));
+        /// let x = RequestedDeidentifyOptions::new().set_or_clear_snapshot_image_redact_template(None::<DeidentifyTemplate>);
+        /// ```
         pub fn set_or_clear_snapshot_image_redact_template<T>(
             mut self,
             v: std::option::Option<T>,
@@ -4633,6 +6231,14 @@ impl LocationSupport {
     }
 
     /// Sets the value of [regionalization_scope][crate::model::LocationSupport::regionalization_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LocationSupport;
+    /// use google_cloud_privacy_dlp_v2::model::location_support::RegionalizationScope;
+    /// let x0 = LocationSupport::new().set_regionalization_scope(RegionalizationScope::Regional);
+    /// let x1 = LocationSupport::new().set_regionalization_scope(RegionalizationScope::AnyLocation);
+    /// ```
     pub fn set_regionalization_scope<
         T: std::convert::Into<crate::model::location_support::RegionalizationScope>,
     >(
@@ -4644,6 +6250,12 @@ impl LocationSupport {
     }
 
     /// Sets the value of [locations][crate::model::LocationSupport::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LocationSupport;
+    /// let x = LocationSupport::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4847,18 +6459,40 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [name][crate::model::InfoTypeDescription::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = InfoTypeDescription::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::InfoTypeDescription::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = InfoTypeDescription::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [supported_by][crate::model::InfoTypeDescription::supported_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeSupportedBy;
+    /// let x = InfoTypeDescription::new().set_supported_by([
+    ///     InfoTypeSupportedBy::Inspect,
+    ///     InfoTypeSupportedBy::RiskAnalysis,
+    /// ]);
+    /// ```
     pub fn set_supported_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4870,12 +6504,25 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [description][crate::model::InfoTypeDescription::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = InfoTypeDescription::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [location_support][crate::model::InfoTypeDescription::location_support].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::LocationSupport;
+    /// let x = InfoTypeDescription::new().set_location_support(LocationSupport::default()/* use setters */);
+    /// ```
     pub fn set_location_support<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LocationSupport>,
@@ -4885,6 +6532,14 @@ impl InfoTypeDescription {
     }
 
     /// Sets or clears the value of [location_support][crate::model::InfoTypeDescription::location_support].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::LocationSupport;
+    /// let x = InfoTypeDescription::new().set_or_clear_location_support(Some(LocationSupport::default()/* use setters */));
+    /// let x = InfoTypeDescription::new().set_or_clear_location_support(None::<LocationSupport>);
+    /// ```
     pub fn set_or_clear_location_support<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LocationSupport>,
@@ -4894,12 +6549,29 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [example][crate::model::InfoTypeDescription::example].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = InfoTypeDescription::new().set_example("example");
+    /// ```
     pub fn set_example<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.example = v.into();
         self
     }
 
     /// Sets the value of [versions][crate::model::InfoTypeDescription::versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::VersionDescription;
+    /// let x = InfoTypeDescription::new()
+    ///     .set_versions([
+    ///         VersionDescription::default()/* use setters */,
+    ///         VersionDescription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4911,6 +6583,17 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [categories][crate::model::InfoTypeDescription::categories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeCategory;
+    /// let x = InfoTypeDescription::new()
+    ///     .set_categories([
+    ///         InfoTypeCategory::default()/* use setters */,
+    ///         InfoTypeCategory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4922,6 +6605,13 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::InfoTypeDescription::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = InfoTypeDescription::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -4931,6 +6621,14 @@ impl InfoTypeDescription {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::InfoTypeDescription::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = InfoTypeDescription::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = InfoTypeDescription::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -4940,6 +6638,12 @@ impl InfoTypeDescription {
     }
 
     /// Sets the value of [specific_info_types][crate::model::InfoTypeDescription::specific_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = InfoTypeDescription::new().set_specific_info_types(["a", "b", "c"]);
+    /// ```
     pub fn set_specific_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4977,6 +6681,18 @@ impl InfoTypeCategory {
     ///
     /// Note that all the setters affecting `category` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeCategory;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_category::LocationCategory;
+    /// let x0 = InfoTypeCategory::new().set_category(Some(
+    ///     google_cloud_privacy_dlp_v2::model::info_type_category::Category::LocationCategory(LocationCategory::Global)));
+    /// let x1 = InfoTypeCategory::new().set_category(Some(
+    ///     google_cloud_privacy_dlp_v2::model::info_type_category::Category::LocationCategory(LocationCategory::Argentina)));
+    /// let x2 = InfoTypeCategory::new().set_category(Some(
+    ///     google_cloud_privacy_dlp_v2::model::info_type_category::Category::LocationCategory(LocationCategory::Armenia)));
+    /// ```
     pub fn set_category<
         T: std::convert::Into<std::option::Option<crate::model::info_type_category::Category>>,
     >(
@@ -5007,6 +6723,24 @@ impl InfoTypeCategory {
     ///
     /// Note that all the setters affecting `category` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeCategory;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_category::LocationCategory;
+    /// let x0 = InfoTypeCategory::new().set_location_category(LocationCategory::Global);
+    /// let x1 = InfoTypeCategory::new().set_location_category(LocationCategory::Argentina);
+    /// let x2 = InfoTypeCategory::new().set_location_category(LocationCategory::Armenia);
+    /// assert!(x0.location_category().is_some());
+    /// assert!(x0.industry_category().is_none());
+    /// assert!(x0.type_category().is_none());
+    /// assert!(x1.location_category().is_some());
+    /// assert!(x1.industry_category().is_none());
+    /// assert!(x1.type_category().is_none());
+    /// assert!(x2.location_category().is_some());
+    /// assert!(x2.industry_category().is_none());
+    /// assert!(x2.type_category().is_none());
+    /// ```
     pub fn set_location_category<
         T: std::convert::Into<crate::model::info_type_category::LocationCategory>,
     >(
@@ -5039,6 +6773,24 @@ impl InfoTypeCategory {
     ///
     /// Note that all the setters affecting `category` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeCategory;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_category::IndustryCategory;
+    /// let x0 = InfoTypeCategory::new().set_industry_category(IndustryCategory::Finance);
+    /// let x1 = InfoTypeCategory::new().set_industry_category(IndustryCategory::Health);
+    /// let x2 = InfoTypeCategory::new().set_industry_category(IndustryCategory::Telecommunications);
+    /// assert!(x0.industry_category().is_some());
+    /// assert!(x0.location_category().is_none());
+    /// assert!(x0.type_category().is_none());
+    /// assert!(x1.industry_category().is_some());
+    /// assert!(x1.location_category().is_none());
+    /// assert!(x1.type_category().is_none());
+    /// assert!(x2.industry_category().is_some());
+    /// assert!(x2.location_category().is_none());
+    /// assert!(x2.type_category().is_none());
+    /// ```
     pub fn set_industry_category<
         T: std::convert::Into<crate::model::info_type_category::IndustryCategory>,
     >(
@@ -5071,6 +6823,24 @@ impl InfoTypeCategory {
     ///
     /// Note that all the setters affecting `category` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeCategory;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_category::TypeCategory;
+    /// let x0 = InfoTypeCategory::new().set_type_category(TypeCategory::Pii);
+    /// let x1 = InfoTypeCategory::new().set_type_category(TypeCategory::Spii);
+    /// let x2 = InfoTypeCategory::new().set_type_category(TypeCategory::Demographic);
+    /// assert!(x0.type_category().is_some());
+    /// assert!(x0.location_category().is_none());
+    /// assert!(x0.industry_category().is_none());
+    /// assert!(x1.type_category().is_some());
+    /// assert!(x1.location_category().is_none());
+    /// assert!(x1.industry_category().is_none());
+    /// assert!(x2.type_category().is_some());
+    /// assert!(x2.location_category().is_none());
+    /// assert!(x2.industry_category().is_none());
+    /// ```
     pub fn set_type_category<
         T: std::convert::Into<crate::model::info_type_category::TypeCategory>,
     >(
@@ -5931,12 +7701,24 @@ impl VersionDescription {
     }
 
     /// Sets the value of [version][crate::model::VersionDescription::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VersionDescription;
+    /// let x = VersionDescription::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::VersionDescription::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VersionDescription;
+    /// let x = VersionDescription::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -5983,24 +7765,48 @@ impl ListInfoTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInfoTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInfoTypesRequest;
+    /// let x = ListInfoTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListInfoTypesRequest::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInfoTypesRequest;
+    /// let x = ListInfoTypesRequest::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInfoTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInfoTypesRequest;
+    /// let x = ListInfoTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListInfoTypesRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInfoTypesRequest;
+    /// let x = ListInfoTypesRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -6029,6 +7835,17 @@ impl ListInfoTypesResponse {
     }
 
     /// Sets the value of [info_types][crate::model::ListInfoTypesResponse::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInfoTypesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// let x = ListInfoTypesResponse::new()
+    ///     .set_info_types([
+    ///         InfoTypeDescription::default()/* use setters */,
+    ///         InfoTypeDescription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6071,6 +7888,13 @@ impl RiskAnalysisJobConfig {
     }
 
     /// Sets the value of [privacy_metric][crate::model::RiskAnalysisJobConfig::privacy_metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// let x = RiskAnalysisJobConfig::new().set_privacy_metric(PrivacyMetric::default()/* use setters */);
+    /// ```
     pub fn set_privacy_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyMetric>,
@@ -6080,6 +7904,14 @@ impl RiskAnalysisJobConfig {
     }
 
     /// Sets or clears the value of [privacy_metric][crate::model::RiskAnalysisJobConfig::privacy_metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// let x = RiskAnalysisJobConfig::new().set_or_clear_privacy_metric(Some(PrivacyMetric::default()/* use setters */));
+    /// let x = RiskAnalysisJobConfig::new().set_or_clear_privacy_metric(None::<PrivacyMetric>);
+    /// ```
     pub fn set_or_clear_privacy_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyMetric>,
@@ -6089,6 +7921,13 @@ impl RiskAnalysisJobConfig {
     }
 
     /// Sets the value of [source_table][crate::model::RiskAnalysisJobConfig::source_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = RiskAnalysisJobConfig::new().set_source_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_source_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -6098,6 +7937,14 @@ impl RiskAnalysisJobConfig {
     }
 
     /// Sets or clears the value of [source_table][crate::model::RiskAnalysisJobConfig::source_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = RiskAnalysisJobConfig::new().set_or_clear_source_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = RiskAnalysisJobConfig::new().set_or_clear_source_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_source_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -6107,6 +7954,17 @@ impl RiskAnalysisJobConfig {
     }
 
     /// Sets the value of [actions][crate::model::RiskAnalysisJobConfig::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Action;
+    /// let x = RiskAnalysisJobConfig::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6145,6 +8003,13 @@ impl QuasiId {
     }
 
     /// Sets the value of [field][crate::model::QuasiId::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = QuasiId::new().set_field(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -6154,6 +8019,14 @@ impl QuasiId {
     }
 
     /// Sets or clears the value of [field][crate::model::QuasiId::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = QuasiId::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+    /// let x = QuasiId::new().set_or_clear_field(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -6166,6 +8039,13 @@ impl QuasiId {
     ///
     /// Note that all the setters affecting `tag` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// use google_cloud_privacy_dlp_v2::model::quasi_id::Tag;
+    /// let x = QuasiId::new().set_tag(Some(Tag::CustomTag("example".to_string())));
+    /// ```
     pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::quasi_id::Tag>>>(
         mut self,
         v: T,
@@ -6190,6 +8070,16 @@ impl QuasiId {
     ///
     /// Note that all the setters affecting `tag` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = QuasiId::new().set_info_type(InfoType::default()/* use setters */);
+    /// assert!(x.info_type().is_some());
+    /// assert!(x.custom_tag().is_none());
+    /// assert!(x.inferred().is_none());
+    /// ```
     pub fn set_info_type<T: std::convert::Into<std::boxed::Box<crate::model::InfoType>>>(
         mut self,
         v: T,
@@ -6214,6 +8104,15 @@ impl QuasiId {
     ///
     /// Note that all the setters affecting `tag` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// let x = QuasiId::new().set_custom_tag("example");
+    /// assert!(x.custom_tag().is_some());
+    /// assert!(x.info_type().is_none());
+    /// assert!(x.inferred().is_none());
+    /// ```
     pub fn set_custom_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = std::option::Option::Some(crate::model::quasi_id::Tag::CustomTag(v.into()));
         self
@@ -6235,6 +8134,16 @@ impl QuasiId {
     ///
     /// Note that all the setters affecting `tag` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuasiId;
+    /// use wkt::Empty;
+    /// let x = QuasiId::new().set_inferred(Empty::default()/* use setters */);
+    /// assert!(x.inferred().is_some());
+    /// assert!(x.info_type().is_none());
+    /// assert!(x.custom_tag().is_none());
+    /// ```
     pub fn set_inferred<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
         mut self,
         v: T,
@@ -6306,6 +8215,13 @@ impl StatisticalTable {
     }
 
     /// Sets the value of [table][crate::model::StatisticalTable::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = StatisticalTable::new().set_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -6315,6 +8231,14 @@ impl StatisticalTable {
     }
 
     /// Sets or clears the value of [table][crate::model::StatisticalTable::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = StatisticalTable::new().set_or_clear_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = StatisticalTable::new().set_or_clear_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -6324,6 +8248,17 @@ impl StatisticalTable {
     }
 
     /// Sets the value of [quasi_ids][crate::model::StatisticalTable::quasi_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+    /// use google_cloud_privacy_dlp_v2::model::statistical_table::QuasiIdentifierField;
+    /// let x = StatisticalTable::new()
+    ///     .set_quasi_ids([
+    ///         QuasiIdentifierField::default()/* use setters */,
+    ///         QuasiIdentifierField::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6335,6 +8270,13 @@ impl StatisticalTable {
     }
 
     /// Sets the value of [relative_frequency][crate::model::StatisticalTable::relative_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = StatisticalTable::new().set_relative_frequency(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_relative_frequency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -6344,6 +8286,14 @@ impl StatisticalTable {
     }
 
     /// Sets or clears the value of [relative_frequency][crate::model::StatisticalTable::relative_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = StatisticalTable::new().set_or_clear_relative_frequency(Some(FieldId::default()/* use setters */));
+    /// let x = StatisticalTable::new().set_or_clear_relative_frequency(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_relative_frequency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -6386,6 +8336,13 @@ pub mod statistical_table {
         }
 
         /// Sets the value of [field][crate::model::statistical_table::QuasiIdentifierField::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::statistical_table::QuasiIdentifierField;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = QuasiIdentifierField::new().set_field(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6395,6 +8352,14 @@ pub mod statistical_table {
         }
 
         /// Sets or clears the value of [field][crate::model::statistical_table::QuasiIdentifierField::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::statistical_table::QuasiIdentifierField;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = QuasiIdentifierField::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+        /// let x = QuasiIdentifierField::new().set_or_clear_field(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6404,6 +8369,12 @@ pub mod statistical_table {
         }
 
         /// Sets the value of [custom_tag][crate::model::statistical_table::QuasiIdentifierField::custom_tag].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::statistical_table::QuasiIdentifierField;
+        /// let x = QuasiIdentifierField::new().set_custom_tag("example");
+        /// ```
         pub fn set_custom_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.custom_tag = v.into();
             self
@@ -6436,6 +8407,14 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::NumericalStatsConfig;
+    /// let x = PrivacyMetric::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::privacy_metric::Type::NumericalStatsConfig(NumericalStatsConfig::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::privacy_metric::Type>>,
     >(
@@ -6467,6 +8446,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::NumericalStatsConfig;
+    /// let x = PrivacyMetric::new().set_numerical_stats_config(NumericalStatsConfig::default()/* use setters */);
+    /// assert!(x.numerical_stats_config().is_some());
+    /// assert!(x.categorical_stats_config().is_none());
+    /// assert!(x.k_anonymity_config().is_none());
+    /// assert!(x.l_diversity_config().is_none());
+    /// assert!(x.k_map_estimation_config().is_none());
+    /// assert!(x.delta_presence_estimation_config().is_none());
+    /// ```
     pub fn set_numerical_stats_config<
         T: std::convert::Into<std::boxed::Box<crate::model::privacy_metric::NumericalStatsConfig>>,
     >(
@@ -6500,6 +8492,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::CategoricalStatsConfig;
+    /// let x = PrivacyMetric::new().set_categorical_stats_config(CategoricalStatsConfig::default()/* use setters */);
+    /// assert!(x.categorical_stats_config().is_some());
+    /// assert!(x.numerical_stats_config().is_none());
+    /// assert!(x.k_anonymity_config().is_none());
+    /// assert!(x.l_diversity_config().is_none());
+    /// assert!(x.k_map_estimation_config().is_none());
+    /// assert!(x.delta_presence_estimation_config().is_none());
+    /// ```
     pub fn set_categorical_stats_config<
         T: std::convert::Into<std::boxed::Box<crate::model::privacy_metric::CategoricalStatsConfig>>,
     >(
@@ -6530,6 +8535,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::KAnonymityConfig;
+    /// let x = PrivacyMetric::new().set_k_anonymity_config(KAnonymityConfig::default()/* use setters */);
+    /// assert!(x.k_anonymity_config().is_some());
+    /// assert!(x.numerical_stats_config().is_none());
+    /// assert!(x.categorical_stats_config().is_none());
+    /// assert!(x.l_diversity_config().is_none());
+    /// assert!(x.k_map_estimation_config().is_none());
+    /// assert!(x.delta_presence_estimation_config().is_none());
+    /// ```
     pub fn set_k_anonymity_config<
         T: std::convert::Into<std::boxed::Box<crate::model::privacy_metric::KAnonymityConfig>>,
     >(
@@ -6560,6 +8578,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::LDiversityConfig;
+    /// let x = PrivacyMetric::new().set_l_diversity_config(LDiversityConfig::default()/* use setters */);
+    /// assert!(x.l_diversity_config().is_some());
+    /// assert!(x.numerical_stats_config().is_none());
+    /// assert!(x.categorical_stats_config().is_none());
+    /// assert!(x.k_anonymity_config().is_none());
+    /// assert!(x.k_map_estimation_config().is_none());
+    /// assert!(x.delta_presence_estimation_config().is_none());
+    /// ```
     pub fn set_l_diversity_config<
         T: std::convert::Into<std::boxed::Box<crate::model::privacy_metric::LDiversityConfig>>,
     >(
@@ -6593,6 +8624,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::KMapEstimationConfig;
+    /// let x = PrivacyMetric::new().set_k_map_estimation_config(KMapEstimationConfig::default()/* use setters */);
+    /// assert!(x.k_map_estimation_config().is_some());
+    /// assert!(x.numerical_stats_config().is_none());
+    /// assert!(x.categorical_stats_config().is_none());
+    /// assert!(x.k_anonymity_config().is_none());
+    /// assert!(x.l_diversity_config().is_none());
+    /// assert!(x.delta_presence_estimation_config().is_none());
+    /// ```
     pub fn set_k_map_estimation_config<
         T: std::convert::Into<std::boxed::Box<crate::model::privacy_metric::KMapEstimationConfig>>,
     >(
@@ -6627,6 +8671,19 @@ impl PrivacyMetric {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// use google_cloud_privacy_dlp_v2::model::privacy_metric::DeltaPresenceEstimationConfig;
+    /// let x = PrivacyMetric::new().set_delta_presence_estimation_config(DeltaPresenceEstimationConfig::default()/* use setters */);
+    /// assert!(x.delta_presence_estimation_config().is_some());
+    /// assert!(x.numerical_stats_config().is_none());
+    /// assert!(x.categorical_stats_config().is_none());
+    /// assert!(x.k_anonymity_config().is_none());
+    /// assert!(x.l_diversity_config().is_none());
+    /// assert!(x.k_map_estimation_config().is_none());
+    /// ```
     pub fn set_delta_presence_estimation_config<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::privacy_metric::DeltaPresenceEstimationConfig>,
@@ -6671,6 +8728,13 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [field][crate::model::privacy_metric::NumericalStatsConfig::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::NumericalStatsConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = NumericalStatsConfig::new().set_field(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6680,6 +8744,14 @@ pub mod privacy_metric {
         }
 
         /// Sets or clears the value of [field][crate::model::privacy_metric::NumericalStatsConfig::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::NumericalStatsConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = NumericalStatsConfig::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+        /// let x = NumericalStatsConfig::new().set_or_clear_field(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6715,6 +8787,13 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [field][crate::model::privacy_metric::CategoricalStatsConfig::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::CategoricalStatsConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = CategoricalStatsConfig::new().set_field(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6724,6 +8803,14 @@ pub mod privacy_metric {
         }
 
         /// Sets or clears the value of [field][crate::model::privacy_metric::CategoricalStatsConfig::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::CategoricalStatsConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = CategoricalStatsConfig::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+        /// let x = CategoricalStatsConfig::new().set_or_clear_field(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6771,6 +8858,17 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [quasi_ids][crate::model::privacy_metric::KAnonymityConfig::quasi_ids].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KAnonymityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = KAnonymityConfig::new()
+        ///     .set_quasi_ids([
+        ///         FieldId::default()/* use setters */,
+        ///         FieldId::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6782,6 +8880,13 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [entity_id][crate::model::privacy_metric::KAnonymityConfig::entity_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KAnonymityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::EntityId;
+        /// let x = KAnonymityConfig::new().set_entity_id(EntityId::default()/* use setters */);
+        /// ```
         pub fn set_entity_id<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EntityId>,
@@ -6791,6 +8896,14 @@ pub mod privacy_metric {
         }
 
         /// Sets or clears the value of [entity_id][crate::model::privacy_metric::KAnonymityConfig::entity_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KAnonymityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::EntityId;
+        /// let x = KAnonymityConfig::new().set_or_clear_entity_id(Some(EntityId::default()/* use setters */));
+        /// let x = KAnonymityConfig::new().set_or_clear_entity_id(None::<EntityId>);
+        /// ```
         pub fn set_or_clear_entity_id<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EntityId>,
@@ -6827,6 +8940,17 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [quasi_ids][crate::model::privacy_metric::LDiversityConfig::quasi_ids].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::LDiversityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = LDiversityConfig::new()
+        ///     .set_quasi_ids([
+        ///         FieldId::default()/* use setters */,
+        ///         FieldId::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6838,6 +8962,13 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [sensitive_attribute][crate::model::privacy_metric::LDiversityConfig::sensitive_attribute].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::LDiversityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = LDiversityConfig::new().set_sensitive_attribute(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_sensitive_attribute<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6847,6 +8978,14 @@ pub mod privacy_metric {
         }
 
         /// Sets or clears the value of [sensitive_attribute][crate::model::privacy_metric::LDiversityConfig::sensitive_attribute].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::LDiversityConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = LDiversityConfig::new().set_or_clear_sensitive_attribute(Some(FieldId::default()/* use setters */));
+        /// let x = LDiversityConfig::new().set_or_clear_sensitive_attribute(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_sensitive_attribute<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -6896,6 +9035,17 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [quasi_ids][crate::model::privacy_metric::KMapEstimationConfig::quasi_ids].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KMapEstimationConfig;
+        /// use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+        /// let x = KMapEstimationConfig::new()
+        ///     .set_quasi_ids([
+        ///         TaggedField::default()/* use setters */,
+        ///         TaggedField::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6909,12 +9059,29 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [region_code][crate::model::privacy_metric::KMapEstimationConfig::region_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KMapEstimationConfig;
+        /// let x = KMapEstimationConfig::new().set_region_code("example");
+        /// ```
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
         /// Sets the value of [auxiliary_tables][crate::model::privacy_metric::KMapEstimationConfig::auxiliary_tables].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::KMapEstimationConfig;
+        /// use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+        /// let x = KMapEstimationConfig::new()
+        ///     .set_auxiliary_tables([
+        ///         AuxiliaryTable::default()/* use setters */,
+        ///         AuxiliaryTable::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_auxiliary_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6962,6 +9129,13 @@ pub mod privacy_metric {
             }
 
             /// Sets the value of [field][crate::model::privacy_metric::k_map_estimation_config::TaggedField::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// use google_cloud_privacy_dlp_v2::model::FieldId;
+            /// let x = TaggedField::new().set_field(FieldId::default()/* use setters */);
+            /// ```
             pub fn set_field<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::FieldId>,
@@ -6971,6 +9145,14 @@ pub mod privacy_metric {
             }
 
             /// Sets or clears the value of [field][crate::model::privacy_metric::k_map_estimation_config::TaggedField::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// use google_cloud_privacy_dlp_v2::model::FieldId;
+            /// let x = TaggedField::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+            /// let x = TaggedField::new().set_or_clear_field(None::<FieldId>);
+            /// ```
             pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::FieldId>,
@@ -6983,6 +9165,13 @@ pub mod privacy_metric {
             ///
             /// Note that all the setters affecting `tag` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::tagged_field::Tag;
+            /// let x = TaggedField::new().set_tag(Some(Tag::CustomTag("example".to_string())));
+            /// ```
             pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::privacy_metric::k_map_estimation_config::tagged_field::Tag>>>(mut self, v: T) -> Self
             {
                 self.tag = v.into();
@@ -7007,6 +9196,16 @@ pub mod privacy_metric {
             ///
             /// Note that all the setters affecting `tag` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// use google_cloud_privacy_dlp_v2::model::InfoType;
+            /// let x = TaggedField::new().set_info_type(InfoType::default()/* use setters */);
+            /// assert!(x.info_type().is_some());
+            /// assert!(x.custom_tag().is_none());
+            /// assert!(x.inferred().is_none());
+            /// ```
             pub fn set_info_type<T: std::convert::Into<std::boxed::Box<crate::model::InfoType>>>(
                 mut self,
                 v: T,
@@ -7035,6 +9234,15 @@ pub mod privacy_metric {
             ///
             /// Note that all the setters affecting `tag` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// let x = TaggedField::new().set_custom_tag("example");
+            /// assert!(x.custom_tag().is_some());
+            /// assert!(x.info_type().is_none());
+            /// assert!(x.inferred().is_none());
+            /// ```
             pub fn set_custom_tag<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7063,6 +9271,16 @@ pub mod privacy_metric {
             ///
             /// Note that all the setters affecting `tag` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::TaggedField;
+            /// use wkt::Empty;
+            /// let x = TaggedField::new().set_inferred(Empty::default()/* use setters */);
+            /// assert!(x.inferred().is_some());
+            /// assert!(x.info_type().is_none());
+            /// assert!(x.custom_tag().is_none());
+            /// ```
             pub fn set_inferred<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
                 mut self,
                 v: T,
@@ -7119,17 +9337,17 @@ pub mod privacy_metric {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AuxiliaryTable {
-
+        
             /// Required. Auxiliary table location.
             pub table: std::option::Option<crate::model::BigQueryTable>,
-
+        
             /// Required. Quasi-identifier columns.
             pub quasi_ids: std::vec::Vec<crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField>,
-
+        
             /// Required. The relative frequency column must contain a floating-point
             /// number between 0 and 1 (inclusive). Null values are assumed to be zero.
             pub relative_frequency: std::option::Option<crate::model::FieldId>,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -7139,6 +9357,13 @@ pub mod privacy_metric {
             }
 
             /// Sets the value of [table][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::table].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+            /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+            /// let x = AuxiliaryTable::new().set_table(BigQueryTable::default()/* use setters */);
+            /// ```
             pub fn set_table<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::BigQueryTable>,
@@ -7148,6 +9373,14 @@ pub mod privacy_metric {
             }
 
             /// Sets or clears the value of [table][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::table].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+            /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+            /// let x = AuxiliaryTable::new().set_or_clear_table(Some(BigQueryTable::default()/* use setters */));
+            /// let x = AuxiliaryTable::new().set_or_clear_table(None::<BigQueryTable>);
+            /// ```
             pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::BigQueryTable>,
@@ -7157,6 +9390,17 @@ pub mod privacy_metric {
             }
 
             /// Sets the value of [quasi_ids][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::quasi_ids].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+            /// use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField;
+            /// let x = AuxiliaryTable::new()
+            ///     .set_quasi_ids([
+            ///         QuasiIdField::default()/* use setters */,
+            ///         QuasiIdField::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7168,6 +9412,13 @@ pub mod privacy_metric {
             }
 
             /// Sets the value of [relative_frequency][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::relative_frequency].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+            /// use google_cloud_privacy_dlp_v2::model::FieldId;
+            /// let x = AuxiliaryTable::new().set_relative_frequency(FieldId::default()/* use setters */);
+            /// ```
             pub fn set_relative_frequency<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::FieldId>,
@@ -7177,6 +9428,14 @@ pub mod privacy_metric {
             }
 
             /// Sets or clears the value of [relative_frequency][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::relative_frequency].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::AuxiliaryTable;
+            /// use google_cloud_privacy_dlp_v2::model::FieldId;
+            /// let x = AuxiliaryTable::new().set_or_clear_relative_frequency(Some(FieldId::default()/* use setters */));
+            /// let x = AuxiliaryTable::new().set_or_clear_relative_frequency(None::<FieldId>);
+            /// ```
             pub fn set_or_clear_relative_frequency<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::FieldId>,
@@ -7217,6 +9476,13 @@ pub mod privacy_metric {
                 }
 
                 /// Sets the value of [field][crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField::field].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField;
+                /// use google_cloud_privacy_dlp_v2::model::FieldId;
+                /// let x = QuasiIdField::new().set_field(FieldId::default()/* use setters */);
+                /// ```
                 pub fn set_field<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::FieldId>,
@@ -7226,6 +9492,14 @@ pub mod privacy_metric {
                 }
 
                 /// Sets or clears the value of [field][crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField::field].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField;
+                /// use google_cloud_privacy_dlp_v2::model::FieldId;
+                /// let x = QuasiIdField::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+                /// let x = QuasiIdField::new().set_or_clear_field(None::<FieldId>);
+                /// ```
                 pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::FieldId>,
@@ -7235,6 +9509,12 @@ pub mod privacy_metric {
                 }
 
                 /// Sets the value of [custom_tag][crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField::custom_tag].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField;
+                /// let x = QuasiIdField::new().set_custom_tag("example");
+                /// ```
                 pub fn set_custom_tag<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -7282,6 +9562,17 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [quasi_ids][crate::model::privacy_metric::DeltaPresenceEstimationConfig::quasi_ids].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::DeltaPresenceEstimationConfig;
+        /// use google_cloud_privacy_dlp_v2::model::QuasiId;
+        /// let x = DeltaPresenceEstimationConfig::new()
+        ///     .set_quasi_ids([
+        ///         QuasiId::default()/* use setters */,
+        ///         QuasiId::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_quasi_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7293,12 +9584,29 @@ pub mod privacy_metric {
         }
 
         /// Sets the value of [region_code][crate::model::privacy_metric::DeltaPresenceEstimationConfig::region_code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::DeltaPresenceEstimationConfig;
+        /// let x = DeltaPresenceEstimationConfig::new().set_region_code("example");
+        /// ```
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
         /// Sets the value of [auxiliary_tables][crate::model::privacy_metric::DeltaPresenceEstimationConfig::auxiliary_tables].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::privacy_metric::DeltaPresenceEstimationConfig;
+        /// use google_cloud_privacy_dlp_v2::model::StatisticalTable;
+        /// let x = DeltaPresenceEstimationConfig::new()
+        ///     .set_auxiliary_tables([
+        ///         StatisticalTable::default()/* use setters */,
+        ///         StatisticalTable::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_auxiliary_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7366,6 +9674,13 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets the value of [requested_privacy_metric][crate::model::AnalyzeDataSourceRiskDetails::requested_privacy_metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_requested_privacy_metric(PrivacyMetric::default()/* use setters */);
+    /// ```
     pub fn set_requested_privacy_metric<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyMetric>,
@@ -7375,6 +9690,14 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets or clears the value of [requested_privacy_metric][crate::model::AnalyzeDataSourceRiskDetails::requested_privacy_metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::PrivacyMetric;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_privacy_metric(Some(PrivacyMetric::default()/* use setters */));
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_privacy_metric(None::<PrivacyMetric>);
+    /// ```
     pub fn set_or_clear_requested_privacy_metric<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivacyMetric>,
@@ -7384,6 +9707,13 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets the value of [requested_source_table][crate::model::AnalyzeDataSourceRiskDetails::requested_source_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_requested_source_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_requested_source_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -7393,6 +9723,14 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets or clears the value of [requested_source_table][crate::model::AnalyzeDataSourceRiskDetails::requested_source_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_source_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_source_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_requested_source_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -7402,6 +9740,13 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets the value of [requested_options][crate::model::AnalyzeDataSourceRiskDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_requested_options(RequestedRiskAnalysisOptions::default()/* use setters */);
+    /// ```
     pub fn set_requested_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -7413,6 +9758,14 @@ impl AnalyzeDataSourceRiskDetails {
     }
 
     /// Sets or clears the value of [requested_options][crate::model::AnalyzeDataSourceRiskDetails::requested_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_options(Some(RequestedRiskAnalysisOptions::default()/* use setters */));
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_or_clear_requested_options(None::<RequestedRiskAnalysisOptions>);
+    /// ```
     pub fn set_or_clear_requested_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -7427,6 +9780,14 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_result(Some(
+    ///     google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::Result::NumericalStatsResult(NumericalStatsResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<
                 std::option::Option<crate::model::analyze_data_source_risk_details::Result>,
@@ -7461,6 +9822,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_numerical_stats_result(NumericalStatsResult::default()/* use setters */);
+    /// assert!(x.numerical_stats_result().is_some());
+    /// assert!(x.categorical_stats_result().is_none());
+    /// assert!(x.k_anonymity_result().is_none());
+    /// assert!(x.l_diversity_result().is_none());
+    /// assert!(x.k_map_estimation_result().is_none());
+    /// assert!(x.delta_presence_estimation_result().is_none());
+    /// ```
     pub fn set_numerical_stats_result<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -7499,6 +9873,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::CategoricalStatsResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_categorical_stats_result(CategoricalStatsResult::default()/* use setters */);
+    /// assert!(x.categorical_stats_result().is_some());
+    /// assert!(x.numerical_stats_result().is_none());
+    /// assert!(x.k_anonymity_result().is_none());
+    /// assert!(x.l_diversity_result().is_none());
+    /// assert!(x.k_map_estimation_result().is_none());
+    /// assert!(x.delta_presence_estimation_result().is_none());
+    /// ```
     pub fn set_categorical_stats_result<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -7539,6 +9926,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::KAnonymityResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_k_anonymity_result(KAnonymityResult::default()/* use setters */);
+    /// assert!(x.k_anonymity_result().is_some());
+    /// assert!(x.numerical_stats_result().is_none());
+    /// assert!(x.categorical_stats_result().is_none());
+    /// assert!(x.l_diversity_result().is_none());
+    /// assert!(x.k_map_estimation_result().is_none());
+    /// assert!(x.delta_presence_estimation_result().is_none());
+    /// ```
     pub fn set_k_anonymity_result<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::analyze_data_source_risk_details::KAnonymityResult>,
@@ -7575,6 +9975,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::LDiversityResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_l_diversity_result(LDiversityResult::default()/* use setters */);
+    /// assert!(x.l_diversity_result().is_some());
+    /// assert!(x.numerical_stats_result().is_none());
+    /// assert!(x.categorical_stats_result().is_none());
+    /// assert!(x.k_anonymity_result().is_none());
+    /// assert!(x.k_map_estimation_result().is_none());
+    /// assert!(x.delta_presence_estimation_result().is_none());
+    /// ```
     pub fn set_l_diversity_result<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::analyze_data_source_risk_details::LDiversityResult>,
@@ -7611,6 +10024,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::KMapEstimationResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_k_map_estimation_result(KMapEstimationResult::default()/* use setters */);
+    /// assert!(x.k_map_estimation_result().is_some());
+    /// assert!(x.numerical_stats_result().is_none());
+    /// assert!(x.categorical_stats_result().is_none());
+    /// assert!(x.k_anonymity_result().is_none());
+    /// assert!(x.l_diversity_result().is_none());
+    /// assert!(x.delta_presence_estimation_result().is_none());
+    /// ```
     pub fn set_k_map_estimation_result<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -7649,6 +10075,19 @@ impl AnalyzeDataSourceRiskDetails {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult;
+    /// let x = AnalyzeDataSourceRiskDetails::new().set_delta_presence_estimation_result(DeltaPresenceEstimationResult::default()/* use setters */);
+    /// assert!(x.delta_presence_estimation_result().is_some());
+    /// assert!(x.numerical_stats_result().is_none());
+    /// assert!(x.categorical_stats_result().is_none());
+    /// assert!(x.k_anonymity_result().is_none());
+    /// assert!(x.l_diversity_result().is_none());
+    /// assert!(x.k_map_estimation_result().is_none());
+    /// ```
     pub fn set_delta_presence_estimation_result<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -7702,6 +10141,13 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [min_value][crate::model::analyze_data_source_risk_details::NumericalStatsResult::min_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = NumericalStatsResult::new().set_min_value(Value::default()/* use setters */);
+        /// ```
         pub fn set_min_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -7711,6 +10157,14 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets or clears the value of [min_value][crate::model::analyze_data_source_risk_details::NumericalStatsResult::min_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = NumericalStatsResult::new().set_or_clear_min_value(Some(Value::default()/* use setters */));
+        /// let x = NumericalStatsResult::new().set_or_clear_min_value(None::<Value>);
+        /// ```
         pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -7720,6 +10174,13 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [max_value][crate::model::analyze_data_source_risk_details::NumericalStatsResult::max_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = NumericalStatsResult::new().set_max_value(Value::default()/* use setters */);
+        /// ```
         pub fn set_max_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -7729,6 +10190,14 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets or clears the value of [max_value][crate::model::analyze_data_source_risk_details::NumericalStatsResult::max_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = NumericalStatsResult::new().set_or_clear_max_value(Some(Value::default()/* use setters */));
+        /// let x = NumericalStatsResult::new().set_or_clear_max_value(None::<Value>);
+        /// ```
         pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -7738,6 +10207,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [quantile_values][crate::model::analyze_data_source_risk_details::NumericalStatsResult::quantile_values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::NumericalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = NumericalStatsResult::new()
+        ///     .set_quantile_values([
+        ///         Value::default()/* use setters */,
+        ///         Value::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_quantile_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7759,10 +10239,10 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CategoricalStatsResult {
-
+    
         /// Histogram of value frequencies in the column.
         pub value_frequency_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7772,6 +10252,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [value_frequency_histogram_buckets][crate::model::analyze_data_source_risk_details::CategoricalStatsResult::value_frequency_histogram_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::CategoricalStatsResult;
+        /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+        /// let x = CategoricalStatsResult::new()
+        ///     .set_value_frequency_histogram_buckets([
+        ///         CategoricalStatsHistogramBucket::default()/* use setters */,
+        ///         CategoricalStatsHistogramBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_value_frequency_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7823,6 +10314,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [value_frequency_lower_bound][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::value_frequency_lower_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+            /// let x = CategoricalStatsHistogramBucket::new().set_value_frequency_lower_bound(42);
+            /// ```
             pub fn set_value_frequency_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -7832,6 +10329,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [value_frequency_upper_bound][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::value_frequency_upper_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+            /// let x = CategoricalStatsHistogramBucket::new().set_value_frequency_upper_bound(42);
+            /// ```
             pub fn set_value_frequency_upper_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -7841,12 +10344,29 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_size][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::bucket_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+            /// let x = CategoricalStatsHistogramBucket::new().set_bucket_size(42);
+            /// ```
             pub fn set_bucket_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_size = v.into();
                 self
             }
 
             /// Sets the value of [bucket_values][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::bucket_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+            /// use google_cloud_privacy_dlp_v2::model::ValueFrequency;
+            /// let x = CategoricalStatsHistogramBucket::new()
+            ///     .set_bucket_values([
+            ///         ValueFrequency::default()/* use setters */,
+            ///         ValueFrequency::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_bucket_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7858,6 +10378,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_value_count][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::bucket_value_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket;
+            /// let x = CategoricalStatsHistogramBucket::new().set_bucket_value_count(42);
+            /// ```
             pub fn set_bucket_value_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_value_count = v.into();
                 self
@@ -7875,10 +10401,10 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KAnonymityResult {
-
+    
         /// Histogram of k-anonymity equivalence classes.
         pub equivalence_class_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7888,6 +10414,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [equivalence_class_histogram_buckets][crate::model::analyze_data_source_risk_details::KAnonymityResult::equivalence_class_histogram_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::KAnonymityResult;
+        /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+        /// let x = KAnonymityResult::new()
+        ///     .set_equivalence_class_histogram_buckets([
+        ///         KAnonymityHistogramBucket::default()/* use setters */,
+        ///         KAnonymityHistogramBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_equivalence_class_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7932,6 +10469,17 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [quasi_ids_values][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass::quasi_ids_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = KAnonymityEquivalenceClass::new()
+            ///     .set_quasi_ids_values([
+            ///         Value::default()/* use setters */,
+            ///         Value::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_quasi_ids_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -7943,6 +10491,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [equivalence_class_size][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass::equivalence_class_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass;
+            /// let x = KAnonymityEquivalenceClass::new().set_equivalence_class_size(42);
+            /// ```
             pub fn set_equivalence_class_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.equivalence_class_size = v.into();
                 self
@@ -7959,23 +10513,23 @@ pub mod analyze_data_source_risk_details {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KAnonymityHistogramBucket {
-
+        
             /// Lower bound on the size of the equivalence classes in this bucket.
             pub equivalence_class_size_lower_bound: i64,
-
+        
             /// Upper bound on the size of the equivalence classes in this bucket.
             pub equivalence_class_size_upper_bound: i64,
-
+        
             /// Total number of equivalence classes in this bucket.
             pub bucket_size: i64,
-
+        
             /// Sample of equivalence classes in this bucket. The total number of
             /// classes returned per bucket is capped at 20.
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass>,
-
+        
             /// Total number of distinct equivalence classes in this bucket.
             pub bucket_value_count: i64,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -7985,6 +10539,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [equivalence_class_size_lower_bound][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::equivalence_class_size_lower_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+            /// let x = KAnonymityHistogramBucket::new().set_equivalence_class_size_lower_bound(42);
+            /// ```
             pub fn set_equivalence_class_size_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -7994,6 +10554,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [equivalence_class_size_upper_bound][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::equivalence_class_size_upper_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+            /// let x = KAnonymityHistogramBucket::new().set_equivalence_class_size_upper_bound(42);
+            /// ```
             pub fn set_equivalence_class_size_upper_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -8003,12 +10569,29 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_size][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::bucket_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+            /// let x = KAnonymityHistogramBucket::new().set_bucket_size(42);
+            /// ```
             pub fn set_bucket_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_size = v.into();
                 self
             }
 
             /// Sets the value of [bucket_values][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::bucket_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+            /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass;
+            /// let x = KAnonymityHistogramBucket::new()
+            ///     .set_bucket_values([
+            ///         KAnonymityEquivalenceClass::default()/* use setters */,
+            ///         KAnonymityEquivalenceClass::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_bucket_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8020,6 +10603,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_value_count][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::bucket_value_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket;
+            /// let x = KAnonymityHistogramBucket::new().set_bucket_value_count(42);
+            /// ```
             pub fn set_bucket_value_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_value_count = v.into();
                 self
@@ -8037,10 +10626,10 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LDiversityResult {
-
+    
         /// Histogram of l-diversity equivalence class sensitive value frequencies.
         pub sensitive_value_frequency_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8050,6 +10639,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [sensitive_value_frequency_histogram_buckets][crate::model::analyze_data_source_risk_details::LDiversityResult::sensitive_value_frequency_histogram_buckets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::LDiversityResult;
+        /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+        /// let x = LDiversityResult::new()
+        ///     .set_sensitive_value_frequency_histogram_buckets([
+        ///         LDiversityHistogramBucket::default()/* use setters */,
+        ///         LDiversityHistogramBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_sensitive_value_frequency_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8099,6 +10699,17 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [quasi_ids_values][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass::quasi_ids_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = LDiversityEquivalenceClass::new()
+            ///     .set_quasi_ids_values([
+            ///         Value::default()/* use setters */,
+            ///         Value::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_quasi_ids_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8110,12 +10721,24 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [equivalence_class_size][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass::equivalence_class_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass;
+            /// let x = LDiversityEquivalenceClass::new().set_equivalence_class_size(42);
+            /// ```
             pub fn set_equivalence_class_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.equivalence_class_size = v.into();
                 self
             }
 
             /// Sets the value of [num_distinct_sensitive_values][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass::num_distinct_sensitive_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass;
+            /// let x = LDiversityEquivalenceClass::new().set_num_distinct_sensitive_values(42);
+            /// ```
             pub fn set_num_distinct_sensitive_values<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -8125,6 +10748,17 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [top_sensitive_values][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass::top_sensitive_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass;
+            /// use google_cloud_privacy_dlp_v2::model::ValueFrequency;
+            /// let x = LDiversityEquivalenceClass::new()
+            ///     .set_top_sensitive_values([
+            ///         ValueFrequency::default()/* use setters */,
+            ///         ValueFrequency::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_top_sensitive_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8146,25 +10780,25 @@ pub mod analyze_data_source_risk_details {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct LDiversityHistogramBucket {
-
+        
             /// Lower bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             pub sensitive_value_frequency_lower_bound: i64,
-
+        
             /// Upper bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             pub sensitive_value_frequency_upper_bound: i64,
-
+        
             /// Total number of equivalence classes in this bucket.
             pub bucket_size: i64,
-
+        
             /// Sample of equivalence classes in this bucket. The total number of
             /// classes returned per bucket is capped at 20.
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass>,
-
+        
             /// Total number of distinct equivalence classes in this bucket.
             pub bucket_value_count: i64,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8174,6 +10808,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [sensitive_value_frequency_lower_bound][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::sensitive_value_frequency_lower_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+            /// let x = LDiversityHistogramBucket::new().set_sensitive_value_frequency_lower_bound(42);
+            /// ```
             pub fn set_sensitive_value_frequency_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -8183,6 +10823,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [sensitive_value_frequency_upper_bound][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::sensitive_value_frequency_upper_bound].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+            /// let x = LDiversityHistogramBucket::new().set_sensitive_value_frequency_upper_bound(42);
+            /// ```
             pub fn set_sensitive_value_frequency_upper_bound<T: std::convert::Into<i64>>(
                 mut self,
                 v: T,
@@ -8192,12 +10838,29 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_size][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::bucket_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+            /// let x = LDiversityHistogramBucket::new().set_bucket_size(42);
+            /// ```
             pub fn set_bucket_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_size = v.into();
                 self
             }
 
             /// Sets the value of [bucket_values][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::bucket_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+            /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass;
+            /// let x = LDiversityHistogramBucket::new()
+            ///     .set_bucket_values([
+            ///         LDiversityEquivalenceClass::default()/* use setters */,
+            ///         LDiversityEquivalenceClass::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_bucket_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8209,6 +10872,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_value_count][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::bucket_value_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket;
+            /// let x = LDiversityHistogramBucket::new().set_bucket_value_count(42);
+            /// ```
             pub fn set_bucket_value_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_value_count = v.into();
                 self
@@ -8227,7 +10896,7 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KMapEstimationResult {
-
+    
         /// The intervals [min_anonymity, max_anonymity] do not overlap. If a value
         /// doesn't correspond to any such interval, the associated frequency is
         /// zero. For example, the following records:
@@ -8237,7 +10906,7 @@ pub mod analyze_data_source_risk_details {
         /// mean that there are no record with an estimated anonymity of 4, 5, or
         /// larger than 10.
         pub k_map_estimation_histogram: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8247,6 +10916,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [k_map_estimation_histogram][crate::model::analyze_data_source_risk_details::KMapEstimationResult::k_map_estimation_histogram].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::KMapEstimationResult;
+        /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+        /// let x = KMapEstimationResult::new()
+        ///     .set_k_map_estimation_histogram([
+        ///         KMapEstimationHistogramBucket::default()/* use setters */,
+        ///         KMapEstimationHistogramBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_k_map_estimation_histogram<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8288,6 +10968,17 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [quasi_ids_values][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues::quasi_ids_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = KMapEstimationQuasiIdValues::new()
+            ///     .set_quasi_ids_values([
+            ///         Value::default()/* use setters */,
+            ///         Value::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_quasi_ids_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8299,6 +10990,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [estimated_anonymity][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues::estimated_anonymity].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues;
+            /// let x = KMapEstimationQuasiIdValues::new().set_estimated_anonymity(42);
+            /// ```
             pub fn set_estimated_anonymity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.estimated_anonymity = v.into();
                 self
@@ -8322,23 +11019,23 @@ pub mod analyze_data_source_risk_details {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KMapEstimationHistogramBucket {
-
+        
             /// Always positive.
             pub min_anonymity: i64,
-
+        
             /// Always greater than or equal to min_anonymity.
             pub max_anonymity: i64,
-
+        
             /// Number of records within these anonymity bounds.
             pub bucket_size: i64,
-
+        
             /// Sample of quasi-identifier tuple values in this bucket. The total
             /// number of classes returned per bucket is capped at 20.
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues>,
-
+        
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             pub bucket_value_count: i64,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8348,24 +11045,53 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [min_anonymity][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::min_anonymity].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+            /// let x = KMapEstimationHistogramBucket::new().set_min_anonymity(42);
+            /// ```
             pub fn set_min_anonymity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.min_anonymity = v.into();
                 self
             }
 
             /// Sets the value of [max_anonymity][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::max_anonymity].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+            /// let x = KMapEstimationHistogramBucket::new().set_max_anonymity(42);
+            /// ```
             pub fn set_max_anonymity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.max_anonymity = v.into();
                 self
             }
 
             /// Sets the value of [bucket_size][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::bucket_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+            /// let x = KMapEstimationHistogramBucket::new().set_bucket_size(42);
+            /// ```
             pub fn set_bucket_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_size = v.into();
                 self
             }
 
             /// Sets the value of [bucket_values][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::bucket_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+            /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues;
+            /// let x = KMapEstimationHistogramBucket::new()
+            ///     .set_bucket_values([
+            ///         KMapEstimationQuasiIdValues::default()/* use setters */,
+            ///         KMapEstimationQuasiIdValues::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_bucket_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8377,6 +11103,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_value_count][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::bucket_value_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket;
+            /// let x = KMapEstimationHistogramBucket::new().set_bucket_value_count(42);
+            /// ```
             pub fn set_bucket_value_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_value_count = v.into();
                 self
@@ -8395,7 +11127,7 @@ pub mod analyze_data_source_risk_details {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DeltaPresenceEstimationResult {
-
+    
         /// The intervals [min_probability, max_probability) do not overlap. If a
         /// value doesn't correspond to any such interval, the associated frequency
         /// is zero. For example, the following records:
@@ -8405,7 +11137,7 @@ pub mod analyze_data_source_risk_details {
         /// mean that there are no record with an estimated probability in [0.1, 0.2)
         /// nor larger or equal to 0.4.
         pub delta_presence_estimation_histogram: std::vec::Vec<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8415,6 +11147,17 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [delta_presence_estimation_histogram][crate::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult::delta_presence_estimation_histogram].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult;
+        /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+        /// let x = DeltaPresenceEstimationResult::new()
+        ///     .set_delta_presence_estimation_histogram([
+        ///         DeltaPresenceEstimationHistogramBucket::default()/* use setters */,
+        ///         DeltaPresenceEstimationHistogramBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_delta_presence_estimation_histogram<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8463,6 +11206,17 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [quasi_ids_values][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues::quasi_ids_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues;
+            /// use google_cloud_privacy_dlp_v2::model::Value;
+            /// let x = DeltaPresenceEstimationQuasiIdValues::new()
+            ///     .set_quasi_ids_values([
+            ///         Value::default()/* use setters */,
+            ///         Value::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_quasi_ids_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8474,6 +11228,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [estimated_probability][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues::estimated_probability].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues;
+            /// let x = DeltaPresenceEstimationQuasiIdValues::new().set_estimated_probability(42.0);
+            /// ```
             pub fn set_estimated_probability<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.estimated_probability = v.into();
                 self
@@ -8498,23 +11258,23 @@ pub mod analyze_data_source_risk_details {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct DeltaPresenceEstimationHistogramBucket {
-
+        
             /// Between 0 and 1.
             pub min_probability: f64,
-
+        
             /// Always greater than or equal to min_probability.
             pub max_probability: f64,
-
+        
             /// Number of records within these probability bounds.
             pub bucket_size: i64,
-
+        
             /// Sample of quasi-identifier tuple values in this bucket. The total
             /// number of classes returned per bucket is capped at 20.
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues>,
-
+        
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             pub bucket_value_count: i64,
-
+        
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8524,24 +11284,53 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [min_probability][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::min_probability].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+            /// let x = DeltaPresenceEstimationHistogramBucket::new().set_min_probability(42.0);
+            /// ```
             pub fn set_min_probability<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.min_probability = v.into();
                 self
             }
 
             /// Sets the value of [max_probability][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::max_probability].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+            /// let x = DeltaPresenceEstimationHistogramBucket::new().set_max_probability(42.0);
+            /// ```
             pub fn set_max_probability<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.max_probability = v.into();
                 self
             }
 
             /// Sets the value of [bucket_size][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::bucket_size].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+            /// let x = DeltaPresenceEstimationHistogramBucket::new().set_bucket_size(42);
+            /// ```
             pub fn set_bucket_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_size = v.into();
                 self
             }
 
             /// Sets the value of [bucket_values][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::bucket_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+            /// use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues;
+            /// let x = DeltaPresenceEstimationHistogramBucket::new()
+            ///     .set_bucket_values([
+            ///         DeltaPresenceEstimationQuasiIdValues::default()/* use setters */,
+            ///         DeltaPresenceEstimationQuasiIdValues::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_bucket_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -8553,6 +11342,12 @@ pub mod analyze_data_source_risk_details {
             }
 
             /// Sets the value of [bucket_value_count][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::bucket_value_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket;
+            /// let x = DeltaPresenceEstimationHistogramBucket::new().set_bucket_value_count(42);
+            /// ```
             pub fn set_bucket_value_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.bucket_value_count = v.into();
                 self
@@ -8582,6 +11377,13 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets the value of [job_config][crate::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions::job_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions;
+        /// use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+        /// let x = RequestedRiskAnalysisOptions::new().set_job_config(RiskAnalysisJobConfig::default()/* use setters */);
+        /// ```
         pub fn set_job_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RiskAnalysisJobConfig>,
@@ -8591,6 +11393,14 @@ pub mod analyze_data_source_risk_details {
         }
 
         /// Sets or clears the value of [job_config][crate::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions::job_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions;
+        /// use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+        /// let x = RequestedRiskAnalysisOptions::new().set_or_clear_job_config(Some(RiskAnalysisJobConfig::default()/* use setters */));
+        /// let x = RequestedRiskAnalysisOptions::new().set_or_clear_job_config(None::<RiskAnalysisJobConfig>);
+        /// ```
         pub fn set_or_clear_job_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RiskAnalysisJobConfig>,
@@ -8658,6 +11468,13 @@ impl ValueFrequency {
     }
 
     /// Sets the value of [value][crate::model::ValueFrequency::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ValueFrequency;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = ValueFrequency::new().set_value(Value::default()/* use setters */);
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -8667,6 +11484,14 @@ impl ValueFrequency {
     }
 
     /// Sets or clears the value of [value][crate::model::ValueFrequency::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ValueFrequency;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = ValueFrequency::new().set_or_clear_value(Some(Value::default()/* use setters */));
+    /// let x = ValueFrequency::new().set_or_clear_value(None::<Value>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -8676,6 +11501,12 @@ impl ValueFrequency {
     }
 
     /// Sets the value of [count][crate::model::ValueFrequency::count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ValueFrequency;
+    /// let x = ValueFrequency::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
@@ -8712,6 +11543,13 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// use google_cloud_privacy_dlp_v2::model::value::Type;
+    /// let x = Value::new().set_type(Some(Type::IntegerValue(42)));
+    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::value::Type>>>(
         mut self,
         v: T,
@@ -8736,6 +11574,20 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = Value::new().set_integer_value(42);
+    /// assert!(x.integer_value().is_some());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_integer_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(crate::model::value::Type::IntegerValue(v.into()));
         self
@@ -8757,6 +11609,20 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = Value::new().set_float_value(42.0);
+    /// assert!(x.float_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_float_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(crate::model::value::Type::FloatValue(v.into()));
         self
@@ -8778,6 +11644,20 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = Value::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(crate::model::value::Type::StringValue(v.into()));
         self
@@ -8799,6 +11679,20 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = Value::new().set_boolean_value(true);
+    /// assert!(x.boolean_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.r#type = std::option::Option::Some(crate::model::value::Type::BooleanValue(v.into()));
         self
@@ -8820,6 +11714,21 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// use wkt::Timestamp;
+    /// let x = Value::new().set_timestamp_value(Timestamp::default()/* use setters */);
+    /// assert!(x.timestamp_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -8845,6 +11754,21 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// use gtype::model::TimeOfDay;
+    /// let x = Value::new().set_time_value(TimeOfDay::default()/* use setters */);
+    /// assert!(x.time_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.date_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_time_value<T: std::convert::Into<std::boxed::Box<gtype::model::TimeOfDay>>>(
         mut self,
         v: T,
@@ -8869,6 +11793,21 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// use gtype::model::Date;
+    /// let x = Value::new().set_date_value(Date::default()/* use setters */);
+    /// assert!(x.date_value().is_some());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.float_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.time_value().is_none());
+    /// assert!(x.day_of_week_value().is_none());
+    /// ```
     pub fn set_date_value<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
         mut self,
         v: T,
@@ -8893,6 +11832,39 @@ impl Value {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Value;
+    /// use gtype::model::DayOfWeek;
+    /// let x0 = Value::new().set_day_of_week_value(DayOfWeek::Monday);
+    /// let x1 = Value::new().set_day_of_week_value(DayOfWeek::Tuesday);
+    /// let x2 = Value::new().set_day_of_week_value(DayOfWeek::Wednesday);
+    /// assert!(x0.day_of_week_value().is_some());
+    /// assert!(x0.integer_value().is_none());
+    /// assert!(x0.float_value().is_none());
+    /// assert!(x0.string_value().is_none());
+    /// assert!(x0.boolean_value().is_none());
+    /// assert!(x0.timestamp_value().is_none());
+    /// assert!(x0.time_value().is_none());
+    /// assert!(x0.date_value().is_none());
+    /// assert!(x1.day_of_week_value().is_some());
+    /// assert!(x1.integer_value().is_none());
+    /// assert!(x1.float_value().is_none());
+    /// assert!(x1.string_value().is_none());
+    /// assert!(x1.boolean_value().is_none());
+    /// assert!(x1.timestamp_value().is_none());
+    /// assert!(x1.time_value().is_none());
+    /// assert!(x1.date_value().is_none());
+    /// assert!(x2.day_of_week_value().is_some());
+    /// assert!(x2.integer_value().is_none());
+    /// assert!(x2.float_value().is_none());
+    /// assert!(x2.string_value().is_none());
+    /// assert!(x2.boolean_value().is_none());
+    /// assert!(x2.timestamp_value().is_none());
+    /// assert!(x2.time_value().is_none());
+    /// assert!(x2.date_value().is_none());
+    /// ```
     pub fn set_day_of_week_value<T: std::convert::Into<gtype::model::DayOfWeek>>(
         mut self,
         v: T,
@@ -8956,6 +11928,14 @@ impl QuoteInfo {
     ///
     /// Note that all the setters affecting `parsed_quote` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// let x = QuoteInfo::new().set_parsed_quote(Some(
+    ///     google_cloud_privacy_dlp_v2::model::quote_info::ParsedQuote::DateTime(DateTime::default().into())));
+    /// ```
     pub fn set_parsed_quote<
         T: std::convert::Into<std::option::Option<crate::model::quote_info::ParsedQuote>>,
     >(
@@ -8982,6 +11962,14 @@ impl QuoteInfo {
     ///
     /// Note that all the setters affecting `parsed_quote` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// let x = QuoteInfo::new().set_date_time(DateTime::default()/* use setters */);
+    /// assert!(x.date_time().is_some());
+    /// ```
     pub fn set_date_time<T: std::convert::Into<std::boxed::Box<crate::model::DateTime>>>(
         mut self,
         v: T,
@@ -9039,6 +12027,13 @@ impl DateTime {
     }
 
     /// Sets the value of [date][crate::model::DateTime::date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use gtype::model::Date;
+    /// let x = DateTime::new().set_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -9048,6 +12043,14 @@ impl DateTime {
     }
 
     /// Sets or clears the value of [date][crate::model::DateTime::date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use gtype::model::Date;
+    /// let x = DateTime::new().set_or_clear_date(Some(Date::default()/* use setters */));
+    /// let x = DateTime::new().set_or_clear_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -9057,12 +12060,28 @@ impl DateTime {
     }
 
     /// Sets the value of [day_of_week][crate::model::DateTime::day_of_week].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use gtype::model::DayOfWeek;
+    /// let x0 = DateTime::new().set_day_of_week(DayOfWeek::Monday);
+    /// let x1 = DateTime::new().set_day_of_week(DayOfWeek::Tuesday);
+    /// let x2 = DateTime::new().set_day_of_week(DayOfWeek::Wednesday);
+    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
     }
 
     /// Sets the value of [time][crate::model::DateTime::time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use gtype::model::TimeOfDay;
+    /// let x = DateTime::new().set_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -9072,6 +12091,14 @@ impl DateTime {
     }
 
     /// Sets or clears the value of [time][crate::model::DateTime::time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use gtype::model::TimeOfDay;
+    /// let x = DateTime::new().set_or_clear_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = DateTime::new().set_or_clear_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -9081,6 +12108,13 @@ impl DateTime {
     }
 
     /// Sets the value of [time_zone][crate::model::DateTime::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use google_cloud_privacy_dlp_v2::model::date_time::TimeZone;
+    /// let x = DateTime::new().set_time_zone(TimeZone::default()/* use setters */);
+    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::date_time::TimeZone>,
@@ -9090,6 +12124,14 @@ impl DateTime {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::DateTime::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateTime;
+    /// use google_cloud_privacy_dlp_v2::model::date_time::TimeZone;
+    /// let x = DateTime::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
+    /// let x = DateTime::new().set_or_clear_time_zone(None::<TimeZone>);
+    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::date_time::TimeZone>,
@@ -9127,6 +12169,12 @@ pub mod date_time {
         }
 
         /// Sets the value of [offset_minutes][crate::model::date_time::TimeZone::offset_minutes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::date_time::TimeZone;
+        /// let x = TimeZone::new().set_offset_minutes(42);
+        /// ```
         pub fn set_offset_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.offset_minutes = v.into();
             self
@@ -9161,6 +12209,13 @@ impl DeidentifyConfig {
     }
 
     /// Sets the value of [transformation_error_handling][crate::model::DeidentifyConfig::transformation_error_handling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationErrorHandling;
+    /// let x = DeidentifyConfig::new().set_transformation_error_handling(TransformationErrorHandling::default()/* use setters */);
+    /// ```
     pub fn set_transformation_error_handling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransformationErrorHandling>,
@@ -9170,6 +12225,14 @@ impl DeidentifyConfig {
     }
 
     /// Sets or clears the value of [transformation_error_handling][crate::model::DeidentifyConfig::transformation_error_handling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationErrorHandling;
+    /// let x = DeidentifyConfig::new().set_or_clear_transformation_error_handling(Some(TransformationErrorHandling::default()/* use setters */));
+    /// let x = DeidentifyConfig::new().set_or_clear_transformation_error_handling(None::<TransformationErrorHandling>);
+    /// ```
     pub fn set_or_clear_transformation_error_handling<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9185,6 +12248,14 @@ impl DeidentifyConfig {
     ///
     /// Note that all the setters affecting `transformation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeTransformations;
+    /// let x = DeidentifyConfig::new().set_transformation(Some(
+    ///     google_cloud_privacy_dlp_v2::model::deidentify_config::Transformation::InfoTypeTransformations(InfoTypeTransformations::default().into())));
+    /// ```
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::deidentify_config::Transformation>>,
     >(
@@ -9215,6 +12286,16 @@ impl DeidentifyConfig {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeTransformations;
+    /// let x = DeidentifyConfig::new().set_info_type_transformations(InfoTypeTransformations::default()/* use setters */);
+    /// assert!(x.info_type_transformations().is_some());
+    /// assert!(x.record_transformations().is_none());
+    /// assert!(x.image_transformations().is_none());
+    /// ```
     pub fn set_info_type_transformations<
         T: std::convert::Into<std::boxed::Box<crate::model::InfoTypeTransformations>>,
     >(
@@ -9247,6 +12328,16 @@ impl DeidentifyConfig {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::RecordTransformations;
+    /// let x = DeidentifyConfig::new().set_record_transformations(RecordTransformations::default()/* use setters */);
+    /// assert!(x.record_transformations().is_some());
+    /// assert!(x.info_type_transformations().is_none());
+    /// assert!(x.image_transformations().is_none());
+    /// ```
     pub fn set_record_transformations<
         T: std::convert::Into<std::boxed::Box<crate::model::RecordTransformations>>,
     >(
@@ -9279,6 +12370,16 @@ impl DeidentifyConfig {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// use google_cloud_privacy_dlp_v2::model::ImageTransformations;
+    /// let x = DeidentifyConfig::new().set_image_transformations(ImageTransformations::default()/* use setters */);
+    /// assert!(x.image_transformations().is_some());
+    /// assert!(x.info_type_transformations().is_none());
+    /// assert!(x.record_transformations().is_none());
+    /// ```
     pub fn set_image_transformations<
         T: std::convert::Into<std::boxed::Box<crate::model::ImageTransformations>>,
     >(
@@ -9335,6 +12436,17 @@ impl ImageTransformations {
     }
 
     /// Sets the value of [transforms][crate::model::ImageTransformations::transforms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageTransformations;
+    /// use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+    /// let x = ImageTransformations::new()
+    ///     .set_transforms([
+    ///         ImageTransformation::default()/* use setters */,
+    ///         ImageTransformation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9378,6 +12490,13 @@ pub mod image_transformations {
         }
 
         /// Sets the value of [redaction_color][crate::model::image_transformations::ImageTransformation::redaction_color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::Color;
+        /// let x = ImageTransformation::new().set_redaction_color(Color::default()/* use setters */);
+        /// ```
         pub fn set_redaction_color<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Color>,
@@ -9387,6 +12506,14 @@ pub mod image_transformations {
         }
 
         /// Sets or clears the value of [redaction_color][crate::model::image_transformations::ImageTransformation::redaction_color].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::Color;
+        /// let x = ImageTransformation::new().set_or_clear_redaction_color(Some(Color::default()/* use setters */));
+        /// let x = ImageTransformation::new().set_or_clear_redaction_color(None::<Color>);
+        /// ```
         pub fn set_or_clear_redaction_color<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Color>,
@@ -9399,6 +12526,14 @@ pub mod image_transformations {
         ///
         /// Note that all the setters affecting `target` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::SelectedInfoTypes;
+        /// let x = ImageTransformation::new().set_target(Some(
+        ///     google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::Target::SelectedInfoTypes(SelectedInfoTypes::default().into())));
+        /// ```
         pub fn set_target<
             T: std::convert::Into<
                     std::option::Option<
@@ -9435,6 +12570,16 @@ pub mod image_transformations {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::SelectedInfoTypes;
+        /// let x = ImageTransformation::new().set_selected_info_types(SelectedInfoTypes::default()/* use setters */);
+        /// assert!(x.selected_info_types().is_some());
+        /// assert!(x.all_info_types().is_none());
+        /// assert!(x.all_text().is_none());
+        /// ```
         pub fn set_selected_info_types<T: std::convert::Into<std::boxed::Box<crate::model::image_transformations::image_transformation::SelectedInfoTypes>>>(mut self, v: T) -> Self{
             self.target = std::option::Option::Some(
                 crate::model::image_transformations::image_transformation::Target::SelectedInfoTypes(
@@ -9468,6 +12613,16 @@ pub mod image_transformations {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::AllInfoTypes;
+        /// let x = ImageTransformation::new().set_all_info_types(AllInfoTypes::default()/* use setters */);
+        /// assert!(x.all_info_types().is_some());
+        /// assert!(x.selected_info_types().is_none());
+        /// assert!(x.all_text().is_none());
+        /// ```
         pub fn set_all_info_types<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -9508,6 +12663,16 @@ pub mod image_transformations {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::image_transformations::ImageTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::AllText;
+        /// let x = ImageTransformation::new().set_all_text(AllText::default()/* use setters */);
+        /// assert!(x.all_text().is_some());
+        /// assert!(x.selected_info_types().is_none());
+        /// assert!(x.all_info_types().is_none());
+        /// ```
         pub fn set_all_text<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -9555,6 +12720,17 @@ pub mod image_transformations {
             }
 
             /// Sets the value of [info_types][crate::model::image_transformations::image_transformation::SelectedInfoTypes::info_types].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::image_transformations::image_transformation::SelectedInfoTypes;
+            /// use google_cloud_privacy_dlp_v2::model::InfoType;
+            /// let x = SelectedInfoTypes::new()
+            ///     .set_info_types([
+            ///         InfoType::default()/* use setters */,
+            ///         InfoType::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_info_types<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -9663,6 +12839,14 @@ impl TransformationErrorHandling {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationErrorHandling;
+    /// use google_cloud_privacy_dlp_v2::model::transformation_error_handling::ThrowError;
+    /// let x = TransformationErrorHandling::new().set_mode(Some(
+    ///     google_cloud_privacy_dlp_v2::model::transformation_error_handling::Mode::ThrowError(ThrowError::default().into())));
+    /// ```
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::transformation_error_handling::Mode>>,
     >(
@@ -9695,6 +12879,15 @@ impl TransformationErrorHandling {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationErrorHandling;
+    /// use google_cloud_privacy_dlp_v2::model::transformation_error_handling::ThrowError;
+    /// let x = TransformationErrorHandling::new().set_throw_error(ThrowError::default()/* use setters */);
+    /// assert!(x.throw_error().is_some());
+    /// assert!(x.leave_untransformed().is_none());
+    /// ```
     pub fn set_throw_error<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::transformation_error_handling::ThrowError>,
@@ -9731,6 +12924,15 @@ impl TransformationErrorHandling {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationErrorHandling;
+    /// use google_cloud_privacy_dlp_v2::model::transformation_error_handling::LeaveUntransformed;
+    /// let x = TransformationErrorHandling::new().set_leave_untransformed(LeaveUntransformed::default()/* use setters */);
+    /// assert!(x.leave_untransformed().is_some());
+    /// assert!(x.throw_error().is_none());
+    /// ```
     pub fn set_leave_untransformed<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::transformation_error_handling::LeaveUntransformed>,
@@ -9830,6 +13032,14 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::ReplaceValueConfig;
+    /// let x = PrimitiveTransformation::new().set_transformation(Some(
+    ///     google_cloud_privacy_dlp_v2::model::primitive_transformation::Transformation::ReplaceConfig(ReplaceValueConfig::default().into())));
+    /// ```
     pub fn set_transformation<
         T: std::convert::Into<
                 std::option::Option<crate::model::primitive_transformation::Transformation>,
@@ -9862,6 +13072,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::ReplaceValueConfig;
+    /// let x = PrimitiveTransformation::new().set_replace_config(ReplaceValueConfig::default()/* use setters */);
+    /// assert!(x.replace_config().is_some());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_replace_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplaceValueConfig>>,
     >(
@@ -9894,6 +13123,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::RedactConfig;
+    /// let x = PrimitiveTransformation::new().set_redact_config(RedactConfig::default()/* use setters */);
+    /// assert!(x.redact_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_redact_config<T: std::convert::Into<std::boxed::Box<crate::model::RedactConfig>>>(
         mut self,
         v: T,
@@ -9924,6 +13172,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::CharacterMaskConfig;
+    /// let x = PrimitiveTransformation::new().set_character_mask_config(CharacterMaskConfig::default()/* use setters */);
+    /// assert!(x.character_mask_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_character_mask_config<
         T: std::convert::Into<std::boxed::Box<crate::model::CharacterMaskConfig>>,
     >(
@@ -9956,6 +13223,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// let x = PrimitiveTransformation::new().set_crypto_replace_ffx_fpe_config(CryptoReplaceFfxFpeConfig::default()/* use setters */);
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_crypto_replace_ffx_fpe_config<
         T: std::convert::Into<std::boxed::Box<crate::model::CryptoReplaceFfxFpeConfig>>,
     >(
@@ -9990,6 +13276,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// let x = PrimitiveTransformation::new().set_fixed_size_bucketing_config(FixedSizeBucketingConfig::default()/* use setters */);
+    /// assert!(x.fixed_size_bucketing_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_fixed_size_bucketing_config<
         T: std::convert::Into<std::boxed::Box<crate::model::FixedSizeBucketingConfig>>,
     >(
@@ -10024,6 +13329,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::BucketingConfig;
+    /// let x = PrimitiveTransformation::new().set_bucketing_config(BucketingConfig::default()/* use setters */);
+    /// assert!(x.bucketing_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_bucketing_config<
         T: std::convert::Into<std::boxed::Box<crate::model::BucketingConfig>>,
     >(
@@ -10056,6 +13380,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::ReplaceWithInfoTypeConfig;
+    /// let x = PrimitiveTransformation::new().set_replace_with_info_type_config(ReplaceWithInfoTypeConfig::default()/* use setters */);
+    /// assert!(x.replace_with_info_type_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_replace_with_info_type_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplaceWithInfoTypeConfig>>,
     >(
@@ -10090,6 +13433,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::TimePartConfig;
+    /// let x = PrimitiveTransformation::new().set_time_part_config(TimePartConfig::default()/* use setters */);
+    /// assert!(x.time_part_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_time_part_config<
         T: std::convert::Into<std::boxed::Box<crate::model::TimePartConfig>>,
     >(
@@ -10122,6 +13484,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoHashConfig;
+    /// let x = PrimitiveTransformation::new().set_crypto_hash_config(CryptoHashConfig::default()/* use setters */);
+    /// assert!(x.crypto_hash_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_crypto_hash_config<
         T: std::convert::Into<std::boxed::Box<crate::model::CryptoHashConfig>>,
     >(
@@ -10154,6 +13535,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// let x = PrimitiveTransformation::new().set_date_shift_config(DateShiftConfig::default()/* use setters */);
+    /// assert!(x.date_shift_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_date_shift_config<
         T: std::convert::Into<std::boxed::Box<crate::model::DateShiftConfig>>,
     >(
@@ -10186,6 +13586,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// let x = PrimitiveTransformation::new().set_crypto_deterministic_config(CryptoDeterministicConfig::default()/* use setters */);
+    /// assert!(x.crypto_deterministic_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.replace_dictionary_config().is_none());
+    /// ```
     pub fn set_crypto_deterministic_config<
         T: std::convert::Into<std::boxed::Box<crate::model::CryptoDeterministicConfig>>,
     >(
@@ -10220,6 +13639,25 @@ impl PrimitiveTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::ReplaceDictionaryConfig;
+    /// let x = PrimitiveTransformation::new().set_replace_dictionary_config(ReplaceDictionaryConfig::default()/* use setters */);
+    /// assert!(x.replace_dictionary_config().is_some());
+    /// assert!(x.replace_config().is_none());
+    /// assert!(x.redact_config().is_none());
+    /// assert!(x.character_mask_config().is_none());
+    /// assert!(x.crypto_replace_ffx_fpe_config().is_none());
+    /// assert!(x.fixed_size_bucketing_config().is_none());
+    /// assert!(x.bucketing_config().is_none());
+    /// assert!(x.replace_with_info_type_config().is_none());
+    /// assert!(x.time_part_config().is_none());
+    /// assert!(x.crypto_hash_config().is_none());
+    /// assert!(x.date_shift_config().is_none());
+    /// assert!(x.crypto_deterministic_config().is_none());
+    /// ```
     pub fn set_replace_dictionary_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ReplaceDictionaryConfig>>,
     >(
@@ -10295,6 +13733,15 @@ impl TimePartConfig {
     }
 
     /// Sets the value of [part_to_extract][crate::model::TimePartConfig::part_to_extract].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TimePartConfig;
+    /// use google_cloud_privacy_dlp_v2::model::time_part_config::TimePart;
+    /// let x0 = TimePartConfig::new().set_part_to_extract(TimePart::Year);
+    /// let x1 = TimePartConfig::new().set_part_to_extract(TimePart::Month);
+    /// let x2 = TimePartConfig::new().set_part_to_extract(TimePart::DayOfMonth);
+    /// ```
     pub fn set_part_to_extract<T: std::convert::Into<crate::model::time_part_config::TimePart>>(
         mut self,
         v: T,
@@ -10499,6 +13946,13 @@ impl CryptoHashConfig {
     }
 
     /// Sets the value of [crypto_key][crate::model::CryptoHashConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoHashConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoHashConfig::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -10508,6 +13962,14 @@ impl CryptoHashConfig {
     }
 
     /// Sets or clears the value of [crypto_key][crate::model::CryptoHashConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoHashConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoHashConfig::new().set_or_clear_crypto_key(Some(CryptoKey::default()/* use setters */));
+    /// let x = CryptoHashConfig::new().set_or_clear_crypto_key(None::<CryptoKey>);
+    /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -10597,6 +14059,13 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets the value of [crypto_key][crate::model::CryptoDeterministicConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoDeterministicConfig::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -10606,6 +14075,14 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets or clears the value of [crypto_key][crate::model::CryptoDeterministicConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_crypto_key(Some(CryptoKey::default()/* use setters */));
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_crypto_key(None::<CryptoKey>);
+    /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -10615,6 +14092,13 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets the value of [surrogate_info_type][crate::model::CryptoDeterministicConfig::surrogate_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CryptoDeterministicConfig::new().set_surrogate_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_surrogate_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -10624,6 +14108,14 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets or clears the value of [surrogate_info_type][crate::model::CryptoDeterministicConfig::surrogate_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_surrogate_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_surrogate_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_surrogate_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -10633,6 +14125,13 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets the value of [context][crate::model::CryptoDeterministicConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = CryptoDeterministicConfig::new().set_context(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -10642,6 +14141,14 @@ impl CryptoDeterministicConfig {
     }
 
     /// Sets or clears the value of [context][crate::model::CryptoDeterministicConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoDeterministicConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_context(Some(FieldId::default()/* use setters */));
+    /// let x = CryptoDeterministicConfig::new().set_or_clear_context(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -10673,6 +14180,13 @@ impl ReplaceValueConfig {
     }
 
     /// Sets the value of [new_value][crate::model::ReplaceValueConfig::new_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReplaceValueConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = ReplaceValueConfig::new().set_new_value(Value::default()/* use setters */);
+    /// ```
     pub fn set_new_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -10682,6 +14196,14 @@ impl ReplaceValueConfig {
     }
 
     /// Sets or clears the value of [new_value][crate::model::ReplaceValueConfig::new_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReplaceValueConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = ReplaceValueConfig::new().set_or_clear_new_value(Some(Value::default()/* use setters */));
+    /// let x = ReplaceValueConfig::new().set_or_clear_new_value(None::<Value>);
+    /// ```
     pub fn set_or_clear_new_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -10716,6 +14238,14 @@ impl ReplaceDictionaryConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReplaceDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::WordList;
+    /// let x = ReplaceDictionaryConfig::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::replace_dictionary_config::Type::WordList(WordList::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::replace_dictionary_config::Type>>,
     >(
@@ -10747,6 +14277,14 @@ impl ReplaceDictionaryConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ReplaceDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::WordList;
+    /// let x = ReplaceDictionaryConfig::new().set_word_list(WordList::default()/* use setters */);
+    /// assert!(x.word_list().is_some());
+    /// ```
     pub fn set_word_list<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::dictionary::WordList>>,
     >(
@@ -10842,6 +14380,13 @@ impl CharsToIgnore {
     ///
     /// Note that all the setters affecting `characters` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharsToIgnore;
+    /// use google_cloud_privacy_dlp_v2::model::chars_to_ignore::Characters;
+    /// let x = CharsToIgnore::new().set_characters(Some(Characters::CharactersToSkip("example".to_string())));
+    /// ```
     pub fn set_characters<
         T: std::convert::Into<std::option::Option<crate::model::chars_to_ignore::Characters>>,
     >(
@@ -10870,6 +14415,14 @@ impl CharsToIgnore {
     ///
     /// Note that all the setters affecting `characters` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharsToIgnore;
+    /// let x = CharsToIgnore::new().set_characters_to_skip("example");
+    /// assert!(x.characters_to_skip().is_some());
+    /// assert!(x.common_characters_to_ignore().is_none());
+    /// ```
     pub fn set_characters_to_skip<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10900,6 +14453,21 @@ impl CharsToIgnore {
     ///
     /// Note that all the setters affecting `characters` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharsToIgnore;
+    /// use google_cloud_privacy_dlp_v2::model::chars_to_ignore::CommonCharsToIgnore;
+    /// let x0 = CharsToIgnore::new().set_common_characters_to_ignore(CommonCharsToIgnore::Numeric);
+    /// let x1 = CharsToIgnore::new().set_common_characters_to_ignore(CommonCharsToIgnore::AlphaUpperCase);
+    /// let x2 = CharsToIgnore::new().set_common_characters_to_ignore(CommonCharsToIgnore::AlphaLowerCase);
+    /// assert!(x0.common_characters_to_ignore().is_some());
+    /// assert!(x0.characters_to_skip().is_none());
+    /// assert!(x1.common_characters_to_ignore().is_some());
+    /// assert!(x1.characters_to_skip().is_none());
+    /// assert!(x2.common_characters_to_ignore().is_some());
+    /// assert!(x2.characters_to_skip().is_none());
+    /// ```
     pub fn set_common_characters_to_ignore<
         T: std::convert::Into<crate::model::chars_to_ignore::CommonCharsToIgnore>,
     >(
@@ -11147,6 +14715,12 @@ impl CharacterMaskConfig {
     }
 
     /// Sets the value of [masking_character][crate::model::CharacterMaskConfig::masking_character].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharacterMaskConfig;
+    /// let x = CharacterMaskConfig::new().set_masking_character("example");
+    /// ```
     pub fn set_masking_character<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11156,18 +14730,41 @@ impl CharacterMaskConfig {
     }
 
     /// Sets the value of [number_to_mask][crate::model::CharacterMaskConfig::number_to_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharacterMaskConfig;
+    /// let x = CharacterMaskConfig::new().set_number_to_mask(42);
+    /// ```
     pub fn set_number_to_mask<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number_to_mask = v.into();
         self
     }
 
     /// Sets the value of [reverse_order][crate::model::CharacterMaskConfig::reverse_order].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharacterMaskConfig;
+    /// let x = CharacterMaskConfig::new().set_reverse_order(true);
+    /// ```
     pub fn set_reverse_order<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reverse_order = v.into();
         self
     }
 
     /// Sets the value of [characters_to_ignore][crate::model::CharacterMaskConfig::characters_to_ignore].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CharacterMaskConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CharsToIgnore;
+    /// let x = CharacterMaskConfig::new()
+    ///     .set_characters_to_ignore([
+    ///         CharsToIgnore::default()/* use setters */,
+    ///         CharsToIgnore::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_characters_to_ignore<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11231,6 +14828,13 @@ impl FixedSizeBucketingConfig {
     }
 
     /// Sets the value of [lower_bound][crate::model::FixedSizeBucketingConfig::lower_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = FixedSizeBucketingConfig::new().set_lower_bound(Value::default()/* use setters */);
+    /// ```
     pub fn set_lower_bound<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -11240,6 +14844,14 @@ impl FixedSizeBucketingConfig {
     }
 
     /// Sets or clears the value of [lower_bound][crate::model::FixedSizeBucketingConfig::lower_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = FixedSizeBucketingConfig::new().set_or_clear_lower_bound(Some(Value::default()/* use setters */));
+    /// let x = FixedSizeBucketingConfig::new().set_or_clear_lower_bound(None::<Value>);
+    /// ```
     pub fn set_or_clear_lower_bound<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -11249,6 +14861,13 @@ impl FixedSizeBucketingConfig {
     }
 
     /// Sets the value of [upper_bound][crate::model::FixedSizeBucketingConfig::upper_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = FixedSizeBucketingConfig::new().set_upper_bound(Value::default()/* use setters */);
+    /// ```
     pub fn set_upper_bound<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -11258,6 +14877,14 @@ impl FixedSizeBucketingConfig {
     }
 
     /// Sets or clears the value of [upper_bound][crate::model::FixedSizeBucketingConfig::upper_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = FixedSizeBucketingConfig::new().set_or_clear_upper_bound(Some(Value::default()/* use setters */));
+    /// let x = FixedSizeBucketingConfig::new().set_or_clear_upper_bound(None::<Value>);
+    /// ```
     pub fn set_or_clear_upper_bound<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Value>,
@@ -11267,6 +14894,12 @@ impl FixedSizeBucketingConfig {
     }
 
     /// Sets the value of [bucket_size][crate::model::FixedSizeBucketingConfig::bucket_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FixedSizeBucketingConfig;
+    /// let x = FixedSizeBucketingConfig::new().set_bucket_size(42.0);
+    /// ```
     pub fn set_bucket_size<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.bucket_size = v.into();
         self
@@ -11306,6 +14939,17 @@ impl BucketingConfig {
     }
 
     /// Sets the value of [buckets][crate::model::BucketingConfig::buckets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BucketingConfig;
+    /// use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+    /// let x = BucketingConfig::new()
+    ///     .set_buckets([
+    ///         Bucket::default()/* use setters */,
+    ///         Bucket::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11351,6 +14995,13 @@ pub mod bucketing_config {
         }
 
         /// Sets the value of [min][crate::model::bucketing_config::Bucket::min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_min(Value::default()/* use setters */);
+        /// ```
         pub fn set_min<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11360,6 +15011,14 @@ pub mod bucketing_config {
         }
 
         /// Sets or clears the value of [min][crate::model::bucketing_config::Bucket::min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_or_clear_min(Some(Value::default()/* use setters */));
+        /// let x = Bucket::new().set_or_clear_min(None::<Value>);
+        /// ```
         pub fn set_or_clear_min<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11369,6 +15028,13 @@ pub mod bucketing_config {
         }
 
         /// Sets the value of [max][crate::model::bucketing_config::Bucket::max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_max(Value::default()/* use setters */);
+        /// ```
         pub fn set_max<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11378,6 +15044,14 @@ pub mod bucketing_config {
         }
 
         /// Sets or clears the value of [max][crate::model::bucketing_config::Bucket::max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_or_clear_max(Some(Value::default()/* use setters */));
+        /// let x = Bucket::new().set_or_clear_max(None::<Value>);
+        /// ```
         pub fn set_or_clear_max<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11387,6 +15061,13 @@ pub mod bucketing_config {
         }
 
         /// Sets the value of [replacement_value][crate::model::bucketing_config::Bucket::replacement_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_replacement_value(Value::default()/* use setters */);
+        /// ```
         pub fn set_replacement_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11396,6 +15077,14 @@ pub mod bucketing_config {
         }
 
         /// Sets or clears the value of [replacement_value][crate::model::bucketing_config::Bucket::replacement_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::bucketing_config::Bucket;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Bucket::new().set_or_clear_replacement_value(Some(Value::default()/* use setters */));
+        /// let x = Bucket::new().set_or_clear_replacement_value(None::<Value>);
+        /// ```
         pub fn set_or_clear_replacement_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -11493,6 +15182,13 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets the value of [crypto_key][crate::model::CryptoReplaceFfxFpeConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -11502,6 +15198,14 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets or clears the value of [crypto_key][crate::model::CryptoReplaceFfxFpeConfig::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_crypto_key(Some(CryptoKey::default()/* use setters */));
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_crypto_key(None::<CryptoKey>);
+    /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -11511,6 +15215,13 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets the value of [context][crate::model::CryptoReplaceFfxFpeConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_context(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -11520,6 +15231,14 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets or clears the value of [context][crate::model::CryptoReplaceFfxFpeConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_context(Some(FieldId::default()/* use setters */));
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_context(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -11529,6 +15248,13 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets the value of [surrogate_info_type][crate::model::CryptoReplaceFfxFpeConfig::surrogate_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_surrogate_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_surrogate_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -11538,6 +15264,14 @@ impl CryptoReplaceFfxFpeConfig {
     }
 
     /// Sets or clears the value of [surrogate_info_type][crate::model::CryptoReplaceFfxFpeConfig::surrogate_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_surrogate_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_or_clear_surrogate_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_surrogate_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -11550,6 +15284,18 @@ impl CryptoReplaceFfxFpeConfig {
     ///
     /// Note that all the setters affecting `alphabet` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::crypto_replace_ffx_fpe_config::FfxCommonNativeAlphabet;
+    /// let x0 = CryptoReplaceFfxFpeConfig::new().set_alphabet(Some(
+    ///     google_cloud_privacy_dlp_v2::model::crypto_replace_ffx_fpe_config::Alphabet::CommonAlphabet(FfxCommonNativeAlphabet::Numeric)));
+    /// let x1 = CryptoReplaceFfxFpeConfig::new().set_alphabet(Some(
+    ///     google_cloud_privacy_dlp_v2::model::crypto_replace_ffx_fpe_config::Alphabet::CommonAlphabet(FfxCommonNativeAlphabet::Hexadecimal)));
+    /// let x2 = CryptoReplaceFfxFpeConfig::new().set_alphabet(Some(
+    ///     google_cloud_privacy_dlp_v2::model::crypto_replace_ffx_fpe_config::Alphabet::CommonAlphabet(FfxCommonNativeAlphabet::UpperCaseAlphaNumeric)));
+    /// ```
     pub fn set_alphabet<
         T: std::convert::Into<
                 std::option::Option<crate::model::crypto_replace_ffx_fpe_config::Alphabet>,
@@ -11583,6 +15329,24 @@ impl CryptoReplaceFfxFpeConfig {
     ///
     /// Note that all the setters affecting `alphabet` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::crypto_replace_ffx_fpe_config::FfxCommonNativeAlphabet;
+    /// let x0 = CryptoReplaceFfxFpeConfig::new().set_common_alphabet(FfxCommonNativeAlphabet::Numeric);
+    /// let x1 = CryptoReplaceFfxFpeConfig::new().set_common_alphabet(FfxCommonNativeAlphabet::Hexadecimal);
+    /// let x2 = CryptoReplaceFfxFpeConfig::new().set_common_alphabet(FfxCommonNativeAlphabet::UpperCaseAlphaNumeric);
+    /// assert!(x0.common_alphabet().is_some());
+    /// assert!(x0.custom_alphabet().is_none());
+    /// assert!(x0.radix().is_none());
+    /// assert!(x1.common_alphabet().is_some());
+    /// assert!(x1.custom_alphabet().is_none());
+    /// assert!(x1.radix().is_none());
+    /// assert!(x2.common_alphabet().is_some());
+    /// assert!(x2.custom_alphabet().is_none());
+    /// assert!(x2.radix().is_none());
+    /// ```
     pub fn set_common_alphabet<
         T: std::convert::Into<crate::model::crypto_replace_ffx_fpe_config::FfxCommonNativeAlphabet>,
     >(
@@ -11613,6 +15377,15 @@ impl CryptoReplaceFfxFpeConfig {
     ///
     /// Note that all the setters affecting `alphabet` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_custom_alphabet("example");
+    /// assert!(x.custom_alphabet().is_some());
+    /// assert!(x.common_alphabet().is_none());
+    /// assert!(x.radix().is_none());
+    /// ```
     pub fn set_custom_alphabet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.alphabet = std::option::Option::Some(
             crate::model::crypto_replace_ffx_fpe_config::Alphabet::CustomAlphabet(v.into()),
@@ -11638,6 +15411,15 @@ impl CryptoReplaceFfxFpeConfig {
     ///
     /// Note that all the setters affecting `alphabet` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoReplaceFfxFpeConfig;
+    /// let x = CryptoReplaceFfxFpeConfig::new().set_radix(42);
+    /// assert!(x.radix().is_some());
+    /// assert!(x.common_alphabet().is_none());
+    /// assert!(x.custom_alphabet().is_none());
+    /// ```
     pub fn set_radix<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.alphabet = std::option::Option::Some(
             crate::model::crypto_replace_ffx_fpe_config::Alphabet::Radix(v.into()),
@@ -11856,6 +15638,14 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// use google_cloud_privacy_dlp_v2::model::TransientCryptoKey;
+    /// let x = CryptoKey::new().set_source(Some(
+    ///     google_cloud_privacy_dlp_v2::model::crypto_key::Source::Transient(TransientCryptoKey::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::Source>>,
     >(
@@ -11884,6 +15674,16 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// use google_cloud_privacy_dlp_v2::model::TransientCryptoKey;
+    /// let x = CryptoKey::new().set_transient(TransientCryptoKey::default()/* use setters */);
+    /// assert!(x.transient().is_some());
+    /// assert!(x.unwrapped().is_none());
+    /// assert!(x.kms_wrapped().is_none());
+    /// ```
     pub fn set_transient<
         T: std::convert::Into<std::boxed::Box<crate::model::TransientCryptoKey>>,
     >(
@@ -11913,6 +15713,16 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// use google_cloud_privacy_dlp_v2::model::UnwrappedCryptoKey;
+    /// let x = CryptoKey::new().set_unwrapped(UnwrappedCryptoKey::default()/* use setters */);
+    /// assert!(x.unwrapped().is_some());
+    /// assert!(x.transient().is_none());
+    /// assert!(x.kms_wrapped().is_none());
+    /// ```
     pub fn set_unwrapped<
         T: std::convert::Into<std::boxed::Box<crate::model::UnwrappedCryptoKey>>,
     >(
@@ -11942,6 +15752,16 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// use google_cloud_privacy_dlp_v2::model::KmsWrappedCryptoKey;
+    /// let x = CryptoKey::new().set_kms_wrapped(KmsWrappedCryptoKey::default()/* use setters */);
+    /// assert!(x.kms_wrapped().is_some());
+    /// assert!(x.transient().is_none());
+    /// assert!(x.unwrapped().is_none());
+    /// ```
     pub fn set_kms_wrapped<
         T: std::convert::Into<std::boxed::Box<crate::model::KmsWrappedCryptoKey>>,
     >(
@@ -12000,6 +15820,12 @@ impl TransientCryptoKey {
     }
 
     /// Sets the value of [name][crate::model::TransientCryptoKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransientCryptoKey;
+    /// let x = TransientCryptoKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -12029,6 +15855,12 @@ impl UnwrappedCryptoKey {
     }
 
     /// Sets the value of [key][crate::model::UnwrappedCryptoKey::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UnwrappedCryptoKey;
+    /// let x = UnwrappedCryptoKey::new().set_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -12070,12 +15902,24 @@ impl KmsWrappedCryptoKey {
     }
 
     /// Sets the value of [wrapped_key][crate::model::KmsWrappedCryptoKey::wrapped_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KmsWrappedCryptoKey;
+    /// let x = KmsWrappedCryptoKey::new().set_wrapped_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_name][crate::model::KmsWrappedCryptoKey::crypto_key_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KmsWrappedCryptoKey;
+    /// let x = KmsWrappedCryptoKey::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
@@ -12124,18 +15968,37 @@ impl DateShiftConfig {
     }
 
     /// Sets the value of [upper_bound_days][crate::model::DateShiftConfig::upper_bound_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// let x = DateShiftConfig::new().set_upper_bound_days(42);
+    /// ```
     pub fn set_upper_bound_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.upper_bound_days = v.into();
         self
     }
 
     /// Sets the value of [lower_bound_days][crate::model::DateShiftConfig::lower_bound_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// let x = DateShiftConfig::new().set_lower_bound_days(42);
+    /// ```
     pub fn set_lower_bound_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.lower_bound_days = v.into();
         self
     }
 
     /// Sets the value of [context][crate::model::DateShiftConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = DateShiftConfig::new().set_context(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -12145,6 +16008,14 @@ impl DateShiftConfig {
     }
 
     /// Sets or clears the value of [context][crate::model::DateShiftConfig::context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = DateShiftConfig::new().set_or_clear_context(Some(FieldId::default()/* use setters */));
+    /// let x = DateShiftConfig::new().set_or_clear_context(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -12157,6 +16028,14 @@ impl DateShiftConfig {
     ///
     /// Note that all the setters affecting `method` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = DateShiftConfig::new().set_method(Some(
+    ///     google_cloud_privacy_dlp_v2::model::date_shift_config::Method::CryptoKey(CryptoKey::default().into())));
+    /// ```
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::date_shift_config::Method>>,
     >(
@@ -12183,6 +16062,14 @@ impl DateShiftConfig {
     ///
     /// Note that all the setters affecting `method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DateShiftConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CryptoKey;
+    /// let x = DateShiftConfig::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// assert!(x.crypto_key().is_some());
+    /// ```
     pub fn set_crypto_key<T: std::convert::Into<std::boxed::Box<crate::model::CryptoKey>>>(
         mut self,
         v: T,
@@ -12237,6 +16124,17 @@ impl InfoTypeTransformations {
     }
 
     /// Sets the value of [transformations][crate::model::InfoTypeTransformations::transformations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeTransformations;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_transformations::InfoTypeTransformation;
+    /// let x = InfoTypeTransformations::new()
+    ///     .set_transformations([
+    ///         InfoTypeTransformation::default()/* use setters */,
+    ///         InfoTypeTransformation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transformations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12281,6 +16179,17 @@ pub mod info_type_transformations {
         }
 
         /// Sets the value of [info_types][crate::model::info_type_transformations::InfoTypeTransformation::info_types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::info_type_transformations::InfoTypeTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::InfoType;
+        /// let x = InfoTypeTransformation::new()
+        ///     .set_info_types([
+        ///         InfoType::default()/* use setters */,
+        ///         InfoType::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_info_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12292,6 +16201,13 @@ pub mod info_type_transformations {
         }
 
         /// Sets the value of [primitive_transformation][crate::model::info_type_transformations::InfoTypeTransformation::primitive_transformation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::info_type_transformations::InfoTypeTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+        /// let x = InfoTypeTransformation::new().set_primitive_transformation(PrimitiveTransformation::default()/* use setters */);
+        /// ```
         pub fn set_primitive_transformation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::PrimitiveTransformation>,
@@ -12301,6 +16217,14 @@ pub mod info_type_transformations {
         }
 
         /// Sets or clears the value of [primitive_transformation][crate::model::info_type_transformations::InfoTypeTransformation::primitive_transformation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::info_type_transformations::InfoTypeTransformation;
+        /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+        /// let x = InfoTypeTransformation::new().set_or_clear_primitive_transformation(Some(PrimitiveTransformation::default()/* use setters */));
+        /// let x = InfoTypeTransformation::new().set_or_clear_primitive_transformation(None::<PrimitiveTransformation>);
+        /// ```
         pub fn set_or_clear_primitive_transformation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::PrimitiveTransformation>,
@@ -12350,6 +16274,17 @@ impl FieldTransformation {
     }
 
     /// Sets the value of [fields][crate::model::FieldTransformation::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = FieldTransformation::new()
+    ///     .set_fields([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12361,6 +16296,13 @@ impl FieldTransformation {
     }
 
     /// Sets the value of [condition][crate::model::FieldTransformation::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// let x = FieldTransformation::new().set_condition(RecordCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecordCondition>,
@@ -12370,6 +16312,14 @@ impl FieldTransformation {
     }
 
     /// Sets or clears the value of [condition][crate::model::FieldTransformation::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// let x = FieldTransformation::new().set_or_clear_condition(Some(RecordCondition::default()/* use setters */));
+    /// let x = FieldTransformation::new().set_or_clear_condition(None::<RecordCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecordCondition>,
@@ -12382,6 +16332,14 @@ impl FieldTransformation {
     ///
     /// Note that all the setters affecting `transformation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// let x = FieldTransformation::new().set_transformation(Some(
+    ///     google_cloud_privacy_dlp_v2::model::field_transformation::Transformation::PrimitiveTransformation(PrimitiveTransformation::default().into())));
+    /// ```
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::field_transformation::Transformation>>,
     >(
@@ -12412,6 +16370,15 @@ impl FieldTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// let x = FieldTransformation::new().set_primitive_transformation(PrimitiveTransformation::default()/* use setters */);
+    /// assert!(x.primitive_transformation().is_some());
+    /// assert!(x.info_type_transformations().is_none());
+    /// ```
     pub fn set_primitive_transformation<
         T: std::convert::Into<std::boxed::Box<crate::model::PrimitiveTransformation>>,
     >(
@@ -12444,6 +16411,15 @@ impl FieldTransformation {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeTransformations;
+    /// let x = FieldTransformation::new().set_info_type_transformations(InfoTypeTransformations::default()/* use setters */);
+    /// assert!(x.info_type_transformations().is_some());
+    /// assert!(x.primitive_transformation().is_none());
+    /// ```
     pub fn set_info_type_transformations<
         T: std::convert::Into<std::boxed::Box<crate::model::InfoTypeTransformations>>,
     >(
@@ -12501,6 +16477,17 @@ impl RecordTransformations {
     }
 
     /// Sets the value of [field_transformations][crate::model::RecordTransformations::field_transformations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformations;
+    /// use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// let x = RecordTransformations::new()
+    ///     .set_field_transformations([
+    ///         FieldTransformation::default()/* use setters */,
+    ///         FieldTransformation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_field_transformations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12512,6 +16499,17 @@ impl RecordTransformations {
     }
 
     /// Sets the value of [record_suppressions][crate::model::RecordTransformations::record_suppressions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformations;
+    /// use google_cloud_privacy_dlp_v2::model::RecordSuppression;
+    /// let x = RecordTransformations::new()
+    ///     .set_record_suppressions([
+    ///         RecordSuppression::default()/* use setters */,
+    ///         RecordSuppression::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_record_suppressions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12547,6 +16545,13 @@ impl RecordSuppression {
     }
 
     /// Sets the value of [condition][crate::model::RecordSuppression::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordSuppression;
+    /// use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// let x = RecordSuppression::new().set_condition(RecordCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecordCondition>,
@@ -12556,6 +16561,14 @@ impl RecordSuppression {
     }
 
     /// Sets or clears the value of [condition][crate::model::RecordSuppression::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordSuppression;
+    /// use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// let x = RecordSuppression::new().set_or_clear_condition(Some(RecordCondition::default()/* use setters */));
+    /// let x = RecordSuppression::new().set_or_clear_condition(None::<RecordCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecordCondition>,
@@ -12588,6 +16601,13 @@ impl RecordCondition {
     }
 
     /// Sets the value of [expressions][crate::model::RecordCondition::expressions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// use google_cloud_privacy_dlp_v2::model::record_condition::Expressions;
+    /// let x = RecordCondition::new().set_expressions(Expressions::default()/* use setters */);
+    /// ```
     pub fn set_expressions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::record_condition::Expressions>,
@@ -12597,6 +16617,14 @@ impl RecordCondition {
     }
 
     /// Sets or clears the value of [expressions][crate::model::RecordCondition::expressions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordCondition;
+    /// use google_cloud_privacy_dlp_v2::model::record_condition::Expressions;
+    /// let x = RecordCondition::new().set_or_clear_expressions(Some(Expressions::default()/* use setters */));
+    /// let x = RecordCondition::new().set_or_clear_expressions(None::<Expressions>);
+    /// ```
     pub fn set_or_clear_expressions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::record_condition::Expressions>,
@@ -12657,6 +16685,13 @@ pub mod record_condition {
         }
 
         /// Sets the value of [field][crate::model::record_condition::Condition::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = Condition::new().set_field(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -12666,6 +16701,14 @@ pub mod record_condition {
         }
 
         /// Sets or clears the value of [field][crate::model::record_condition::Condition::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = Condition::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+        /// let x = Condition::new().set_or_clear_field(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -12675,6 +16718,15 @@ pub mod record_condition {
         }
 
         /// Sets the value of [operator][crate::model::record_condition::Condition::operator].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// use google_cloud_privacy_dlp_v2::model::RelationalOperator;
+        /// let x0 = Condition::new().set_operator(RelationalOperator::EqualTo);
+        /// let x1 = Condition::new().set_operator(RelationalOperator::NotEqualTo);
+        /// let x2 = Condition::new().set_operator(RelationalOperator::GreaterThan);
+        /// ```
         pub fn set_operator<T: std::convert::Into<crate::model::RelationalOperator>>(
             mut self,
             v: T,
@@ -12684,6 +16736,13 @@ pub mod record_condition {
         }
 
         /// Sets the value of [value][crate::model::record_condition::Condition::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Condition::new().set_value(Value::default()/* use setters */);
+        /// ```
         pub fn set_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -12693,6 +16752,14 @@ pub mod record_condition {
         }
 
         /// Sets or clears the value of [value][crate::model::record_condition::Condition::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// use google_cloud_privacy_dlp_v2::model::Value;
+        /// let x = Condition::new().set_or_clear_value(Some(Value::default()/* use setters */));
+        /// let x = Condition::new().set_or_clear_value(None::<Value>);
+        /// ```
         pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -12724,6 +16791,17 @@ pub mod record_condition {
         }
 
         /// Sets the value of [conditions][crate::model::record_condition::Conditions::conditions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Conditions;
+        /// use google_cloud_privacy_dlp_v2::model::record_condition::Condition;
+        /// let x = Conditions::new()
+        ///     .set_conditions([
+        ///         Condition::default()/* use setters */,
+        ///         Condition::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_conditions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -12761,6 +16839,13 @@ pub mod record_condition {
         }
 
         /// Sets the value of [logical_operator][crate::model::record_condition::Expressions::logical_operator].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Expressions;
+        /// use google_cloud_privacy_dlp_v2::model::record_condition::expressions::LogicalOperator;
+        /// let x0 = Expressions::new().set_logical_operator(LogicalOperator::And);
+        /// ```
         pub fn set_logical_operator<
             T: std::convert::Into<crate::model::record_condition::expressions::LogicalOperator>,
         >(
@@ -12775,6 +16860,14 @@ pub mod record_condition {
         ///
         /// Note that all the setters affecting `r#type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Expressions;
+        /// use google_cloud_privacy_dlp_v2::model::record_condition::Conditions;
+        /// let x = Expressions::new().set_type(Some(
+        ///     google_cloud_privacy_dlp_v2::model::record_condition::expressions::Type::Conditions(Conditions::default().into())));
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::record_condition::expressions::Type>,
@@ -12808,6 +16901,14 @@ pub mod record_condition {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::record_condition::Expressions;
+        /// use google_cloud_privacy_dlp_v2::model::record_condition::Conditions;
+        /// let x = Expressions::new().set_conditions(Conditions::default()/* use setters */);
+        /// assert!(x.conditions().is_some());
+        /// ```
         pub fn set_conditions<
             T: std::convert::Into<std::boxed::Box<crate::model::record_condition::Conditions>>,
         >(
@@ -12989,12 +17090,29 @@ impl TransformationOverview {
     }
 
     /// Sets the value of [transformed_bytes][crate::model::TransformationOverview::transformed_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// let x = TransformationOverview::new().set_transformed_bytes(42);
+    /// ```
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
         self
     }
 
     /// Sets the value of [transformation_summaries][crate::model::TransformationOverview::transformation_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationOverview;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// let x = TransformationOverview::new()
+    ///     .set_transformation_summaries([
+    ///         TransformationSummary::default()/* use setters */,
+    ///         TransformationSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transformation_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13050,6 +17168,13 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [info_type][crate::model::TransformationSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = TransformationSummary::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -13059,6 +17184,14 @@ impl TransformationSummary {
     }
 
     /// Sets or clears the value of [info_type][crate::model::TransformationSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = TransformationSummary::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = TransformationSummary::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -13068,6 +17201,13 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [field][crate::model::TransformationSummary::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = TransformationSummary::new().set_field(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -13077,6 +17217,14 @@ impl TransformationSummary {
     }
 
     /// Sets or clears the value of [field][crate::model::TransformationSummary::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = TransformationSummary::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+    /// let x = TransformationSummary::new().set_or_clear_field(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -13086,6 +17234,13 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [transformation][crate::model::TransformationSummary::transformation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// let x = TransformationSummary::new().set_transformation(PrimitiveTransformation::default()/* use setters */);
+    /// ```
     pub fn set_transformation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrimitiveTransformation>,
@@ -13095,6 +17250,14 @@ impl TransformationSummary {
     }
 
     /// Sets or clears the value of [transformation][crate::model::TransformationSummary::transformation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::PrimitiveTransformation;
+    /// let x = TransformationSummary::new().set_or_clear_transformation(Some(PrimitiveTransformation::default()/* use setters */));
+    /// let x = TransformationSummary::new().set_or_clear_transformation(None::<PrimitiveTransformation>);
+    /// ```
     pub fn set_or_clear_transformation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrimitiveTransformation>,
@@ -13104,6 +17267,17 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [field_transformations][crate::model::TransformationSummary::field_transformations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FieldTransformation;
+    /// let x = TransformationSummary::new()
+    ///     .set_field_transformations([
+    ///         FieldTransformation::default()/* use setters */,
+    ///         FieldTransformation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_field_transformations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13115,6 +17289,13 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [record_suppress][crate::model::TransformationSummary::record_suppress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::RecordSuppression;
+    /// let x = TransformationSummary::new().set_record_suppress(RecordSuppression::default()/* use setters */);
+    /// ```
     pub fn set_record_suppress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecordSuppression>,
@@ -13124,6 +17305,14 @@ impl TransformationSummary {
     }
 
     /// Sets or clears the value of [record_suppress][crate::model::TransformationSummary::record_suppress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::RecordSuppression;
+    /// let x = TransformationSummary::new().set_or_clear_record_suppress(Some(RecordSuppression::default()/* use setters */));
+    /// let x = TransformationSummary::new().set_or_clear_record_suppress(None::<RecordSuppression>);
+    /// ```
     pub fn set_or_clear_record_suppress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecordSuppression>,
@@ -13133,6 +17322,17 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [results][crate::model::TransformationSummary::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// use google_cloud_privacy_dlp_v2::model::transformation_summary::SummaryResult;
+    /// let x = TransformationSummary::new()
+    ///     .set_results([
+    ///         SummaryResult::default()/* use setters */,
+    ///         SummaryResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13144,6 +17344,12 @@ impl TransformationSummary {
     }
 
     /// Sets the value of [transformed_bytes][crate::model::TransformationSummary::transformed_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationSummary;
+    /// let x = TransformationSummary::new().set_transformed_bytes(42);
+    /// ```
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
         self
@@ -13185,12 +17391,26 @@ pub mod transformation_summary {
         }
 
         /// Sets the value of [count][crate::model::transformation_summary::SummaryResult::count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::transformation_summary::SummaryResult;
+        /// let x = SummaryResult::new().set_count(42);
+        /// ```
         pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
         }
 
         /// Sets the value of [code][crate::model::transformation_summary::SummaryResult::code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::transformation_summary::SummaryResult;
+        /// use google_cloud_privacy_dlp_v2::model::transformation_summary::TransformationResultCode;
+        /// let x0 = SummaryResult::new().set_code(TransformationResultCode::Success);
+        /// let x1 = SummaryResult::new().set_code(TransformationResultCode::Error);
+        /// ```
         pub fn set_code<
             T: std::convert::Into<crate::model::transformation_summary::TransformationResultCode>,
         >(
@@ -13202,6 +17422,12 @@ pub mod transformation_summary {
         }
 
         /// Sets the value of [details][crate::model::transformation_summary::SummaryResult::details].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::transformation_summary::SummaryResult;
+        /// let x = SummaryResult::new().set_details("example");
+        /// ```
         pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
             self
@@ -13389,6 +17615,15 @@ impl TransformationDescription {
     }
 
     /// Sets the value of [r#type][crate::model::TransformationDescription::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationType;
+    /// let x0 = TransformationDescription::new().set_type(TransformationType::RecordSuppression);
+    /// let x1 = TransformationDescription::new().set_type(TransformationType::ReplaceValue);
+    /// let x2 = TransformationDescription::new().set_type(TransformationType::ReplaceDictionary);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::TransformationType>>(
         mut self,
         v: T,
@@ -13398,18 +17633,37 @@ impl TransformationDescription {
     }
 
     /// Sets the value of [description][crate::model::TransformationDescription::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// let x = TransformationDescription::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::TransformationDescription::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// let x = TransformationDescription::new().set_condition("example");
+    /// ```
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
 
     /// Sets the value of [info_type][crate::model::TransformationDescription::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = TransformationDescription::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -13419,6 +17673,14 @@ impl TransformationDescription {
     }
 
     /// Sets or clears the value of [info_type][crate::model::TransformationDescription::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = TransformationDescription::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = TransformationDescription::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -13477,18 +17739,41 @@ impl TransformationDetails {
     }
 
     /// Sets the value of [resource_name][crate::model::TransformationDetails::resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// let x = TransformationDetails::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [container_name][crate::model::TransformationDetails::container_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// let x = TransformationDetails::new().set_container_name("example");
+    /// ```
     pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container_name = v.into();
         self
     }
 
     /// Sets the value of [transformation][crate::model::TransformationDetails::transformation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationDescription;
+    /// let x = TransformationDetails::new()
+    ///     .set_transformation([
+    ///         TransformationDescription::default()/* use setters */,
+    ///         TransformationDescription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transformation<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13500,6 +17785,13 @@ impl TransformationDetails {
     }
 
     /// Sets the value of [status_details][crate::model::TransformationDetails::status_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
+    /// let x = TransformationDetails::new().set_status_details(TransformationResultStatus::default()/* use setters */);
+    /// ```
     pub fn set_status_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransformationResultStatus>,
@@ -13509,6 +17801,14 @@ impl TransformationDetails {
     }
 
     /// Sets or clears the value of [status_details][crate::model::TransformationDetails::status_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
+    /// let x = TransformationDetails::new().set_or_clear_status_details(Some(TransformationResultStatus::default()/* use setters */));
+    /// let x = TransformationDetails::new().set_or_clear_status_details(None::<TransformationResultStatus>);
+    /// ```
     pub fn set_or_clear_status_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransformationResultStatus>,
@@ -13518,12 +17818,25 @@ impl TransformationDetails {
     }
 
     /// Sets the value of [transformed_bytes][crate::model::TransformationDetails::transformed_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// let x = TransformationDetails::new().set_transformed_bytes(42);
+    /// ```
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
         self
     }
 
     /// Sets the value of [transformation_location][crate::model::TransformationDetails::transformation_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// let x = TransformationDetails::new().set_transformation_location(TransformationLocation::default()/* use setters */);
+    /// ```
     pub fn set_transformation_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransformationLocation>,
@@ -13533,6 +17846,14 @@ impl TransformationDetails {
     }
 
     /// Sets or clears the value of [transformation_location][crate::model::TransformationDetails::transformation_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// let x = TransformationDetails::new().set_or_clear_transformation_location(Some(TransformationLocation::default()/* use setters */));
+    /// let x = TransformationDetails::new().set_or_clear_transformation_location(None::<TransformationLocation>);
+    /// ```
     pub fn set_or_clear_transformation_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransformationLocation>,
@@ -13568,6 +17889,15 @@ impl TransformationLocation {
     }
 
     /// Sets the value of [container_type][crate::model::TransformationLocation::container_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationContainerType;
+    /// let x0 = TransformationLocation::new().set_container_type(TransformationContainerType::TransformBody);
+    /// let x1 = TransformationLocation::new().set_container_type(TransformationContainerType::TransformMetadata);
+    /// let x2 = TransformationLocation::new().set_container_type(TransformationContainerType::TransformTable);
+    /// ```
     pub fn set_container_type<T: std::convert::Into<crate::model::TransformationContainerType>>(
         mut self,
         v: T,
@@ -13580,6 +17910,13 @@ impl TransformationLocation {
     ///
     /// Note that all the setters affecting `location_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// use google_cloud_privacy_dlp_v2::model::transformation_location::LocationType;
+    /// let x = TransformationLocation::new().set_location_type(Some(LocationType::FindingId("example".to_string())));
+    /// ```
     pub fn set_location_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::transformation_location::LocationType>,
@@ -13610,6 +17947,14 @@ impl TransformationLocation {
     ///
     /// Note that all the setters affecting `location_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// let x = TransformationLocation::new().set_finding_id("example");
+    /// assert!(x.finding_id().is_some());
+    /// assert!(x.record_transformation().is_none());
+    /// ```
     pub fn set_finding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_type = std::option::Option::Some(
             crate::model::transformation_location::LocationType::FindingId(v.into()),
@@ -13637,6 +17982,15 @@ impl TransformationLocation {
     ///
     /// Note that all the setters affecting `location_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationLocation;
+    /// use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// let x = TransformationLocation::new().set_record_transformation(RecordTransformation::default()/* use setters */);
+    /// assert!(x.record_transformation().is_some());
+    /// assert!(x.finding_id().is_none());
+    /// ```
     pub fn set_record_transformation<
         T: std::convert::Into<std::boxed::Box<crate::model::RecordTransformation>>,
     >(
@@ -13698,6 +18052,13 @@ impl RecordTransformation {
     }
 
     /// Sets the value of [field_id][crate::model::RecordTransformation::field_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = RecordTransformation::new().set_field_id(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -13707,6 +18068,14 @@ impl RecordTransformation {
     }
 
     /// Sets or clears the value of [field_id][crate::model::RecordTransformation::field_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = RecordTransformation::new().set_or_clear_field_id(Some(FieldId::default()/* use setters */));
+    /// let x = RecordTransformation::new().set_or_clear_field_id(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -13716,6 +18085,13 @@ impl RecordTransformation {
     }
 
     /// Sets the value of [container_timestamp][crate::model::RecordTransformation::container_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// use wkt::Timestamp;
+    /// let x = RecordTransformation::new().set_container_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_container_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13725,6 +18101,14 @@ impl RecordTransformation {
     }
 
     /// Sets or clears the value of [container_timestamp][crate::model::RecordTransformation::container_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// use wkt::Timestamp;
+    /// let x = RecordTransformation::new().set_or_clear_container_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = RecordTransformation::new().set_or_clear_container_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_container_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13734,6 +18118,12 @@ impl RecordTransformation {
     }
 
     /// Sets the value of [container_version][crate::model::RecordTransformation::container_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordTransformation;
+    /// let x = RecordTransformation::new().set_container_version("example");
+    /// ```
     pub fn set_container_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13769,6 +18159,15 @@ impl TransformationResultStatus {
     }
 
     /// Sets the value of [result_status_type][crate::model::TransformationResultStatus::result_status_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
+    /// use google_cloud_privacy_dlp_v2::model::TransformationResultStatusType;
+    /// let x0 = TransformationResultStatus::new().set_result_status_type(TransformationResultStatusType::InvalidTransform);
+    /// let x1 = TransformationResultStatus::new().set_result_status_type(TransformationResultStatusType::BigqueryMaxRowSizeExceeded);
+    /// let x2 = TransformationResultStatus::new().set_result_status_type(TransformationResultStatusType::MetadataUnretrievable);
+    /// ```
     pub fn set_result_status_type<
         T: std::convert::Into<crate::model::TransformationResultStatusType>,
     >(
@@ -13780,6 +18179,13 @@ impl TransformationResultStatus {
     }
 
     /// Sets the value of [details][crate::model::TransformationResultStatus::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
+    /// use rpc::model::Status;
+    /// let x = TransformationResultStatus::new().set_details(Status::default()/* use setters */);
+    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13789,6 +18195,14 @@ impl TransformationResultStatus {
     }
 
     /// Sets or clears the value of [details][crate::model::TransformationResultStatus::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationResultStatus;
+    /// use rpc::model::Status;
+    /// let x = TransformationResultStatus::new().set_or_clear_details(Some(Status::default()/* use setters */));
+    /// let x = TransformationResultStatus::new().set_or_clear_details(None::<Status>);
+    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13823,6 +18237,14 @@ impl TransformationDetailsStorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetailsStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = TransformationDetailsStorageConfig::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::transformation_details_storage_config::Type::Table(BigQueryTable::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::transformation_details_storage_config::Type>,
@@ -13853,6 +18275,14 @@ impl TransformationDetailsStorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationDetailsStorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = TransformationDetailsStorageConfig::new().set_table(BigQueryTable::default()/* use setters */);
+    /// assert!(x.table().is_some());
+    /// ```
     pub fn set_table<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryTable>>>(
         mut self,
         v: T,
@@ -13908,6 +18338,14 @@ impl Schedule {
     ///
     /// Note that all the setters affecting `option` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Schedule;
+    /// use wkt::Duration;
+    /// let x = Schedule::new().set_option(Some(
+    ///     google_cloud_privacy_dlp_v2::model::schedule::Option::RecurrencePeriodDuration(Duration::default().into())));
+    /// ```
     pub fn set_option<
         T: std::convert::Into<std::option::Option<crate::model::schedule::Option>>,
     >(
@@ -13938,6 +18376,14 @@ impl Schedule {
     ///
     /// Note that all the setters affecting `option` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Schedule;
+    /// use wkt::Duration;
+    /// let x = Schedule::new().set_recurrence_period_duration(Duration::default()/* use setters */);
+    /// assert!(x.recurrence_period_duration().is_some());
+    /// ```
     pub fn set_recurrence_period_duration<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -14035,24 +18481,49 @@ impl InspectTemplate {
     }
 
     /// Sets the value of [name][crate::model::InspectTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = InspectTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::InspectTemplate::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = InspectTemplate::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::InspectTemplate::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = InspectTemplate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::InspectTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use wkt::Timestamp;
+    /// let x = InspectTemplate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14062,6 +18533,14 @@ impl InspectTemplate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::InspectTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use wkt::Timestamp;
+    /// let x = InspectTemplate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InspectTemplate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14071,6 +18550,13 @@ impl InspectTemplate {
     }
 
     /// Sets the value of [update_time][crate::model::InspectTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use wkt::Timestamp;
+    /// let x = InspectTemplate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14080,6 +18566,14 @@ impl InspectTemplate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::InspectTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use wkt::Timestamp;
+    /// let x = InspectTemplate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InspectTemplate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14089,6 +18583,13 @@ impl InspectTemplate {
     }
 
     /// Sets the value of [inspect_config][crate::model::InspectTemplate::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectTemplate::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -14098,6 +18599,14 @@ impl InspectTemplate {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::InspectTemplate::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectTemplate::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = InspectTemplate::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -14151,24 +18660,49 @@ impl DeidentifyTemplate {
     }
 
     /// Sets the value of [name][crate::model::DeidentifyTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = DeidentifyTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DeidentifyTemplate::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = DeidentifyTemplate::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DeidentifyTemplate::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = DeidentifyTemplate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DeidentifyTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use wkt::Timestamp;
+    /// let x = DeidentifyTemplate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14178,6 +18712,14 @@ impl DeidentifyTemplate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeidentifyTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use wkt::Timestamp;
+    /// let x = DeidentifyTemplate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeidentifyTemplate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14187,6 +18729,13 @@ impl DeidentifyTemplate {
     }
 
     /// Sets the value of [update_time][crate::model::DeidentifyTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use wkt::Timestamp;
+    /// let x = DeidentifyTemplate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14196,6 +18745,14 @@ impl DeidentifyTemplate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DeidentifyTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use wkt::Timestamp;
+    /// let x = DeidentifyTemplate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeidentifyTemplate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14205,6 +18762,13 @@ impl DeidentifyTemplate {
     }
 
     /// Sets the value of [deidentify_config][crate::model::DeidentifyTemplate::deidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = DeidentifyTemplate::new().set_deidentify_config(DeidentifyConfig::default()/* use setters */);
+    /// ```
     pub fn set_deidentify_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -14214,6 +18778,14 @@ impl DeidentifyTemplate {
     }
 
     /// Sets or clears the value of [deidentify_config][crate::model::DeidentifyTemplate::deidentify_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyConfig;
+    /// let x = DeidentifyTemplate::new().set_or_clear_deidentify_config(Some(DeidentifyConfig::default()/* use setters */));
+    /// let x = DeidentifyTemplate::new().set_or_clear_deidentify_config(None::<DeidentifyConfig>);
+    /// ```
     pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyConfig>,
@@ -14253,6 +18825,13 @@ impl Error {
     }
 
     /// Sets the value of [details][crate::model::Error::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Error;
+    /// use rpc::model::Status;
+    /// let x = Error::new().set_details(Status::default()/* use setters */);
+    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -14262,6 +18841,14 @@ impl Error {
     }
 
     /// Sets or clears the value of [details][crate::model::Error::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Error;
+    /// use rpc::model::Status;
+    /// let x = Error::new().set_or_clear_details(Some(Status::default()/* use setters */));
+    /// let x = Error::new().set_or_clear_details(None::<Status>);
+    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -14271,6 +18858,17 @@ impl Error {
     }
 
     /// Sets the value of [timestamps][crate::model::Error::timestamps].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Error;
+    /// use wkt::Timestamp;
+    /// let x = Error::new()
+    ///     .set_timestamps([
+    ///         Timestamp::default()/* use setters */,
+    ///         Timestamp::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_timestamps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14282,6 +18880,14 @@ impl Error {
     }
 
     /// Sets the value of [extra_info][crate::model::Error::extra_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Error;
+    /// use google_cloud_privacy_dlp_v2::model::error::ErrorExtraInfo;
+    /// let x0 = Error::new().set_extra_info(ErrorExtraInfo::ImageScanUnavailableInRegion);
+    /// let x1 = Error::new().set_extra_info(ErrorExtraInfo::FileStoreClusterUnsupported);
+    /// ```
     pub fn set_extra_info<T: std::convert::Into<crate::model::error::ErrorExtraInfo>>(
         mut self,
         v: T,
@@ -14492,24 +19098,53 @@ impl JobTrigger {
     }
 
     /// Sets the value of [name][crate::model::JobTrigger::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = JobTrigger::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::JobTrigger::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = JobTrigger::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::JobTrigger::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = JobTrigger::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [triggers][crate::model::JobTrigger::triggers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use google_cloud_privacy_dlp_v2::model::job_trigger::Trigger;
+    /// let x = JobTrigger::new()
+    ///     .set_triggers([
+    ///         Trigger::default()/* use setters */,
+    ///         Trigger::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14521,6 +19156,17 @@ impl JobTrigger {
     }
 
     /// Sets the value of [errors][crate::model::JobTrigger::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = JobTrigger::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14532,6 +19178,13 @@ impl JobTrigger {
     }
 
     /// Sets the value of [create_time][crate::model::JobTrigger::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14541,6 +19194,14 @@ impl JobTrigger {
     }
 
     /// Sets or clears the value of [create_time][crate::model::JobTrigger::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobTrigger::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14550,6 +19211,13 @@ impl JobTrigger {
     }
 
     /// Sets the value of [update_time][crate::model::JobTrigger::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14559,6 +19227,14 @@ impl JobTrigger {
     }
 
     /// Sets or clears the value of [update_time][crate::model::JobTrigger::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobTrigger::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14568,6 +19244,13 @@ impl JobTrigger {
     }
 
     /// Sets the value of [last_run_time][crate::model::JobTrigger::last_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_last_run_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14577,6 +19260,14 @@ impl JobTrigger {
     }
 
     /// Sets or clears the value of [last_run_time][crate::model::JobTrigger::last_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use wkt::Timestamp;
+    /// let x = JobTrigger::new().set_or_clear_last_run_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobTrigger::new().set_or_clear_last_run_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14586,6 +19277,15 @@ impl JobTrigger {
     }
 
     /// Sets the value of [status][crate::model::JobTrigger::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use google_cloud_privacy_dlp_v2::model::job_trigger::Status;
+    /// let x0 = JobTrigger::new().set_status(Status::Healthy);
+    /// let x1 = JobTrigger::new().set_status(Status::Paused);
+    /// let x2 = JobTrigger::new().set_status(Status::Cancelled);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::job_trigger::Status>>(
         mut self,
         v: T,
@@ -14598,6 +19298,14 @@ impl JobTrigger {
     ///
     /// Note that all the setters affecting `job` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// let x = JobTrigger::new().set_job(Some(
+    ///     google_cloud_privacy_dlp_v2::model::job_trigger::Job::InspectJob(InspectJobConfig::default().into())));
+    /// ```
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::job_trigger::Job>>>(
         mut self,
         v: T,
@@ -14624,6 +19332,14 @@ impl JobTrigger {
     ///
     /// Note that all the setters affecting `job` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// let x = JobTrigger::new().set_inspect_job(InspectJobConfig::default()/* use setters */);
+    /// assert!(x.inspect_job().is_some());
+    /// ```
     pub fn set_inspect_job<
         T: std::convert::Into<std::boxed::Box<crate::model::InspectJobConfig>>,
     >(
@@ -14665,6 +19381,14 @@ pub mod job_trigger {
         ///
         /// Note that all the setters affecting `trigger` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::job_trigger::Trigger;
+        /// use google_cloud_privacy_dlp_v2::model::Schedule;
+        /// let x = Trigger::new().set_trigger(Some(
+        ///     google_cloud_privacy_dlp_v2::model::job_trigger::trigger::Trigger::Schedule(Schedule::default().into())));
+        /// ```
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::job_trigger::trigger::Trigger>>,
         >(
@@ -14693,6 +19417,15 @@ pub mod job_trigger {
         ///
         /// Note that all the setters affecting `trigger` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::job_trigger::Trigger;
+        /// use google_cloud_privacy_dlp_v2::model::Schedule;
+        /// let x = Trigger::new().set_schedule(Schedule::default()/* use setters */);
+        /// assert!(x.schedule().is_some());
+        /// assert!(x.manual().is_none());
+        /// ```
         pub fn set_schedule<T: std::convert::Into<std::boxed::Box<crate::model::Schedule>>>(
             mut self,
             v: T,
@@ -14721,6 +19454,15 @@ pub mod job_trigger {
         ///
         /// Note that all the setters affecting `trigger` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::job_trigger::Trigger;
+        /// use google_cloud_privacy_dlp_v2::model::Manual;
+        /// let x = Trigger::new().set_manual(Manual::default()/* use setters */);
+        /// assert!(x.manual().is_some());
+        /// assert!(x.schedule().is_none());
+        /// ```
         pub fn set_manual<T: std::convert::Into<std::boxed::Box<crate::model::Manual>>>(
             mut self,
             v: T,
@@ -14926,6 +19668,14 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::SaveFindings;
+    /// let x = Action::new().set_action(Some(
+    ///     google_cloud_privacy_dlp_v2::model::action::Action::SaveFindings(SaveFindings::default().into())));
+    /// ```
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::action::Action>>>(
         mut self,
         v: T,
@@ -14952,6 +19702,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::SaveFindings;
+    /// let x = Action::new().set_save_findings(SaveFindings::default()/* use setters */);
+    /// assert!(x.save_findings().is_some());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_save_findings<
         T: std::convert::Into<std::boxed::Box<crate::model::action::SaveFindings>>,
     >(
@@ -14981,6 +19746,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::PublishToPubSub;
+    /// let x = Action::new().set_pub_sub(PublishToPubSub::default()/* use setters */);
+    /// assert!(x.pub_sub().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_pub_sub<
         T: std::convert::Into<std::boxed::Box<crate::model::action::PublishToPubSub>>,
     >(
@@ -15009,6 +19789,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::PublishSummaryToCscc;
+    /// let x = Action::new().set_publish_summary_to_cscc(PublishSummaryToCscc::default()/* use setters */);
+    /// assert!(x.publish_summary_to_cscc().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_publish_summary_to_cscc<
         T: std::convert::Into<std::boxed::Box<crate::model::action::PublishSummaryToCscc>>,
     >(
@@ -15042,6 +19837,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::PublishFindingsToCloudDataCatalog;
+    /// let x = Action::new().set_publish_findings_to_cloud_data_catalog(PublishFindingsToCloudDataCatalog::default()/* use setters */);
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_publish_findings_to_cloud_data_catalog<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::action::PublishFindingsToCloudDataCatalog>,
@@ -15077,6 +19887,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::PublishFindingsToDataplexCatalog;
+    /// let x = Action::new().set_publish_findings_to_dataplex_catalog(PublishFindingsToDataplexCatalog::default()/* use setters */);
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_publish_findings_to_dataplex_catalog<
         T: std::convert::Into<std::boxed::Box<crate::model::action::PublishFindingsToDataplexCatalog>>,
     >(
@@ -15107,6 +19932,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+    /// let x = Action::new().set_deidentify(Deidentify::default()/* use setters */);
+    /// assert!(x.deidentify().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_deidentify<
         T: std::convert::Into<std::boxed::Box<crate::model::action::Deidentify>>,
     >(
@@ -15135,6 +19975,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::JobNotificationEmails;
+    /// let x = Action::new().set_job_notification_emails(JobNotificationEmails::default()/* use setters */);
+    /// assert!(x.job_notification_emails().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.publish_to_stackdriver().is_none());
+    /// ```
     pub fn set_job_notification_emails<
         T: std::convert::Into<std::boxed::Box<crate::model::action::JobNotificationEmails>>,
     >(
@@ -15165,6 +20020,21 @@ impl Action {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Action;
+    /// use google_cloud_privacy_dlp_v2::model::action::PublishToStackdriver;
+    /// let x = Action::new().set_publish_to_stackdriver(PublishToStackdriver::default()/* use setters */);
+    /// assert!(x.publish_to_stackdriver().is_some());
+    /// assert!(x.save_findings().is_none());
+    /// assert!(x.pub_sub().is_none());
+    /// assert!(x.publish_summary_to_cscc().is_none());
+    /// assert!(x.publish_findings_to_cloud_data_catalog().is_none());
+    /// assert!(x.publish_findings_to_dataplex_catalog().is_none());
+    /// assert!(x.deidentify().is_none());
+    /// assert!(x.job_notification_emails().is_none());
+    /// ```
     pub fn set_publish_to_stackdriver<
         T: std::convert::Into<std::boxed::Box<crate::model::action::PublishToStackdriver>>,
     >(
@@ -15207,6 +20077,13 @@ pub mod action {
         }
 
         /// Sets the value of [output_config][crate::model::action::SaveFindings::output_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::SaveFindings;
+        /// use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+        /// let x = SaveFindings::new().set_output_config(OutputStorageConfig::default()/* use setters */);
+        /// ```
         pub fn set_output_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::OutputStorageConfig>,
@@ -15216,6 +20093,14 @@ pub mod action {
         }
 
         /// Sets or clears the value of [output_config][crate::model::action::SaveFindings::output_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::SaveFindings;
+        /// use google_cloud_privacy_dlp_v2::model::OutputStorageConfig;
+        /// let x = SaveFindings::new().set_or_clear_output_config(Some(OutputStorageConfig::default()/* use setters */));
+        /// let x = SaveFindings::new().set_or_clear_output_config(None::<OutputStorageConfig>);
+        /// ```
         pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::OutputStorageConfig>,
@@ -15254,6 +20139,12 @@ pub mod action {
         }
 
         /// Sets the value of [topic][crate::model::action::PublishToPubSub::topic].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::PublishToPubSub;
+        /// let x = PublishToPubSub::new().set_topic("example");
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
@@ -15460,6 +20351,13 @@ pub mod action {
         }
 
         /// Sets the value of [transformation_config][crate::model::action::Deidentify::transformation_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::TransformationConfig;
+        /// let x = Deidentify::new().set_transformation_config(TransformationConfig::default()/* use setters */);
+        /// ```
         pub fn set_transformation_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TransformationConfig>,
@@ -15469,6 +20367,14 @@ pub mod action {
         }
 
         /// Sets or clears the value of [transformation_config][crate::model::action::Deidentify::transformation_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::TransformationConfig;
+        /// let x = Deidentify::new().set_or_clear_transformation_config(Some(TransformationConfig::default()/* use setters */));
+        /// let x = Deidentify::new().set_or_clear_transformation_config(None::<TransformationConfig>);
+        /// ```
         pub fn set_or_clear_transformation_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TransformationConfig>,
@@ -15478,6 +20384,13 @@ pub mod action {
         }
 
         /// Sets the value of [transformation_details_storage_config][crate::model::action::Deidentify::transformation_details_storage_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::TransformationDetailsStorageConfig;
+        /// let x = Deidentify::new().set_transformation_details_storage_config(TransformationDetailsStorageConfig::default()/* use setters */);
+        /// ```
         pub fn set_transformation_details_storage_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TransformationDetailsStorageConfig>,
@@ -15487,6 +20400,14 @@ pub mod action {
         }
 
         /// Sets or clears the value of [transformation_details_storage_config][crate::model::action::Deidentify::transformation_details_storage_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::TransformationDetailsStorageConfig;
+        /// let x = Deidentify::new().set_or_clear_transformation_details_storage_config(Some(TransformationDetailsStorageConfig::default()/* use setters */));
+        /// let x = Deidentify::new().set_or_clear_transformation_details_storage_config(None::<TransformationDetailsStorageConfig>);
+        /// ```
         pub fn set_or_clear_transformation_details_storage_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -15499,6 +20420,17 @@ pub mod action {
         }
 
         /// Sets the value of [file_types_to_transform][crate::model::action::Deidentify::file_types_to_transform].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::FileType;
+        /// let x = Deidentify::new().set_file_types_to_transform([
+        ///     FileType::BinaryFile,
+        ///     FileType::TextFile,
+        ///     FileType::Image,
+        /// ]);
+        /// ```
         pub fn set_file_types_to_transform<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -15513,6 +20445,13 @@ pub mod action {
         ///
         /// Note that all the setters affecting `output` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// use google_cloud_privacy_dlp_v2::model::action::deidentify::Output;
+        /// let x = Deidentify::new().set_output(Some(Output::CloudStorageOutput("example".to_string())));
+        /// ```
         pub fn set_output<
             T: std::convert::Into<std::option::Option<crate::model::action::deidentify::Output>>,
         >(
@@ -15541,6 +20480,13 @@ pub mod action {
         ///
         /// Note that all the setters affecting `output` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::action::Deidentify;
+        /// let x = Deidentify::new().set_cloud_storage_output("example");
+        /// assert!(x.cloud_storage_output().is_some());
+        /// ```
         pub fn set_cloud_storage_output<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -15688,6 +20634,12 @@ impl TransformationConfig {
     }
 
     /// Sets the value of [deidentify_template][crate::model::TransformationConfig::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationConfig;
+    /// let x = TransformationConfig::new().set_deidentify_template("example");
+    /// ```
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15697,6 +20649,12 @@ impl TransformationConfig {
     }
 
     /// Sets the value of [structured_deidentify_template][crate::model::TransformationConfig::structured_deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationConfig;
+    /// let x = TransformationConfig::new().set_structured_deidentify_template("example");
+    /// ```
     pub fn set_structured_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15706,6 +20664,12 @@ impl TransformationConfig {
     }
 
     /// Sets the value of [image_redact_template][crate::model::TransformationConfig::image_redact_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TransformationConfig;
+    /// let x = TransformationConfig::new().set_image_redact_template("example");
+    /// ```
     pub fn set_image_redact_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15770,12 +20734,25 @@ impl CreateInspectTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInspectTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
+    /// let x = CreateInspectTemplateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = CreateInspectTemplateRequest::new().set_inspect_template(InspectTemplate::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectTemplate>,
@@ -15785,6 +20762,14 @@ impl CreateInspectTemplateRequest {
     }
 
     /// Sets or clears the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = CreateInspectTemplateRequest::new().set_or_clear_inspect_template(Some(InspectTemplate::default()/* use setters */));
+    /// let x = CreateInspectTemplateRequest::new().set_or_clear_inspect_template(None::<InspectTemplate>);
+    /// ```
     pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectTemplate>,
@@ -15794,12 +20779,24 @@ impl CreateInspectTemplateRequest {
     }
 
     /// Sets the value of [template_id][crate::model::CreateInspectTemplateRequest::template_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
+    /// let x = CreateInspectTemplateRequest::new().set_template_id("example");
+    /// ```
     pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.template_id = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::CreateInspectTemplateRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateInspectTemplateRequest;
+    /// let x = CreateInspectTemplateRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -15836,12 +20833,25 @@ impl UpdateInspectTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateInspectTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
+    /// let x = UpdateInspectTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = UpdateInspectTemplateRequest::new().set_inspect_template(InspectTemplate::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectTemplate>,
@@ -15851,6 +20861,14 @@ impl UpdateInspectTemplateRequest {
     }
 
     /// Sets or clears the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = UpdateInspectTemplateRequest::new().set_or_clear_inspect_template(Some(InspectTemplate::default()/* use setters */));
+    /// let x = UpdateInspectTemplateRequest::new().set_or_clear_inspect_template(None::<InspectTemplate>);
+    /// ```
     pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectTemplate>,
@@ -15860,6 +20878,13 @@ impl UpdateInspectTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInspectTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15869,6 +20894,14 @@ impl UpdateInspectTemplateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateInspectTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInspectTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInspectTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15902,6 +20935,12 @@ impl GetInspectTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInspectTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetInspectTemplateRequest;
+    /// let x = GetInspectTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15977,30 +21016,60 @@ impl ListInspectTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInspectTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
+    /// let x = ListInspectTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInspectTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
+    /// let x = ListInspectTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInspectTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
+    /// let x = ListInspectTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInspectTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
+    /// let x = ListInspectTemplatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListInspectTemplatesRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesRequest;
+    /// let x = ListInspectTemplatesRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -16033,6 +21102,17 @@ impl ListInspectTemplatesResponse {
     }
 
     /// Sets the value of [inspect_templates][crate::model::ListInspectTemplatesResponse::inspect_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::InspectTemplate;
+    /// let x = ListInspectTemplatesResponse::new()
+    ///     .set_inspect_templates([
+    ///         InspectTemplate::default()/* use setters */,
+    ///         InspectTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_inspect_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16044,6 +21124,12 @@ impl ListInspectTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInspectTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListInspectTemplatesResponse;
+    /// let x = ListInspectTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -16088,6 +21174,12 @@ impl DeleteInspectTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInspectTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteInspectTemplateRequest;
+    /// let x = DeleteInspectTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16145,12 +21237,25 @@ impl CreateJobTriggerRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobTriggerRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
+    /// let x = CreateJobTriggerRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = CreateJobTriggerRequest::new().set_job_trigger(JobTrigger::default()/* use setters */);
+    /// ```
     pub fn set_job_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JobTrigger>,
@@ -16160,6 +21265,14 @@ impl CreateJobTriggerRequest {
     }
 
     /// Sets or clears the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = CreateJobTriggerRequest::new().set_or_clear_job_trigger(Some(JobTrigger::default()/* use setters */));
+    /// let x = CreateJobTriggerRequest::new().set_or_clear_job_trigger(None::<JobTrigger>);
+    /// ```
     pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobTrigger>,
@@ -16169,12 +21282,24 @@ impl CreateJobTriggerRequest {
     }
 
     /// Sets the value of [trigger_id][crate::model::CreateJobTriggerRequest::trigger_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
+    /// let x = CreateJobTriggerRequest::new().set_trigger_id("example");
+    /// ```
     pub fn set_trigger_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_id = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::CreateJobTriggerRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateJobTriggerRequest;
+    /// let x = CreateJobTriggerRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -16204,6 +21329,12 @@ impl ActivateJobTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::ActivateJobTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ActivateJobTriggerRequest;
+    /// let x = ActivateJobTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16239,12 +21370,25 @@ impl UpdateJobTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateJobTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
+    /// let x = UpdateJobTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = UpdateJobTriggerRequest::new().set_job_trigger(JobTrigger::default()/* use setters */);
+    /// ```
     pub fn set_job_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JobTrigger>,
@@ -16254,6 +21398,14 @@ impl UpdateJobTriggerRequest {
     }
 
     /// Sets or clears the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = UpdateJobTriggerRequest::new().set_or_clear_job_trigger(Some(JobTrigger::default()/* use setters */));
+    /// let x = UpdateJobTriggerRequest::new().set_or_clear_job_trigger(None::<JobTrigger>);
+    /// ```
     pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JobTrigger>,
@@ -16263,6 +21415,13 @@ impl UpdateJobTriggerRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateJobTriggerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16272,6 +21431,14 @@ impl UpdateJobTriggerRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateJobTriggerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateJobTriggerRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateJobTriggerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16304,6 +21471,12 @@ impl GetJobTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetJobTriggerRequest;
+    /// let x = GetJobTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16357,12 +21530,25 @@ impl CreateDiscoveryConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDiscoveryConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDiscoveryConfigRequest;
+    /// let x = CreateDiscoveryConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDiscoveryConfigRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = CreateDiscoveryConfigRequest::new().set_discovery_config(DiscoveryConfig::default()/* use setters */);
+    /// ```
     pub fn set_discovery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -16372,6 +21558,14 @@ impl CreateDiscoveryConfigRequest {
     }
 
     /// Sets or clears the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDiscoveryConfigRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = CreateDiscoveryConfigRequest::new().set_or_clear_discovery_config(Some(DiscoveryConfig::default()/* use setters */));
+    /// let x = CreateDiscoveryConfigRequest::new().set_or_clear_discovery_config(None::<DiscoveryConfig>);
+    /// ```
     pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -16381,6 +21575,12 @@ impl CreateDiscoveryConfigRequest {
     }
 
     /// Sets the value of [config_id][crate::model::CreateDiscoveryConfigRequest::config_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDiscoveryConfigRequest;
+    /// let x = CreateDiscoveryConfigRequest::new().set_config_id("example");
+    /// ```
     pub fn set_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.config_id = v.into();
         self
@@ -16416,12 +21616,25 @@ impl UpdateDiscoveryConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateDiscoveryConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
+    /// let x = UpdateDiscoveryConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = UpdateDiscoveryConfigRequest::new().set_discovery_config(DiscoveryConfig::default()/* use setters */);
+    /// ```
     pub fn set_discovery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -16431,6 +21644,14 @@ impl UpdateDiscoveryConfigRequest {
     }
 
     /// Sets or clears the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = UpdateDiscoveryConfigRequest::new().set_or_clear_discovery_config(Some(DiscoveryConfig::default()/* use setters */));
+    /// let x = UpdateDiscoveryConfigRequest::new().set_or_clear_discovery_config(None::<DiscoveryConfig>);
+    /// ```
     pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -16440,6 +21661,13 @@ impl UpdateDiscoveryConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDiscoveryConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16449,6 +21677,14 @@ impl UpdateDiscoveryConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDiscoveryConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDiscoveryConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDiscoveryConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -16481,6 +21717,12 @@ impl GetDiscoveryConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDiscoveryConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetDiscoveryConfigRequest;
+    /// let x = GetDiscoveryConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16542,24 +21784,48 @@ impl ListDiscoveryConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDiscoveryConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsRequest;
+    /// let x = ListDiscoveryConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDiscoveryConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsRequest;
+    /// let x = ListDiscoveryConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDiscoveryConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsRequest;
+    /// let x = ListDiscoveryConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDiscoveryConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsRequest;
+    /// let x = ListDiscoveryConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16592,6 +21858,17 @@ impl ListDiscoveryConfigsResponse {
     }
 
     /// Sets the value of [discovery_configs][crate::model::ListDiscoveryConfigsResponse::discovery_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsResponse;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = ListDiscoveryConfigsResponse::new()
+    ///     .set_discovery_configs([
+    ///         DiscoveryConfig::default()/* use setters */,
+    ///         DiscoveryConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_discovery_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16603,6 +21880,12 @@ impl ListDiscoveryConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDiscoveryConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDiscoveryConfigsResponse;
+    /// let x = ListDiscoveryConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -16646,6 +21929,12 @@ impl DeleteDiscoveryConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDiscoveryConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteDiscoveryConfigRequest;
+    /// let x = DeleteDiscoveryConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16705,18 +21994,36 @@ impl CreateDlpJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDlpJobRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// let x = CreateDlpJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::CreateDlpJobRequest::job_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// let x = CreateDlpJobRequest::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::CreateDlpJobRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// let x = CreateDlpJobRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -16726,6 +22033,14 @@ impl CreateDlpJobRequest {
     ///
     /// Note that all the setters affecting `job` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// let x = CreateDlpJobRequest::new().set_job(Some(
+    ///     google_cloud_privacy_dlp_v2::model::create_dlp_job_request::Job::InspectJob(InspectJobConfig::default().into())));
+    /// ```
     pub fn set_job<
         T: std::convert::Into<std::option::Option<crate::model::create_dlp_job_request::Job>>,
     >(
@@ -16756,6 +22071,15 @@ impl CreateDlpJobRequest {
     ///
     /// Note that all the setters affecting `job` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// let x = CreateDlpJobRequest::new().set_inspect_job(InspectJobConfig::default()/* use setters */);
+    /// assert!(x.inspect_job().is_some());
+    /// assert!(x.risk_job().is_none());
+    /// ```
     pub fn set_inspect_job<
         T: std::convert::Into<std::boxed::Box<crate::model::InspectJobConfig>>,
     >(
@@ -16786,6 +22110,15 @@ impl CreateDlpJobRequest {
     ///
     /// Note that all the setters affecting `job` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDlpJobRequest;
+    /// use google_cloud_privacy_dlp_v2::model::RiskAnalysisJobConfig;
+    /// let x = CreateDlpJobRequest::new().set_risk_job(RiskAnalysisJobConfig::default()/* use setters */);
+    /// assert!(x.risk_job().is_some());
+    /// assert!(x.inspect_job().is_none());
+    /// ```
     pub fn set_risk_job<
         T: std::convert::Into<std::boxed::Box<crate::model::RiskAnalysisJobConfig>>,
     >(
@@ -16913,42 +22246,86 @@ impl ListJobTriggersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobTriggersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobTriggersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobTriggersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListJobTriggersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobTriggersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ListJobTriggersRequest::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DlpJobType;
+    /// let x0 = ListJobTriggersRequest::new().set_type(DlpJobType::InspectJob);
+    /// let x1 = ListJobTriggersRequest::new().set_type(DlpJobType::RiskAnalysisJob);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DlpJobType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListJobTriggersRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersRequest;
+    /// let x = ListJobTriggersRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -16981,6 +22358,17 @@ impl ListJobTriggersResponse {
     }
 
     /// Sets the value of [job_triggers][crate::model::ListJobTriggersResponse::job_triggers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersResponse;
+    /// use google_cloud_privacy_dlp_v2::model::JobTrigger;
+    /// let x = ListJobTriggersResponse::new()
+    ///     .set_job_triggers([
+    ///         JobTrigger::default()/* use setters */,
+    ///         JobTrigger::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16992,6 +22380,12 @@ impl ListJobTriggersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobTriggersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListJobTriggersResponse;
+    /// let x = ListJobTriggersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -17035,6 +22429,12 @@ impl DeleteJobTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteJobTriggerRequest;
+    /// let x = DeleteJobTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -17074,6 +22474,13 @@ impl InspectJobConfig {
     }
 
     /// Sets the value of [storage_config][crate::model::InspectJobConfig::storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// let x = InspectJobConfig::new().set_storage_config(StorageConfig::default()/* use setters */);
+    /// ```
     pub fn set_storage_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -17083,6 +22490,14 @@ impl InspectJobConfig {
     }
 
     /// Sets or clears the value of [storage_config][crate::model::InspectJobConfig::storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// let x = InspectJobConfig::new().set_or_clear_storage_config(Some(StorageConfig::default()/* use setters */));
+    /// let x = InspectJobConfig::new().set_or_clear_storage_config(None::<StorageConfig>);
+    /// ```
     pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -17092,6 +22507,13 @@ impl InspectJobConfig {
     }
 
     /// Sets the value of [inspect_config][crate::model::InspectJobConfig::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectJobConfig::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -17101,6 +22523,14 @@ impl InspectJobConfig {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::InspectJobConfig::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = InspectJobConfig::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = InspectJobConfig::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -17110,6 +22540,12 @@ impl InspectJobConfig {
     }
 
     /// Sets the value of [inspect_template_name][crate::model::InspectJobConfig::inspect_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// let x = InspectJobConfig::new().set_inspect_template_name("example");
+    /// ```
     pub fn set_inspect_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17119,6 +22555,17 @@ impl InspectJobConfig {
     }
 
     /// Sets the value of [actions][crate::model::InspectJobConfig::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Action;
+    /// let x = InspectJobConfig::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17155,6 +22602,14 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+    /// let x = DataProfileAction::new().set_action(Some(
+    ///     google_cloud_privacy_dlp_v2::model::data_profile_action::Action::ExportData(Export::default().into())));
+    /// ```
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_action::Action>>,
     >(
@@ -17185,6 +22640,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+    /// let x = DataProfileAction::new().set_export_data(Export::default()/* use setters */);
+    /// assert!(x.export_data().is_some());
+    /// assert!(x.pub_sub_notification().is_none());
+    /// assert!(x.publish_to_chronicle().is_none());
+    /// assert!(x.publish_to_scc().is_none());
+    /// assert!(x.tag_resources().is_none());
+    /// assert!(x.publish_to_dataplex_catalog().is_none());
+    /// ```
     pub fn set_export_data<
         T: std::convert::Into<std::boxed::Box<crate::model::data_profile_action::Export>>,
     >(
@@ -17218,6 +22686,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+    /// let x = DataProfileAction::new().set_pub_sub_notification(PubSubNotification::default()/* use setters */);
+    /// assert!(x.pub_sub_notification().is_some());
+    /// assert!(x.export_data().is_none());
+    /// assert!(x.publish_to_chronicle().is_none());
+    /// assert!(x.publish_to_scc().is_none());
+    /// assert!(x.tag_resources().is_none());
+    /// assert!(x.publish_to_dataplex_catalog().is_none());
+    /// ```
     pub fn set_pub_sub_notification<
         T: std::convert::Into<std::boxed::Box<crate::model::data_profile_action::PubSubNotification>>,
     >(
@@ -17251,6 +22732,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::PublishToChronicle;
+    /// let x = DataProfileAction::new().set_publish_to_chronicle(PublishToChronicle::default()/* use setters */);
+    /// assert!(x.publish_to_chronicle().is_some());
+    /// assert!(x.export_data().is_none());
+    /// assert!(x.pub_sub_notification().is_none());
+    /// assert!(x.publish_to_scc().is_none());
+    /// assert!(x.tag_resources().is_none());
+    /// assert!(x.publish_to_dataplex_catalog().is_none());
+    /// ```
     pub fn set_publish_to_chronicle<
         T: std::convert::Into<std::boxed::Box<crate::model::data_profile_action::PublishToChronicle>>,
     >(
@@ -17285,6 +22779,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::PublishToSecurityCommandCenter;
+    /// let x = DataProfileAction::new().set_publish_to_scc(PublishToSecurityCommandCenter::default()/* use setters */);
+    /// assert!(x.publish_to_scc().is_some());
+    /// assert!(x.export_data().is_none());
+    /// assert!(x.pub_sub_notification().is_none());
+    /// assert!(x.publish_to_chronicle().is_none());
+    /// assert!(x.tag_resources().is_none());
+    /// assert!(x.publish_to_dataplex_catalog().is_none());
+    /// ```
     pub fn set_publish_to_scc<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_profile_action::PublishToSecurityCommandCenter>,
@@ -17320,6 +22827,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::TagResources;
+    /// let x = DataProfileAction::new().set_tag_resources(TagResources::default()/* use setters */);
+    /// assert!(x.tag_resources().is_some());
+    /// assert!(x.export_data().is_none());
+    /// assert!(x.pub_sub_notification().is_none());
+    /// assert!(x.publish_to_chronicle().is_none());
+    /// assert!(x.publish_to_scc().is_none());
+    /// assert!(x.publish_to_dataplex_catalog().is_none());
+    /// ```
     pub fn set_tag_resources<
         T: std::convert::Into<std::boxed::Box<crate::model::data_profile_action::TagResources>>,
     >(
@@ -17354,6 +22874,19 @@ impl DataProfileAction {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::PublishToDataplexCatalog;
+    /// let x = DataProfileAction::new().set_publish_to_dataplex_catalog(PublishToDataplexCatalog::default()/* use setters */);
+    /// assert!(x.publish_to_dataplex_catalog().is_some());
+    /// assert!(x.export_data().is_none());
+    /// assert!(x.pub_sub_notification().is_none());
+    /// assert!(x.publish_to_chronicle().is_none());
+    /// assert!(x.publish_to_scc().is_none());
+    /// assert!(x.tag_resources().is_none());
+    /// ```
     pub fn set_publish_to_dataplex_catalog<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::data_profile_action::PublishToDataplexCatalog>,
@@ -17433,6 +22966,13 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [profile_table][crate::model::data_profile_action::Export::profile_table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+        /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+        /// let x = Export::new().set_profile_table(BigQueryTable::default()/* use setters */);
+        /// ```
         pub fn set_profile_table<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryTable>,
@@ -17442,6 +22982,14 @@ pub mod data_profile_action {
         }
 
         /// Sets or clears the value of [profile_table][crate::model::data_profile_action::Export::profile_table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+        /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+        /// let x = Export::new().set_or_clear_profile_table(Some(BigQueryTable::default()/* use setters */));
+        /// let x = Export::new().set_or_clear_profile_table(None::<BigQueryTable>);
+        /// ```
         pub fn set_or_clear_profile_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryTable>,
@@ -17451,6 +22999,13 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [sample_findings_table][crate::model::data_profile_action::Export::sample_findings_table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+        /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+        /// let x = Export::new().set_sample_findings_table(BigQueryTable::default()/* use setters */);
+        /// ```
         pub fn set_sample_findings_table<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryTable>,
@@ -17460,6 +23015,14 @@ pub mod data_profile_action {
         }
 
         /// Sets or clears the value of [sample_findings_table][crate::model::data_profile_action::Export::sample_findings_table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::Export;
+        /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+        /// let x = Export::new().set_or_clear_sample_findings_table(Some(BigQueryTable::default()/* use setters */));
+        /// let x = Export::new().set_or_clear_sample_findings_table(None::<BigQueryTable>);
+        /// ```
         pub fn set_or_clear_sample_findings_table<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryTable>,
@@ -17507,12 +23070,27 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [topic][crate::model::data_profile_action::PubSubNotification::topic].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+        /// let x = PubSubNotification::new().set_topic("example");
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
         }
 
         /// Sets the value of [event][crate::model::data_profile_action::PubSubNotification::event].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_action::EventType;
+        /// let x0 = PubSubNotification::new().set_event(EventType::NewProfile);
+        /// let x1 = PubSubNotification::new().set_event(EventType::ChangedProfile);
+        /// let x2 = PubSubNotification::new().set_event(EventType::ScoreIncreased);
+        /// ```
         pub fn set_event<T: std::convert::Into<crate::model::data_profile_action::EventType>>(
             mut self,
             v: T,
@@ -17522,6 +23100,13 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [pubsub_condition][crate::model::data_profile_action::PubSubNotification::pubsub_condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+        /// use google_cloud_privacy_dlp_v2::model::DataProfilePubSubCondition;
+        /// let x = PubSubNotification::new().set_pubsub_condition(DataProfilePubSubCondition::default()/* use setters */);
+        /// ```
         pub fn set_pubsub_condition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DataProfilePubSubCondition>,
@@ -17531,6 +23116,14 @@ pub mod data_profile_action {
         }
 
         /// Sets or clears the value of [pubsub_condition][crate::model::data_profile_action::PubSubNotification::pubsub_condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+        /// use google_cloud_privacy_dlp_v2::model::DataProfilePubSubCondition;
+        /// let x = PubSubNotification::new().set_or_clear_pubsub_condition(Some(DataProfilePubSubCondition::default()/* use setters */));
+        /// let x = PubSubNotification::new().set_or_clear_pubsub_condition(None::<DataProfilePubSubCondition>);
+        /// ```
         pub fn set_or_clear_pubsub_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DataProfilePubSubCondition>,
@@ -17540,6 +23133,15 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [detail_of_message][crate::model::data_profile_action::PubSubNotification::detail_of_message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PubSubNotification;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_action::pub_sub_notification::DetailLevel;
+        /// let x0 = PubSubNotification::new().set_detail_of_message(DetailLevel::TableProfile);
+        /// let x1 = PubSubNotification::new().set_detail_of_message(DetailLevel::ResourceName);
+        /// let x2 = PubSubNotification::new().set_detail_of_message(DetailLevel::FileStoreProfile);
+        /// ```
         pub fn set_detail_of_message<
             T: std::convert::Into<
                     crate::model::data_profile_action::pub_sub_notification::DetailLevel,
@@ -17769,6 +23371,12 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [lower_data_risk_to_low][crate::model::data_profile_action::PublishToDataplexCatalog::lower_data_risk_to_low].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::PublishToDataplexCatalog;
+        /// let x = PublishToDataplexCatalog::new().set_lower_data_risk_to_low(true);
+        /// ```
         pub fn set_lower_data_risk_to_low<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.lower_data_risk_to_low = v.into();
             self
@@ -17821,6 +23429,17 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [tag_conditions][crate::model::data_profile_action::TagResources::tag_conditions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::TagResources;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagCondition;
+        /// let x = TagResources::new()
+        ///     .set_tag_conditions([
+        ///         TagCondition::default()/* use setters */,
+        ///         TagCondition::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_tag_conditions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17832,6 +23451,16 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [profile_generations_to_tag][crate::model::data_profile_action::TagResources::profile_generations_to_tag].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::TagResources;
+        /// use google_cloud_privacy_dlp_v2::model::ProfileGeneration;
+        /// let x = TagResources::new().set_profile_generations_to_tag([
+        ///     ProfileGeneration::New,
+        ///     ProfileGeneration::Update,
+        /// ]);
+        /// ```
         pub fn set_profile_generations_to_tag<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17843,6 +23472,12 @@ pub mod data_profile_action {
         }
 
         /// Sets the value of [lower_data_risk_to_low][crate::model::data_profile_action::TagResources::lower_data_risk_to_low].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::TagResources;
+        /// let x = TagResources::new().set_lower_data_risk_to_low(true);
+        /// ```
         pub fn set_lower_data_risk_to_low<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.lower_data_risk_to_low = v.into();
             self
@@ -17883,6 +23518,13 @@ pub mod data_profile_action {
             }
 
             /// Sets the value of [tag][crate::model::data_profile_action::tag_resources::TagCondition::tag].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagCondition;
+            /// use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagValue;
+            /// let x = TagCondition::new().set_tag(TagValue::default()/* use setters */);
+            /// ```
             pub fn set_tag<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::data_profile_action::tag_resources::TagValue>,
@@ -17892,6 +23534,14 @@ pub mod data_profile_action {
             }
 
             /// Sets or clears the value of [tag][crate::model::data_profile_action::tag_resources::TagCondition::tag].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagCondition;
+            /// use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagValue;
+            /// let x = TagCondition::new().set_or_clear_tag(Some(TagValue::default()/* use setters */));
+            /// let x = TagCondition::new().set_or_clear_tag(None::<TagValue>);
+            /// ```
             pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::data_profile_action::tag_resources::TagValue>,
@@ -17904,6 +23554,14 @@ pub mod data_profile_action {
             ///
             /// Note that all the setters affecting `r#type` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagCondition;
+            /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+            /// let x = TagCondition::new().set_type(Some(
+            ///     google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::tag_condition::Type::SensitivityScore(SensitivityScore::default().into())));
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<
@@ -17936,6 +23594,14 @@ pub mod data_profile_action {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagCondition;
+            /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+            /// let x = TagCondition::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+            /// assert!(x.sensitivity_score().is_some());
+            /// ```
             pub fn set_sensitivity_score<
                 T: std::convert::Into<std::boxed::Box<crate::model::SensitivityScore>>,
             >(
@@ -17993,6 +23659,13 @@ pub mod data_profile_action {
             ///
             /// Note that all the setters affecting `format` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagValue;
+            /// use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::tag_value::Format;
+            /// let x = TagValue::new().set_format(Some(Format::NamespacedValue("example".to_string())));
+            /// ```
             pub fn set_format<
                 T: std::convert::Into<
                         std::option::Option<
@@ -18023,6 +23696,13 @@ pub mod data_profile_action {
             ///
             /// Note that all the setters affecting `format` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::data_profile_action::tag_resources::TagValue;
+            /// let x = TagValue::new().set_namespaced_value("example");
+            /// assert!(x.namespaced_value().is_some());
+            /// ```
             pub fn set_namespaced_value<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -18286,12 +23966,25 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [quote][crate::model::DataProfileFinding::quote].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// let x = DataProfileFinding::new().set_quote("example");
+    /// ```
     pub fn set_quote<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quote = v.into();
         self
     }
 
     /// Sets the value of [infotype][crate::model::DataProfileFinding::infotype].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = DataProfileFinding::new().set_infotype(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_infotype<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -18301,6 +23994,14 @@ impl DataProfileFinding {
     }
 
     /// Sets or clears the value of [infotype][crate::model::DataProfileFinding::infotype].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = DataProfileFinding::new().set_or_clear_infotype(Some(InfoType::default()/* use setters */));
+    /// let x = DataProfileFinding::new().set_or_clear_infotype(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_infotype<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -18310,6 +24011,13 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [quote_info][crate::model::DataProfileFinding::quote_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// let x = DataProfileFinding::new().set_quote_info(QuoteInfo::default()/* use setters */);
+    /// ```
     pub fn set_quote_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuoteInfo>,
@@ -18319,6 +24027,14 @@ impl DataProfileFinding {
     }
 
     /// Sets or clears the value of [quote_info][crate::model::DataProfileFinding::quote_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::QuoteInfo;
+    /// let x = DataProfileFinding::new().set_or_clear_quote_info(Some(QuoteInfo::default()/* use setters */));
+    /// let x = DataProfileFinding::new().set_or_clear_quote_info(None::<QuoteInfo>);
+    /// ```
     pub fn set_or_clear_quote_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuoteInfo>,
@@ -18328,6 +24044,12 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [data_profile_resource_name][crate::model::DataProfileFinding::data_profile_resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// let x = DataProfileFinding::new().set_data_profile_resource_name("example");
+    /// ```
     pub fn set_data_profile_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18337,12 +24059,25 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [finding_id][crate::model::DataProfileFinding::finding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// let x = DataProfileFinding::new().set_finding_id("example");
+    /// ```
     pub fn set_finding_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_id = v.into();
         self
     }
 
     /// Sets the value of [timestamp][crate::model::DataProfileFinding::timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use wkt::Timestamp;
+    /// let x = DataProfileFinding::new().set_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18352,6 +24087,14 @@ impl DataProfileFinding {
     }
 
     /// Sets or clears the value of [timestamp][crate::model::DataProfileFinding::timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use wkt::Timestamp;
+    /// let x = DataProfileFinding::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = DataProfileFinding::new().set_or_clear_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18361,6 +24104,13 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [location][crate::model::DataProfileFinding::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileFindingLocation;
+    /// let x = DataProfileFinding::new().set_location(DataProfileFindingLocation::default()/* use setters */);
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileFindingLocation>,
@@ -18370,6 +24120,14 @@ impl DataProfileFinding {
     }
 
     /// Sets or clears the value of [location][crate::model::DataProfileFinding::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileFindingLocation;
+    /// let x = DataProfileFinding::new().set_or_clear_location(Some(DataProfileFindingLocation::default()/* use setters */));
+    /// let x = DataProfileFinding::new().set_or_clear_location(None::<DataProfileFindingLocation>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileFindingLocation>,
@@ -18379,6 +24137,15 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [resource_visibility][crate::model::DataProfileFinding::resource_visibility].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::ResourceVisibility;
+    /// let x0 = DataProfileFinding::new().set_resource_visibility(ResourceVisibility::Public);
+    /// let x1 = DataProfileFinding::new().set_resource_visibility(ResourceVisibility::Inconclusive);
+    /// let x2 = DataProfileFinding::new().set_resource_visibility(ResourceVisibility::Restricted);
+    /// ```
     pub fn set_resource_visibility<T: std::convert::Into<crate::model::ResourceVisibility>>(
         mut self,
         v: T,
@@ -18388,6 +24155,12 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [full_resource_name][crate::model::DataProfileFinding::full_resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// let x = DataProfileFinding::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18397,6 +24170,13 @@ impl DataProfileFinding {
     }
 
     /// Sets the value of [data_source_type][crate::model::DataProfileFinding::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = DataProfileFinding::new().set_data_source_type(DataSourceType::default()/* use setters */);
+    /// ```
     pub fn set_data_source_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -18406,6 +24186,14 @@ impl DataProfileFinding {
     }
 
     /// Sets or clears the value of [data_source_type][crate::model::DataProfileFinding::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFinding;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = DataProfileFinding::new().set_or_clear_data_source_type(Some(DataSourceType::default()/* use setters */));
+    /// let x = DataProfileFinding::new().set_or_clear_data_source_type(None::<DataSourceType>);
+    /// ```
     pub fn set_or_clear_data_source_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -18448,6 +24236,12 @@ impl DataProfileFindingLocation {
     }
 
     /// Sets the value of [container_name][crate::model::DataProfileFindingLocation::container_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFindingLocation;
+    /// let x = DataProfileFindingLocation::new().set_container_name("example");
+    /// ```
     pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container_name = v.into();
         self
@@ -18457,6 +24251,14 @@ impl DataProfileFindingLocation {
     ///
     /// Note that all the setters affecting `location_extra_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFindingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileFindingRecordLocation;
+    /// let x = DataProfileFindingLocation::new().set_location_extra_details(Some(
+    ///     google_cloud_privacy_dlp_v2::model::data_profile_finding_location::LocationExtraDetails::DataProfileFindingRecordLocation(DataProfileFindingRecordLocation::default().into())));
+    /// ```
     pub fn set_location_extra_details<
         T: std::convert::Into<
                 std::option::Option<
@@ -18489,6 +24291,14 @@ impl DataProfileFindingLocation {
     ///
     /// Note that all the setters affecting `location_extra_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFindingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileFindingRecordLocation;
+    /// let x = DataProfileFindingLocation::new().set_data_profile_finding_record_location(DataProfileFindingRecordLocation::default()/* use setters */);
+    /// assert!(x.data_profile_finding_record_location().is_some());
+    /// ```
     pub fn set_data_profile_finding_record_location<
         T: std::convert::Into<std::boxed::Box<crate::model::DataProfileFindingRecordLocation>>,
     >(
@@ -18545,6 +24355,13 @@ impl DataProfileFindingRecordLocation {
     }
 
     /// Sets the value of [field][crate::model::DataProfileFindingRecordLocation::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFindingRecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = DataProfileFindingRecordLocation::new().set_field(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -18554,6 +24371,14 @@ impl DataProfileFindingRecordLocation {
     }
 
     /// Sets or clears the value of [field][crate::model::DataProfileFindingRecordLocation::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileFindingRecordLocation;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = DataProfileFindingRecordLocation::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+    /// let x = DataProfileFindingRecordLocation::new().set_or_clear_field(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -18621,6 +24446,13 @@ impl DataProfileJobConfig {
     }
 
     /// Sets the value of [location][crate::model::DataProfileJobConfig::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileLocation;
+    /// let x = DataProfileJobConfig::new().set_location(DataProfileLocation::default()/* use setters */);
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileLocation>,
@@ -18630,6 +24462,14 @@ impl DataProfileJobConfig {
     }
 
     /// Sets or clears the value of [location][crate::model::DataProfileJobConfig::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileLocation;
+    /// let x = DataProfileJobConfig::new().set_or_clear_location(Some(DataProfileLocation::default()/* use setters */));
+    /// let x = DataProfileJobConfig::new().set_or_clear_location(None::<DataProfileLocation>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileLocation>,
@@ -18639,12 +24479,25 @@ impl DataProfileJobConfig {
     }
 
     /// Sets the value of [project_id][crate::model::DataProfileJobConfig::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// let x = DataProfileJobConfig::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [other_cloud_starting_location][crate::model::DataProfileJobConfig::other_cloud_starting_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// let x = DataProfileJobConfig::new().set_other_cloud_starting_location(OtherCloudDiscoveryStartingLocation::default()/* use setters */);
+    /// ```
     pub fn set_other_cloud_starting_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OtherCloudDiscoveryStartingLocation>,
@@ -18654,6 +24507,14 @@ impl DataProfileJobConfig {
     }
 
     /// Sets or clears the value of [other_cloud_starting_location][crate::model::DataProfileJobConfig::other_cloud_starting_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// let x = DataProfileJobConfig::new().set_or_clear_other_cloud_starting_location(Some(OtherCloudDiscoveryStartingLocation::default()/* use setters */));
+    /// let x = DataProfileJobConfig::new().set_or_clear_other_cloud_starting_location(None::<OtherCloudDiscoveryStartingLocation>);
+    /// ```
     pub fn set_or_clear_other_cloud_starting_location<T>(
         mut self,
         v: std::option::Option<T>,
@@ -18666,6 +24527,12 @@ impl DataProfileJobConfig {
     }
 
     /// Sets the value of [inspect_templates][crate::model::DataProfileJobConfig::inspect_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// let x = DataProfileJobConfig::new().set_inspect_templates(["a", "b", "c"]);
+    /// ```
     pub fn set_inspect_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18677,6 +24544,17 @@ impl DataProfileJobConfig {
     }
 
     /// Sets the value of [data_profile_actions][crate::model::DataProfileJobConfig::data_profile_actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// let x = DataProfileJobConfig::new()
+    ///     .set_data_profile_actions([
+    ///         DataProfileAction::default()/* use setters */,
+    ///         DataProfileAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_profile_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18721,6 +24599,12 @@ impl BigQueryRegex {
     }
 
     /// Sets the value of [project_id_regex][crate::model::BigQueryRegex::project_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryRegex;
+    /// let x = BigQueryRegex::new().set_project_id_regex("example");
+    /// ```
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18730,6 +24614,12 @@ impl BigQueryRegex {
     }
 
     /// Sets the value of [dataset_id_regex][crate::model::BigQueryRegex::dataset_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryRegex;
+    /// let x = BigQueryRegex::new().set_dataset_id_regex("example");
+    /// ```
     pub fn set_dataset_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18739,6 +24629,12 @@ impl BigQueryRegex {
     }
 
     /// Sets the value of [table_id_regex][crate::model::BigQueryRegex::table_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryRegex;
+    /// let x = BigQueryRegex::new().set_table_id_regex("example");
+    /// ```
     pub fn set_table_id_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id_regex = v.into();
         self
@@ -18769,6 +24665,17 @@ impl BigQueryRegexes {
     }
 
     /// Sets the value of [patterns][crate::model::BigQueryRegexes::patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryRegexes;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryRegex;
+    /// let x = BigQueryRegexes::new()
+    ///     .set_patterns([
+    ///         BigQueryRegex::default()/* use setters */,
+    ///         BigQueryRegex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18802,6 +24709,17 @@ impl BigQueryTableTypes {
     }
 
     /// Sets the value of [types][crate::model::BigQueryTableTypes::types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTableTypes;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableType;
+    /// let x = BigQueryTableTypes::new().set_types([
+    ///     BigQueryTableType::Table,
+    ///     BigQueryTableType::ExternalBigLake,
+    ///     BigQueryTableType::Snapshot,
+    /// ]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18857,6 +24775,13 @@ impl DataProfileLocation {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileLocation;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_location::Location;
+    /// let x = DataProfileLocation::new().set_location(Some(Location::OrganizationId(42)));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_location::Location>>,
     >(
@@ -18885,6 +24810,14 @@ impl DataProfileLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileLocation;
+    /// let x = DataProfileLocation::new().set_organization_id(42);
+    /// assert!(x.organization_id().is_some());
+    /// assert!(x.folder_id().is_none());
+    /// ```
     pub fn set_organization_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.location = std::option::Option::Some(
             crate::model::data_profile_location::Location::OrganizationId(v.into()),
@@ -18910,6 +24843,14 @@ impl DataProfileLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileLocation;
+    /// let x = DataProfileLocation::new().set_folder_id(42);
+    /// assert!(x.folder_id().is_some());
+    /// assert!(x.organization_id().is_none());
+    /// ```
     pub fn set_folder_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.location = std::option::Option::Some(
             crate::model::data_profile_location::Location::FolderId(v.into()),
@@ -19021,18 +24962,37 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [name][crate::model::DiscoveryConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = DiscoveryConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DiscoveryConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = DiscoveryConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [org_config][crate::model::DiscoveryConfig::org_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_config::OrgConfig;
+    /// let x = DiscoveryConfig::new().set_org_config(OrgConfig::default()/* use setters */);
+    /// ```
     pub fn set_org_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::discovery_config::OrgConfig>,
@@ -19042,6 +25002,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [org_config][crate::model::DiscoveryConfig::org_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_config::OrgConfig;
+    /// let x = DiscoveryConfig::new().set_or_clear_org_config(Some(OrgConfig::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_org_config(None::<OrgConfig>);
+    /// ```
     pub fn set_or_clear_org_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::discovery_config::OrgConfig>,
@@ -19051,6 +25019,13 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [other_cloud_starting_location][crate::model::DiscoveryConfig::other_cloud_starting_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// let x = DiscoveryConfig::new().set_other_cloud_starting_location(OtherCloudDiscoveryStartingLocation::default()/* use setters */);
+    /// ```
     pub fn set_other_cloud_starting_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OtherCloudDiscoveryStartingLocation>,
@@ -19060,6 +25035,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [other_cloud_starting_location][crate::model::DiscoveryConfig::other_cloud_starting_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// let x = DiscoveryConfig::new().set_or_clear_other_cloud_starting_location(Some(OtherCloudDiscoveryStartingLocation::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_other_cloud_starting_location(None::<OtherCloudDiscoveryStartingLocation>);
+    /// ```
     pub fn set_or_clear_other_cloud_starting_location<T>(
         mut self,
         v: std::option::Option<T>,
@@ -19072,6 +25055,12 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [inspect_templates][crate::model::DiscoveryConfig::inspect_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = DiscoveryConfig::new().set_inspect_templates(["a", "b", "c"]);
+    /// ```
     pub fn set_inspect_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19083,6 +25072,17 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [actions][crate::model::DiscoveryConfig::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileAction;
+    /// let x = DiscoveryConfig::new()
+    ///     .set_actions([
+    ///         DataProfileAction::default()/* use setters */,
+    ///         DataProfileAction::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19094,6 +25094,17 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [targets][crate::model::DiscoveryConfig::targets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// let x = DiscoveryConfig::new()
+    ///     .set_targets([
+    ///         DiscoveryTarget::default()/* use setters */,
+    ///         DiscoveryTarget::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19105,6 +25116,17 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [errors][crate::model::DiscoveryConfig::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = DiscoveryConfig::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19116,6 +25138,13 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [create_time][crate::model::DiscoveryConfig::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19125,6 +25154,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DiscoveryConfig::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19134,6 +25171,13 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [update_time][crate::model::DiscoveryConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19143,6 +25187,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DiscoveryConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19152,6 +25204,13 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [last_run_time][crate::model::DiscoveryConfig::last_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_last_run_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_run_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19161,6 +25220,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [last_run_time][crate::model::DiscoveryConfig::last_run_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryConfig::new().set_or_clear_last_run_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_last_run_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_run_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -19170,6 +25237,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [status][crate::model::DiscoveryConfig::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_config::Status;
+    /// let x0 = DiscoveryConfig::new().set_status(Status::Running);
+    /// let x1 = DiscoveryConfig::new().set_status(Status::Paused);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::discovery_config::Status>>(
         mut self,
         v: T,
@@ -19179,6 +25254,13 @@ impl DiscoveryConfig {
     }
 
     /// Sets the value of [processing_location][crate::model::DiscoveryConfig::processing_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// let x = DiscoveryConfig::new().set_processing_location(ProcessingLocation::default()/* use setters */);
+    /// ```
     pub fn set_processing_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProcessingLocation>,
@@ -19188,6 +25270,14 @@ impl DiscoveryConfig {
     }
 
     /// Sets or clears the value of [processing_location][crate::model::DiscoveryConfig::processing_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// let x = DiscoveryConfig::new().set_or_clear_processing_location(Some(ProcessingLocation::default()/* use setters */));
+    /// let x = DiscoveryConfig::new().set_or_clear_processing_location(None::<ProcessingLocation>);
+    /// ```
     pub fn set_or_clear_processing_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProcessingLocation>,
@@ -19229,6 +25319,13 @@ pub mod discovery_config {
         }
 
         /// Sets the value of [location][crate::model::discovery_config::OrgConfig::location].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_config::OrgConfig;
+        /// use google_cloud_privacy_dlp_v2::model::DiscoveryStartingLocation;
+        /// let x = OrgConfig::new().set_location(DiscoveryStartingLocation::default()/* use setters */);
+        /// ```
         pub fn set_location<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::DiscoveryStartingLocation>,
@@ -19238,6 +25335,14 @@ pub mod discovery_config {
         }
 
         /// Sets or clears the value of [location][crate::model::discovery_config::OrgConfig::location].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_config::OrgConfig;
+        /// use google_cloud_privacy_dlp_v2::model::DiscoveryStartingLocation;
+        /// let x = OrgConfig::new().set_or_clear_location(Some(DiscoveryStartingLocation::default()/* use setters */));
+        /// let x = OrgConfig::new().set_or_clear_location(None::<DiscoveryStartingLocation>);
+        /// ```
         pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::DiscoveryStartingLocation>,
@@ -19247,6 +25352,12 @@ pub mod discovery_config {
         }
 
         /// Sets the value of [project_id][crate::model::discovery_config::OrgConfig::project_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_config::OrgConfig;
+        /// let x = OrgConfig::new().set_project_id("example");
+        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
@@ -19412,6 +25523,14 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_target(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_target::Target::BigQueryTarget(BigQueryDiscoveryTarget::default().into())));
+    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::discovery_target::Target>>,
     >(
@@ -19442,6 +25561,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_big_query_target(BigQueryDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.big_query_target().is_some());
+    /// assert!(x.cloud_sql_target().is_none());
+    /// assert!(x.secrets_target().is_none());
+    /// assert!(x.cloud_storage_target().is_none());
+    /// assert!(x.other_cloud_target().is_none());
+    /// assert!(x.vertex_dataset_target().is_none());
+    /// ```
     pub fn set_big_query_target<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDiscoveryTarget>>,
     >(
@@ -19474,6 +25606,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_cloud_sql_target(CloudSqlDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.cloud_sql_target().is_some());
+    /// assert!(x.big_query_target().is_none());
+    /// assert!(x.secrets_target().is_none());
+    /// assert!(x.cloud_storage_target().is_none());
+    /// assert!(x.other_cloud_target().is_none());
+    /// assert!(x.vertex_dataset_target().is_none());
+    /// ```
     pub fn set_cloud_sql_target<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlDiscoveryTarget>>,
     >(
@@ -19506,6 +25651,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::SecretsDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_secrets_target(SecretsDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.secrets_target().is_some());
+    /// assert!(x.big_query_target().is_none());
+    /// assert!(x.cloud_sql_target().is_none());
+    /// assert!(x.cloud_storage_target().is_none());
+    /// assert!(x.other_cloud_target().is_none());
+    /// assert!(x.vertex_dataset_target().is_none());
+    /// ```
     pub fn set_secrets_target<
         T: std::convert::Into<std::boxed::Box<crate::model::SecretsDiscoveryTarget>>,
     >(
@@ -19538,6 +25696,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_cloud_storage_target(CloudStorageDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.cloud_storage_target().is_some());
+    /// assert!(x.big_query_target().is_none());
+    /// assert!(x.cloud_sql_target().is_none());
+    /// assert!(x.secrets_target().is_none());
+    /// assert!(x.other_cloud_target().is_none());
+    /// assert!(x.vertex_dataset_target().is_none());
+    /// ```
     pub fn set_cloud_storage_target<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageDiscoveryTarget>>,
     >(
@@ -19570,6 +25741,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_other_cloud_target(OtherCloudDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.other_cloud_target().is_some());
+    /// assert!(x.big_query_target().is_none());
+    /// assert!(x.cloud_sql_target().is_none());
+    /// assert!(x.secrets_target().is_none());
+    /// assert!(x.cloud_storage_target().is_none());
+    /// assert!(x.vertex_dataset_target().is_none());
+    /// ```
     pub fn set_other_cloud_target<
         T: std::convert::Into<std::boxed::Box<crate::model::OtherCloudDiscoveryTarget>>,
     >(
@@ -19602,6 +25786,19 @@ impl DiscoveryTarget {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// let x = DiscoveryTarget::new().set_vertex_dataset_target(VertexDatasetDiscoveryTarget::default()/* use setters */);
+    /// assert!(x.vertex_dataset_target().is_some());
+    /// assert!(x.big_query_target().is_none());
+    /// assert!(x.cloud_sql_target().is_none());
+    /// assert!(x.secrets_target().is_none());
+    /// assert!(x.cloud_storage_target().is_none());
+    /// assert!(x.other_cloud_target().is_none());
+    /// ```
     pub fn set_vertex_dataset_target<
         T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetDiscoveryTarget>>,
     >(
@@ -19684,6 +25881,13 @@ impl BigQueryDiscoveryTarget {
     }
 
     /// Sets the value of [filter][crate::model::BigQueryDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// let x = BigQueryDiscoveryTarget::new().set_filter(DiscoveryBigQueryFilter::default()/* use setters */);
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryBigQueryFilter>,
@@ -19693,6 +25897,14 @@ impl BigQueryDiscoveryTarget {
     }
 
     /// Sets or clears the value of [filter][crate::model::BigQueryDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// let x = BigQueryDiscoveryTarget::new().set_or_clear_filter(Some(DiscoveryBigQueryFilter::default()/* use setters */));
+    /// let x = BigQueryDiscoveryTarget::new().set_or_clear_filter(None::<DiscoveryBigQueryFilter>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryBigQueryFilter>,
@@ -19702,6 +25914,13 @@ impl BigQueryDiscoveryTarget {
     }
 
     /// Sets the value of [conditions][crate::model::BigQueryDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// let x = BigQueryDiscoveryTarget::new().set_conditions(DiscoveryBigQueryConditions::default()/* use setters */);
+    /// ```
     pub fn set_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryBigQueryConditions>,
@@ -19711,6 +25930,14 @@ impl BigQueryDiscoveryTarget {
     }
 
     /// Sets or clears the value of [conditions][crate::model::BigQueryDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// let x = BigQueryDiscoveryTarget::new().set_or_clear_conditions(Some(DiscoveryBigQueryConditions::default()/* use setters */));
+    /// let x = BigQueryDiscoveryTarget::new().set_or_clear_conditions(None::<DiscoveryBigQueryConditions>);
+    /// ```
     pub fn set_or_clear_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryBigQueryConditions>,
@@ -19723,6 +25950,14 @@ impl BigQueryDiscoveryTarget {
     ///
     /// Note that all the setters affecting `frequency` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// let x = BigQueryDiscoveryTarget::new().set_frequency(Some(
+    ///     google_cloud_privacy_dlp_v2::model::big_query_discovery_target::Frequency::Cadence(DiscoveryGenerationCadence::default().into())));
+    /// ```
     pub fn set_frequency<
         T: std::convert::Into<
                 std::option::Option<crate::model::big_query_discovery_target::Frequency>,
@@ -19755,6 +25990,15 @@ impl BigQueryDiscoveryTarget {
     ///
     /// Note that all the setters affecting `frequency` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// let x = BigQueryDiscoveryTarget::new().set_cadence(DiscoveryGenerationCadence::default()/* use setters */);
+    /// assert!(x.cadence().is_some());
+    /// assert!(x.disabled().is_none());
+    /// ```
     pub fn set_cadence<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryGenerationCadence>>,
     >(
@@ -19785,6 +26029,15 @@ impl BigQueryDiscoveryTarget {
     ///
     /// Note that all the setters affecting `frequency` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::Disabled;
+    /// let x = BigQueryDiscoveryTarget::new().set_disabled(Disabled::default()/* use setters */);
+    /// assert!(x.disabled().is_some());
+    /// assert!(x.cadence().is_none());
+    /// ```
     pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
         mut self,
         v: T,
@@ -19846,6 +26099,14 @@ impl DiscoveryBigQueryFilter {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableCollection;
+    /// let x = DiscoveryBigQueryFilter::new().set_filter(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_big_query_filter::Filter::Tables(BigQueryTableCollection::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_big_query_filter::Filter>>,
     >(
@@ -19876,6 +26137,16 @@ impl DiscoveryBigQueryFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableCollection;
+    /// let x = DiscoveryBigQueryFilter::new().set_tables(BigQueryTableCollection::default()/* use setters */);
+    /// assert!(x.tables().is_some());
+    /// assert!(x.other_tables().is_none());
+    /// assert!(x.table_reference().is_none());
+    /// ```
     pub fn set_tables<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryTableCollection>>,
     >(
@@ -19910,6 +26181,16 @@ impl DiscoveryBigQueryFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_big_query_filter::AllOtherBigQueryTables;
+    /// let x = DiscoveryBigQueryFilter::new().set_other_tables(AllOtherBigQueryTables::default()/* use setters */);
+    /// assert!(x.other_tables().is_some());
+    /// assert!(x.tables().is_none());
+    /// assert!(x.table_reference().is_none());
+    /// ```
     pub fn set_other_tables<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::discovery_big_query_filter::AllOtherBigQueryTables>,
@@ -19944,6 +26225,16 @@ impl DiscoveryBigQueryFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryFilter;
+    /// use google_cloud_privacy_dlp_v2::model::TableReference;
+    /// let x = DiscoveryBigQueryFilter::new().set_table_reference(TableReference::default()/* use setters */);
+    /// assert!(x.table_reference().is_some());
+    /// assert!(x.tables().is_none());
+    /// assert!(x.other_tables().is_none());
+    /// ```
     pub fn set_table_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::TableReference>>,
     >(
@@ -20035,6 +26326,14 @@ impl BigQueryTableCollection {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTableCollection;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryRegexes;
+    /// let x = BigQueryTableCollection::new().set_pattern(Some(
+    ///     google_cloud_privacy_dlp_v2::model::big_query_table_collection::Pattern::IncludeRegexes(BigQueryRegexes::default().into())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::big_query_table_collection::Pattern>>,
     >(
@@ -20065,6 +26364,14 @@ impl BigQueryTableCollection {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTableCollection;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryRegexes;
+    /// let x = BigQueryTableCollection::new().set_include_regexes(BigQueryRegexes::default()/* use setters */);
+    /// assert!(x.include_regexes().is_some());
+    /// ```
     pub fn set_include_regexes<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryRegexes>>,
     >(
@@ -20130,6 +26437,13 @@ impl DiscoveryBigQueryConditions {
     }
 
     /// Sets the value of [created_after][crate::model::DiscoveryBigQueryConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryBigQueryConditions::new().set_created_after(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_created_after<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20139,6 +26453,14 @@ impl DiscoveryBigQueryConditions {
     }
 
     /// Sets or clears the value of [created_after][crate::model::DiscoveryBigQueryConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryBigQueryConditions::new().set_or_clear_created_after(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryBigQueryConditions::new().set_or_clear_created_after(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_created_after<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20148,6 +26470,13 @@ impl DiscoveryBigQueryConditions {
     }
 
     /// Sets the value of [or_conditions][crate::model::DiscoveryBigQueryConditions::or_conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::OrConditions;
+    /// let x = DiscoveryBigQueryConditions::new().set_or_conditions(OrConditions::default()/* use setters */);
+    /// ```
     pub fn set_or_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::discovery_big_query_conditions::OrConditions>,
@@ -20157,6 +26486,14 @@ impl DiscoveryBigQueryConditions {
     }
 
     /// Sets or clears the value of [or_conditions][crate::model::DiscoveryBigQueryConditions::or_conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::OrConditions;
+    /// let x = DiscoveryBigQueryConditions::new().set_or_clear_or_conditions(Some(OrConditions::default()/* use setters */));
+    /// let x = DiscoveryBigQueryConditions::new().set_or_clear_or_conditions(None::<OrConditions>);
+    /// ```
     pub fn set_or_clear_or_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::discovery_big_query_conditions::OrConditions>,
@@ -20169,6 +26506,16 @@ impl DiscoveryBigQueryConditions {
     ///
     /// Note that all the setters affecting `included_types` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableTypeCollection;
+    /// let x0 = DiscoveryBigQueryConditions::new().set_included_types(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::IncludedTypes::TypeCollection(BigQueryTableTypeCollection::BigQueryCollectionAllTypes)));
+    /// let x1 = DiscoveryBigQueryConditions::new().set_included_types(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::IncludedTypes::TypeCollection(BigQueryTableTypeCollection::BigQueryCollectionOnlySupportedTypes)));
+    /// ```
     pub fn set_included_types<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_big_query_conditions::IncludedTypes>,
@@ -20199,6 +26546,15 @@ impl DiscoveryBigQueryConditions {
     ///
     /// Note that all the setters affecting `included_types` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableTypes;
+    /// let x = DiscoveryBigQueryConditions::new().set_types(BigQueryTableTypes::default()/* use setters */);
+    /// assert!(x.types().is_some());
+    /// assert!(x.type_collection().is_none());
+    /// ```
     pub fn set_types<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryTableTypes>>>(
         mut self,
         v: T,
@@ -20229,6 +26585,18 @@ impl DiscoveryBigQueryConditions {
     ///
     /// Note that all the setters affecting `included_types` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryBigQueryConditions;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableTypeCollection;
+    /// let x0 = DiscoveryBigQueryConditions::new().set_type_collection(BigQueryTableTypeCollection::BigQueryCollectionAllTypes);
+    /// let x1 = DiscoveryBigQueryConditions::new().set_type_collection(BigQueryTableTypeCollection::BigQueryCollectionOnlySupportedTypes);
+    /// assert!(x0.type_collection().is_some());
+    /// assert!(x0.types().is_none());
+    /// assert!(x1.type_collection().is_some());
+    /// assert!(x1.types().is_none());
+    /// ```
     pub fn set_type_collection<T: std::convert::Into<crate::model::BigQueryTableTypeCollection>>(
         mut self,
         v: T,
@@ -20273,12 +26641,25 @@ pub mod discovery_big_query_conditions {
         }
 
         /// Sets the value of [min_row_count][crate::model::discovery_big_query_conditions::OrConditions::min_row_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::OrConditions;
+        /// let x = OrConditions::new().set_min_row_count(42);
+        /// ```
         pub fn set_min_row_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.min_row_count = v.into();
             self
         }
 
         /// Sets the value of [min_age][crate::model::discovery_big_query_conditions::OrConditions::min_age].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::OrConditions;
+        /// use wkt::Duration;
+        /// let x = OrConditions::new().set_min_age(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_age<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -20288,6 +26669,14 @@ pub mod discovery_big_query_conditions {
         }
 
         /// Sets or clears the value of [min_age][crate::model::discovery_big_query_conditions::OrConditions::min_age].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_big_query_conditions::OrConditions;
+        /// use wkt::Duration;
+        /// let x = OrConditions::new().set_or_clear_min_age(Some(Duration::default()/* use setters */));
+        /// let x = OrConditions::new().set_or_clear_min_age(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_age<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -20348,6 +26737,13 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets the value of [schema_modified_cadence][crate::model::DiscoveryGenerationCadence::schema_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoverySchemaModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_schema_modified_cadence(DiscoverySchemaModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_schema_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoverySchemaModifiedCadence>,
@@ -20357,6 +26753,14 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets or clears the value of [schema_modified_cadence][crate::model::DiscoveryGenerationCadence::schema_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoverySchemaModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_schema_modified_cadence(Some(DiscoverySchemaModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_schema_modified_cadence(None::<DiscoverySchemaModifiedCadence>);
+    /// ```
     pub fn set_or_clear_schema_modified_cadence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoverySchemaModifiedCadence>,
@@ -20366,6 +26770,13 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets the value of [table_modified_cadence][crate::model::DiscoveryGenerationCadence::table_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryTableModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_table_modified_cadence(DiscoveryTableModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_table_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryTableModifiedCadence>,
@@ -20375,6 +26786,14 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets or clears the value of [table_modified_cadence][crate::model::DiscoveryGenerationCadence::table_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryTableModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_table_modified_cadence(Some(DiscoveryTableModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_table_modified_cadence(None::<DiscoveryTableModifiedCadence>);
+    /// ```
     pub fn set_or_clear_table_modified_cadence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryTableModifiedCadence>,
@@ -20384,6 +26803,13 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_inspect_template_modified_cadence(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryInspectTemplateModifiedCadence>,
@@ -20393,6 +26819,14 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets or clears the value of [inspect_template_modified_cadence][crate::model::DiscoveryGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(Some(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(None::<DiscoveryInspectTemplateModifiedCadence>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_cadence<T>(
         mut self,
         v: std::option::Option<T>,
@@ -20405,6 +26839,15 @@ impl DiscoveryGenerationCadence {
     }
 
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryGenerationCadence::refresh_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
     >(
@@ -20444,6 +26887,15 @@ impl DiscoveryTableModifiedCadence {
     }
 
     /// Sets the value of [types][crate::model::DiscoveryTableModifiedCadence::types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTableModifiedCadence;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTableModification;
+    /// let x = DiscoveryTableModifiedCadence::new().set_types([
+    ///     BigQueryTableModification::TableModifiedTimestamp,
+    /// ]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20455,6 +26907,15 @@ impl DiscoveryTableModifiedCadence {
     }
 
     /// Sets the value of [frequency][crate::model::DiscoveryTableModifiedCadence::frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryTableModifiedCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryTableModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryTableModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryTableModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
         v: T,
@@ -20492,6 +26953,16 @@ impl DiscoverySchemaModifiedCadence {
     }
 
     /// Sets the value of [types][crate::model::DiscoverySchemaModifiedCadence::types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoverySchemaModifiedCadence;
+    /// use google_cloud_privacy_dlp_v2::model::BigQuerySchemaModification;
+    /// let x = DiscoverySchemaModifiedCadence::new().set_types([
+    ///     BigQuerySchemaModification::SchemaNewColumns,
+    ///     BigQuerySchemaModification::SchemaRemovedColumns,
+    /// ]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20503,6 +26974,15 @@ impl DiscoverySchemaModifiedCadence {
     }
 
     /// Sets the value of [frequency][crate::model::DiscoverySchemaModifiedCadence::frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoverySchemaModifiedCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoverySchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoverySchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoverySchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
         v: T,
@@ -20536,6 +27016,15 @@ impl DiscoveryInspectTemplateModifiedCadence {
     }
 
     /// Sets the value of [frequency][crate::model::DiscoveryInspectTemplateModifiedCadence::frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryInspectTemplateModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryInspectTemplateModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryInspectTemplateModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
         v: T,
@@ -20575,6 +27064,13 @@ impl CloudSqlDiscoveryTarget {
     }
 
     /// Sets the value of [filter][crate::model::CloudSqlDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// let x = CloudSqlDiscoveryTarget::new().set_filter(DiscoveryCloudSqlFilter::default()/* use setters */);
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudSqlFilter>,
@@ -20584,6 +27080,14 @@ impl CloudSqlDiscoveryTarget {
     }
 
     /// Sets or clears the value of [filter][crate::model::CloudSqlDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// let x = CloudSqlDiscoveryTarget::new().set_or_clear_filter(Some(DiscoveryCloudSqlFilter::default()/* use setters */));
+    /// let x = CloudSqlDiscoveryTarget::new().set_or_clear_filter(None::<DiscoveryCloudSqlFilter>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudSqlFilter>,
@@ -20593,6 +27097,13 @@ impl CloudSqlDiscoveryTarget {
     }
 
     /// Sets the value of [conditions][crate::model::CloudSqlDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlConditions;
+    /// let x = CloudSqlDiscoveryTarget::new().set_conditions(DiscoveryCloudSqlConditions::default()/* use setters */);
+    /// ```
     pub fn set_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudSqlConditions>,
@@ -20602,6 +27113,14 @@ impl CloudSqlDiscoveryTarget {
     }
 
     /// Sets or clears the value of [conditions][crate::model::CloudSqlDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlConditions;
+    /// let x = CloudSqlDiscoveryTarget::new().set_or_clear_conditions(Some(DiscoveryCloudSqlConditions::default()/* use setters */));
+    /// let x = CloudSqlDiscoveryTarget::new().set_or_clear_conditions(None::<DiscoveryCloudSqlConditions>);
+    /// ```
     pub fn set_or_clear_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudSqlConditions>,
@@ -20614,6 +27133,14 @@ impl CloudSqlDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// let x = CloudSqlDiscoveryTarget::new().set_cadence(Some(
+    ///     google_cloud_privacy_dlp_v2::model::cloud_sql_discovery_target::Cadence::GenerationCadence(DiscoveryCloudSqlGenerationCadence::default().into())));
+    /// ```
     pub fn set_cadence<
         T: std::convert::Into<std::option::Option<crate::model::cloud_sql_discovery_target::Cadence>>,
     >(
@@ -20645,6 +27172,15 @@ impl CloudSqlDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// let x = CloudSqlDiscoveryTarget::new().set_generation_cadence(DiscoveryCloudSqlGenerationCadence::default()/* use setters */);
+    /// assert!(x.generation_cadence().is_some());
+    /// assert!(x.disabled().is_none());
+    /// ```
     pub fn set_generation_cadence<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryCloudSqlGenerationCadence>>,
     >(
@@ -20675,6 +27211,15 @@ impl CloudSqlDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::Disabled;
+    /// let x = CloudSqlDiscoveryTarget::new().set_disabled(Disabled::default()/* use setters */);
+    /// assert!(x.disabled().is_some());
+    /// assert!(x.generation_cadence().is_none());
+    /// ```
     pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
         mut self,
         v: T,
@@ -20734,6 +27279,14 @@ impl DiscoveryCloudSqlFilter {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceCollection;
+    /// let x = DiscoveryCloudSqlFilter::new().set_filter(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_filter::Filter::Collection(DatabaseResourceCollection::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_cloud_sql_filter::Filter>>,
     >(
@@ -20764,6 +27317,16 @@ impl DiscoveryCloudSqlFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceCollection;
+    /// let x = DiscoveryCloudSqlFilter::new().set_collection(DatabaseResourceCollection::default()/* use setters */);
+    /// assert!(x.collection().is_some());
+    /// assert!(x.others().is_none());
+    /// assert!(x.database_resource_reference().is_none());
+    /// ```
     pub fn set_collection<
         T: std::convert::Into<std::boxed::Box<crate::model::DatabaseResourceCollection>>,
     >(
@@ -20796,6 +27359,16 @@ impl DiscoveryCloudSqlFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// use google_cloud_privacy_dlp_v2::model::AllOtherDatabaseResources;
+    /// let x = DiscoveryCloudSqlFilter::new().set_others(AllOtherDatabaseResources::default()/* use setters */);
+    /// assert!(x.others().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.database_resource_reference().is_none());
+    /// ```
     pub fn set_others<
         T: std::convert::Into<std::boxed::Box<crate::model::AllOtherDatabaseResources>>,
     >(
@@ -20828,6 +27401,16 @@ impl DiscoveryCloudSqlFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlFilter;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceReference;
+    /// let x = DiscoveryCloudSqlFilter::new().set_database_resource_reference(DatabaseResourceReference::default()/* use setters */);
+    /// assert!(x.database_resource_reference().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_database_resource_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::DatabaseResourceReference>>,
     >(
@@ -20893,6 +27476,14 @@ impl DatabaseResourceCollection {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceCollection;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegexes;
+    /// let x = DatabaseResourceCollection::new().set_pattern(Some(
+    ///     google_cloud_privacy_dlp_v2::model::database_resource_collection::Pattern::IncludeRegexes(DatabaseResourceRegexes::default().into())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<
                 std::option::Option<crate::model::database_resource_collection::Pattern>,
@@ -20925,6 +27516,14 @@ impl DatabaseResourceCollection {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceCollection;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegexes;
+    /// let x = DatabaseResourceCollection::new().set_include_regexes(DatabaseResourceRegexes::default()/* use setters */);
+    /// assert!(x.include_regexes().is_some());
+    /// ```
     pub fn set_include_regexes<
         T: std::convert::Into<std::boxed::Box<crate::model::DatabaseResourceRegexes>>,
     >(
@@ -20979,6 +27578,17 @@ impl DatabaseResourceRegexes {
     }
 
     /// Sets the value of [patterns][crate::model::DatabaseResourceRegexes::patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegexes;
+    /// use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegex;
+    /// let x = DatabaseResourceRegexes::new()
+    ///     .set_patterns([
+    ///         DatabaseResourceRegex::default()/* use setters */,
+    ///         DatabaseResourceRegex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21028,6 +27638,12 @@ impl DatabaseResourceRegex {
     }
 
     /// Sets the value of [project_id_regex][crate::model::DatabaseResourceRegex::project_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegex;
+    /// let x = DatabaseResourceRegex::new().set_project_id_regex("example");
+    /// ```
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21037,18 +27653,36 @@ impl DatabaseResourceRegex {
     }
 
     /// Sets the value of [instance_regex][crate::model::DatabaseResourceRegex::instance_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegex;
+    /// let x = DatabaseResourceRegex::new().set_instance_regex("example");
+    /// ```
     pub fn set_instance_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_regex = v.into();
         self
     }
 
     /// Sets the value of [database_regex][crate::model::DatabaseResourceRegex::database_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegex;
+    /// let x = DatabaseResourceRegex::new().set_database_regex("example");
+    /// ```
     pub fn set_database_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_regex = v.into();
         self
     }
 
     /// Sets the value of [database_resource_name_regex][crate::model::DatabaseResourceRegex::database_resource_name_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceRegex;
+    /// let x = DatabaseResourceRegex::new().set_database_resource_name_regex("example");
+    /// ```
     pub fn set_database_resource_name_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21111,24 +27745,48 @@ impl DatabaseResourceReference {
     }
 
     /// Sets the value of [project_id][crate::model::DatabaseResourceReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceReference;
+    /// let x = DatabaseResourceReference::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::DatabaseResourceReference::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceReference;
+    /// let x = DatabaseResourceReference::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::DatabaseResourceReference::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceReference;
+    /// let x = DatabaseResourceReference::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [database_resource][crate::model::DatabaseResourceReference::database_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatabaseResourceReference;
+    /// let x = DatabaseResourceReference::new().set_database_resource("example");
+    /// ```
     pub fn set_database_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21168,6 +27826,17 @@ impl DiscoveryCloudSqlConditions {
     }
 
     /// Sets the value of [database_engines][crate::model::DiscoveryCloudSqlConditions::database_engines].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_conditions::DatabaseEngine;
+    /// let x = DiscoveryCloudSqlConditions::new().set_database_engines([
+    ///     DatabaseEngine::AllSupportedDatabaseEngines,
+    ///     DatabaseEngine::Mysql,
+    ///     DatabaseEngine::Postgres,
+    /// ]);
+    /// ```
     pub fn set_database_engines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21179,6 +27848,16 @@ impl DiscoveryCloudSqlConditions {
     }
 
     /// Sets the value of [types][crate::model::DiscoveryCloudSqlConditions::types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_conditions::DatabaseResourceType;
+    /// let x = DiscoveryCloudSqlConditions::new().set_types([
+    ///     DatabaseResourceType::AllSupportedTypes,
+    ///     DatabaseResourceType::Table,
+    /// ]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21511,6 +28190,13 @@ impl DiscoveryCloudSqlGenerationCadence {
     }
 
     /// Sets the value of [schema_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::schema_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence;
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_schema_modified_cadence(SchemaModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_schema_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -21522,6 +28208,14 @@ impl DiscoveryCloudSqlGenerationCadence {
     }
 
     /// Sets or clears the value of [schema_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::schema_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence;
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_or_clear_schema_modified_cadence(Some(SchemaModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_or_clear_schema_modified_cadence(None::<SchemaModifiedCadence>);
+    /// ```
     pub fn set_or_clear_schema_modified_cadence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -21533,6 +28227,15 @@ impl DiscoveryCloudSqlGenerationCadence {
     }
 
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryCloudSqlGenerationCadence::refresh_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryCloudSqlGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryCloudSqlGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryCloudSqlGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
     >(
@@ -21544,6 +28247,13 @@ impl DiscoveryCloudSqlGenerationCadence {
     }
 
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_inspect_template_modified_cadence(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryInspectTemplateModifiedCadence>,
@@ -21553,6 +28263,14 @@ impl DiscoveryCloudSqlGenerationCadence {
     }
 
     /// Sets or clears the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudSqlGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(Some(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryCloudSqlGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(None::<DiscoveryInspectTemplateModifiedCadence>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_cadence<T>(
         mut self,
         v: std::option::Option<T>,
@@ -21580,15 +28298,15 @@ pub mod discovery_cloud_sql_generation_cadence {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SchemaModifiedCadence {
-
+    
         /// The types of schema modifications to consider.
         /// Defaults to NEW_COLUMNS.
         pub types: std::vec::Vec<crate::model::discovery_cloud_sql_generation_cadence::schema_modified_cadence::CloudSqlSchemaModification>,
-
+    
         /// Frequency to regenerate data profiles when the schema is modified.
         /// Defaults to monthly.
         pub frequency: crate::model::DataProfileUpdateFrequency,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -21598,6 +28316,16 @@ pub mod discovery_cloud_sql_generation_cadence {
         }
 
         /// Sets the value of [types][crate::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence::types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence;
+        /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_generation_cadence::schema_modified_cadence::CloudSqlSchemaModification;
+        /// let x = SchemaModifiedCadence::new().set_types([
+        ///     CloudSqlSchemaModification::NewColumns,
+        ///     CloudSqlSchemaModification::RemovedColumns,
+        /// ]);
+        /// ```
         pub fn set_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -21609,6 +28337,15 @@ pub mod discovery_cloud_sql_generation_cadence {
         }
 
         /// Sets the value of [frequency][crate::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence::frequency].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence;
+        /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+        /// let x0 = SchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+        /// let x1 = SchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+        /// let x2 = SchemaModifiedCadence::new().set_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+        /// ```
         pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
             mut self,
             v: T,
@@ -21821,6 +28558,13 @@ impl CloudStorageDiscoveryTarget {
     }
 
     /// Sets the value of [filter][crate::model::CloudStorageDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// let x = CloudStorageDiscoveryTarget::new().set_filter(DiscoveryCloudStorageFilter::default()/* use setters */);
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudStorageFilter>,
@@ -21830,6 +28574,14 @@ impl CloudStorageDiscoveryTarget {
     }
 
     /// Sets or clears the value of [filter][crate::model::CloudStorageDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// let x = CloudStorageDiscoveryTarget::new().set_or_clear_filter(Some(DiscoveryCloudStorageFilter::default()/* use setters */));
+    /// let x = CloudStorageDiscoveryTarget::new().set_or_clear_filter(None::<DiscoveryCloudStorageFilter>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryCloudStorageFilter>,
@@ -21839,6 +28591,13 @@ impl CloudStorageDiscoveryTarget {
     }
 
     /// Sets the value of [conditions][crate::model::CloudStorageDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// let x = CloudStorageDiscoveryTarget::new().set_conditions(DiscoveryFileStoreConditions::default()/* use setters */);
+    /// ```
     pub fn set_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryFileStoreConditions>,
@@ -21848,6 +28607,14 @@ impl CloudStorageDiscoveryTarget {
     }
 
     /// Sets or clears the value of [conditions][crate::model::CloudStorageDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// let x = CloudStorageDiscoveryTarget::new().set_or_clear_conditions(Some(DiscoveryFileStoreConditions::default()/* use setters */));
+    /// let x = CloudStorageDiscoveryTarget::new().set_or_clear_conditions(None::<DiscoveryFileStoreConditions>);
+    /// ```
     pub fn set_or_clear_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryFileStoreConditions>,
@@ -21860,6 +28627,14 @@ impl CloudStorageDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageGenerationCadence;
+    /// let x = CloudStorageDiscoveryTarget::new().set_cadence(Some(
+    ///     google_cloud_privacy_dlp_v2::model::cloud_storage_discovery_target::Cadence::GenerationCadence(DiscoveryCloudStorageGenerationCadence::default().into())));
+    /// ```
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::cloud_storage_discovery_target::Cadence>,
@@ -21893,6 +28668,15 @@ impl CloudStorageDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageGenerationCadence;
+    /// let x = CloudStorageDiscoveryTarget::new().set_generation_cadence(DiscoveryCloudStorageGenerationCadence::default()/* use setters */);
+    /// assert!(x.generation_cadence().is_some());
+    /// assert!(x.disabled().is_none());
+    /// ```
     pub fn set_generation_cadence<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryCloudStorageGenerationCadence>>,
     >(
@@ -21923,6 +28707,15 @@ impl CloudStorageDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::Disabled;
+    /// let x = CloudStorageDiscoveryTarget::new().set_disabled(Disabled::default()/* use setters */);
+    /// assert!(x.disabled().is_some());
+    /// assert!(x.generation_cadence().is_none());
+    /// ```
     pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
         mut self,
         v: T,
@@ -21982,6 +28775,14 @@ impl DiscoveryCloudStorageFilter {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// let x = DiscoveryCloudStorageFilter::new().set_filter(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_cloud_storage_filter::Filter::Collection(FileStoreCollection::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_cloud_storage_filter::Filter>,
@@ -22014,6 +28815,16 @@ impl DiscoveryCloudStorageFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// let x = DiscoveryCloudStorageFilter::new().set_collection(FileStoreCollection::default()/* use setters */);
+    /// assert!(x.collection().is_some());
+    /// assert!(x.cloud_storage_resource_reference().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_collection<
         T: std::convert::Into<std::boxed::Box<crate::model::FileStoreCollection>>,
     >(
@@ -22046,6 +28857,16 @@ impl DiscoveryCloudStorageFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageResourceReference;
+    /// let x = DiscoveryCloudStorageFilter::new().set_cloud_storage_resource_reference(CloudStorageResourceReference::default()/* use setters */);
+    /// assert!(x.cloud_storage_resource_reference().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_cloud_storage_resource_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageResourceReference>>,
     >(
@@ -22078,6 +28899,16 @@ impl DiscoveryCloudStorageFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageFilter;
+    /// use google_cloud_privacy_dlp_v2::model::AllOtherResources;
+    /// let x = DiscoveryCloudStorageFilter::new().set_others(AllOtherResources::default()/* use setters */);
+    /// assert!(x.others().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.cloud_storage_resource_reference().is_none());
+    /// ```
     pub fn set_others<T: std::convert::Into<std::boxed::Box<crate::model::AllOtherResources>>>(
         mut self,
         v: T,
@@ -22151,6 +28982,13 @@ impl FileStoreCollection {
     }
 
     /// Sets the value of [include_tags][crate::model::FileStoreCollection::include_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// use google_cloud_privacy_dlp_v2::model::TagFilters;
+    /// let x = FileStoreCollection::new().set_include_tags(TagFilters::default()/* use setters */);
+    /// ```
     pub fn set_include_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TagFilters>,
@@ -22160,6 +28998,14 @@ impl FileStoreCollection {
     }
 
     /// Sets or clears the value of [include_tags][crate::model::FileStoreCollection::include_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// use google_cloud_privacy_dlp_v2::model::TagFilters;
+    /// let x = FileStoreCollection::new().set_or_clear_include_tags(Some(TagFilters::default()/* use setters */));
+    /// let x = FileStoreCollection::new().set_or_clear_include_tags(None::<TagFilters>);
+    /// ```
     pub fn set_or_clear_include_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TagFilters>,
@@ -22172,6 +29018,14 @@ impl FileStoreCollection {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreRegexes;
+    /// let x = FileStoreCollection::new().set_pattern(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_store_collection::Pattern::IncludeRegexes(FileStoreRegexes::default().into())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::file_store_collection::Pattern>>,
     >(
@@ -22202,6 +29056,14 @@ impl FileStoreCollection {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreCollection;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreRegexes;
+    /// let x = FileStoreCollection::new().set_include_regexes(FileStoreRegexes::default()/* use setters */);
+    /// assert!(x.include_regexes().is_some());
+    /// ```
     pub fn set_include_regexes<
         T: std::convert::Into<std::boxed::Box<crate::model::FileStoreRegexes>>,
     >(
@@ -22256,6 +29118,17 @@ impl FileStoreRegexes {
     }
 
     /// Sets the value of [patterns][crate::model::FileStoreRegexes::patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreRegexes;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreRegex;
+    /// let x = FileStoreRegexes::new()
+    ///     .set_patterns([
+    ///         FileStoreRegex::default()/* use setters */,
+    ///         FileStoreRegex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22292,6 +29165,14 @@ impl FileStoreRegex {
     ///
     /// Note that all the setters affecting `resource_regex` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreRegex;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageRegex;
+    /// let x = FileStoreRegex::new().set_resource_regex(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_store_regex::ResourceRegex::CloudStorageRegex(CloudStorageRegex::default().into())));
+    /// ```
     pub fn set_resource_regex<
         T: std::convert::Into<std::option::Option<crate::model::file_store_regex::ResourceRegex>>,
     >(
@@ -22322,6 +29203,14 @@ impl FileStoreRegex {
     ///
     /// Note that all the setters affecting `resource_regex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreRegex;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageRegex;
+    /// let x = FileStoreRegex::new().set_cloud_storage_regex(CloudStorageRegex::default()/* use setters */);
+    /// assert!(x.cloud_storage_regex().is_some());
+    /// ```
     pub fn set_cloud_storage_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageRegex>>,
     >(
@@ -22379,6 +29268,12 @@ impl CloudStorageRegex {
     }
 
     /// Sets the value of [project_id_regex][crate::model::CloudStorageRegex::project_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageRegex;
+    /// let x = CloudStorageRegex::new().set_project_id_regex("example");
+    /// ```
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22388,6 +29283,12 @@ impl CloudStorageRegex {
     }
 
     /// Sets the value of [bucket_name_regex][crate::model::CloudStorageRegex::bucket_name_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageRegex;
+    /// let x = CloudStorageRegex::new().set_bucket_name_regex("example");
+    /// ```
     pub fn set_bucket_name_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22423,12 +29324,24 @@ impl CloudStorageResourceReference {
     }
 
     /// Sets the value of [bucket_name][crate::model::CloudStorageResourceReference::bucket_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageResourceReference;
+    /// let x = CloudStorageResourceReference::new().set_bucket_name("example");
+    /// ```
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::CloudStorageResourceReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageResourceReference;
+    /// let x = CloudStorageResourceReference::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
@@ -22467,6 +29380,15 @@ impl DiscoveryCloudStorageGenerationCadence {
     }
 
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryCloudStorageGenerationCadence::refresh_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryCloudStorageGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryCloudStorageGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryCloudStorageGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
     >(
@@ -22478,6 +29400,13 @@ impl DiscoveryCloudStorageGenerationCadence {
     }
 
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudStorageGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryCloudStorageGenerationCadence::new().set_inspect_template_modified_cadence(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryInspectTemplateModifiedCadence>,
@@ -22487,6 +29416,14 @@ impl DiscoveryCloudStorageGenerationCadence {
     }
 
     /// Sets or clears the value of [inspect_template_modified_cadence][crate::model::DiscoveryCloudStorageGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryCloudStorageGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(Some(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryCloudStorageGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(None::<DiscoveryInspectTemplateModifiedCadence>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_cadence<T>(
         mut self,
         v: std::option::Option<T>,
@@ -22535,6 +29472,17 @@ impl DiscoveryCloudStorageConditions {
     }
 
     /// Sets the value of [included_object_attributes][crate::model::DiscoveryCloudStorageConditions::included_object_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_storage_conditions::CloudStorageObjectAttribute;
+    /// let x = DiscoveryCloudStorageConditions::new().set_included_object_attributes([
+    ///     CloudStorageObjectAttribute::AllSupportedObjects,
+    ///     CloudStorageObjectAttribute::Standard,
+    ///     CloudStorageObjectAttribute::Nearline,
+    /// ]);
+    /// ```
     pub fn set_included_object_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22548,6 +29496,17 @@ impl DiscoveryCloudStorageConditions {
     }
 
     /// Sets the value of [included_bucket_attributes][crate::model::DiscoveryCloudStorageConditions::included_bucket_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageConditions;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_cloud_storage_conditions::CloudStorageBucketAttribute;
+    /// let x = DiscoveryCloudStorageConditions::new().set_included_bucket_attributes([
+    ///     CloudStorageBucketAttribute::AllSupportedBuckets,
+    ///     CloudStorageBucketAttribute::AutoclassDisabled,
+    ///     CloudStorageBucketAttribute::AutoclassEnabled,
+    /// ]);
+    /// ```
     pub fn set_included_bucket_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22927,6 +29886,13 @@ impl DiscoveryFileStoreConditions {
     }
 
     /// Sets the value of [created_after][crate::model::DiscoveryFileStoreConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryFileStoreConditions::new().set_created_after(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_created_after<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22936,6 +29902,14 @@ impl DiscoveryFileStoreConditions {
     }
 
     /// Sets or clears the value of [created_after][crate::model::DiscoveryFileStoreConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryFileStoreConditions::new().set_or_clear_created_after(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryFileStoreConditions::new().set_or_clear_created_after(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_created_after<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22945,6 +29919,13 @@ impl DiscoveryFileStoreConditions {
     }
 
     /// Sets the value of [min_age][crate::model::DiscoveryFileStoreConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryFileStoreConditions::new().set_min_age(Duration::default()/* use setters */);
+    /// ```
     pub fn set_min_age<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -22954,6 +29935,14 @@ impl DiscoveryFileStoreConditions {
     }
 
     /// Sets or clears the value of [min_age][crate::model::DiscoveryFileStoreConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryFileStoreConditions::new().set_or_clear_min_age(Some(Duration::default()/* use setters */));
+    /// let x = DiscoveryFileStoreConditions::new().set_or_clear_min_age(None::<Duration>);
+    /// ```
     pub fn set_or_clear_min_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -22966,6 +29955,14 @@ impl DiscoveryFileStoreConditions {
     ///
     /// Note that all the setters affecting `conditions` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageConditions;
+    /// let x = DiscoveryFileStoreConditions::new().set_conditions(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_file_store_conditions::Conditions::CloudStorageConditions(DiscoveryCloudStorageConditions::default().into())));
+    /// ```
     pub fn set_conditions<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_file_store_conditions::Conditions>,
@@ -22998,6 +29995,14 @@ impl DiscoveryFileStoreConditions {
     ///
     /// Note that all the setters affecting `conditions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryFileStoreConditions;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryCloudStorageConditions;
+    /// let x = DiscoveryFileStoreConditions::new().set_cloud_storage_conditions(DiscoveryCloudStorageConditions::default()/* use setters */);
+    /// assert!(x.cloud_storage_conditions().is_some());
+    /// ```
     pub fn set_cloud_storage_conditions<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryCloudStorageConditions>>,
     >(
@@ -23066,6 +30071,13 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets the value of [data_source_type][crate::model::OtherCloudDiscoveryTarget::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = OtherCloudDiscoveryTarget::new().set_data_source_type(DataSourceType::default()/* use setters */);
+    /// ```
     pub fn set_data_source_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -23075,6 +30087,14 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets or clears the value of [data_source_type][crate::model::OtherCloudDiscoveryTarget::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_data_source_type(Some(DataSourceType::default()/* use setters */));
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_data_source_type(None::<DataSourceType>);
+    /// ```
     pub fn set_or_clear_data_source_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -23084,6 +30104,13 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets the value of [filter][crate::model::OtherCloudDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// let x = OtherCloudDiscoveryTarget::new().set_filter(DiscoveryOtherCloudFilter::default()/* use setters */);
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryOtherCloudFilter>,
@@ -23093,6 +30120,14 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets or clears the value of [filter][crate::model::OtherCloudDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_filter(Some(DiscoveryOtherCloudFilter::default()/* use setters */));
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_filter(None::<DiscoveryOtherCloudFilter>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryOtherCloudFilter>,
@@ -23102,6 +30137,13 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets the value of [conditions][crate::model::OtherCloudDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// let x = OtherCloudDiscoveryTarget::new().set_conditions(DiscoveryOtherCloudConditions::default()/* use setters */);
+    /// ```
     pub fn set_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryOtherCloudConditions>,
@@ -23111,6 +30153,14 @@ impl OtherCloudDiscoveryTarget {
     }
 
     /// Sets or clears the value of [conditions][crate::model::OtherCloudDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_conditions(Some(DiscoveryOtherCloudConditions::default()/* use setters */));
+    /// let x = OtherCloudDiscoveryTarget::new().set_or_clear_conditions(None::<DiscoveryOtherCloudConditions>);
+    /// ```
     pub fn set_or_clear_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryOtherCloudConditions>,
@@ -23123,6 +30173,14 @@ impl OtherCloudDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudGenerationCadence;
+    /// let x = OtherCloudDiscoveryTarget::new().set_cadence(Some(
+    ///     google_cloud_privacy_dlp_v2::model::other_cloud_discovery_target::Cadence::GenerationCadence(DiscoveryOtherCloudGenerationCadence::default().into())));
+    /// ```
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_discovery_target::Cadence>,
@@ -23156,6 +30214,15 @@ impl OtherCloudDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudGenerationCadence;
+    /// let x = OtherCloudDiscoveryTarget::new().set_generation_cadence(DiscoveryOtherCloudGenerationCadence::default()/* use setters */);
+    /// assert!(x.generation_cadence().is_some());
+    /// assert!(x.disabled().is_none());
+    /// ```
     pub fn set_generation_cadence<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryOtherCloudGenerationCadence>>,
     >(
@@ -23186,6 +30253,15 @@ impl OtherCloudDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::Disabled;
+    /// let x = OtherCloudDiscoveryTarget::new().set_disabled(Disabled::default()/* use setters */);
+    /// assert!(x.disabled().is_some());
+    /// assert!(x.generation_cadence().is_none());
+    /// ```
     pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
         mut self,
         v: T,
@@ -23243,6 +30319,14 @@ impl DiscoveryOtherCloudFilter {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudResourceCollection;
+    /// let x = DiscoveryOtherCloudFilter::new().set_filter(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_other_cloud_filter::Filter::Collection(OtherCloudResourceCollection::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_other_cloud_filter::Filter>>,
     >(
@@ -23273,6 +30357,16 @@ impl DiscoveryOtherCloudFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudResourceCollection;
+    /// let x = DiscoveryOtherCloudFilter::new().set_collection(OtherCloudResourceCollection::default()/* use setters */);
+    /// assert!(x.collection().is_some());
+    /// assert!(x.single_resource().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_collection<
         T: std::convert::Into<std::boxed::Box<crate::model::OtherCloudResourceCollection>>,
     >(
@@ -23306,6 +30400,16 @@ impl DiscoveryOtherCloudFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudSingleResourceReference;
+    /// let x = DiscoveryOtherCloudFilter::new().set_single_resource(OtherCloudSingleResourceReference::default()/* use setters */);
+    /// assert!(x.single_resource().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_single_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::OtherCloudSingleResourceReference>>,
     >(
@@ -23336,6 +30440,16 @@ impl DiscoveryOtherCloudFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudFilter;
+    /// use google_cloud_privacy_dlp_v2::model::AllOtherResources;
+    /// let x = DiscoveryOtherCloudFilter::new().set_others(AllOtherResources::default()/* use setters */);
+    /// assert!(x.others().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.single_resource().is_none());
+    /// ```
     pub fn set_others<T: std::convert::Into<std::boxed::Box<crate::model::AllOtherResources>>>(
         mut self,
         v: T,
@@ -23396,6 +30510,14 @@ impl OtherCloudResourceCollection {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudResourceCollection;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegexes;
+    /// let x = OtherCloudResourceCollection::new().set_pattern(Some(
+    ///     google_cloud_privacy_dlp_v2::model::other_cloud_resource_collection::Pattern::IncludeRegexes(OtherCloudResourceRegexes::default().into())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_resource_collection::Pattern>,
@@ -23428,6 +30550,14 @@ impl OtherCloudResourceCollection {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudResourceCollection;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegexes;
+    /// let x = OtherCloudResourceCollection::new().set_include_regexes(OtherCloudResourceRegexes::default()/* use setters */);
+    /// assert!(x.include_regexes().is_some());
+    /// ```
     pub fn set_include_regexes<
         T: std::convert::Into<std::boxed::Box<crate::model::OtherCloudResourceRegexes>>,
     >(
@@ -23481,6 +30611,17 @@ impl OtherCloudResourceRegexes {
     }
 
     /// Sets the value of [patterns][crate::model::OtherCloudResourceRegexes::patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegexes;
+    /// use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegex;
+    /// let x = OtherCloudResourceRegexes::new()
+    ///     .set_patterns([
+    ///         OtherCloudResourceRegex::default()/* use setters */,
+    ///         OtherCloudResourceRegex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23521,6 +30662,14 @@ impl OtherCloudResourceRegex {
     ///
     /// Note that all the setters affecting `resource_regex` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegex;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3BucketRegex;
+    /// let x = OtherCloudResourceRegex::new().set_resource_regex(Some(
+    ///     google_cloud_privacy_dlp_v2::model::other_cloud_resource_regex::ResourceRegex::AmazonS3BucketRegex(AmazonS3BucketRegex::default().into())));
+    /// ```
     pub fn set_resource_regex<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_resource_regex::ResourceRegex>,
@@ -23553,6 +30702,14 @@ impl OtherCloudResourceRegex {
     ///
     /// Note that all the setters affecting `resource_regex` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudResourceRegex;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3BucketRegex;
+    /// let x = OtherCloudResourceRegex::new().set_amazon_s3_bucket_regex(AmazonS3BucketRegex::default()/* use setters */);
+    /// assert!(x.amazon_s3_bucket_regex().is_some());
+    /// ```
     pub fn set_amazon_s3_bucket_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::AmazonS3BucketRegex>>,
     >(
@@ -23603,6 +30760,12 @@ impl AwsAccountRegex {
     }
 
     /// Sets the value of [account_id_regex][crate::model::AwsAccountRegex::account_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AwsAccountRegex;
+    /// let x = AwsAccountRegex::new().set_account_id_regex("example");
+    /// ```
     pub fn set_account_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -23638,6 +30801,13 @@ impl AmazonS3BucketRegex {
     }
 
     /// Sets the value of [aws_account_regex][crate::model::AmazonS3BucketRegex::aws_account_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3BucketRegex;
+    /// use google_cloud_privacy_dlp_v2::model::AwsAccountRegex;
+    /// let x = AmazonS3BucketRegex::new().set_aws_account_regex(AwsAccountRegex::default()/* use setters */);
+    /// ```
     pub fn set_aws_account_regex<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AwsAccountRegex>,
@@ -23647,6 +30817,14 @@ impl AmazonS3BucketRegex {
     }
 
     /// Sets or clears the value of [aws_account_regex][crate::model::AmazonS3BucketRegex::aws_account_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3BucketRegex;
+    /// use google_cloud_privacy_dlp_v2::model::AwsAccountRegex;
+    /// let x = AmazonS3BucketRegex::new().set_or_clear_aws_account_regex(Some(AwsAccountRegex::default()/* use setters */));
+    /// let x = AmazonS3BucketRegex::new().set_or_clear_aws_account_regex(None::<AwsAccountRegex>);
+    /// ```
     pub fn set_or_clear_aws_account_regex<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AwsAccountRegex>,
@@ -23656,6 +30834,12 @@ impl AmazonS3BucketRegex {
     }
 
     /// Sets the value of [bucket_name_regex][crate::model::AmazonS3BucketRegex::bucket_name_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3BucketRegex;
+    /// let x = AmazonS3BucketRegex::new().set_bucket_name_regex("example");
+    /// ```
     pub fn set_bucket_name_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -23691,6 +30875,14 @@ impl OtherCloudSingleResourceReference {
     ///
     /// Note that all the setters affecting `resource` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudSingleResourceReference;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3Bucket;
+    /// let x = OtherCloudSingleResourceReference::new().set_resource(Some(
+    ///     google_cloud_privacy_dlp_v2::model::other_cloud_single_resource_reference::Resource::AmazonS3Bucket(AmazonS3Bucket::default().into())));
+    /// ```
     pub fn set_resource<
         T: std::convert::Into<
                 std::option::Option<crate::model::other_cloud_single_resource_reference::Resource>,
@@ -23723,6 +30915,14 @@ impl OtherCloudSingleResourceReference {
     ///
     /// Note that all the setters affecting `resource` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudSingleResourceReference;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3Bucket;
+    /// let x = OtherCloudSingleResourceReference::new().set_amazon_s3_bucket(AmazonS3Bucket::default()/* use setters */);
+    /// assert!(x.amazon_s3_bucket().is_some());
+    /// ```
     pub fn set_amazon_s3_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::AmazonS3Bucket>>,
     >(
@@ -23772,6 +30972,12 @@ impl AwsAccount {
     }
 
     /// Sets the value of [account_id][crate::model::AwsAccount::account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AwsAccount;
+    /// let x = AwsAccount::new().set_account_id("example");
+    /// ```
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
         self
@@ -23803,6 +31009,13 @@ impl AmazonS3Bucket {
     }
 
     /// Sets the value of [aws_account][crate::model::AmazonS3Bucket::aws_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3Bucket;
+    /// use google_cloud_privacy_dlp_v2::model::AwsAccount;
+    /// let x = AmazonS3Bucket::new().set_aws_account(AwsAccount::default()/* use setters */);
+    /// ```
     pub fn set_aws_account<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AwsAccount>,
@@ -23812,6 +31025,14 @@ impl AmazonS3Bucket {
     }
 
     /// Sets or clears the value of [aws_account][crate::model::AmazonS3Bucket::aws_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3Bucket;
+    /// use google_cloud_privacy_dlp_v2::model::AwsAccount;
+    /// let x = AmazonS3Bucket::new().set_or_clear_aws_account(Some(AwsAccount::default()/* use setters */));
+    /// let x = AmazonS3Bucket::new().set_or_clear_aws_account(None::<AwsAccount>);
+    /// ```
     pub fn set_or_clear_aws_account<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AwsAccount>,
@@ -23821,6 +31042,12 @@ impl AmazonS3Bucket {
     }
 
     /// Sets the value of [bucket_name][crate::model::AmazonS3Bucket::bucket_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3Bucket;
+    /// let x = AmazonS3Bucket::new().set_bucket_name("example");
+    /// ```
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
         self
@@ -23854,6 +31081,13 @@ impl DiscoveryOtherCloudConditions {
     }
 
     /// Sets the value of [min_age][crate::model::DiscoveryOtherCloudConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryOtherCloudConditions::new().set_min_age(Duration::default()/* use setters */);
+    /// ```
     pub fn set_min_age<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -23863,6 +31097,14 @@ impl DiscoveryOtherCloudConditions {
     }
 
     /// Sets or clears the value of [min_age][crate::model::DiscoveryOtherCloudConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryOtherCloudConditions::new().set_or_clear_min_age(Some(Duration::default()/* use setters */));
+    /// let x = DiscoveryOtherCloudConditions::new().set_or_clear_min_age(None::<Duration>);
+    /// ```
     pub fn set_or_clear_min_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -23875,6 +31117,14 @@ impl DiscoveryOtherCloudConditions {
     ///
     /// Note that all the setters affecting `conditions` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3BucketConditions;
+    /// let x = DiscoveryOtherCloudConditions::new().set_conditions(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_other_cloud_conditions::Conditions::AmazonS3BucketConditions(AmazonS3BucketConditions::default().into())));
+    /// ```
     pub fn set_conditions<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_other_cloud_conditions::Conditions>,
@@ -23905,6 +31155,14 @@ impl DiscoveryOtherCloudConditions {
     ///
     /// Note that all the setters affecting `conditions` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudConditions;
+    /// use google_cloud_privacy_dlp_v2::model::AmazonS3BucketConditions;
+    /// let x = DiscoveryOtherCloudConditions::new().set_amazon_s3_bucket_conditions(AmazonS3BucketConditions::default()/* use setters */);
+    /// assert!(x.amazon_s3_bucket_conditions().is_some());
+    /// ```
     pub fn set_amazon_s3_bucket_conditions<
         T: std::convert::Into<std::boxed::Box<crate::model::AmazonS3BucketConditions>>,
     >(
@@ -23962,6 +31220,16 @@ impl AmazonS3BucketConditions {
     }
 
     /// Sets the value of [bucket_types][crate::model::AmazonS3BucketConditions::bucket_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3BucketConditions;
+    /// use google_cloud_privacy_dlp_v2::model::amazon_s_3_bucket_conditions::BucketType;
+    /// let x = AmazonS3BucketConditions::new().set_bucket_types([
+    ///     BucketType::TypeAllSupported,
+    ///     BucketType::TypeGeneralPurpose,
+    /// ]);
+    /// ```
     pub fn set_bucket_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23973,6 +31241,17 @@ impl AmazonS3BucketConditions {
     }
 
     /// Sets the value of [object_storage_classes][crate::model::AmazonS3BucketConditions::object_storage_classes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AmazonS3BucketConditions;
+    /// use google_cloud_privacy_dlp_v2::model::amazon_s_3_bucket_conditions::ObjectStorageClass;
+    /// let x = AmazonS3BucketConditions::new().set_object_storage_classes([
+    ///     ObjectStorageClass::AllSupportedClasses,
+    ///     ObjectStorageClass::Standard,
+    ///     ObjectStorageClass::StandardInfrequentAccess,
+    /// ]);
+    /// ```
     pub fn set_object_storage_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24312,6 +31591,15 @@ impl DiscoveryOtherCloudGenerationCadence {
     }
 
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryOtherCloudGenerationCadence::refresh_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryOtherCloudGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryOtherCloudGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryOtherCloudGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
     >(
@@ -24323,6 +31611,13 @@ impl DiscoveryOtherCloudGenerationCadence {
     }
 
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryOtherCloudGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryOtherCloudGenerationCadence::new().set_inspect_template_modified_cadence(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryInspectTemplateModifiedCadence>,
@@ -24332,6 +31627,14 @@ impl DiscoveryOtherCloudGenerationCadence {
     }
 
     /// Sets or clears the value of [inspect_template_modified_cadence][crate::model::DiscoveryOtherCloudGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryOtherCloudGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryOtherCloudGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(Some(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryOtherCloudGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(None::<DiscoveryInspectTemplateModifiedCadence>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_cadence<T>(
         mut self,
         v: std::option::Option<T>,
@@ -24370,6 +31673,13 @@ impl DiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryStartingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::discovery_starting_location::Location;
+    /// let x = DiscoveryStartingLocation::new().set_location(Some(Location::OrganizationId(42)));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_starting_location::Location>,
@@ -24400,6 +31710,14 @@ impl DiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryStartingLocation;
+    /// let x = DiscoveryStartingLocation::new().set_organization_id(42);
+    /// assert!(x.organization_id().is_some());
+    /// assert!(x.folder_id().is_none());
+    /// ```
     pub fn set_organization_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.location = std::option::Option::Some(
             crate::model::discovery_starting_location::Location::OrganizationId(v.into()),
@@ -24425,6 +31743,14 @@ impl DiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryStartingLocation;
+    /// let x = DiscoveryStartingLocation::new().set_folder_id(42);
+    /// assert!(x.folder_id().is_some());
+    /// assert!(x.organization_id().is_none());
+    /// ```
     pub fn set_folder_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.location = std::option::Option::Some(
             crate::model::discovery_starting_location::Location::FolderId(v.into()),
@@ -24475,6 +31801,14 @@ impl OtherCloudDiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation;
+    /// let x = OtherCloudDiscoveryStartingLocation::new().set_location(Some(
+    ///     google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::Location::AwsLocation(AwsDiscoveryStartingLocation::default().into())));
+    /// ```
     pub fn set_location<
         T: std::convert::Into<
                 std::option::Option<
@@ -24513,6 +31847,14 @@ impl OtherCloudDiscoveryStartingLocation {
     ///
     /// Note that all the setters affecting `location` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherCloudDiscoveryStartingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation;
+    /// let x = OtherCloudDiscoveryStartingLocation::new().set_aws_location(AwsDiscoveryStartingLocation::default()/* use setters */);
+    /// assert!(x.aws_location().is_some());
+    /// ```
     pub fn set_aws_location<T: std::convert::Into<std::boxed::Box<crate::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation>>>(mut self, v: T) -> Self{
         self.location = std::option::Option::Some(
             crate::model::other_cloud_discovery_starting_location::Location::AwsLocation(v.into()),
@@ -24536,10 +31878,10 @@ pub mod other_cloud_discovery_starting_location {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AwsDiscoveryStartingLocation {
-
+    
         /// The scope of this starting location.
         pub scope: std::option::Option<crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -24552,6 +31894,13 @@ pub mod other_cloud_discovery_starting_location {
         ///
         /// Note that all the setters affecting `scope` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation;
+        /// use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope;
+        /// let x = AwsDiscoveryStartingLocation::new().set_scope(Some(Scope::AccountId("example".to_string())));
+        /// ```
         pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope>>>(mut self, v: T) -> Self
         {
             self.scope = v.into();
@@ -24574,6 +31923,14 @@ pub mod other_cloud_discovery_starting_location {
         ///
         /// Note that all the setters affecting `scope` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation;
+        /// let x = AwsDiscoveryStartingLocation::new().set_account_id("example");
+        /// assert!(x.account_id().is_some());
+        /// assert!(x.all_asset_inventory_assets().is_none());
+        /// ```
         pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.scope = std::option::Option::Some(
                 crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope::AccountId(
@@ -24599,6 +31956,14 @@ pub mod other_cloud_discovery_starting_location {
         ///
         /// Note that all the setters affecting `scope` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::other_cloud_discovery_starting_location::AwsDiscoveryStartingLocation;
+        /// let x = AwsDiscoveryStartingLocation::new().set_all_asset_inventory_assets(true);
+        /// assert!(x.all_asset_inventory_assets().is_some());
+        /// assert!(x.account_id().is_none());
+        /// ```
         pub fn set_all_asset_inventory_assets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.scope = std::option::Option::Some(
                 crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope::AllAssetInventoryAssets(
@@ -24691,6 +32056,13 @@ impl VertexDatasetDiscoveryTarget {
     }
 
     /// Sets the value of [filter][crate::model::VertexDatasetDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_filter(DiscoveryVertexDatasetFilter::default()/* use setters */);
+    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryVertexDatasetFilter>,
@@ -24700,6 +32072,14 @@ impl VertexDatasetDiscoveryTarget {
     }
 
     /// Sets or clears the value of [filter][crate::model::VertexDatasetDiscoveryTarget::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_or_clear_filter(Some(DiscoveryVertexDatasetFilter::default()/* use setters */));
+    /// let x = VertexDatasetDiscoveryTarget::new().set_or_clear_filter(None::<DiscoveryVertexDatasetFilter>);
+    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryVertexDatasetFilter>,
@@ -24709,6 +32089,13 @@ impl VertexDatasetDiscoveryTarget {
     }
 
     /// Sets the value of [conditions][crate::model::VertexDatasetDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_conditions(DiscoveryVertexDatasetConditions::default()/* use setters */);
+    /// ```
     pub fn set_conditions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryVertexDatasetConditions>,
@@ -24718,6 +32105,14 @@ impl VertexDatasetDiscoveryTarget {
     }
 
     /// Sets or clears the value of [conditions][crate::model::VertexDatasetDiscoveryTarget::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_or_clear_conditions(Some(DiscoveryVertexDatasetConditions::default()/* use setters */));
+    /// let x = VertexDatasetDiscoveryTarget::new().set_or_clear_conditions(None::<DiscoveryVertexDatasetConditions>);
+    /// ```
     pub fn set_or_clear_conditions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryVertexDatasetConditions>,
@@ -24730,6 +32125,14 @@ impl VertexDatasetDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetGenerationCadence;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_cadence(Some(
+    ///     google_cloud_privacy_dlp_v2::model::vertex_dataset_discovery_target::Cadence::GenerationCadence(DiscoveryVertexDatasetGenerationCadence::default().into())));
+    /// ```
     pub fn set_cadence<
         T: std::convert::Into<
                 std::option::Option<crate::model::vertex_dataset_discovery_target::Cadence>,
@@ -24763,6 +32166,15 @@ impl VertexDatasetDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetGenerationCadence;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_generation_cadence(DiscoveryVertexDatasetGenerationCadence::default()/* use setters */);
+    /// assert!(x.generation_cadence().is_some());
+    /// assert!(x.disabled().is_none());
+    /// ```
     pub fn set_generation_cadence<
         T: std::convert::Into<std::boxed::Box<crate::model::DiscoveryVertexDatasetGenerationCadence>>,
     >(
@@ -24793,6 +32205,15 @@ impl VertexDatasetDiscoveryTarget {
     ///
     /// Note that all the setters affecting `cadence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetDiscoveryTarget;
+    /// use google_cloud_privacy_dlp_v2::model::Disabled;
+    /// let x = VertexDatasetDiscoveryTarget::new().set_disabled(Disabled::default()/* use setters */);
+    /// assert!(x.disabled().is_some());
+    /// assert!(x.generation_cadence().is_none());
+    /// ```
     pub fn set_disabled<T: std::convert::Into<std::boxed::Box<crate::model::Disabled>>>(
         mut self,
         v: T,
@@ -24852,6 +32273,14 @@ impl DiscoveryVertexDatasetFilter {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetCollection;
+    /// let x = DiscoveryVertexDatasetFilter::new().set_filter(Some(
+    ///     google_cloud_privacy_dlp_v2::model::discovery_vertex_dataset_filter::Filter::Collection(VertexDatasetCollection::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::discovery_vertex_dataset_filter::Filter>,
@@ -24884,6 +32313,16 @@ impl DiscoveryVertexDatasetFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetCollection;
+    /// let x = DiscoveryVertexDatasetFilter::new().set_collection(VertexDatasetCollection::default()/* use setters */);
+    /// assert!(x.collection().is_some());
+    /// assert!(x.vertex_dataset_resource_reference().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_collection<
         T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetCollection>>,
     >(
@@ -24914,6 +32353,16 @@ impl DiscoveryVertexDatasetFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetResourceReference;
+    /// let x = DiscoveryVertexDatasetFilter::new().set_vertex_dataset_resource_reference(VertexDatasetResourceReference::default()/* use setters */);
+    /// assert!(x.vertex_dataset_resource_reference().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.others().is_none());
+    /// ```
     pub fn set_vertex_dataset_resource_reference<
         T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetResourceReference>>,
     >(
@@ -24946,6 +32395,16 @@ impl DiscoveryVertexDatasetFilter {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetFilter;
+    /// use google_cloud_privacy_dlp_v2::model::AllOtherResources;
+    /// let x = DiscoveryVertexDatasetFilter::new().set_others(AllOtherResources::default()/* use setters */);
+    /// assert!(x.others().is_some());
+    /// assert!(x.collection().is_none());
+    /// assert!(x.vertex_dataset_resource_reference().is_none());
+    /// ```
     pub fn set_others<T: std::convert::Into<std::boxed::Box<crate::model::AllOtherResources>>>(
         mut self,
         v: T,
@@ -25009,6 +32468,14 @@ impl VertexDatasetCollection {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetCollection;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetRegexes;
+    /// let x = VertexDatasetCollection::new().set_pattern(Some(
+    ///     google_cloud_privacy_dlp_v2::model::vertex_dataset_collection::Pattern::VertexDatasetRegexes(VertexDatasetRegexes::default().into())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::vertex_dataset_collection::Pattern>>,
     >(
@@ -25039,6 +32506,14 @@ impl VertexDatasetCollection {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetCollection;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetRegexes;
+    /// let x = VertexDatasetCollection::new().set_vertex_dataset_regexes(VertexDatasetRegexes::default()/* use setters */);
+    /// assert!(x.vertex_dataset_regexes().is_some());
+    /// ```
     pub fn set_vertex_dataset_regexes<
         T: std::convert::Into<std::boxed::Box<crate::model::VertexDatasetRegexes>>,
     >(
@@ -25091,6 +32566,17 @@ impl VertexDatasetRegexes {
     }
 
     /// Sets the value of [patterns][crate::model::VertexDatasetRegexes::patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetRegexes;
+    /// use google_cloud_privacy_dlp_v2::model::VertexDatasetRegex;
+    /// let x = VertexDatasetRegexes::new()
+    ///     .set_patterns([
+    ///         VertexDatasetRegex::default()/* use setters */,
+    ///         VertexDatasetRegex::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25125,6 +32611,12 @@ impl VertexDatasetRegex {
     }
 
     /// Sets the value of [project_id_regex][crate::model::VertexDatasetRegex::project_id_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetRegex;
+    /// let x = VertexDatasetRegex::new().set_project_id_regex("example");
+    /// ```
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25157,6 +32649,12 @@ impl VertexDatasetResourceReference {
     }
 
     /// Sets the value of [dataset_resource_name][crate::model::VertexDatasetResourceReference::dataset_resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::VertexDatasetResourceReference;
+    /// let x = VertexDatasetResourceReference::new().set_dataset_resource_name("example");
+    /// ```
     pub fn set_dataset_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25194,6 +32692,13 @@ impl DiscoveryVertexDatasetConditions {
     }
 
     /// Sets the value of [created_after][crate::model::DiscoveryVertexDatasetConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryVertexDatasetConditions::new().set_created_after(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_created_after<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25203,6 +32708,14 @@ impl DiscoveryVertexDatasetConditions {
     }
 
     /// Sets or clears the value of [created_after][crate::model::DiscoveryVertexDatasetConditions::created_after].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryVertexDatasetConditions::new().set_or_clear_created_after(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryVertexDatasetConditions::new().set_or_clear_created_after(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_created_after<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25212,6 +32725,13 @@ impl DiscoveryVertexDatasetConditions {
     }
 
     /// Sets the value of [min_age][crate::model::DiscoveryVertexDatasetConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryVertexDatasetConditions::new().set_min_age(Duration::default()/* use setters */);
+    /// ```
     pub fn set_min_age<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -25221,6 +32741,14 @@ impl DiscoveryVertexDatasetConditions {
     }
 
     /// Sets or clears the value of [min_age][crate::model::DiscoveryVertexDatasetConditions::min_age].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetConditions;
+    /// use wkt::Duration;
+    /// let x = DiscoveryVertexDatasetConditions::new().set_or_clear_min_age(Some(Duration::default()/* use setters */));
+    /// let x = DiscoveryVertexDatasetConditions::new().set_or_clear_min_age(None::<Duration>);
+    /// ```
     pub fn set_or_clear_min_age<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -25263,6 +32791,15 @@ impl DiscoveryVertexDatasetGenerationCadence {
     }
 
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryVertexDatasetGenerationCadence::refresh_frequency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileUpdateFrequency;
+    /// let x0 = DiscoveryVertexDatasetGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyNever);
+    /// let x1 = DiscoveryVertexDatasetGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyDaily);
+    /// let x2 = DiscoveryVertexDatasetGenerationCadence::new().set_refresh_frequency(DataProfileUpdateFrequency::UpdateFrequencyMonthly);
+    /// ```
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
     >(
@@ -25274,6 +32811,13 @@ impl DiscoveryVertexDatasetGenerationCadence {
     }
 
     /// Sets the value of [inspect_template_modified_cadence][crate::model::DiscoveryVertexDatasetGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryVertexDatasetGenerationCadence::new().set_inspect_template_modified_cadence(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_cadence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryInspectTemplateModifiedCadence>,
@@ -25283,6 +32827,14 @@ impl DiscoveryVertexDatasetGenerationCadence {
     }
 
     /// Sets or clears the value of [inspect_template_modified_cadence][crate::model::DiscoveryVertexDatasetGenerationCadence::inspect_template_modified_cadence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DiscoveryVertexDatasetGenerationCadence;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryInspectTemplateModifiedCadence;
+    /// let x = DiscoveryVertexDatasetGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(Some(DiscoveryInspectTemplateModifiedCadence::default()/* use setters */));
+    /// let x = DiscoveryVertexDatasetGenerationCadence::new().set_or_clear_inspect_template_modified_cadence(None::<DiscoveryInspectTemplateModifiedCadence>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_cadence<T>(
         mut self,
         v: std::option::Option<T>,
@@ -25348,18 +32900,41 @@ impl DlpJob {
     }
 
     /// Sets the value of [name][crate::model::DlpJob::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// let x = DlpJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::DlpJob::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::DlpJobType;
+    /// let x0 = DlpJob::new().set_type(DlpJobType::InspectJob);
+    /// let x1 = DlpJob::new().set_type(DlpJobType::RiskAnalysisJob);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DlpJobType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DlpJob::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::dlp_job::JobState;
+    /// let x0 = DlpJob::new().set_state(JobState::Pending);
+    /// let x1 = DlpJob::new().set_state(JobState::Running);
+    /// let x2 = DlpJob::new().set_state(JobState::Done);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::dlp_job::JobState>>(
         mut self,
         v: T,
@@ -25369,6 +32944,13 @@ impl DlpJob {
     }
 
     /// Sets the value of [create_time][crate::model::DlpJob::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25378,6 +32960,14 @@ impl DlpJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DlpJob::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DlpJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25387,6 +32977,13 @@ impl DlpJob {
     }
 
     /// Sets the value of [start_time][crate::model::DlpJob::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25396,6 +32993,14 @@ impl DlpJob {
     }
 
     /// Sets or clears the value of [start_time][crate::model::DlpJob::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DlpJob::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25405,6 +33010,13 @@ impl DlpJob {
     }
 
     /// Sets the value of [end_time][crate::model::DlpJob::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25414,6 +33026,14 @@ impl DlpJob {
     }
 
     /// Sets or clears the value of [end_time][crate::model::DlpJob::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DlpJob::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25423,6 +33043,13 @@ impl DlpJob {
     }
 
     /// Sets the value of [last_modified][crate::model::DlpJob::last_modified].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_last_modified(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_modified<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25432,6 +33059,14 @@ impl DlpJob {
     }
 
     /// Sets or clears the value of [last_modified][crate::model::DlpJob::last_modified].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use wkt::Timestamp;
+    /// let x = DlpJob::new().set_or_clear_last_modified(Some(Timestamp::default()/* use setters */));
+    /// let x = DlpJob::new().set_or_clear_last_modified(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_modified<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25441,6 +33076,12 @@ impl DlpJob {
     }
 
     /// Sets the value of [job_trigger_name][crate::model::DlpJob::job_trigger_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// let x = DlpJob::new().set_job_trigger_name("example");
+    /// ```
     pub fn set_job_trigger_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25450,6 +33091,17 @@ impl DlpJob {
     }
 
     /// Sets the value of [errors][crate::model::DlpJob::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = DlpJob::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25461,6 +33113,17 @@ impl DlpJob {
     }
 
     /// Sets the value of [action_details][crate::model::DlpJob::action_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::ActionDetails;
+    /// let x = DlpJob::new()
+    ///     .set_action_details([
+    ///         ActionDetails::default()/* use setters */,
+    ///         ActionDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_action_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25475,6 +33138,14 @@ impl DlpJob {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// let x = DlpJob::new().set_details(Some(
+    ///     google_cloud_privacy_dlp_v2::model::dlp_job::Details::RiskDetails(AnalyzeDataSourceRiskDetails::default().into())));
+    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::dlp_job::Details>>,
     >(
@@ -25503,6 +33174,15 @@ impl DlpJob {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::AnalyzeDataSourceRiskDetails;
+    /// let x = DlpJob::new().set_risk_details(AnalyzeDataSourceRiskDetails::default()/* use setters */);
+    /// assert!(x.risk_details().is_some());
+    /// assert!(x.inspect_details().is_none());
+    /// ```
     pub fn set_risk_details<
         T: std::convert::Into<std::boxed::Box<crate::model::AnalyzeDataSourceRiskDetails>>,
     >(
@@ -25532,6 +33212,15 @@ impl DlpJob {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// use google_cloud_privacy_dlp_v2::model::InspectDataSourceDetails;
+    /// let x = DlpJob::new().set_inspect_details(InspectDataSourceDetails::default()/* use setters */);
+    /// assert!(x.inspect_details().is_some());
+    /// assert!(x.risk_details().is_none());
+    /// ```
     pub fn set_inspect_details<
         T: std::convert::Into<std::boxed::Box<crate::model::InspectDataSourceDetails>>,
     >(
@@ -25749,6 +33438,12 @@ impl GetDlpJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDlpJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetDlpJobRequest;
+    /// let x = GetDlpJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -25853,42 +33548,86 @@ impl ListDlpJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDlpJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDlpJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDlpJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDlpJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ListDlpJobsRequest::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DlpJobType;
+    /// let x0 = ListDlpJobsRequest::new().set_type(DlpJobType::InspectJob);
+    /// let x1 = ListDlpJobsRequest::new().set_type(DlpJobType::RiskAnalysisJob);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::DlpJobType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDlpJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListDlpJobsRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsRequest;
+    /// let x = ListDlpJobsRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -25920,6 +33659,17 @@ impl ListDlpJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListDlpJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsResponse;
+    /// use google_cloud_privacy_dlp_v2::model::DlpJob;
+    /// let x = ListDlpJobsResponse::new()
+    ///     .set_jobs([
+    ///         DlpJob::default()/* use setters */,
+    ///         DlpJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25931,6 +33681,12 @@ impl ListDlpJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDlpJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDlpJobsResponse;
+    /// let x = ListDlpJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -25973,6 +33729,12 @@ impl CancelDlpJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelDlpJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CancelDlpJobRequest;
+    /// let x = CancelDlpJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -26001,6 +33763,12 @@ impl FinishDlpJobRequest {
     }
 
     /// Sets the value of [name][crate::model::FinishDlpJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FinishDlpJobRequest;
+    /// let x = FinishDlpJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -26029,6 +33797,12 @@ impl DeleteDlpJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDlpJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteDlpJobRequest;
+    /// let x = DeleteDlpJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -26090,12 +33864,25 @@ impl CreateDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeidentifyTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
+    /// let x = CreateDeidentifyTemplateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = CreateDeidentifyTemplateRequest::new().set_deidentify_template(DeidentifyTemplate::default()/* use setters */);
+    /// ```
     pub fn set_deidentify_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -26105,6 +33892,14 @@ impl CreateDeidentifyTemplateRequest {
     }
 
     /// Sets or clears the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = CreateDeidentifyTemplateRequest::new().set_or_clear_deidentify_template(Some(DeidentifyTemplate::default()/* use setters */));
+    /// let x = CreateDeidentifyTemplateRequest::new().set_or_clear_deidentify_template(None::<DeidentifyTemplate>);
+    /// ```
     pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -26114,12 +33909,24 @@ impl CreateDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [template_id][crate::model::CreateDeidentifyTemplateRequest::template_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
+    /// let x = CreateDeidentifyTemplateRequest::new().set_template_id("example");
+    /// ```
     pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.template_id = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::CreateDeidentifyTemplateRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateDeidentifyTemplateRequest;
+    /// let x = CreateDeidentifyTemplateRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -26157,12 +33964,25 @@ impl UpdateDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateDeidentifyTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_deidentify_template(DeidentifyTemplate::default()/* use setters */);
+    /// ```
     pub fn set_deidentify_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -26172,6 +33992,14 @@ impl UpdateDeidentifyTemplateRequest {
     }
 
     /// Sets or clears the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_or_clear_deidentify_template(Some(DeidentifyTemplate::default()/* use setters */));
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_or_clear_deidentify_template(None::<DeidentifyTemplate>);
+    /// ```
     pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeidentifyTemplate>,
@@ -26181,6 +34009,13 @@ impl UpdateDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -26190,6 +34025,14 @@ impl UpdateDeidentifyTemplateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateDeidentifyTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeidentifyTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -26223,6 +34066,12 @@ impl GetDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeidentifyTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetDeidentifyTemplateRequest;
+    /// let x = GetDeidentifyTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -26298,30 +34147,60 @@ impl ListDeidentifyTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeidentifyTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
+    /// let x = ListDeidentifyTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeidentifyTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
+    /// let x = ListDeidentifyTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeidentifyTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
+    /// let x = ListDeidentifyTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDeidentifyTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
+    /// let x = ListDeidentifyTemplatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListDeidentifyTemplatesRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesRequest;
+    /// let x = ListDeidentifyTemplatesRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -26355,6 +34234,17 @@ impl ListDeidentifyTemplatesResponse {
     }
 
     /// Sets the value of [deidentify_templates][crate::model::ListDeidentifyTemplatesResponse::deidentify_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::DeidentifyTemplate;
+    /// let x = ListDeidentifyTemplatesResponse::new()
+    ///     .set_deidentify_templates([
+    ///         DeidentifyTemplate::default()/* use setters */,
+    ///         DeidentifyTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deidentify_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -26366,6 +34256,12 @@ impl ListDeidentifyTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeidentifyTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListDeidentifyTemplatesResponse;
+    /// let x = ListDeidentifyTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -26411,6 +34307,12 @@ impl DeleteDeidentifyTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDeidentifyTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteDeidentifyTemplateRequest;
+    /// let x = DeleteDeidentifyTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -26450,6 +34352,13 @@ impl LargeCustomDictionaryConfig {
     }
 
     /// Sets the value of [output_path][crate::model::LargeCustomDictionaryConfig::output_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStoragePath;
+    /// let x = LargeCustomDictionaryConfig::new().set_output_path(CloudStoragePath::default()/* use setters */);
+    /// ```
     pub fn set_output_path<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudStoragePath>,
@@ -26459,6 +34368,14 @@ impl LargeCustomDictionaryConfig {
     }
 
     /// Sets or clears the value of [output_path][crate::model::LargeCustomDictionaryConfig::output_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStoragePath;
+    /// let x = LargeCustomDictionaryConfig::new().set_or_clear_output_path(Some(CloudStoragePath::default()/* use setters */));
+    /// let x = LargeCustomDictionaryConfig::new().set_or_clear_output_path(None::<CloudStoragePath>);
+    /// ```
     pub fn set_or_clear_output_path<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudStoragePath>,
@@ -26471,6 +34388,14 @@ impl LargeCustomDictionaryConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageFileSet;
+    /// let x = LargeCustomDictionaryConfig::new().set_source(Some(
+    ///     google_cloud_privacy_dlp_v2::model::large_custom_dictionary_config::Source::CloudStorageFileSet(CloudStorageFileSet::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::large_custom_dictionary_config::Source>,
@@ -26503,6 +34428,15 @@ impl LargeCustomDictionaryConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageFileSet;
+    /// let x = LargeCustomDictionaryConfig::new().set_cloud_storage_file_set(CloudStorageFileSet::default()/* use setters */);
+    /// assert!(x.cloud_storage_file_set().is_some());
+    /// assert!(x.big_query_field().is_none());
+    /// ```
     pub fn set_cloud_storage_file_set<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageFileSet>>,
     >(
@@ -26535,6 +34469,15 @@ impl LargeCustomDictionaryConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryField;
+    /// let x = LargeCustomDictionaryConfig::new().set_big_query_field(BigQueryField::default()/* use setters */);
+    /// assert!(x.big_query_field().is_some());
+    /// assert!(x.cloud_storage_file_set().is_none());
+    /// ```
     pub fn set_big_query_field<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryField>>,
     >(
@@ -26586,6 +34529,12 @@ impl LargeCustomDictionaryStats {
     }
 
     /// Sets the value of [approx_num_phrases][crate::model::LargeCustomDictionaryStats::approx_num_phrases].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryStats;
+    /// let x = LargeCustomDictionaryStats::new().set_approx_num_phrases(42);
+    /// ```
     pub fn set_approx_num_phrases<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.approx_num_phrases = v.into();
         self
@@ -26622,12 +34571,24 @@ impl StoredInfoTypeConfig {
     }
 
     /// Sets the value of [display_name][crate::model::StoredInfoTypeConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = StoredInfoTypeConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::StoredInfoTypeConfig::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = StoredInfoTypeConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -26637,6 +34598,14 @@ impl StoredInfoTypeConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// let x = StoredInfoTypeConfig::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::stored_info_type_config::Type::LargeCustomDictionary(LargeCustomDictionaryConfig::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::stored_info_type_config::Type>>,
     >(
@@ -26667,6 +34636,16 @@ impl StoredInfoTypeConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryConfig;
+    /// let x = StoredInfoTypeConfig::new().set_large_custom_dictionary(LargeCustomDictionaryConfig::default()/* use setters */);
+    /// assert!(x.large_custom_dictionary().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// ```
     pub fn set_large_custom_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::LargeCustomDictionaryConfig>>,
     >(
@@ -26699,6 +34678,16 @@ impl StoredInfoTypeConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+    /// let x = StoredInfoTypeConfig::new().set_dictionary(Dictionary::default()/* use setters */);
+    /// assert!(x.dictionary().is_some());
+    /// assert!(x.large_custom_dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
     >(
@@ -26729,6 +34718,16 @@ impl StoredInfoTypeConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+    /// let x = StoredInfoTypeConfig::new().set_regex(Regex::default()/* use setters */);
+    /// assert!(x.regex().is_some());
+    /// assert!(x.large_custom_dictionary().is_none());
+    /// assert!(x.dictionary().is_none());
+    /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
     >(
@@ -26784,6 +34783,14 @@ impl StoredInfoTypeStats {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeStats;
+    /// use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryStats;
+    /// let x = StoredInfoTypeStats::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::stored_info_type_stats::Type::LargeCustomDictionary(LargeCustomDictionaryStats::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::stored_info_type_stats::Type>>,
     >(
@@ -26814,6 +34821,14 @@ impl StoredInfoTypeStats {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeStats;
+    /// use google_cloud_privacy_dlp_v2::model::LargeCustomDictionaryStats;
+    /// let x = StoredInfoTypeStats::new().set_large_custom_dictionary(LargeCustomDictionaryStats::default()/* use setters */);
+    /// assert!(x.large_custom_dictionary().is_some());
+    /// ```
     pub fn set_large_custom_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::LargeCustomDictionaryStats>>,
     >(
@@ -26890,6 +34905,13 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets the value of [config][crate::model::StoredInfoTypeVersion::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = StoredInfoTypeVersion::new().set_config(StoredInfoTypeConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -26899,6 +34921,14 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets or clears the value of [config][crate::model::StoredInfoTypeVersion::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_config(Some(StoredInfoTypeConfig::default()/* use setters */));
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_config(None::<StoredInfoTypeConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -26908,6 +34938,13 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets the value of [create_time][crate::model::StoredInfoTypeVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use wkt::Timestamp;
+    /// let x = StoredInfoTypeVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -26917,6 +34954,14 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::StoredInfoTypeVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use wkt::Timestamp;
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -26926,6 +34971,15 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets the value of [state][crate::model::StoredInfoTypeVersion::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeState;
+    /// let x0 = StoredInfoTypeVersion::new().set_state(StoredInfoTypeState::Pending);
+    /// let x1 = StoredInfoTypeVersion::new().set_state(StoredInfoTypeState::Ready);
+    /// let x2 = StoredInfoTypeVersion::new().set_state(StoredInfoTypeState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::StoredInfoTypeState>>(
         mut self,
         v: T,
@@ -26935,6 +34989,17 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets the value of [errors][crate::model::StoredInfoTypeVersion::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = StoredInfoTypeVersion::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -26946,6 +35011,13 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets the value of [stats][crate::model::StoredInfoTypeVersion::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeStats;
+    /// let x = StoredInfoTypeVersion::new().set_stats(StoredInfoTypeStats::default()/* use setters */);
+    /// ```
     pub fn set_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeStats>,
@@ -26955,6 +35027,14 @@ impl StoredInfoTypeVersion {
     }
 
     /// Sets or clears the value of [stats][crate::model::StoredInfoTypeVersion::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeStats;
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_stats(Some(StoredInfoTypeStats::default()/* use setters */));
+    /// let x = StoredInfoTypeVersion::new().set_or_clear_stats(None::<StoredInfoTypeStats>);
+    /// ```
     pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeStats>,
@@ -26994,12 +35074,25 @@ impl StoredInfoType {
     }
 
     /// Sets the value of [name][crate::model::StoredInfoType::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoType;
+    /// let x = StoredInfoType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [current_version][crate::model::StoredInfoType::current_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// let x = StoredInfoType::new().set_current_version(StoredInfoTypeVersion::default()/* use setters */);
+    /// ```
     pub fn set_current_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeVersion>,
@@ -27009,6 +35102,14 @@ impl StoredInfoType {
     }
 
     /// Sets or clears the value of [current_version][crate::model::StoredInfoType::current_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// let x = StoredInfoType::new().set_or_clear_current_version(Some(StoredInfoTypeVersion::default()/* use setters */));
+    /// let x = StoredInfoType::new().set_or_clear_current_version(None::<StoredInfoTypeVersion>);
+    /// ```
     pub fn set_or_clear_current_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeVersion>,
@@ -27018,6 +35119,17 @@ impl StoredInfoType {
     }
 
     /// Sets the value of [pending_versions][crate::model::StoredInfoType::pending_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeVersion;
+    /// let x = StoredInfoType::new()
+    ///     .set_pending_versions([
+    ///         StoredInfoTypeVersion::default()/* use setters */,
+    ///         StoredInfoTypeVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pending_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27084,12 +35196,25 @@ impl CreateStoredInfoTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateStoredInfoTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
+    /// let x = CreateStoredInfoTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = CreateStoredInfoTypeRequest::new().set_config(StoredInfoTypeConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -27099,6 +35224,14 @@ impl CreateStoredInfoTypeRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = CreateStoredInfoTypeRequest::new().set_or_clear_config(Some(StoredInfoTypeConfig::default()/* use setters */));
+    /// let x = CreateStoredInfoTypeRequest::new().set_or_clear_config(None::<StoredInfoTypeConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -27108,6 +35241,12 @@ impl CreateStoredInfoTypeRequest {
     }
 
     /// Sets the value of [stored_info_type_id][crate::model::CreateStoredInfoTypeRequest::stored_info_type_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
+    /// let x = CreateStoredInfoTypeRequest::new().set_stored_info_type_id("example");
+    /// ```
     pub fn set_stored_info_type_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -27117,6 +35256,12 @@ impl CreateStoredInfoTypeRequest {
     }
 
     /// Sets the value of [location_id][crate::model::CreateStoredInfoTypeRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateStoredInfoTypeRequest;
+    /// let x = CreateStoredInfoTypeRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -27155,12 +35300,25 @@ impl UpdateStoredInfoTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateStoredInfoTypeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
+    /// let x = UpdateStoredInfoTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = UpdateStoredInfoTypeRequest::new().set_config(StoredInfoTypeConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -27170,6 +35328,14 @@ impl UpdateStoredInfoTypeRequest {
     }
 
     /// Sets or clears the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoTypeConfig;
+    /// let x = UpdateStoredInfoTypeRequest::new().set_or_clear_config(Some(StoredInfoTypeConfig::default()/* use setters */));
+    /// let x = UpdateStoredInfoTypeRequest::new().set_or_clear_config(None::<StoredInfoTypeConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
@@ -27179,6 +35345,13 @@ impl UpdateStoredInfoTypeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateStoredInfoTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -27188,6 +35361,14 @@ impl UpdateStoredInfoTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateStoredInfoTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateStoredInfoTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateStoredInfoTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -27221,6 +35402,12 @@ impl GetStoredInfoTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStoredInfoTypeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetStoredInfoTypeRequest;
+    /// let x = GetStoredInfoTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -27293,30 +35480,60 @@ impl ListStoredInfoTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListStoredInfoTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
+    /// let x = ListStoredInfoTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListStoredInfoTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
+    /// let x = ListStoredInfoTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListStoredInfoTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
+    /// let x = ListStoredInfoTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListStoredInfoTypesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
+    /// let x = ListStoredInfoTypesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::ListStoredInfoTypesRequest::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesRequest;
+    /// let x = ListStoredInfoTypesRequest::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
@@ -27349,6 +35566,17 @@ impl ListStoredInfoTypesResponse {
     }
 
     /// Sets the value of [stored_info_types][crate::model::ListStoredInfoTypesResponse::stored_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::StoredInfoType;
+    /// let x = ListStoredInfoTypesResponse::new()
+    ///     .set_stored_info_types([
+    ///         StoredInfoType::default()/* use setters */,
+    ///         StoredInfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_stored_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27360,6 +35588,12 @@ impl ListStoredInfoTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListStoredInfoTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListStoredInfoTypesResponse;
+    /// let x = ListStoredInfoTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -27404,6 +35638,12 @@ impl DeleteStoredInfoTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteStoredInfoTypeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteStoredInfoTypeRequest;
+    /// let x = DeleteStoredInfoTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -27436,12 +35676,25 @@ impl HybridInspectJobTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::HybridInspectJobTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectJobTriggerRequest;
+    /// let x = HybridInspectJobTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// let x = HybridInspectJobTriggerRequest::new().set_hybrid_item(HybridContentItem::default()/* use setters */);
+    /// ```
     pub fn set_hybrid_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HybridContentItem>,
@@ -27451,6 +35704,14 @@ impl HybridInspectJobTriggerRequest {
     }
 
     /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectJobTriggerRequest;
+    /// use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// let x = HybridInspectJobTriggerRequest::new().set_or_clear_hybrid_item(Some(HybridContentItem::default()/* use setters */));
+    /// let x = HybridInspectJobTriggerRequest::new().set_or_clear_hybrid_item(None::<HybridContentItem>);
+    /// ```
     pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HybridContentItem>,
@@ -27486,12 +35747,25 @@ impl HybridInspectDlpJobRequest {
     }
 
     /// Sets the value of [name][crate::model::HybridInspectDlpJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectDlpJobRequest;
+    /// let x = HybridInspectDlpJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectDlpJobRequest;
+    /// use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// let x = HybridInspectDlpJobRequest::new().set_hybrid_item(HybridContentItem::default()/* use setters */);
+    /// ```
     pub fn set_hybrid_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HybridContentItem>,
@@ -27501,6 +35775,14 @@ impl HybridInspectDlpJobRequest {
     }
 
     /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridInspectDlpJobRequest;
+    /// use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// let x = HybridInspectDlpJobRequest::new().set_or_clear_hybrid_item(Some(HybridContentItem::default()/* use setters */));
+    /// let x = HybridInspectDlpJobRequest::new().set_or_clear_hybrid_item(None::<HybridContentItem>);
+    /// ```
     pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HybridContentItem>,
@@ -27536,6 +35818,13 @@ impl HybridContentItem {
     }
 
     /// Sets the value of [item][crate::model::HybridContentItem::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = HybridContentItem::new().set_item(ContentItem::default()/* use setters */);
+    /// ```
     pub fn set_item<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -27545,6 +35834,14 @@ impl HybridContentItem {
     }
 
     /// Sets or clears the value of [item][crate::model::HybridContentItem::item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// let x = HybridContentItem::new().set_or_clear_item(Some(ContentItem::default()/* use setters */));
+    /// let x = HybridContentItem::new().set_or_clear_item(None::<ContentItem>);
+    /// ```
     pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContentItem>,
@@ -27554,6 +35851,13 @@ impl HybridContentItem {
     }
 
     /// Sets the value of [finding_details][crate::model::HybridContentItem::finding_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// let x = HybridContentItem::new().set_finding_details(HybridFindingDetails::default()/* use setters */);
+    /// ```
     pub fn set_finding_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HybridFindingDetails>,
@@ -27563,6 +35867,14 @@ impl HybridContentItem {
     }
 
     /// Sets or clears the value of [finding_details][crate::model::HybridContentItem::finding_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// let x = HybridContentItem::new().set_or_clear_finding_details(Some(HybridFindingDetails::default()/* use setters */));
+    /// let x = HybridContentItem::new().set_or_clear_finding_details(None::<HybridFindingDetails>);
+    /// ```
     pub fn set_or_clear_finding_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HybridFindingDetails>,
@@ -27631,6 +35943,13 @@ impl HybridFindingDetails {
     }
 
     /// Sets the value of [container_details][crate::model::HybridFindingDetails::container_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = HybridFindingDetails::new().set_container_details(Container::default()/* use setters */);
+    /// ```
     pub fn set_container_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Container>,
@@ -27640,6 +35959,14 @@ impl HybridFindingDetails {
     }
 
     /// Sets or clears the value of [container_details][crate::model::HybridFindingDetails::container_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// use google_cloud_privacy_dlp_v2::model::Container;
+    /// let x = HybridFindingDetails::new().set_or_clear_container_details(Some(Container::default()/* use setters */));
+    /// let x = HybridFindingDetails::new().set_or_clear_container_details(None::<Container>);
+    /// ```
     pub fn set_or_clear_container_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Container>,
@@ -27649,18 +35976,37 @@ impl HybridFindingDetails {
     }
 
     /// Sets the value of [file_offset][crate::model::HybridFindingDetails::file_offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// let x = HybridFindingDetails::new().set_file_offset(42);
+    /// ```
     pub fn set_file_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.file_offset = v.into();
         self
     }
 
     /// Sets the value of [row_offset][crate::model::HybridFindingDetails::row_offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// let x = HybridFindingDetails::new().set_row_offset(42);
+    /// ```
     pub fn set_row_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_offset = v.into();
         self
     }
 
     /// Sets the value of [table_options][crate::model::HybridFindingDetails::table_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TableOptions;
+    /// let x = HybridFindingDetails::new().set_table_options(TableOptions::default()/* use setters */);
+    /// ```
     pub fn set_table_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableOptions>,
@@ -27670,6 +36016,14 @@ impl HybridFindingDetails {
     }
 
     /// Sets or clears the value of [table_options][crate::model::HybridFindingDetails::table_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// use google_cloud_privacy_dlp_v2::model::TableOptions;
+    /// let x = HybridFindingDetails::new().set_or_clear_table_options(Some(TableOptions::default()/* use setters */));
+    /// let x = HybridFindingDetails::new().set_or_clear_table_options(None::<TableOptions>);
+    /// ```
     pub fn set_or_clear_table_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableOptions>,
@@ -27679,6 +36033,15 @@ impl HybridFindingDetails {
     }
 
     /// Sets the value of [labels][crate::model::HybridFindingDetails::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridFindingDetails;
+    /// let x = HybridFindingDetails::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -27788,30 +36151,60 @@ impl ListProjectDataProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProjectDataProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
+    /// let x = ListProjectDataProfilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProjectDataProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
+    /// let x = ListProjectDataProfilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProjectDataProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
+    /// let x = ListProjectDataProfilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListProjectDataProfilesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
+    /// let x = ListProjectDataProfilesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListProjectDataProfilesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesRequest;
+    /// let x = ListProjectDataProfilesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -27843,6 +36236,17 @@ impl ListProjectDataProfilesResponse {
     }
 
     /// Sets the value of [project_data_profiles][crate::model::ListProjectDataProfilesResponse::project_data_profiles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// let x = ListProjectDataProfilesResponse::new()
+    ///     .set_project_data_profiles([
+    ///         ProjectDataProfile::default()/* use setters */,
+    ///         ProjectDataProfile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_project_data_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -27854,6 +36258,12 @@ impl ListProjectDataProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProjectDataProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListProjectDataProfilesResponse;
+    /// let x = ListProjectDataProfilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -27969,30 +36379,60 @@ impl ListTableDataProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTableDataProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
+    /// let x = ListTableDataProfilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTableDataProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
+    /// let x = ListTableDataProfilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTableDataProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
+    /// let x = ListTableDataProfilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTableDataProfilesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
+    /// let x = ListTableDataProfilesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTableDataProfilesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesRequest;
+    /// let x = ListTableDataProfilesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -28024,6 +36464,17 @@ impl ListTableDataProfilesResponse {
     }
 
     /// Sets the value of [table_data_profiles][crate::model::ListTableDataProfilesResponse::table_data_profiles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = ListTableDataProfilesResponse::new()
+    ///     .set_table_data_profiles([
+    ///         TableDataProfile::default()/* use setters */,
+    ///         TableDataProfile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_table_data_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28035,6 +36486,12 @@ impl ListTableDataProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTableDataProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListTableDataProfilesResponse;
+    /// let x = ListTableDataProfilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -28146,30 +36603,60 @@ impl ListColumnDataProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListColumnDataProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
+    /// let x = ListColumnDataProfilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListColumnDataProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
+    /// let x = ListColumnDataProfilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListColumnDataProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
+    /// let x = ListColumnDataProfilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListColumnDataProfilesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
+    /// let x = ListColumnDataProfilesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListColumnDataProfilesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesRequest;
+    /// let x = ListColumnDataProfilesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -28201,6 +36688,17 @@ impl ListColumnDataProfilesResponse {
     }
 
     /// Sets the value of [column_data_profiles][crate::model::ListColumnDataProfilesResponse::column_data_profiles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ListColumnDataProfilesResponse::new()
+    ///     .set_column_data_profiles([
+    ///         ColumnDataProfile::default()/* use setters */,
+    ///         ColumnDataProfile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_column_data_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28212,6 +36710,12 @@ impl ListColumnDataProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListColumnDataProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListColumnDataProfilesResponse;
+    /// let x = ListColumnDataProfilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -28255,6 +36759,15 @@ impl DataRiskLevel {
     }
 
     /// Sets the value of [score][crate::model::DataRiskLevel::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// use google_cloud_privacy_dlp_v2::model::data_risk_level::DataRiskLevelScore;
+    /// let x0 = DataRiskLevel::new().set_score(DataRiskLevelScore::RiskLow);
+    /// let x1 = DataRiskLevel::new().set_score(DataRiskLevelScore::RiskUnknown);
+    /// let x2 = DataRiskLevel::new().set_score(DataRiskLevelScore::RiskModerate);
+    /// ```
     pub fn set_score<T: std::convert::Into<crate::model::data_risk_level::DataRiskLevelScore>>(
         mut self,
         v: T,
@@ -28466,18 +36979,37 @@ impl ProjectDataProfile {
     }
 
     /// Sets the value of [name][crate::model::ProjectDataProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// let x = ProjectDataProfile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::ProjectDataProfile::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// let x = ProjectDataProfile::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [profile_last_generated][crate::model::ProjectDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = ProjectDataProfile::new().set_profile_last_generated(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_profile_last_generated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28487,6 +37019,14 @@ impl ProjectDataProfile {
     }
 
     /// Sets or clears the value of [profile_last_generated][crate::model::ProjectDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = ProjectDataProfile::new().set_or_clear_profile_last_generated(Some(Timestamp::default()/* use setters */));
+    /// let x = ProjectDataProfile::new().set_or_clear_profile_last_generated(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_profile_last_generated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28496,6 +37036,13 @@ impl ProjectDataProfile {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::ProjectDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = ProjectDataProfile::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -28505,6 +37052,14 @@ impl ProjectDataProfile {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::ProjectDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = ProjectDataProfile::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = ProjectDataProfile::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -28514,6 +37069,13 @@ impl ProjectDataProfile {
     }
 
     /// Sets the value of [data_risk_level][crate::model::ProjectDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = ProjectDataProfile::new().set_data_risk_level(DataRiskLevel::default()/* use setters */);
+    /// ```
     pub fn set_data_risk_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -28523,6 +37085,14 @@ impl ProjectDataProfile {
     }
 
     /// Sets or clears the value of [data_risk_level][crate::model::ProjectDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = ProjectDataProfile::new().set_or_clear_data_risk_level(Some(DataRiskLevel::default()/* use setters */));
+    /// let x = ProjectDataProfile::new().set_or_clear_data_risk_level(None::<DataRiskLevel>);
+    /// ```
     pub fn set_or_clear_data_risk_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -28532,6 +37102,13 @@ impl ProjectDataProfile {
     }
 
     /// Sets the value of [profile_status][crate::model::ProjectDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = ProjectDataProfile::new().set_profile_status(ProfileStatus::default()/* use setters */);
+    /// ```
     pub fn set_profile_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -28541,6 +37118,14 @@ impl ProjectDataProfile {
     }
 
     /// Sets or clears the value of [profile_status][crate::model::ProjectDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = ProjectDataProfile::new().set_or_clear_profile_status(Some(ProfileStatus::default()/* use setters */));
+    /// let x = ProjectDataProfile::new().set_or_clear_profile_status(None::<ProfileStatus>);
+    /// ```
     pub fn set_or_clear_profile_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -28550,12 +37135,24 @@ impl ProjectDataProfile {
     }
 
     /// Sets the value of [table_data_profile_count][crate::model::ProjectDataProfile::table_data_profile_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// let x = ProjectDataProfile::new().set_table_data_profile_count(42);
+    /// ```
     pub fn set_table_data_profile_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.table_data_profile_count = v.into();
         self
     }
 
     /// Sets the value of [file_store_data_profile_count][crate::model::ProjectDataProfile::file_store_data_profile_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProjectDataProfile;
+    /// let x = ProjectDataProfile::new().set_file_store_data_profile_count(42);
+    /// ```
     pub fn set_file_store_data_profile_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.file_store_data_profile_count = v.into();
         self
@@ -28602,6 +37199,13 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [inspect_config][crate::model::DataProfileConfigSnapshot::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_inspect_config(InspectConfig::default()/* use setters */);
+    /// ```
     pub fn set_inspect_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -28611,6 +37215,14 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets or clears the value of [inspect_config][crate::model::DataProfileConfigSnapshot::inspect_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::InspectConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_inspect_config(Some(InspectConfig::default()/* use setters */));
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_inspect_config(None::<InspectConfig>);
+    /// ```
     pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InspectConfig>,
@@ -28620,6 +37232,13 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [data_profile_job][crate::model::DataProfileConfigSnapshot::data_profile_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_data_profile_job(DataProfileJobConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_data_profile_job<T>(mut self, v: T) -> Self
     where
@@ -28630,6 +37249,14 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets or clears the value of [data_profile_job][crate::model::DataProfileConfigSnapshot::data_profile_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileJobConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_data_profile_job(Some(DataProfileJobConfig::default()/* use setters */));
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_data_profile_job(None::<DataProfileJobConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_data_profile_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -28640,6 +37267,13 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [discovery_config][crate::model::DataProfileConfigSnapshot::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_discovery_config(DiscoveryConfig::default()/* use setters */);
+    /// ```
     pub fn set_discovery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -28649,6 +37283,14 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets or clears the value of [discovery_config][crate::model::DataProfileConfigSnapshot::discovery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use google_cloud_privacy_dlp_v2::model::DiscoveryConfig;
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_discovery_config(Some(DiscoveryConfig::default()/* use setters */));
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_discovery_config(None::<DiscoveryConfig>);
+    /// ```
     pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryConfig>,
@@ -28658,6 +37300,12 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [inspect_template_name][crate::model::DataProfileConfigSnapshot::inspect_template_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// let x = DataProfileConfigSnapshot::new().set_inspect_template_name("example");
+    /// ```
     pub fn set_inspect_template_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -28667,6 +37315,13 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets the value of [inspect_template_modified_time][crate::model::DataProfileConfigSnapshot::inspect_template_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = DataProfileConfigSnapshot::new().set_inspect_template_modified_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_inspect_template_modified_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28676,6 +37331,14 @@ impl DataProfileConfigSnapshot {
     }
 
     /// Sets or clears the value of [inspect_template_modified_time][crate::model::DataProfileConfigSnapshot::inspect_template_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_inspect_template_modified_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataProfileConfigSnapshot::new().set_or_clear_inspect_template_modified_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_inspect_template_modified_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -28806,12 +37469,25 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [name][crate::model::TableDataProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source_type][crate::model::TableDataProfile::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = TableDataProfile::new().set_data_source_type(DataSourceType::default()/* use setters */);
+    /// ```
     pub fn set_data_source_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -28821,6 +37497,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [data_source_type][crate::model::TableDataProfile::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = TableDataProfile::new().set_or_clear_data_source_type(Some(DataSourceType::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_data_source_type(None::<DataSourceType>);
+    /// ```
     pub fn set_or_clear_data_source_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -28830,6 +37514,12 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [project_data_profile][crate::model::TableDataProfile::project_data_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_project_data_profile("example");
+    /// ```
     pub fn set_project_data_profile<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -28839,6 +37529,12 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [dataset_project_id][crate::model::TableDataProfile::dataset_project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_dataset_project_id("example");
+    /// ```
     pub fn set_dataset_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -28848,6 +37544,12 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [dataset_location][crate::model::TableDataProfile::dataset_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_dataset_location("example");
+    /// ```
     pub fn set_dataset_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -28857,24 +37559,49 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [dataset_id][crate::model::TableDataProfile::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::TableDataProfile::table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [full_resource][crate::model::TableDataProfile::full_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_full_resource("example");
+    /// ```
     pub fn set_full_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource = v.into();
         self
     }
 
     /// Sets the value of [profile_status][crate::model::TableDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = TableDataProfile::new().set_profile_status(ProfileStatus::default()/* use setters */);
+    /// ```
     pub fn set_profile_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -28884,6 +37611,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [profile_status][crate::model::TableDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = TableDataProfile::new().set_or_clear_profile_status(Some(ProfileStatus::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_profile_status(None::<ProfileStatus>);
+    /// ```
     pub fn set_or_clear_profile_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -28893,6 +37628,14 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [state][crate::model::TableDataProfile::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::table_data_profile::State;
+    /// let x0 = TableDataProfile::new().set_state(State::Running);
+    /// let x1 = TableDataProfile::new().set_state(State::Done);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::table_data_profile::State>>(
         mut self,
         v: T,
@@ -28902,6 +37645,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::TableDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = TableDataProfile::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -28911,6 +37661,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::TableDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = TableDataProfile::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -28920,6 +37678,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [data_risk_level][crate::model::TableDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = TableDataProfile::new().set_data_risk_level(DataRiskLevel::default()/* use setters */);
+    /// ```
     pub fn set_data_risk_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -28929,6 +37694,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [data_risk_level][crate::model::TableDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = TableDataProfile::new().set_or_clear_data_risk_level(Some(DataRiskLevel::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_data_risk_level(None::<DataRiskLevel>);
+    /// ```
     pub fn set_or_clear_data_risk_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -28938,6 +37711,17 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [predicted_info_types][crate::model::TableDataProfile::predicted_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// let x = TableDataProfile::new()
+    ///     .set_predicted_info_types([
+    ///         InfoTypeSummary::default()/* use setters */,
+    ///         InfoTypeSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_predicted_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28949,6 +37733,17 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [other_info_types][crate::model::TableDataProfile::other_info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// let x = TableDataProfile::new()
+    ///     .set_other_info_types([
+    ///         OtherInfoTypeSummary::default()/* use setters */,
+    ///         OtherInfoTypeSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_other_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28960,6 +37755,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [config_snapshot][crate::model::TableDataProfile::config_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// let x = TableDataProfile::new().set_config_snapshot(DataProfileConfigSnapshot::default()/* use setters */);
+    /// ```
     pub fn set_config_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileConfigSnapshot>,
@@ -28969,6 +37771,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [config_snapshot][crate::model::TableDataProfile::config_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// let x = TableDataProfile::new().set_or_clear_config_snapshot(Some(DataProfileConfigSnapshot::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_config_snapshot(None::<DataProfileConfigSnapshot>);
+    /// ```
     pub fn set_or_clear_config_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileConfigSnapshot>,
@@ -28978,6 +37788,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [last_modified_time][crate::model::TableDataProfile::last_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_last_modified_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_modified_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28987,6 +37804,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [last_modified_time][crate::model::TableDataProfile::last_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_or_clear_last_modified_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_last_modified_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_modified_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -28996,6 +37821,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [expiration_time][crate::model::TableDataProfile::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29005,6 +37837,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [expiration_time][crate::model::TableDataProfile::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_or_clear_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29014,30 +37854,62 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [scanned_column_count][crate::model::TableDataProfile::scanned_column_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_scanned_column_count(42);
+    /// ```
     pub fn set_scanned_column_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.scanned_column_count = v.into();
         self
     }
 
     /// Sets the value of [failed_column_count][crate::model::TableDataProfile::failed_column_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_failed_column_count(42);
+    /// ```
     pub fn set_failed_column_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_column_count = v.into();
         self
     }
 
     /// Sets the value of [table_size_bytes][crate::model::TableDataProfile::table_size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_table_size_bytes(42);
+    /// ```
     pub fn set_table_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.table_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [row_count][crate::model::TableDataProfile::row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_row_count(42);
+    /// ```
     pub fn set_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_count = v.into();
         self
     }
 
     /// Sets the value of [encryption_status][crate::model::TableDataProfile::encryption_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::EncryptionStatus;
+    /// let x0 = TableDataProfile::new().set_encryption_status(EncryptionStatus::EncryptionGoogleManaged);
+    /// let x1 = TableDataProfile::new().set_encryption_status(EncryptionStatus::EncryptionCustomerManaged);
+    /// ```
     pub fn set_encryption_status<T: std::convert::Into<crate::model::EncryptionStatus>>(
         mut self,
         v: T,
@@ -29047,6 +37919,15 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [resource_visibility][crate::model::TableDataProfile::resource_visibility].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ResourceVisibility;
+    /// let x0 = TableDataProfile::new().set_resource_visibility(ResourceVisibility::Public);
+    /// let x1 = TableDataProfile::new().set_resource_visibility(ResourceVisibility::Inconclusive);
+    /// let x2 = TableDataProfile::new().set_resource_visibility(ResourceVisibility::Restricted);
+    /// ```
     pub fn set_resource_visibility<T: std::convert::Into<crate::model::ResourceVisibility>>(
         mut self,
         v: T,
@@ -29056,6 +37937,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [profile_last_generated][crate::model::TableDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_profile_last_generated(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_profile_last_generated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29065,6 +37953,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [profile_last_generated][crate::model::TableDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_or_clear_profile_last_generated(Some(Timestamp::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_profile_last_generated(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_profile_last_generated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29074,6 +37970,15 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [resource_labels][crate::model::TableDataProfile::resource_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = TableDataProfile::new().set_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -29086,6 +37991,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [create_time][crate::model::TableDataProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29095,6 +38007,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::TableDataProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = TableDataProfile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29104,6 +38024,13 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [sample_findings_table][crate::model::TableDataProfile::sample_findings_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = TableDataProfile::new().set_sample_findings_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_sample_findings_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -29113,6 +38040,14 @@ impl TableDataProfile {
     }
 
     /// Sets or clears the value of [sample_findings_table][crate::model::TableDataProfile::sample_findings_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = TableDataProfile::new().set_or_clear_sample_findings_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = TableDataProfile::new().set_or_clear_sample_findings_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_sample_findings_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -29122,6 +38057,17 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [tags][crate::model::TableDataProfile::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::Tag;
+    /// let x = TableDataProfile::new()
+    ///     .set_tags([
+    ///         Tag::default()/* use setters */,
+    ///         Tag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29133,6 +38079,17 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [related_resources][crate::model::TableDataProfile::related_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::RelatedResource;
+    /// let x = TableDataProfile::new()
+    ///     .set_related_resources([
+    ///         RelatedResource::default()/* use setters */,
+    ///         RelatedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29144,6 +38101,17 @@ impl TableDataProfile {
     }
 
     /// Sets the value of [domains][crate::model::TableDataProfile::domains].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::Domain;
+    /// let x = TableDataProfile::new()
+    ///     .set_domains([
+    ///         Domain::default()/* use setters */,
+    ///         Domain::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29322,6 +38290,13 @@ impl ProfileStatus {
     }
 
     /// Sets the value of [status][crate::model::ProfileStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// use rpc::model::Status;
+    /// let x = ProfileStatus::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -29331,6 +38306,14 @@ impl ProfileStatus {
     }
 
     /// Sets or clears the value of [status][crate::model::ProfileStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// use rpc::model::Status;
+    /// let x = ProfileStatus::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = ProfileStatus::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -29340,6 +38323,13 @@ impl ProfileStatus {
     }
 
     /// Sets the value of [timestamp][crate::model::ProfileStatus::timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// use wkt::Timestamp;
+    /// let x = ProfileStatus::new().set_timestamp(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29349,6 +38339,14 @@ impl ProfileStatus {
     }
 
     /// Sets or clears the value of [timestamp][crate::model::ProfileStatus::timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// use wkt::Timestamp;
+    /// let x = ProfileStatus::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = ProfileStatus::new().set_or_clear_timestamp(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29384,6 +38382,13 @@ impl InfoTypeSummary {
     }
 
     /// Sets the value of [info_type][crate::model::InfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoTypeSummary::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -29393,6 +38398,14 @@ impl InfoTypeSummary {
     }
 
     /// Sets or clears the value of [info_type][crate::model::InfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoTypeSummary::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = InfoTypeSummary::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -29402,6 +38415,12 @@ impl InfoTypeSummary {
     }
 
     /// Sets the value of [estimated_prevalence][crate::model::InfoTypeSummary::estimated_prevalence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// let x = InfoTypeSummary::new().set_estimated_prevalence(42);
+    /// ```
     #[deprecated]
     pub fn set_estimated_prevalence<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.estimated_prevalence = v.into();
@@ -29439,6 +38458,13 @@ impl OtherInfoTypeSummary {
     }
 
     /// Sets the value of [info_type][crate::model::OtherInfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = OtherInfoTypeSummary::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -29448,6 +38474,14 @@ impl OtherInfoTypeSummary {
     }
 
     /// Sets or clears the value of [info_type][crate::model::OtherInfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = OtherInfoTypeSummary::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = OtherInfoTypeSummary::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -29457,12 +38491,24 @@ impl OtherInfoTypeSummary {
     }
 
     /// Sets the value of [estimated_prevalence][crate::model::OtherInfoTypeSummary::estimated_prevalence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// let x = OtherInfoTypeSummary::new().set_estimated_prevalence(42);
+    /// ```
     pub fn set_estimated_prevalence<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.estimated_prevalence = v.into();
         self
     }
 
     /// Sets the value of [excluded_from_analysis][crate::model::OtherInfoTypeSummary::excluded_from_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// let x = OtherInfoTypeSummary::new().set_excluded_from_analysis(true);
+    /// ```
     pub fn set_excluded_from_analysis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.excluded_from_analysis = v.into();
         self
@@ -29556,12 +38602,25 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [name][crate::model::ColumnDataProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [profile_status][crate::model::ColumnDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = ColumnDataProfile::new().set_profile_status(ProfileStatus::default()/* use setters */);
+    /// ```
     pub fn set_profile_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -29571,6 +38630,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets or clears the value of [profile_status][crate::model::ColumnDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = ColumnDataProfile::new().set_or_clear_profile_status(Some(ProfileStatus::default()/* use setters */));
+    /// let x = ColumnDataProfile::new().set_or_clear_profile_status(None::<ProfileStatus>);
+    /// ```
     pub fn set_or_clear_profile_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -29580,6 +38647,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [state][crate::model::ColumnDataProfile::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::column_data_profile::State;
+    /// let x0 = ColumnDataProfile::new().set_state(State::Running);
+    /// let x1 = ColumnDataProfile::new().set_state(State::Done);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::column_data_profile::State>>(
         mut self,
         v: T,
@@ -29589,6 +38664,13 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [profile_last_generated][crate::model::ColumnDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = ColumnDataProfile::new().set_profile_last_generated(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_profile_last_generated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29598,6 +38680,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets or clears the value of [profile_last_generated][crate::model::ColumnDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = ColumnDataProfile::new().set_or_clear_profile_last_generated(Some(Timestamp::default()/* use setters */));
+    /// let x = ColumnDataProfile::new().set_or_clear_profile_last_generated(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_profile_last_generated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29607,6 +38697,12 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [table_data_profile][crate::model::ColumnDataProfile::table_data_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_table_data_profile("example");
+    /// ```
     pub fn set_table_data_profile<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -29616,6 +38712,12 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [table_full_resource][crate::model::ColumnDataProfile::table_full_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_table_full_resource("example");
+    /// ```
     pub fn set_table_full_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -29625,6 +38727,12 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [dataset_project_id][crate::model::ColumnDataProfile::dataset_project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_dataset_project_id("example");
+    /// ```
     pub fn set_dataset_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -29634,6 +38742,12 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [dataset_location][crate::model::ColumnDataProfile::dataset_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_dataset_location("example");
+    /// ```
     pub fn set_dataset_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -29643,24 +38757,49 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [dataset_id][crate::model::ColumnDataProfile::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::ColumnDataProfile::table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [column][crate::model::ColumnDataProfile::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_column("example");
+    /// ```
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
     }
 
     /// Sets the value of [sensitivity_score][crate::model::ColumnDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = ColumnDataProfile::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -29670,6 +38809,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::ColumnDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = ColumnDataProfile::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = ColumnDataProfile::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -29679,6 +38826,13 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [data_risk_level][crate::model::ColumnDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = ColumnDataProfile::new().set_data_risk_level(DataRiskLevel::default()/* use setters */);
+    /// ```
     pub fn set_data_risk_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -29688,6 +38842,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets or clears the value of [data_risk_level][crate::model::ColumnDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = ColumnDataProfile::new().set_or_clear_data_risk_level(Some(DataRiskLevel::default()/* use setters */));
+    /// let x = ColumnDataProfile::new().set_or_clear_data_risk_level(None::<DataRiskLevel>);
+    /// ```
     pub fn set_or_clear_data_risk_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -29697,6 +38859,13 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [column_info_type][crate::model::ColumnDataProfile::column_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// let x = ColumnDataProfile::new().set_column_info_type(InfoTypeSummary::default()/* use setters */);
+    /// ```
     pub fn set_column_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoTypeSummary>,
@@ -29706,6 +38875,14 @@ impl ColumnDataProfile {
     }
 
     /// Sets or clears the value of [column_info_type][crate::model::ColumnDataProfile::column_info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::InfoTypeSummary;
+    /// let x = ColumnDataProfile::new().set_or_clear_column_info_type(Some(InfoTypeSummary::default()/* use setters */));
+    /// let x = ColumnDataProfile::new().set_or_clear_column_info_type(None::<InfoTypeSummary>);
+    /// ```
     pub fn set_or_clear_column_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoTypeSummary>,
@@ -29715,6 +38892,17 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [other_matches][crate::model::ColumnDataProfile::other_matches].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::OtherInfoTypeSummary;
+    /// let x = ColumnDataProfile::new()
+    ///     .set_other_matches([
+    ///         OtherInfoTypeSummary::default()/* use setters */,
+    ///         OtherInfoTypeSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_other_matches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29726,6 +38914,15 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [estimated_null_percentage][crate::model::ColumnDataProfile::estimated_null_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::NullPercentageLevel;
+    /// let x0 = ColumnDataProfile::new().set_estimated_null_percentage(NullPercentageLevel::NullPercentageVeryLow);
+    /// let x1 = ColumnDataProfile::new().set_estimated_null_percentage(NullPercentageLevel::NullPercentageLow);
+    /// let x2 = ColumnDataProfile::new().set_estimated_null_percentage(NullPercentageLevel::NullPercentageMedium);
+    /// ```
     pub fn set_estimated_null_percentage<
         T: std::convert::Into<crate::model::NullPercentageLevel>,
     >(
@@ -29737,6 +38934,15 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [estimated_uniqueness_score][crate::model::ColumnDataProfile::estimated_uniqueness_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::UniquenessScoreLevel;
+    /// let x0 = ColumnDataProfile::new().set_estimated_uniqueness_score(UniquenessScoreLevel::UniquenessScoreLow);
+    /// let x1 = ColumnDataProfile::new().set_estimated_uniqueness_score(UniquenessScoreLevel::UniquenessScoreMedium);
+    /// let x2 = ColumnDataProfile::new().set_estimated_uniqueness_score(UniquenessScoreLevel::UniquenessScoreHigh);
+    /// ```
     pub fn set_estimated_uniqueness_score<
         T: std::convert::Into<crate::model::UniquenessScoreLevel>,
     >(
@@ -29748,12 +38954,27 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [free_text_score][crate::model::ColumnDataProfile::free_text_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// let x = ColumnDataProfile::new().set_free_text_score(42.0);
+    /// ```
     pub fn set_free_text_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.free_text_score = v.into();
         self
     }
 
     /// Sets the value of [column_type][crate::model::ColumnDataProfile::column_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::column_data_profile::ColumnDataType;
+    /// let x0 = ColumnDataProfile::new().set_column_type(ColumnDataType::TypeInt64);
+    /// let x1 = ColumnDataProfile::new().set_column_type(ColumnDataType::TypeBool);
+    /// let x2 = ColumnDataProfile::new().set_column_type(ColumnDataType::TypeFloat64);
+    /// ```
     pub fn set_column_type<
         T: std::convert::Into<crate::model::column_data_profile::ColumnDataType>,
     >(
@@ -29765,6 +38986,13 @@ impl ColumnDataProfile {
     }
 
     /// Sets the value of [policy_state][crate::model::ColumnDataProfile::policy_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ColumnDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::column_data_profile::ColumnPolicyState;
+    /// let x0 = ColumnDataProfile::new().set_policy_state(ColumnPolicyState::ColumnPolicyTagged);
+    /// ```
     pub fn set_policy_state<
         T: std::convert::Into<crate::model::column_data_profile::ColumnPolicyState>,
     >(
@@ -30419,12 +39647,25 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [name][crate::model::FileStoreDataProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_source_type][crate::model::FileStoreDataProfile::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = FileStoreDataProfile::new().set_data_source_type(DataSourceType::default()/* use setters */);
+    /// ```
     pub fn set_data_source_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -30434,6 +39675,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [data_source_type][crate::model::FileStoreDataProfile::data_source_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = FileStoreDataProfile::new().set_or_clear_data_source_type(Some(DataSourceType::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_data_source_type(None::<DataSourceType>);
+    /// ```
     pub fn set_or_clear_data_source_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataSourceType>,
@@ -30443,6 +39692,12 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [project_data_profile][crate::model::FileStoreDataProfile::project_data_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_project_data_profile("example");
+    /// ```
     pub fn set_project_data_profile<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -30452,12 +39707,24 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [project_id][crate::model::FileStoreDataProfile::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [file_store_location][crate::model::FileStoreDataProfile::file_store_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_file_store_location("example");
+    /// ```
     pub fn set_file_store_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -30467,6 +39734,12 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [data_storage_locations][crate::model::FileStoreDataProfile::data_storage_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_data_storage_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_data_storage_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30478,24 +39751,49 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [location_type][crate::model::FileStoreDataProfile::location_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_location_type("example");
+    /// ```
     pub fn set_location_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_type = v.into();
         self
     }
 
     /// Sets the value of [file_store_path][crate::model::FileStoreDataProfile::file_store_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_file_store_path("example");
+    /// ```
     pub fn set_file_store_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_store_path = v.into();
         self
     }
 
     /// Sets the value of [full_resource][crate::model::FileStoreDataProfile::full_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_full_resource("example");
+    /// ```
     pub fn set_full_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource = v.into();
         self
     }
 
     /// Sets the value of [config_snapshot][crate::model::FileStoreDataProfile::config_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// let x = FileStoreDataProfile::new().set_config_snapshot(DataProfileConfigSnapshot::default()/* use setters */);
+    /// ```
     pub fn set_config_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileConfigSnapshot>,
@@ -30505,6 +39803,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [config_snapshot][crate::model::FileStoreDataProfile::config_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataProfileConfigSnapshot;
+    /// let x = FileStoreDataProfile::new().set_or_clear_config_snapshot(Some(DataProfileConfigSnapshot::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_config_snapshot(None::<DataProfileConfigSnapshot>);
+    /// ```
     pub fn set_or_clear_config_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProfileConfigSnapshot>,
@@ -30514,6 +39820,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [profile_status][crate::model::FileStoreDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = FileStoreDataProfile::new().set_profile_status(ProfileStatus::default()/* use setters */);
+    /// ```
     pub fn set_profile_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -30523,6 +39836,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [profile_status][crate::model::FileStoreDataProfile::profile_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ProfileStatus;
+    /// let x = FileStoreDataProfile::new().set_or_clear_profile_status(Some(ProfileStatus::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_profile_status(None::<ProfileStatus>);
+    /// ```
     pub fn set_or_clear_profile_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProfileStatus>,
@@ -30532,6 +39853,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [state][crate::model::FileStoreDataProfile::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::file_store_data_profile::State;
+    /// let x0 = FileStoreDataProfile::new().set_state(State::Running);
+    /// let x1 = FileStoreDataProfile::new().set_state(State::Done);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::file_store_data_profile::State>>(
         mut self,
         v: T,
@@ -30541,6 +39870,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [profile_last_generated][crate::model::FileStoreDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_profile_last_generated(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_profile_last_generated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30550,6 +39886,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [profile_last_generated][crate::model::FileStoreDataProfile::profile_last_generated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_or_clear_profile_last_generated(Some(Timestamp::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_profile_last_generated(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_profile_last_generated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30559,6 +39903,15 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [resource_visibility][crate::model::FileStoreDataProfile::resource_visibility].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::ResourceVisibility;
+    /// let x0 = FileStoreDataProfile::new().set_resource_visibility(ResourceVisibility::Public);
+    /// let x1 = FileStoreDataProfile::new().set_resource_visibility(ResourceVisibility::Inconclusive);
+    /// let x2 = FileStoreDataProfile::new().set_resource_visibility(ResourceVisibility::Restricted);
+    /// ```
     pub fn set_resource_visibility<T: std::convert::Into<crate::model::ResourceVisibility>>(
         mut self,
         v: T,
@@ -30568,6 +39921,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::FileStoreDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = FileStoreDataProfile::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -30577,6 +39937,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::FileStoreDataProfile::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = FileStoreDataProfile::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -30586,6 +39954,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [data_risk_level][crate::model::FileStoreDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = FileStoreDataProfile::new().set_data_risk_level(DataRiskLevel::default()/* use setters */);
+    /// ```
     pub fn set_data_risk_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -30595,6 +39970,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [data_risk_level][crate::model::FileStoreDataProfile::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = FileStoreDataProfile::new().set_or_clear_data_risk_level(Some(DataRiskLevel::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_data_risk_level(None::<DataRiskLevel>);
+    /// ```
     pub fn set_or_clear_data_risk_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -30604,6 +39987,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [create_time][crate::model::FileStoreDataProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30613,6 +40003,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::FileStoreDataProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30622,6 +40020,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [last_modified_time][crate::model::FileStoreDataProfile::last_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_last_modified_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_modified_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30631,6 +40036,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [last_modified_time][crate::model::FileStoreDataProfile::last_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use wkt::Timestamp;
+    /// let x = FileStoreDataProfile::new().set_or_clear_last_modified_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_last_modified_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_modified_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -30640,6 +40053,17 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [file_cluster_summaries][crate::model::FileStoreDataProfile::file_cluster_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// let x = FileStoreDataProfile::new()
+    ///     .set_file_cluster_summaries([
+    ///         FileClusterSummary::default()/* use setters */,
+    ///         FileClusterSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_cluster_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30651,6 +40075,16 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [resource_attributes][crate::model::FileStoreDataProfile::resource_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::Value;
+    /// let x = FileStoreDataProfile::new().set_resource_attributes([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_resource_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -30663,6 +40097,15 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [resource_labels][crate::model::FileStoreDataProfile::resource_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -30675,6 +40118,17 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [file_store_info_type_summaries][crate::model::FileStoreDataProfile::file_store_info_type_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreInfoTypeSummary;
+    /// let x = FileStoreDataProfile::new()
+    ///     .set_file_store_info_type_summaries([
+    ///         FileStoreInfoTypeSummary::default()/* use setters */,
+    ///         FileStoreInfoTypeSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_store_info_type_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30686,6 +40140,13 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [sample_findings_table][crate::model::FileStoreDataProfile::sample_findings_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = FileStoreDataProfile::new().set_sample_findings_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_sample_findings_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -30695,6 +40156,14 @@ impl FileStoreDataProfile {
     }
 
     /// Sets or clears the value of [sample_findings_table][crate::model::FileStoreDataProfile::sample_findings_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = FileStoreDataProfile::new().set_or_clear_sample_findings_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = FileStoreDataProfile::new().set_or_clear_sample_findings_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_sample_findings_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -30704,12 +40173,29 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [file_store_is_empty][crate::model::FileStoreDataProfile::file_store_is_empty].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = FileStoreDataProfile::new().set_file_store_is_empty(true);
+    /// ```
     pub fn set_file_store_is_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.file_store_is_empty = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::FileStoreDataProfile::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::Tag;
+    /// let x = FileStoreDataProfile::new()
+    ///     .set_tags([
+    ///         Tag::default()/* use setters */,
+    ///         Tag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30721,6 +40207,17 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [related_resources][crate::model::FileStoreDataProfile::related_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::RelatedResource;
+    /// let x = FileStoreDataProfile::new()
+    ///     .set_related_resources([
+    ///         RelatedResource::default()/* use setters */,
+    ///         RelatedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30732,6 +40229,17 @@ impl FileStoreDataProfile {
     }
 
     /// Sets the value of [domains][crate::model::FileStoreDataProfile::domains].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// use google_cloud_privacy_dlp_v2::model::Domain;
+    /// let x = FileStoreDataProfile::new()
+    ///     .set_domains([
+    ///         Domain::default()/* use setters */,
+    ///         Domain::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30918,6 +40426,12 @@ impl Tag {
     }
 
     /// Sets the value of [namespaced_tag_value][crate::model::Tag::namespaced_tag_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Tag;
+    /// let x = Tag::new().set_namespaced_tag_value("example");
+    /// ```
     pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -30927,12 +40441,24 @@ impl Tag {
     }
 
     /// Sets the value of [key][crate::model::Tag::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Tag;
+    /// let x = Tag::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Tag::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Tag;
+    /// let x = Tag::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -30962,6 +40488,17 @@ impl TagFilters {
     }
 
     /// Sets the value of [tag_filters][crate::model::TagFilters::tag_filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TagFilters;
+    /// use google_cloud_privacy_dlp_v2::model::TagFilter;
+    /// let x = TagFilters::new()
+    ///     .set_tag_filters([
+    ///         TagFilter::default()/* use setters */,
+    ///         TagFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tag_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -30999,6 +40536,13 @@ impl TagFilter {
     ///
     /// Note that all the setters affecting `format` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TagFilter;
+    /// use google_cloud_privacy_dlp_v2::model::tag_filter::Format;
+    /// let x = TagFilter::new().set_format(Some(Format::NamespacedTagValue("example".to_string())));
+    /// ```
     pub fn set_format<
         T: std::convert::Into<std::option::Option<crate::model::tag_filter::Format>>,
     >(
@@ -31025,6 +40569,14 @@ impl TagFilter {
     ///
     /// Note that all the setters affecting `format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TagFilter;
+    /// let x = TagFilter::new().set_namespaced_tag_value("example");
+    /// assert!(x.namespaced_tag_value().is_some());
+    /// assert!(x.namespaced_tag_key().is_none());
+    /// ```
     pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -31051,6 +40603,14 @@ impl TagFilter {
     ///
     /// Note that all the setters affecting `format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TagFilter;
+    /// let x = TagFilter::new().set_namespaced_tag_key("example");
+    /// assert!(x.namespaced_tag_key().is_some());
+    /// assert!(x.namespaced_tag_value().is_none());
+    /// ```
     pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -31109,6 +40669,12 @@ impl RelatedResource {
     }
 
     /// Sets the value of [full_resource][crate::model::RelatedResource::full_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RelatedResource;
+    /// let x = RelatedResource::new().set_full_resource("example");
+    /// ```
     pub fn set_full_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.full_resource = v.into();
         self
@@ -31137,6 +40703,13 @@ impl FileStoreInfoTypeSummary {
     }
 
     /// Sets the value of [info_type][crate::model::FileStoreInfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreInfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = FileStoreInfoTypeSummary::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -31146,6 +40719,14 @@ impl FileStoreInfoTypeSummary {
     }
 
     /// Sets or clears the value of [info_type][crate::model::FileStoreInfoTypeSummary::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileStoreInfoTypeSummary;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = FileStoreInfoTypeSummary::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = FileStoreInfoTypeSummary::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -31177,6 +40758,12 @@ impl FileExtensionInfo {
     }
 
     /// Sets the value of [file_extension][crate::model::FileExtensionInfo::file_extension].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileExtensionInfo;
+    /// let x = FileExtensionInfo::new().set_file_extension("example");
+    /// ```
     pub fn set_file_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_extension = v.into();
         self
@@ -31234,6 +40821,13 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [file_cluster_type][crate::model::FileClusterSummary::file_cluster_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FileClusterType;
+    /// let x = FileClusterSummary::new().set_file_cluster_type(FileClusterType::default()/* use setters */);
+    /// ```
     pub fn set_file_cluster_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FileClusterType>,
@@ -31243,6 +40837,14 @@ impl FileClusterSummary {
     }
 
     /// Sets or clears the value of [file_cluster_type][crate::model::FileClusterSummary::file_cluster_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FileClusterType;
+    /// let x = FileClusterSummary::new().set_or_clear_file_cluster_type(Some(FileClusterType::default()/* use setters */));
+    /// let x = FileClusterSummary::new().set_or_clear_file_cluster_type(None::<FileClusterType>);
+    /// ```
     pub fn set_or_clear_file_cluster_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FileClusterType>,
@@ -31252,6 +40854,17 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [file_store_info_type_summaries][crate::model::FileClusterSummary::file_store_info_type_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreInfoTypeSummary;
+    /// let x = FileClusterSummary::new()
+    ///     .set_file_store_info_type_summaries([
+    ///         FileStoreInfoTypeSummary::default()/* use setters */,
+    ///         FileStoreInfoTypeSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_store_info_type_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31263,6 +40876,13 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::FileClusterSummary::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = FileClusterSummary::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -31272,6 +40892,14 @@ impl FileClusterSummary {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::FileClusterSummary::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = FileClusterSummary::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = FileClusterSummary::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -31281,6 +40909,13 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [data_risk_level][crate::model::FileClusterSummary::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = FileClusterSummary::new().set_data_risk_level(DataRiskLevel::default()/* use setters */);
+    /// ```
     pub fn set_data_risk_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -31290,6 +40925,14 @@ impl FileClusterSummary {
     }
 
     /// Sets or clears the value of [data_risk_level][crate::model::FileClusterSummary::data_risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::DataRiskLevel;
+    /// let x = FileClusterSummary::new().set_or_clear_data_risk_level(Some(DataRiskLevel::default()/* use setters */));
+    /// let x = FileClusterSummary::new().set_or_clear_data_risk_level(None::<DataRiskLevel>);
+    /// ```
     pub fn set_or_clear_data_risk_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRiskLevel>,
@@ -31299,6 +40942,17 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [errors][crate::model::FileClusterSummary::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = FileClusterSummary::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31310,6 +40964,17 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [file_extensions_scanned][crate::model::FileClusterSummary::file_extensions_scanned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FileExtensionInfo;
+    /// let x = FileClusterSummary::new()
+    ///     .set_file_extensions_scanned([
+    ///         FileExtensionInfo::default()/* use setters */,
+    ///         FileExtensionInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_extensions_scanned<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31321,6 +40986,17 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [file_extensions_seen][crate::model::FileClusterSummary::file_extensions_seen].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// use google_cloud_privacy_dlp_v2::model::FileExtensionInfo;
+    /// let x = FileClusterSummary::new()
+    ///     .set_file_extensions_seen([
+    ///         FileExtensionInfo::default()/* use setters */,
+    ///         FileExtensionInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_extensions_seen<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31332,6 +41008,12 @@ impl FileClusterSummary {
     }
 
     /// Sets the value of [no_files_exist][crate::model::FileClusterSummary::no_files_exist].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterSummary;
+    /// let x = FileClusterSummary::new().set_no_files_exist(true);
+    /// ```
     pub fn set_no_files_exist<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.no_files_exist = v.into();
         self
@@ -31361,6 +41043,12 @@ impl GetProjectDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProjectDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetProjectDataProfileRequest;
+    /// let x = GetProjectDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31390,6 +41078,12 @@ impl GetFileStoreDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFileStoreDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetFileStoreDataProfileRequest;
+    /// let x = GetFileStoreDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31496,30 +41190,60 @@ impl ListFileStoreDataProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFileStoreDataProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
+    /// let x = ListFileStoreDataProfilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFileStoreDataProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
+    /// let x = ListFileStoreDataProfilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFileStoreDataProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
+    /// let x = ListFileStoreDataProfilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFileStoreDataProfilesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
+    /// let x = ListFileStoreDataProfilesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFileStoreDataProfilesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesRequest;
+    /// let x = ListFileStoreDataProfilesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -31552,6 +41276,17 @@ impl ListFileStoreDataProfilesResponse {
     }
 
     /// Sets the value of [file_store_data_profiles][crate::model::ListFileStoreDataProfilesResponse::file_store_data_profiles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesResponse;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = ListFileStoreDataProfilesResponse::new()
+    ///     .set_file_store_data_profiles([
+    ///         FileStoreDataProfile::default()/* use setters */,
+    ///         FileStoreDataProfile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_file_store_data_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -31563,6 +41298,12 @@ impl ListFileStoreDataProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFileStoreDataProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListFileStoreDataProfilesResponse;
+    /// let x = ListFileStoreDataProfilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -31605,6 +41346,12 @@ impl DeleteFileStoreDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFileStoreDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteFileStoreDataProfileRequest;
+    /// let x = DeleteFileStoreDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31634,6 +41381,12 @@ impl GetTableDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTableDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetTableDataProfileRequest;
+    /// let x = GetTableDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31663,6 +41416,12 @@ impl GetColumnDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetColumnDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetColumnDataProfileRequest;
+    /// let x = GetColumnDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -31692,6 +41451,13 @@ impl DataProfilePubSubCondition {
     }
 
     /// Sets the value of [expressions][crate::model::DataProfilePubSubCondition::expressions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubCondition;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubExpressions;
+    /// let x = DataProfilePubSubCondition::new().set_expressions(PubSubExpressions::default()/* use setters */);
+    /// ```
     pub fn set_expressions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_pub_sub_condition::PubSubExpressions>,
@@ -31701,6 +41467,14 @@ impl DataProfilePubSubCondition {
     }
 
     /// Sets or clears the value of [expressions][crate::model::DataProfilePubSubCondition::expressions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubCondition;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubExpressions;
+    /// let x = DataProfilePubSubCondition::new().set_or_clear_expressions(Some(PubSubExpressions::default()/* use setters */));
+    /// let x = DataProfilePubSubCondition::new().set_or_clear_expressions(None::<PubSubExpressions>);
+    /// ```
     pub fn set_or_clear_expressions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::data_profile_pub_sub_condition::PubSubExpressions>,
@@ -31742,6 +41516,16 @@ pub mod data_profile_pub_sub_condition {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubCondition;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::ProfileScoreBucket;
+        /// let x0 = PubSubCondition::new().set_value(Some(
+        ///     google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::pub_sub_condition::Value::MinimumRiskScore(ProfileScoreBucket::High)));
+        /// let x1 = PubSubCondition::new().set_value(Some(
+        ///     google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::pub_sub_condition::Value::MinimumRiskScore(ProfileScoreBucket::MediumOrHigh)));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<
@@ -31775,6 +41559,18 @@ pub mod data_profile_pub_sub_condition {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubCondition;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::ProfileScoreBucket;
+        /// let x0 = PubSubCondition::new().set_minimum_risk_score(ProfileScoreBucket::High);
+        /// let x1 = PubSubCondition::new().set_minimum_risk_score(ProfileScoreBucket::MediumOrHigh);
+        /// assert!(x0.minimum_risk_score().is_some());
+        /// assert!(x0.minimum_sensitivity_score().is_none());
+        /// assert!(x1.minimum_risk_score().is_some());
+        /// assert!(x1.minimum_sensitivity_score().is_none());
+        /// ```
         pub fn set_minimum_risk_score<
             T: std::convert::Into<crate::model::data_profile_pub_sub_condition::ProfileScoreBucket>,
         >(
@@ -31808,6 +41604,18 @@ pub mod data_profile_pub_sub_condition {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubCondition;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::ProfileScoreBucket;
+        /// let x0 = PubSubCondition::new().set_minimum_sensitivity_score(ProfileScoreBucket::High);
+        /// let x1 = PubSubCondition::new().set_minimum_sensitivity_score(ProfileScoreBucket::MediumOrHigh);
+        /// assert!(x0.minimum_sensitivity_score().is_some());
+        /// assert!(x0.minimum_risk_score().is_none());
+        /// assert!(x1.minimum_sensitivity_score().is_some());
+        /// assert!(x1.minimum_risk_score().is_none());
+        /// ```
         pub fn set_minimum_sensitivity_score<
             T: std::convert::Into<crate::model::data_profile_pub_sub_condition::ProfileScoreBucket>,
         >(
@@ -31851,13 +41659,13 @@ pub mod data_profile_pub_sub_condition {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PubSubExpressions {
-
+    
         /// The operator to apply to the collection of conditions.
         pub logical_operator: crate::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator,
-
+    
         /// Conditions to apply to the expression.
         pub conditions: std::vec::Vec<crate::model::data_profile_pub_sub_condition::PubSubCondition>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -31867,12 +41675,31 @@ pub mod data_profile_pub_sub_condition {
         }
 
         /// Sets the value of [logical_operator][crate::model::data_profile_pub_sub_condition::PubSubExpressions::logical_operator].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubExpressions;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator;
+        /// let x0 = PubSubExpressions::new().set_logical_operator(PubSubLogicalOperator::Or);
+        /// let x1 = PubSubExpressions::new().set_logical_operator(PubSubLogicalOperator::And);
+        /// ```
         pub fn set_logical_operator<T: std::convert::Into<crate::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator>>(mut self, v: T) -> Self{
             self.logical_operator = v.into();
             self
         }
 
         /// Sets the value of [conditions][crate::model::data_profile_pub_sub_condition::PubSubExpressions::conditions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubExpressions;
+        /// use google_cloud_privacy_dlp_v2::model::data_profile_pub_sub_condition::PubSubCondition;
+        /// let x = PubSubExpressions::new()
+        ///     .set_conditions([
+        ///         PubSubCondition::default()/* use setters */,
+        ///         PubSubCondition::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_conditions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -32193,6 +42020,13 @@ impl DataProfilePubSubMessage {
     }
 
     /// Sets the value of [profile][crate::model::DataProfilePubSubMessage::profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubMessage;
+    /// use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = DataProfilePubSubMessage::new().set_profile(TableDataProfile::default()/* use setters */);
+    /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableDataProfile>,
@@ -32202,6 +42036,14 @@ impl DataProfilePubSubMessage {
     }
 
     /// Sets or clears the value of [profile][crate::model::DataProfilePubSubMessage::profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubMessage;
+    /// use google_cloud_privacy_dlp_v2::model::TableDataProfile;
+    /// let x = DataProfilePubSubMessage::new().set_or_clear_profile(Some(TableDataProfile::default()/* use setters */));
+    /// let x = DataProfilePubSubMessage::new().set_or_clear_profile(None::<TableDataProfile>);
+    /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableDataProfile>,
@@ -32211,6 +42053,13 @@ impl DataProfilePubSubMessage {
     }
 
     /// Sets the value of [file_store_profile][crate::model::DataProfilePubSubMessage::file_store_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubMessage;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = DataProfilePubSubMessage::new().set_file_store_profile(FileStoreDataProfile::default()/* use setters */);
+    /// ```
     pub fn set_file_store_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FileStoreDataProfile>,
@@ -32220,6 +42069,14 @@ impl DataProfilePubSubMessage {
     }
 
     /// Sets or clears the value of [file_store_profile][crate::model::DataProfilePubSubMessage::file_store_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubMessage;
+    /// use google_cloud_privacy_dlp_v2::model::FileStoreDataProfile;
+    /// let x = DataProfilePubSubMessage::new().set_or_clear_file_store_profile(Some(FileStoreDataProfile::default()/* use setters */));
+    /// let x = DataProfilePubSubMessage::new().set_or_clear_file_store_profile(None::<FileStoreDataProfile>);
+    /// ```
     pub fn set_or_clear_file_store_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FileStoreDataProfile>,
@@ -32229,6 +42086,15 @@ impl DataProfilePubSubMessage {
     }
 
     /// Sets the value of [event][crate::model::DataProfilePubSubMessage::event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataProfilePubSubMessage;
+    /// use google_cloud_privacy_dlp_v2::model::data_profile_action::EventType;
+    /// let x0 = DataProfilePubSubMessage::new().set_event(EventType::NewProfile);
+    /// let x1 = DataProfilePubSubMessage::new().set_event(EventType::ChangedProfile);
+    /// let x2 = DataProfilePubSubMessage::new().set_event(EventType::ScoreIncreased);
+    /// ```
     pub fn set_event<T: std::convert::Into<crate::model::data_profile_action::EventType>>(
         mut self,
         v: T,
@@ -32271,12 +42137,25 @@ impl CreateConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateConnectionRequest;
+    /// let x = CreateConnectionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateConnectionRequest;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = CreateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
+    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -32286,6 +42165,14 @@ impl CreateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CreateConnectionRequest;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = CreateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
+    /// let x = CreateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
+    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -32318,6 +42205,12 @@ impl GetConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::GetConnectionRequest;
+    /// let x = GetConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32360,24 +42253,48 @@ impl ListConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConnectionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -32420,24 +42337,48 @@ impl SearchConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsRequest;
+    /// let x = SearchConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsRequest;
+    /// let x = SearchConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsRequest;
+    /// let x = SearchConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::SearchConnectionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsRequest;
+    /// let x = SearchConnectionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -32470,6 +42411,17 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsResponse;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = ListConnectionsResponse::new()
+    ///     .set_connections([
+    ///         Connection::default()/* use setters */,
+    ///         Connection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32481,6 +42433,12 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ListConnectionsResponse;
+    /// let x = ListConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -32529,6 +42487,17 @@ impl SearchConnectionsResponse {
     }
 
     /// Sets the value of [connections][crate::model::SearchConnectionsResponse::connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsResponse;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = SearchConnectionsResponse::new()
+    ///     .set_connections([
+    ///         Connection::default()/* use setters */,
+    ///         Connection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32540,6 +42509,12 @@ impl SearchConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SearchConnectionsResponse;
+    /// let x = SearchConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -32589,12 +42564,25 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
+    /// let x = UpdateConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = UpdateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
+    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -32604,6 +42592,14 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
+    /// use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
+    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
+    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -32613,6 +42609,13 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32622,6 +42625,14 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::UpdateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -32654,6 +42665,12 @@ impl DeleteConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteConnectionRequest;
+    /// let x = DeleteConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -32694,18 +42711,44 @@ impl Connection {
     }
 
     /// Sets the value of [name][crate::model::Connection::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Connection;
+    /// let x = Connection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Connection::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Connection;
+    /// use google_cloud_privacy_dlp_v2::model::ConnectionState;
+    /// let x0 = Connection::new().set_state(ConnectionState::MissingCredentials);
+    /// let x1 = Connection::new().set_state(ConnectionState::Available);
+    /// let x2 = Connection::new().set_state(ConnectionState::Error);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::ConnectionState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::Connection::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Connection;
+    /// use google_cloud_privacy_dlp_v2::model::Error;
+    /// let x = Connection::new()
+    ///     .set_errors([
+    ///         Error::default()/* use setters */,
+    ///         Error::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -32720,6 +42763,14 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Connection;
+    /// use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// let x = Connection::new().set_properties(Some(
+    ///     google_cloud_privacy_dlp_v2::model::connection::Properties::CloudSql(CloudSqlProperties::default().into())));
+    /// ```
     pub fn set_properties<
         T: std::convert::Into<std::option::Option<crate::model::connection::Properties>>,
     >(
@@ -32748,6 +42799,14 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Connection;
+    /// use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// let x = Connection::new().set_cloud_sql(CloudSqlProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql().is_some());
+    /// ```
     pub fn set_cloud_sql<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlProperties>>,
     >(
@@ -32803,12 +42862,24 @@ impl SecretManagerCredential {
     }
 
     /// Sets the value of [username][crate::model::SecretManagerCredential::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SecretManagerCredential;
+    /// let x = SecretManagerCredential::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password_secret_version_name][crate::model::SecretManagerCredential::password_secret_version_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SecretManagerCredential;
+    /// let x = SecretManagerCredential::new().set_password_secret_version_name("example");
+    /// ```
     pub fn set_password_secret_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -32882,18 +42953,38 @@ impl CloudSqlProperties {
     }
 
     /// Sets the value of [connection_name][crate::model::CloudSqlProperties::connection_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// let x = CloudSqlProperties::new().set_connection_name("example");
+    /// ```
     pub fn set_connection_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_name = v.into();
         self
     }
 
     /// Sets the value of [max_connections][crate::model::CloudSqlProperties::max_connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// let x = CloudSqlProperties::new().set_max_connections(42);
+    /// ```
     pub fn set_max_connections<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_connections = v.into();
         self
     }
 
     /// Sets the value of [database_engine][crate::model::CloudSqlProperties::database_engine].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// use google_cloud_privacy_dlp_v2::model::cloud_sql_properties::DatabaseEngine;
+    /// let x0 = CloudSqlProperties::new().set_database_engine(DatabaseEngine::Mysql);
+    /// let x1 = CloudSqlProperties::new().set_database_engine(DatabaseEngine::Postgres);
+    /// ```
     pub fn set_database_engine<
         T: std::convert::Into<crate::model::cloud_sql_properties::DatabaseEngine>,
     >(
@@ -32908,6 +42999,14 @@ impl CloudSqlProperties {
     ///
     /// Note that all the setters affecting `credential` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// use google_cloud_privacy_dlp_v2::model::SecretManagerCredential;
+    /// let x = CloudSqlProperties::new().set_credential(Some(
+    ///     google_cloud_privacy_dlp_v2::model::cloud_sql_properties::Credential::UsernamePassword(SecretManagerCredential::default().into())));
+    /// ```
     pub fn set_credential<
         T: std::convert::Into<std::option::Option<crate::model::cloud_sql_properties::Credential>>,
     >(
@@ -32938,6 +43037,15 @@ impl CloudSqlProperties {
     ///
     /// Note that all the setters affecting `credential` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// use google_cloud_privacy_dlp_v2::model::SecretManagerCredential;
+    /// let x = CloudSqlProperties::new().set_username_password(SecretManagerCredential::default()/* use setters */);
+    /// assert!(x.username_password().is_some());
+    /// assert!(x.cloud_sql_iam().is_none());
+    /// ```
     pub fn set_username_password<
         T: std::convert::Into<std::boxed::Box<crate::model::SecretManagerCredential>>,
     >(
@@ -32970,6 +43078,15 @@ impl CloudSqlProperties {
     ///
     /// Note that all the setters affecting `credential` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudSqlProperties;
+    /// use google_cloud_privacy_dlp_v2::model::CloudSqlIamCredential;
+    /// let x = CloudSqlProperties::new().set_cloud_sql_iam(CloudSqlIamCredential::default()/* use setters */);
+    /// assert!(x.cloud_sql_iam().is_some());
+    /// assert!(x.username_password().is_none());
+    /// ```
     pub fn set_cloud_sql_iam<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlIamCredential>>,
     >(
@@ -33154,6 +43271,12 @@ impl DeleteTableDataProfileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTableDataProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DeleteTableDataProfileRequest;
+    /// let x = DeleteTableDataProfileRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -33188,6 +43311,12 @@ impl DataSourceType {
     }
 
     /// Sets the value of [data_source][crate::model::DataSourceType::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DataSourceType;
+    /// let x = DataSourceType::new().set_data_source("example");
+    /// ```
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
         self
@@ -33219,6 +43348,18 @@ impl FileClusterType {
     ///
     /// Note that all the setters affecting `file_cluster_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterType;
+    /// use google_cloud_privacy_dlp_v2::model::file_cluster_type::Cluster;
+    /// let x0 = FileClusterType::new().set_file_cluster_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_cluster_type::FileClusterType::Cluster(Cluster::Unknown)));
+    /// let x1 = FileClusterType::new().set_file_cluster_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_cluster_type::FileClusterType::Cluster(Cluster::Text)));
+    /// let x2 = FileClusterType::new().set_file_cluster_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::file_cluster_type::FileClusterType::Cluster(Cluster::StructuredData)));
+    /// ```
     pub fn set_file_cluster_type<
         T: std::convert::Into<std::option::Option<crate::model::file_cluster_type::FileClusterType>>,
     >(
@@ -33247,6 +43388,18 @@ impl FileClusterType {
     ///
     /// Note that all the setters affecting `file_cluster_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FileClusterType;
+    /// use google_cloud_privacy_dlp_v2::model::file_cluster_type::Cluster;
+    /// let x0 = FileClusterType::new().set_cluster(Cluster::Unknown);
+    /// let x1 = FileClusterType::new().set_cluster(Cluster::Text);
+    /// let x2 = FileClusterType::new().set_cluster(Cluster::StructuredData);
+    /// assert!(x0.cluster().is_some());
+    /// assert!(x1.cluster().is_some());
+    /// assert!(x2.cluster().is_some());
+    /// ```
     pub fn set_cluster<T: std::convert::Into<crate::model::file_cluster_type::Cluster>>(
         mut self,
         v: T,
@@ -33490,6 +43643,13 @@ impl ProcessingLocation {
     }
 
     /// Sets the value of [image_fallback_location][crate::model::ProcessingLocation::image_fallback_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+    /// let x = ProcessingLocation::new().set_image_fallback_location(ImageFallbackLocation::default()/* use setters */);
+    /// ```
     pub fn set_image_fallback_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::processing_location::ImageFallbackLocation>,
@@ -33499,6 +43659,14 @@ impl ProcessingLocation {
     }
 
     /// Sets or clears the value of [image_fallback_location][crate::model::ProcessingLocation::image_fallback_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+    /// let x = ProcessingLocation::new().set_or_clear_image_fallback_location(Some(ImageFallbackLocation::default()/* use setters */));
+    /// let x = ProcessingLocation::new().set_or_clear_image_fallback_location(None::<ImageFallbackLocation>);
+    /// ```
     pub fn set_or_clear_image_fallback_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processing_location::ImageFallbackLocation>,
@@ -33508,6 +43676,13 @@ impl ProcessingLocation {
     }
 
     /// Sets the value of [document_fallback_location][crate::model::ProcessingLocation::document_fallback_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+    /// let x = ProcessingLocation::new().set_document_fallback_location(DocumentFallbackLocation::default()/* use setters */);
+    /// ```
     pub fn set_document_fallback_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::processing_location::DocumentFallbackLocation>,
@@ -33517,6 +43692,14 @@ impl ProcessingLocation {
     }
 
     /// Sets or clears the value of [document_fallback_location][crate::model::ProcessingLocation::document_fallback_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ProcessingLocation;
+    /// use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+    /// let x = ProcessingLocation::new().set_or_clear_document_fallback_location(Some(DocumentFallbackLocation::default()/* use setters */));
+    /// let x = ProcessingLocation::new().set_or_clear_document_fallback_location(None::<DocumentFallbackLocation>);
+    /// ```
     pub fn set_or_clear_document_fallback_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::processing_location::DocumentFallbackLocation>,
@@ -33600,6 +43783,13 @@ pub mod processing_location {
         }
 
         /// Sets the value of [multi_region_processing][crate::model::processing_location::ImageFallbackLocation::multi_region_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::MultiRegionProcessing;
+        /// let x = ImageFallbackLocation::new().set_multi_region_processing(MultiRegionProcessing::default()/* use setters */);
+        /// ```
         pub fn set_multi_region_processing<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
@@ -33609,6 +43799,14 @@ pub mod processing_location {
         }
 
         /// Sets or clears the value of [multi_region_processing][crate::model::processing_location::ImageFallbackLocation::multi_region_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::MultiRegionProcessing;
+        /// let x = ImageFallbackLocation::new().set_or_clear_multi_region_processing(Some(MultiRegionProcessing::default()/* use setters */));
+        /// let x = ImageFallbackLocation::new().set_or_clear_multi_region_processing(None::<MultiRegionProcessing>);
+        /// ```
         pub fn set_or_clear_multi_region_processing<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
@@ -33618,6 +43816,13 @@ pub mod processing_location {
         }
 
         /// Sets the value of [global_processing][crate::model::processing_location::ImageFallbackLocation::global_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::GlobalProcessing;
+        /// let x = ImageFallbackLocation::new().set_global_processing(GlobalProcessing::default()/* use setters */);
+        /// ```
         pub fn set_global_processing<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
@@ -33627,6 +43832,14 @@ pub mod processing_location {
         }
 
         /// Sets or clears the value of [global_processing][crate::model::processing_location::ImageFallbackLocation::global_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::ImageFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::GlobalProcessing;
+        /// let x = ImageFallbackLocation::new().set_or_clear_global_processing(Some(GlobalProcessing::default()/* use setters */));
+        /// let x = ImageFallbackLocation::new().set_or_clear_global_processing(None::<GlobalProcessing>);
+        /// ```
         pub fn set_or_clear_global_processing<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
@@ -33666,6 +43879,13 @@ pub mod processing_location {
         }
 
         /// Sets the value of [multi_region_processing][crate::model::processing_location::DocumentFallbackLocation::multi_region_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::MultiRegionProcessing;
+        /// let x = DocumentFallbackLocation::new().set_multi_region_processing(MultiRegionProcessing::default()/* use setters */);
+        /// ```
         pub fn set_multi_region_processing<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
@@ -33675,6 +43895,14 @@ pub mod processing_location {
         }
 
         /// Sets or clears the value of [multi_region_processing][crate::model::processing_location::DocumentFallbackLocation::multi_region_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::MultiRegionProcessing;
+        /// let x = DocumentFallbackLocation::new().set_or_clear_multi_region_processing(Some(MultiRegionProcessing::default()/* use setters */));
+        /// let x = DocumentFallbackLocation::new().set_or_clear_multi_region_processing(None::<MultiRegionProcessing>);
+        /// ```
         pub fn set_or_clear_multi_region_processing<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::MultiRegionProcessing>,
@@ -33684,6 +43912,13 @@ pub mod processing_location {
         }
 
         /// Sets the value of [global_processing][crate::model::processing_location::DocumentFallbackLocation::global_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::GlobalProcessing;
+        /// let x = DocumentFallbackLocation::new().set_global_processing(GlobalProcessing::default()/* use setters */);
+        /// ```
         pub fn set_global_processing<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
@@ -33693,6 +43928,14 @@ pub mod processing_location {
         }
 
         /// Sets or clears the value of [global_processing][crate::model::processing_location::DocumentFallbackLocation::global_processing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::processing_location::DocumentFallbackLocation;
+        /// use google_cloud_privacy_dlp_v2::model::processing_location::GlobalProcessing;
+        /// let x = DocumentFallbackLocation::new().set_or_clear_global_processing(Some(GlobalProcessing::default()/* use setters */));
+        /// let x = DocumentFallbackLocation::new().set_or_clear_global_processing(None::<GlobalProcessing>);
+        /// ```
         pub fn set_or_clear_global_processing<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::processing_location::GlobalProcessing>,
@@ -33727,6 +43970,17 @@ impl SaveToGcsFindingsOutput {
     }
 
     /// Sets the value of [findings][crate::model::SaveToGcsFindingsOutput::findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SaveToGcsFindingsOutput;
+    /// use google_cloud_privacy_dlp_v2::model::Finding;
+    /// let x = SaveToGcsFindingsOutput::new()
+    ///     .set_findings([
+    ///         Finding::default()/* use setters */,
+    ///         Finding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -33763,6 +44017,14 @@ impl Domain {
     }
 
     /// Sets the value of [category][crate::model::Domain::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Domain;
+    /// use google_cloud_privacy_dlp_v2::model::domain::Category;
+    /// let x0 = Domain::new().set_category(Category::Ai);
+    /// let x1 = Domain::new().set_category(Category::Code);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::domain::Category>>(
         mut self,
         v: T,
@@ -33772,6 +44034,17 @@ impl Domain {
     }
 
     /// Sets the value of [signals][crate::model::Domain::signals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Domain;
+    /// use google_cloud_privacy_dlp_v2::model::domain::Signal;
+    /// let x = Domain::new().set_signals([
+    ///     Signal::Model,
+    ///     Signal::TextEmbedding,
+    ///     Signal::VertexPlugin,
+    /// ]);
+    /// ```
     pub fn set_signals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -34125,18 +44398,37 @@ impl InfoType {
     }
 
     /// Sets the value of [name][crate::model::InfoType::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::InfoType::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = InfoType::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [sensitivity_score][crate::model::InfoType::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = InfoType::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -34146,6 +44438,14 @@ impl InfoType {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::InfoType::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = InfoType::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = InfoType::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -34178,6 +44478,15 @@ impl SensitivityScore {
     }
 
     /// Sets the value of [score][crate::model::SensitivityScore::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// use google_cloud_privacy_dlp_v2::model::sensitivity_score::SensitivityScoreLevel;
+    /// let x0 = SensitivityScore::new().set_score(SensitivityScoreLevel::SensitivityLow);
+    /// let x1 = SensitivityScore::new().set_score(SensitivityScoreLevel::SensitivityUnknown);
+    /// let x2 = SensitivityScore::new().set_score(SensitivityScoreLevel::SensitivityModerate);
+    /// ```
     pub fn set_score<
         T: std::convert::Into<crate::model::sensitivity_score::SensitivityScoreLevel>,
     >(
@@ -34378,12 +44687,25 @@ impl StoredType {
     }
 
     /// Sets the value of [name][crate::model::StoredType::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredType;
+    /// let x = StoredType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::StoredType::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredType;
+    /// use wkt::Timestamp;
+    /// let x = StoredType::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34393,6 +44715,14 @@ impl StoredType {
     }
 
     /// Sets or clears the value of [create_time][crate::model::StoredType::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StoredType;
+    /// use wkt::Timestamp;
+    /// let x = StoredType::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = StoredType::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -34454,6 +44784,13 @@ impl CustomInfoType {
     }
 
     /// Sets the value of [info_type][crate::model::CustomInfoType::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CustomInfoType::new().set_info_type(InfoType::default()/* use setters */);
+    /// ```
     pub fn set_info_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -34463,6 +44800,14 @@ impl CustomInfoType {
     }
 
     /// Sets or clears the value of [info_type][crate::model::CustomInfoType::info_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = CustomInfoType::new().set_or_clear_info_type(Some(InfoType::default()/* use setters */));
+    /// let x = CustomInfoType::new().set_or_clear_info_type(None::<InfoType>);
+    /// ```
     pub fn set_or_clear_info_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InfoType>,
@@ -34472,12 +44817,32 @@ impl CustomInfoType {
     }
 
     /// Sets the value of [likelihood][crate::model::CustomInfoType::likelihood].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+    /// let x0 = CustomInfoType::new().set_likelihood(Likelihood::VeryUnlikely);
+    /// let x1 = CustomInfoType::new().set_likelihood(Likelihood::Unlikely);
+    /// let x2 = CustomInfoType::new().set_likelihood(Likelihood::Possible);
+    /// ```
     pub fn set_likelihood<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.likelihood = v.into();
         self
     }
 
     /// Sets the value of [detection_rules][crate::model::CustomInfoType::detection_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::DetectionRule;
+    /// let x = CustomInfoType::new()
+    ///     .set_detection_rules([
+    ///         DetectionRule::default()/* use setters */,
+    ///         DetectionRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_detection_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -34489,6 +44854,13 @@ impl CustomInfoType {
     }
 
     /// Sets the value of [exclusion_type][crate::model::CustomInfoType::exclusion_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::ExclusionType;
+    /// let x0 = CustomInfoType::new().set_exclusion_type(ExclusionType::Exclude);
+    /// ```
     pub fn set_exclusion_type<
         T: std::convert::Into<crate::model::custom_info_type::ExclusionType>,
     >(
@@ -34500,6 +44872,13 @@ impl CustomInfoType {
     }
 
     /// Sets the value of [sensitivity_score][crate::model::CustomInfoType::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = CustomInfoType::new().set_sensitivity_score(SensitivityScore::default()/* use setters */);
+    /// ```
     pub fn set_sensitivity_score<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -34509,6 +44888,14 @@ impl CustomInfoType {
     }
 
     /// Sets or clears the value of [sensitivity_score][crate::model::CustomInfoType::sensitivity_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::SensitivityScore;
+    /// let x = CustomInfoType::new().set_or_clear_sensitivity_score(Some(SensitivityScore::default()/* use setters */));
+    /// let x = CustomInfoType::new().set_or_clear_sensitivity_score(None::<SensitivityScore>);
+    /// ```
     pub fn set_or_clear_sensitivity_score<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SensitivityScore>,
@@ -34521,6 +44908,14 @@ impl CustomInfoType {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+    /// let x = CustomInfoType::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::custom_info_type::Type::Dictionary(Dictionary::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::custom_info_type::Type>>,
     >(
@@ -34549,6 +44944,17 @@ impl CustomInfoType {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+    /// let x = CustomInfoType::new().set_dictionary(Dictionary::default()/* use setters */);
+    /// assert!(x.dictionary().is_some());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.surrogate_type().is_none());
+    /// assert!(x.stored_type().is_none());
+    /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
     >(
@@ -34578,6 +44984,17 @@ impl CustomInfoType {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+    /// let x = CustomInfoType::new().set_regex(Regex::default()/* use setters */);
+    /// assert!(x.regex().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.surrogate_type().is_none());
+    /// assert!(x.stored_type().is_none());
+    /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
     >(
@@ -34607,6 +45024,17 @@ impl CustomInfoType {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::SurrogateType;
+    /// let x = CustomInfoType::new().set_surrogate_type(SurrogateType::default()/* use setters */);
+    /// assert!(x.surrogate_type().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.stored_type().is_none());
+    /// ```
     pub fn set_surrogate_type<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::SurrogateType>>,
     >(
@@ -34635,6 +45063,17 @@ impl CustomInfoType {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::StoredType;
+    /// let x = CustomInfoType::new().set_stored_type(StoredType::default()/* use setters */);
+    /// assert!(x.stored_type().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.surrogate_type().is_none());
+    /// ```
     pub fn set_stored_type<T: std::convert::Into<std::boxed::Box<crate::model::StoredType>>>(
         mut self,
         v: T,
@@ -34697,6 +45136,14 @@ pub mod custom_info_type {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::WordList;
+        /// let x = Dictionary::new().set_source(Some(
+        ///     google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::Source::WordList(WordList::default().into())));
+        /// ```
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<crate::model::custom_info_type::dictionary::Source>,
@@ -34731,6 +45178,15 @@ pub mod custom_info_type {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::WordList;
+        /// let x = Dictionary::new().set_word_list(WordList::default()/* use setters */);
+        /// assert!(x.word_list().is_some());
+        /// assert!(x.cloud_storage_path().is_none());
+        /// ```
         pub fn set_word_list<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::custom_info_type::dictionary::WordList>,
@@ -34765,6 +45221,15 @@ pub mod custom_info_type {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::Dictionary;
+        /// use google_cloud_privacy_dlp_v2::model::CloudStoragePath;
+        /// let x = Dictionary::new().set_cloud_storage_path(CloudStoragePath::default()/* use setters */);
+        /// assert!(x.cloud_storage_path().is_some());
+        /// assert!(x.word_list().is_none());
+        /// ```
         pub fn set_cloud_storage_path<
             T: std::convert::Into<std::boxed::Box<crate::model::CloudStoragePath>>,
         >(
@@ -34807,6 +45272,12 @@ pub mod custom_info_type {
             }
 
             /// Sets the value of [words][crate::model::custom_info_type::dictionary::WordList::words].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::dictionary::WordList;
+            /// let x = WordList::new().set_words(["a", "b", "c"]);
+            /// ```
             pub fn set_words<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -34858,12 +45329,24 @@ pub mod custom_info_type {
         }
 
         /// Sets the value of [pattern][crate::model::custom_info_type::Regex::pattern].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+        /// let x = Regex::new().set_pattern("example");
+        /// ```
         pub fn set_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pattern = v.into();
             self
         }
 
         /// Sets the value of [group_indexes][crate::model::custom_info_type::Regex::group_indexes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+        /// let x = Regex::new().set_group_indexes([1, 2, 3]);
+        /// ```
         pub fn set_group_indexes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -34929,6 +45412,14 @@ pub mod custom_info_type {
         ///
         /// Note that all the setters affecting `r#type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::DetectionRule;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+        /// let x = DetectionRule::new().set_type(Some(
+        ///     google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Type::HotwordRule(HotwordRule::default().into())));
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::custom_info_type::detection_rule::Type>,
@@ -34963,6 +45454,14 @@ pub mod custom_info_type {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::DetectionRule;
+        /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+        /// let x = DetectionRule::new().set_hotword_rule(HotwordRule::default()/* use setters */);
+        /// assert!(x.hotword_rule().is_some());
+        /// ```
         pub fn set_hotword_rule<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>,
@@ -35013,12 +45512,24 @@ pub mod custom_info_type {
             }
 
             /// Sets the value of [window_before][crate::model::custom_info_type::detection_rule::Proximity::window_before].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+            /// let x = Proximity::new().set_window_before(42);
+            /// ```
             pub fn set_window_before<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.window_before = v.into();
                 self
             }
 
             /// Sets the value of [window_after][crate::model::custom_info_type::detection_rule::Proximity::window_after].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+            /// let x = Proximity::new().set_window_after(42);
+            /// ```
             pub fn set_window_after<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.window_after = v.into();
                 self
@@ -35053,6 +45564,18 @@ pub mod custom_info_type {
             ///
             /// Note that all the setters affecting `adjustment` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+            /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+            /// let x0 = LikelihoodAdjustment::new().set_adjustment(Some(
+            ///     google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment::FixedLikelihood(Likelihood::VeryUnlikely)));
+            /// let x1 = LikelihoodAdjustment::new().set_adjustment(Some(
+            ///     google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment::FixedLikelihood(Likelihood::Unlikely)));
+            /// let x2 = LikelihoodAdjustment::new().set_adjustment(Some(
+            ///     google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment::FixedLikelihood(Likelihood::Possible)));
+            /// ```
             pub fn set_adjustment<T: std::convert::Into<std::option::Option<crate::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment>>>(mut self, v: T) -> Self
             {
                 self.adjustment = v.into();
@@ -35075,6 +45598,21 @@ pub mod custom_info_type {
             ///
             /// Note that all the setters affecting `adjustment` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+            /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+            /// let x0 = LikelihoodAdjustment::new().set_fixed_likelihood(Likelihood::VeryUnlikely);
+            /// let x1 = LikelihoodAdjustment::new().set_fixed_likelihood(Likelihood::Unlikely);
+            /// let x2 = LikelihoodAdjustment::new().set_fixed_likelihood(Likelihood::Possible);
+            /// assert!(x0.fixed_likelihood().is_some());
+            /// assert!(x0.relative_likelihood().is_none());
+            /// assert!(x1.fixed_likelihood().is_some());
+            /// assert!(x1.relative_likelihood().is_none());
+            /// assert!(x2.fixed_likelihood().is_some());
+            /// assert!(x2.relative_likelihood().is_none());
+            /// ```
             pub fn set_fixed_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
                 mut self,
                 v: T,
@@ -35103,6 +45641,14 @@ pub mod custom_info_type {
             ///
             /// Note that all the setters affecting `adjustment` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+            /// let x = LikelihoodAdjustment::new().set_relative_likelihood(42);
+            /// assert!(x.relative_likelihood().is_some());
+            /// assert!(x.fixed_likelihood().is_none());
+            /// ```
             pub fn set_relative_likelihood<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.adjustment = std::option::Option::Some(
                     crate::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment::RelativeLikelihood(
@@ -35180,6 +45726,13 @@ pub mod custom_info_type {
             }
 
             /// Sets the value of [hotword_regex][crate::model::custom_info_type::detection_rule::HotwordRule::hotword_regex].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+            /// let x = HotwordRule::new().set_hotword_regex(Regex::default()/* use setters */);
+            /// ```
             pub fn set_hotword_regex<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::custom_info_type::Regex>,
@@ -35189,6 +45742,14 @@ pub mod custom_info_type {
             }
 
             /// Sets or clears the value of [hotword_regex][crate::model::custom_info_type::detection_rule::HotwordRule::hotword_regex].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::Regex;
+            /// let x = HotwordRule::new().set_or_clear_hotword_regex(Some(Regex::default()/* use setters */));
+            /// let x = HotwordRule::new().set_or_clear_hotword_regex(None::<Regex>);
+            /// ```
             pub fn set_or_clear_hotword_regex<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::custom_info_type::Regex>,
@@ -35198,6 +45759,13 @@ pub mod custom_info_type {
             }
 
             /// Sets the value of [proximity][crate::model::custom_info_type::detection_rule::HotwordRule::proximity].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+            /// let x = HotwordRule::new().set_proximity(Proximity::default()/* use setters */);
+            /// ```
             pub fn set_proximity<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::custom_info_type::detection_rule::Proximity>,
@@ -35207,6 +45775,14 @@ pub mod custom_info_type {
             }
 
             /// Sets or clears the value of [proximity][crate::model::custom_info_type::detection_rule::HotwordRule::proximity].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::Proximity;
+            /// let x = HotwordRule::new().set_or_clear_proximity(Some(Proximity::default()/* use setters */));
+            /// let x = HotwordRule::new().set_or_clear_proximity(None::<Proximity>);
+            /// ```
             pub fn set_or_clear_proximity<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::custom_info_type::detection_rule::Proximity>,
@@ -35216,6 +45792,13 @@ pub mod custom_info_type {
             }
 
             /// Sets the value of [likelihood_adjustment][crate::model::custom_info_type::detection_rule::HotwordRule::likelihood_adjustment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+            /// let x = HotwordRule::new().set_likelihood_adjustment(LikelihoodAdjustment::default()/* use setters */);
+            /// ```
             pub fn set_likelihood_adjustment<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -35227,6 +45810,14 @@ pub mod custom_info_type {
             }
 
             /// Sets or clears the value of [likelihood_adjustment][crate::model::custom_info_type::detection_rule::HotwordRule::likelihood_adjustment].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::HotwordRule;
+            /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+            /// let x = HotwordRule::new().set_or_clear_likelihood_adjustment(Some(LikelihoodAdjustment::default()/* use setters */));
+            /// let x = HotwordRule::new().set_or_clear_likelihood_adjustment(None::<LikelihoodAdjustment>);
+            /// ```
             pub fn set_or_clear_likelihood_adjustment<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -35417,6 +46008,12 @@ impl FieldId {
     }
 
     /// Sets the value of [name][crate::model::FieldId::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = FieldId::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -35453,12 +46050,24 @@ impl PartitionId {
     }
 
     /// Sets the value of [project_id][crate::model::PartitionId::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = PartitionId::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [namespace_id][crate::model::PartitionId::namespace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = PartitionId::new().set_namespace_id("example");
+    /// ```
     pub fn set_namespace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace_id = v.into();
         self
@@ -35487,6 +46096,12 @@ impl KindExpression {
     }
 
     /// Sets the value of [name][crate::model::KindExpression::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KindExpression;
+    /// let x = KindExpression::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -35519,6 +46134,13 @@ impl DatastoreOptions {
     }
 
     /// Sets the value of [partition_id][crate::model::DatastoreOptions::partition_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = DatastoreOptions::new().set_partition_id(PartitionId::default()/* use setters */);
+    /// ```
     pub fn set_partition_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PartitionId>,
@@ -35528,6 +46150,14 @@ impl DatastoreOptions {
     }
 
     /// Sets or clears the value of [partition_id][crate::model::DatastoreOptions::partition_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = DatastoreOptions::new().set_or_clear_partition_id(Some(PartitionId::default()/* use setters */));
+    /// let x = DatastoreOptions::new().set_or_clear_partition_id(None::<PartitionId>);
+    /// ```
     pub fn set_or_clear_partition_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartitionId>,
@@ -35537,6 +46167,13 @@ impl DatastoreOptions {
     }
 
     /// Sets the value of [kind][crate::model::DatastoreOptions::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// use google_cloud_privacy_dlp_v2::model::KindExpression;
+    /// let x = DatastoreOptions::new().set_kind(KindExpression::default()/* use setters */);
+    /// ```
     pub fn set_kind<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KindExpression>,
@@ -35546,6 +46183,14 @@ impl DatastoreOptions {
     }
 
     /// Sets or clears the value of [kind][crate::model::DatastoreOptions::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// use google_cloud_privacy_dlp_v2::model::KindExpression;
+    /// let x = DatastoreOptions::new().set_or_clear_kind(Some(KindExpression::default()/* use setters */));
+    /// let x = DatastoreOptions::new().set_or_clear_kind(None::<KindExpression>);
+    /// ```
     pub fn set_or_clear_kind<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KindExpression>,
@@ -35628,12 +46273,24 @@ impl CloudStorageRegexFileSet {
     }
 
     /// Sets the value of [bucket_name][crate::model::CloudStorageRegexFileSet::bucket_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageRegexFileSet;
+    /// let x = CloudStorageRegexFileSet::new().set_bucket_name("example");
+    /// ```
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
         self
     }
 
     /// Sets the value of [include_regex][crate::model::CloudStorageRegexFileSet::include_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageRegexFileSet;
+    /// let x = CloudStorageRegexFileSet::new().set_include_regex(["a", "b", "c"]);
+    /// ```
     pub fn set_include_regex<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35645,6 +46302,12 @@ impl CloudStorageRegexFileSet {
     }
 
     /// Sets the value of [exclude_regex][crate::model::CloudStorageRegexFileSet::exclude_regex].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageRegexFileSet;
+    /// let x = CloudStorageRegexFileSet::new().set_exclude_regex(["a", "b", "c"]);
+    /// ```
     pub fn set_exclude_regex<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35715,6 +46378,13 @@ impl CloudStorageOptions {
     }
 
     /// Sets the value of [file_set][crate::model::CloudStorageOptions::file_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// use google_cloud_privacy_dlp_v2::model::cloud_storage_options::FileSet;
+    /// let x = CloudStorageOptions::new().set_file_set(FileSet::default()/* use setters */);
+    /// ```
     pub fn set_file_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cloud_storage_options::FileSet>,
@@ -35724,6 +46394,14 @@ impl CloudStorageOptions {
     }
 
     /// Sets or clears the value of [file_set][crate::model::CloudStorageOptions::file_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// use google_cloud_privacy_dlp_v2::model::cloud_storage_options::FileSet;
+    /// let x = CloudStorageOptions::new().set_or_clear_file_set(Some(FileSet::default()/* use setters */));
+    /// let x = CloudStorageOptions::new().set_or_clear_file_set(None::<FileSet>);
+    /// ```
     pub fn set_or_clear_file_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cloud_storage_options::FileSet>,
@@ -35733,18 +46411,41 @@ impl CloudStorageOptions {
     }
 
     /// Sets the value of [bytes_limit_per_file][crate::model::CloudStorageOptions::bytes_limit_per_file].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// let x = CloudStorageOptions::new().set_bytes_limit_per_file(42);
+    /// ```
     pub fn set_bytes_limit_per_file<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_limit_per_file = v.into();
         self
     }
 
     /// Sets the value of [bytes_limit_per_file_percent][crate::model::CloudStorageOptions::bytes_limit_per_file_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// let x = CloudStorageOptions::new().set_bytes_limit_per_file_percent(42);
+    /// ```
     pub fn set_bytes_limit_per_file_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.bytes_limit_per_file_percent = v.into();
         self
     }
 
     /// Sets the value of [file_types][crate::model::CloudStorageOptions::file_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// use google_cloud_privacy_dlp_v2::model::FileType;
+    /// let x = CloudStorageOptions::new().set_file_types([
+    ///     FileType::BinaryFile,
+    ///     FileType::TextFile,
+    ///     FileType::Image,
+    /// ]);
+    /// ```
     pub fn set_file_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -35756,6 +46457,14 @@ impl CloudStorageOptions {
     }
 
     /// Sets the value of [sample_method][crate::model::CloudStorageOptions::sample_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// use google_cloud_privacy_dlp_v2::model::cloud_storage_options::SampleMethod;
+    /// let x0 = CloudStorageOptions::new().set_sample_method(SampleMethod::Top);
+    /// let x1 = CloudStorageOptions::new().set_sample_method(SampleMethod::RandomStart);
+    /// ```
     pub fn set_sample_method<
         T: std::convert::Into<crate::model::cloud_storage_options::SampleMethod>,
     >(
@@ -35767,6 +46476,12 @@ impl CloudStorageOptions {
     }
 
     /// Sets the value of [files_limit_percent][crate::model::CloudStorageOptions::files_limit_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// let x = CloudStorageOptions::new().set_files_limit_percent(42);
+    /// ```
     pub fn set_files_limit_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.files_limit_percent = v.into();
         self
@@ -35813,12 +46528,25 @@ pub mod cloud_storage_options {
         }
 
         /// Sets the value of [url][crate::model::cloud_storage_options::FileSet::url].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::cloud_storage_options::FileSet;
+        /// let x = FileSet::new().set_url("example");
+        /// ```
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
         }
 
         /// Sets the value of [regex_file_set][crate::model::cloud_storage_options::FileSet::regex_file_set].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::cloud_storage_options::FileSet;
+        /// use google_cloud_privacy_dlp_v2::model::CloudStorageRegexFileSet;
+        /// let x = FileSet::new().set_regex_file_set(CloudStorageRegexFileSet::default()/* use setters */);
+        /// ```
         pub fn set_regex_file_set<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CloudStorageRegexFileSet>,
@@ -35828,6 +46556,14 @@ pub mod cloud_storage_options {
         }
 
         /// Sets or clears the value of [regex_file_set][crate::model::cloud_storage_options::FileSet::regex_file_set].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::cloud_storage_options::FileSet;
+        /// use google_cloud_privacy_dlp_v2::model::CloudStorageRegexFileSet;
+        /// let x = FileSet::new().set_or_clear_regex_file_set(Some(CloudStorageRegexFileSet::default()/* use setters */));
+        /// let x = FileSet::new().set_or_clear_regex_file_set(None::<CloudStorageRegexFileSet>);
+        /// ```
         pub fn set_or_clear_regex_file_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CloudStorageRegexFileSet>,
@@ -35996,6 +46732,12 @@ impl CloudStorageFileSet {
     }
 
     /// Sets the value of [url][crate::model::CloudStorageFileSet::url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStorageFileSet;
+    /// let x = CloudStorageFileSet::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
@@ -36025,6 +46767,12 @@ impl CloudStoragePath {
     }
 
     /// Sets the value of [path][crate::model::CloudStoragePath::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CloudStoragePath;
+    /// let x = CloudStoragePath::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -36094,6 +46842,13 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [table_reference][crate::model::BigQueryOptions::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryOptions::new().set_table_reference(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_table_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -36103,6 +46858,14 @@ impl BigQueryOptions {
     }
 
     /// Sets or clears the value of [table_reference][crate::model::BigQueryOptions::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryOptions::new().set_or_clear_table_reference(Some(BigQueryTable::default()/* use setters */));
+    /// let x = BigQueryOptions::new().set_or_clear_table_reference(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -36112,6 +46875,17 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [identifying_fields][crate::model::BigQueryOptions::identifying_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = BigQueryOptions::new()
+    ///     .set_identifying_fields([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_identifying_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36123,18 +46897,38 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [rows_limit][crate::model::BigQueryOptions::rows_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// let x = BigQueryOptions::new().set_rows_limit(42);
+    /// ```
     pub fn set_rows_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.rows_limit = v.into();
         self
     }
 
     /// Sets the value of [rows_limit_percent][crate::model::BigQueryOptions::rows_limit_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// let x = BigQueryOptions::new().set_rows_limit_percent(42);
+    /// ```
     pub fn set_rows_limit_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rows_limit_percent = v.into();
         self
     }
 
     /// Sets the value of [sample_method][crate::model::BigQueryOptions::sample_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::big_query_options::SampleMethod;
+    /// let x0 = BigQueryOptions::new().set_sample_method(SampleMethod::Top);
+    /// let x1 = BigQueryOptions::new().set_sample_method(SampleMethod::RandomStart);
+    /// ```
     pub fn set_sample_method<
         T: std::convert::Into<crate::model::big_query_options::SampleMethod>,
     >(
@@ -36146,6 +46940,17 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [excluded_fields][crate::model::BigQueryOptions::excluded_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = BigQueryOptions::new()
+    ///     .set_excluded_fields([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_excluded_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36157,6 +46962,17 @@ impl BigQueryOptions {
     }
 
     /// Sets the value of [included_fields][crate::model::BigQueryOptions::included_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = BigQueryOptions::new()
+    ///     .set_included_fields([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_included_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36335,6 +47151,13 @@ impl StorageConfig {
     }
 
     /// Sets the value of [timespan_config][crate::model::StorageConfig::timespan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+    /// let x = StorageConfig::new().set_timespan_config(TimespanConfig::default()/* use setters */);
+    /// ```
     pub fn set_timespan_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::storage_config::TimespanConfig>,
@@ -36344,6 +47167,14 @@ impl StorageConfig {
     }
 
     /// Sets or clears the value of [timespan_config][crate::model::StorageConfig::timespan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+    /// let x = StorageConfig::new().set_or_clear_timespan_config(Some(TimespanConfig::default()/* use setters */));
+    /// let x = StorageConfig::new().set_or_clear_timespan_config(None::<TimespanConfig>);
+    /// ```
     pub fn set_or_clear_timespan_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::storage_config::TimespanConfig>,
@@ -36356,6 +47187,14 @@ impl StorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// let x = StorageConfig::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::storage_config::Type::DatastoreOptions(DatastoreOptions::default().into())));
+    /// ```
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::storage_config::Type>>,
     >(
@@ -36384,6 +47223,17 @@ impl StorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::DatastoreOptions;
+    /// let x = StorageConfig::new().set_datastore_options(DatastoreOptions::default()/* use setters */);
+    /// assert!(x.datastore_options().is_some());
+    /// assert!(x.cloud_storage_options().is_none());
+    /// assert!(x.big_query_options().is_none());
+    /// assert!(x.hybrid_options().is_none());
+    /// ```
     pub fn set_datastore_options<
         T: std::convert::Into<std::boxed::Box<crate::model::DatastoreOptions>>,
     >(
@@ -36416,6 +47266,17 @@ impl StorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::CloudStorageOptions;
+    /// let x = StorageConfig::new().set_cloud_storage_options(CloudStorageOptions::default()/* use setters */);
+    /// assert!(x.cloud_storage_options().is_some());
+    /// assert!(x.datastore_options().is_none());
+    /// assert!(x.big_query_options().is_none());
+    /// assert!(x.hybrid_options().is_none());
+    /// ```
     pub fn set_cloud_storage_options<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageOptions>>,
     >(
@@ -36446,6 +47307,17 @@ impl StorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryOptions;
+    /// let x = StorageConfig::new().set_big_query_options(BigQueryOptions::default()/* use setters */);
+    /// assert!(x.big_query_options().is_some());
+    /// assert!(x.datastore_options().is_none());
+    /// assert!(x.cloud_storage_options().is_none());
+    /// assert!(x.hybrid_options().is_none());
+    /// ```
     pub fn set_big_query_options<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryOptions>>,
     >(
@@ -36476,6 +47348,17 @@ impl StorageConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::StorageConfig;
+    /// use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// let x = StorageConfig::new().set_hybrid_options(HybridOptions::default()/* use setters */);
+    /// assert!(x.hybrid_options().is_some());
+    /// assert!(x.datastore_options().is_none());
+    /// assert!(x.cloud_storage_options().is_none());
+    /// assert!(x.big_query_options().is_none());
+    /// ```
     pub fn set_hybrid_options<
         T: std::convert::Into<std::boxed::Box<crate::model::HybridOptions>>,
     >(
@@ -36574,6 +47457,13 @@ pub mod storage_config {
         }
 
         /// Sets the value of [start_time][crate::model::storage_config::TimespanConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use wkt::Timestamp;
+        /// let x = TimespanConfig::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -36583,6 +47473,14 @@ pub mod storage_config {
         }
 
         /// Sets or clears the value of [start_time][crate::model::storage_config::TimespanConfig::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use wkt::Timestamp;
+        /// let x = TimespanConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimespanConfig::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -36592,6 +47490,13 @@ pub mod storage_config {
         }
 
         /// Sets the value of [end_time][crate::model::storage_config::TimespanConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use wkt::Timestamp;
+        /// let x = TimespanConfig::new().set_end_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -36601,6 +47506,14 @@ pub mod storage_config {
         }
 
         /// Sets or clears the value of [end_time][crate::model::storage_config::TimespanConfig::end_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use wkt::Timestamp;
+        /// let x = TimespanConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimespanConfig::new().set_or_clear_end_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -36610,6 +47523,13 @@ pub mod storage_config {
         }
 
         /// Sets the value of [timestamp_field][crate::model::storage_config::TimespanConfig::timestamp_field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = TimespanConfig::new().set_timestamp_field(FieldId::default()/* use setters */);
+        /// ```
         pub fn set_timestamp_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -36619,6 +47539,14 @@ pub mod storage_config {
         }
 
         /// Sets or clears the value of [timestamp_field][crate::model::storage_config::TimespanConfig::timestamp_field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// use google_cloud_privacy_dlp_v2::model::FieldId;
+        /// let x = TimespanConfig::new().set_or_clear_timestamp_field(Some(FieldId::default()/* use setters */));
+        /// let x = TimespanConfig::new().set_or_clear_timestamp_field(None::<FieldId>);
+        /// ```
         pub fn set_or_clear_timestamp_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FieldId>,
@@ -36628,6 +47556,12 @@ pub mod storage_config {
         }
 
         /// Sets the value of [enable_auto_population_of_timespan_config][crate::model::storage_config::TimespanConfig::enable_auto_population_of_timespan_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::storage_config::TimespanConfig;
+        /// let x = TimespanConfig::new().set_enable_auto_population_of_timespan_config(true);
+        /// ```
         pub fn set_enable_auto_population_of_timespan_config<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -36706,12 +47640,24 @@ impl HybridOptions {
     }
 
     /// Sets the value of [description][crate::model::HybridOptions::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// let x = HybridOptions::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [required_finding_label_keys][crate::model::HybridOptions::required_finding_label_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// let x = HybridOptions::new().set_required_finding_label_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_required_finding_label_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36723,6 +47669,15 @@ impl HybridOptions {
     }
 
     /// Sets the value of [labels][crate::model::HybridOptions::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// let x = HybridOptions::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -36735,6 +47690,13 @@ impl HybridOptions {
     }
 
     /// Sets the value of [table_options][crate::model::HybridOptions::table_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// use google_cloud_privacy_dlp_v2::model::TableOptions;
+    /// let x = HybridOptions::new().set_table_options(TableOptions::default()/* use setters */);
+    /// ```
     pub fn set_table_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableOptions>,
@@ -36744,6 +47706,14 @@ impl HybridOptions {
     }
 
     /// Sets or clears the value of [table_options][crate::model::HybridOptions::table_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::HybridOptions;
+    /// use google_cloud_privacy_dlp_v2::model::TableOptions;
+    /// let x = HybridOptions::new().set_or_clear_table_options(Some(TableOptions::default()/* use setters */));
+    /// let x = HybridOptions::new().set_or_clear_table_options(None::<TableOptions>);
+    /// ```
     pub fn set_or_clear_table_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableOptions>,
@@ -36782,6 +47752,13 @@ impl BigQueryKey {
     }
 
     /// Sets the value of [table_reference][crate::model::BigQueryKey::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryKey;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryKey::new().set_table_reference(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_table_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -36791,6 +47768,14 @@ impl BigQueryKey {
     }
 
     /// Sets or clears the value of [table_reference][crate::model::BigQueryKey::table_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryKey;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryKey::new().set_or_clear_table_reference(Some(BigQueryTable::default()/* use setters */));
+    /// let x = BigQueryKey::new().set_or_clear_table_reference(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_table_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -36800,6 +47785,12 @@ impl BigQueryKey {
     }
 
     /// Sets the value of [row_number][crate::model::BigQueryKey::row_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryKey;
+    /// let x = BigQueryKey::new().set_row_number(42);
+    /// ```
     pub fn set_row_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_number = v.into();
         self
@@ -36828,6 +47819,13 @@ impl DatastoreKey {
     }
 
     /// Sets the value of [entity_key][crate::model::DatastoreKey::entity_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreKey;
+    /// use google_cloud_privacy_dlp_v2::model::Key;
+    /// let x = DatastoreKey::new().set_entity_key(Key::default()/* use setters */);
+    /// ```
     pub fn set_entity_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -36837,6 +47835,14 @@ impl DatastoreKey {
     }
 
     /// Sets or clears the value of [entity_key][crate::model::DatastoreKey::entity_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::DatastoreKey;
+    /// use google_cloud_privacy_dlp_v2::model::Key;
+    /// let x = DatastoreKey::new().set_or_clear_entity_key(Some(Key::default()/* use setters */));
+    /// let x = DatastoreKey::new().set_or_clear_entity_key(None::<Key>);
+    /// ```
     pub fn set_or_clear_entity_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Key>,
@@ -36884,6 +47890,13 @@ impl Key {
     }
 
     /// Sets the value of [partition_id][crate::model::Key::partition_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Key;
+    /// use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = Key::new().set_partition_id(PartitionId::default()/* use setters */);
+    /// ```
     pub fn set_partition_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PartitionId>,
@@ -36893,6 +47906,14 @@ impl Key {
     }
 
     /// Sets or clears the value of [partition_id][crate::model::Key::partition_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Key;
+    /// use google_cloud_privacy_dlp_v2::model::PartitionId;
+    /// let x = Key::new().set_or_clear_partition_id(Some(PartitionId::default()/* use setters */));
+    /// let x = Key::new().set_or_clear_partition_id(None::<PartitionId>);
+    /// ```
     pub fn set_or_clear_partition_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartitionId>,
@@ -36902,6 +47923,17 @@ impl Key {
     }
 
     /// Sets the value of [path][crate::model::Key::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::Key;
+    /// use google_cloud_privacy_dlp_v2::model::key::PathElement;
+    /// let x = Key::new()
+    ///     .set_path([
+    ///         PathElement::default()/* use setters */,
+    ///         PathElement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_path<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -36949,6 +47981,12 @@ pub mod key {
         }
 
         /// Sets the value of [kind][crate::model::key::PathElement::kind].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::key::PathElement;
+        /// let x = PathElement::new().set_kind("example");
+        /// ```
         pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = v.into();
             self
@@ -36958,6 +47996,13 @@ pub mod key {
         ///
         /// Note that all the setters affecting `id_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::key::PathElement;
+        /// use google_cloud_privacy_dlp_v2::model::key::path_element::IdType;
+        /// let x = PathElement::new().set_id_type(Some(IdType::Id(42)));
+        /// ```
         pub fn set_id_type<
             T: std::convert::Into<std::option::Option<crate::model::key::path_element::IdType>>,
         >(
@@ -36984,6 +48029,14 @@ pub mod key {
         ///
         /// Note that all the setters affecting `id_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::key::PathElement;
+        /// let x = PathElement::new().set_id(42);
+        /// assert!(x.id().is_some());
+        /// assert!(x.name().is_none());
+        /// ```
         pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.id_type =
                 std::option::Option::Some(crate::model::key::path_element::IdType::Id(v.into()));
@@ -37006,6 +48059,14 @@ pub mod key {
         ///
         /// Note that all the setters affecting `id_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::key::PathElement;
+        /// let x = PathElement::new().set_name("example");
+        /// assert!(x.name().is_some());
+        /// assert!(x.id().is_none());
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id_type =
                 std::option::Option::Some(crate::model::key::path_element::IdType::Name(v.into()));
@@ -37061,6 +48122,12 @@ impl RecordKey {
     }
 
     /// Sets the value of [id_values][crate::model::RecordKey::id_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// let x = RecordKey::new().set_id_values(["a", "b", "c"]);
+    /// ```
     pub fn set_id_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -37075,6 +48142,14 @@ impl RecordKey {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// use google_cloud_privacy_dlp_v2::model::DatastoreKey;
+    /// let x = RecordKey::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::record_key::Type::DatastoreKey(DatastoreKey::default().into())));
+    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::record_key::Type>>>(
         mut self,
         v: T,
@@ -37101,6 +48176,15 @@ impl RecordKey {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// use google_cloud_privacy_dlp_v2::model::DatastoreKey;
+    /// let x = RecordKey::new().set_datastore_key(DatastoreKey::default()/* use setters */);
+    /// assert!(x.datastore_key().is_some());
+    /// assert!(x.big_query_key().is_none());
+    /// ```
     pub fn set_datastore_key<T: std::convert::Into<std::boxed::Box<crate::model::DatastoreKey>>>(
         mut self,
         v: T,
@@ -37128,6 +48212,15 @@ impl RecordKey {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::RecordKey;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryKey;
+    /// let x = RecordKey::new().set_big_query_key(BigQueryKey::default()/* use setters */);
+    /// assert!(x.big_query_key().is_some());
+    /// assert!(x.datastore_key().is_none());
+    /// ```
     pub fn set_big_query_key<T: std::convert::Into<std::boxed::Box<crate::model::BigQueryKey>>>(
         mut self,
         v: T,
@@ -37187,18 +48280,36 @@ impl BigQueryTable {
     }
 
     /// Sets the value of [project_id][crate::model::BigQueryTable::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryTable::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [dataset_id][crate::model::BigQueryTable::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryTable::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::BigQueryTable::table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryTable::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
@@ -37236,18 +48347,36 @@ impl TableReference {
     }
 
     /// Sets the value of [dataset_id][crate::model::TableReference::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableReference;
+    /// let x = TableReference::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::TableReference::table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableReference;
+    /// let x = TableReference::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::TableReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableReference;
+    /// let x = TableReference::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
@@ -37279,6 +48408,13 @@ impl BigQueryField {
     }
 
     /// Sets the value of [table][crate::model::BigQueryField::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryField;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryField::new().set_table(BigQueryTable::default()/* use setters */);
+    /// ```
     pub fn set_table<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -37288,6 +48424,14 @@ impl BigQueryField {
     }
 
     /// Sets or clears the value of [table][crate::model::BigQueryField::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryField;
+    /// use google_cloud_privacy_dlp_v2::model::BigQueryTable;
+    /// let x = BigQueryField::new().set_or_clear_table(Some(BigQueryTable::default()/* use setters */));
+    /// let x = BigQueryField::new().set_or_clear_table(None::<BigQueryTable>);
+    /// ```
     pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryTable>,
@@ -37297,6 +48441,13 @@ impl BigQueryField {
     }
 
     /// Sets the value of [field][crate::model::BigQueryField::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryField;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = BigQueryField::new().set_field(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -37306,6 +48457,14 @@ impl BigQueryField {
     }
 
     /// Sets or clears the value of [field][crate::model::BigQueryField::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::BigQueryField;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = BigQueryField::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+    /// let x = BigQueryField::new().set_or_clear_field(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -37341,6 +48500,13 @@ impl EntityId {
     }
 
     /// Sets the value of [field][crate::model::EntityId::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::EntityId;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = EntityId::new().set_field(FieldId::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -37350,6 +48516,14 @@ impl EntityId {
     }
 
     /// Sets or clears the value of [field][crate::model::EntityId::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::EntityId;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = EntityId::new().set_or_clear_field(Some(FieldId::default()/* use setters */));
+    /// let x = EntityId::new().set_or_clear_field(None::<FieldId>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FieldId>,
@@ -37384,6 +48558,17 @@ impl TableOptions {
     }
 
     /// Sets the value of [identifying_fields][crate::model::TableOptions::identifying_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::TableOptions;
+    /// use google_cloud_privacy_dlp_v2::model::FieldId;
+    /// let x = TableOptions::new()
+    ///     .set_identifying_fields([
+    ///         FieldId::default()/* use setters */,
+    ///         FieldId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_identifying_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

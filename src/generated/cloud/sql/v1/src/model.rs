@@ -58,18 +58,36 @@ impl SqlBackupRunsDeleteRequest {
     }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsDeleteRequest;
+    /// let x = SqlBackupRunsDeleteRequest::new().set_id(42);
+    /// ```
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsDeleteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsDeleteRequest;
+    /// let x = SqlBackupRunsDeleteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlBackupRunsDeleteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsDeleteRequest;
+    /// let x = SqlBackupRunsDeleteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -104,18 +122,36 @@ impl SqlBackupRunsGetRequest {
     }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsGetRequest;
+    /// let x = SqlBackupRunsGetRequest::new().set_id(42);
+    /// ```
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsGetRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsGetRequest;
+    /// let x = SqlBackupRunsGetRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlBackupRunsGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsGetRequest;
+    /// let x = SqlBackupRunsGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -149,18 +185,37 @@ impl SqlBackupRunsInsertRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsInsertRequest;
+    /// let x = SqlBackupRunsInsertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlBackupRunsInsertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsInsertRequest;
+    /// let x = SqlBackupRunsInsertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsInsertRequest;
+    /// use google_cloud_sql_v1::model::BackupRun;
+    /// let x = SqlBackupRunsInsertRequest::new().set_body(BackupRun::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupRun>,
@@ -170,6 +225,14 @@ impl SqlBackupRunsInsertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsInsertRequest;
+    /// use google_cloud_sql_v1::model::BackupRun;
+    /// let x = SqlBackupRunsInsertRequest::new().set_or_clear_body(Some(BackupRun::default()/* use setters */));
+    /// let x = SqlBackupRunsInsertRequest::new().set_or_clear_body(None::<BackupRun>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupRun>,
@@ -212,24 +275,48 @@ impl SqlBackupRunsListRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsListRequest;
+    /// let x = SqlBackupRunsListRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [max_results][crate::model::SqlBackupRunsListRequest::max_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsListRequest;
+    /// let x = SqlBackupRunsListRequest::new().set_max_results(42);
+    /// ```
     pub fn set_max_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_results = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SqlBackupRunsListRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsListRequest;
+    /// let x = SqlBackupRunsListRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlBackupRunsListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlBackupRunsListRequest;
+    /// let x = SqlBackupRunsListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -323,12 +410,27 @@ impl BackupRun {
     }
 
     /// Sets the value of [kind][crate::model::BackupRun::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::BackupRun::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::SqlBackupRunStatus;
+    /// let x0 = BackupRun::new().set_status(SqlBackupRunStatus::Enqueued);
+    /// let x1 = BackupRun::new().set_status(SqlBackupRunStatus::Overdue);
+    /// let x2 = BackupRun::new().set_status(SqlBackupRunStatus::Running);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::SqlBackupRunStatus>>(
         mut self,
         v: T,
@@ -338,6 +440,13 @@ impl BackupRun {
     }
 
     /// Sets the value of [enqueued_time][crate::model::BackupRun::enqueued_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_enqueued_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_enqueued_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -347,6 +456,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [enqueued_time][crate::model::BackupRun::enqueued_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_or_clear_enqueued_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_enqueued_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_enqueued_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -356,12 +473,25 @@ impl BackupRun {
     }
 
     /// Sets the value of [id][crate::model::BackupRun::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_id(42);
+    /// ```
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::BackupRun::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -371,6 +501,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BackupRun::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -380,6 +518,13 @@ impl BackupRun {
     }
 
     /// Sets the value of [end_time][crate::model::BackupRun::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -389,6 +534,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BackupRun::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -398,6 +551,13 @@ impl BackupRun {
     }
 
     /// Sets the value of [error][crate::model::BackupRun::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::OperationError;
+    /// let x = BackupRun::new().set_error(OperationError::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationError>,
@@ -407,6 +567,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [error][crate::model::BackupRun::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::OperationError;
+    /// let x = BackupRun::new().set_or_clear_error(Some(OperationError::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_error(None::<OperationError>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationError>,
@@ -416,18 +584,39 @@ impl BackupRun {
     }
 
     /// Sets the value of [r#type][crate::model::BackupRun::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::SqlBackupRunType;
+    /// let x0 = BackupRun::new().set_type(SqlBackupRunType::Automated);
+    /// let x1 = BackupRun::new().set_type(SqlBackupRunType::OnDemand);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::SqlBackupRunType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::BackupRun::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [window_start_time][crate::model::BackupRun::window_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_window_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_window_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -437,6 +626,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [window_start_time][crate::model::BackupRun::window_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use wkt::Timestamp;
+    /// let x = BackupRun::new().set_or_clear_window_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_window_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_window_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -446,24 +643,49 @@ impl BackupRun {
     }
 
     /// Sets the value of [instance][crate::model::BackupRun::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::BackupRun::self_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::BackupRun::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [disk_encryption_configuration][crate::model::BackupRun::disk_encryption_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = BackupRun::new().set_disk_encryption_configuration(DiskEncryptionConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
@@ -473,6 +695,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [disk_encryption_configuration][crate::model::BackupRun::disk_encryption_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = BackupRun::new().set_or_clear_disk_encryption_configuration(Some(DiskEncryptionConfiguration::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_disk_encryption_configuration(None::<DiskEncryptionConfiguration>);
+    /// ```
     pub fn set_or_clear_disk_encryption_configuration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -485,6 +715,13 @@ impl BackupRun {
     }
 
     /// Sets the value of [disk_encryption_status][crate::model::BackupRun::disk_encryption_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = BackupRun::new().set_disk_encryption_status(DiskEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionStatus>,
@@ -494,6 +731,14 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [disk_encryption_status][crate::model::BackupRun::disk_encryption_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = BackupRun::new().set_or_clear_disk_encryption_status(Some(DiskEncryptionStatus::default()/* use setters */));
+    /// let x = BackupRun::new().set_or_clear_disk_encryption_status(None::<DiskEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_disk_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionStatus>,
@@ -503,6 +748,14 @@ impl BackupRun {
     }
 
     /// Sets the value of [backup_kind][crate::model::BackupRun::backup_kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// use google_cloud_sql_v1::model::SqlBackupKind;
+    /// let x0 = BackupRun::new().set_backup_kind(SqlBackupKind::Snapshot);
+    /// let x1 = BackupRun::new().set_backup_kind(SqlBackupKind::Physical);
+    /// ```
     pub fn set_backup_kind<T: std::convert::Into<crate::model::SqlBackupKind>>(
         mut self,
         v: T,
@@ -512,12 +765,24 @@ impl BackupRun {
     }
 
     /// Sets the value of [time_zone][crate::model::BackupRun::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [max_chargeable_bytes][crate::model::BackupRun::max_chargeable_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_max_chargeable_bytes(42);
+    /// ```
     pub fn set_max_chargeable_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -527,6 +792,13 @@ impl BackupRun {
     }
 
     /// Sets or clears the value of [max_chargeable_bytes][crate::model::BackupRun::max_chargeable_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRun::new().set_or_clear_max_chargeable_bytes(Some(42));
+    /// let x = BackupRun::new().set_or_clear_max_chargeable_bytes(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_chargeable_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -565,12 +837,29 @@ impl BackupRunsListResponse {
     }
 
     /// Sets the value of [kind][crate::model::BackupRunsListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRunsListResponse;
+    /// let x = BackupRunsListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::BackupRunsListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRunsListResponse;
+    /// use google_cloud_sql_v1::model::BackupRun;
+    /// let x = BackupRunsListResponse::new()
+    ///     .set_items([
+    ///         BackupRun::default()/* use setters */,
+    ///         BackupRun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -582,6 +871,12 @@ impl BackupRunsListResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::BackupRunsListResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRunsListResponse;
+    /// let x = BackupRunsListResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -631,18 +926,37 @@ impl GetConnectSettingsRequest {
     }
 
     /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetConnectSettingsRequest;
+    /// let x = GetConnectSettingsRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::GetConnectSettingsRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetConnectSettingsRequest;
+    /// let x = GetConnectSettingsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetConnectSettingsRequest;
+    /// use wkt::Timestamp;
+    /// let x = GetConnectSettingsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -652,6 +966,14 @@ impl GetConnectSettingsRequest {
     }
 
     /// Sets or clears the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GetConnectSettingsRequest;
+    /// use wkt::Timestamp;
+    /// let x = GetConnectSettingsRequest::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GetConnectSettingsRequest::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -721,12 +1043,25 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [kind][crate::model::ConnectSettings::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// let x = ConnectSettings::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [server_ca_cert][crate::model::ConnectSettings::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = ConnectSettings::new().set_server_ca_cert(SslCert::default()/* use setters */);
+    /// ```
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -736,6 +1071,14 @@ impl ConnectSettings {
     }
 
     /// Sets or clears the value of [server_ca_cert][crate::model::ConnectSettings::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = ConnectSettings::new().set_or_clear_server_ca_cert(Some(SslCert::default()/* use setters */));
+    /// let x = ConnectSettings::new().set_or_clear_server_ca_cert(None::<SslCert>);
+    /// ```
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -745,6 +1088,17 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [ip_addresses][crate::model::ConnectSettings::ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::IpMapping;
+    /// let x = ConnectSettings::new()
+    ///     .set_ip_addresses([
+    ///         IpMapping::default()/* use setters */,
+    ///         IpMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -756,12 +1110,27 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [region][crate::model::ConnectSettings::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// let x = ConnectSettings::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
     }
 
     /// Sets the value of [database_version][crate::model::ConnectSettings::database_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::SqlDatabaseVersion;
+    /// let x0 = ConnectSettings::new().set_database_version(SqlDatabaseVersion::Mysql56);
+    /// let x1 = ConnectSettings::new().set_database_version(SqlDatabaseVersion::Mysql57);
+    /// let x2 = ConnectSettings::new().set_database_version(SqlDatabaseVersion::Sqlserver2017Standard);
+    /// ```
     pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(
         mut self,
         v: T,
@@ -771,6 +1140,14 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [backend_type][crate::model::ConnectSettings::backend_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::SqlBackendType;
+    /// let x0 = ConnectSettings::new().set_backend_type(SqlBackendType::SecondGen);
+    /// let x1 = ConnectSettings::new().set_backend_type(SqlBackendType::External);
+    /// ```
     pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(
         mut self,
         v: T,
@@ -780,18 +1157,38 @@ impl ConnectSettings {
     }
 
     /// Sets the value of [psc_enabled][crate::model::ConnectSettings::psc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// let x = ConnectSettings::new().set_psc_enabled(true);
+    /// ```
     pub fn set_psc_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.psc_enabled = v.into();
         self
     }
 
     /// Sets the value of [dns_name][crate::model::ConnectSettings::dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// let x = ConnectSettings::new().set_dns_name("example");
+    /// ```
     pub fn set_dns_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dns_name = v.into();
         self
     }
 
     /// Sets the value of [server_ca_mode][crate::model::ConnectSettings::server_ca_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ConnectSettings;
+    /// use google_cloud_sql_v1::model::connect_settings::CaMode;
+    /// let x0 = ConnectSettings::new().set_server_ca_mode(CaMode::GoogleManagedInternalCa);
+    /// let x1 = ConnectSettings::new().set_server_ca_mode(CaMode::GoogleManagedCasCa);
+    /// ```
     pub fn set_server_ca_mode<T: std::convert::Into<crate::model::connect_settings::CaMode>>(
         mut self,
         v: T,
@@ -980,30 +1377,61 @@ impl GenerateEphemeralCertRequest {
     }
 
     /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// let x = GenerateEphemeralCertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::GenerateEphemeralCertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// let x = GenerateEphemeralCertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [public_key][crate::model::GenerateEphemeralCertRequest::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// let x = GenerateEphemeralCertRequest::new().set_public_key("example");
+    /// ```
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
     }
 
     /// Sets the value of [access_token][crate::model::GenerateEphemeralCertRequest::access_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// let x = GenerateEphemeralCertRequest::new().set_access_token("example");
+    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// use wkt::Timestamp;
+    /// let x = GenerateEphemeralCertRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1013,6 +1441,14 @@ impl GenerateEphemeralCertRequest {
     }
 
     /// Sets or clears the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// use wkt::Timestamp;
+    /// let x = GenerateEphemeralCertRequest::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GenerateEphemeralCertRequest::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1022,6 +1458,13 @@ impl GenerateEphemeralCertRequest {
     }
 
     /// Sets the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// use wkt::Duration;
+    /// let x = GenerateEphemeralCertRequest::new().set_valid_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_valid_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1031,6 +1474,14 @@ impl GenerateEphemeralCertRequest {
     }
 
     /// Sets or clears the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertRequest;
+    /// use wkt::Duration;
+    /// let x = GenerateEphemeralCertRequest::new().set_or_clear_valid_duration(Some(Duration::default()/* use setters */));
+    /// let x = GenerateEphemeralCertRequest::new().set_or_clear_valid_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_valid_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1062,6 +1513,13 @@ impl GenerateEphemeralCertResponse {
     }
 
     /// Sets the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = GenerateEphemeralCertResponse::new().set_ephemeral_cert(SslCert::default()/* use setters */);
+    /// ```
     pub fn set_ephemeral_cert<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -1071,6 +1529,14 @@ impl GenerateEphemeralCertResponse {
     }
 
     /// Sets or clears the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GenerateEphemeralCertResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = GenerateEphemeralCertResponse::new().set_or_clear_ephemeral_cert(Some(SslCert::default()/* use setters */));
+    /// let x = GenerateEphemeralCertResponse::new().set_or_clear_ephemeral_cert(None::<SslCert>);
+    /// ```
     pub fn set_or_clear_ephemeral_cert<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -1108,18 +1574,36 @@ impl SqlDatabasesDeleteRequest {
     }
 
     /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesDeleteRequest;
+    /// let x = SqlDatabasesDeleteRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesDeleteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesDeleteRequest;
+    /// let x = SqlDatabasesDeleteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlDatabasesDeleteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesDeleteRequest;
+    /// let x = SqlDatabasesDeleteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -1154,18 +1638,36 @@ impl SqlDatabasesGetRequest {
     }
 
     /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesGetRequest;
+    /// let x = SqlDatabasesGetRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesGetRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesGetRequest;
+    /// let x = SqlDatabasesGetRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlDatabasesGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesGetRequest;
+    /// let x = SqlDatabasesGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -1199,18 +1701,37 @@ impl SqlDatabasesInsertRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesInsertRequest;
+    /// let x = SqlDatabasesInsertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlDatabasesInsertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesInsertRequest;
+    /// let x = SqlDatabasesInsertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlDatabasesInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesInsertRequest;
+    /// use google_cloud_sql_v1::model::Database;
+    /// let x = SqlDatabasesInsertRequest::new().set_body(Database::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -1220,6 +1741,14 @@ impl SqlDatabasesInsertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlDatabasesInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesInsertRequest;
+    /// use google_cloud_sql_v1::model::Database;
+    /// let x = SqlDatabasesInsertRequest::new().set_or_clear_body(Some(Database::default()/* use setters */));
+    /// let x = SqlDatabasesInsertRequest::new().set_or_clear_body(None::<Database>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -1254,12 +1783,24 @@ impl SqlDatabasesListRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesListRequest;
+    /// let x = SqlDatabasesListRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlDatabasesListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesListRequest;
+    /// let x = SqlDatabasesListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -1296,24 +1837,49 @@ impl SqlDatabasesUpdateRequest {
     }
 
     /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// let x = SqlDatabasesUpdateRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesUpdateRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// let x = SqlDatabasesUpdateRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlDatabasesUpdateRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// let x = SqlDatabasesUpdateRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// use google_cloud_sql_v1::model::Database;
+    /// let x = SqlDatabasesUpdateRequest::new().set_body(Database::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -1323,6 +1889,14 @@ impl SqlDatabasesUpdateRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlDatabasesUpdateRequest;
+    /// use google_cloud_sql_v1::model::Database;
+    /// let x = SqlDatabasesUpdateRequest::new().set_or_clear_body(Some(Database::default()/* use setters */));
+    /// let x = SqlDatabasesUpdateRequest::new().set_or_clear_body(None::<Database>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -1357,12 +1931,29 @@ impl DatabasesListResponse {
     }
 
     /// Sets the value of [kind][crate::model::DatabasesListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabasesListResponse;
+    /// let x = DatabasesListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::DatabasesListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabasesListResponse;
+    /// use google_cloud_sql_v1::model::Database;
+    /// let x = DatabasesListResponse::new()
+    ///     .set_items([
+    ///         Database::default()/* use setters */,
+    ///         Database::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1397,6 +1988,12 @@ impl SqlFlagsListRequest {
     }
 
     /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlFlagsListRequest;
+    /// let x = SqlFlagsListRequest::new().set_database_version("example");
+    /// ```
     pub fn set_database_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1431,12 +2028,29 @@ impl FlagsListResponse {
     }
 
     /// Sets the value of [kind][crate::model::FlagsListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::FlagsListResponse;
+    /// let x = FlagsListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::FlagsListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::FlagsListResponse;
+    /// use google_cloud_sql_v1::model::Flag;
+    /// let x = FlagsListResponse::new()
+    ///     .set_items([
+    ///         Flag::default()/* use setters */,
+    ///         Flag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1511,18 +2125,44 @@ impl Flag {
     }
 
     /// Sets the value of [name][crate::model::Flag::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// let x = Flag::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Flag::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use google_cloud_sql_v1::model::SqlFlagType;
+    /// let x0 = Flag::new().set_type(SqlFlagType::Boolean);
+    /// let x1 = Flag::new().set_type(SqlFlagType::String);
+    /// let x2 = Flag::new().set_type(SqlFlagType::Integer);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::SqlFlagType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [applies_to][crate::model::Flag::applies_to].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use google_cloud_sql_v1::model::SqlDatabaseVersion;
+    /// let x = Flag::new().set_applies_to([
+    ///     SqlDatabaseVersion::Mysql56,
+    ///     SqlDatabaseVersion::Mysql57,
+    ///     SqlDatabaseVersion::Sqlserver2017Standard,
+    /// ]);
+    /// ```
     pub fn set_applies_to<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1534,6 +2174,12 @@ impl Flag {
     }
 
     /// Sets the value of [allowed_string_values][crate::model::Flag::allowed_string_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// let x = Flag::new().set_allowed_string_values(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_string_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1545,6 +2191,13 @@ impl Flag {
     }
 
     /// Sets the value of [min_value][crate::model::Flag::min_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::Int64Value;
+    /// let x = Flag::new().set_min_value(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_min_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1554,6 +2207,14 @@ impl Flag {
     }
 
     /// Sets or clears the value of [min_value][crate::model::Flag::min_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::Int64Value;
+    /// let x = Flag::new().set_or_clear_min_value(Some(Int64Value::default()/* use setters */));
+    /// let x = Flag::new().set_or_clear_min_value(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_min_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1563,6 +2224,13 @@ impl Flag {
     }
 
     /// Sets the value of [max_value][crate::model::Flag::max_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::Int64Value;
+    /// let x = Flag::new().set_max_value(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_max_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1572,6 +2240,14 @@ impl Flag {
     }
 
     /// Sets or clears the value of [max_value][crate::model::Flag::max_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::Int64Value;
+    /// let x = Flag::new().set_or_clear_max_value(Some(Int64Value::default()/* use setters */));
+    /// let x = Flag::new().set_or_clear_max_value(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_max_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1581,6 +2257,13 @@ impl Flag {
     }
 
     /// Sets the value of [requires_restart][crate::model::Flag::requires_restart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::BoolValue;
+    /// let x = Flag::new().set_requires_restart(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_requires_restart<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1590,6 +2273,14 @@ impl Flag {
     }
 
     /// Sets or clears the value of [requires_restart][crate::model::Flag::requires_restart].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::BoolValue;
+    /// let x = Flag::new().set_or_clear_requires_restart(Some(BoolValue::default()/* use setters */));
+    /// let x = Flag::new().set_or_clear_requires_restart(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_requires_restart<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1599,12 +2290,25 @@ impl Flag {
     }
 
     /// Sets the value of [kind][crate::model::Flag::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// let x = Flag::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [in_beta][crate::model::Flag::in_beta].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::BoolValue;
+    /// let x = Flag::new().set_in_beta(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_in_beta<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1614,6 +2318,14 @@ impl Flag {
     }
 
     /// Sets or clears the value of [in_beta][crate::model::Flag::in_beta].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// use wkt::BoolValue;
+    /// let x = Flag::new().set_or_clear_in_beta(Some(BoolValue::default()/* use setters */));
+    /// let x = Flag::new().set_or_clear_in_beta(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_in_beta<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1623,6 +2335,12 @@ impl Flag {
     }
 
     /// Sets the value of [allowed_int_values][crate::model::Flag::allowed_int_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Flag;
+    /// let x = Flag::new().set_allowed_int_values([1, 2, 3]);
+    /// ```
     pub fn set_allowed_int_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1659,12 +2377,24 @@ impl SqlInstancesAddServerCaRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAddServerCaRequest;
+    /// let x = SqlInstancesAddServerCaRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesAddServerCaRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAddServerCaRequest;
+    /// let x = SqlInstancesAddServerCaRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -1699,18 +2429,37 @@ impl SqlInstancesCloneRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCloneRequest;
+    /// let x = SqlInstancesCloneRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesCloneRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCloneRequest;
+    /// let x = SqlInstancesCloneRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesCloneRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCloneRequest;
+    /// use google_cloud_sql_v1::model::InstancesCloneRequest;
+    /// let x = SqlInstancesCloneRequest::new().set_body(InstancesCloneRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesCloneRequest>,
@@ -1720,6 +2469,14 @@ impl SqlInstancesCloneRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesCloneRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCloneRequest;
+    /// use google_cloud_sql_v1::model::InstancesCloneRequest;
+    /// let x = SqlInstancesCloneRequest::new().set_or_clear_body(Some(InstancesCloneRequest::default()/* use setters */));
+    /// let x = SqlInstancesCloneRequest::new().set_or_clear_body(None::<InstancesCloneRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesCloneRequest>,
@@ -1754,12 +2511,24 @@ impl SqlInstancesDeleteRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDeleteRequest;
+    /// let x = SqlInstancesDeleteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesDeleteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDeleteRequest;
+    /// let x = SqlInstancesDeleteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -1793,18 +2562,37 @@ impl SqlInstancesDemoteMasterRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteMasterRequest;
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesDemoteMasterRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteMasterRequest;
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteMasterRequest;
+    /// use google_cloud_sql_v1::model::InstancesDemoteMasterRequest;
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_body(InstancesDemoteMasterRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
@@ -1814,6 +2602,14 @@ impl SqlInstancesDemoteMasterRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteMasterRequest;
+    /// use google_cloud_sql_v1::model::InstancesDemoteMasterRequest;
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_or_clear_body(Some(InstancesDemoteMasterRequest::default()/* use setters */));
+    /// let x = SqlInstancesDemoteMasterRequest::new().set_or_clear_body(None::<InstancesDemoteMasterRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
@@ -1851,18 +2647,37 @@ impl SqlInstancesDemoteRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteRequest;
+    /// let x = SqlInstancesDemoteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesDemoteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteRequest;
+    /// let x = SqlInstancesDemoteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesDemoteRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteRequest;
+    /// use google_cloud_sql_v1::model::InstancesDemoteRequest;
+    /// let x = SqlInstancesDemoteRequest::new().set_body(InstancesDemoteRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesDemoteRequest>,
@@ -1872,6 +2687,14 @@ impl SqlInstancesDemoteRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesDemoteRequest;
+    /// use google_cloud_sql_v1::model::InstancesDemoteRequest;
+    /// let x = SqlInstancesDemoteRequest::new().set_or_clear_body(Some(InstancesDemoteRequest::default()/* use setters */));
+    /// let x = SqlInstancesDemoteRequest::new().set_or_clear_body(None::<InstancesDemoteRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesDemoteRequest>,
@@ -1908,18 +2731,37 @@ impl SqlInstancesExportRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExportRequest;
+    /// let x = SqlInstancesExportRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesExportRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExportRequest;
+    /// let x = SqlInstancesExportRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesExportRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExportRequest;
+    /// use google_cloud_sql_v1::model::InstancesExportRequest;
+    /// let x = SqlInstancesExportRequest::new().set_body(InstancesExportRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesExportRequest>,
@@ -1929,6 +2771,14 @@ impl SqlInstancesExportRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesExportRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExportRequest;
+    /// use google_cloud_sql_v1::model::InstancesExportRequest;
+    /// let x = SqlInstancesExportRequest::new().set_or_clear_body(Some(InstancesExportRequest::default()/* use setters */));
+    /// let x = SqlInstancesExportRequest::new().set_or_clear_body(None::<InstancesExportRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesExportRequest>,
@@ -1965,18 +2815,37 @@ impl SqlInstancesFailoverRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesFailoverRequest;
+    /// let x = SqlInstancesFailoverRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesFailoverRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesFailoverRequest;
+    /// let x = SqlInstancesFailoverRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesFailoverRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesFailoverRequest;
+    /// use google_cloud_sql_v1::model::InstancesFailoverRequest;
+    /// let x = SqlInstancesFailoverRequest::new().set_body(InstancesFailoverRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesFailoverRequest>,
@@ -1986,6 +2855,14 @@ impl SqlInstancesFailoverRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesFailoverRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesFailoverRequest;
+    /// use google_cloud_sql_v1::model::InstancesFailoverRequest;
+    /// let x = SqlInstancesFailoverRequest::new().set_or_clear_body(Some(InstancesFailoverRequest::default()/* use setters */));
+    /// let x = SqlInstancesFailoverRequest::new().set_or_clear_body(None::<InstancesFailoverRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesFailoverRequest>,
@@ -2020,12 +2897,24 @@ impl SqlInstancesGetRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetRequest;
+    /// let x = SqlInstancesGetRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetRequest;
+    /// let x = SqlInstancesGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2059,18 +2948,37 @@ impl SqlInstancesImportRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesImportRequest;
+    /// let x = SqlInstancesImportRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesImportRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesImportRequest;
+    /// let x = SqlInstancesImportRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesImportRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesImportRequest;
+    /// use google_cloud_sql_v1::model::InstancesImportRequest;
+    /// let x = SqlInstancesImportRequest::new().set_body(InstancesImportRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesImportRequest>,
@@ -2080,6 +2988,14 @@ impl SqlInstancesImportRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesImportRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesImportRequest;
+    /// use google_cloud_sql_v1::model::InstancesImportRequest;
+    /// let x = SqlInstancesImportRequest::new().set_or_clear_body(Some(InstancesImportRequest::default()/* use setters */));
+    /// let x = SqlInstancesImportRequest::new().set_or_clear_body(None::<InstancesImportRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesImportRequest>,
@@ -2114,12 +3030,25 @@ impl SqlInstancesInsertRequest {
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesInsertRequest;
+    /// let x = SqlInstancesInsertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesInsertRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesInsertRequest::new().set_body(DatabaseInstance::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2129,6 +3058,14 @@ impl SqlInstancesInsertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesInsertRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesInsertRequest::new().set_or_clear_body(Some(DatabaseInstance::default()/* use setters */));
+    /// let x = SqlInstancesInsertRequest::new().set_or_clear_body(None::<DatabaseInstance>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2181,24 +3118,48 @@ impl SqlInstancesListRequest {
     }
 
     /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListRequest;
+    /// let x = SqlInstancesListRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [max_results][crate::model::SqlInstancesListRequest::max_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListRequest;
+    /// let x = SqlInstancesListRequest::new().set_max_results(42_u32);
+    /// ```
     pub fn set_max_results<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.max_results = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SqlInstancesListRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListRequest;
+    /// let x = SqlInstancesListRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListRequest;
+    /// let x = SqlInstancesListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2230,12 +3191,24 @@ impl SqlInstancesListServerCasRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListServerCasRequest;
+    /// let x = SqlInstancesListServerCasRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesListServerCasRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesListServerCasRequest;
+    /// let x = SqlInstancesListServerCasRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2269,18 +3242,37 @@ impl SqlInstancesPatchRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesPatchRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// let x = SqlInstancesPatchRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesPatchRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesPatchRequest::new().set_body(DatabaseInstance::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2290,6 +3282,14 @@ impl SqlInstancesPatchRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesPatchRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPatchRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_body(Some(DatabaseInstance::default()/* use setters */));
+    /// let x = SqlInstancesPatchRequest::new().set_or_clear_body(None::<DatabaseInstance>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2333,18 +3333,36 @@ impl SqlInstancesPromoteReplicaRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPromoteReplicaRequest;
+    /// let x = SqlInstancesPromoteReplicaRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesPromoteReplicaRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPromoteReplicaRequest;
+    /// let x = SqlInstancesPromoteReplicaRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [failover][crate::model::SqlInstancesPromoteReplicaRequest::failover].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPromoteReplicaRequest;
+    /// let x = SqlInstancesPromoteReplicaRequest::new().set_failover(true);
+    /// ```
     pub fn set_failover<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.failover = v.into();
         self
@@ -2381,18 +3399,37 @@ impl SqlInstancesSwitchoverRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesSwitchoverRequest;
+    /// let x = SqlInstancesSwitchoverRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesSwitchoverRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesSwitchoverRequest;
+    /// let x = SqlInstancesSwitchoverRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesSwitchoverRequest;
+    /// use wkt::Duration;
+    /// let x = SqlInstancesSwitchoverRequest::new().set_db_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_db_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2402,6 +3439,14 @@ impl SqlInstancesSwitchoverRequest {
     }
 
     /// Sets or clears the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesSwitchoverRequest;
+    /// use wkt::Duration;
+    /// let x = SqlInstancesSwitchoverRequest::new().set_or_clear_db_timeout(Some(Duration::default()/* use setters */));
+    /// let x = SqlInstancesSwitchoverRequest::new().set_or_clear_db_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_db_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2436,12 +3481,24 @@ impl SqlInstancesResetSslConfigRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetSslConfigRequest;
+    /// let x = SqlInstancesResetSslConfigRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesResetSslConfigRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetSslConfigRequest;
+    /// let x = SqlInstancesResetSslConfigRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2473,12 +3530,24 @@ impl SqlInstancesRestartRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestartRequest;
+    /// let x = SqlInstancesRestartRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesRestartRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestartRequest;
+    /// let x = SqlInstancesRestartRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2512,18 +3581,37 @@ impl SqlInstancesRestoreBackupRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestoreBackupRequest;
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesRestoreBackupRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestoreBackupRequest;
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestoreBackupRequest;
+    /// use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_body(InstancesRestoreBackupRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
@@ -2533,6 +3621,14 @@ impl SqlInstancesRestoreBackupRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRestoreBackupRequest;
+    /// use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_or_clear_body(Some(InstancesRestoreBackupRequest::default()/* use setters */));
+    /// let x = SqlInstancesRestoreBackupRequest::new().set_or_clear_body(None::<InstancesRestoreBackupRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
@@ -2569,18 +3665,37 @@ impl SqlInstancesRotateServerCaRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCaRequest;
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesRotateServerCaRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCaRequest;
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCaRequest;
+    /// use google_cloud_sql_v1::model::InstancesRotateServerCaRequest;
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_body(InstancesRotateServerCaRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
@@ -2590,6 +3705,14 @@ impl SqlInstancesRotateServerCaRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRotateServerCaRequest;
+    /// use google_cloud_sql_v1::model::InstancesRotateServerCaRequest;
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_or_clear_body(Some(InstancesRotateServerCaRequest::default()/* use setters */));
+    /// let x = SqlInstancesRotateServerCaRequest::new().set_or_clear_body(None::<InstancesRotateServerCaRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
@@ -2624,12 +3747,24 @@ impl SqlInstancesStartReplicaRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartReplicaRequest;
+    /// let x = SqlInstancesStartReplicaRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesStartReplicaRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartReplicaRequest;
+    /// let x = SqlInstancesStartReplicaRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2661,12 +3796,24 @@ impl SqlInstancesStopReplicaRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopReplicaRequest;
+    /// let x = SqlInstancesStopReplicaRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesStopReplicaRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopReplicaRequest;
+    /// let x = SqlInstancesStopReplicaRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -2700,18 +3847,37 @@ impl SqlInstancesTruncateLogRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesTruncateLogRequest;
+    /// let x = SqlInstancesTruncateLogRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesTruncateLogRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesTruncateLogRequest;
+    /// let x = SqlInstancesTruncateLogRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesTruncateLogRequest;
+    /// use google_cloud_sql_v1::model::InstancesTruncateLogRequest;
+    /// let x = SqlInstancesTruncateLogRequest::new().set_body(InstancesTruncateLogRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
@@ -2721,6 +3887,14 @@ impl SqlInstancesTruncateLogRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesTruncateLogRequest;
+    /// use google_cloud_sql_v1::model::InstancesTruncateLogRequest;
+    /// let x = SqlInstancesTruncateLogRequest::new().set_or_clear_body(Some(InstancesTruncateLogRequest::default()/* use setters */));
+    /// let x = SqlInstancesTruncateLogRequest::new().set_or_clear_body(None::<InstancesTruncateLogRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
@@ -2758,18 +3932,37 @@ impl SqlInstancesPerformDiskShrinkRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPerformDiskShrinkRequest;
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesPerformDiskShrinkRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPerformDiskShrinkRequest;
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPerformDiskShrinkRequest;
+    /// use google_cloud_sql_v1::model::PerformDiskShrinkContext;
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_body(PerformDiskShrinkContext::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
@@ -2779,6 +3972,14 @@ impl SqlInstancesPerformDiskShrinkRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesPerformDiskShrinkRequest;
+    /// use google_cloud_sql_v1::model::PerformDiskShrinkContext;
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_or_clear_body(Some(PerformDiskShrinkContext::default()/* use setters */));
+    /// let x = SqlInstancesPerformDiskShrinkRequest::new().set_or_clear_body(None::<PerformDiskShrinkContext>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
@@ -2815,18 +4016,37 @@ impl SqlInstancesUpdateRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesUpdateRequest;
+    /// let x = SqlInstancesUpdateRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesUpdateRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesUpdateRequest;
+    /// let x = SqlInstancesUpdateRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesUpdateRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesUpdateRequest::new().set_body(DatabaseInstance::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2836,6 +4056,14 @@ impl SqlInstancesUpdateRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesUpdateRequest;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = SqlInstancesUpdateRequest::new().set_or_clear_body(Some(DatabaseInstance::default()/* use setters */));
+    /// let x = SqlInstancesUpdateRequest::new().set_or_clear_body(None::<DatabaseInstance>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseInstance>,
@@ -2872,18 +4100,37 @@ impl SqlInstancesRescheduleMaintenanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequest;
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesRescheduleMaintenanceRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequest;
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequest;
+    /// use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequestBody;
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_body(SqlInstancesRescheduleMaintenanceRequestBody::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
@@ -2893,6 +4140,14 @@ impl SqlInstancesRescheduleMaintenanceRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequest;
+    /// use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequestBody;
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_or_clear_body(Some(SqlInstancesRescheduleMaintenanceRequestBody::default()/* use setters */));
+    /// let x = SqlInstancesRescheduleMaintenanceRequest::new().set_or_clear_body(None::<SqlInstancesRescheduleMaintenanceRequestBody>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
@@ -2930,18 +4185,37 @@ impl SqlInstancesReencryptRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReencryptRequest;
+    /// let x = SqlInstancesReencryptRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesReencryptRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReencryptRequest;
+    /// let x = SqlInstancesReencryptRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesReencryptRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReencryptRequest;
+    /// use google_cloud_sql_v1::model::InstancesReencryptRequest;
+    /// let x = SqlInstancesReencryptRequest::new().set_body(InstancesReencryptRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesReencryptRequest>,
@@ -2951,6 +4225,14 @@ impl SqlInstancesReencryptRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesReencryptRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReencryptRequest;
+    /// use google_cloud_sql_v1::model::InstancesReencryptRequest;
+    /// let x = SqlInstancesReencryptRequest::new().set_or_clear_body(Some(InstancesReencryptRequest::default()/* use setters */));
+    /// let x = SqlInstancesReencryptRequest::new().set_or_clear_body(None::<InstancesReencryptRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesReencryptRequest>,
@@ -2982,6 +4264,13 @@ impl InstancesReencryptRequest {
     }
 
     /// Sets the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesReencryptRequest;
+    /// use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// let x = InstancesReencryptRequest::new().set_backup_reencryption_config(BackupReencryptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_backup_reencryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupReencryptionConfig>,
@@ -2991,6 +4280,14 @@ impl InstancesReencryptRequest {
     }
 
     /// Sets or clears the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesReencryptRequest;
+    /// use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// let x = InstancesReencryptRequest::new().set_or_clear_backup_reencryption_config(Some(BackupReencryptionConfig::default()/* use setters */));
+    /// let x = InstancesReencryptRequest::new().set_or_clear_backup_reencryption_config(None::<BackupReencryptionConfig>);
+    /// ```
     pub fn set_or_clear_backup_reencryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupReencryptionConfig>,
@@ -3025,6 +4322,12 @@ impl BackupReencryptionConfig {
     }
 
     /// Sets the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// let x = BackupReencryptionConfig::new().set_backup_limit(42);
+    /// ```
     pub fn set_backup_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -3034,6 +4337,13 @@ impl BackupReencryptionConfig {
     }
 
     /// Sets or clears the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// let x = BackupReencryptionConfig::new().set_or_clear_backup_limit(Some(42));
+    /// let x = BackupReencryptionConfig::new().set_or_clear_backup_limit(None::<i32>);
+    /// ```
     pub fn set_or_clear_backup_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -3043,6 +4353,14 @@ impl BackupReencryptionConfig {
     }
 
     /// Sets the value of [backup_type][crate::model::BackupReencryptionConfig::backup_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// use google_cloud_sql_v1::model::backup_reencryption_config::BackupType;
+    /// let x0 = BackupReencryptionConfig::new().set_backup_type(BackupType::Automated);
+    /// let x1 = BackupReencryptionConfig::new().set_backup_type(BackupType::OnDemand);
+    /// ```
     pub fn set_backup_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>,
@@ -3052,6 +4370,15 @@ impl BackupReencryptionConfig {
     }
 
     /// Sets or clears the value of [backup_type][crate::model::BackupReencryptionConfig::backup_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupReencryptionConfig;
+    /// use google_cloud_sql_v1::model::backup_reencryption_config::BackupType;
+    /// let x0 = BackupReencryptionConfig::new().set_or_clear_backup_type(Some(BackupType::Automated));
+    /// let x1 = BackupReencryptionConfig::new().set_or_clear_backup_type(Some(BackupType::OnDemand));
+    /// let x_none = BackupReencryptionConfig::new().set_or_clear_backup_type(None::<BackupType>);
+    /// ```
     pub fn set_or_clear_backup_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_reencryption_config::BackupType>,
@@ -3224,12 +4551,24 @@ impl SqlInstancesGetDiskShrinkConfigRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigRequest;
+    /// let x = SqlInstancesGetDiskShrinkConfigRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesGetDiskShrinkConfigRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigRequest;
+    /// let x = SqlInstancesGetDiskShrinkConfigRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -3285,24 +4624,50 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [verify_connection_only][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::verify_connection_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_verify_connection_only(true);
+    /// ```
     pub fn set_verify_connection_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verify_connection_only = v.into();
         self
     }
 
     /// Sets the value of [sync_mode][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// use google_cloud_sql_v1::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode;
+    /// let x0 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_mode(ExternalSyncMode::Online);
+    /// let x1 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_mode(ExternalSyncMode::Offline);
+    /// ```
     pub fn set_sync_mode<
         T: std::convert::Into<
                 crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
@@ -3316,12 +4681,26 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 
     /// Sets the value of [verify_replication_only][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::verify_replication_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_verify_replication_only(true);
+    /// ```
     pub fn set_verify_replication_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verify_replication_only = v.into();
         self
     }
 
     /// Sets the value of [migration_type][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::migration_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// use google_cloud_sql_v1::model::sql_instances_verify_external_sync_settings_request::MigrationType;
+    /// let x0 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_migration_type(MigrationType::Logical);
+    /// let x1 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_migration_type(MigrationType::Physical);
+    /// ```
     pub fn set_migration_type<
         T: std::convert::Into<
                 crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
@@ -3335,6 +4714,15 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     }
 
     /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_parallel_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// use google_cloud_sql_v1::model::ExternalSyncParallelLevel;
+    /// let x0 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Min);
+    /// let x1 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Optimal);
+    /// let x2 = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Max);
+    /// ```
     pub fn set_sync_parallel_level<
         T: std::convert::Into<crate::model::ExternalSyncParallelLevel>,
     >(
@@ -3349,6 +4737,14 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     ///
     /// Note that all the setters affecting `sync_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// use google_cloud_sql_v1::model::MySqlSyncConfig;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_sync_config(Some(
+    ///     google_cloud_sql_v1::model::sql_instances_verify_external_sync_settings_request::SyncConfig::MysqlSyncConfig(MySqlSyncConfig::default().into())));
+    /// ```
     pub fn set_sync_config<
         T: std::convert::Into<
                 std::option::Option<
@@ -3381,6 +4777,14 @@ impl SqlInstancesVerifyExternalSyncSettingsRequest {
     ///
     /// Note that all the setters affecting `sync_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsRequest;
+    /// use google_cloud_sql_v1::model::MySqlSyncConfig;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsRequest::new().set_mysql_sync_config(MySqlSyncConfig::default()/* use setters */);
+    /// assert!(x.mysql_sync_config().is_some());
+    /// ```
     pub fn set_mysql_sync_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
     >(
@@ -3719,18 +5123,38 @@ impl SqlInstancesStartExternalSyncRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesStartExternalSyncRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [sync_mode][crate::model::SqlInstancesStartExternalSyncRequest::sync_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// use google_cloud_sql_v1::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode;
+    /// let x0 = SqlInstancesStartExternalSyncRequest::new().set_sync_mode(ExternalSyncMode::Online);
+    /// let x1 = SqlInstancesStartExternalSyncRequest::new().set_sync_mode(ExternalSyncMode::Offline);
+    /// ```
     pub fn set_sync_mode<
         T: std::convert::Into<
                 crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
@@ -3744,12 +5168,27 @@ impl SqlInstancesStartExternalSyncRequest {
     }
 
     /// Sets the value of [skip_verification][crate::model::SqlInstancesStartExternalSyncRequest::skip_verification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_skip_verification(true);
+    /// ```
     pub fn set_skip_verification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_verification = v.into();
         self
     }
 
     /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesStartExternalSyncRequest::sync_parallel_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// use google_cloud_sql_v1::model::ExternalSyncParallelLevel;
+    /// let x0 = SqlInstancesStartExternalSyncRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Min);
+    /// let x1 = SqlInstancesStartExternalSyncRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Optimal);
+    /// let x2 = SqlInstancesStartExternalSyncRequest::new().set_sync_parallel_level(ExternalSyncParallelLevel::Max);
+    /// ```
     pub fn set_sync_parallel_level<
         T: std::convert::Into<crate::model::ExternalSyncParallelLevel>,
     >(
@@ -3761,6 +5200,14 @@ impl SqlInstancesStartExternalSyncRequest {
     }
 
     /// Sets the value of [migration_type][crate::model::SqlInstancesStartExternalSyncRequest::migration_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// use google_cloud_sql_v1::model::sql_instances_verify_external_sync_settings_request::MigrationType;
+    /// let x0 = SqlInstancesStartExternalSyncRequest::new().set_migration_type(MigrationType::Logical);
+    /// let x1 = SqlInstancesStartExternalSyncRequest::new().set_migration_type(MigrationType::Physical);
+    /// ```
     pub fn set_migration_type<
         T: std::convert::Into<
                 crate::model::sql_instances_verify_external_sync_settings_request::MigrationType,
@@ -3777,6 +5224,14 @@ impl SqlInstancesStartExternalSyncRequest {
     ///
     /// Note that all the setters affecting `sync_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// use google_cloud_sql_v1::model::MySqlSyncConfig;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_sync_config(Some(
+    ///     google_cloud_sql_v1::model::sql_instances_start_external_sync_request::SyncConfig::MysqlSyncConfig(MySqlSyncConfig::default().into())));
+    /// ```
     pub fn set_sync_config<
         T: std::convert::Into<
                 std::option::Option<
@@ -3809,6 +5264,14 @@ impl SqlInstancesStartExternalSyncRequest {
     ///
     /// Note that all the setters affecting `sync_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartExternalSyncRequest;
+    /// use google_cloud_sql_v1::model::MySqlSyncConfig;
+    /// let x = SqlInstancesStartExternalSyncRequest::new().set_mysql_sync_config(MySqlSyncConfig::default()/* use setters */);
+    /// assert!(x.mysql_sync_config().is_some());
+    /// ```
     pub fn set_mysql_sync_config<
         T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
     >(
@@ -3862,12 +5325,24 @@ impl SqlInstancesResetReplicaSizeRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetReplicaSizeRequest;
+    /// let x = SqlInstancesResetReplicaSizeRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesResetReplicaSizeRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesResetReplicaSizeRequest;
+    /// let x = SqlInstancesResetReplicaSizeRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -3901,18 +5376,37 @@ impl SqlInstancesCreateEphemeralCertRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCreateEphemeralCertRequest;
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesCreateEphemeralCertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCreateEphemeralCertRequest;
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCreateEphemeralCertRequest;
+    /// use google_cloud_sql_v1::model::SslCertsCreateEphemeralRequest;
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_body(SslCertsCreateEphemeralRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
@@ -3922,6 +5416,14 @@ impl SqlInstancesCreateEphemeralCertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesCreateEphemeralCertRequest;
+    /// use google_cloud_sql_v1::model::SslCertsCreateEphemeralRequest;
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_or_clear_body(Some(SslCertsCreateEphemeralRequest::default()/* use setters */));
+    /// let x = SqlInstancesCreateEphemeralCertRequest::new().set_or_clear_body(None::<SslCertsCreateEphemeralRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
@@ -3953,6 +5455,13 @@ impl InstancesCloneRequest {
     }
 
     /// Sets the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesCloneRequest;
+    /// use google_cloud_sql_v1::model::CloneContext;
+    /// let x = InstancesCloneRequest::new().set_clone_context(CloneContext::default()/* use setters */);
+    /// ```
     pub fn set_clone_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloneContext>,
@@ -3962,6 +5471,14 @@ impl InstancesCloneRequest {
     }
 
     /// Sets or clears the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesCloneRequest;
+    /// use google_cloud_sql_v1::model::CloneContext;
+    /// let x = InstancesCloneRequest::new().set_or_clear_clone_context(Some(CloneContext::default()/* use setters */));
+    /// let x = InstancesCloneRequest::new().set_or_clear_clone_context(None::<CloneContext>);
+    /// ```
     pub fn set_or_clear_clone_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloneContext>,
@@ -3993,6 +5510,13 @@ impl InstancesDemoteMasterRequest {
     }
 
     /// Sets the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesDemoteMasterRequest;
+    /// use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// let x = InstancesDemoteMasterRequest::new().set_demote_master_context(DemoteMasterContext::default()/* use setters */);
+    /// ```
     pub fn set_demote_master_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterContext>,
@@ -4002,6 +5526,14 @@ impl InstancesDemoteMasterRequest {
     }
 
     /// Sets or clears the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesDemoteMasterRequest;
+    /// use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// let x = InstancesDemoteMasterRequest::new().set_or_clear_demote_master_context(Some(DemoteMasterContext::default()/* use setters */));
+    /// let x = InstancesDemoteMasterRequest::new().set_or_clear_demote_master_context(None::<DemoteMasterContext>);
+    /// ```
     pub fn set_or_clear_demote_master_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterContext>,
@@ -4034,6 +5566,13 @@ impl InstancesDemoteRequest {
     }
 
     /// Sets the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesDemoteRequest;
+    /// use google_cloud_sql_v1::model::DemoteContext;
+    /// let x = InstancesDemoteRequest::new().set_demote_context(DemoteContext::default()/* use setters */);
+    /// ```
     pub fn set_demote_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DemoteContext>,
@@ -4043,6 +5582,14 @@ impl InstancesDemoteRequest {
     }
 
     /// Sets or clears the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesDemoteRequest;
+    /// use google_cloud_sql_v1::model::DemoteContext;
+    /// let x = InstancesDemoteRequest::new().set_or_clear_demote_context(Some(DemoteContext::default()/* use setters */));
+    /// let x = InstancesDemoteRequest::new().set_or_clear_demote_context(None::<DemoteContext>);
+    /// ```
     pub fn set_or_clear_demote_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DemoteContext>,
@@ -4074,6 +5621,13 @@ impl InstancesExportRequest {
     }
 
     /// Sets the value of [export_context][crate::model::InstancesExportRequest::export_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesExportRequest;
+    /// use google_cloud_sql_v1::model::ExportContext;
+    /// let x = InstancesExportRequest::new().set_export_context(ExportContext::default()/* use setters */);
+    /// ```
     pub fn set_export_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportContext>,
@@ -4083,6 +5637,14 @@ impl InstancesExportRequest {
     }
 
     /// Sets or clears the value of [export_context][crate::model::InstancesExportRequest::export_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesExportRequest;
+    /// use google_cloud_sql_v1::model::ExportContext;
+    /// let x = InstancesExportRequest::new().set_or_clear_export_context(Some(ExportContext::default()/* use setters */));
+    /// let x = InstancesExportRequest::new().set_or_clear_export_context(None::<ExportContext>);
+    /// ```
     pub fn set_or_clear_export_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportContext>,
@@ -4114,6 +5676,13 @@ impl InstancesFailoverRequest {
     }
 
     /// Sets the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesFailoverRequest;
+    /// use google_cloud_sql_v1::model::FailoverContext;
+    /// let x = InstancesFailoverRequest::new().set_failover_context(FailoverContext::default()/* use setters */);
+    /// ```
     pub fn set_failover_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FailoverContext>,
@@ -4123,6 +5692,14 @@ impl InstancesFailoverRequest {
     }
 
     /// Sets or clears the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesFailoverRequest;
+    /// use google_cloud_sql_v1::model::FailoverContext;
+    /// let x = InstancesFailoverRequest::new().set_or_clear_failover_context(Some(FailoverContext::default()/* use setters */));
+    /// let x = InstancesFailoverRequest::new().set_or_clear_failover_context(None::<FailoverContext>);
+    /// ```
     pub fn set_or_clear_failover_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FailoverContext>,
@@ -4157,12 +5734,24 @@ impl SslCertsCreateEphemeralRequest {
     }
 
     /// Sets the value of [public_key][crate::model::SslCertsCreateEphemeralRequest::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsCreateEphemeralRequest;
+    /// let x = SslCertsCreateEphemeralRequest::new().set_public_key("example");
+    /// ```
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
     }
 
     /// Sets the value of [access_token][crate::model::SslCertsCreateEphemeralRequest::access_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsCreateEphemeralRequest;
+    /// let x = SslCertsCreateEphemeralRequest::new().set_access_token("example");
+    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
@@ -4191,6 +5780,13 @@ impl InstancesImportRequest {
     }
 
     /// Sets the value of [import_context][crate::model::InstancesImportRequest::import_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesImportRequest;
+    /// use google_cloud_sql_v1::model::ImportContext;
+    /// let x = InstancesImportRequest::new().set_import_context(ImportContext::default()/* use setters */);
+    /// ```
     pub fn set_import_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportContext>,
@@ -4200,6 +5796,14 @@ impl InstancesImportRequest {
     }
 
     /// Sets or clears the value of [import_context][crate::model::InstancesImportRequest::import_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesImportRequest;
+    /// use google_cloud_sql_v1::model::ImportContext;
+    /// let x = InstancesImportRequest::new().set_or_clear_import_context(Some(ImportContext::default()/* use setters */));
+    /// let x = InstancesImportRequest::new().set_or_clear_import_context(None::<ImportContext>);
+    /// ```
     pub fn set_or_clear_import_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportContext>,
@@ -4241,12 +5845,29 @@ impl InstancesListResponse {
     }
 
     /// Sets the value of [kind][crate::model::InstancesListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListResponse;
+    /// let x = InstancesListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [warnings][crate::model::InstancesListResponse::warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListResponse;
+    /// use google_cloud_sql_v1::model::ApiWarning;
+    /// let x = InstancesListResponse::new()
+    ///     .set_warnings([
+    ///         ApiWarning::default()/* use setters */,
+    ///         ApiWarning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4258,6 +5879,17 @@ impl InstancesListResponse {
     }
 
     /// Sets the value of [items][crate::model::InstancesListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListResponse;
+    /// use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = InstancesListResponse::new()
+    ///     .set_items([
+    ///         DatabaseInstance::default()/* use setters */,
+    ///         DatabaseInstance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4269,6 +5901,12 @@ impl InstancesListResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::InstancesListResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListResponse;
+    /// let x = InstancesListResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4316,6 +5954,17 @@ impl InstancesListServerCasResponse {
     }
 
     /// Sets the value of [certs][crate::model::InstancesListServerCasResponse::certs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListServerCasResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = InstancesListServerCasResponse::new()
+    ///     .set_certs([
+    ///         SslCert::default()/* use setters */,
+    ///         SslCert::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4327,12 +5976,24 @@ impl InstancesListServerCasResponse {
     }
 
     /// Sets the value of [active_version][crate::model::InstancesListServerCasResponse::active_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListServerCasResponse;
+    /// let x = InstancesListServerCasResponse::new().set_active_version("example");
+    /// ```
     pub fn set_active_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.active_version = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::InstancesListServerCasResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesListServerCasResponse;
+    /// let x = InstancesListServerCasResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -4361,6 +6022,13 @@ impl InstancesRestoreBackupRequest {
     }
 
     /// Sets the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
+    /// use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = InstancesRestoreBackupRequest::new().set_restore_backup_context(RestoreBackupContext::default()/* use setters */);
+    /// ```
     pub fn set_restore_backup_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreBackupContext>,
@@ -4370,6 +6038,14 @@ impl InstancesRestoreBackupRequest {
     }
 
     /// Sets or clears the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesRestoreBackupRequest;
+    /// use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = InstancesRestoreBackupRequest::new().set_or_clear_restore_backup_context(Some(RestoreBackupContext::default()/* use setters */));
+    /// let x = InstancesRestoreBackupRequest::new().set_or_clear_restore_backup_context(None::<RestoreBackupContext>);
+    /// ```
     pub fn set_or_clear_restore_backup_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreBackupContext>,
@@ -4401,6 +6077,13 @@ impl InstancesRotateServerCaRequest {
     }
 
     /// Sets the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesRotateServerCaRequest;
+    /// use google_cloud_sql_v1::model::RotateServerCaContext;
+    /// let x = InstancesRotateServerCaRequest::new().set_rotate_server_ca_context(RotateServerCaContext::default()/* use setters */);
+    /// ```
     pub fn set_rotate_server_ca_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RotateServerCaContext>,
@@ -4410,6 +6093,14 @@ impl InstancesRotateServerCaRequest {
     }
 
     /// Sets or clears the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesRotateServerCaRequest;
+    /// use google_cloud_sql_v1::model::RotateServerCaContext;
+    /// let x = InstancesRotateServerCaRequest::new().set_or_clear_rotate_server_ca_context(Some(RotateServerCaContext::default()/* use setters */));
+    /// let x = InstancesRotateServerCaRequest::new().set_or_clear_rotate_server_ca_context(None::<RotateServerCaContext>);
+    /// ```
     pub fn set_or_clear_rotate_server_ca_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RotateServerCaContext>,
@@ -4441,6 +6132,13 @@ impl InstancesTruncateLogRequest {
     }
 
     /// Sets the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesTruncateLogRequest;
+    /// use google_cloud_sql_v1::model::TruncateLogContext;
+    /// let x = InstancesTruncateLogRequest::new().set_truncate_log_context(TruncateLogContext::default()/* use setters */);
+    /// ```
     pub fn set_truncate_log_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TruncateLogContext>,
@@ -4450,6 +6148,14 @@ impl InstancesTruncateLogRequest {
     }
 
     /// Sets or clears the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesTruncateLogRequest;
+    /// use google_cloud_sql_v1::model::TruncateLogContext;
+    /// let x = InstancesTruncateLogRequest::new().set_or_clear_truncate_log_context(Some(TruncateLogContext::default()/* use setters */));
+    /// let x = InstancesTruncateLogRequest::new().set_or_clear_truncate_log_context(None::<TruncateLogContext>);
+    /// ```
     pub fn set_or_clear_truncate_log_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncateLogContext>,
@@ -4481,6 +6187,13 @@ impl InstancesAcquireSsrsLeaseRequest {
     }
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesAcquireSsrsLeaseRequest;
+    /// use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = InstancesAcquireSsrsLeaseRequest::new().set_acquire_ssrs_lease_context(AcquireSsrsLeaseContext::default()/* use setters */);
+    /// ```
     pub fn set_acquire_ssrs_lease_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
@@ -4490,6 +6203,14 @@ impl InstancesAcquireSsrsLeaseRequest {
     }
 
     /// Sets or clears the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstancesAcquireSsrsLeaseRequest;
+    /// use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = InstancesAcquireSsrsLeaseRequest::new().set_or_clear_acquire_ssrs_lease_context(Some(AcquireSsrsLeaseContext::default()/* use setters */));
+    /// let x = InstancesAcquireSsrsLeaseRequest::new().set_or_clear_acquire_ssrs_lease_context(None::<AcquireSsrsLeaseContext>);
+    /// ```
     pub fn set_or_clear_acquire_ssrs_lease_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
@@ -4527,12 +6248,29 @@ impl SqlInstancesVerifyExternalSyncSettingsResponse {
     }
 
     /// Sets the value of [kind][crate::model::SqlInstancesVerifyExternalSyncSettingsResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsResponse;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::SqlInstancesVerifyExternalSyncSettingsResponse::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsResponse;
+    /// use google_cloud_sql_v1::model::SqlExternalSyncSettingError;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsResponse::new()
+    ///     .set_errors([
+    ///         SqlExternalSyncSettingError::default()/* use setters */,
+    ///         SqlExternalSyncSettingError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4544,6 +6282,17 @@ impl SqlInstancesVerifyExternalSyncSettingsResponse {
     }
 
     /// Sets the value of [warnings][crate::model::SqlInstancesVerifyExternalSyncSettingsResponse::warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesVerifyExternalSyncSettingsResponse;
+    /// use google_cloud_sql_v1::model::SqlExternalSyncSettingError;
+    /// let x = SqlInstancesVerifyExternalSyncSettingsResponse::new()
+    ///     .set_warnings([
+    ///         SqlExternalSyncSettingError::default()/* use setters */,
+    ///         SqlExternalSyncSettingError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4583,18 +6332,36 @@ impl SqlInstancesGetDiskShrinkConfigResponse {
     }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetDiskShrinkConfigResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigResponse;
+    /// let x = SqlInstancesGetDiskShrinkConfigResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [minimal_target_size_gb][crate::model::SqlInstancesGetDiskShrinkConfigResponse::minimal_target_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigResponse;
+    /// let x = SqlInstancesGetDiskShrinkConfigResponse::new().set_minimal_target_size_gb(42);
+    /// ```
     pub fn set_minimal_target_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minimal_target_size_gb = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::SqlInstancesGetDiskShrinkConfigResponse::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetDiskShrinkConfigResponse;
+    /// let x = SqlInstancesGetDiskShrinkConfigResponse::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -4626,12 +6393,24 @@ impl SqlInstancesGetLatestRecoveryTimeRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeRequest;
+    /// let x = SqlInstancesGetLatestRecoveryTimeRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeRequest;
+    /// let x = SqlInstancesGetLatestRecoveryTimeRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -4663,12 +6442,25 @@ impl SqlInstancesGetLatestRecoveryTimeResponse {
     }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeResponse;
+    /// let x = SqlInstancesGetLatestRecoveryTimeResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [latest_recovery_time][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::latest_recovery_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeResponse;
+    /// use wkt::Timestamp;
+    /// let x = SqlInstancesGetLatestRecoveryTimeResponse::new().set_latest_recovery_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_latest_recovery_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4678,6 +6470,14 @@ impl SqlInstancesGetLatestRecoveryTimeResponse {
     }
 
     /// Sets or clears the value of [latest_recovery_time][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::latest_recovery_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesGetLatestRecoveryTimeResponse;
+    /// use wkt::Timestamp;
+    /// let x = SqlInstancesGetLatestRecoveryTimeResponse::new().set_or_clear_latest_recovery_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SqlInstancesGetLatestRecoveryTimeResponse::new().set_or_clear_latest_recovery_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_latest_recovery_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4742,18 +6542,36 @@ impl CloneContext {
     }
 
     /// Sets the value of [kind][crate::model::CloneContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [pitr_timestamp_ms][crate::model::CloneContext::pitr_timestamp_ms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_pitr_timestamp_ms(42);
+    /// ```
     pub fn set_pitr_timestamp_ms<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pitr_timestamp_ms = v.into();
         self
     }
 
     /// Sets the value of [destination_instance_name][crate::model::CloneContext::destination_instance_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_destination_instance_name("example");
+    /// ```
     pub fn set_destination_instance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4763,6 +6581,13 @@ impl CloneContext {
     }
 
     /// Sets the value of [bin_log_coordinates][crate::model::CloneContext::bin_log_coordinates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// use google_cloud_sql_v1::model::BinLogCoordinates;
+    /// let x = CloneContext::new().set_bin_log_coordinates(BinLogCoordinates::default()/* use setters */);
+    /// ```
     pub fn set_bin_log_coordinates<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinLogCoordinates>,
@@ -4772,6 +6597,14 @@ impl CloneContext {
     }
 
     /// Sets or clears the value of [bin_log_coordinates][crate::model::CloneContext::bin_log_coordinates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// use google_cloud_sql_v1::model::BinLogCoordinates;
+    /// let x = CloneContext::new().set_or_clear_bin_log_coordinates(Some(BinLogCoordinates::default()/* use setters */));
+    /// let x = CloneContext::new().set_or_clear_bin_log_coordinates(None::<BinLogCoordinates>);
+    /// ```
     pub fn set_or_clear_bin_log_coordinates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinLogCoordinates>,
@@ -4781,6 +6614,13 @@ impl CloneContext {
     }
 
     /// Sets the value of [point_in_time][crate::model::CloneContext::point_in_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// use wkt::Timestamp;
+    /// let x = CloneContext::new().set_point_in_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_point_in_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4790,6 +6630,14 @@ impl CloneContext {
     }
 
     /// Sets or clears the value of [point_in_time][crate::model::CloneContext::point_in_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// use wkt::Timestamp;
+    /// let x = CloneContext::new().set_or_clear_point_in_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneContext::new().set_or_clear_point_in_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_point_in_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4799,6 +6647,12 @@ impl CloneContext {
     }
 
     /// Sets the value of [allocated_ip_range][crate::model::CloneContext::allocated_ip_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_allocated_ip_range("example");
+    /// ```
     pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4808,6 +6662,12 @@ impl CloneContext {
     }
 
     /// Sets the value of [database_names][crate::model::CloneContext::database_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_database_names(["a", "b", "c"]);
+    /// ```
     pub fn set_database_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4819,6 +6679,12 @@ impl CloneContext {
     }
 
     /// Sets the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_preferred_zone("example");
+    /// ```
     pub fn set_preferred_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4828,6 +6694,13 @@ impl CloneContext {
     }
 
     /// Sets or clears the value of [preferred_zone][crate::model::CloneContext::preferred_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CloneContext;
+    /// let x = CloneContext::new().set_or_clear_preferred_zone(Some("example"));
+    /// let x = CloneContext::new().set_or_clear_preferred_zone(None::<String>);
+    /// ```
     pub fn set_or_clear_preferred_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -4865,6 +6738,12 @@ impl BinLogCoordinates {
     }
 
     /// Sets the value of [bin_log_file_name][crate::model::BinLogCoordinates::bin_log_file_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BinLogCoordinates;
+    /// let x = BinLogCoordinates::new().set_bin_log_file_name("example");
+    /// ```
     pub fn set_bin_log_file_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4874,12 +6753,24 @@ impl BinLogCoordinates {
     }
 
     /// Sets the value of [bin_log_position][crate::model::BinLogCoordinates::bin_log_position].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BinLogCoordinates;
+    /// let x = BinLogCoordinates::new().set_bin_log_position(42);
+    /// ```
     pub fn set_bin_log_position<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bin_log_position = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::BinLogCoordinates::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BinLogCoordinates;
+    /// let x = BinLogCoordinates::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -5098,12 +6989,27 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [kind][crate::model::DatabaseInstance::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DatabaseInstance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlInstanceState;
+    /// let x0 = DatabaseInstance::new().set_state(SqlInstanceState::Runnable);
+    /// let x1 = DatabaseInstance::new().set_state(SqlInstanceState::Suspended);
+    /// let x2 = DatabaseInstance::new().set_state(SqlInstanceState::PendingDelete);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::database_instance::SqlInstanceState>>(
         mut self,
         v: T,
@@ -5113,6 +7019,15 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [database_version][crate::model::DatabaseInstance::database_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SqlDatabaseVersion;
+    /// let x0 = DatabaseInstance::new().set_database_version(SqlDatabaseVersion::Mysql56);
+    /// let x1 = DatabaseInstance::new().set_database_version(SqlDatabaseVersion::Mysql57);
+    /// let x2 = DatabaseInstance::new().set_database_version(SqlDatabaseVersion::Sqlserver2017Standard);
+    /// ```
     pub fn set_database_version<T: std::convert::Into<crate::model::SqlDatabaseVersion>>(
         mut self,
         v: T,
@@ -5122,6 +7037,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [settings][crate::model::DatabaseInstance::settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::Settings;
+    /// let x = DatabaseInstance::new().set_settings(Settings::default()/* use setters */);
+    /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -5131,6 +7053,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [settings][crate::model::DatabaseInstance::settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::Settings;
+    /// let x = DatabaseInstance::new().set_or_clear_settings(Some(Settings::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_settings(None::<Settings>);
+    /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -5140,12 +7070,25 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [etag][crate::model::DatabaseInstance::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [failover_replica][crate::model::DatabaseInstance::failover_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlFailoverReplica;
+    /// let x = DatabaseInstance::new().set_failover_replica(SqlFailoverReplica::default()/* use setters */);
+    /// ```
     pub fn set_failover_replica<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>,
@@ -5155,6 +7098,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [failover_replica][crate::model::DatabaseInstance::failover_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlFailoverReplica;
+    /// let x = DatabaseInstance::new().set_or_clear_failover_replica(Some(SqlFailoverReplica::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_failover_replica(None::<SqlFailoverReplica>);
+    /// ```
     pub fn set_or_clear_failover_replica<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlFailoverReplica>,
@@ -5164,6 +7115,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [master_instance_name][crate::model::DatabaseInstance::master_instance_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_master_instance_name("example");
+    /// ```
     pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5173,6 +7130,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [replica_names][crate::model::DatabaseInstance::replica_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_replica_names(["a", "b", "c"]);
+    /// ```
     pub fn set_replica_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5184,6 +7147,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Int64Value;
+    /// let x = DatabaseInstance::new().set_max_disk_size(Int64Value::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_max_disk_size<T>(mut self, v: T) -> Self
     where
@@ -5194,6 +7164,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [max_disk_size][crate::model::DatabaseInstance::max_disk_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Int64Value;
+    /// let x = DatabaseInstance::new().set_or_clear_max_disk_size(Some(Int64Value::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_max_disk_size(None::<Int64Value>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_max_disk_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5204,6 +7182,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [current_disk_size][crate::model::DatabaseInstance::current_disk_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Int64Value;
+    /// let x = DatabaseInstance::new().set_current_disk_size(Int64Value::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_current_disk_size<T>(mut self, v: T) -> Self
     where
@@ -5214,6 +7199,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [current_disk_size][crate::model::DatabaseInstance::current_disk_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Int64Value;
+    /// let x = DatabaseInstance::new().set_or_clear_current_disk_size(Some(Int64Value::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_current_disk_size(None::<Int64Value>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_current_disk_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5224,6 +7217,17 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [ip_addresses][crate::model::DatabaseInstance::ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::IpMapping;
+    /// let x = DatabaseInstance::new()
+    ///     .set_ip_addresses([
+    ///         IpMapping::default()/* use setters */,
+    ///         IpMapping::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5235,6 +7239,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [server_ca_cert][crate::model::DatabaseInstance::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = DatabaseInstance::new().set_server_ca_cert(SslCert::default()/* use setters */);
+    /// ```
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -5244,6 +7255,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [server_ca_cert][crate::model::DatabaseInstance::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = DatabaseInstance::new().set_or_clear_server_ca_cert(Some(SslCert::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_server_ca_cert(None::<SslCert>);
+    /// ```
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -5253,6 +7272,15 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [instance_type][crate::model::DatabaseInstance::instance_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SqlInstanceType;
+    /// let x0 = DatabaseInstance::new().set_instance_type(SqlInstanceType::CloudSqlInstance);
+    /// let x1 = DatabaseInstance::new().set_instance_type(SqlInstanceType::OnPremisesInstance);
+    /// let x2 = DatabaseInstance::new().set_instance_type(SqlInstanceType::ReadReplicaInstance);
+    /// ```
     pub fn set_instance_type<T: std::convert::Into<crate::model::SqlInstanceType>>(
         mut self,
         v: T,
@@ -5262,12 +7290,24 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [project][crate::model::DatabaseInstance::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [ipv6_address][crate::model::DatabaseInstance::ipv6_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_ipv6_address("example");
+    /// ```
     #[deprecated]
     pub fn set_ipv6_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ipv6_address = v.into();
@@ -5275,6 +7315,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [service_account_email_address][crate::model::DatabaseInstance::service_account_email_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_service_account_email_address("example");
+    /// ```
     pub fn set_service_account_email_address<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5284,6 +7330,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [on_premises_configuration][crate::model::DatabaseInstance::on_premises_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = DatabaseInstance::new().set_on_premises_configuration(OnPremisesConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_on_premises_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OnPremisesConfiguration>,
@@ -5293,6 +7346,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [on_premises_configuration][crate::model::DatabaseInstance::on_premises_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = DatabaseInstance::new().set_or_clear_on_premises_configuration(Some(OnPremisesConfiguration::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_on_premises_configuration(None::<OnPremisesConfiguration>);
+    /// ```
     pub fn set_or_clear_on_premises_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OnPremisesConfiguration>,
@@ -5302,6 +7363,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [replica_configuration][crate::model::DatabaseInstance::replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// let x = DatabaseInstance::new().set_replica_configuration(ReplicaConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_replica_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicaConfiguration>,
@@ -5311,6 +7379,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [replica_configuration][crate::model::DatabaseInstance::replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// let x = DatabaseInstance::new().set_or_clear_replica_configuration(Some(ReplicaConfiguration::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_replica_configuration(None::<ReplicaConfiguration>);
+    /// ```
     pub fn set_or_clear_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicaConfiguration>,
@@ -5320,6 +7396,14 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [backend_type][crate::model::DatabaseInstance::backend_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SqlBackendType;
+    /// let x0 = DatabaseInstance::new().set_backend_type(SqlBackendType::SecondGen);
+    /// let x1 = DatabaseInstance::new().set_backend_type(SqlBackendType::External);
+    /// ```
     pub fn set_backend_type<T: std::convert::Into<crate::model::SqlBackendType>>(
         mut self,
         v: T,
@@ -5329,12 +7413,29 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [self_link][crate::model::DatabaseInstance::self_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [suspension_reason][crate::model::DatabaseInstance::suspension_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::SqlSuspensionReason;
+    /// let x = DatabaseInstance::new().set_suspension_reason([
+    ///     SqlSuspensionReason::BillingIssue,
+    ///     SqlSuspensionReason::LegalIssue,
+    ///     SqlSuspensionReason::OperationalIssue,
+    /// ]);
+    /// ```
     pub fn set_suspension_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5346,30 +7447,60 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [connection_name][crate::model::DatabaseInstance::connection_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_connection_name("example");
+    /// ```
     pub fn set_connection_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_name = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::DatabaseInstance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::DatabaseInstance::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
     }
 
     /// Sets the value of [gce_zone][crate::model::DatabaseInstance::gce_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_gce_zone("example");
+    /// ```
     pub fn set_gce_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gce_zone = v.into();
         self
     }
 
     /// Sets the value of [secondary_gce_zone][crate::model::DatabaseInstance::secondary_gce_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_secondary_gce_zone("example");
+    /// ```
     pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5379,6 +7510,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [disk_encryption_configuration][crate::model::DatabaseInstance::disk_encryption_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DatabaseInstance::new().set_disk_encryption_configuration(DiskEncryptionConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionConfiguration>,
@@ -5388,6 +7526,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [disk_encryption_configuration][crate::model::DatabaseInstance::disk_encryption_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DatabaseInstance::new().set_or_clear_disk_encryption_configuration(Some(DiskEncryptionConfiguration::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_disk_encryption_configuration(None::<DiskEncryptionConfiguration>);
+    /// ```
     pub fn set_or_clear_disk_encryption_configuration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5400,6 +7546,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [disk_encryption_status][crate::model::DatabaseInstance::disk_encryption_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = DatabaseInstance::new().set_disk_encryption_status(DiskEncryptionStatus::default()/* use setters */);
+    /// ```
     pub fn set_disk_encryption_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionStatus>,
@@ -5409,6 +7562,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [disk_encryption_status][crate::model::DatabaseInstance::disk_encryption_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = DatabaseInstance::new().set_or_clear_disk_encryption_status(Some(DiskEncryptionStatus::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_disk_encryption_status(None::<DiskEncryptionStatus>);
+    /// ```
     pub fn set_or_clear_disk_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiskEncryptionStatus>,
@@ -5418,12 +7579,25 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [root_password][crate::model::DatabaseInstance::root_password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_root_password("example");
+    /// ```
     pub fn set_root_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_password = v.into();
         self
     }
 
     /// Sets the value of [scheduled_maintenance][crate::model::DatabaseInstance::scheduled_maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+    /// let x = DatabaseInstance::new().set_scheduled_maintenance(SqlScheduledMaintenance::default()/* use setters */);
+    /// ```
     pub fn set_scheduled_maintenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>,
@@ -5433,6 +7607,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [scheduled_maintenance][crate::model::DatabaseInstance::scheduled_maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+    /// let x = DatabaseInstance::new().set_or_clear_scheduled_maintenance(Some(SqlScheduledMaintenance::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_scheduled_maintenance(None::<SqlScheduledMaintenance>);
+    /// ```
     pub fn set_or_clear_scheduled_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlScheduledMaintenance>,
@@ -5442,6 +7624,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::DatabaseInstance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_satisfies_pzs(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -5451,6 +7640,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::DatabaseInstance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_or_clear_satisfies_pzs(Some(BoolValue::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_satisfies_pzs(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -5460,6 +7657,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [database_installed_version][crate::model::DatabaseInstance::database_installed_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_database_installed_version("example");
+    /// ```
     pub fn set_database_installed_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5469,6 +7672,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [out_of_disk_report][crate::model::DatabaseInstance::out_of_disk_report].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+    /// let x = DatabaseInstance::new().set_out_of_disk_report(SqlOutOfDiskReport::default()/* use setters */);
+    /// ```
     pub fn set_out_of_disk_report<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>,
@@ -5478,6 +7688,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [out_of_disk_report][crate::model::DatabaseInstance::out_of_disk_report].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+    /// let x = DatabaseInstance::new().set_or_clear_out_of_disk_report(Some(SqlOutOfDiskReport::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_out_of_disk_report(None::<SqlOutOfDiskReport>);
+    /// ```
     pub fn set_or_clear_out_of_disk_report<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlOutOfDiskReport>,
@@ -5487,6 +7705,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [create_time][crate::model::DatabaseInstance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseInstance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5496,6 +7721,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DatabaseInstance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseInstance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5505,6 +7738,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [available_maintenance_versions][crate::model::DatabaseInstance::available_maintenance_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_available_maintenance_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_available_maintenance_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5516,6 +7755,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [maintenance_version][crate::model::DatabaseInstance::maintenance_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_maintenance_version("example");
+    /// ```
     pub fn set_maintenance_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5525,6 +7770,17 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [upgradable_database_versions][crate::model::DatabaseInstance::upgradable_database_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = DatabaseInstance::new()
+    ///     .set_upgradable_database_versions([
+    ///         AvailableDatabaseVersion::default()/* use setters */,
+    ///         AvailableDatabaseVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_upgradable_database_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5536,6 +7792,14 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [sql_network_architecture][crate::model::DatabaseInstance::sql_network_architecture].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlNetworkArchitecture;
+    /// let x0 = DatabaseInstance::new().set_sql_network_architecture(SqlNetworkArchitecture::NewNetworkArchitecture);
+    /// let x1 = DatabaseInstance::new().set_sql_network_architecture(SqlNetworkArchitecture::OldNetworkArchitecture);
+    /// ```
     pub fn set_sql_network_architecture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>,
@@ -5545,6 +7809,15 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [sql_network_architecture][crate::model::DatabaseInstance::sql_network_architecture].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::database_instance::SqlNetworkArchitecture;
+    /// let x0 = DatabaseInstance::new().set_or_clear_sql_network_architecture(Some(SqlNetworkArchitecture::NewNetworkArchitecture));
+    /// let x1 = DatabaseInstance::new().set_or_clear_sql_network_architecture(Some(SqlNetworkArchitecture::OldNetworkArchitecture));
+    /// let x_none = DatabaseInstance::new().set_or_clear_sql_network_architecture(None::<SqlNetworkArchitecture>);
+    /// ```
     pub fn set_or_clear_sql_network_architecture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_instance::SqlNetworkArchitecture>,
@@ -5554,6 +7827,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [psc_service_attachment_link][crate::model::DatabaseInstance::psc_service_attachment_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_psc_service_attachment_link("example");
+    /// ```
     pub fn set_psc_service_attachment_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5563,6 +7842,13 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [psc_service_attachment_link][crate::model::DatabaseInstance::psc_service_attachment_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_or_clear_psc_service_attachment_link(Some("example"));
+    /// let x = DatabaseInstance::new().set_or_clear_psc_service_attachment_link(None::<String>);
+    /// ```
     pub fn set_or_clear_psc_service_attachment_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5572,6 +7858,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [dns_name][crate::model::DatabaseInstance::dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_dns_name("example");
+    /// ```
     pub fn set_dns_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5581,6 +7873,13 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [dns_name][crate::model::DatabaseInstance::dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_or_clear_dns_name(Some("example"));
+    /// let x = DatabaseInstance::new().set_or_clear_dns_name(None::<String>);
+    /// ```
     pub fn set_or_clear_dns_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5590,6 +7889,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [primary_dns_name][crate::model::DatabaseInstance::primary_dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_primary_dns_name("example");
+    /// ```
     #[deprecated]
     pub fn set_primary_dns_name<T>(mut self, v: T) -> Self
     where
@@ -5600,6 +7905,13 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [primary_dns_name][crate::model::DatabaseInstance::primary_dns_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_or_clear_primary_dns_name(Some("example"));
+    /// let x = DatabaseInstance::new().set_or_clear_primary_dns_name(None::<String>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_primary_dns_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5610,6 +7922,12 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [write_endpoint][crate::model::DatabaseInstance::write_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_write_endpoint("example");
+    /// ```
     pub fn set_write_endpoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5619,6 +7937,13 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [write_endpoint][crate::model::DatabaseInstance::write_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// let x = DatabaseInstance::new().set_or_clear_write_endpoint(Some("example"));
+    /// let x = DatabaseInstance::new().set_or_clear_write_endpoint(None::<String>);
+    /// ```
     pub fn set_or_clear_write_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5628,6 +7953,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [replication_cluster][crate::model::DatabaseInstance::replication_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::ReplicationCluster;
+    /// let x = DatabaseInstance::new().set_replication_cluster(ReplicationCluster::default()/* use setters */);
+    /// ```
     pub fn set_replication_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCluster>,
@@ -5637,6 +7969,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [replication_cluster][crate::model::DatabaseInstance::replication_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::ReplicationCluster;
+    /// let x = DatabaseInstance::new().set_or_clear_replication_cluster(Some(ReplicationCluster::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_replication_cluster(None::<ReplicationCluster>);
+    /// ```
     pub fn set_or_clear_replication_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplicationCluster>,
@@ -5646,6 +7986,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [gemini_config][crate::model::DatabaseInstance::gemini_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = DatabaseInstance::new().set_gemini_config(GeminiInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_gemini_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GeminiInstanceConfig>,
@@ -5655,6 +8002,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [gemini_config][crate::model::DatabaseInstance::gemini_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = DatabaseInstance::new().set_or_clear_gemini_config(Some(GeminiInstanceConfig::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_gemini_config(None::<GeminiInstanceConfig>);
+    /// ```
     pub fn set_or_clear_gemini_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GeminiInstanceConfig>,
@@ -5664,6 +8019,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::DatabaseInstance::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_satisfies_pzi(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -5673,6 +8035,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::DatabaseInstance::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_or_clear_satisfies_pzi(Some(BoolValue::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_satisfies_pzi(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -5682,6 +8052,13 @@ impl DatabaseInstance {
     }
 
     /// Sets the value of [switch_transaction_logs_to_cloud_storage_enabled][crate::model::DatabaseInstance::switch_transaction_logs_to_cloud_storage_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_switch_transaction_logs_to_cloud_storage_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_switch_transaction_logs_to_cloud_storage_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -5691,6 +8068,14 @@ impl DatabaseInstance {
     }
 
     /// Sets or clears the value of [switch_transaction_logs_to_cloud_storage_enabled][crate::model::DatabaseInstance::switch_transaction_logs_to_cloud_storage_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use wkt::BoolValue;
+    /// let x = DatabaseInstance::new().set_or_clear_switch_transaction_logs_to_cloud_storage_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_switch_transaction_logs_to_cloud_storage_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_switch_transaction_logs_to_cloud_storage_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5736,12 +8121,25 @@ pub mod database_instance {
         }
 
         /// Sets the value of [name][crate::model::database_instance::SqlFailoverReplica::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlFailoverReplica;
+        /// let x = SqlFailoverReplica::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [available][crate::model::database_instance::SqlFailoverReplica::available].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlFailoverReplica;
+        /// use wkt::BoolValue;
+        /// let x = SqlFailoverReplica::new().set_available(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_available<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -5751,6 +8149,14 @@ pub mod database_instance {
         }
 
         /// Sets or clears the value of [available][crate::model::database_instance::SqlFailoverReplica::available].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlFailoverReplica;
+        /// use wkt::BoolValue;
+        /// let x = SqlFailoverReplica::new().set_or_clear_available(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlFailoverReplica::new().set_or_clear_available(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_available<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -5791,6 +8197,13 @@ pub mod database_instance {
         }
 
         /// Sets the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// use wkt::Timestamp;
+        /// let x = SqlScheduledMaintenance::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5800,6 +8213,14 @@ pub mod database_instance {
         }
 
         /// Sets or clears the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// use wkt::Timestamp;
+        /// let x = SqlScheduledMaintenance::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SqlScheduledMaintenance::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5809,6 +8230,12 @@ pub mod database_instance {
         }
 
         /// Sets the value of [can_defer][crate::model::database_instance::SqlScheduledMaintenance::can_defer].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// let x = SqlScheduledMaintenance::new().set_can_defer(true);
+        /// ```
         #[deprecated]
         pub fn set_can_defer<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.can_defer = v.into();
@@ -5816,12 +8243,25 @@ pub mod database_instance {
         }
 
         /// Sets the value of [can_reschedule][crate::model::database_instance::SqlScheduledMaintenance::can_reschedule].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// let x = SqlScheduledMaintenance::new().set_can_reschedule(true);
+        /// ```
         pub fn set_can_reschedule<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.can_reschedule = v.into();
             self
         }
 
         /// Sets the value of [schedule_deadline_time][crate::model::database_instance::SqlScheduledMaintenance::schedule_deadline_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// use wkt::Timestamp;
+        /// let x = SqlScheduledMaintenance::new().set_schedule_deadline_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_schedule_deadline_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5831,6 +8271,14 @@ pub mod database_instance {
         }
 
         /// Sets or clears the value of [schedule_deadline_time][crate::model::database_instance::SqlScheduledMaintenance::schedule_deadline_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlScheduledMaintenance;
+        /// use wkt::Timestamp;
+        /// let x = SqlScheduledMaintenance::new().set_or_clear_schedule_deadline_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SqlScheduledMaintenance::new().set_or_clear_schedule_deadline_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_schedule_deadline_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5878,6 +8326,14 @@ pub mod database_instance {
         }
 
         /// Sets the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+        /// use google_cloud_sql_v1::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState;
+        /// let x0 = SqlOutOfDiskReport::new().set_sql_out_of_disk_state(SqlOutOfDiskState::Normal);
+        /// let x1 = SqlOutOfDiskReport::new().set_sql_out_of_disk_state(SqlOutOfDiskState::SoftShutdown);
+        /// ```
         pub fn set_sql_out_of_disk_state<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -5889,6 +8345,15 @@ pub mod database_instance {
         }
 
         /// Sets or clears the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+        /// use google_cloud_sql_v1::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState;
+        /// let x0 = SqlOutOfDiskReport::new().set_or_clear_sql_out_of_disk_state(Some(SqlOutOfDiskState::Normal));
+        /// let x1 = SqlOutOfDiskReport::new().set_or_clear_sql_out_of_disk_state(Some(SqlOutOfDiskState::SoftShutdown));
+        /// let x_none = SqlOutOfDiskReport::new().set_or_clear_sql_out_of_disk_state(None::<SqlOutOfDiskState>);
+        /// ```
         pub fn set_or_clear_sql_out_of_disk_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -5900,6 +8365,12 @@ pub mod database_instance {
         }
 
         /// Sets the value of [sql_min_recommended_increase_size_gb][crate::model::database_instance::SqlOutOfDiskReport::sql_min_recommended_increase_size_gb].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+        /// let x = SqlOutOfDiskReport::new().set_sql_min_recommended_increase_size_gb(42);
+        /// ```
         pub fn set_sql_min_recommended_increase_size_gb<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -5909,6 +8380,13 @@ pub mod database_instance {
         }
 
         /// Sets or clears the value of [sql_min_recommended_increase_size_gb][crate::model::database_instance::SqlOutOfDiskReport::sql_min_recommended_increase_size_gb].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::database_instance::SqlOutOfDiskReport;
+        /// let x = SqlOutOfDiskReport::new().set_or_clear_sql_min_recommended_increase_size_gb(Some(42));
+        /// let x = SqlOutOfDiskReport::new().set_or_clear_sql_min_recommended_increase_size_gb(None::<i32>);
+        /// ```
         pub fn set_or_clear_sql_min_recommended_increase_size_gb<T>(
             mut self,
             v: std::option::Option<T>,
@@ -6409,6 +8887,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_entitled(true);
+    /// ```
     pub fn set_entitled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6418,6 +8902,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_entitled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_entitled(None::<bool>);
+    /// ```
     pub fn set_or_clear_entitled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6427,6 +8918,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [google_vacuum_mgmt_enabled][crate::model::GeminiInstanceConfig::google_vacuum_mgmt_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_google_vacuum_mgmt_enabled(true);
+    /// ```
     pub fn set_google_vacuum_mgmt_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6436,6 +8933,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [google_vacuum_mgmt_enabled][crate::model::GeminiInstanceConfig::google_vacuum_mgmt_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_google_vacuum_mgmt_enabled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_google_vacuum_mgmt_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_google_vacuum_mgmt_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6445,6 +8949,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [oom_session_cancel_enabled][crate::model::GeminiInstanceConfig::oom_session_cancel_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_oom_session_cancel_enabled(true);
+    /// ```
     pub fn set_oom_session_cancel_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6454,6 +8964,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [oom_session_cancel_enabled][crate::model::GeminiInstanceConfig::oom_session_cancel_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_oom_session_cancel_enabled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_oom_session_cancel_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_oom_session_cancel_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6463,6 +8980,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [active_query_enabled][crate::model::GeminiInstanceConfig::active_query_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_active_query_enabled(true);
+    /// ```
     pub fn set_active_query_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6472,6 +8995,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [active_query_enabled][crate::model::GeminiInstanceConfig::active_query_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_active_query_enabled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_active_query_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_active_query_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6481,6 +9011,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [index_advisor_enabled][crate::model::GeminiInstanceConfig::index_advisor_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_index_advisor_enabled(true);
+    /// ```
     pub fn set_index_advisor_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6490,6 +9026,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [index_advisor_enabled][crate::model::GeminiInstanceConfig::index_advisor_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_index_advisor_enabled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_index_advisor_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_index_advisor_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6499,6 +9042,12 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets the value of [flag_recommender_enabled][crate::model::GeminiInstanceConfig::flag_recommender_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_flag_recommender_enabled(true);
+    /// ```
     pub fn set_flag_recommender_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6508,6 +9057,13 @@ impl GeminiInstanceConfig {
     }
 
     /// Sets or clears the value of [flag_recommender_enabled][crate::model::GeminiInstanceConfig::flag_recommender_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::GeminiInstanceConfig;
+    /// let x = GeminiInstanceConfig::new().set_or_clear_flag_recommender_enabled(Some(false));
+    /// let x = GeminiInstanceConfig::new().set_or_clear_flag_recommender_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_flag_recommender_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6560,6 +9116,12 @@ impl ReplicationCluster {
     }
 
     /// Sets the value of [psa_write_endpoint][crate::model::ReplicationCluster::psa_write_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicationCluster;
+    /// let x = ReplicationCluster::new().set_psa_write_endpoint("example");
+    /// ```
     pub fn set_psa_write_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6569,6 +9131,12 @@ impl ReplicationCluster {
     }
 
     /// Sets the value of [failover_dr_replica_name][crate::model::ReplicationCluster::failover_dr_replica_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicationCluster;
+    /// let x = ReplicationCluster::new().set_failover_dr_replica_name("example");
+    /// ```
     pub fn set_failover_dr_replica_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6578,6 +9146,12 @@ impl ReplicationCluster {
     }
 
     /// Sets the value of [dr_replica][crate::model::ReplicationCluster::dr_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicationCluster;
+    /// let x = ReplicationCluster::new().set_dr_replica(true);
+    /// ```
     pub fn set_dr_replica<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dr_replica = v.into();
         self
@@ -6613,6 +9187,12 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_major_version("example");
+    /// ```
     pub fn set_major_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6622,6 +9202,13 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets or clears the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_major_version(Some("example"));
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_major_version(None::<String>);
+    /// ```
     pub fn set_or_clear_major_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6631,6 +9218,12 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets the value of [name][crate::model::AvailableDatabaseVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6640,6 +9233,13 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets or clears the value of [name][crate::model::AvailableDatabaseVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_name(Some("example"));
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_name(None::<String>);
+    /// ```
     pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6649,6 +9249,12 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets the value of [display_name][crate::model::AvailableDatabaseVersion::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6658,6 +9264,13 @@ impl AvailableDatabaseVersion {
     }
 
     /// Sets or clears the value of [display_name][crate::model::AvailableDatabaseVersion::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AvailableDatabaseVersion;
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_display_name(Some("example"));
+    /// let x = AvailableDatabaseVersion::new().set_or_clear_display_name(None::<String>);
+    /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -6691,6 +9304,13 @@ impl SqlInstancesRescheduleMaintenanceRequestBody {
     }
 
     /// Sets the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequestBody;
+    /// use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::Reschedule;
+    /// let x = SqlInstancesRescheduleMaintenanceRequestBody::new().set_reschedule(Reschedule::default()/* use setters */);
+    /// ```
     pub fn set_reschedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -6702,6 +9322,14 @@ impl SqlInstancesRescheduleMaintenanceRequestBody {
     }
 
     /// Sets or clears the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesRescheduleMaintenanceRequestBody;
+    /// use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::Reschedule;
+    /// let x = SqlInstancesRescheduleMaintenanceRequestBody::new().set_or_clear_reschedule(Some(Reschedule::default()/* use setters */));
+    /// let x = SqlInstancesRescheduleMaintenanceRequestBody::new().set_or_clear_reschedule(None::<Reschedule>);
+    /// ```
     pub fn set_or_clear_reschedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -6746,6 +9374,15 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
 
         /// Sets the value of [reschedule_type][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::reschedule_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::Reschedule;
+        /// use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::RescheduleType;
+        /// let x0 = Reschedule::new().set_reschedule_type(RescheduleType::Immediate);
+        /// let x1 = Reschedule::new().set_reschedule_type(RescheduleType::NextAvailableWindow);
+        /// let x2 = Reschedule::new().set_reschedule_type(RescheduleType::SpecificTime);
+        /// ```
         pub fn set_reschedule_type<
             T: std::convert::Into<
                     crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType,
@@ -6759,6 +9396,13 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
 
         /// Sets the value of [schedule_time][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::Reschedule;
+        /// use wkt::Timestamp;
+        /// let x = Reschedule::new().set_schedule_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_schedule_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6768,6 +9412,14 @@ pub mod sql_instances_reschedule_maintenance_request_body {
         }
 
         /// Sets or clears the value of [schedule_time][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::sql_instances_reschedule_maintenance_request_body::Reschedule;
+        /// use wkt::Timestamp;
+        /// let x = Reschedule::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Reschedule::new().set_or_clear_schedule_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6958,12 +9610,25 @@ impl DemoteMasterContext {
     }
 
     /// Sets the value of [kind][crate::model::DemoteMasterContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// let x = DemoteMasterContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [verify_gtid_consistency][crate::model::DemoteMasterContext::verify_gtid_consistency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// use wkt::BoolValue;
+    /// let x = DemoteMasterContext::new().set_verify_gtid_consistency(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_verify_gtid_consistency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -6973,6 +9638,14 @@ impl DemoteMasterContext {
     }
 
     /// Sets or clears the value of [verify_gtid_consistency][crate::model::DemoteMasterContext::verify_gtid_consistency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// use wkt::BoolValue;
+    /// let x = DemoteMasterContext::new().set_or_clear_verify_gtid_consistency(Some(BoolValue::default()/* use setters */));
+    /// let x = DemoteMasterContext::new().set_or_clear_verify_gtid_consistency(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_verify_gtid_consistency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -6982,6 +9655,12 @@ impl DemoteMasterContext {
     }
 
     /// Sets the value of [master_instance_name][crate::model::DemoteMasterContext::master_instance_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// let x = DemoteMasterContext::new().set_master_instance_name("example");
+    /// ```
     pub fn set_master_instance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6991,6 +9670,13 @@ impl DemoteMasterContext {
     }
 
     /// Sets the value of [replica_configuration][crate::model::DemoteMasterContext::replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// use google_cloud_sql_v1::model::DemoteMasterConfiguration;
+    /// let x = DemoteMasterContext::new().set_replica_configuration(DemoteMasterConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_replica_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterConfiguration>,
@@ -7000,6 +9686,14 @@ impl DemoteMasterContext {
     }
 
     /// Sets or clears the value of [replica_configuration][crate::model::DemoteMasterContext::replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// use google_cloud_sql_v1::model::DemoteMasterConfiguration;
+    /// let x = DemoteMasterContext::new().set_or_clear_replica_configuration(Some(DemoteMasterConfiguration::default()/* use setters */));
+    /// let x = DemoteMasterContext::new().set_or_clear_replica_configuration(None::<DemoteMasterConfiguration>);
+    /// ```
     pub fn set_or_clear_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterConfiguration>,
@@ -7009,6 +9703,12 @@ impl DemoteMasterContext {
     }
 
     /// Sets the value of [skip_replication_setup][crate::model::DemoteMasterContext::skip_replication_setup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterContext;
+    /// let x = DemoteMasterContext::new().set_skip_replication_setup(true);
+    /// ```
     pub fn set_skip_replication_setup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_replication_setup = v.into();
         self
@@ -7042,12 +9742,24 @@ impl DemoteContext {
     }
 
     /// Sets the value of [kind][crate::model::DemoteContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteContext;
+    /// let x = DemoteContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [source_representative_instance_name][crate::model::DemoteContext::source_representative_instance_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteContext;
+    /// let x = DemoteContext::new().set_source_representative_instance_name("example");
+    /// ```
     pub fn set_source_representative_instance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7083,12 +9795,24 @@ impl FailoverContext {
     }
 
     /// Sets the value of [settings_version][crate::model::FailoverContext::settings_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::FailoverContext;
+    /// let x = FailoverContext::new().set_settings_version(42);
+    /// ```
     pub fn set_settings_version<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.settings_version = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::FailoverContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::FailoverContext;
+    /// let x = FailoverContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -7127,24 +9851,48 @@ impl RestoreBackupContext {
     }
 
     /// Sets the value of [kind][crate::model::RestoreBackupContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = RestoreBackupContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [backup_run_id][crate::model::RestoreBackupContext::backup_run_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = RestoreBackupContext::new().set_backup_run_id(42);
+    /// ```
     pub fn set_backup_run_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_run_id = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::RestoreBackupContext::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = RestoreBackupContext::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::RestoreBackupContext::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RestoreBackupContext;
+    /// let x = RestoreBackupContext::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -7177,12 +9925,24 @@ impl RotateServerCaContext {
     }
 
     /// Sets the value of [kind][crate::model::RotateServerCaContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RotateServerCaContext;
+    /// let x = RotateServerCaContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [next_version][crate::model::RotateServerCaContext::next_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::RotateServerCaContext;
+    /// let x = RotateServerCaContext::new().set_next_version("example");
+    /// ```
     pub fn set_next_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_version = v.into();
         self
@@ -7215,12 +9975,24 @@ impl TruncateLogContext {
     }
 
     /// Sets the value of [kind][crate::model::TruncateLogContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::TruncateLogContext;
+    /// let x = TruncateLogContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [log_type][crate::model::TruncateLogContext::log_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::TruncateLogContext;
+    /// let x = TruncateLogContext::new().set_log_type("example");
+    /// ```
     pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
@@ -7256,12 +10028,27 @@ impl SqlExternalSyncSettingError {
     }
 
     /// Sets the value of [kind][crate::model::SqlExternalSyncSettingError::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlExternalSyncSettingError;
+    /// let x = SqlExternalSyncSettingError::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::SqlExternalSyncSettingError::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlExternalSyncSettingError;
+    /// use google_cloud_sql_v1::model::sql_external_sync_setting_error::SqlExternalSyncSettingErrorType;
+    /// let x0 = SqlExternalSyncSettingError::new().set_type(SqlExternalSyncSettingErrorType::ConnectionFailure);
+    /// let x1 = SqlExternalSyncSettingError::new().set_type(SqlExternalSyncSettingErrorType::BinlogNotEnabled);
+    /// let x2 = SqlExternalSyncSettingError::new().set_type(SqlExternalSyncSettingErrorType::IncompatibleDatabaseVersion);
+    /// ```
     pub fn set_type<
         T: std::convert::Into<
                 crate::model::sql_external_sync_setting_error::SqlExternalSyncSettingErrorType,
@@ -7275,6 +10062,12 @@ impl SqlExternalSyncSettingError {
     }
 
     /// Sets the value of [detail][crate::model::SqlExternalSyncSettingError::detail].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlExternalSyncSettingError;
+    /// let x = SqlExternalSyncSettingError::new().set_detail("example");
+    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
@@ -7874,36 +10667,72 @@ impl OnPremisesConfiguration {
     }
 
     /// Sets the value of [host_port][crate::model::OnPremisesConfiguration::host_port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_host_port("example");
+    /// ```
     pub fn set_host_port<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_port = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::OnPremisesConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::OnPremisesConfiguration::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::OnPremisesConfiguration::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [ca_certificate][crate::model::OnPremisesConfiguration::ca_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_ca_certificate("example");
+    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
     }
 
     /// Sets the value of [client_certificate][crate::model::OnPremisesConfiguration::client_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_client_certificate("example");
+    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7913,18 +10742,37 @@ impl OnPremisesConfiguration {
     }
 
     /// Sets the value of [client_key][crate::model::OnPremisesConfiguration::client_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_client_key("example");
+    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [dump_file_path][crate::model::OnPremisesConfiguration::dump_file_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// let x = OnPremisesConfiguration::new().set_dump_file_path("example");
+    /// ```
     pub fn set_dump_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dump_file_path = v.into();
         self
     }
 
     /// Sets the value of [source_instance][crate::model::OnPremisesConfiguration::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// use google_cloud_sql_v1::model::InstanceReference;
+    /// let x = OnPremisesConfiguration::new().set_source_instance(InstanceReference::default()/* use setters */);
+    /// ```
     pub fn set_source_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstanceReference>,
@@ -7934,6 +10782,14 @@ impl OnPremisesConfiguration {
     }
 
     /// Sets or clears the value of [source_instance][crate::model::OnPremisesConfiguration::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OnPremisesConfiguration;
+    /// use google_cloud_sql_v1::model::InstanceReference;
+    /// let x = OnPremisesConfiguration::new().set_or_clear_source_instance(Some(InstanceReference::default()/* use setters */));
+    /// let x = OnPremisesConfiguration::new().set_or_clear_source_instance(None::<InstanceReference>);
+    /// ```
     pub fn set_or_clear_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstanceReference>,
@@ -7985,12 +10841,25 @@ impl ReplicaConfiguration {
     }
 
     /// Sets the value of [kind][crate::model::ReplicaConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// let x = ReplicaConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [mysql_replica_configuration][crate::model::ReplicaConfiguration::mysql_replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = ReplicaConfiguration::new().set_mysql_replica_configuration(MySqlReplicaConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_mysql_replica_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MySqlReplicaConfiguration>,
@@ -8000,6 +10869,14 @@ impl ReplicaConfiguration {
     }
 
     /// Sets or clears the value of [mysql_replica_configuration][crate::model::ReplicaConfiguration::mysql_replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = ReplicaConfiguration::new().set_or_clear_mysql_replica_configuration(Some(MySqlReplicaConfiguration::default()/* use setters */));
+    /// let x = ReplicaConfiguration::new().set_or_clear_mysql_replica_configuration(None::<MySqlReplicaConfiguration>);
+    /// ```
     pub fn set_or_clear_mysql_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MySqlReplicaConfiguration>,
@@ -8009,6 +10886,13 @@ impl ReplicaConfiguration {
     }
 
     /// Sets the value of [failover_target][crate::model::ReplicaConfiguration::failover_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = ReplicaConfiguration::new().set_failover_target(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_failover_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8018,6 +10902,14 @@ impl ReplicaConfiguration {
     }
 
     /// Sets or clears the value of [failover_target][crate::model::ReplicaConfiguration::failover_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = ReplicaConfiguration::new().set_or_clear_failover_target(Some(BoolValue::default()/* use setters */));
+    /// let x = ReplicaConfiguration::new().set_or_clear_failover_target(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_failover_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8027,6 +10919,13 @@ impl ReplicaConfiguration {
     }
 
     /// Sets the value of [cascadable_replica][crate::model::ReplicaConfiguration::cascadable_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = ReplicaConfiguration::new().set_cascadable_replica(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_cascadable_replica<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8036,6 +10935,14 @@ impl ReplicaConfiguration {
     }
 
     /// Sets or clears the value of [cascadable_replica][crate::model::ReplicaConfiguration::cascadable_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = ReplicaConfiguration::new().set_or_clear_cascadable_replica(Some(BoolValue::default()/* use setters */));
+    /// let x = ReplicaConfiguration::new().set_or_clear_cascadable_replica(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_cascadable_replica<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8077,18 +10984,37 @@ impl SqlInstancesAcquireSsrsLeaseRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseRequest;
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesAcquireSsrsLeaseRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseRequest;
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseRequest;
+    /// use google_cloud_sql_v1::model::InstancesAcquireSsrsLeaseRequest;
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_body(InstancesAcquireSsrsLeaseRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
@@ -8098,6 +11024,14 @@ impl SqlInstancesAcquireSsrsLeaseRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseRequest;
+    /// use google_cloud_sql_v1::model::InstancesAcquireSsrsLeaseRequest;
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_or_clear_body(Some(InstancesAcquireSsrsLeaseRequest::default()/* use setters */));
+    /// let x = SqlInstancesAcquireSsrsLeaseRequest::new().set_or_clear_body(None::<InstancesAcquireSsrsLeaseRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
@@ -8129,6 +11063,12 @@ impl SqlInstancesAcquireSsrsLeaseResponse {
     }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesAcquireSsrsLeaseResponse::operation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesAcquireSsrsLeaseResponse;
+    /// let x = SqlInstancesAcquireSsrsLeaseResponse::new().set_operation_id("example");
+    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
@@ -8163,12 +11103,24 @@ impl SqlInstancesReleaseSsrsLeaseRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReleaseSsrsLeaseRequest;
+    /// let x = SqlInstancesReleaseSsrsLeaseRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlInstancesReleaseSsrsLeaseRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReleaseSsrsLeaseRequest;
+    /// let x = SqlInstancesReleaseSsrsLeaseRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -8197,6 +11149,12 @@ impl SqlInstancesReleaseSsrsLeaseResponse {
     }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesReleaseSsrsLeaseResponse::operation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReleaseSsrsLeaseResponse;
+    /// let x = SqlInstancesReleaseSsrsLeaseResponse::new().set_operation_id("example");
+    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
@@ -8228,12 +11186,24 @@ impl SqlOperationsGetRequest {
     }
 
     /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsGetRequest;
+    /// let x = SqlOperationsGetRequest::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlOperationsGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsGetRequest;
+    /// let x = SqlOperationsGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -8272,24 +11242,48 @@ impl SqlOperationsListRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsListRequest;
+    /// let x = SqlOperationsListRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [max_results][crate::model::SqlOperationsListRequest::max_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsListRequest;
+    /// let x = SqlOperationsListRequest::new().set_max_results(42_u32);
+    /// ```
     pub fn set_max_results<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
         self.max_results = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SqlOperationsListRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsListRequest;
+    /// let x = SqlOperationsListRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlOperationsListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsListRequest;
+    /// let x = SqlOperationsListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -8325,12 +11319,29 @@ impl OperationsListResponse {
     }
 
     /// Sets the value of [kind][crate::model::OperationsListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationsListResponse;
+    /// let x = OperationsListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::OperationsListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationsListResponse;
+    /// use google_cloud_sql_v1::model::Operation;
+    /// let x = OperationsListResponse::new()
+    ///     .set_items([
+    ///         Operation::default()/* use setters */,
+    ///         Operation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8342,6 +11353,12 @@ impl OperationsListResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::OperationsListResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationsListResponse;
+    /// let x = OperationsListResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8387,12 +11404,24 @@ impl SqlOperationsCancelRequest {
     }
 
     /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsCancelRequest;
+    /// let x = SqlOperationsCancelRequest::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlOperationsCancelRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlOperationsCancelRequest;
+    /// let x = SqlOperationsCancelRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -8432,12 +11461,25 @@ impl AclEntry {
     }
 
     /// Sets the value of [value][crate::model::AclEntry::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [expiration_time][crate::model::AclEntry::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AclEntry;
+    /// use wkt::Timestamp;
+    /// let x = AclEntry::new().set_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8447,6 +11489,14 @@ impl AclEntry {
     }
 
     /// Sets or clears the value of [expiration_time][crate::model::AclEntry::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AclEntry;
+    /// use wkt::Timestamp;
+    /// let x = AclEntry::new().set_or_clear_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclEntry::new().set_or_clear_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8456,12 +11506,24 @@ impl AclEntry {
     }
 
     /// Sets the value of [name][crate::model::AclEntry::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::AclEntry::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -8496,6 +11558,15 @@ impl ApiWarning {
     }
 
     /// Sets the value of [code][crate::model::ApiWarning::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ApiWarning;
+    /// use google_cloud_sql_v1::model::api_warning::SqlApiWarningCode;
+    /// let x0 = ApiWarning::new().set_code(SqlApiWarningCode::RegionUnreachable);
+    /// let x1 = ApiWarning::new().set_code(SqlApiWarningCode::MaxResultsExceedsLimit);
+    /// let x2 = ApiWarning::new().set_code(SqlApiWarningCode::CompromisedCredentials);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::api_warning::SqlApiWarningCode>>(
         mut self,
         v: T,
@@ -8505,12 +11576,24 @@ impl ApiWarning {
     }
 
     /// Sets the value of [message][crate::model::ApiWarning::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ApiWarning;
+    /// let x = ApiWarning::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::ApiWarning::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ApiWarning;
+    /// let x = ApiWarning::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
@@ -8704,6 +11787,13 @@ impl BackupRetentionSettings {
     }
 
     /// Sets the value of [retention_unit][crate::model::BackupRetentionSettings::retention_unit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRetentionSettings;
+    /// use google_cloud_sql_v1::model::backup_retention_settings::RetentionUnit;
+    /// let x0 = BackupRetentionSettings::new().set_retention_unit(RetentionUnit::Count);
+    /// ```
     pub fn set_retention_unit<
         T: std::convert::Into<crate::model::backup_retention_settings::RetentionUnit>,
     >(
@@ -8715,6 +11805,13 @@ impl BackupRetentionSettings {
     }
 
     /// Sets the value of [retained_backups][crate::model::BackupRetentionSettings::retained_backups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRetentionSettings;
+    /// use wkt::Int32Value;
+    /// let x = BackupRetentionSettings::new().set_retained_backups(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_retained_backups<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -8724,6 +11821,14 @@ impl BackupRetentionSettings {
     }
 
     /// Sets or clears the value of [retained_backups][crate::model::BackupRetentionSettings::retained_backups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupRetentionSettings;
+    /// use wkt::Int32Value;
+    /// let x = BackupRetentionSettings::new().set_or_clear_retained_backups(Some(Int32Value::default()/* use setters */));
+    /// let x = BackupRetentionSettings::new().set_or_clear_retained_backups(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_retained_backups<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -8918,12 +12023,25 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [start_time][crate::model::BackupConfiguration::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// let x = BackupConfiguration::new().set_start_time("example");
+    /// ```
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_time = v.into();
         self
     }
 
     /// Sets the value of [enabled][crate::model::BackupConfiguration::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8933,6 +12051,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [enabled][crate::model::BackupConfiguration::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_or_clear_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8942,12 +12068,25 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [kind][crate::model::BackupConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// let x = BackupConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [binary_log_enabled][crate::model::BackupConfiguration::binary_log_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_binary_log_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_binary_log_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8957,6 +12096,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [binary_log_enabled][crate::model::BackupConfiguration::binary_log_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_or_clear_binary_log_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_binary_log_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_binary_log_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8966,6 +12113,13 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [replication_log_archiving_enabled][crate::model::BackupConfiguration::replication_log_archiving_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_replication_log_archiving_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_replication_log_archiving_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -8975,6 +12129,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [replication_log_archiving_enabled][crate::model::BackupConfiguration::replication_log_archiving_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_or_clear_replication_log_archiving_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_replication_log_archiving_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_replication_log_archiving_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8987,12 +12149,25 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [location][crate::model::BackupConfiguration::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// let x = BackupConfiguration::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [point_in_time_recovery_enabled][crate::model::BackupConfiguration::point_in_time_recovery_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_point_in_time_recovery_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_point_in_time_recovery_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -9002,6 +12177,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [point_in_time_recovery_enabled][crate::model::BackupConfiguration::point_in_time_recovery_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = BackupConfiguration::new().set_or_clear_point_in_time_recovery_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_point_in_time_recovery_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_point_in_time_recovery_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9014,6 +12197,13 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [backup_retention_settings][crate::model::BackupConfiguration::backup_retention_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use google_cloud_sql_v1::model::BackupRetentionSettings;
+    /// let x = BackupConfiguration::new().set_backup_retention_settings(BackupRetentionSettings::default()/* use setters */);
+    /// ```
     pub fn set_backup_retention_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupRetentionSettings>,
@@ -9023,6 +12213,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [backup_retention_settings][crate::model::BackupConfiguration::backup_retention_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use google_cloud_sql_v1::model::BackupRetentionSettings;
+    /// let x = BackupConfiguration::new().set_or_clear_backup_retention_settings(Some(BackupRetentionSettings::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_backup_retention_settings(None::<BackupRetentionSettings>);
+    /// ```
     pub fn set_or_clear_backup_retention_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupRetentionSettings>,
@@ -9032,6 +12230,13 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [transaction_log_retention_days][crate::model::BackupConfiguration::transaction_log_retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::Int32Value;
+    /// let x = BackupConfiguration::new().set_transaction_log_retention_days(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_transaction_log_retention_days<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -9041,6 +12246,14 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [transaction_log_retention_days][crate::model::BackupConfiguration::transaction_log_retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use wkt::Int32Value;
+    /// let x = BackupConfiguration::new().set_or_clear_transaction_log_retention_days(Some(Int32Value::default()/* use setters */));
+    /// let x = BackupConfiguration::new().set_or_clear_transaction_log_retention_days(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_transaction_log_retention_days<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9053,6 +12266,15 @@ impl BackupConfiguration {
     }
 
     /// Sets the value of [transactional_log_storage_state][crate::model::BackupConfiguration::transactional_log_storage_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use google_cloud_sql_v1::model::backup_configuration::TransactionalLogStorageState;
+    /// let x0 = BackupConfiguration::new().set_transactional_log_storage_state(TransactionalLogStorageState::Disk);
+    /// let x1 = BackupConfiguration::new().set_transactional_log_storage_state(TransactionalLogStorageState::SwitchingToCloudStorage);
+    /// let x2 = BackupConfiguration::new().set_transactional_log_storage_state(TransactionalLogStorageState::SwitchedToCloudStorage);
+    /// ```
     pub fn set_transactional_log_storage_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_configuration::TransactionalLogStorageState>,
@@ -9062,6 +12284,16 @@ impl BackupConfiguration {
     }
 
     /// Sets or clears the value of [transactional_log_storage_state][crate::model::BackupConfiguration::transactional_log_storage_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupConfiguration;
+    /// use google_cloud_sql_v1::model::backup_configuration::TransactionalLogStorageState;
+    /// let x0 = BackupConfiguration::new().set_or_clear_transactional_log_storage_state(Some(TransactionalLogStorageState::Disk));
+    /// let x1 = BackupConfiguration::new().set_or_clear_transactional_log_storage_state(Some(TransactionalLogStorageState::SwitchingToCloudStorage));
+    /// let x2 = BackupConfiguration::new().set_or_clear_transactional_log_storage_state(Some(TransactionalLogStorageState::SwitchedToCloudStorage));
+    /// let x_none = BackupConfiguration::new().set_or_clear_transactional_log_storage_state(None::<TransactionalLogStorageState>);
+    /// ```
     pub fn set_or_clear_transactional_log_storage_state<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9263,6 +12495,12 @@ impl PerformDiskShrinkContext {
     }
 
     /// Sets the value of [target_size_gb][crate::model::PerformDiskShrinkContext::target_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PerformDiskShrinkContext;
+    /// let x = PerformDiskShrinkContext::new().set_target_size_gb(42);
+    /// ```
     pub fn set_target_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.target_size_gb = v.into();
         self
@@ -9294,12 +12532,24 @@ impl BackupContext {
     }
 
     /// Sets the value of [backup_id][crate::model::BackupContext::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupContext;
+    /// let x = BackupContext::new().set_backup_id(42);
+    /// ```
     pub fn set_backup_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::BackupContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::BackupContext;
+    /// let x = BackupContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -9354,48 +12604,96 @@ impl Database {
     }
 
     /// Sets the value of [kind][crate::model::Database::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [charset][crate::model::Database::charset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_charset("example");
+    /// ```
     pub fn set_charset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.charset = v.into();
         self
     }
 
     /// Sets the value of [collation][crate::model::Database::collation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_collation("example");
+    /// ```
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Database::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::Database::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::Database::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::Database::self_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::Database::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// let x = Database::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -9405,6 +12703,14 @@ impl Database {
     ///
     /// Note that all the setters affecting `database_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// use google_cloud_sql_v1::model::SqlServerDatabaseDetails;
+    /// let x = Database::new().set_database_details(Some(
+    ///     google_cloud_sql_v1::model::database::DatabaseDetails::SqlserverDatabaseDetails(SqlServerDatabaseDetails::default().into())));
+    /// ```
     pub fn set_database_details<
         T: std::convert::Into<std::option::Option<crate::model::database::DatabaseDetails>>,
     >(
@@ -9435,6 +12741,14 @@ impl Database {
     ///
     /// Note that all the setters affecting `database_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Database;
+    /// use google_cloud_sql_v1::model::SqlServerDatabaseDetails;
+    /// let x = Database::new().set_sqlserver_database_details(SqlServerDatabaseDetails::default()/* use setters */);
+    /// assert!(x.sqlserver_database_details().is_some());
+    /// ```
     pub fn set_sqlserver_database_details<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerDatabaseDetails>>,
     >(
@@ -9485,12 +12799,24 @@ impl SqlServerDatabaseDetails {
     }
 
     /// Sets the value of [compatibility_level][crate::model::SqlServerDatabaseDetails::compatibility_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerDatabaseDetails;
+    /// let x = SqlServerDatabaseDetails::new().set_compatibility_level(42);
+    /// ```
     pub fn set_compatibility_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.compatibility_level = v.into();
         self
     }
 
     /// Sets the value of [recovery_model][crate::model::SqlServerDatabaseDetails::recovery_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerDatabaseDetails;
+    /// let x = SqlServerDatabaseDetails::new().set_recovery_model("example");
+    /// ```
     pub fn set_recovery_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recovery_model = v.into();
         self
@@ -9528,12 +12854,24 @@ impl DatabaseFlags {
     }
 
     /// Sets the value of [name][crate::model::DatabaseFlags::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseFlags;
+    /// let x = DatabaseFlags::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::DatabaseFlags::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseFlags;
+    /// let x = DatabaseFlags::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -9562,6 +12900,17 @@ impl MySqlSyncConfig {
     }
 
     /// Sets the value of [initial_sync_flags][crate::model::MySqlSyncConfig::initial_sync_flags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlSyncConfig;
+    /// use google_cloud_sql_v1::model::SyncFlags;
+    /// let x = MySqlSyncConfig::new()
+    ///     .set_initial_sync_flags([
+    ///         SyncFlags::default()/* use setters */,
+    ///         SyncFlags::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_initial_sync_flags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9600,12 +12949,24 @@ impl SyncFlags {
     }
 
     /// Sets the value of [name][crate::model::SyncFlags::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SyncFlags;
+    /// let x = SyncFlags::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::SyncFlags::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SyncFlags;
+    /// let x = SyncFlags::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -9642,18 +13003,36 @@ impl InstanceReference {
     }
 
     /// Sets the value of [name][crate::model::InstanceReference::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstanceReference;
+    /// let x = InstanceReference::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::InstanceReference::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstanceReference;
+    /// let x = InstanceReference::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::InstanceReference::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InstanceReference;
+    /// let x = InstanceReference::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -9692,12 +13071,25 @@ impl DemoteMasterConfiguration {
     }
 
     /// Sets the value of [kind][crate::model::DemoteMasterConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterConfiguration;
+    /// let x = DemoteMasterConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [mysql_replica_configuration][crate::model::DemoteMasterConfiguration::mysql_replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterConfiguration;
+    /// use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterConfiguration::new().set_mysql_replica_configuration(DemoteMasterMySqlReplicaConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_mysql_replica_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>,
@@ -9707,6 +13099,14 @@ impl DemoteMasterConfiguration {
     }
 
     /// Sets or clears the value of [mysql_replica_configuration][crate::model::DemoteMasterConfiguration::mysql_replica_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterConfiguration;
+    /// use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterConfiguration::new().set_or_clear_mysql_replica_configuration(Some(DemoteMasterMySqlReplicaConfiguration::default()/* use setters */));
+    /// let x = DemoteMasterConfiguration::new().set_or_clear_mysql_replica_configuration(None::<DemoteMasterMySqlReplicaConfiguration>);
+    /// ```
     pub fn set_or_clear_mysql_replica_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DemoteMasterMySqlReplicaConfiguration>,
@@ -9755,30 +13155,60 @@ impl DemoteMasterMySqlReplicaConfiguration {
     }
 
     /// Sets the value of [kind][crate::model::DemoteMasterMySqlReplicaConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::DemoteMasterMySqlReplicaConfiguration::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::DemoteMasterMySqlReplicaConfiguration::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [client_key][crate::model::DemoteMasterMySqlReplicaConfiguration::client_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_client_key("example");
+    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [client_certificate][crate::model::DemoteMasterMySqlReplicaConfiguration::client_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_client_certificate("example");
+    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9788,6 +13218,12 @@ impl DemoteMasterMySqlReplicaConfiguration {
     }
 
     /// Sets the value of [ca_certificate][crate::model::DemoteMasterMySqlReplicaConfiguration::ca_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DemoteMasterMySqlReplicaConfiguration;
+    /// let x = DemoteMasterMySqlReplicaConfiguration::new().set_ca_certificate("example");
+    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
@@ -9853,12 +13289,24 @@ impl ExportContext {
     }
 
     /// Sets the value of [uri][crate::model::ExportContext::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// let x = ExportContext::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [databases][crate::model::ExportContext::databases].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// let x = ExportContext::new().set_databases(["a", "b", "c"]);
+    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9870,12 +13318,25 @@ impl ExportContext {
     }
 
     /// Sets the value of [kind][crate::model::ExportContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// let x = ExportContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [sql_export_options][crate::model::ExportContext::sql_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+    /// let x = ExportContext::new().set_sql_export_options(SqlExportOptions::default()/* use setters */);
+    /// ```
     pub fn set_sql_export_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlExportOptions>,
@@ -9885,6 +13346,14 @@ impl ExportContext {
     }
 
     /// Sets or clears the value of [sql_export_options][crate::model::ExportContext::sql_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+    /// let x = ExportContext::new().set_or_clear_sql_export_options(Some(SqlExportOptions::default()/* use setters */));
+    /// let x = ExportContext::new().set_or_clear_sql_export_options(None::<SqlExportOptions>);
+    /// ```
     pub fn set_or_clear_sql_export_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlExportOptions>,
@@ -9894,6 +13363,13 @@ impl ExportContext {
     }
 
     /// Sets the value of [csv_export_options][crate::model::ExportContext::csv_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+    /// let x = ExportContext::new().set_csv_export_options(SqlCsvExportOptions::default()/* use setters */);
+    /// ```
     pub fn set_csv_export_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>,
@@ -9903,6 +13379,14 @@ impl ExportContext {
     }
 
     /// Sets or clears the value of [csv_export_options][crate::model::ExportContext::csv_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+    /// let x = ExportContext::new().set_or_clear_csv_export_options(Some(SqlCsvExportOptions::default()/* use setters */));
+    /// let x = ExportContext::new().set_or_clear_csv_export_options(None::<SqlCsvExportOptions>);
+    /// ```
     pub fn set_or_clear_csv_export_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlCsvExportOptions>,
@@ -9912,12 +13396,28 @@ impl ExportContext {
     }
 
     /// Sets the value of [file_type][crate::model::ExportContext::file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::SqlFileType;
+    /// let x0 = ExportContext::new().set_file_type(SqlFileType::Sql);
+    /// let x1 = ExportContext::new().set_file_type(SqlFileType::Csv);
+    /// let x2 = ExportContext::new().set_file_type(SqlFileType::Bak);
+    /// ```
     pub fn set_file_type<T: std::convert::Into<crate::model::SqlFileType>>(mut self, v: T) -> Self {
         self.file_type = v.into();
         self
     }
 
     /// Sets the value of [offload][crate::model::ExportContext::offload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use wkt::BoolValue;
+    /// let x = ExportContext::new().set_offload(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_offload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -9927,6 +13427,14 @@ impl ExportContext {
     }
 
     /// Sets or clears the value of [offload][crate::model::ExportContext::offload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use wkt::BoolValue;
+    /// let x = ExportContext::new().set_or_clear_offload(Some(BoolValue::default()/* use setters */));
+    /// let x = ExportContext::new().set_or_clear_offload(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_offload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -9936,6 +13444,13 @@ impl ExportContext {
     }
 
     /// Sets the value of [bak_export_options][crate::model::ExportContext::bak_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+    /// let x = ExportContext::new().set_bak_export_options(SqlBakExportOptions::default()/* use setters */);
+    /// ```
     pub fn set_bak_export_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>,
@@ -9945,6 +13460,14 @@ impl ExportContext {
     }
 
     /// Sets or clears the value of [bak_export_options][crate::model::ExportContext::bak_export_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExportContext;
+    /// use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+    /// let x = ExportContext::new().set_or_clear_bak_export_options(Some(SqlBakExportOptions::default()/* use setters */));
+    /// let x = ExportContext::new().set_or_clear_bak_export_options(None::<SqlBakExportOptions>);
+    /// ```
     pub fn set_or_clear_bak_export_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::export_context::SqlBakExportOptions>,
@@ -9995,6 +13518,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [select_query][crate::model::export_context::SqlCsvExportOptions::select_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+        /// let x = SqlCsvExportOptions::new().set_select_query("example");
+        /// ```
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10004,6 +13533,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [escape_character][crate::model::export_context::SqlCsvExportOptions::escape_character].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+        /// let x = SqlCsvExportOptions::new().set_escape_character("example");
+        /// ```
         pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10013,6 +13548,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [quote_character][crate::model::export_context::SqlCsvExportOptions::quote_character].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+        /// let x = SqlCsvExportOptions::new().set_quote_character("example");
+        /// ```
         pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10022,6 +13563,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [fields_terminated_by][crate::model::export_context::SqlCsvExportOptions::fields_terminated_by].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+        /// let x = SqlCsvExportOptions::new().set_fields_terminated_by("example");
+        /// ```
         pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10031,6 +13578,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [lines_terminated_by][crate::model::export_context::SqlCsvExportOptions::lines_terminated_by].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlCsvExportOptions;
+        /// let x = SqlCsvExportOptions::new().set_lines_terminated_by("example");
+        /// ```
         pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10081,6 +13634,12 @@ pub mod export_context {
         }
 
         /// Sets the value of [tables][crate::model::export_context::SqlExportOptions::tables].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// let x = SqlExportOptions::new().set_tables(["a", "b", "c"]);
+        /// ```
         pub fn set_tables<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10092,6 +13651,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlExportOptions::new().set_schema_only(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_schema_only<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10101,6 +13667,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlExportOptions::new().set_or_clear_schema_only(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlExportOptions::new().set_or_clear_schema_only(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_schema_only<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10110,6 +13684,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [mysql_export_options][crate::model::export_context::SqlExportOptions::mysql_export_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use google_cloud_sql_v1::model::export_context::sql_export_options::MysqlExportOptions;
+        /// let x = SqlExportOptions::new().set_mysql_export_options(MysqlExportOptions::default()/* use setters */);
+        /// ```
         pub fn set_mysql_export_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -10121,6 +13702,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [mysql_export_options][crate::model::export_context::SqlExportOptions::mysql_export_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use google_cloud_sql_v1::model::export_context::sql_export_options::MysqlExportOptions;
+        /// let x = SqlExportOptions::new().set_or_clear_mysql_export_options(Some(MysqlExportOptions::default()/* use setters */));
+        /// let x = SqlExportOptions::new().set_or_clear_mysql_export_options(None::<MysqlExportOptions>);
+        /// ```
         pub fn set_or_clear_mysql_export_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -10132,6 +13721,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [threads][crate::model::export_context::SqlExportOptions::threads].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlExportOptions::new().set_threads(Int32Value::default()/* use setters */);
+        /// ```
         pub fn set_threads<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10141,6 +13737,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [threads][crate::model::export_context::SqlExportOptions::threads].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlExportOptions::new().set_or_clear_threads(Some(Int32Value::default()/* use setters */));
+        /// let x = SqlExportOptions::new().set_or_clear_threads(None::<Int32Value>);
+        /// ```
         pub fn set_or_clear_threads<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10150,6 +13754,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [parallel][crate::model::export_context::SqlExportOptions::parallel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlExportOptions::new().set_parallel(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_parallel<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10159,6 +13770,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [parallel][crate::model::export_context::SqlExportOptions::parallel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlExportOptions::new().set_or_clear_parallel(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlExportOptions::new().set_or_clear_parallel(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_parallel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10168,6 +13787,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [postgres_export_options][crate::model::export_context::SqlExportOptions::postgres_export_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+        /// let x = SqlExportOptions::new().set_postgres_export_options(PostgresExportOptions::default()/* use setters */);
+        /// ```
         pub fn set_postgres_export_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -10179,6 +13805,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [postgres_export_options][crate::model::export_context::SqlExportOptions::postgres_export_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlExportOptions;
+        /// use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+        /// let x = SqlExportOptions::new().set_or_clear_postgres_export_options(Some(PostgresExportOptions::default()/* use setters */));
+        /// let x = SqlExportOptions::new().set_or_clear_postgres_export_options(None::<PostgresExportOptions>);
+        /// ```
         pub fn set_or_clear_postgres_export_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -10222,6 +13856,13 @@ pub mod export_context {
             }
 
             /// Sets the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::MysqlExportOptions;
+            /// use wkt::Int32Value;
+            /// let x = MysqlExportOptions::new().set_master_data(Int32Value::default()/* use setters */);
+            /// ```
             pub fn set_master_data<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Int32Value>,
@@ -10231,6 +13872,14 @@ pub mod export_context {
             }
 
             /// Sets or clears the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::MysqlExportOptions;
+            /// use wkt::Int32Value;
+            /// let x = MysqlExportOptions::new().set_or_clear_master_data(Some(Int32Value::default()/* use setters */));
+            /// let x = MysqlExportOptions::new().set_or_clear_master_data(None::<Int32Value>);
+            /// ```
             pub fn set_or_clear_master_data<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int32Value>,
@@ -10268,6 +13917,13 @@ pub mod export_context {
             }
 
             /// Sets the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresExportOptions::new().set_clean(BoolValue::default()/* use setters */);
+            /// ```
             pub fn set_clean<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10277,6 +13933,14 @@ pub mod export_context {
             }
 
             /// Sets or clears the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresExportOptions::new().set_or_clear_clean(Some(BoolValue::default()/* use setters */));
+            /// let x = PostgresExportOptions::new().set_or_clear_clean(None::<BoolValue>);
+            /// ```
             pub fn set_or_clear_clean<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10286,6 +13950,13 @@ pub mod export_context {
             }
 
             /// Sets the value of [if_exists][crate::model::export_context::sql_export_options::PostgresExportOptions::if_exists].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresExportOptions::new().set_if_exists(BoolValue::default()/* use setters */);
+            /// ```
             pub fn set_if_exists<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10295,6 +13966,14 @@ pub mod export_context {
             }
 
             /// Sets or clears the value of [if_exists][crate::model::export_context::sql_export_options::PostgresExportOptions::if_exists].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::export_context::sql_export_options::PostgresExportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresExportOptions::new().set_or_clear_if_exists(Some(BoolValue::default()/* use setters */));
+            /// let x = PostgresExportOptions::new().set_or_clear_if_exists(None::<BoolValue>);
+            /// ```
             pub fn set_or_clear_if_exists<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10343,6 +14022,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_striped(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_striped<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10352,6 +14038,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_or_clear_striped(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakExportOptions::new().set_or_clear_striped(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_striped<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10361,6 +14055,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [stripe_count][crate::model::export_context::SqlBakExportOptions::stripe_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlBakExportOptions::new().set_stripe_count(Int32Value::default()/* use setters */);
+        /// ```
         pub fn set_stripe_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10370,6 +14071,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [stripe_count][crate::model::export_context::SqlBakExportOptions::stripe_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlBakExportOptions::new().set_or_clear_stripe_count(Some(Int32Value::default()/* use setters */));
+        /// let x = SqlBakExportOptions::new().set_or_clear_stripe_count(None::<Int32Value>);
+        /// ```
         pub fn set_or_clear_stripe_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10379,12 +14088,28 @@ pub mod export_context {
         }
 
         /// Sets the value of [bak_type][crate::model::export_context::SqlBakExportOptions::bak_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use google_cloud_sql_v1::model::BakType;
+        /// let x0 = SqlBakExportOptions::new().set_bak_type(BakType::Full);
+        /// let x1 = SqlBakExportOptions::new().set_bak_type(BakType::Diff);
+        /// let x2 = SqlBakExportOptions::new().set_bak_type(BakType::Tlog);
+        /// ```
         pub fn set_bak_type<T: std::convert::Into<crate::model::BakType>>(mut self, v: T) -> Self {
             self.bak_type = v.into();
             self
         }
 
         /// Sets the value of [copy_only][crate::model::export_context::SqlBakExportOptions::copy_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_copy_only(BoolValue::default()/* use setters */);
+        /// ```
         #[deprecated]
         pub fn set_copy_only<T>(mut self, v: T) -> Self
         where
@@ -10395,6 +14120,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [copy_only][crate::model::export_context::SqlBakExportOptions::copy_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_or_clear_copy_only(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakExportOptions::new().set_or_clear_copy_only(None::<BoolValue>);
+        /// ```
         #[deprecated]
         pub fn set_or_clear_copy_only<T>(mut self, v: std::option::Option<T>) -> Self
         where
@@ -10405,6 +14138,13 @@ pub mod export_context {
         }
 
         /// Sets the value of [differential_base][crate::model::export_context::SqlBakExportOptions::differential_base].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_differential_base(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_differential_base<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10414,6 +14154,14 @@ pub mod export_context {
         }
 
         /// Sets or clears the value of [differential_base][crate::model::export_context::SqlBakExportOptions::differential_base].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::export_context::SqlBakExportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakExportOptions::new().set_or_clear_differential_base(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakExportOptions::new().set_or_clear_differential_base(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_differential_base<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10474,30 +14222,64 @@ impl ImportContext {
     }
 
     /// Sets the value of [uri][crate::model::ImportContext::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// let x = ImportContext::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::ImportContext::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// let x = ImportContext::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::ImportContext::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// let x = ImportContext::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [file_type][crate::model::ImportContext::file_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::SqlFileType;
+    /// let x0 = ImportContext::new().set_file_type(SqlFileType::Sql);
+    /// let x1 = ImportContext::new().set_file_type(SqlFileType::Csv);
+    /// let x2 = ImportContext::new().set_file_type(SqlFileType::Bak);
+    /// ```
     pub fn set_file_type<T: std::convert::Into<crate::model::SqlFileType>>(mut self, v: T) -> Self {
         self.file_type = v.into();
         self
     }
 
     /// Sets the value of [csv_import_options][crate::model::ImportContext::csv_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+    /// let x = ImportContext::new().set_csv_import_options(SqlCsvImportOptions::default()/* use setters */);
+    /// ```
     pub fn set_csv_import_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>,
@@ -10507,6 +14289,14 @@ impl ImportContext {
     }
 
     /// Sets or clears the value of [csv_import_options][crate::model::ImportContext::csv_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+    /// let x = ImportContext::new().set_or_clear_csv_import_options(Some(SqlCsvImportOptions::default()/* use setters */));
+    /// let x = ImportContext::new().set_or_clear_csv_import_options(None::<SqlCsvImportOptions>);
+    /// ```
     pub fn set_or_clear_csv_import_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlCsvImportOptions>,
@@ -10516,12 +14306,25 @@ impl ImportContext {
     }
 
     /// Sets the value of [import_user][crate::model::ImportContext::import_user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// let x = ImportContext::new().set_import_user("example");
+    /// ```
     pub fn set_import_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_user = v.into();
         self
     }
 
     /// Sets the value of [bak_import_options][crate::model::ImportContext::bak_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+    /// let x = ImportContext::new().set_bak_import_options(SqlBakImportOptions::default()/* use setters */);
+    /// ```
     pub fn set_bak_import_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>,
@@ -10531,6 +14334,14 @@ impl ImportContext {
     }
 
     /// Sets or clears the value of [bak_import_options][crate::model::ImportContext::bak_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+    /// let x = ImportContext::new().set_or_clear_bak_import_options(Some(SqlBakImportOptions::default()/* use setters */));
+    /// let x = ImportContext::new().set_or_clear_bak_import_options(None::<SqlBakImportOptions>);
+    /// ```
     pub fn set_or_clear_bak_import_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlBakImportOptions>,
@@ -10540,6 +14351,13 @@ impl ImportContext {
     }
 
     /// Sets the value of [sql_import_options][crate::model::ImportContext::sql_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+    /// let x = ImportContext::new().set_sql_import_options(SqlImportOptions::default()/* use setters */);
+    /// ```
     pub fn set_sql_import_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlImportOptions>,
@@ -10549,6 +14367,14 @@ impl ImportContext {
     }
 
     /// Sets or clears the value of [sql_import_options][crate::model::ImportContext::sql_import_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ImportContext;
+    /// use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+    /// let x = ImportContext::new().set_or_clear_sql_import_options(Some(SqlImportOptions::default()/* use setters */));
+    /// let x = ImportContext::new().set_or_clear_sql_import_options(None::<SqlImportOptions>);
+    /// ```
     pub fn set_or_clear_sql_import_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_context::SqlImportOptions>,
@@ -10592,6 +14418,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [threads][crate::model::import_context::SqlImportOptions::threads].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlImportOptions::new().set_threads(Int32Value::default()/* use setters */);
+        /// ```
         pub fn set_threads<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10601,6 +14434,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [threads][crate::model::import_context::SqlImportOptions::threads].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use wkt::Int32Value;
+        /// let x = SqlImportOptions::new().set_or_clear_threads(Some(Int32Value::default()/* use setters */));
+        /// let x = SqlImportOptions::new().set_or_clear_threads(None::<Int32Value>);
+        /// ```
         pub fn set_or_clear_threads<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -10610,6 +14451,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [parallel][crate::model::import_context::SqlImportOptions::parallel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlImportOptions::new().set_parallel(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_parallel<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10619,6 +14467,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [parallel][crate::model::import_context::SqlImportOptions::parallel].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlImportOptions::new().set_or_clear_parallel(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlImportOptions::new().set_or_clear_parallel(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_parallel<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10628,6 +14484,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [postgres_import_options][crate::model::import_context::SqlImportOptions::postgres_import_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+        /// let x = SqlImportOptions::new().set_postgres_import_options(PostgresImportOptions::default()/* use setters */);
+        /// ```
         pub fn set_postgres_import_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -10639,6 +14502,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [postgres_import_options][crate::model::import_context::SqlImportOptions::postgres_import_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlImportOptions;
+        /// use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+        /// let x = SqlImportOptions::new().set_or_clear_postgres_import_options(Some(PostgresImportOptions::default()/* use setters */));
+        /// let x = SqlImportOptions::new().set_or_clear_postgres_import_options(None::<PostgresImportOptions>);
+        /// ```
         pub fn set_or_clear_postgres_import_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -10681,6 +14552,13 @@ pub mod import_context {
             }
 
             /// Sets the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresImportOptions::new().set_clean(BoolValue::default()/* use setters */);
+            /// ```
             pub fn set_clean<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10690,6 +14568,14 @@ pub mod import_context {
             }
 
             /// Sets or clears the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresImportOptions::new().set_or_clear_clean(Some(BoolValue::default()/* use setters */));
+            /// let x = PostgresImportOptions::new().set_or_clear_clean(None::<BoolValue>);
+            /// ```
             pub fn set_or_clear_clean<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10699,6 +14585,13 @@ pub mod import_context {
             }
 
             /// Sets the value of [if_exists][crate::model::import_context::sql_import_options::PostgresImportOptions::if_exists].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresImportOptions::new().set_if_exists(BoolValue::default()/* use setters */);
+            /// ```
             pub fn set_if_exists<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10708,6 +14601,14 @@ pub mod import_context {
             }
 
             /// Sets or clears the value of [if_exists][crate::model::import_context::sql_import_options::PostgresImportOptions::if_exists].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_import_options::PostgresImportOptions;
+            /// use wkt::BoolValue;
+            /// let x = PostgresImportOptions::new().set_or_clear_if_exists(Some(BoolValue::default()/* use setters */));
+            /// let x = PostgresImportOptions::new().set_or_clear_if_exists(None::<BoolValue>);
+            /// ```
             pub fn set_or_clear_if_exists<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -10758,12 +14659,24 @@ pub mod import_context {
         }
 
         /// Sets the value of [table][crate::model::import_context::SqlCsvImportOptions::table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_table("example");
+        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
         }
 
         /// Sets the value of [columns][crate::model::import_context::SqlCsvImportOptions::columns].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_columns(["a", "b", "c"]);
+        /// ```
         pub fn set_columns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10775,6 +14688,12 @@ pub mod import_context {
         }
 
         /// Sets the value of [escape_character][crate::model::import_context::SqlCsvImportOptions::escape_character].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_escape_character("example");
+        /// ```
         pub fn set_escape_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10784,6 +14703,12 @@ pub mod import_context {
         }
 
         /// Sets the value of [quote_character][crate::model::import_context::SqlCsvImportOptions::quote_character].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_quote_character("example");
+        /// ```
         pub fn set_quote_character<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10793,6 +14718,12 @@ pub mod import_context {
         }
 
         /// Sets the value of [fields_terminated_by][crate::model::import_context::SqlCsvImportOptions::fields_terminated_by].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_fields_terminated_by("example");
+        /// ```
         pub fn set_fields_terminated_by<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10802,6 +14733,12 @@ pub mod import_context {
         }
 
         /// Sets the value of [lines_terminated_by][crate::model::import_context::SqlCsvImportOptions::lines_terminated_by].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlCsvImportOptions;
+        /// let x = SqlCsvImportOptions::new().set_lines_terminated_by("example");
+        /// ```
         pub fn set_lines_terminated_by<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10862,6 +14799,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use google_cloud_sql_v1::model::import_context::sql_bak_import_options::EncryptionOptions;
+        /// let x = SqlBakImportOptions::new().set_encryption_options(EncryptionOptions::default()/* use setters */);
+        /// ```
         pub fn set_encryption_options<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -10873,6 +14817,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use google_cloud_sql_v1::model::import_context::sql_bak_import_options::EncryptionOptions;
+        /// let x = SqlBakImportOptions::new().set_or_clear_encryption_options(Some(EncryptionOptions::default()/* use setters */));
+        /// let x = SqlBakImportOptions::new().set_or_clear_encryption_options(None::<EncryptionOptions>);
+        /// ```
         pub fn set_or_clear_encryption_options<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -10884,6 +14836,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [striped][crate::model::import_context::SqlBakImportOptions::striped].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_striped(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_striped<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10893,6 +14852,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [striped][crate::model::import_context::SqlBakImportOptions::striped].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_or_clear_striped(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakImportOptions::new().set_or_clear_striped(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_striped<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10902,6 +14869,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [no_recovery][crate::model::import_context::SqlBakImportOptions::no_recovery].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_no_recovery(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_no_recovery<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10911,6 +14885,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [no_recovery][crate::model::import_context::SqlBakImportOptions::no_recovery].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_or_clear_no_recovery(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakImportOptions::new().set_or_clear_no_recovery(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_no_recovery<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10920,6 +14902,13 @@ pub mod import_context {
         }
 
         /// Sets the value of [recovery_only][crate::model::import_context::SqlBakImportOptions::recovery_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_recovery_only(BoolValue::default()/* use setters */);
+        /// ```
         pub fn set_recovery_only<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10929,6 +14918,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [recovery_only][crate::model::import_context::SqlBakImportOptions::recovery_only].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::BoolValue;
+        /// let x = SqlBakImportOptions::new().set_or_clear_recovery_only(Some(BoolValue::default()/* use setters */));
+        /// let x = SqlBakImportOptions::new().set_or_clear_recovery_only(None::<BoolValue>);
+        /// ```
         pub fn set_or_clear_recovery_only<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::BoolValue>,
@@ -10938,12 +14935,28 @@ pub mod import_context {
         }
 
         /// Sets the value of [bak_type][crate::model::import_context::SqlBakImportOptions::bak_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use google_cloud_sql_v1::model::BakType;
+        /// let x0 = SqlBakImportOptions::new().set_bak_type(BakType::Full);
+        /// let x1 = SqlBakImportOptions::new().set_bak_type(BakType::Diff);
+        /// let x2 = SqlBakImportOptions::new().set_bak_type(BakType::Tlog);
+        /// ```
         pub fn set_bak_type<T: std::convert::Into<crate::model::BakType>>(mut self, v: T) -> Self {
             self.bak_type = v.into();
             self
         }
 
         /// Sets the value of [stop_at][crate::model::import_context::SqlBakImportOptions::stop_at].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::Timestamp;
+        /// let x = SqlBakImportOptions::new().set_stop_at(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_stop_at<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10953,6 +14966,14 @@ pub mod import_context {
         }
 
         /// Sets or clears the value of [stop_at][crate::model::import_context::SqlBakImportOptions::stop_at].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// use wkt::Timestamp;
+        /// let x = SqlBakImportOptions::new().set_or_clear_stop_at(Some(Timestamp::default()/* use setters */));
+        /// let x = SqlBakImportOptions::new().set_or_clear_stop_at(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_stop_at<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -10962,6 +14983,12 @@ pub mod import_context {
         }
 
         /// Sets the value of [stop_at_mark][crate::model::import_context::SqlBakImportOptions::stop_at_mark].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::import_context::SqlBakImportOptions;
+        /// let x = SqlBakImportOptions::new().set_stop_at_mark("example");
+        /// ```
         pub fn set_stop_at_mark<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11007,6 +15034,12 @@ pub mod import_context {
             }
 
             /// Sets the value of [cert_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::cert_path].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_bak_import_options::EncryptionOptions;
+            /// let x = EncryptionOptions::new().set_cert_path("example");
+            /// ```
             pub fn set_cert_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11016,6 +15049,12 @@ pub mod import_context {
             }
 
             /// Sets the value of [pvk_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::pvk_path].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_bak_import_options::EncryptionOptions;
+            /// let x = EncryptionOptions::new().set_pvk_path("example");
+            /// ```
             pub fn set_pvk_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11025,6 +15064,12 @@ pub mod import_context {
             }
 
             /// Sets the value of [pvk_password][crate::model::import_context::sql_bak_import_options::EncryptionOptions::pvk_password].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_sql_v1::model::import_context::sql_bak_import_options::EncryptionOptions;
+            /// let x = EncryptionOptions::new().set_pvk_password("example");
+            /// ```
             pub fn set_pvk_password<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -11122,6 +15167,13 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_ipv4_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_ipv4_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -11131,6 +15183,14 @@ impl IpConfiguration {
     }
 
     /// Sets or clears the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_or_clear_ipv4_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = IpConfiguration::new().set_or_clear_ipv4_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_ipv4_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -11140,12 +15200,25 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [private_network][crate::model::IpConfiguration::private_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// let x = IpConfiguration::new().set_private_network("example");
+    /// ```
     pub fn set_private_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_network = v.into();
         self
     }
 
     /// Sets the value of [require_ssl][crate::model::IpConfiguration::require_ssl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_require_ssl(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_require_ssl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -11155,6 +15228,14 @@ impl IpConfiguration {
     }
 
     /// Sets or clears the value of [require_ssl][crate::model::IpConfiguration::require_ssl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_or_clear_require_ssl(Some(BoolValue::default()/* use setters */));
+    /// let x = IpConfiguration::new().set_or_clear_require_ssl(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_require_ssl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -11164,6 +15245,17 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [authorized_networks][crate::model::IpConfiguration::authorized_networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::AclEntry;
+    /// let x = IpConfiguration::new()
+    ///     .set_authorized_networks([
+    ///         AclEntry::default()/* use setters */,
+    ///         AclEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11175,6 +15267,12 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [allocated_ip_range][crate::model::IpConfiguration::allocated_ip_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// let x = IpConfiguration::new().set_allocated_ip_range("example");
+    /// ```
     pub fn set_allocated_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11184,6 +15282,13 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [enable_private_path_for_google_cloud_services][crate::model::IpConfiguration::enable_private_path_for_google_cloud_services].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_enable_private_path_for_google_cloud_services(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enable_private_path_for_google_cloud_services<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -11193,6 +15298,14 @@ impl IpConfiguration {
     }
 
     /// Sets or clears the value of [enable_private_path_for_google_cloud_services][crate::model::IpConfiguration::enable_private_path_for_google_cloud_services].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = IpConfiguration::new().set_or_clear_enable_private_path_for_google_cloud_services(Some(BoolValue::default()/* use setters */));
+    /// let x = IpConfiguration::new().set_or_clear_enable_private_path_for_google_cloud_services(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enable_private_path_for_google_cloud_services<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11205,6 +15318,15 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [ssl_mode][crate::model::IpConfiguration::ssl_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::ip_configuration::SslMode;
+    /// let x0 = IpConfiguration::new().set_ssl_mode(SslMode::AllowUnencryptedAndEncrypted);
+    /// let x1 = IpConfiguration::new().set_ssl_mode(SslMode::EncryptedOnly);
+    /// let x2 = IpConfiguration::new().set_ssl_mode(SslMode::TrustedClientCertificateRequired);
+    /// ```
     pub fn set_ssl_mode<T: std::convert::Into<crate::model::ip_configuration::SslMode>>(
         mut self,
         v: T,
@@ -11214,6 +15336,13 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [psc_config][crate::model::IpConfiguration::psc_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::PscConfig;
+    /// let x = IpConfiguration::new().set_psc_config(PscConfig::default()/* use setters */);
+    /// ```
     pub fn set_psc_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PscConfig>,
@@ -11223,6 +15352,14 @@ impl IpConfiguration {
     }
 
     /// Sets or clears the value of [psc_config][crate::model::IpConfiguration::psc_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::PscConfig;
+    /// let x = IpConfiguration::new().set_or_clear_psc_config(Some(PscConfig::default()/* use setters */));
+    /// let x = IpConfiguration::new().set_or_clear_psc_config(None::<PscConfig>);
+    /// ```
     pub fn set_or_clear_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PscConfig>,
@@ -11232,6 +15369,14 @@ impl IpConfiguration {
     }
 
     /// Sets the value of [server_ca_mode][crate::model::IpConfiguration::server_ca_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::ip_configuration::CaMode;
+    /// let x0 = IpConfiguration::new().set_server_ca_mode(CaMode::GoogleManagedInternalCa);
+    /// let x1 = IpConfiguration::new().set_server_ca_mode(CaMode::GoogleManagedCasCa);
+    /// ```
     pub fn set_server_ca_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ip_configuration::CaMode>,
@@ -11241,6 +15386,15 @@ impl IpConfiguration {
     }
 
     /// Sets or clears the value of [server_ca_mode][crate::model::IpConfiguration::server_ca_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpConfiguration;
+    /// use google_cloud_sql_v1::model::ip_configuration::CaMode;
+    /// let x0 = IpConfiguration::new().set_or_clear_server_ca_mode(Some(CaMode::GoogleManagedInternalCa));
+    /// let x1 = IpConfiguration::new().set_or_clear_server_ca_mode(Some(CaMode::GoogleManagedCasCa));
+    /// let x_none = IpConfiguration::new().set_or_clear_server_ca_mode(None::<CaMode>);
+    /// ```
     pub fn set_or_clear_server_ca_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ip_configuration::CaMode>,
@@ -11587,6 +15741,12 @@ impl PscConfig {
     }
 
     /// Sets the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_psc_enabled(true);
+    /// ```
     pub fn set_psc_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11596,6 +15756,13 @@ impl PscConfig {
     }
 
     /// Sets or clears the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_or_clear_psc_enabled(Some(false));
+    /// let x = PscConfig::new().set_or_clear_psc_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_psc_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11605,6 +15772,12 @@ impl PscConfig {
     }
 
     /// Sets the value of [allowed_consumer_projects][crate::model::PscConfig::allowed_consumer_projects].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscConfig;
+    /// let x = PscConfig::new().set_allowed_consumer_projects(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_consumer_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11655,6 +15828,12 @@ impl LocationPreference {
     }
 
     /// Sets the value of [follow_gae_application][crate::model::LocationPreference::follow_gae_application].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = LocationPreference::new().set_follow_gae_application("example");
+    /// ```
     #[deprecated]
     pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -11665,18 +15844,36 @@ impl LocationPreference {
     }
 
     /// Sets the value of [zone][crate::model::LocationPreference::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = LocationPreference::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [secondary_zone][crate::model::LocationPreference::secondary_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = LocationPreference::new().set_secondary_zone("example");
+    /// ```
     pub fn set_secondary_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_zone = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::LocationPreference::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = LocationPreference::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -11719,6 +15916,13 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [hour][crate::model::MaintenanceWindow::hour].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// use wkt::Int32Value;
+    /// let x = MaintenanceWindow::new().set_hour(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_hour<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11728,6 +15932,14 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [hour][crate::model::MaintenanceWindow::hour].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// use wkt::Int32Value;
+    /// let x = MaintenanceWindow::new().set_or_clear_hour(Some(Int32Value::default()/* use setters */));
+    /// let x = MaintenanceWindow::new().set_or_clear_hour(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_hour<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11737,6 +15949,13 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [day][crate::model::MaintenanceWindow::day].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// use wkt::Int32Value;
+    /// let x = MaintenanceWindow::new().set_day(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_day<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11746,6 +15965,14 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [day][crate::model::MaintenanceWindow::day].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// use wkt::Int32Value;
+    /// let x = MaintenanceWindow::new().set_or_clear_day(Some(Int32Value::default()/* use setters */));
+    /// let x = MaintenanceWindow::new().set_or_clear_day(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11755,6 +15982,15 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [update_track][crate::model::MaintenanceWindow::update_track].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// use google_cloud_sql_v1::model::SqlUpdateTrack;
+    /// let x0 = MaintenanceWindow::new().set_update_track(SqlUpdateTrack::Canary);
+    /// let x1 = MaintenanceWindow::new().set_update_track(SqlUpdateTrack::Stable);
+    /// let x2 = MaintenanceWindow::new().set_update_track(SqlUpdateTrack::Week5);
+    /// ```
     pub fn set_update_track<T: std::convert::Into<crate::model::SqlUpdateTrack>>(
         mut self,
         v: T,
@@ -11764,6 +16000,12 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [kind][crate::model::MaintenanceWindow::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// let x = MaintenanceWindow::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -11806,18 +16048,36 @@ impl DenyMaintenancePeriod {
     }
 
     /// Sets the value of [start_date][crate::model::DenyMaintenancePeriod::start_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DenyMaintenancePeriod;
+    /// let x = DenyMaintenancePeriod::new().set_start_date("example");
+    /// ```
     pub fn set_start_date<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_date = v.into();
         self
     }
 
     /// Sets the value of [end_date][crate::model::DenyMaintenancePeriod::end_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DenyMaintenancePeriod;
+    /// let x = DenyMaintenancePeriod::new().set_end_date("example");
+    /// ```
     pub fn set_end_date<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.end_date = v.into();
         self
     }
 
     /// Sets the value of [time][crate::model::DenyMaintenancePeriod::time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DenyMaintenancePeriod;
+    /// let x = DenyMaintenancePeriod::new().set_time("example");
+    /// ```
     pub fn set_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time = v.into();
         self
@@ -11864,24 +16124,49 @@ impl InsightsConfig {
     }
 
     /// Sets the value of [query_insights_enabled][crate::model::InsightsConfig::query_insights_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// let x = InsightsConfig::new().set_query_insights_enabled(true);
+    /// ```
     pub fn set_query_insights_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.query_insights_enabled = v.into();
         self
     }
 
     /// Sets the value of [record_client_address][crate::model::InsightsConfig::record_client_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// let x = InsightsConfig::new().set_record_client_address(true);
+    /// ```
     pub fn set_record_client_address<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.record_client_address = v.into();
         self
     }
 
     /// Sets the value of [record_application_tags][crate::model::InsightsConfig::record_application_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// let x = InsightsConfig::new().set_record_application_tags(true);
+    /// ```
     pub fn set_record_application_tags<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.record_application_tags = v.into();
         self
     }
 
     /// Sets the value of [query_string_length][crate::model::InsightsConfig::query_string_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// use wkt::Int32Value;
+    /// let x = InsightsConfig::new().set_query_string_length(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_query_string_length<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11891,6 +16176,14 @@ impl InsightsConfig {
     }
 
     /// Sets or clears the value of [query_string_length][crate::model::InsightsConfig::query_string_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// use wkt::Int32Value;
+    /// let x = InsightsConfig::new().set_or_clear_query_string_length(Some(Int32Value::default()/* use setters */));
+    /// let x = InsightsConfig::new().set_or_clear_query_string_length(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_query_string_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11900,6 +16193,13 @@ impl InsightsConfig {
     }
 
     /// Sets the value of [query_plans_per_minute][crate::model::InsightsConfig::query_plans_per_minute].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// use wkt::Int32Value;
+    /// let x = InsightsConfig::new().set_query_plans_per_minute(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_query_plans_per_minute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11909,6 +16209,14 @@ impl InsightsConfig {
     }
 
     /// Sets or clears the value of [query_plans_per_minute][crate::model::InsightsConfig::query_plans_per_minute].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InsightsConfig;
+    /// use wkt::Int32Value;
+    /// let x = InsightsConfig::new().set_or_clear_query_plans_per_minute(Some(Int32Value::default()/* use setters */));
+    /// let x = InsightsConfig::new().set_or_clear_query_plans_per_minute(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_query_plans_per_minute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -11977,24 +16285,49 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [dump_file_path][crate::model::MySqlReplicaConfiguration::dump_file_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_dump_file_path("example");
+    /// ```
     pub fn set_dump_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dump_file_path = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::MySqlReplicaConfiguration::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::MySqlReplicaConfiguration::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [connect_retry_interval][crate::model::MySqlReplicaConfiguration::connect_retry_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::Int32Value;
+    /// let x = MySqlReplicaConfiguration::new().set_connect_retry_interval(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_connect_retry_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -12004,6 +16337,14 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets or clears the value of [connect_retry_interval][crate::model::MySqlReplicaConfiguration::connect_retry_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::Int32Value;
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_connect_retry_interval(Some(Int32Value::default()/* use setters */));
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_connect_retry_interval(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_connect_retry_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -12013,6 +16354,13 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [master_heartbeat_period][crate::model::MySqlReplicaConfiguration::master_heartbeat_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::Int64Value;
+    /// let x = MySqlReplicaConfiguration::new().set_master_heartbeat_period(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_master_heartbeat_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -12022,6 +16370,14 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets or clears the value of [master_heartbeat_period][crate::model::MySqlReplicaConfiguration::master_heartbeat_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::Int64Value;
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_master_heartbeat_period(Some(Int64Value::default()/* use setters */));
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_master_heartbeat_period(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_master_heartbeat_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -12031,12 +16387,24 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [ca_certificate][crate::model::MySqlReplicaConfiguration::ca_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_ca_certificate("example");
+    /// ```
     pub fn set_ca_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_certificate = v.into();
         self
     }
 
     /// Sets the value of [client_certificate][crate::model::MySqlReplicaConfiguration::client_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_client_certificate("example");
+    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12046,18 +16414,37 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [client_key][crate::model::MySqlReplicaConfiguration::client_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_client_key("example");
+    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [ssl_cipher][crate::model::MySqlReplicaConfiguration::ssl_cipher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_ssl_cipher("example");
+    /// ```
     pub fn set_ssl_cipher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssl_cipher = v.into();
         self
     }
 
     /// Sets the value of [verify_server_certificate][crate::model::MySqlReplicaConfiguration::verify_server_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = MySqlReplicaConfiguration::new().set_verify_server_certificate(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_verify_server_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -12067,6 +16454,14 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets or clears the value of [verify_server_certificate][crate::model::MySqlReplicaConfiguration::verify_server_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// use wkt::BoolValue;
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_verify_server_certificate(Some(BoolValue::default()/* use setters */));
+    /// let x = MySqlReplicaConfiguration::new().set_or_clear_verify_server_certificate(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_verify_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -12076,6 +16471,12 @@ impl MySqlReplicaConfiguration {
     }
 
     /// Sets the value of [kind][crate::model::MySqlReplicaConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::MySqlReplicaConfiguration;
+    /// let x = MySqlReplicaConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -12107,12 +16508,24 @@ impl DiskEncryptionConfiguration {
     }
 
     /// Sets the value of [kms_key_name][crate::model::DiskEncryptionConfiguration::kms_key_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::DiskEncryptionConfiguration::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionConfiguration;
+    /// let x = DiskEncryptionConfiguration::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -12144,6 +16557,12 @@ impl DiskEncryptionStatus {
     }
 
     /// Sets the value of [kms_key_version_name][crate::model::DiskEncryptionStatus::kms_key_version_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = DiskEncryptionStatus::new().set_kms_key_version_name("example");
+    /// ```
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12153,6 +16572,12 @@ impl DiskEncryptionStatus {
     }
 
     /// Sets the value of [kind][crate::model::DiskEncryptionStatus::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DiskEncryptionStatus;
+    /// let x = DiskEncryptionStatus::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -12193,18 +16618,40 @@ impl IpMapping {
     }
 
     /// Sets the value of [r#type][crate::model::IpMapping::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpMapping;
+    /// use google_cloud_sql_v1::model::SqlIpAddressType;
+    /// let x0 = IpMapping::new().set_type(SqlIpAddressType::Primary);
+    /// let x1 = IpMapping::new().set_type(SqlIpAddressType::Outgoing);
+    /// let x2 = IpMapping::new().set_type(SqlIpAddressType::Private);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::SqlIpAddressType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::IpMapping::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpMapping;
+    /// let x = IpMapping::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [time_to_retire][crate::model::IpMapping::time_to_retire].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpMapping;
+    /// use wkt::Timestamp;
+    /// let x = IpMapping::new().set_time_to_retire(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_time_to_retire<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12214,6 +16661,14 @@ impl IpMapping {
     }
 
     /// Sets or clears the value of [time_to_retire][crate::model::IpMapping::time_to_retire].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::IpMapping;
+    /// use wkt::Timestamp;
+    /// let x = IpMapping::new().set_or_clear_time_to_retire(Some(Timestamp::default()/* use setters */));
+    /// let x = IpMapping::new().set_or_clear_time_to_retire(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_time_to_retire<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12319,18 +16774,39 @@ impl Operation {
     }
 
     /// Sets the value of [kind][crate::model::Operation::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [target_link][crate::model::Operation::target_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_target_link("example");
+    /// ```
     pub fn set_target_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_link = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::Operation::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::operation::SqlOperationStatus;
+    /// let x0 = Operation::new().set_status(SqlOperationStatus::Pending);
+    /// let x1 = Operation::new().set_status(SqlOperationStatus::Running);
+    /// let x2 = Operation::new().set_status(SqlOperationStatus::Done);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::operation::SqlOperationStatus>>(
         mut self,
         v: T,
@@ -12340,12 +16816,25 @@ impl Operation {
     }
 
     /// Sets the value of [user][crate::model::Operation::user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_user("example");
+    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user = v.into();
         self
     }
 
     /// Sets the value of [insert_time][crate::model::Operation::insert_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_insert_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_insert_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12355,6 +16844,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [insert_time][crate::model::Operation::insert_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_or_clear_insert_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_insert_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_insert_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12364,6 +16861,13 @@ impl Operation {
     }
 
     /// Sets the value of [start_time][crate::model::Operation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12373,6 +16877,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12382,6 +16894,13 @@ impl Operation {
     }
 
     /// Sets the value of [end_time][crate::model::Operation::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12391,6 +16910,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use wkt::Timestamp;
+    /// let x = Operation::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12400,6 +16927,13 @@ impl Operation {
     }
 
     /// Sets the value of [error][crate::model::Operation::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::OperationErrors;
+    /// let x = Operation::new().set_error(OperationErrors::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationErrors>,
@@ -12409,6 +16943,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [error][crate::model::Operation::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::OperationErrors;
+    /// let x = Operation::new().set_or_clear_error(Some(OperationErrors::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_error(None::<OperationErrors>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationErrors>,
@@ -12418,6 +16960,13 @@ impl Operation {
     }
 
     /// Sets the value of [api_warning][crate::model::Operation::api_warning].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ApiWarning;
+    /// let x = Operation::new().set_api_warning(ApiWarning::default()/* use setters */);
+    /// ```
     pub fn set_api_warning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApiWarning>,
@@ -12427,6 +16976,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [api_warning][crate::model::Operation::api_warning].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ApiWarning;
+    /// let x = Operation::new().set_or_clear_api_warning(Some(ApiWarning::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_api_warning(None::<ApiWarning>);
+    /// ```
     pub fn set_or_clear_api_warning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApiWarning>,
@@ -12436,6 +16993,15 @@ impl Operation {
     }
 
     /// Sets the value of [operation_type][crate::model::Operation::operation_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::operation::SqlOperationType;
+    /// let x0 = Operation::new().set_operation_type(SqlOperationType::Import);
+    /// let x1 = Operation::new().set_operation_type(SqlOperationType::Export);
+    /// let x2 = Operation::new().set_operation_type(SqlOperationType::Create);
+    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::operation::SqlOperationType>>(
         mut self,
         v: T,
@@ -12445,6 +17011,13 @@ impl Operation {
     }
 
     /// Sets the value of [import_context][crate::model::Operation::import_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ImportContext;
+    /// let x = Operation::new().set_import_context(ImportContext::default()/* use setters */);
+    /// ```
     pub fn set_import_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportContext>,
@@ -12454,6 +17027,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [import_context][crate::model::Operation::import_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ImportContext;
+    /// let x = Operation::new().set_or_clear_import_context(Some(ImportContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_import_context(None::<ImportContext>);
+    /// ```
     pub fn set_or_clear_import_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportContext>,
@@ -12463,6 +17044,13 @@ impl Operation {
     }
 
     /// Sets the value of [export_context][crate::model::Operation::export_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ExportContext;
+    /// let x = Operation::new().set_export_context(ExportContext::default()/* use setters */);
+    /// ```
     pub fn set_export_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportContext>,
@@ -12472,6 +17060,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [export_context][crate::model::Operation::export_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::ExportContext;
+    /// let x = Operation::new().set_or_clear_export_context(Some(ExportContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_export_context(None::<ExportContext>);
+    /// ```
     pub fn set_or_clear_export_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportContext>,
@@ -12481,6 +17077,13 @@ impl Operation {
     }
 
     /// Sets the value of [backup_context][crate::model::Operation::backup_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::BackupContext;
+    /// let x = Operation::new().set_backup_context(BackupContext::default()/* use setters */);
+    /// ```
     pub fn set_backup_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupContext>,
@@ -12490,6 +17093,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [backup_context][crate::model::Operation::backup_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::BackupContext;
+    /// let x = Operation::new().set_or_clear_backup_context(Some(BackupContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_backup_context(None::<BackupContext>);
+    /// ```
     pub fn set_or_clear_backup_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupContext>,
@@ -12499,30 +17110,61 @@ impl Operation {
     }
 
     /// Sets the value of [name][crate::model::Operation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::Operation::target_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::Operation::self_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [target_project][crate::model::Operation::target_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// let x = Operation::new().set_target_project("example");
+    /// ```
     pub fn set_target_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_project = v.into();
         self
     }
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::Operation::acquire_ssrs_lease_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = Operation::new().set_acquire_ssrs_lease_context(AcquireSsrsLeaseContext::default()/* use setters */);
+    /// ```
     pub fn set_acquire_ssrs_lease_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
@@ -12532,6 +17174,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [acquire_ssrs_lease_context][crate::model::Operation::acquire_ssrs_lease_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Operation;
+    /// use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = Operation::new().set_or_clear_acquire_ssrs_lease_context(Some(AcquireSsrsLeaseContext::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_acquire_ssrs_lease_context(None::<AcquireSsrsLeaseContext>);
+    /// ```
     pub fn set_or_clear_acquire_ssrs_lease_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AcquireSsrsLeaseContext>,
@@ -13168,18 +17818,36 @@ impl OperationError {
     }
 
     /// Sets the value of [kind][crate::model::OperationError::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationError;
+    /// let x = OperationError::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [code][crate::model::OperationError::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationError;
+    /// let x = OperationError::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::OperationError::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationError;
+    /// let x = OperationError::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -13211,12 +17879,29 @@ impl OperationErrors {
     }
 
     /// Sets the value of [kind][crate::model::OperationErrors::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationErrors;
+    /// let x = OperationErrors::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [errors][crate::model::OperationErrors::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::OperationErrors;
+    /// use google_cloud_sql_v1::model::OperationError;
+    /// let x = OperationErrors::new()
+    ///     .set_errors([
+    ///         OperationError::default()/* use setters */,
+    ///         OperationError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13271,6 +17956,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Int32Value;
+    /// let x = PasswordValidationPolicy::new().set_min_length(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_min_length<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -13280,6 +17972,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Int32Value;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_min_length(Some(Int32Value::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_min_length(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_min_length<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -13289,6 +17989,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [complexity][crate::model::PasswordValidationPolicy::complexity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use google_cloud_sql_v1::model::password_validation_policy::Complexity;
+    /// let x0 = PasswordValidationPolicy::new().set_complexity(Complexity::Default);
+    /// ```
     pub fn set_complexity<
         T: std::convert::Into<crate::model::password_validation_policy::Complexity>,
     >(
@@ -13300,6 +18007,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [reuse_interval][crate::model::PasswordValidationPolicy::reuse_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Int32Value;
+    /// let x = PasswordValidationPolicy::new().set_reuse_interval(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_reuse_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -13309,6 +18023,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [reuse_interval][crate::model::PasswordValidationPolicy::reuse_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Int32Value;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_reuse_interval(Some(Int32Value::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_reuse_interval(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_reuse_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -13318,6 +18040,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [disallow_username_substring][crate::model::PasswordValidationPolicy::disallow_username_substring].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_disallow_username_substring(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_disallow_username_substring<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13327,6 +18056,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [disallow_username_substring][crate::model::PasswordValidationPolicy::disallow_username_substring].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_disallow_username_substring(Some(BoolValue::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_disallow_username_substring(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_disallow_username_substring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13336,6 +18073,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [password_change_interval][crate::model::PasswordValidationPolicy::password_change_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Duration;
+    /// let x = PasswordValidationPolicy::new().set_password_change_interval(Duration::default()/* use setters */);
+    /// ```
     pub fn set_password_change_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -13345,6 +18089,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [password_change_interval][crate::model::PasswordValidationPolicy::password_change_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::Duration;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_password_change_interval(Some(Duration::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_password_change_interval(None::<Duration>);
+    /// ```
     pub fn set_or_clear_password_change_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -13354,6 +18106,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [enable_password_policy][crate::model::PasswordValidationPolicy::enable_password_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_enable_password_policy(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enable_password_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13363,6 +18122,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [enable_password_policy][crate::model::PasswordValidationPolicy::enable_password_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_enable_password_policy(Some(BoolValue::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_enable_password_policy(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enable_password_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13372,6 +18139,13 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets the value of [disallow_compromised_credentials][crate::model::PasswordValidationPolicy::disallow_compromised_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_disallow_compromised_credentials(BoolValue::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_disallow_compromised_credentials<T>(mut self, v: T) -> Self
     where
@@ -13382,6 +18156,14 @@ impl PasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [disallow_compromised_credentials][crate::model::PasswordValidationPolicy::disallow_compromised_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// use wkt::BoolValue;
+    /// let x = PasswordValidationPolicy::new().set_or_clear_disallow_compromised_credentials(Some(BoolValue::default()/* use setters */));
+    /// let x = PasswordValidationPolicy::new().set_or_clear_disallow_compromised_credentials(None::<BoolValue>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_disallow_compromised_credentials<T>(
         mut self,
@@ -13549,6 +18331,12 @@ impl DataCacheConfig {
     }
 
     /// Sets the value of [data_cache_enabled][crate::model::DataCacheConfig::data_cache_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DataCacheConfig;
+    /// let x = DataCacheConfig::new().set_data_cache_enabled(true);
+    /// ```
     pub fn set_data_cache_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.data_cache_enabled = v.into();
         self
@@ -13735,6 +18523,13 @@ impl Settings {
     }
 
     /// Sets the value of [settings_version][crate::model::Settings::settings_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_settings_version(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_settings_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -13744,6 +18539,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [settings_version][crate::model::Settings::settings_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_or_clear_settings_version(Some(Int64Value::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_settings_version(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_settings_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -13753,6 +18556,12 @@ impl Settings {
     }
 
     /// Sets the value of [authorized_gae_applications][crate::model::Settings::authorized_gae_applications].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_authorized_gae_applications(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_authorized_gae_applications<T, V>(mut self, v: T) -> Self
     where
@@ -13765,18 +18574,39 @@ impl Settings {
     }
 
     /// Sets the value of [tier][crate::model::Settings::tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_tier("example");
+    /// ```
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Settings::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [user_labels][crate::model::Settings::user_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13789,6 +18619,14 @@ impl Settings {
     }
 
     /// Sets the value of [availability_type][crate::model::Settings::availability_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlAvailabilityType;
+    /// let x0 = Settings::new().set_availability_type(SqlAvailabilityType::Zonal);
+    /// let x1 = Settings::new().set_availability_type(SqlAvailabilityType::Regional);
+    /// ```
     pub fn set_availability_type<T: std::convert::Into<crate::model::SqlAvailabilityType>>(
         mut self,
         v: T,
@@ -13798,6 +18636,14 @@ impl Settings {
     }
 
     /// Sets the value of [pricing_plan][crate::model::Settings::pricing_plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlPricingPlan;
+    /// let x0 = Settings::new().set_pricing_plan(SqlPricingPlan::Package);
+    /// let x1 = Settings::new().set_pricing_plan(SqlPricingPlan::PerUse);
+    /// ```
     pub fn set_pricing_plan<T: std::convert::Into<crate::model::SqlPricingPlan>>(
         mut self,
         v: T,
@@ -13807,6 +18653,14 @@ impl Settings {
     }
 
     /// Sets the value of [replication_type][crate::model::Settings::replication_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlReplicationType;
+    /// let x0 = Settings::new().set_replication_type(SqlReplicationType::Synchronous);
+    /// let x1 = Settings::new().set_replication_type(SqlReplicationType::Asynchronous);
+    /// ```
     #[deprecated]
     pub fn set_replication_type<T: std::convert::Into<crate::model::SqlReplicationType>>(
         mut self,
@@ -13817,6 +18671,13 @@ impl Settings {
     }
 
     /// Sets the value of [storage_auto_resize_limit][crate::model::Settings::storage_auto_resize_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_storage_auto_resize_limit(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_storage_auto_resize_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -13826,6 +18687,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [storage_auto_resize_limit][crate::model::Settings::storage_auto_resize_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_or_clear_storage_auto_resize_limit(Some(Int64Value::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_storage_auto_resize_limit(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_storage_auto_resize_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -13835,6 +18704,14 @@ impl Settings {
     }
 
     /// Sets the value of [activation_policy][crate::model::Settings::activation_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::settings::SqlActivationPolicy;
+    /// let x0 = Settings::new().set_activation_policy(SqlActivationPolicy::Always);
+    /// let x1 = Settings::new().set_activation_policy(SqlActivationPolicy::Never);
+    /// ```
     pub fn set_activation_policy<
         T: std::convert::Into<crate::model::settings::SqlActivationPolicy>,
     >(
@@ -13846,6 +18723,13 @@ impl Settings {
     }
 
     /// Sets the value of [ip_configuration][crate::model::Settings::ip_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::IpConfiguration;
+    /// let x = Settings::new().set_ip_configuration(IpConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_ip_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IpConfiguration>,
@@ -13855,6 +18739,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [ip_configuration][crate::model::Settings::ip_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::IpConfiguration;
+    /// let x = Settings::new().set_or_clear_ip_configuration(Some(IpConfiguration::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_ip_configuration(None::<IpConfiguration>);
+    /// ```
     pub fn set_or_clear_ip_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IpConfiguration>,
@@ -13864,6 +18756,13 @@ impl Settings {
     }
 
     /// Sets the value of [storage_auto_resize][crate::model::Settings::storage_auto_resize].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_storage_auto_resize(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_storage_auto_resize<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13873,6 +18772,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [storage_auto_resize][crate::model::Settings::storage_auto_resize].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_storage_auto_resize(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_storage_auto_resize(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_storage_auto_resize<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13882,6 +18789,13 @@ impl Settings {
     }
 
     /// Sets the value of [location_preference][crate::model::Settings::location_preference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = Settings::new().set_location_preference(LocationPreference::default()/* use setters */);
+    /// ```
     pub fn set_location_preference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LocationPreference>,
@@ -13891,6 +18805,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [location_preference][crate::model::Settings::location_preference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::LocationPreference;
+    /// let x = Settings::new().set_or_clear_location_preference(Some(LocationPreference::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_location_preference(None::<LocationPreference>);
+    /// ```
     pub fn set_or_clear_location_preference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LocationPreference>,
@@ -13900,6 +18822,17 @@ impl Settings {
     }
 
     /// Sets the value of [database_flags][crate::model::Settings::database_flags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::DatabaseFlags;
+    /// let x = Settings::new()
+    ///     .set_database_flags([
+    ///         DatabaseFlags::default()/* use setters */,
+    ///         DatabaseFlags::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_database_flags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13911,6 +18844,14 @@ impl Settings {
     }
 
     /// Sets the value of [data_disk_type][crate::model::Settings::data_disk_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlDataDiskType;
+    /// let x0 = Settings::new().set_data_disk_type(SqlDataDiskType::PdSsd);
+    /// let x1 = Settings::new().set_data_disk_type(SqlDataDiskType::PdHdd);
+    /// ```
     pub fn set_data_disk_type<T: std::convert::Into<crate::model::SqlDataDiskType>>(
         mut self,
         v: T,
@@ -13920,6 +18861,13 @@ impl Settings {
     }
 
     /// Sets the value of [maintenance_window][crate::model::Settings::maintenance_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// let x = Settings::new().set_maintenance_window(MaintenanceWindow::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -13929,6 +18877,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [maintenance_window][crate::model::Settings::maintenance_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::MaintenanceWindow;
+    /// let x = Settings::new().set_or_clear_maintenance_window(Some(MaintenanceWindow::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_maintenance_window(None::<MaintenanceWindow>);
+    /// ```
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -13938,6 +18894,13 @@ impl Settings {
     }
 
     /// Sets the value of [backup_configuration][crate::model::Settings::backup_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::BackupConfiguration;
+    /// let x = Settings::new().set_backup_configuration(BackupConfiguration::default()/* use setters */);
+    /// ```
     pub fn set_backup_configuration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfiguration>,
@@ -13947,6 +18910,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [backup_configuration][crate::model::Settings::backup_configuration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::BackupConfiguration;
+    /// let x = Settings::new().set_or_clear_backup_configuration(Some(BackupConfiguration::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_backup_configuration(None::<BackupConfiguration>);
+    /// ```
     pub fn set_or_clear_backup_configuration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupConfiguration>,
@@ -13956,6 +18927,13 @@ impl Settings {
     }
 
     /// Sets the value of [database_replication_enabled][crate::model::Settings::database_replication_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_database_replication_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_database_replication_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13965,6 +18943,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [database_replication_enabled][crate::model::Settings::database_replication_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_database_replication_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_database_replication_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_database_replication_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -13974,6 +18960,13 @@ impl Settings {
     }
 
     /// Sets the value of [crash_safe_replication_enabled][crate::model::Settings::crash_safe_replication_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_crash_safe_replication_enabled(BoolValue::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_crash_safe_replication_enabled<T>(mut self, v: T) -> Self
     where
@@ -13984,6 +18977,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [crash_safe_replication_enabled][crate::model::Settings::crash_safe_replication_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_crash_safe_replication_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_crash_safe_replication_enabled(None::<BoolValue>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_crash_safe_replication_enabled<T>(
         mut self,
@@ -13997,6 +18998,13 @@ impl Settings {
     }
 
     /// Sets the value of [data_disk_size_gb][crate::model::Settings::data_disk_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_data_disk_size_gb(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_data_disk_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -14006,6 +19014,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [data_disk_size_gb][crate::model::Settings::data_disk_size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::Int64Value;
+    /// let x = Settings::new().set_or_clear_data_disk_size_gb(Some(Int64Value::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_data_disk_size_gb(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_data_disk_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -14015,6 +19031,13 @@ impl Settings {
     }
 
     /// Sets the value of [active_directory_config][crate::model::Settings::active_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlActiveDirectoryConfig;
+    /// let x = Settings::new().set_active_directory_config(SqlActiveDirectoryConfig::default()/* use setters */);
+    /// ```
     pub fn set_active_directory_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>,
@@ -14024,6 +19047,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [active_directory_config][crate::model::Settings::active_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlActiveDirectoryConfig;
+    /// let x = Settings::new().set_or_clear_active_directory_config(Some(SqlActiveDirectoryConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_active_directory_config(None::<SqlActiveDirectoryConfig>);
+    /// ```
     pub fn set_or_clear_active_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlActiveDirectoryConfig>,
@@ -14033,12 +19064,29 @@ impl Settings {
     }
 
     /// Sets the value of [collation][crate::model::Settings::collation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_collation("example");
+    /// ```
     pub fn set_collation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collation = v.into();
         self
     }
 
     /// Sets the value of [deny_maintenance_periods][crate::model::Settings::deny_maintenance_periods].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::DenyMaintenancePeriod;
+    /// let x = Settings::new()
+    ///     .set_deny_maintenance_periods([
+    ///         DenyMaintenancePeriod::default()/* use setters */,
+    ///         DenyMaintenancePeriod::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14050,6 +19098,13 @@ impl Settings {
     }
 
     /// Sets the value of [insights_config][crate::model::Settings::insights_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::InsightsConfig;
+    /// let x = Settings::new().set_insights_config(InsightsConfig::default()/* use setters */);
+    /// ```
     pub fn set_insights_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InsightsConfig>,
@@ -14059,6 +19114,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [insights_config][crate::model::Settings::insights_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::InsightsConfig;
+    /// let x = Settings::new().set_or_clear_insights_config(Some(InsightsConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_insights_config(None::<InsightsConfig>);
+    /// ```
     pub fn set_or_clear_insights_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InsightsConfig>,
@@ -14068,6 +19131,13 @@ impl Settings {
     }
 
     /// Sets the value of [password_validation_policy][crate::model::Settings::password_validation_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// let x = Settings::new().set_password_validation_policy(PasswordValidationPolicy::default()/* use setters */);
+    /// ```
     pub fn set_password_validation_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PasswordValidationPolicy>,
@@ -14077,6 +19147,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [password_validation_policy][crate::model::Settings::password_validation_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::PasswordValidationPolicy;
+    /// let x = Settings::new().set_or_clear_password_validation_policy(Some(PasswordValidationPolicy::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_password_validation_policy(None::<PasswordValidationPolicy>);
+    /// ```
     pub fn set_or_clear_password_validation_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PasswordValidationPolicy>,
@@ -14086,6 +19164,13 @@ impl Settings {
     }
 
     /// Sets the value of [sql_server_audit_config][crate::model::Settings::sql_server_audit_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// let x = Settings::new().set_sql_server_audit_config(SqlServerAuditConfig::default()/* use setters */);
+    /// ```
     pub fn set_sql_server_audit_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerAuditConfig>,
@@ -14095,6 +19180,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [sql_server_audit_config][crate::model::Settings::sql_server_audit_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// let x = Settings::new().set_or_clear_sql_server_audit_config(Some(SqlServerAuditConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_sql_server_audit_config(None::<SqlServerAuditConfig>);
+    /// ```
     pub fn set_or_clear_sql_server_audit_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SqlServerAuditConfig>,
@@ -14104,6 +19197,14 @@ impl Settings {
     }
 
     /// Sets the value of [edition][crate::model::Settings::edition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::settings::Edition;
+    /// let x0 = Settings::new().set_edition(Edition::Enterprise);
+    /// let x1 = Settings::new().set_edition(Edition::EnterprisePlus);
+    /// ```
     pub fn set_edition<T: std::convert::Into<crate::model::settings::Edition>>(
         mut self,
         v: T,
@@ -14113,6 +19214,14 @@ impl Settings {
     }
 
     /// Sets the value of [connector_enforcement][crate::model::Settings::connector_enforcement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::settings::ConnectorEnforcement;
+    /// let x0 = Settings::new().set_connector_enforcement(ConnectorEnforcement::NotRequired);
+    /// let x1 = Settings::new().set_connector_enforcement(ConnectorEnforcement::Required);
+    /// ```
     pub fn set_connector_enforcement<
         T: std::convert::Into<crate::model::settings::ConnectorEnforcement>,
     >(
@@ -14124,6 +19233,13 @@ impl Settings {
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Settings::deletion_protection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_deletion_protection_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_deletion_protection_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14133,6 +19249,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [deletion_protection_enabled][crate::model::Settings::deletion_protection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_deletion_protection_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_deletion_protection_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_deletion_protection_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14142,12 +19266,25 @@ impl Settings {
     }
 
     /// Sets the value of [time_zone][crate::model::Settings::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [advanced_machine_features][crate::model::Settings::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::AdvancedMachineFeatures;
+    /// let x = Settings::new().set_advanced_machine_features(AdvancedMachineFeatures::default()/* use setters */);
+    /// ```
     pub fn set_advanced_machine_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -14157,6 +19294,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [advanced_machine_features][crate::model::Settings::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::AdvancedMachineFeatures;
+    /// let x = Settings::new().set_or_clear_advanced_machine_features(Some(AdvancedMachineFeatures::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_advanced_machine_features(None::<AdvancedMachineFeatures>);
+    /// ```
     pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -14166,6 +19311,13 @@ impl Settings {
     }
 
     /// Sets the value of [data_cache_config][crate::model::Settings::data_cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::DataCacheConfig;
+    /// let x = Settings::new().set_data_cache_config(DataCacheConfig::default()/* use setters */);
+    /// ```
     pub fn set_data_cache_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataCacheConfig>,
@@ -14175,6 +19327,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [data_cache_config][crate::model::Settings::data_cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::DataCacheConfig;
+    /// let x = Settings::new().set_or_clear_data_cache_config(Some(DataCacheConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_data_cache_config(None::<DataCacheConfig>);
+    /// ```
     pub fn set_or_clear_data_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataCacheConfig>,
@@ -14184,6 +19344,13 @@ impl Settings {
     }
 
     /// Sets the value of [enable_google_ml_integration][crate::model::Settings::enable_google_ml_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_enable_google_ml_integration(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enable_google_ml_integration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14193,6 +19360,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [enable_google_ml_integration][crate::model::Settings::enable_google_ml_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_enable_google_ml_integration(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_enable_google_ml_integration(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enable_google_ml_integration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14202,6 +19377,13 @@ impl Settings {
     }
 
     /// Sets the value of [enable_dataplex_integration][crate::model::Settings::enable_dataplex_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_enable_dataplex_integration(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enable_dataplex_integration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14211,6 +19393,14 @@ impl Settings {
     }
 
     /// Sets or clears the value of [enable_dataplex_integration][crate::model::Settings::enable_dataplex_integration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use wkt::BoolValue;
+    /// let x = Settings::new().set_or_clear_enable_dataplex_integration(Some(BoolValue::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_enable_dataplex_integration(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enable_dataplex_integration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -14220,6 +19410,12 @@ impl Settings {
     }
 
     /// Sets the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_auto_upgrade_enabled(true);
+    /// ```
     pub fn set_auto_upgrade_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14229,6 +19425,13 @@ impl Settings {
     }
 
     /// Sets or clears the value of [auto_upgrade_enabled][crate::model::Settings::auto_upgrade_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_or_clear_auto_upgrade_enabled(Some(false));
+    /// let x = Settings::new().set_or_clear_auto_upgrade_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_auto_upgrade_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14672,6 +19875,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_threads_per_core(42);
+    /// ```
     pub fn set_threads_per_core<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.threads_per_core = v.into();
         self
@@ -14728,12 +19937,24 @@ impl SslCert {
     }
 
     /// Sets the value of [kind][crate::model::SslCert::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [cert_serial_number][crate::model::SslCert::cert_serial_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_cert_serial_number("example");
+    /// ```
     pub fn set_cert_serial_number<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14743,12 +19964,25 @@ impl SslCert {
     }
 
     /// Sets the value of [cert][crate::model::SslCert::cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_cert("example");
+    /// ```
     pub fn set_cert<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cert = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::SslCert::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// use wkt::Timestamp;
+    /// let x = SslCert::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14758,6 +19992,14 @@ impl SslCert {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SslCert::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// use wkt::Timestamp;
+    /// let x = SslCert::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SslCert::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14767,12 +20009,25 @@ impl SslCert {
     }
 
     /// Sets the value of [common_name][crate::model::SslCert::common_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_common_name("example");
+    /// ```
     pub fn set_common_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.common_name = v.into();
         self
     }
 
     /// Sets the value of [expiration_time][crate::model::SslCert::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// use wkt::Timestamp;
+    /// let x = SslCert::new().set_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14782,6 +20037,14 @@ impl SslCert {
     }
 
     /// Sets or clears the value of [expiration_time][crate::model::SslCert::expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// use wkt::Timestamp;
+    /// let x = SslCert::new().set_or_clear_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SslCert::new().set_or_clear_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14791,6 +20054,12 @@ impl SslCert {
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SslCert::sha1_fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_sha1_fingerprint("example");
+    /// ```
     pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14800,12 +20069,24 @@ impl SslCert {
     }
 
     /// Sets the value of [instance][crate::model::SslCert::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [self_link][crate::model::SslCert::self_link].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCert::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
@@ -14838,6 +20119,13 @@ impl SslCertDetail {
     }
 
     /// Sets the value of [cert_info][crate::model::SslCertDetail::cert_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertDetail;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCertDetail::new().set_cert_info(SslCert::default()/* use setters */);
+    /// ```
     pub fn set_cert_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -14847,6 +20135,14 @@ impl SslCertDetail {
     }
 
     /// Sets or clears the value of [cert_info][crate::model::SslCertDetail::cert_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertDetail;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCertDetail::new().set_or_clear_cert_info(Some(SslCert::default()/* use setters */));
+    /// let x = SslCertDetail::new().set_or_clear_cert_info(None::<SslCert>);
+    /// ```
     pub fn set_or_clear_cert_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -14856,6 +20152,12 @@ impl SslCertDetail {
     }
 
     /// Sets the value of [cert_private_key][crate::model::SslCertDetail::cert_private_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertDetail;
+    /// let x = SslCertDetail::new().set_cert_private_key("example");
+    /// ```
     pub fn set_cert_private_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14890,12 +20192,24 @@ impl SqlActiveDirectoryConfig {
     }
 
     /// Sets the value of [kind][crate::model::SqlActiveDirectoryConfig::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlActiveDirectoryConfig;
+    /// let x = SqlActiveDirectoryConfig::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::SqlActiveDirectoryConfig::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlActiveDirectoryConfig;
+    /// let x = SqlActiveDirectoryConfig::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
@@ -14933,18 +20247,37 @@ impl SqlServerAuditConfig {
     }
 
     /// Sets the value of [kind][crate::model::SqlServerAuditConfig::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// let x = SqlServerAuditConfig::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::SqlServerAuditConfig::bucket].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// let x = SqlServerAuditConfig::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [retention_interval][crate::model::SqlServerAuditConfig::retention_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// use wkt::Duration;
+    /// let x = SqlServerAuditConfig::new().set_retention_interval(Duration::default()/* use setters */);
+    /// ```
     pub fn set_retention_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14954,6 +20287,14 @@ impl SqlServerAuditConfig {
     }
 
     /// Sets or clears the value of [retention_interval][crate::model::SqlServerAuditConfig::retention_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// use wkt::Duration;
+    /// let x = SqlServerAuditConfig::new().set_or_clear_retention_interval(Some(Duration::default()/* use setters */));
+    /// let x = SqlServerAuditConfig::new().set_or_clear_retention_interval(None::<Duration>);
+    /// ```
     pub fn set_or_clear_retention_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14963,6 +20304,13 @@ impl SqlServerAuditConfig {
     }
 
     /// Sets the value of [upload_interval][crate::model::SqlServerAuditConfig::upload_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// use wkt::Duration;
+    /// let x = SqlServerAuditConfig::new().set_upload_interval(Duration::default()/* use setters */);
+    /// ```
     pub fn set_upload_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14972,6 +20320,14 @@ impl SqlServerAuditConfig {
     }
 
     /// Sets or clears the value of [upload_interval][crate::model::SqlServerAuditConfig::upload_interval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerAuditConfig;
+    /// use wkt::Duration;
+    /// let x = SqlServerAuditConfig::new().set_or_clear_upload_interval(Some(Duration::default()/* use setters */));
+    /// let x = SqlServerAuditConfig::new().set_or_clear_upload_interval(None::<Duration>);
+    /// ```
     pub fn set_or_clear_upload_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15014,6 +20370,12 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_setup_login("example");
+    /// ```
     pub fn set_setup_login<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15023,6 +20385,13 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets or clears the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_setup_login(Some("example"));
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_setup_login(None::<String>);
+    /// ```
     pub fn set_or_clear_setup_login<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15032,6 +20401,12 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets the value of [service_login][crate::model::AcquireSsrsLeaseContext::service_login].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_service_login("example");
+    /// ```
     pub fn set_service_login<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15041,6 +20416,13 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets or clears the value of [service_login][crate::model::AcquireSsrsLeaseContext::service_login].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_service_login(Some("example"));
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_service_login(None::<String>);
+    /// ```
     pub fn set_or_clear_service_login<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15050,6 +20432,12 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets the value of [report_database][crate::model::AcquireSsrsLeaseContext::report_database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_report_database("example");
+    /// ```
     pub fn set_report_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15059,6 +20447,13 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets or clears the value of [report_database][crate::model::AcquireSsrsLeaseContext::report_database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_report_database(Some("example"));
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_report_database(None::<String>);
+    /// ```
     pub fn set_or_clear_report_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -15068,6 +20463,13 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets the value of [duration][crate::model::AcquireSsrsLeaseContext::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// use wkt::Duration;
+    /// let x = AcquireSsrsLeaseContext::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15077,6 +20479,14 @@ impl AcquireSsrsLeaseContext {
     }
 
     /// Sets or clears the value of [duration][crate::model::AcquireSsrsLeaseContext::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::AcquireSsrsLeaseContext;
+    /// use wkt::Duration;
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = AcquireSsrsLeaseContext::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15113,18 +20523,36 @@ impl SqlSslCertsDeleteRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsDeleteRequest;
+    /// let x = SqlSslCertsDeleteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlSslCertsDeleteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsDeleteRequest;
+    /// let x = SqlSslCertsDeleteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsDeleteRequest::sha1_fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsDeleteRequest;
+    /// let x = SqlSslCertsDeleteRequest::new().set_sha1_fingerprint("example");
+    /// ```
     pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15161,18 +20589,36 @@ impl SqlSslCertsGetRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsGetRequest;
+    /// let x = SqlSslCertsGetRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlSslCertsGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsGetRequest;
+    /// let x = SqlSslCertsGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsGetRequest::sha1_fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsGetRequest;
+    /// let x = SqlSslCertsGetRequest::new().set_sha1_fingerprint("example");
+    /// ```
     pub fn set_sha1_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15208,18 +20654,37 @@ impl SqlSslCertsInsertRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsInsertRequest;
+    /// let x = SqlSslCertsInsertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlSslCertsInsertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsInsertRequest;
+    /// let x = SqlSslCertsInsertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlSslCertsInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsInsertRequest;
+    /// use google_cloud_sql_v1::model::SslCertsInsertRequest;
+    /// let x = SqlSslCertsInsertRequest::new().set_body(SslCertsInsertRequest::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCertsInsertRequest>,
@@ -15229,6 +20694,14 @@ impl SqlSslCertsInsertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlSslCertsInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsInsertRequest;
+    /// use google_cloud_sql_v1::model::SslCertsInsertRequest;
+    /// let x = SqlSslCertsInsertRequest::new().set_or_clear_body(Some(SslCertsInsertRequest::default()/* use setters */));
+    /// let x = SqlSslCertsInsertRequest::new().set_or_clear_body(None::<SslCertsInsertRequest>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCertsInsertRequest>,
@@ -15262,12 +20735,24 @@ impl SqlSslCertsListRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsListRequest;
+    /// let x = SqlSslCertsListRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlSslCertsListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlSslCertsListRequest;
+    /// let x = SqlSslCertsListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -15297,6 +20782,12 @@ impl SslCertsInsertRequest {
     }
 
     /// Sets the value of [common_name][crate::model::SslCertsInsertRequest::common_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertRequest;
+    /// let x = SslCertsInsertRequest::new().set_common_name("example");
+    /// ```
     pub fn set_common_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.common_name = v.into();
         self
@@ -15336,12 +20827,25 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets the value of [kind][crate::model::SslCertsInsertResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// let x = SslCertsInsertResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::SslCertsInsertResponse::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::Operation;
+    /// let x = SslCertsInsertResponse::new().set_operation(Operation::default()/* use setters */);
+    /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
@@ -15351,6 +20855,14 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets or clears the value of [operation][crate::model::SslCertsInsertResponse::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::Operation;
+    /// let x = SslCertsInsertResponse::new().set_or_clear_operation(Some(Operation::default()/* use setters */));
+    /// let x = SslCertsInsertResponse::new().set_or_clear_operation(None::<Operation>);
+    /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
@@ -15360,6 +20872,13 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets the value of [server_ca_cert][crate::model::SslCertsInsertResponse::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCertsInsertResponse::new().set_server_ca_cert(SslCert::default()/* use setters */);
+    /// ```
     pub fn set_server_ca_cert<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -15369,6 +20888,14 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets or clears the value of [server_ca_cert][crate::model::SslCertsInsertResponse::server_ca_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCertsInsertResponse::new().set_or_clear_server_ca_cert(Some(SslCert::default()/* use setters */));
+    /// let x = SslCertsInsertResponse::new().set_or_clear_server_ca_cert(None::<SslCert>);
+    /// ```
     pub fn set_or_clear_server_ca_cert<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCert>,
@@ -15378,6 +20905,13 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets the value of [client_cert][crate::model::SslCertsInsertResponse::client_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::SslCertDetail;
+    /// let x = SslCertsInsertResponse::new().set_client_cert(SslCertDetail::default()/* use setters */);
+    /// ```
     pub fn set_client_cert<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslCertDetail>,
@@ -15387,6 +20921,14 @@ impl SslCertsInsertResponse {
     }
 
     /// Sets or clears the value of [client_cert][crate::model::SslCertsInsertResponse::client_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsInsertResponse;
+    /// use google_cloud_sql_v1::model::SslCertDetail;
+    /// let x = SslCertsInsertResponse::new().set_or_clear_client_cert(Some(SslCertDetail::default()/* use setters */));
+    /// let x = SslCertsInsertResponse::new().set_or_clear_client_cert(None::<SslCertDetail>);
+    /// ```
     pub fn set_or_clear_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslCertDetail>,
@@ -15421,12 +20963,29 @@ impl SslCertsListResponse {
     }
 
     /// Sets the value of [kind][crate::model::SslCertsListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsListResponse;
+    /// let x = SslCertsListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::SslCertsListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SslCertsListResponse;
+    /// use google_cloud_sql_v1::model::SslCert;
+    /// let x = SslCertsListResponse::new()
+    ///     .set_items([
+    ///         SslCert::default()/* use setters */,
+    ///         SslCert::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15460,6 +21019,12 @@ impl SqlTiersListRequest {
     }
 
     /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlTiersListRequest;
+    /// let x = SqlTiersListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -15491,12 +21056,29 @@ impl TiersListResponse {
     }
 
     /// Sets the value of [kind][crate::model::TiersListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::TiersListResponse;
+    /// let x = TiersListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::TiersListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::TiersListResponse;
+    /// use google_cloud_sql_v1::model::Tier;
+    /// let x = TiersListResponse::new()
+    ///     .set_items([
+    ///         Tier::default()/* use setters */,
+    ///         Tier::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15543,30 +21125,60 @@ impl Tier {
     }
 
     /// Sets the value of [tier][crate::model::Tier::tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Tier;
+    /// let x = Tier::new().set_tier("example");
+    /// ```
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [ram][crate::model::Tier::ram].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Tier;
+    /// let x = Tier::new().set_ram(42);
+    /// ```
     pub fn set_ram<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.ram = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Tier::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Tier;
+    /// let x = Tier::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [disk_quota][crate::model::Tier::disk_quota].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Tier;
+    /// let x = Tier::new().set_disk_quota(42);
+    /// ```
     pub fn set_disk_quota<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_quota = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::Tier::region].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Tier;
+    /// let x = Tier::new().set_region(["a", "b", "c"]);
+    /// ```
     pub fn set_region<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15608,24 +21220,48 @@ impl SqlUsersDeleteRequest {
     }
 
     /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersDeleteRequest;
+    /// let x = SqlUsersDeleteRequest::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlUsersDeleteRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersDeleteRequest;
+    /// let x = SqlUsersDeleteRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SqlUsersDeleteRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersDeleteRequest;
+    /// let x = SqlUsersDeleteRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlUsersDeleteRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersDeleteRequest;
+    /// let x = SqlUsersDeleteRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -15663,24 +21299,48 @@ impl SqlUsersGetRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersGetRequest;
+    /// let x = SqlUsersGetRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SqlUsersGetRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersGetRequest;
+    /// let x = SqlUsersGetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlUsersGetRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersGetRequest;
+    /// let x = SqlUsersGetRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::SqlUsersGetRequest::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersGetRequest;
+    /// let x = SqlUsersGetRequest::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
@@ -15713,18 +21373,37 @@ impl SqlUsersInsertRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersInsertRequest;
+    /// let x = SqlUsersInsertRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlUsersInsertRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersInsertRequest;
+    /// let x = SqlUsersInsertRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlUsersInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersInsertRequest;
+    /// use google_cloud_sql_v1::model::User;
+    /// let x = SqlUsersInsertRequest::new().set_body(User::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -15734,6 +21413,14 @@ impl SqlUsersInsertRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlUsersInsertRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersInsertRequest;
+    /// use google_cloud_sql_v1::model::User;
+    /// let x = SqlUsersInsertRequest::new().set_or_clear_body(Some(User::default()/* use setters */));
+    /// let x = SqlUsersInsertRequest::new().set_or_clear_body(None::<User>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -15767,12 +21454,24 @@ impl SqlUsersListRequest {
     }
 
     /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersListRequest;
+    /// let x = SqlUsersListRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlUsersListRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersListRequest;
+    /// let x = SqlUsersListRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -15811,30 +21510,61 @@ impl SqlUsersUpdateRequest {
     }
 
     /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::SqlUsersUpdateRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SqlUsersUpdateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::SqlUsersUpdateRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// let x = SqlUsersUpdateRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// use google_cloud_sql_v1::model::User;
+    /// let x = SqlUsersUpdateRequest::new().set_body(User::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -15844,6 +21574,14 @@ impl SqlUsersUpdateRequest {
     }
 
     /// Sets or clears the value of [body][crate::model::SqlUsersUpdateRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlUsersUpdateRequest;
+    /// use google_cloud_sql_v1::model::User;
+    /// let x = SqlUsersUpdateRequest::new().set_or_clear_body(Some(User::default()/* use setters */));
+    /// let x = SqlUsersUpdateRequest::new().set_or_clear_body(None::<User>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::User>,
@@ -15888,12 +21626,25 @@ impl UserPasswordValidationPolicy {
     }
 
     /// Sets the value of [allowed_failed_attempts][crate::model::UserPasswordValidationPolicy::allowed_failed_attempts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// let x = UserPasswordValidationPolicy::new().set_allowed_failed_attempts(42);
+    /// ```
     pub fn set_allowed_failed_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.allowed_failed_attempts = v.into();
         self
     }
 
     /// Sets the value of [password_expiration_duration][crate::model::UserPasswordValidationPolicy::password_expiration_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// use wkt::Duration;
+    /// let x = UserPasswordValidationPolicy::new().set_password_expiration_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_password_expiration_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15903,6 +21654,14 @@ impl UserPasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [password_expiration_duration][crate::model::UserPasswordValidationPolicy::password_expiration_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// use wkt::Duration;
+    /// let x = UserPasswordValidationPolicy::new().set_or_clear_password_expiration_duration(Some(Duration::default()/* use setters */));
+    /// let x = UserPasswordValidationPolicy::new().set_or_clear_password_expiration_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_password_expiration_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -15912,12 +21671,25 @@ impl UserPasswordValidationPolicy {
     }
 
     /// Sets the value of [enable_failed_attempts_check][crate::model::UserPasswordValidationPolicy::enable_failed_attempts_check].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// let x = UserPasswordValidationPolicy::new().set_enable_failed_attempts_check(true);
+    /// ```
     pub fn set_enable_failed_attempts_check<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_failed_attempts_check = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::UserPasswordValidationPolicy::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// use google_cloud_sql_v1::model::PasswordStatus;
+    /// let x = UserPasswordValidationPolicy::new().set_status(PasswordStatus::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PasswordStatus>,
@@ -15927,6 +21699,14 @@ impl UserPasswordValidationPolicy {
     }
 
     /// Sets or clears the value of [status][crate::model::UserPasswordValidationPolicy::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// use google_cloud_sql_v1::model::PasswordStatus;
+    /// let x = UserPasswordValidationPolicy::new().set_or_clear_status(Some(PasswordStatus::default()/* use setters */));
+    /// let x = UserPasswordValidationPolicy::new().set_or_clear_status(None::<PasswordStatus>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PasswordStatus>,
@@ -15936,6 +21716,12 @@ impl UserPasswordValidationPolicy {
     }
 
     /// Sets the value of [enable_password_verification][crate::model::UserPasswordValidationPolicy::enable_password_verification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// let x = UserPasswordValidationPolicy::new().set_enable_password_verification(true);
+    /// ```
     pub fn set_enable_password_verification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_password_verification = v.into();
         self
@@ -15967,12 +21753,25 @@ impl PasswordStatus {
     }
 
     /// Sets the value of [locked][crate::model::PasswordStatus::locked].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordStatus;
+    /// let x = PasswordStatus::new().set_locked(true);
+    /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
         self
     }
 
     /// Sets the value of [password_expiration_time][crate::model::PasswordStatus::password_expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordStatus;
+    /// use wkt::Timestamp;
+    /// let x = PasswordStatus::new().set_password_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_password_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15982,6 +21781,14 @@ impl PasswordStatus {
     }
 
     /// Sets or clears the value of [password_expiration_time][crate::model::PasswordStatus::password_expiration_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PasswordStatus;
+    /// use wkt::Timestamp;
+    /// let x = PasswordStatus::new().set_or_clear_password_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PasswordStatus::new().set_or_clear_password_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_password_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -16054,48 +21861,99 @@ impl User {
     }
 
     /// Sets the value of [kind][crate::model::User::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::User::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::User::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::User::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::User::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::User::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::User::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// let x = User::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::User::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::user::SqlUserType;
+    /// let x0 = User::new().set_type(SqlUserType::CloudIamUser);
+    /// let x1 = User::new().set_type(SqlUserType::CloudIamServiceAccount);
+    /// let x2 = User::new().set_type(SqlUserType::CloudIamGroup);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::user::SqlUserType>>(
         mut self,
         v: T,
@@ -16105,6 +21963,13 @@ impl User {
     }
 
     /// Sets the value of [password_policy][crate::model::User::password_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// let x = User::new().set_password_policy(UserPasswordValidationPolicy::default()/* use setters */);
+    /// ```
     pub fn set_password_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserPasswordValidationPolicy>,
@@ -16114,6 +21979,14 @@ impl User {
     }
 
     /// Sets or clears the value of [password_policy][crate::model::User::password_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::UserPasswordValidationPolicy;
+    /// let x = User::new().set_or_clear_password_policy(Some(UserPasswordValidationPolicy::default()/* use setters */));
+    /// let x = User::new().set_or_clear_password_policy(None::<UserPasswordValidationPolicy>);
+    /// ```
     pub fn set_or_clear_password_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserPasswordValidationPolicy>,
@@ -16123,6 +21996,15 @@ impl User {
     }
 
     /// Sets the value of [dual_password_type][crate::model::User::dual_password_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::user::DualPasswordType;
+    /// let x0 = User::new().set_dual_password_type(DualPasswordType::NoModifyDualPassword);
+    /// let x1 = User::new().set_dual_password_type(DualPasswordType::NoDualPassword);
+    /// let x2 = User::new().set_dual_password_type(DualPasswordType::DualPassword);
+    /// ```
     pub fn set_dual_password_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::user::DualPasswordType>,
@@ -16132,6 +22014,16 @@ impl User {
     }
 
     /// Sets or clears the value of [dual_password_type][crate::model::User::dual_password_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::user::DualPasswordType;
+    /// let x0 = User::new().set_or_clear_dual_password_type(Some(DualPasswordType::NoModifyDualPassword));
+    /// let x1 = User::new().set_or_clear_dual_password_type(Some(DualPasswordType::NoDualPassword));
+    /// let x2 = User::new().set_or_clear_dual_password_type(Some(DualPasswordType::DualPassword));
+    /// let x_none = User::new().set_or_clear_dual_password_type(None::<DualPasswordType>);
+    /// ```
     pub fn set_or_clear_dual_password_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::user::DualPasswordType>,
@@ -16144,6 +22036,14 @@ impl User {
     ///
     /// Note that all the setters affecting `user_details` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::SqlServerUserDetails;
+    /// let x = User::new().set_user_details(Some(
+    ///     google_cloud_sql_v1::model::user::UserDetails::SqlserverUserDetails(SqlServerUserDetails::default().into())));
+    /// ```
     pub fn set_user_details<
         T: std::convert::Into<std::option::Option<crate::model::user::UserDetails>>,
     >(
@@ -16174,6 +22074,14 @@ impl User {
     ///
     /// Note that all the setters affecting `user_details` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::User;
+    /// use google_cloud_sql_v1::model::SqlServerUserDetails;
+    /// let x = User::new().set_sqlserver_user_details(SqlServerUserDetails::default()/* use setters */);
+    /// assert!(x.sqlserver_user_details().is_some());
+    /// ```
     pub fn set_sqlserver_user_details<
         T: std::convert::Into<std::boxed::Box<crate::model::SqlServerUserDetails>>,
     >(
@@ -16521,12 +22429,24 @@ impl SqlServerUserDetails {
     }
 
     /// Sets the value of [disabled][crate::model::SqlServerUserDetails::disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerUserDetails;
+    /// let x = SqlServerUserDetails::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [server_roles][crate::model::SqlServerUserDetails::server_roles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlServerUserDetails;
+    /// let x = SqlServerUserDetails::new().set_server_roles(["a", "b", "c"]);
+    /// ```
     pub fn set_server_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16567,12 +22487,29 @@ impl UsersListResponse {
     }
 
     /// Sets the value of [kind][crate::model::UsersListResponse::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UsersListResponse;
+    /// let x = UsersListResponse::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::UsersListResponse::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UsersListResponse;
+    /// use google_cloud_sql_v1::model::User;
+    /// let x = UsersListResponse::new()
+    ///     .set_items([
+    ///         User::default()/* use setters */,
+    ///         User::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16584,6 +22521,12 @@ impl UsersListResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::UsersListResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UsersListResponse;
+    /// let x = UsersListResponse::new().set_next_page_token("example");
+    /// ```
     #[deprecated]
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();

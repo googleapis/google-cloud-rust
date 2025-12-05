@@ -128,24 +128,52 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Instance::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use google_cloud_parallelstore_v1::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Creating);
+    /// let x1 = Instance::new().set_state(State::Active);
+    /// let x2 = Instance::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -155,6 +183,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -164,6 +200,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -173,6 +216,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -182,6 +233,15 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -194,12 +254,24 @@ impl Instance {
     }
 
     /// Sets the value of [capacity_gib][crate::model::Instance::capacity_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_capacity_gib(42);
+    /// ```
     pub fn set_capacity_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gib = v.into();
         self
     }
 
     /// Sets the value of [daos_version][crate::model::Instance::daos_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_daos_version("example");
+    /// ```
     #[deprecated]
     pub fn set_daos_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.daos_version = v.into();
@@ -207,6 +279,12 @@ impl Instance {
     }
 
     /// Sets the value of [access_points][crate::model::Instance::access_points].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_access_points(["a", "b", "c"]);
+    /// ```
     pub fn set_access_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -218,12 +296,24 @@ impl Instance {
     }
 
     /// Sets the value of [network][crate::model::Instance::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [reserved_ip_range][crate::model::Instance::reserved_ip_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_reserved_ip_range("example");
+    /// ```
     pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -233,6 +323,12 @@ impl Instance {
     }
 
     /// Sets the value of [effective_reserved_ip_range][crate::model::Instance::effective_reserved_ip_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = Instance::new().set_effective_reserved_ip_range("example");
+    /// ```
     pub fn set_effective_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -242,6 +338,15 @@ impl Instance {
     }
 
     /// Sets the value of [file_stripe_level][crate::model::Instance::file_stripe_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use google_cloud_parallelstore_v1::model::FileStripeLevel;
+    /// let x0 = Instance::new().set_file_stripe_level(FileStripeLevel::Min);
+    /// let x1 = Instance::new().set_file_stripe_level(FileStripeLevel::Balanced);
+    /// let x2 = Instance::new().set_file_stripe_level(FileStripeLevel::Max);
+    /// ```
     pub fn set_file_stripe_level<T: std::convert::Into<crate::model::FileStripeLevel>>(
         mut self,
         v: T,
@@ -251,6 +356,15 @@ impl Instance {
     }
 
     /// Sets the value of [directory_stripe_level][crate::model::Instance::directory_stripe_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use google_cloud_parallelstore_v1::model::DirectoryStripeLevel;
+    /// let x0 = Instance::new().set_directory_stripe_level(DirectoryStripeLevel::Min);
+    /// let x1 = Instance::new().set_directory_stripe_level(DirectoryStripeLevel::Balanced);
+    /// let x2 = Instance::new().set_directory_stripe_level(DirectoryStripeLevel::Max);
+    /// ```
     pub fn set_directory_stripe_level<T: std::convert::Into<crate::model::DirectoryStripeLevel>>(
         mut self,
         v: T,
@@ -260,6 +374,14 @@ impl Instance {
     }
 
     /// Sets the value of [deployment_type][crate::model::Instance::deployment_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::Instance;
+    /// use google_cloud_parallelstore_v1::model::DeploymentType;
+    /// let x0 = Instance::new().set_deployment_type(DeploymentType::Scratch);
+    /// let x1 = Instance::new().set_deployment_type(DeploymentType::Persistent);
+    /// ```
     pub fn set_deployment_type<T: std::convert::Into<crate::model::DeploymentType>>(
         mut self,
         v: T,
@@ -464,6 +586,14 @@ impl TransferMetadataOptions {
     }
 
     /// Sets the value of [uid][crate::model::TransferMetadataOptions::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// use google_cloud_parallelstore_v1::model::transfer_metadata_options::Uid;
+    /// let x0 = TransferMetadataOptions::new().set_uid(Uid::Skip);
+    /// let x1 = TransferMetadataOptions::new().set_uid(Uid::NumberPreserve);
+    /// ```
     pub fn set_uid<T: std::convert::Into<crate::model::transfer_metadata_options::Uid>>(
         mut self,
         v: T,
@@ -473,6 +603,14 @@ impl TransferMetadataOptions {
     }
 
     /// Sets the value of [gid][crate::model::TransferMetadataOptions::gid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// use google_cloud_parallelstore_v1::model::transfer_metadata_options::Gid;
+    /// let x0 = TransferMetadataOptions::new().set_gid(Gid::Skip);
+    /// let x1 = TransferMetadataOptions::new().set_gid(Gid::NumberPreserve);
+    /// ```
     pub fn set_gid<T: std::convert::Into<crate::model::transfer_metadata_options::Gid>>(
         mut self,
         v: T,
@@ -482,6 +620,14 @@ impl TransferMetadataOptions {
     }
 
     /// Sets the value of [mode][crate::model::TransferMetadataOptions::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// use google_cloud_parallelstore_v1::model::transfer_metadata_options::Mode;
+    /// let x0 = TransferMetadataOptions::new().set_mode(Mode::Skip);
+    /// let x1 = TransferMetadataOptions::new().set_mode(Mode::Preserve);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::transfer_metadata_options::Mode>>(
         mut self,
         v: T,
@@ -932,30 +1078,60 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -993,6 +1169,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesResponse;
+    /// use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1004,12 +1191,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1058,6 +1257,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1115,18 +1320,37 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::CreateInstanceRequest;
+    /// use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -1136,6 +1360,14 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::CreateInstanceRequest;
+    /// use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -1145,6 +1377,12 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1194,6 +1432,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1203,6 +1448,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1212,6 +1465,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -1221,6 +1481,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_parallelstore_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -1230,6 +1498,12 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::UpdateInstanceRequest;
+    /// let x = UpdateInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1273,12 +1547,24 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1332,6 +1618,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1341,6 +1634,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1350,6 +1651,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1359,6 +1667,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1368,30 +1684,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -1422,6 +1768,12 @@ impl SourceGcsBucket {
     }
 
     /// Sets the value of [uri][crate::model::SourceGcsBucket::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::SourceGcsBucket;
+    /// let x = SourceGcsBucket::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -1452,6 +1804,12 @@ impl DestinationGcsBucket {
     }
 
     /// Sets the value of [uri][crate::model::DestinationGcsBucket::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::DestinationGcsBucket;
+    /// let x = DestinationGcsBucket::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -1481,6 +1839,12 @@ impl SourceParallelstore {
     }
 
     /// Sets the value of [path][crate::model::SourceParallelstore::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::SourceParallelstore;
+    /// let x = SourceParallelstore::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -1510,6 +1874,12 @@ impl DestinationParallelstore {
     }
 
     /// Sets the value of [path][crate::model::DestinationParallelstore::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::DestinationParallelstore;
+    /// let x = DestinationParallelstore::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -1575,24 +1945,49 @@ impl ImportDataRequest {
     }
 
     /// Sets the value of [name][crate::model::ImportDataRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// let x = ImportDataRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ImportDataRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// let x = ImportDataRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::ImportDataRequest::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// let x = ImportDataRequest::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// let x = ImportDataRequest::new().set_metadata_options(TransferMetadataOptions::default()/* use setters */);
+    /// ```
     pub fn set_metadata_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferMetadataOptions>,
@@ -1602,6 +1997,14 @@ impl ImportDataRequest {
     }
 
     /// Sets or clears the value of [metadata_options][crate::model::ImportDataRequest::metadata_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// let x = ImportDataRequest::new().set_or_clear_metadata_options(Some(TransferMetadataOptions::default()/* use setters */));
+    /// let x = ImportDataRequest::new().set_or_clear_metadata_options(None::<TransferMetadataOptions>);
+    /// ```
     pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferMetadataOptions>,
@@ -1614,6 +2017,14 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::SourceGcsBucket;
+    /// let x = ImportDataRequest::new().set_source(Some(
+    ///     google_cloud_parallelstore_v1::model::import_data_request::Source::SourceGcsBucket(SourceGcsBucket::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Source>>,
     >(
@@ -1644,6 +2055,14 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::SourceGcsBucket;
+    /// let x = ImportDataRequest::new().set_source_gcs_bucket(SourceGcsBucket::default()/* use setters */);
+    /// assert!(x.source_gcs_bucket().is_some());
+    /// ```
     pub fn set_source_gcs_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::SourceGcsBucket>>,
     >(
@@ -1660,6 +2079,14 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::DestinationParallelstore;
+    /// let x = ImportDataRequest::new().set_destination(Some(
+    ///     google_cloud_parallelstore_v1::model::import_data_request::Destination::DestinationParallelstore(DestinationParallelstore::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_data_request::Destination>>,
     >(
@@ -1690,6 +2117,14 @@ impl ImportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::DestinationParallelstore;
+    /// let x = ImportDataRequest::new().set_destination_parallelstore(DestinationParallelstore::default()/* use setters */);
+    /// assert!(x.destination_parallelstore().is_some());
+    /// ```
     pub fn set_destination_parallelstore<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationParallelstore>>,
     >(
@@ -1783,24 +2218,49 @@ impl ExportDataRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportDataRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// let x = ExportDataRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ExportDataRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// let x = ExportDataRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::ExportDataRequest::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// let x = ExportDataRequest::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// let x = ExportDataRequest::new().set_metadata_options(TransferMetadataOptions::default()/* use setters */);
+    /// ```
     pub fn set_metadata_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferMetadataOptions>,
@@ -1810,6 +2270,14 @@ impl ExportDataRequest {
     }
 
     /// Sets or clears the value of [metadata_options][crate::model::ExportDataRequest::metadata_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::TransferMetadataOptions;
+    /// let x = ExportDataRequest::new().set_or_clear_metadata_options(Some(TransferMetadataOptions::default()/* use setters */));
+    /// let x = ExportDataRequest::new().set_or_clear_metadata_options(None::<TransferMetadataOptions>);
+    /// ```
     pub fn set_or_clear_metadata_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferMetadataOptions>,
@@ -1822,6 +2290,14 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::SourceParallelstore;
+    /// let x = ExportDataRequest::new().set_source(Some(
+    ///     google_cloud_parallelstore_v1::model::export_data_request::Source::SourceParallelstore(SourceParallelstore::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Source>>,
     >(
@@ -1852,6 +2328,14 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::SourceParallelstore;
+    /// let x = ExportDataRequest::new().set_source_parallelstore(SourceParallelstore::default()/* use setters */);
+    /// assert!(x.source_parallelstore().is_some());
+    /// ```
     pub fn set_source_parallelstore<
         T: std::convert::Into<std::boxed::Box<crate::model::SourceParallelstore>>,
     >(
@@ -1868,6 +2352,14 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::DestinationGcsBucket;
+    /// let x = ExportDataRequest::new().set_destination(Some(
+    ///     google_cloud_parallelstore_v1::model::export_data_request::Destination::DestinationGcsBucket(DestinationGcsBucket::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_data_request::Destination>>,
     >(
@@ -1898,6 +2390,14 @@ impl ExportDataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataRequest;
+    /// use google_cloud_parallelstore_v1::model::DestinationGcsBucket;
+    /// let x = ExportDataRequest::new().set_destination_gcs_bucket(DestinationGcsBucket::default()/* use setters */);
+    /// assert!(x.destination_gcs_bucket().is_some());
+    /// ```
     pub fn set_destination_gcs_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationGcsBucket>>,
     >(
@@ -1978,12 +2478,24 @@ impl TransferErrorLogEntry {
     }
 
     /// Sets the value of [uri][crate::model::TransferErrorLogEntry::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferErrorLogEntry;
+    /// let x = TransferErrorLogEntry::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [error_details][crate::model::TransferErrorLogEntry::error_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferErrorLogEntry;
+    /// let x = TransferErrorLogEntry::new().set_error_details(["a", "b", "c"]);
+    /// ```
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2024,18 +2536,44 @@ impl TransferErrorSummary {
     }
 
     /// Sets the value of [error_code][crate::model::TransferErrorSummary::error_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferErrorSummary;
+    /// use rpc::model::Code;
+    /// let x0 = TransferErrorSummary::new().set_error_code(Code::Cancelled);
+    /// let x1 = TransferErrorSummary::new().set_error_code(Code::Unknown);
+    /// let x2 = TransferErrorSummary::new().set_error_code(Code::InvalidArgument);
+    /// ```
     pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.error_code = v.into();
         self
     }
 
     /// Sets the value of [error_count][crate::model::TransferErrorSummary::error_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferErrorSummary;
+    /// let x = TransferErrorSummary::new().set_error_count(42);
+    /// ```
     pub fn set_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.error_count = v.into();
         self
     }
 
     /// Sets the value of [error_log_entries][crate::model::TransferErrorSummary::error_log_entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferErrorSummary;
+    /// use google_cloud_parallelstore_v1::model::TransferErrorLogEntry;
+    /// let x = TransferErrorSummary::new()
+    ///     .set_error_log_entries([
+    ///         TransferErrorLogEntry::default()/* use setters */,
+    ///         TransferErrorLogEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2097,6 +2635,13 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [operation_metadata][crate::model::ImportDataMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// let x = ImportDataMetadata::new().set_operation_metadata(TransferOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_operation_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferOperationMetadata>,
@@ -2106,6 +2651,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [operation_metadata][crate::model::ImportDataMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// let x = ImportDataMetadata::new().set_or_clear_operation_metadata(Some(TransferOperationMetadata::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_operation_metadata(None::<TransferOperationMetadata>);
+    /// ```
     pub fn set_or_clear_operation_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferOperationMetadata>,
@@ -2115,6 +2668,13 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ImportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2124,6 +2684,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2133,6 +2701,13 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ImportDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2142,6 +2717,14 @@ impl ImportDataMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ImportDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDataMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDataMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2151,30 +2734,60 @@ impl ImportDataMetadata {
     }
 
     /// Sets the value of [target][crate::model::ImportDataMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// let x = ImportDataMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::ImportDataMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// let x = ImportDataMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::ImportDataMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// let x = ImportDataMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::ImportDataMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// let x = ImportDataMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::ImportDataMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ImportDataMetadata;
+    /// let x = ImportDataMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -2250,6 +2863,13 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [operation_metadata][crate::model::ExportDataMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// let x = ExportDataMetadata::new().set_operation_metadata(TransferOperationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_operation_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferOperationMetadata>,
@@ -2259,6 +2879,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [operation_metadata][crate::model::ExportDataMetadata::operation_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// let x = ExportDataMetadata::new().set_or_clear_operation_metadata(Some(TransferOperationMetadata::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_operation_metadata(None::<TransferOperationMetadata>);
+    /// ```
     pub fn set_or_clear_operation_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferOperationMetadata>,
@@ -2268,6 +2896,13 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ExportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2277,6 +2912,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExportDataMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2286,6 +2929,13 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ExportDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2295,6 +2945,14 @@ impl ExportDataMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ExportDataMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2304,30 +2962,60 @@ impl ExportDataMetadata {
     }
 
     /// Sets the value of [target][crate::model::ExportDataMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// let x = ExportDataMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::ExportDataMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// let x = ExportDataMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::ExportDataMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// let x = ExportDataMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::ExportDataMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// let x = ExportDataMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::ExportDataMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::ExportDataMetadata;
+    /// let x = ExportDataMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -2369,6 +3057,13 @@ impl TransferOperationMetadata {
     }
 
     /// Sets the value of [counters][crate::model::TransferOperationMetadata::counters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferOperationMetadata::new().set_counters(TransferCounters::default()/* use setters */);
+    /// ```
     pub fn set_counters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferCounters>,
@@ -2378,6 +3073,14 @@ impl TransferOperationMetadata {
     }
 
     /// Sets or clears the value of [counters][crate::model::TransferOperationMetadata::counters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferOperationMetadata::new().set_or_clear_counters(Some(TransferCounters::default()/* use setters */));
+    /// let x = TransferOperationMetadata::new().set_or_clear_counters(None::<TransferCounters>);
+    /// ```
     pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferCounters>,
@@ -2387,6 +3090,14 @@ impl TransferOperationMetadata {
     }
 
     /// Sets the value of [transfer_type][crate::model::TransferOperationMetadata::transfer_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferType;
+    /// let x0 = TransferOperationMetadata::new().set_transfer_type(TransferType::Import);
+    /// let x1 = TransferOperationMetadata::new().set_transfer_type(TransferType::Export);
+    /// ```
     pub fn set_transfer_type<T: std::convert::Into<crate::model::TransferType>>(
         mut self,
         v: T,
@@ -2396,6 +3107,17 @@ impl TransferOperationMetadata {
     }
 
     /// Sets the value of [error_summary][crate::model::TransferOperationMetadata::error_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::TransferErrorSummary;
+    /// let x = TransferOperationMetadata::new()
+    ///     .set_error_summary([
+    ///         TransferErrorSummary::default()/* use setters */,
+    ///         TransferErrorSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_summary<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2410,6 +3132,14 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::SourceParallelstore;
+    /// let x = TransferOperationMetadata::new().set_source(Some(
+    ///     google_cloud_parallelstore_v1::model::transfer_operation_metadata::Source::SourceParallelstore(SourceParallelstore::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::transfer_operation_metadata::Source>>,
     >(
@@ -2440,6 +3170,15 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::SourceParallelstore;
+    /// let x = TransferOperationMetadata::new().set_source_parallelstore(SourceParallelstore::default()/* use setters */);
+    /// assert!(x.source_parallelstore().is_some());
+    /// assert!(x.source_gcs_bucket().is_none());
+    /// ```
     pub fn set_source_parallelstore<
         T: std::convert::Into<std::boxed::Box<crate::model::SourceParallelstore>>,
     >(
@@ -2472,6 +3211,15 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::SourceGcsBucket;
+    /// let x = TransferOperationMetadata::new().set_source_gcs_bucket(SourceGcsBucket::default()/* use setters */);
+    /// assert!(x.source_gcs_bucket().is_some());
+    /// assert!(x.source_parallelstore().is_none());
+    /// ```
     pub fn set_source_gcs_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::SourceGcsBucket>>,
     >(
@@ -2488,6 +3236,14 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::DestinationGcsBucket;
+    /// let x = TransferOperationMetadata::new().set_destination(Some(
+    ///     google_cloud_parallelstore_v1::model::transfer_operation_metadata::Destination::DestinationGcsBucket(DestinationGcsBucket::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::transfer_operation_metadata::Destination>,
@@ -2520,6 +3276,15 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::DestinationGcsBucket;
+    /// let x = TransferOperationMetadata::new().set_destination_gcs_bucket(DestinationGcsBucket::default()/* use setters */);
+    /// assert!(x.destination_gcs_bucket().is_some());
+    /// assert!(x.destination_parallelstore().is_none());
+    /// ```
     pub fn set_destination_gcs_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationGcsBucket>>,
     >(
@@ -2552,6 +3317,15 @@ impl TransferOperationMetadata {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferOperationMetadata;
+    /// use google_cloud_parallelstore_v1::model::DestinationParallelstore;
+    /// let x = TransferOperationMetadata::new().set_destination_parallelstore(DestinationParallelstore::default()/* use setters */);
+    /// assert!(x.destination_parallelstore().is_some());
+    /// assert!(x.destination_gcs_bucket().is_none());
+    /// ```
     pub fn set_destination_parallelstore<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationParallelstore>>,
     >(
@@ -2642,48 +3416,96 @@ impl TransferCounters {
     }
 
     /// Sets the value of [objects_found][crate::model::TransferCounters::objects_found].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_objects_found(42);
+    /// ```
     pub fn set_objects_found<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_found = v.into();
         self
     }
 
     /// Sets the value of [bytes_found][crate::model::TransferCounters::bytes_found].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_bytes_found(42);
+    /// ```
     pub fn set_bytes_found<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_found = v.into();
         self
     }
 
     /// Sets the value of [objects_skipped][crate::model::TransferCounters::objects_skipped].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_objects_skipped(42);
+    /// ```
     pub fn set_objects_skipped<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_skipped = v.into();
         self
     }
 
     /// Sets the value of [bytes_skipped][crate::model::TransferCounters::bytes_skipped].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_bytes_skipped(42);
+    /// ```
     pub fn set_bytes_skipped<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_skipped = v.into();
         self
     }
 
     /// Sets the value of [objects_copied][crate::model::TransferCounters::objects_copied].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_objects_copied(42);
+    /// ```
     pub fn set_objects_copied<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_copied = v.into();
         self
     }
 
     /// Sets the value of [bytes_copied][crate::model::TransferCounters::bytes_copied].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_bytes_copied(42);
+    /// ```
     pub fn set_bytes_copied<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_copied = v.into();
         self
     }
 
     /// Sets the value of [objects_failed][crate::model::TransferCounters::objects_failed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_objects_failed(42);
+    /// ```
     pub fn set_objects_failed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_failed = v.into();
         self
     }
 
     /// Sets the value of [bytes_failed][crate::model::TransferCounters::bytes_failed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_parallelstore_v1::model::TransferCounters;
+    /// let x = TransferCounters::new().set_bytes_failed(42);
+    /// ```
     pub fn set_bytes_failed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.bytes_failed = v.into();
         self
