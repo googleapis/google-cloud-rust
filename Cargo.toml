@@ -153,6 +153,7 @@ members = [
   "src/generated/cloud/location",
   "src/generated/cloud/locationfinder/v1",
   "src/generated/cloud/lustre/v1",
+  "src/generated/cloud/maintenance/api/v1",
   "src/generated/cloud/managedidentities/v1",
   "src/generated/cloud/managedkafka/schemaregistry/v1",
   "src/generated/cloud/managedkafka/v1",
