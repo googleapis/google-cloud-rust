@@ -28,38 +28,38 @@ rust-version.workspace = true
 
 [features]
 default = [
-    "dataset-service",
-    "deployment-resource-pool-service",
-    "endpoint-service",
-    "evaluation-service",
-    "feature-online-store-admin-service",
-    "feature-online-store-service",
-    "feature-registry-service",
-    "featurestore-online-serving-service",
-    "featurestore-service",
-    "gen-ai-cache-service",
-    "gen-ai-tuning-service",
-    "index-endpoint-service",
-    "index-service",
-    "job-service",
-    "llm-utility-service",
-    "match-service",
-    "metadata-service",
-    "migration-service",
-    "model-garden-service",
-    "model-service",
-    "notebook-service",
-    "persistent-resource-service",
-    "pipeline-service",
-    "prediction-service",
-    "reasoning-engine-execution-service",
-    "reasoning-engine-service",
-    "schedule-service",
-    "specialist-pool-service",
-    "tensorboard-service",
-    "vertex-rag-data-service",
-    "vertex-rag-service",
-    "vizier-service",
+  "dataset-service",
+  "deployment-resource-pool-service",
+  "endpoint-service",
+  "evaluation-service",
+  "feature-online-store-admin-service",
+  "feature-online-store-service",
+  "feature-registry-service",
+  "featurestore-online-serving-service",
+  "featurestore-service",
+  "gen-ai-cache-service",
+  "gen-ai-tuning-service",
+  "index-endpoint-service",
+  "index-service",
+  "job-service",
+  "llm-utility-service",
+  "match-service",
+  "metadata-service",
+  "migration-service",
+  "model-garden-service",
+  "model-service",
+  "notebook-service",
+  "persistent-resource-service",
+  "pipeline-service",
+  "prediction-service",
+  "reasoning-engine-execution-service",
+  "reasoning-engine-service",
+  "schedule-service",
+  "specialist-pool-service",
+  "tensorboard-service",
+  "vertex-rag-data-service",
+  "vertex-rag-service",
+  "vizier-service",
 ]
 # Enables `client::DatasetService` and all the types it depends on.
 dataset-service = []
@@ -127,24 +127,24 @@ vertex-rag-service = []
 vizier-service = []
 
 [dependencies]
-api.workspace        = true
+api.workspace         = true
 async-trait.workspace = true
-bytes.workspace      = true
-gax.workspace        = true
-gaxi                 = { workspace = true, features = ["_internal-http-client"] }
-gtype.workspace      = true
-iam_v1.workspace     = true
+bytes.workspace       = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-http-client"] }
+gtype.workspace       = true
+iam_v1.workspace      = true
 lazy_static.workspace = true
-location.workspace   = true
+location.workspace    = true
 longrunning.workspace = true
-lro.workspace        = true
-reqwest.workspace    = true
-rpc.workspace        = true
-serde.workspace      = true
-serde_json.workspace = true
-serde_with.workspace = true
-tracing.workspace    = true
-wkt.workspace        = true
+lro.workspace         = true
+reqwest.workspace     = true
+rpc.workspace         = true
+serde.workspace       = true
+serde_json.workspace  = true
+serde_with.workspace  = true
+tracing.workspace     = true
+wkt.workspace         = true
 
 [dev-dependencies]
 tokio-test.workspace = true

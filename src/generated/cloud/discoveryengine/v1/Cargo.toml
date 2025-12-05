@@ -28,27 +28,27 @@ rust-version.workspace = true
 
 [features]
 default = [
-    "assistant-service",
-    "cmek-config-service",
-    "completion-service",
-    "control-service",
-    "conversational-search-service",
-    "data-store-service",
-    "document-service",
-    "engine-service",
-    "grounded-generation-service",
-    "identity-mapping-store-service",
-    "project-service",
-    "rank-service",
-    "recommendation-service",
-    "schema-service",
-    "search-service",
-    "search-tuning-service",
-    "serving-config-service",
-    "session-service",
-    "site-search-engine-service",
-    "user-event-service",
-    "user-license-service",
+  "assistant-service",
+  "cmek-config-service",
+  "completion-service",
+  "control-service",
+  "conversational-search-service",
+  "data-store-service",
+  "document-service",
+  "engine-service",
+  "grounded-generation-service",
+  "identity-mapping-store-service",
+  "project-service",
+  "rank-service",
+  "recommendation-service",
+  "schema-service",
+  "search-service",
+  "search-tuning-service",
+  "serving-config-service",
+  "session-service",
+  "site-search-engine-service",
+  "user-event-service",
+  "user-license-service",
 ]
 # Enables `client::AssistantService` and all the types it depends on.
 assistant-service = []
@@ -94,22 +94,22 @@ user-event-service = []
 user-license-service = []
 
 [dependencies]
-api.workspace        = true
+api.workspace         = true
 async-trait.workspace = true
-bytes.workspace      = true
-gax.workspace        = true
-gaxi                 = { workspace = true, features = ["_internal-http-client"] }
-gtype.workspace      = true
+bytes.workspace       = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-http-client"] }
+gtype.workspace       = true
 lazy_static.workspace = true
 longrunning.workspace = true
-lro.workspace        = true
-reqwest.workspace    = true
-rpc.workspace        = true
-serde.workspace      = true
-serde_json.workspace = true
-serde_with.workspace = true
-tracing.workspace    = true
-wkt.workspace        = true
+lro.workspace         = true
+reqwest.workspace     = true
+rpc.workspace         = true
+serde.workspace       = true
+serde_json.workspace  = true
+serde_with.workspace  = true
+tracing.workspace     = true
+wkt.workspace         = true
 
 [dev-dependencies]
 tokio-test.workspace = true
