@@ -22,6 +22,7 @@ mod experiment;
 mod json;
 mod names;
 mod random_size;
+mod read_resume_policy;
 mod sample;
 
 use anyhow::{Result, bail};
@@ -29,11 +30,12 @@ use args::Args;
 use clap::Parser;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_storage::client::Storage;
+use google_cloud_storage::read_resume_policy::Recommended;
 use sample::Sample;
 use std::time::Instant;
 use tokio::sync::mpsc;
 
-use crate::sample::Protocol;
+use crate::{read_resume_policy::Instrumented, sample::Protocol};
 
 const DESCRIPTION: &str = concat!(
     "This benchmark repeatedly reads ranges from a set of Cloud Storage objects.",
@@ -51,7 +53,9 @@ async fn main() -> Result<()> {
     tracing::info!("Configuration: {args:?}");
 
     let credentials = CredentialsBuilder::default().build()?;
-    let builder = Storage::builder().with_credentials(credentials.clone());
+    let builder = Storage::builder()
+        .with_credentials(credentials.clone())
+        .with_read_resume_policy(Instrumented::new(Recommended));
     #[cfg(google_cloud_unstable_storage_bidi)]
     let builder = args
         .grpc_subchannel_count
