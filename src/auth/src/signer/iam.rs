@@ -281,6 +281,11 @@ mod tests {
     async fn test_iam_sign_retry() -> TestResult {
         let server = Server::run();
         let signed_blob = BASE64_STANDARD.encode("signed_blob");
+        let invalid_res = http::Response::builder()
+            .version(http::Version::HTTP_3) // unsupported version
+            .status(204)
+            .body(Vec::new())
+            .unwrap();
         server.expect(
             Expectation::matching(all_of![request::method_path(
                 "POST",
@@ -288,7 +293,7 @@ mod tests {
             ),])
             .times(3)
             .respond_with(cycle![
-                status_code(503).body("try-again"),
+                invalid_res, // forces i/o error
                 status_code(503).body("try-again"),
                 json_encoded(json!({
                     "signedBlob": signed_blob,
