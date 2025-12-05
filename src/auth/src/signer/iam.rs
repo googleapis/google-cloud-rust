@@ -106,6 +106,7 @@ async fn sign_blob_call_with_retry(
     let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
     let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
     let retry_throttler: SharedRetryThrottler = retry_throttler.into();
+
     retry_loop(
         async move |_| {
             let source_headers = credentials
