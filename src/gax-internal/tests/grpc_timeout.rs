@@ -116,7 +116,7 @@ mod tests {
             }
         }
 
-        let elapsed = tokio::time::Instant::now() - start;
+        let elapsed = start.elapsed();
         assert_eq!(elapsed, timeout);
 
         Ok(())
@@ -188,7 +188,7 @@ mod tests {
         assert_eq!(elapsed, attempt_timeout);
 
         // Verify the time at which we expect the operation to complete
-        let elapsed = tokio::time::Instant::now() - start;
+        let elapsed = start.elapsed();
         assert_eq!(elapsed, overall_timeout);
 
         Ok(())
