@@ -36,6 +36,7 @@ rustc_version.workspace = true
 [dependencies]
 async-trait.workspace = true
 base64.workspace      = true
+bytes.workspace       = true
 http.workspace        = true
 reqwest               = { workspace = true, features = ["json", "rustls-tls"] }
 rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
@@ -46,7 +47,6 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-hex                   = { workspace = true, features = ["std"] }
 jsonwebtoken          = { workspace = true, features = ["rust_crypto"], optional = true }
 # Local dependencies
 gax.workspace = true
