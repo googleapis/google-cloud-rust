@@ -84,7 +84,6 @@ impl Error {
         Error(ErrorKind::MissingField(field))
     }
 
-    #[cfg(feature = "idtoken")]
     /// The given credential type is not supported.
     pub(crate) fn not_supported<T>(credential_type: T) -> Error
     where
@@ -104,7 +103,6 @@ enum ErrorKind {
     UnknownType(#[source] BoxError),
     #[error("missing required field: {0}")]
     MissingField(&'static str),
-    #[cfg(feature = "idtoken")]
     #[error("credentials type not supported: {0}")]
     NotSupported(#[source] BoxError),
 }

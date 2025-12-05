@@ -85,6 +85,46 @@ pub async fn objects(
     Ok(())
 }
 
+#[cfg(google_cloud_unstable_signed_url)]
+pub async fn signed_urls(
+    builder: storage::builder::storage::ClientBuilder,
+    bucket_name: &str,
+    prefix: &str,
+) -> anyhow::Result<()> {
+    //let creds = auth::credentials::mds::Builder::default().build()?;
+    let client = builder.build().await?;
+
+    // let signer = auth::credentials::mds::Builder::default().build_signer()?;
+    let signer = auth::credentials::Builder::default().build_signer()?;
+
+    const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+    let insert = client
+        .write_object(bucket_name, format!("{prefix}/quick.text"), CONTENTS)
+        .set_content_type("text/plain")
+        .set_content_language("en")
+        .set_storage_class("STANDARD")
+        .send_unbuffered()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing signed_url()");
+    let signed_url =
+        storage::builder::storage::SignedUrlBuilder::for_object(bucket_name, &insert.name)
+            .sign_with(&signer)
+            .await?;
+
+    tracing::info!("signed_url={signed_url}");
+
+    // Download the contents of the object using the signed URL.
+    let client = reqwest::Client::new();
+    let res = client.get(signed_url).send().await?;
+    let out = res.text().await?;
+    assert_eq!(out, CONTENTS);
+    tracing::info!("signed url works and can read contents={out:?}");
+
+    Ok(())
+}
+
 async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
     let mut contents = Vec::new();
     while let Some(b) = response.next().await.transpose()? {

@@ -123,6 +123,7 @@ pub(crate) const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
 pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 pub(crate) const MSG: &str = "failed to fetch token";
 
+#[derive(Clone)]
 pub(crate) enum BuilderSource {
     FromJson(Value),
     FromCredentials(Credentials),
@@ -476,6 +477,40 @@ impl Builder {
         })
     }
 
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+        let source = self.source.clone();
+        match source {
+            BuilderSource::FromJson(json) => {
+                let signer = build_signer_from_json(json.clone())?;
+                if let Some(signer) = signer {
+                    return Ok(signer);
+                }
+                let components = build_components_from_json(json)?;
+                let client_email =
+                    extract_client_email(&components.service_account_impersonation_url)?;
+                let creds = self.build()?;
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
+                Ok(crate::signer::Signer {
+                    inner: Arc::new(signer),
+                })
+            }
+            BuilderSource::FromCredentials(source_credentials) => {
+                let components = build_components_from_credentials(
+                    source_credentials,
+                    self.service_account_impersonation_url.clone(),
+                )?;
+                let client_email =
+                    extract_client_email(&components.service_account_impersonation_url)?;
+                let creds = self.build()?;
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
+                Ok(crate::signer::Signer {
+                    inner: Arc::new(signer),
+                })
+            }
+        }
+    }
+
     fn build_components(
         self,
     ) -> BuildResult<(
@@ -548,6 +583,44 @@ pub(crate) fn build_components_from_json(
         quota_project_id: config.quota_project_id,
         scopes: config.scopes,
     })
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Signer>> {
+    use crate::credentials::service_account::ServiceAccountKey;
+    use crate::signer::service_account::ServiceAccountSigner;
+
+    let config =
+        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+
+    let client_email = extract_client_email(&config.service_account_impersonation_url)?;
+    let source_credential_type = extract_credential_type(&config.source_credentials)?;
+    if source_credential_type == "service_account" {
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(config.source_credentials)
+                .map_err(BuilderError::parsing)?;
+        let signing_provider = ServiceAccountSigner::from_impersonated_service_account(
+            service_account_key,
+            client_email,
+        );
+        let signer = crate::signer::Signer {
+            inner: Arc::new(signing_provider),
+        };
+        return Ok(Some(signer));
+    }
+    Ok(None)
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+fn extract_client_email(service_account_impersonation_url: &str) -> BuildResult<String> {
+    // TODO: better use regex to extract email ?
+    let parts: Vec<&str> = service_account_impersonation_url
+        .split("serviceAccounts/")
+        .collect();
+    let client_email = parts[1]
+        .trim_end_matches(":generateAccessToken")
+        .to_string();
+    Ok(client_email)
 }
 
 pub(crate) fn build_components_from_credentials(

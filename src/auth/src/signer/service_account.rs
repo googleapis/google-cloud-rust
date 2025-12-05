@@ -19,12 +19,23 @@ use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 #[derive(Clone, Debug)]
 pub(crate) struct ServiceAccountSigner {
     service_account_key: ServiceAccountKey,
+    client_email: String,
 }
 
 impl ServiceAccountSigner {
     pub(crate) fn new(service_account_key: ServiceAccountKey) -> Self {
         Self {
             service_account_key: service_account_key.clone(),
+            client_email: service_account_key.client_email.clone(),
+        }
+    }
+    pub(crate) fn from_impersonated_service_account(
+        service_account_key: ServiceAccountKey,
+        client_email: String,
+    ) -> Self {
+        Self {
+            service_account_key,
+            client_email,
         }
     }
 }
@@ -32,7 +43,7 @@ impl ServiceAccountSigner {
 #[async_trait::async_trait]
 impl SigningProvider for ServiceAccountSigner {
     async fn client_email(&self) -> Result<String> {
-        Ok(self.service_account_key.client_email.clone())
+        Ok(self.client_email.clone())
     }
 
     async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
