@@ -114,7 +114,7 @@ async fn runner(
             #[cfg(google_cloud_unstable_storage_bidi)]
             Protocol::Bidi => bidi.iteration(&experiment).await,
         };
-        let elapsed = Instant::now() - start;
+        let elapsed = start.elapsed();
         let relative_start = start - test_start;
 
         let samples =
