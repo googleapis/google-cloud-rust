@@ -57,6 +57,8 @@ pub mod builder {
         #[cfg(google_cloud_unstable_storage_bidi)]
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::read_object::ReadObject;
+        #[cfg(google_cloud_unstable_signed_url)]
+        pub use crate::storage::signed_url::SignedUrlBuilder;
         pub use crate::storage::write_object::WriteObject;
     }
     pub mod storage_control {
