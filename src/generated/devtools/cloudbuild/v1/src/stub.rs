@@ -236,6 +236,17 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CloudBuild::get_default_service_account].
+    fn get_default_service_account(
+        &self,
+        _req: crate::model::GetDefaultServiceAccountRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DefaultServiceAccount>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CloudBuild::get_operation].
     fn get_operation(
         &self,

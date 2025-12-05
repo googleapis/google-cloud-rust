@@ -208,8 +208,8 @@ impl CloudBuild {
 
     /// Approves or rejects a pending build.
     ///
-    /// If approved, the returned LRO will be analogous to the LRO returned from
-    /// a CreateBuild call.
+    /// If approved, the returned long-running operation (LRO) will be analogous to
+    /// the LRO returned from a CreateBuild call.
     ///
     /// If rejected, the returned LRO will be immediately done.
     ///
@@ -227,36 +227,26 @@ impl CloudBuild {
     }
 
     /// Creates a new `BuildTrigger`.
-    ///
-    /// This API is experimental.
     pub fn create_build_trigger(&self) -> super::builder::cloud_build::CreateBuildTrigger {
         super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
     }
 
     /// Returns information about a `BuildTrigger`.
-    ///
-    /// This API is experimental.
     pub fn get_build_trigger(&self) -> super::builder::cloud_build::GetBuildTrigger {
         super::builder::cloud_build::GetBuildTrigger::new(self.inner.clone())
     }
 
     /// Lists existing `BuildTrigger`s.
-    ///
-    /// This API is experimental.
     pub fn list_build_triggers(&self) -> super::builder::cloud_build::ListBuildTriggers {
         super::builder::cloud_build::ListBuildTriggers::new(self.inner.clone())
     }
 
     /// Deletes a `BuildTrigger` by its project ID and trigger ID.
-    ///
-    /// This API is experimental.
     pub fn delete_build_trigger(&self) -> super::builder::cloud_build::DeleteBuildTrigger {
         super::builder::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
     }
 
     /// Updates a `BuildTrigger` by its project ID and trigger ID.
-    ///
-    /// This API is experimental.
     pub fn update_build_trigger(&self) -> super::builder::cloud_build::UpdateBuildTrigger {
         super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
     }
@@ -341,6 +331,13 @@ impl CloudBuild {
     /// Lists `WorkerPool`s.
     pub fn list_worker_pools(&self) -> super::builder::cloud_build::ListWorkerPools {
         super::builder::cloud_build::ListWorkerPools::new(self.inner.clone())
+    }
+
+    /// Returns the `DefaultServiceAccount` used by the project.
+    pub fn get_default_service_account(
+        &self,
+    ) -> super::builder::cloud_build::GetDefaultServiceAccount {
+        super::builder::cloud_build::GetDefaultServiceAccount::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.

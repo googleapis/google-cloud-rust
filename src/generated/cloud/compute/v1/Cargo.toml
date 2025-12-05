@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-compute-v1"
-version                = "0.2.1"
+version                = "1.0.0"
 description            = "Google Cloud Client Libraries for Rust - Google Compute Engine API"
 edition.workspace      = true
 authors.workspace      = true
@@ -35,6 +35,8 @@ default = [
 accelerator-types = []
 # Enables `client::Addresses` and all the types it depends on.
 addresses = []
+# Enables `client::Advice` and all the types it depends on.
+advice = []
 # Enables `client::Autoscalers` and all the types it depends on.
 autoscalers = []
 # Enables `client::BackendBuckets` and all the types it depends on.

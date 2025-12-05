@@ -2071,7 +2071,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-compute-v1"
-version = "0.2.1"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3409,6 +3409,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-maintenance-api-v1"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-managedidentities-v1"
 version = "1.2.1"
 dependencies = [
@@ -4112,6 +4131,7 @@ dependencies = [
  "serde_with",
  "tokio",
  "tokio-test",
+ "tokio-util",
  "tonic",
  "tracing",
 ]
@@ -5721,6 +5741,7 @@ dependencies = [
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
+ "google-cloud-trace-v1",
  "google-cloud-wkt",
  "google-cloud-workflows-executions-v1",
  "google-cloud-workflows-v1",

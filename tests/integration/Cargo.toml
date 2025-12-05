@@ -119,12 +119,15 @@ path    = "../../src/generated/cloud/workflows/v1"
 package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
+[dependencies.google-cloud-trace-v1]
+package = "google-cloud-trace-v1"
+path    = "../../src/generated/devtools/cloudtrace/v1"
+
 [dev-dependencies]
 anyhow.workspace            = true
 httptest.workspace          = true
 mockall.workspace           = true
 opentelemetry_sdk           = { workspace = true, features = ["testing"] }
-reqwest.workspace           = true
 serde.workspace             = true
 serde_with.workspace        = true
 static_assertions.workspace = true

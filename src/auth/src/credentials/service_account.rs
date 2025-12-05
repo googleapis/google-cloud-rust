@@ -937,4 +937,21 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_signed_url)]
+    async fn get_service_account_signer() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let signer = Builder::new(service_account_key.clone()).build_signer()?;
+
+        let client_email = signer.client_email().await?;
+        assert_eq!(client_email, service_account_key["client_email"]);
+
+        let result = signer.sign(b"test").await;
+
+        assert!(result.is_ok());
+
+        Ok(())
+    }
 }

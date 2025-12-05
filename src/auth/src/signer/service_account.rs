@@ -61,4 +61,39 @@ impl SigningProvider for ServiceAccountSigner {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests {
+    use super::*;
+    use crate::credentials::tests::PKCS8_PK;
+    use serde_json::{Value, json};
+
+    type TestResult = anyhow::Result<()>;
+
+    fn get_mock_service_key() -> Value {
+        json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": "",
+            "project_id": "test-project-id",
+        })
+    }
+
+    #[tokio::test]
+    async fn test_service_account_signer_success() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(service_account_key.clone())?;
+
+        let signer = ServiceAccountSigner::new(service_account_key.clone());
+
+        let client_email = signer.client_email().await?;
+        assert_eq!(client_email, service_account_key.client_email);
+
+        let result = signer.sign(b"test").await?;
+
+        let inner_signer = service_account_key.signer().unwrap();
+        let inner_result = inner_signer.sign(b"test")?;
+        assert_eq!(result, hex::encode(inner_result));
+        Ok(())
+    }
+}

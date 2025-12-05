@@ -45,6 +45,19 @@ impl std::fmt::Debug for super::Instance {
     }
 }
 
+impl std::fmt::Debug for super::TransferMetadataOptions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TransferMetadataOptions");
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("gid", &self.gid);
+        debug_struct.field("mode", &self.mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListInstancesRequest");
@@ -190,6 +203,7 @@ impl std::fmt::Debug for super::ImportDataRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("metadata_options", &self.metadata_options);
         debug_struct.field("source", &self.source);
         debug_struct.field("destination", &self.destination);
         if !self._unknown_fields.is_empty() {
@@ -205,6 +219,7 @@ impl std::fmt::Debug for super::ExportDataRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("metadata_options", &self.metadata_options);
         debug_struct.field("source", &self.source);
         debug_struct.field("destination", &self.destination);
         if !self._unknown_fields.is_empty() {

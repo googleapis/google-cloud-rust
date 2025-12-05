@@ -339,6 +339,7 @@ impl AttachedClusters {
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AwsClusters {
     inner: std::sync::Arc<dyn super::stub::dynamic::AwsClusters>,
 }
@@ -418,6 +419,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_aws_cluster(&self) -> super::builder::aws_clusters::CreateAwsCluster {
         super::builder::aws_clusters::CreateAwsCluster::new(self.inner.clone())
     }
@@ -435,6 +437,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_aws_cluster(&self) -> super::builder::aws_clusters::UpdateAwsCluster {
         super::builder::aws_clusters::UpdateAwsCluster::new(self.inner.clone())
     }
@@ -443,6 +446,7 @@ impl AwsClusters {
     /// resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    #[deprecated]
     pub fn get_aws_cluster(&self) -> super::builder::aws_clusters::GetAwsCluster {
         super::builder::aws_clusters::GetAwsCluster::new(self.inner.clone())
     }
@@ -451,6 +455,7 @@ impl AwsClusters {
     /// on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    #[deprecated]
     pub fn list_aws_clusters(&self) -> super::builder::aws_clusters::ListAwsClusters {
         super::builder::aws_clusters::ListAwsClusters::new(self.inner.clone())
     }
@@ -478,11 +483,13 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_aws_cluster(&self) -> super::builder::aws_clusters::DeleteAwsCluster {
         super::builder::aws_clusters::DeleteAwsCluster::new(self.inner.clone())
     }
 
     /// Generates an access token for a cluster agent.
+    #[deprecated]
     pub fn generate_aws_cluster_agent_token(
         &self,
     ) -> super::builder::aws_clusters::GenerateAwsClusterAgentToken {
@@ -493,6 +500,7 @@ impl AwsClusters {
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    #[deprecated]
     pub fn generate_aws_access_token(
         &self,
     ) -> super::builder::aws_clusters::GenerateAwsAccessToken {
@@ -519,6 +527,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_aws_node_pool(&self) -> super::builder::aws_clusters::CreateAwsNodePool {
         super::builder::aws_clusters::CreateAwsNodePool::new(self.inner.clone())
     }
@@ -536,6 +545,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_aws_node_pool(&self) -> super::builder::aws_clusters::UpdateAwsNodePool {
         super::builder::aws_clusters::UpdateAwsNodePool::new(self.inner.clone())
     }
@@ -558,6 +568,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn rollback_aws_node_pool_update(
         &self,
     ) -> super::builder::aws_clusters::RollbackAwsNodePoolUpdate {
@@ -568,6 +579,7 @@ impl AwsClusters {
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
+    #[deprecated]
     pub fn get_aws_node_pool(&self) -> super::builder::aws_clusters::GetAwsNodePool {
         super::builder::aws_clusters::GetAwsNodePool::new(self.inner.clone())
     }
@@ -578,6 +590,7 @@ impl AwsClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
+    #[deprecated]
     pub fn list_aws_node_pools(&self) -> super::builder::aws_clusters::ListAwsNodePools {
         super::builder::aws_clusters::ListAwsNodePools::new(self.inner.clone())
     }
@@ -601,6 +614,7 @@ impl AwsClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_aws_node_pool(&self) -> super::builder::aws_clusters::DeleteAwsNodePool {
         super::builder::aws_clusters::DeleteAwsNodePool::new(self.inner.clone())
     }
@@ -610,18 +624,21 @@ impl AwsClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
+    #[deprecated]
     pub fn get_aws_open_id_config(&self) -> super::builder::aws_clusters::GetAwsOpenIdConfig {
         super::builder::aws_clusters::GetAwsOpenIdConfig::new(self.inner.clone())
     }
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
+    #[deprecated]
     pub fn get_aws_json_web_keys(&self) -> super::builder::aws_clusters::GetAwsJsonWebKeys {
         super::builder::aws_clusters::GetAwsJsonWebKeys::new(self.inner.clone())
     }
 
     /// Returns information, such as supported AWS regions and Kubernetes
     /// versions, on a given Google Cloud location.
+    #[deprecated]
     pub fn get_aws_server_config(&self) -> super::builder::aws_clusters::GetAwsServerConfig {
         super::builder::aws_clusters::GetAwsServerConfig::new(self.inner.clone())
     }
@@ -698,6 +715,7 @@ impl AwsClusters {
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
+#[deprecated]
 pub struct AzureClusters {
     inner: std::sync::Arc<dyn super::stub::dynamic::AzureClusters>,
 }
@@ -781,6 +799,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_azure_client(&self) -> super::builder::azure_clusters::CreateAzureClient {
         super::builder::azure_clusters::CreateAzureClient::new(self.inner.clone())
     }
@@ -789,6 +808,7 @@ impl AzureClusters {
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
+    #[deprecated]
     pub fn get_azure_client(&self) -> super::builder::azure_clusters::GetAzureClient {
         super::builder::azure_clusters::GetAzureClient::new(self.inner.clone())
     }
@@ -797,6 +817,7 @@ impl AzureClusters {
     /// resources on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
+    #[deprecated]
     pub fn list_azure_clients(&self) -> super::builder::azure_clusters::ListAzureClients {
         super::builder::azure_clusters::ListAzureClients::new(self.inner.clone())
     }
@@ -823,6 +844,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_azure_client(&self) -> super::builder::azure_clusters::DeleteAzureClient {
         super::builder::azure_clusters::DeleteAzureClient::new(self.inner.clone())
     }
@@ -846,6 +868,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_azure_cluster(&self) -> super::builder::azure_clusters::CreateAzureCluster {
         super::builder::azure_clusters::CreateAzureCluster::new(self.inner.clone())
     }
@@ -863,6 +886,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_azure_cluster(&self) -> super::builder::azure_clusters::UpdateAzureCluster {
         super::builder::azure_clusters::UpdateAzureCluster::new(self.inner.clone())
     }
@@ -871,6 +895,7 @@ impl AzureClusters {
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    #[deprecated]
     pub fn get_azure_cluster(&self) -> super::builder::azure_clusters::GetAzureCluster {
         super::builder::azure_clusters::GetAzureCluster::new(self.inner.clone())
     }
@@ -879,6 +904,7 @@ impl AzureClusters {
     /// resources on a given Google Cloud project and region.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    #[deprecated]
     pub fn list_azure_clusters(&self) -> super::builder::azure_clusters::ListAzureClusters {
         super::builder::azure_clusters::ListAzureClusters::new(self.inner.clone())
     }
@@ -906,11 +932,13 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_azure_cluster(&self) -> super::builder::azure_clusters::DeleteAzureCluster {
         super::builder::azure_clusters::DeleteAzureCluster::new(self.inner.clone())
     }
 
     /// Generates an access token for a cluster agent.
+    #[deprecated]
     pub fn generate_azure_cluster_agent_token(
         &self,
     ) -> super::builder::azure_clusters::GenerateAzureClusterAgentToken {
@@ -921,6 +949,7 @@ impl AzureClusters {
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    #[deprecated]
     pub fn generate_azure_access_token(
         &self,
     ) -> super::builder::azure_clusters::GenerateAzureAccessToken {
@@ -948,6 +977,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn create_azure_node_pool(&self) -> super::builder::azure_clusters::CreateAzureNodePool {
         super::builder::azure_clusters::CreateAzureNodePool::new(self.inner.clone())
     }
@@ -965,6 +995,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn update_azure_node_pool(&self) -> super::builder::azure_clusters::UpdateAzureNodePool {
         super::builder::azure_clusters::UpdateAzureNodePool::new(self.inner.clone())
     }
@@ -973,6 +1004,7 @@ impl AzureClusters {
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
+    #[deprecated]
     pub fn get_azure_node_pool(&self) -> super::builder::azure_clusters::GetAzureNodePool {
         super::builder::azure_clusters::GetAzureNodePool::new(self.inner.clone())
     }
@@ -983,6 +1015,7 @@ impl AzureClusters {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
+    #[deprecated]
     pub fn list_azure_node_pools(&self) -> super::builder::azure_clusters::ListAzureNodePools {
         super::builder::azure_clusters::ListAzureNodePools::new(self.inner.clone())
     }
@@ -1006,6 +1039,7 @@ impl AzureClusters {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    #[deprecated]
     pub fn delete_azure_node_pool(&self) -> super::builder::azure_clusters::DeleteAzureNodePool {
         super::builder::azure_clusters::DeleteAzureNodePool::new(self.inner.clone())
     }
@@ -1015,18 +1049,21 @@ impl AzureClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
+    #[deprecated]
     pub fn get_azure_open_id_config(&self) -> super::builder::azure_clusters::GetAzureOpenIdConfig {
         super::builder::azure_clusters::GetAzureOpenIdConfig::new(self.inner.clone())
     }
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
+    #[deprecated]
     pub fn get_azure_json_web_keys(&self) -> super::builder::azure_clusters::GetAzureJsonWebKeys {
         super::builder::azure_clusters::GetAzureJsonWebKeys::new(self.inner.clone())
     }
 
     /// Returns information, such as supported Azure regions and Kubernetes
     /// versions, on a given Google Cloud location.
+    #[deprecated]
     pub fn get_azure_server_config(&self) -> super::builder::azure_clusters::GetAzureServerConfig {
         super::builder::azure_clusters::GetAzureServerConfig::new(self.inner.clone())
     }

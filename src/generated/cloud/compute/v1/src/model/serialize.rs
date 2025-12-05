@@ -634,6 +634,9 @@ impl serde::ser::Serialize for super::Address {
             }
             state.serialize_entry("id", &__With(&self.id))?;
         }
+        if self.ip_collection.is_some() {
+            state.serialize_entry("ipCollection", &self.ip_collection)?;
+        }
         if self.ip_version.is_some() {
             state.serialize_entry("ipVersion", &self.ip_version)?;
         }
@@ -5437,6 +5440,75 @@ impl serde::ser::Serialize for super::CacheKeyPolicy {
     }
 }
 
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CalendarModeAdviceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.future_resources_specs.is_empty() {
+            state.serialize_entry("futureResourcesSpecs", &self.future_resources_specs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CalendarModeAdviceResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.recommendations.is_empty() {
+            state.serialize_entry("recommendations", &self.recommendations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CalendarModeRecommendation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.recommendations_per_spec.is_empty() {
+            state.serialize_entry("recommendationsPerSpec", &self.recommendations_per_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CircuitBreakers {
@@ -9420,6 +9492,38 @@ impl serde::ser::Serialize for super::FixedOrPercent {
     }
 }
 
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FlexibleTimeRange {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.max_duration.is_some() {
+            state.serialize_entry("maxDuration", &self.max_duration)?;
+        }
+        if self.min_duration.is_some() {
+            state.serialize_entry("minDuration", &self.min_duration)?;
+        }
+        if self.start_time_not_earlier_than.is_some() {
+            state.serialize_entry("startTimeNotEarlierThan", &self.start_time_not_earlier_than)?;
+        }
+        if self.start_time_not_later_than.is_some() {
+            state.serialize_entry("startTimeNotLaterThan", &self.start_time_not_later_than)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ForwardingRule {
@@ -10635,6 +10739,291 @@ impl serde::ser::Serialize for super::future_reservations_scoped_list::warning::
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesRecommendation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if self.location.is_some() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self.other_locations.is_empty() {
+            state.serialize_entry("otherLocations", &self.other_locations)?;
+        }
+        if self.recommendation_id.is_some() {
+            state.serialize_entry("recommendationId", &self.recommendation_id)?;
+        }
+        if self.recommendation_type.is_some() {
+            state.serialize_entry("recommendationType", &self.recommendation_type)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesRecommendationOtherLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.details.is_some() {
+            state.serialize_entry("details", &self.details)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.deployment_type.is_some() {
+            state.serialize_entry("deploymentType", &self.deployment_type)?;
+        }
+        if self.location_policy.is_some() {
+            state.serialize_entry("locationPolicy", &self.location_policy)?;
+        }
+        if self.target_resources.is_some() {
+            state.serialize_entry("targetResources", &self.target_resources)?;
+        }
+        if self.time_range_spec.is_some() {
+            state.serialize_entry("timeRangeSpec", &self.time_range_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecAggregateResources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.accelerator_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("acceleratorCount", &__With(&self.accelerator_count))?;
+        }
+        if self.vm_family.is_some() {
+            state.serialize_entry("vmFamily", &self.vm_family)?;
+        }
+        if self.workload_type.is_some() {
+            state.serialize_entry("workloadType", &self.workload_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecLocalSsdPartition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.disk_interface.is_some() {
+            state.serialize_entry("diskInterface", &self.disk_interface)?;
+        }
+        if self.disk_size_gb.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("diskSizeGb", &__With(&self.disk_size_gb))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecLocationPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.locations.is_empty() {
+            state.serialize_entry("locations", &self.locations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecLocationPolicyLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.preference.is_some() {
+            state.serialize_entry("preference", &self.preference)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecSpecificSKUResources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.instance_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("instanceCount", &__With(&self.instance_count))?;
+        }
+        if !self.local_ssd_partitions.is_empty() {
+            state.serialize_entry("localSsdPartitions", &self.local_ssd_partitions)?;
+        }
+        if self.machine_type.is_some() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "advice")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FutureResourcesSpecTargetResources {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.aggregate_resources.is_some() {
+            state.serialize_entry("aggregateResources", &self.aggregate_resources)?;
+        }
+        if self.specific_sku_resources.is_some() {
+            state.serialize_entry("specificSkuResources", &self.specific_sku_resources)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -18973,6 +19362,30 @@ impl serde::ser::Serialize for super::InterconnectAttachment {
         }
         if self.bandwidth.is_some() {
             state.serialize_entry("bandwidth", &self.bandwidth)?;
+        }
+        if self.candidate_cloud_router_ip_address.is_some() {
+            state.serialize_entry(
+                "candidateCloudRouterIpAddress",
+                &self.candidate_cloud_router_ip_address,
+            )?;
+        }
+        if self.candidate_cloud_router_ipv_6_address.is_some() {
+            state.serialize_entry(
+                "candidateCloudRouterIpv6Address",
+                &self.candidate_cloud_router_ipv_6_address,
+            )?;
+        }
+        if self.candidate_customer_router_ip_address.is_some() {
+            state.serialize_entry(
+                "candidateCustomerRouterIpAddress",
+                &self.candidate_customer_router_ip_address,
+            )?;
+        }
+        if self.candidate_customer_router_ipv_6_address.is_some() {
+            state.serialize_entry(
+                "candidateCustomerRouterIpv6Address",
+                &self.candidate_customer_router_ipv_6_address,
+            )?;
         }
         if !self.candidate_ipv_6_subnets.is_empty() {
             state.serialize_entry("candidateIpv6Subnets", &self.candidate_ipv_6_subnets)?;
@@ -31356,6 +31769,12 @@ impl serde::ser::Serialize for super::PublicDelegatedPrefix {
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
         }
+        if self.enable_enhanced_ipv_4_allocation.is_some() {
+            state.serialize_entry(
+                "enableEnhancedIpv4Allocation",
+                &self.enable_enhanced_ipv_4_allocation,
+            )?;
+        }
         if self.fingerprint.is_some() {
             struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -31665,6 +32084,12 @@ impl serde::ser::Serialize for super::PublicDelegatedPrefixPublicDelegatedSubPre
         }
         if self.description.is_some() {
             state.serialize_entry("description", &self.description)?;
+        }
+        if self.enable_enhanced_ipv_4_allocation.is_some() {
+            state.serialize_entry(
+                "enableEnhancedIpv4Allocation",
+                &self.enable_enhanced_ipv_4_allocation,
+            )?;
         }
         if self.ip_cidr_range.is_some() {
             state.serialize_entry("ipCidrRange", &self.ip_cidr_range)?;
@@ -36177,6 +36602,12 @@ impl serde::ser::Serialize for super::Route {
                 &__With(&self.next_hop_inter_region_cost),
             )?;
         }
+        if self.next_hop_interconnect_attachment.is_some() {
+            state.serialize_entry(
+                "nextHopInterconnectAttachment",
+                &self.next_hop_interconnect_attachment,
+            )?;
+        }
         if self.next_hop_ip.is_some() {
             state.serialize_entry("nextHopIp", &self.next_hop_ip)?;
         }
@@ -39243,6 +39674,12 @@ impl serde::ser::Serialize for super::SecurityPolicyAdvancedOptionsConfig {
         }
         if self.log_level.is_some() {
             state.serialize_entry("logLevel", &self.log_level)?;
+        }
+        if self.request_body_inspection_size.is_some() {
+            state.serialize_entry(
+                "requestBodyInspectionSize",
+                &self.request_body_inspection_size,
+            )?;
         }
         if !self.user_ip_request_headers.is_empty() {
             state.serialize_entry("userIpRequestHeaders", &self.user_ip_request_headers)?;
@@ -44148,6 +44585,12 @@ impl serde::ser::Serialize for super::Subnetwork {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.allow_subnet_cidr_routes_overlap.is_some() {
+            state.serialize_entry(
+                "allowSubnetCidrRoutesOverlap",
+                &self.allow_subnet_cidr_routes_overlap,
+            )?;
+        }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
