@@ -58,6 +58,9 @@ impl ReqwestClient {
         if config.disable_automatic_decompression {
             builder = builder.no_gzip().no_brotli().no_deflate();
         }
+        if config.disable_follow_redirects {
+            builder = builder.redirect(reqwest::redirect::Policy::none());
+        }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
             config.endpoint.as_deref(),
@@ -745,12 +748,18 @@ mod tests {
             httptest::Expectation::matching(httptest::matchers::request::method_path(
                 "PUT", "/upload",
             ))
-            .respond_with(httptest::responders::status_code(308).body("Resume Incomplete")),
+            .respond_with(
+                httptest::responders::status_code(308)
+                    .append_header("Location", "/new-location")
+                    .body("Resume Incomplete"),
+            ),
         );
 
         let mut config = ClientConfig::default();
+        config.disable_follow_redirects = true;
         config.cred = Some(auth::credentials::anonymous::Builder::new().build());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
+
         let builder = client.builder(Method::PUT, "upload".to_string());
         let options = gax::options::RequestOptions::default();
 
@@ -758,8 +767,7 @@ mod tests {
             .execute_streaming_once(builder, options, None, 0)
             .await;
         assert!(result.is_err());
-        let err = result.err().unwrap();
-        assert_eq!(err.http_status_code(), Some(308));
+        assert_eq!(result.err().unwrap().http_status_code(), Some(308));
         Ok(())
     }
 }
