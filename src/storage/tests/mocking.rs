@@ -20,12 +20,15 @@ mod tests {
     };
     use gcs::Result;
     use gcs::model::{Object, ReadObjectRequest};
-    use gcs::model_ext::{ObjectHighlights, ReadRange, WriteObjectRequest};
+    use gcs::model_ext::{ObjectHighlights, WriteObjectRequest};
     use gcs::read_object::ReadObjectResponse;
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     #[cfg(google_cloud_unstable_storage_bidi)]
-    use gcs::{model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor};
+    use gcs::{
+        model_ext::{OpenObjectRequest, ReadRange},
+        object_descriptor::ObjectDescriptor,
+    };
     use google_cloud_storage as gcs;
     use pastey::paste;
 
