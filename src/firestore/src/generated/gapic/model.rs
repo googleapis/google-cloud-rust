@@ -4315,7 +4315,7 @@ pub struct Target {
     /// will immediately send a response with a `TargetChange::Remove` event.
     ///
     /// Note that if the client sends multiple `AddTarget` requests
-    /// without an ID, the order of IDs returned in `TargetChage.target_ids` are
+    /// without an ID, the order of IDs returned in `TargetChange.target_ids` are
     /// undefined. Therefore, clients should provide a target ID instead of relying
     /// on the server to assign one.
     ///
@@ -6739,8 +6739,8 @@ pub mod structured_query {
         /// Since DOT_PRODUCT distances increase when the vectors are more similar,
         /// the comparison is inverted.
         ///
-        /// * For EUCLIDEAN, COSINE: WHERE distance <= distance_threshold
-        /// * For DOT_PRODUCT:       WHERE distance >= distance_threshold
+        /// * For EUCLIDEAN, COSINE: `WHERE distance <= distance_threshold`
+        /// * For DOT_PRODUCT:       `WHERE distance >= distance_threshold`
         pub distance_threshold: std::option::Option<wkt::DoubleValue>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
