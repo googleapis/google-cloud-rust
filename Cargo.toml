@@ -91,6 +91,7 @@ members = [
   "src/generated/cloud/beyondcorp/appgateways/v1",
   "src/generated/cloud/beyondcorp/clientconnectorservices/v1",
   "src/generated/cloud/beyondcorp/clientgateways/v1",
+  "src/generated/cloud/biglake/v1",
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datapolicies/v1",
