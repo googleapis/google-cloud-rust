@@ -1472,6 +1472,7 @@ dependencies = [
  "base64",
  "bon",
  "google-cloud-gax",
+ "hex",
  "http",
  "httptest",
  "jsonwebtoken",
